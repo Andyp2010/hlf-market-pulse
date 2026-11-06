@@ -8,10 +8,9 @@ on:
       - '*.xlsx'
       - '*.csv'
   schedule:
-    # Weekly / release-window checks across the month to catch:
+    # Runs Mon, Wed, Fri at 02:35 UTC (3:35 PM NZDT / 2:35 PM Fiji) to catch:
     # - Stats NZ Building Consents (~1st-4th), Tenancy Services (~10th-15th),
     # - IRD KiwiSaver (~18th-22nd), Stats NZ CPI (~20th-24th), and RBNZ C31-C41/B30 (~25th-29th).
-    # 02:35 UTC = 3:35 PM NZDT / 2:35 PM Fiji (Mon, Wed, Fri)
     - cron: '35 2 * * 1,3,5'
 
 permissions:
@@ -29,11 +28,12 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install anti-detect browser & Python packages
+      - name: Install 3-tier browser & Python dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y xvfb libgtk-3-0 libasound2t64 libx11-xcb1 || sudo apt-get install -y xvfb
-          pip install pandas openpyxl curl_cffi "camoufox[geoip]"
+          pip install pandas openpyxl curl_cffi "camoufox[geoip]" playwright
           python -m camoufox fetch
+          playwright install chromium
 
       - name: Fetch RBNZ, Stats NZ, Tenancy & IRD data
         run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" python update_pulse.py
