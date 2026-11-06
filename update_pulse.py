@@ -9,12 +9,15 @@ import time
 import warnings
 import pandas as pd
 
-# Silence cosmetic openpyxl stylesheet notices in GitHub Actions logs
+# Silence cosmetic openpyxl stylesheet notices & Camoufox canvas notices in CI logs
 warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
+warnings.filterwarnings("ignore", message=".*Canvas and WebGL.*")
 
 # ---------------------------------------------------------------------------
 # Official NZ Crown Data Sources (RBNZ, Stats NZ, MBIE Tenancy, Inland Revenue)
 # ---------------------------------------------------------------------------
+RBNZ_WARMUP_URL = "https://www.rbnz.govt.nz/statistics"
+
 RBNZ_SOURCES = {
     "c31": {
         "pages": [
@@ -75,7 +78,6 @@ IRD_KS_DATA_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/da
 IRD_SL_BAL_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/statistics-on-the-student-loan-scheme/statistics-on-student-loan-balances"
 
 # Strict freshness gates (days since observation period end).
-# Any ticker older than max_age_days is stripped from JSON + HTML so stale data never renders.
 MAX_AGE_MONTHLY = 85
 MAX_AGE_TENANCY = 120   # MBIE publishes private bond CSVs on a ~2-month processing lag
 MAX_AGE_QUARTERLY = 160
@@ -107,7 +109,6 @@ def is_fresh(as_of_iso: str, max_age_days: int) -> bool:
 
 
 def plain_prior_year_pct(curr: float, prev: float) -> str:
-    """Human-readable comparison vs. 12 months earlier (replaces robotic '+4.2 pts YoY')."""
     diff = curr - prev
     if abs(diff) < 0.25:
         return f"broadly steady alongside {prev:.1f}% a year earlier"
@@ -116,7 +117,6 @@ def plain_prior_year_pct(curr: float, prev: float) -> str:
 
 
 def plain_yoy_growth(curr: float, prev: float) -> str:
-    """Human-readable % growth phrase vs. 12 months earlier."""
     if not prev:
         return ""
     pct = ((curr - prev) / prev) * 100.0
@@ -132,6 +132,14 @@ def plain_yoy_growth(curr: float, prev: float) -> str:
 def get_http_session():
     from curl_cffi import requests as cf_requests
     return cf_requests.Session(impersonate="chrome")
+
+
+def open_camoufox():
+    from camoufox.sync_api import Camoufox
+    try:
+        return Camoufox(headless=False, humanize=True, i_know_what_im_doing=True)
+    except TypeError:
+        return Camoufox(headless=False, humanize=True)
 
 
 def fetch_url_bytes(session, url: str, referer: str = "", timeout: int = 45, use_cb: bool = True) -> bytes:
@@ -151,7 +159,6 @@ def fetch_url_bytes(session, url: str, referer: str = "", timeout: int = 45, use
 
 
 def fetch_html_with_browser_fallback(session, urls: list[str], label: str) -> dict[str, str]:
-    """Fetch HTML pages via curl_cffi first (clean URL), falling back to Camoufox if WAF-blocked."""
     results = {}
     blocked = []
 
@@ -169,8 +176,7 @@ def fetch_html_with_browser_fallback(session, urls: list[str], label: str) -> di
 
     print(f"[{label}] {len(blocked)} URL(s) challenged on Tier 1; trying Camoufox browser...")
     try:
-        from camoufox.sync_api import Camoufox
-        with Camoufox(headless=False, humanize=True) as browser:
+        with open_camoufox() as browser:
             page = browser.new_page()
             for u in blocked:
                 try:
@@ -191,7 +197,29 @@ def fetch_html_with_browser_fallback(session, urls: list[str], label: str) -> di
     return results
 
 
-def fetch_xlsx_in_browser_page(page, cfg: dict, dest: pathlib.Path, tier_label: str) -> bool:
+def warmup_rbnz_session(page, tier_label: str) -> None:
+    """Clear Cloudflare Turnstile & cookie banners once before clicking any .xlsx links."""
+    try:
+        page.goto(add_cb(RBNZ_WARMUP_URL), wait_until="domcontentloaded", timeout=50000)
+        deadline = time.time() + 30
+        while time.time() < deadline:
+            title = (page.title() or "").lower()
+            if title and "just a moment" not in title and "attention required" not in title:
+                break
+            page.wait_for_timeout(2000)
+        page.wait_for_timeout(1500)
+        for sel in ('button:has-text("Accept")', 'button:has-text("I agree")', 'button:has-text("Close")'):
+            btn = page.locator(sel)
+            if btn.count() > 0 and btn.first.is_visible():
+                try:
+                    btn.first.click(timeout=2000)
+                except Exception:
+                    pass
+    except Exception as exc:
+        print(f"[{tier_label}] Warmup note: {exc}")
+
+
+def fetch_xlsx_in_browser_page(page, cfg: dict, dest: pathlib.Path, tier_label: str, allow_js_fetch: bool = False) -> bool:
     for p_url in cfg["pages"]:
         try:
             page.goto(add_cb(p_url), wait_until="domcontentloaded", timeout=60000)
@@ -199,55 +227,89 @@ def fetch_xlsx_in_browser_page(page, cfg: dict, dest: pathlib.Path, tier_label: 
             while time.time() < deadline:
                 if page.locator('a[href*=".xlsx"]').count() > 0 and "just a moment" not in (page.title() or "").lower():
                     break
-                page.wait_for_timeout(2500)
+                page.wait_for_timeout(2000)
             if page.locator('a[href*=".xlsx"]').count() > 0:
                 break
         except Exception:
             continue
 
+    page.wait_for_timeout(800)
+
+    # Collect matching .xlsx locators, prioritising visible links over hidden menu/accordion duplicates
+    visible_locs, hidden_locs = [], []
     target = cfg["xlsx"]
-    matched_loc = None
     for link in page.locator('a[href*=".xlsx"]').all():
         href = link.get_attribute("href") or ""
         if cfg["match"] in href.lower():
-            target = "https://www.rbnz.govt.nz" + href if href.startswith("/") else href
-            matched_loc = link
-            break
+            full = "https://www.rbnz.govt.nz" + href if href.startswith("/") else href
+            if not visible_locs and not hidden_locs:
+                target = full
+            try:
+                if link.is_visible():
+                    visible_locs.append((link, full))
+                else:
+                    hidden_locs.append((link, full))
+            except Exception:
+                hidden_locs.append((link, full))
 
-    try:
-        b64 = page.evaluate(
-            """async (url) => {
-                const r = await fetch(url, { cache: 'no-store', credentials: 'include' });
-                if (!r.ok) return null;
-                const bytes = new Uint8Array(await r.arrayBuffer());
-                let bin = '';
-                for (let i = 0; i < bytes.length; i += 0x8000) {
-                    bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
-                }
-                return btoa(bin);
-            }""",
-            add_cb(target),
-        )
-        if b64:
-            raw = base64.b64decode(b64)
-            if is_valid_xlsx(raw):
-                dest.write_bytes(raw)
-                print(f"[{tier_label}] Downloaded {cfg['match'].upper()} ({len(raw):,} bytes)")
-                return True
-    except Exception as exc:
-        print(f"[{tier_label}] In-browser fetch note ({cfg['match']}): {exc}")
+    ordered_candidates = visible_locs + hidden_locs
+    if visible_locs:
+        target = visible_locs[0][1]
 
-    if matched_loc is not None:
+    # Method 1 (Chromium Tier 3 only): In-page fetch
+    if allow_js_fetch:
         try:
-            with page.expect_download(timeout=40000) as dl_info:
-                matched_loc.click(force=True)
-            dl_info.value.save_as(str(dest))
-            if dest.exists() and is_valid_xlsx(dest.read_bytes()):
-                print(f"[{tier_label}] Click-downloaded {cfg['match'].upper()}")
-                return True
+            b64 = page.evaluate(
+                """async (url) => {
+                    const r = await fetch(url, { cache: 'no-store', credentials: 'include' });
+                    if (!r.ok) return null;
+                    const bytes = new Uint8Array(await r.arrayBuffer());
+                    let bin = '';
+                    for (let i = 0; i < bytes.length; i += 0x8000) {
+                        bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+                    }
+                    return btoa(bin);
+                }""",
+                add_cb(target),
+            )
+            if b64:
+                raw = base64.b64decode(b64)
+                if is_valid_xlsx(raw):
+                    dest.write_bytes(raw)
+                    print(f"[{tier_label}] Downloaded {cfg['match'].upper()} ({len(raw):,} bytes)")
+                    return True
         except Exception as exc:
-            print(f"[{tier_label}] Click-download note ({cfg['match']}): {exc}")
+            print(f"[{tier_label}] In-browser fetch note ({cfg['match']}): {exc}")
 
+    # Method 2: Click visible/matching .xlsx links with short 15s timeout & automatic retry
+    for attempt in range(2):
+        for loc, _ in ordered_candidates[:3]:
+            try:
+                try:
+                    loc.scroll_into_view_if_needed(timeout=3000)
+                except Exception:
+                    pass
+                with page.expect_download(timeout=15000) as dl_info:
+                    loc.click(force=True)
+                dl_info.value.save_as(str(dest))
+                if dest.exists() and is_valid_xlsx(dest.read_bytes()):
+                    print(f"[{tier_label}] Click-downloaded {cfg['match'].upper()}")
+                    return True
+            except Exception:
+                continue
+        if attempt == 0:
+            # Reload once in case first click cleared an overlay or refreshed cf_clearance
+            try:
+                page.goto(add_cb(cfg["pages"][0]), wait_until="domcontentloaded", timeout=45000)
+                page.wait_for_timeout(2000)
+                ordered_candidates = [
+                    (lnk, "") for lnk in page.locator('a[href*=".xlsx"]').all()
+                    if cfg["match"] in (lnk.get_attribute("href") or "").lower()
+                ]
+            except Exception:
+                break
+
+    print(f"[{tier_label}] Could not download {cfg['match'].upper()} after retries.")
     return False
 
 
@@ -284,14 +346,14 @@ def download_rbnz_workbooks(dest_dir: pathlib.Path, session) -> dict:
     if not missing:
         return saved
 
-    # Tier 2: Camoufox anti-detect Firefox under Xvfb
+    # Tier 2: Camoufox anti-detect Firefox under Xvfb (with warmup, native click-download)
     try:
-        from camoufox.sync_api import Camoufox
-        with Camoufox(headless=False, humanize=True) as browser:
+        with open_camoufox() as browser:
             page = browser.new_page()
+            warmup_rbnz_session(page, "RBNZ Tier 2 - Camoufox")
             for key in list(missing):
                 out = dest_dir / f"tmp_{key}.xlsx"
-                if fetch_xlsx_in_browser_page(page, RBNZ_SOURCES[key], out, "RBNZ Tier 2 - Camoufox"):
+                if fetch_xlsx_in_browser_page(page, RBNZ_SOURCES[key], out, "RBNZ Tier 2 - Camoufox", allow_js_fetch=False):
                     saved[key] = out
     except Exception as exc:
         print(f"[RBNZ Tier 2 - Camoufox] Note: {exc}")
@@ -318,9 +380,10 @@ def download_rbnz_workbooks(dest_dir: pathlib.Path, session) -> dict:
             except Exception:
                 ctx = p.chromium.launch_persistent_context(**kw)
             page = ctx.pages[0] if ctx.pages else ctx.new_page()
+            warmup_rbnz_session(page, "RBNZ Tier 3 - Chrome")
             for key in list(missing):
                 out = dest_dir / f"tmp_{key}.xlsx"
-                if fetch_xlsx_in_browser_page(page, RBNZ_SOURCES[key], out, "RBNZ Tier 3 - Chrome"):
+                if fetch_xlsx_in_browser_page(page, RBNZ_SOURCES[key], out, "RBNZ Tier 3 - Chrome", allow_js_fetch=True):
                     saved[key] = out
             ctx.close()
     except Exception as exc:
@@ -330,7 +393,7 @@ def download_rbnz_workbooks(dest_dir: pathlib.Path, session) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Multi-Sheet RBNZ Workbook Scanner (Hyphen-Normalized & Warning-Free)
+# Multi-Sheet RBNZ Workbook Scanner (Case-Insensitive Series IDs & Hyphen-Safe)
 # ---------------------------------------------------------------------------
 def norm_label(txt: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"[-\u2013\u2014]+", " ", txt.lower())).strip()
@@ -361,7 +424,7 @@ def load_rbnz_sheets(filepath: pathlib.Path) -> list:
                 for r in range(hdr_rows)
                 if pd.notna(raw.iloc[r, col_idx]) and str(raw.iloc[r, col_idx]).strip().lower() != "nan"
             ]
-            sids.append(col_parts[-1] if col_parts else "")
+            sids.append((col_parts[-1] if col_parts else "").upper())
             joined = f"{tab} | " + " | ".join(col_parts)
             labels.append(norm_label(joined))
 
@@ -378,12 +441,13 @@ def find_rbnz_series(tabs: list, exact_sids=(), include_all=(), exclude_any=(), 
 
     for _, df, sids, _ in tabs:
         for sid in exact_sids:
-            if sid in sids:
-                idx = sids.index(sid)
+            sid_u = sid.upper()
+            if sid_u in sids:
+                idx = sids.index(sid_u)
                 ser = pd.to_numeric(df.iloc[:, idx], errors="coerce")
                 valid = ser.dropna()
                 if len(valid) and (val_bounds is None or (val_bounds[0] <= float(valid.iloc[-1]) <= val_bounds[1])):
-                    return df["date"], ser, sid
+                    return df["date"], ser, sid_u
     for _, df, sids, labels in tabs:
         for idx, lbl in enumerate(labels):
             if idx == 0:
@@ -432,7 +496,6 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     inv_sh_yoy = (float(inv_val.iloc[iy]) / float(tot_val.iloc[iy])) * 100.0
     inv_b = float(inv_val.iloc[i]) / 1000.0
 
-    # 1. Dynamic story copy for Low-Deposit First Home Buyers
     if low_cnt_pct >= 54.0:
         low_dep_html = (
             f"Buying a first home without a full 20% deposit is more common than many buyers expect. "
@@ -461,14 +524,12 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             f"went to buyers with <strong>under a 20% deposit</strong> ({plain_prior_year_pct(low_cnt_pct, low_cnt_yoy)})."
         )
 
-    # 2. Dynamic story copy for FHB Market Share
     fhb_share_html = (
         f"First-home buyers continue to make up an active slice of the New Zealand market—in {m_full}, banks approved "
         f"<strong>{fhb_loans_int:,}</strong> first-home mortgages (<strong>{fhb_sh:.1f}%</strong> of all new mortgage lending, "
         f"{plain_prior_year_pct(fhb_sh, fhb_sh_yoy)}), with an average loan size of <strong>${fhb_avg_k:,}k</strong>."
     )
 
-    # 3. Dynamic story copy for Property Investors vs. FHBs
     gap = inv_sh - fhb_sh
     if gap > 0.75:
         inv_html = (
@@ -519,7 +580,6 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         },
     }
 
-    # Build a full month-by-month lookup so C32 and IRD cross-references match any month cleanly
     by_ym = {}
     for idx_r in range(len(dates)):
         ym_key = dates.iloc[idx_r].strftime("%Y-%m")
@@ -588,59 +648,29 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
 
 def build_rbnz_c32_ticker(filepath: pathlib.Path, c31_by_ym: dict | None = None) -> dict:
     tabs = load_rbnz_sheets(filepath)
-    inv_io_pct, oo_io_pct, dt = None, None, None
+    dates, inv_io, _ = find_rbnz_series(
+        tabs, (), ("investor", "interest only"), ("80", "less", "higher", "existing", "%", "share", "proportion")
+    )
+    _, oo_io, _ = find_rbnz_series(
+        tabs, (), ("owner", "interest only"), ("80", "less", "higher", "existing", "%", "share", "proportion")
+    )
+    # Match exact C32 Series IDs from section B ("new lending by borrower type": LVRN.MMB1.AN & LVRN.MMB1.AC)
+    _, inv_tot, _ = find_rbnz_series(
+        tabs,
+        ("LVRN.MMB1.AN",),
+        ("new lending by borrower type", "investors"),
+        ("interest only", "principal", "80", "existing", "%"),
+    )
+    _, oo_tot, _ = find_rbnz_series(
+        tabs,
+        ("LVRN.MMB1.AC",),
+        ("new lending by borrower type", "owner occupiers"),
+        ("interest only", "principal", "80", "existing", "%"),
+    )
 
-    # Attempt 1: Direct % share columns if present in C32
-    try:
-        d_p, inv_p, _ = find_rbnz_series(
-            tabs, (), ("investor", "interest only", "%"), ("80", "less", "higher", "existing"), val_bounds=(2.0, 85.0)
-        )
-        _, oo_p, _ = find_rbnz_series(
-            tabs, (), ("owner", "interest only", "%"), ("80", "less", "higher", "existing"), val_bounds=(1.0, 70.0)
-        )
-        dt = d_p.iloc[-1]
-        inv_io_pct, oo_io_pct = float(inv_p.iloc[-1]), float(oo_p.iloc[-1])
-    except KeyError:
-        pass
-
-    # Attempt 2: Dollar Interest-Only series divided by Total (from C32 or C31) or (IO + P&I)
-    if inv_io_pct is None:
-        dates, inv_io, _ = find_rbnz_series(
-            tabs, (), ("investor", "interest only"), ("80", "less", "higher", "existing", "%", "share", "proportion")
-        )
-        _, oo_io, _ = find_rbnz_series(
-            tabs, (), ("owner", "interest only"), ("80", "less", "higher", "existing", "%", "share", "proportion")
-        )
-        dt = dates.iloc[-1]
-        ym = dt.strftime("%Y-%m")
-        inv_io_v = float(inv_io.iloc[-1])
-        oo_io_v = float(oo_io.iloc[-1])
-
-        # Try Total in C32 first
-        try:
-            _, inv_tot, _ = find_rbnz_series(
-                tabs, (), ("investor", "total"), ("interest only", "80", "less", "higher", "existing", "%")
-            )
-            _, oo_tot, _ = find_rbnz_series(
-                tabs, (), ("owner", "total"), ("interest only", "80", "less", "higher", "existing", "%")
-            )
-            if float(inv_tot.iloc[-1]) > inv_io_v:
-                inv_io_pct = (inv_io_v / float(inv_tot.iloc[-1])) * 100.0
-                oo_io_pct = (oo_io_v / float(oo_tot.iloc[-1])) * 100.0
-        except KeyError:
-            pass
-
-        # Fallback to C31 matching-month total new lending by borrower type
-        if inv_io_pct is None and c31_by_ym and ym in c31_by_ym:
-            inv_denom = c31_by_ym[ym]["inv_val_m"]
-            oo_denom = c31_by_ym[ym]["oo_all_val_m"]
-            if inv_denom > inv_io_v and oo_denom > oo_io_v:
-                inv_io_pct = (inv_io_v / inv_denom) * 100.0
-                oo_io_pct = (oo_io_v / oo_denom) * 100.0
-
-    if inv_io_pct is None or oo_io_pct is None or dt is None:
-        sample_lbls = tabs[0][3][:8] if tabs else []
-        raise KeyError(f"Could not compute C32 IO shares; sample labels={sample_lbls}")
+    dt = dates.iloc[-1]
+    inv_io_pct = (float(inv_io.iloc[-1]) / float(inv_tot.iloc[-1])) * 100.0
+    oo_io_pct = (float(oo_io.iloc[-1]) / float(oo_tot.iloc[-1])) * 100.0
 
     m_full = dt.strftime("%B %Y")
     return {
@@ -662,48 +692,83 @@ def build_rbnz_c32_ticker(filepath: pathlib.Path, c31_by_ym: dict | None = None)
     }
 
 
+def compute_c41_weighted_avg_income(tabs41: list, borrower_kw: str) -> tuple[pd.Timestamp | None, float | None]:
+    """Compute exact borrower-weighted average gross income (NZD) across all TDTI bands in RBNZ C41."""
+    band_keys = ("tdti <= 3", "3 < tdti <= 4", "4 < tdti <= 5", "5 < tdti <= 6", "tdti > 6")
+
+    for _, df41, _, labels41 in tabs41:
+        # 1. Check if an explicit overall non-band average column exists
+        for idx, lbl in enumerate(labels41):
+            if "average gross income" in lbl and borrower_kw in lbl and not any(x in lbl for x in ("auckland", "80", "lvr", "<", ">", "unknown")):
+                v = float(pd.to_numeric(df41.iloc[-1, idx], errors="coerce") or 0.0)
+                if v > 0:
+                    return df41["date"].iloc[-1], (v * 1000.0 if v < 2000 else v)
+
+        # 2. Compute exact harmonic/borrower-weighted mean from Section A (gross income NZDm) & Section B (avg NZD000s)
+        inc_cols, avg_cols = {}, {}
+        for idx, lbl in enumerate(labels41):
+            if borrower_kw not in lbl or any(x in lbl for x in ("auckland", "80", "lvr")):
+                continue
+            for bk in band_keys:
+                if bk in lbl:
+                    if "average gross income" in lbl:
+                        avg_cols[bk] = idx
+                    elif "gross income" in lbl:
+                        inc_cols[bk] = idx
+        common = [bk for bk in band_keys if bk in inc_cols and bk in avg_cols]
+        if len(common) >= 4:
+            tot_inc_m = 0.0
+            tot_borrowers_k = 0.0
+            for bk in common:
+                a_m = float(pd.to_numeric(df41.iloc[-1, inc_cols[bk]], errors="coerce") or 0.0)
+                b_k = float(pd.to_numeric(df41.iloc[-1, avg_cols[bk]], errors="coerce") or 0.0)
+                if b_k > 2000:
+                    b_k /= 1000.0
+                if a_m > 0 and b_k > 0:
+                    tot_inc_m += a_m
+                    tot_borrowers_k += (a_m / b_k)
+            if tot_borrowers_k > 0:
+                avg_nzd = (tot_inc_m / tot_borrowers_k) * 1000.0
+                return df41["date"].iloc[-1], avg_nzd
+    return None, None
+
+
 def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathlib.Path | None) -> dict:
     out = {}
     if c40_path is not None:
         try:
             tabs40 = load_rbnz_sheets(c40_path)
             val_pct, dt_dti = None, None
-            # Attempt 1: Direct >6 DTI % share column for First Home Buyers
-            for inc_tuple in (("first home", "6", "%"), ("fhb", "6", "%"), ("first home", "over 6"), ("first home", "> 6")):
-                try:
-                    dates, fhb_hi_dti, _ = find_rbnz_series(
-                        tabs40, (), inc_tuple, ("auckland", "less", "under", "<= 6", "< 6"), val_bounds=(0.1, 45.0)
-                    )
-                    dt_dti = dates.iloc[-1]
-                    val_pct = float(fhb_hi_dti.iloc[-1])
-                    break
-                except KeyError:
-                    continue
 
-            # Attempt 2: Sum DTI > 6 bands divided by Total First Home Buyer lending
-            if val_pct is None:
-                hi_patterns = (
-                    "> 6", ">6", "6 <", "6<", "6 to", "6 7", "7 <", "7<", "7 to", "7 8",
-                    "> 7", ">7", "8 <", "8 to", "8 9", "> 8", ">8", "9 <", "9 to", "> 9", ">9",
-                    "over 6", "above 6", "greater than 6", "more than 6", "exceeding 6"
-                )
-                for _, df40, _, labels40 in tabs40:
-                    tot_idx = None
-                    over6_idxs = []
-                    for idx, lbl in enumerate(labels40):
-                        if ("first home" not in lbl and "fhb" not in lbl) or "auckland" in lbl or "80" in lbl:
-                            continue
-                        if ("total" in lbl or "all dti" in lbl) and not any(d in lbl for d in ("3", "4", "5", "6", "7", "8", "9", "unknown")):
-                            tot_idx = idx
-                        elif any(hp in lbl for hp in hi_patterns) and not any(lo in lbl for lo in ("<= 6", "<=6", "5 <", "5 to 6", "5 6", "under 6", "less than 6")):
-                            over6_idxs.append(idx)
-                    if tot_idx is not None and over6_idxs:
-                        tot_v = float(pd.to_numeric(df40.iloc[-1, tot_idx], errors="coerce") or 0.0)
-                        hi_v = sum(float(pd.to_numeric(df40.iloc[-1, c_i], errors="coerce") or 0.0) for c_i in over6_idxs)
-                        if tot_v > 0 and 0.1 <= (hi_v / tot_v) * 100.0 <= 45.0:
-                            val_pct = (hi_v / tot_v) * 100.0
-                            dt_dti = df40["date"].iloc[-1]
-                            break
+            for _, df40, _, labels40 in tabs40:
+                low_idxs, gran_hi_idxs, sub_gt6_idxs, unk_idxs = [], [], [], []
+                for idx, lbl in enumerate(labels40):
+                    if "new commitments to first home buyers" not in lbl:
+                        continue
+                    if any(x in lbl for x in ("auckland", "80", "lvr", "%", "share")):
+                        continue
+                    if any(lo in lbl for lo in ("tdti <= 3", "3 < tdti <= 4", "4 < tdti <= 5", "5 < tdti <= 6")):
+                        low_idxs.append(idx)
+                    elif "unknown" in lbl:
+                        unk_idxs.append(idx)
+                    elif "tdti > 6" in lbl:
+                        sub_gt6_idxs.append((idx, "excl" in lbl))
+                    elif any(hi in lbl for hi in ("6 < tdti", "7 < tdti", "8 < tdti", "9 < tdti", "tdti > 7", "tdti > 8", "tdti > 9", "tdti > 10")):
+                        gran_hi_idxs.append(idx)
+
+                if len(low_idxs) == 4 and (gran_hi_idxs or sub_gt6_idxs):
+                    low_v = sum(float(pd.to_numeric(df40.iloc[-1, c_i], errors="coerce") or 0.0) for c_i in low_idxs)
+                    unk_v = sum(float(pd.to_numeric(df40.iloc[-1, c_i], errors="coerce") or 0.0) for c_i in unk_idxs)
+                    if gran_hi_idxs:
+                        hi_v = sum(float(pd.to_numeric(df40.iloc[-1, c_i], errors="coerce") or 0.0) for c_i in gran_hi_idxs) + unk_v
+                    else:
+                        s_idx, is_excl_unk = sub_gt6_idxs[0]
+                        hi_v = float(pd.to_numeric(df40.iloc[-1, s_idx], errors="coerce") or 0.0) + (unk_v if is_excl_unk else 0.0)
+                    tot_v = low_v + hi_v
+                    if tot_v > 0 and 0.1 <= (hi_v / tot_v) * 100.0 <= 45.0:
+                        val_pct = (hi_v / tot_v) * 100.0
+                        dt_dti = df40["date"].iloc[-1]
+                        break
 
             if val_pct is not None and dt_dti is not None:
                 m_full = dt_dti.strftime("%B %Y")
@@ -736,55 +801,29 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
                         'Historical market statistics for general information only.'
                     ),
                 }
-            else:
-                sample40 = tabs40[0][3][:8] if tabs40 else []
-                print(f"[C40 DTI] No matching series found; sample labels={sample40}")
         except Exception as exc:
             print(f"[C40 DTI] Parse note: {exc}")
 
     if c41_path is not None:
         try:
             tabs41 = load_rbnz_sheets(c41_path)
-            dates41, fhb_bgi, inv_bgi = None, None, None
-            metric_word = "average"
-            for stat_kw, word in ((("average",), "average"), (("mean",), "average"), (("median",), "median")):
-                try:
-                    dates41, fhb_bgi, _ = find_rbnz_series(
-                        tabs41, (), ("first home",) + stat_kw, ("auckland", "tdti", "dti", "80")
-                    )
-                    _, inv_bgi, _ = find_rbnz_series(
-                        tabs41, (), ("investor",) + stat_kw, ("auckland", "tdti", "dti", "80")
-                    )
-                    metric_word = word
-                    break
-                except KeyError:
-                    continue
-
-            if dates41 is not None and fhb_bgi is not None and inv_bgi is not None:
-                dt = dates41.iloc[-1]
-                fhb_inc = float(fhb_bgi.iloc[-1])
-                inv_inc = float(inv_bgi.iloc[-1])
-                if fhb_inc < 2000:
-                    fhb_inc *= 1000.0
-                    inv_inc *= 1000.0
-                if 40000 <= fhb_inc <= 600000:
-                    out["borrower-income"] = {
-                        "chip": "RBNZ C41",
-                        "as_of": month_end_iso(dt),
-                        "max_age_days": MAX_AGE_MONTHLY,
-                        "html": (
-                            f"Because mortgage applications often combine two incomes, approved borrower earnings sit higher than single-earner "
-                            f"averages—in {dt.strftime('%B %Y')}, approved first-home buyers recorded a {metric_word} gross borrower income of "
-                            f"<strong>${fhb_inc/1000.0:,.0f}k</strong>, compared with <strong>${inv_inc/1000.0:,.0f}k</strong> for property investors."
-                        ),
-                        "source_html": (
-                            'Source: <a href="https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi" '
-                            'target="_blank" rel="noopener">RBNZ Table C41</a>, &copy; Reserve Bank of New Zealand. Historical market statistics for general information only.'
-                        ),
-                    }
-            else:
-                sample41 = tabs41[0][3][:8] if tabs41 else []
-                print(f"[C41 BGI] No matching series found; sample labels={sample41}")
+            dt_fhb, fhb_inc = compute_c41_weighted_avg_income(tabs41, "first home")
+            _, inv_inc = compute_c41_weighted_avg_income(tabs41, "investor")
+            if dt_fhb is not None and fhb_inc and inv_inc and 40000 <= fhb_inc <= 600000:
+                out["borrower-income"] = {
+                    "chip": "RBNZ C41",
+                    "as_of": month_end_iso(dt_fhb),
+                    "max_age_days": MAX_AGE_MONTHLY,
+                    "html": (
+                        f"Because mortgage applications often combine two incomes, approved borrower earnings sit higher than single-earner "
+                        f"averages—in {dt_fhb.strftime('%B %Y')}, approved first-home buyers recorded an average gross borrower income of "
+                        f"<strong>${fhb_inc/1000.0:,.0f}k</strong>, compared with <strong>${inv_inc/1000.0:,.0f}k</strong> for property investors."
+                    ),
+                    "source_html": (
+                        'Source: <a href="https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi" '
+                        'target="_blank" rel="noopener">RBNZ Table C41</a>, &copy; Reserve Bank of New Zealand. Derived by HLF for general information only.'
+                    ),
+                }
         except Exception as exc:
             print(f"[C41 BGI] Parse note: {exc}")
     return out
@@ -824,7 +863,6 @@ def build_stats_nz_tickers(session) -> dict:
     out = {}
     today = datetime.datetime.now(datetime.timezone.utc).date()
 
-    # Build candidate URLs for Building Consents (last 4 months) & CPI (last 3 quarters)
     bc_candidates = []
     for back in range(0, 4):
         y, m = today.year, today.month - back
@@ -848,7 +886,6 @@ def build_stats_nz_tickers(session) -> dict:
     all_urls = [u for _, u in bc_candidates] + [u for _, _, _, u in cpi_candidates]
     fetched_html = fetch_html_with_browser_fallback(session, all_urls, "Stats NZ")
 
-    # 1. Parse newest available Building Consents release
     for dt_cand, url in bc_candidates:
         html = fetched_html.get(url, "")
         if not html:
@@ -928,7 +965,6 @@ def build_stats_nz_tickers(session) -> dict:
             print(f"[Stats NZ Consents] Parsed {m_full}: {ann_tot:,} annual, {multi_pct:.1f}% multi-unit")
             break
 
-    # 2. Parse newest available Quarterly CPI release
     for yr, qm, qname, cpi_url in cpi_candidates:
         html = fetched_html.get(cpi_url, "")
         if not html:
@@ -1059,7 +1095,6 @@ def build_tenancy_tickers(session) -> dict:
 def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
     out = {}
 
-    # 1. IRD Student Loan Balances (Quarterly)
     sl_bytes = fetch_url_bytes(session, IRD_SL_BAL_PAGE, timeout=30)
     if sl_bytes:
         sl_text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", sl_bytes.decode("utf-8", errors="ignore")))
@@ -1089,7 +1124,6 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                     ),
                 }
 
-    # 2. IRD Monthly KiwiSaver First-Home Withdrawals (Number + Amount pages)
     num_bytes = fetch_url_bytes(session, IRD_KS_NUM_PAGE, timeout=30)
     amt_bytes = fetch_url_bytes(session, IRD_KS_AMT_PAGE, timeout=30)
     if num_bytes and amt_bytes:
@@ -1140,7 +1174,6 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                     ),
                 }
 
-    # 3. IRD KiwiSaver Scheme Transfers (Annual financial-year release)
     tr_bytes = fetch_url_bytes(session, IRD_KS_TR_PAGE, timeout=30)
     if tr_bytes:
         tr_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", tr_bytes.decode("utf-8", errors="ignore")))
@@ -1258,7 +1291,6 @@ def main() -> None:
     except Exception as exc:
         print(f"[IRD] Error: {exc}")
 
-    # STRICT FAILSAFE GATE: Drop any ticker that failed validation or exceeded max_age_days
     verified_tickers = {}
     for k, item in fresh_candidates.items():
         if not isinstance(item, dict):
