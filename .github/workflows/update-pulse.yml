@@ -1,0 +1,52 @@
+name: Update NZ Mortgage & Housing Pulse
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '*.xlsx'
+      - '*.csv'
+  schedule:
+    # Weekly / release-window checks across the month to catch:
+    # - Stats NZ Building Consents (~1st-4th), Tenancy Services (~10th-15th),
+    # - IRD KiwiSaver (~18th-22nd), Stats NZ CPI (~20th-24th), and RBNZ C31-C41/B30 (~25th-29th).
+    # 02:35 UTC = 3:35 PM NZDT / 2:35 PM Fiji (Mon, Wed, Fri)
+    - cron: '35 2 * * 1,3,5'
+
+permissions:
+  contents: write
+
+jobs:
+  update-pulse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install anti-detect browser & Python packages
+        run: |
+          sudo apt-get update && sudo apt-get install -y xvfb libgtk-3-0 libasound2t64 libx11-xcb1 || sudo apt-get install -y xvfb
+          pip install pandas openpyxl curl_cffi "camoufox[geoip]"
+          python -m camoufox fetch
+
+      - name: Fetch RBNZ, Stats NZ, Tenancy & IRD data
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" python update_pulse.py
+
+      - name: Commit and push if verified data changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add nz-mortgage-pulse.json index.html
+          if git diff --staged --quiet; then
+            echo "All verified tickers already up to date; no commit needed."
+          else
+            git commit -m "Auto-update NZ market pulse ($(date -u +'%Y-%m-%d'))"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
