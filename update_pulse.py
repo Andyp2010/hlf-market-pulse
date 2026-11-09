@@ -7,6 +7,7 @@ import pathlib
 import re
 import time
 import warnings
+from html.parser import HTMLParser
 import pandas as pd
 
 # Silence cosmetic openpyxl stylesheet notices & Camoufox canvas notices in CI logs
@@ -73,6 +74,7 @@ RBNZ_SOURCES = {
 TENANCY_PAGE = "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/"
 IRD_KS_NUM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/number"
 IRD_KS_AMT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/amount"
+IRD_KS_REG_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/kiwisaver-fund-withdrawals-by-region"
 IRD_KS_TR_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/schemes/transfer"
 IRD_KS_DATA_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets"
 IRD_SL_BAL_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/statistics-on-the-student-loan-scheme/statistics-on-student-loan-balances"
@@ -81,7 +83,42 @@ IRD_SL_BAL_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/statistics-on
 MAX_AGE_MONTHLY = 85
 MAX_AGE_TENANCY = 120   # MBIE publishes private bond CSVs on a ~2-month processing lag
 MAX_AGE_QUARTERLY = 160
-MAX_AGE_ANNUAL = 420    # IRD annual scheme transfer summaries publish each September for June FY
+MAX_AGE_ANNUAL = 420    # IRD annual scheme transfer & regional summaries publish each September for June FY
+
+
+class SimpleTableExtractor(HTMLParser):
+    """Zero-dependency HTML table parser for Inland Revenue regional KiwiSaver tables."""
+    def __init__(self):
+        super().__init__()
+        self.tables = []
+        self._cur_table = None
+        self._cur_row = None
+        self._cur_cell = None
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "table":
+            self._cur_table = []
+        elif tag == "tr" and self._cur_table is not None:
+            self._cur_row = []
+        elif tag in ("td", "th") and self._cur_row is not None:
+            self._cur_cell = []
+
+    def handle_data(self, data):
+        if self._cur_cell is not None:
+            self._cur_cell.append(data)
+
+    def handle_endtag(self, tag):
+        if tag in ("td", "th") and self._cur_cell is not None:
+            self._cur_row.append("".join(self._cur_cell).strip())
+            self._cur_cell = None
+        elif tag == "tr" and self._cur_row is not None:
+            if any(self._cur_row):
+                self._cur_table.append(self._cur_row)
+            self._cur_row = None
+        elif tag == "table" and self._cur_table is not None:
+            if self._cur_table:
+                self.tables.append(self._cur_table)
+            self._cur_table = None
 
 
 def is_valid_xlsx(data: bytes) -> bool:
@@ -106,6 +143,12 @@ def is_fresh(as_of_iso: str, max_age_days: int) -> bool:
         return -5 <= age <= max_age_days
     except Exception:
         return False
+
+
+def fmt_nzd_millions(val_m: float) -> str:
+    if abs(val_m) >= 1000.0:
+        return f"${val_m / 1000.0:.2f}B"
+    return f"${val_m:,.0f}m"
 
 
 def plain_prior_year_pct(curr: float, prev: float) -> str:
@@ -235,7 +278,6 @@ def fetch_xlsx_in_browser_page(page, cfg: dict, dest: pathlib.Path, tier_label: 
 
     page.wait_for_timeout(800)
 
-    # Collect matching .xlsx locators, prioritising visible links over hidden menu/accordion duplicates
     visible_locs, hidden_locs = [], []
     target = cfg["xlsx"]
     for link in page.locator('a[href*=".xlsx"]').all():
@@ -256,7 +298,6 @@ def fetch_xlsx_in_browser_page(page, cfg: dict, dest: pathlib.Path, tier_label: 
     if visible_locs:
         target = visible_locs[0][1]
 
-    # Method 1 (Chromium Tier 3 only): In-page fetch
     if allow_js_fetch:
         try:
             b64 = page.evaluate(
@@ -281,7 +322,6 @@ def fetch_xlsx_in_browser_page(page, cfg: dict, dest: pathlib.Path, tier_label: 
         except Exception as exc:
             print(f"[{tier_label}] In-browser fetch note ({cfg['match']}): {exc}")
 
-    # Method 2: Click visible/matching .xlsx links with short 15s timeout & automatic retry
     for attempt in range(2):
         for loc, _ in ordered_candidates[:3]:
             try:
@@ -298,7 +338,6 @@ def fetch_xlsx_in_browser_page(page, cfg: dict, dest: pathlib.Path, tier_label: 
             except Exception:
                 continue
         if attempt == 0:
-            # Reload once in case first click cleared an overlay or refreshed cf_clearance
             try:
                 page.goto(add_cb(cfg["pages"][0]), wait_until="domcontentloaded", timeout=45000)
                 page.wait_for_timeout(2000)
@@ -346,7 +385,7 @@ def download_rbnz_workbooks(dest_dir: pathlib.Path, session) -> dict:
     if not missing:
         return saved
 
-    # Tier 2: Camoufox anti-detect Firefox under Xvfb (with warmup, native click-download)
+    # Tier 2: Camoufox anti-detect Firefox under Xvfb
     try:
         with open_camoufox() as browser:
             page = browser.new_page()
@@ -467,9 +506,9 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     tabs = load_rbnz_sheets(filepath)
     dates, fhb_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AC1",), ("total lending", "first home"))
     _, oo_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AC2",), ("total lending", "other owner"))
-    _, inv_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AC3",), ("total lending", "investor"))
+    _, inv_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AN", "LVRN.MMB1.AC3"), ("total lending", "investor"))
     try:
-        _, bus_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AC4",), ("total lending", "business"))
+        _, bus_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AP", "LVRN.MMB1.AC4"), ("total lending", "business"))
     except KeyError:
         bus_val = pd.Series([0.0] * len(dates))
 
@@ -477,6 +516,18 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     _, fhb_hi_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.BC1",), ("80", "lending", "first home"), ("less", "equal"))
     _, fhb_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.AC1",), ("borrowers", "first home"), ("80",))
     _, fhb_hi_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.BC1",), ("80", "borrowers", "first home"), ("less", "equal"))
+
+    # Additional C31 series for FHB deep-dives & homeowner/investor equity positions
+    _, oo_hi_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.BC2",), ("80", "lending", "other owner"), ("less", "equal"))
+    _, oo_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.AC2",), ("borrowers", "other owner"), ("80",))
+    _, oo_hi_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.BC2",), ("80", "borrowers", "other owner"), ("less", "equal"))
+    _, all_hi_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.BA",), ("80", "lending", "all borrower"), ("less", "equal"))
+    _, all_hi_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.BA",), ("80", "borrowers", "all borrower"), ("less", "equal"))
+    _, inv_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.AN",), ("total", "borrowers", "investor"), ("70", "60", "80"))
+    _, inv_gt70_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.DN",), ("70", "lending", "investor"), ("less", "equal"))
+    _, inv_gt70_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.DN",), ("70", "borrowers", "investor"), ("less", "equal"))
+    _, inv_gt60_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.FN",), ("60", "borrowers", "investor"), ("less", "equal"))
+    _, inv_le60_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.TN",), ("60", "borrowers", "investor", "less"))
 
     i, iy = len(dates) - 1, max(0, len(dates) - 13)
     dt = dates.iloc[i]
@@ -486,11 +537,12 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     low_cnt_pct = (float(fhb_hi_cnt.iloc[i]) / float(fhb_cnt.iloc[i])) * 100.0
     low_cnt_yoy = (float(fhb_hi_cnt.iloc[iy]) / float(fhb_cnt.iloc[iy])) * 100.0
     hi_dollars_m = float(fhb_hi_val.iloc[i])
+    fhb_loans_int = int(round(float(fhb_cnt.iloc[i])))
+    fhb_hi_loans_int = int(round(float(fhb_hi_cnt.iloc[i])))
 
     fhb_sh = (float(fhb_val.iloc[i]) / float(tot_val.iloc[i])) * 100.0
     fhb_sh_yoy = (float(fhb_val.iloc[iy]) / float(tot_val.iloc[iy])) * 100.0
     fhb_avg_k = int(round((float(fhb_val.iloc[i]) * 1000.0) / float(fhb_cnt.iloc[i])))
-    fhb_loans_int = int(round(float(fhb_cnt.iloc[i])))
 
     inv_sh = (float(inv_val.iloc[i]) / float(tot_val.iloc[i])) * 100.0
     inv_sh_yoy = (float(inv_val.iloc[iy]) / float(tot_val.iloc[iy])) * 100.0
@@ -500,22 +552,24 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         low_dep_html = (
             f"Buying a first home without a full 20% deposit is more common than many buyers expect. "
             f"In {m_full}, more than half of all first-home mortgages approved across New Zealand "
-            f"(<strong>{low_cnt_pct:.1f}%</strong>, or <strong>${hi_dollars_m:,.0f}m</strong> in lending) "
-            f"went to buyers with <strong>under a 20% deposit</strong>, {plain_prior_year_pct(low_cnt_pct, low_cnt_yoy)}."
+            f"(<strong>{low_cnt_pct:.1f}%</strong>—<strong>{fhb_hi_loans_int:,} of {fhb_loans_int:,} loans</strong>, or "
+            f"<strong>${hi_dollars_m:,.0f}m</strong> in lending) went to buyers with <strong>under a 20% deposit</strong>, "
+            f"{plain_prior_year_pct(low_cnt_pct, low_cnt_yoy)}."
         )
     elif low_cnt_pct >= 50.0:
         low_dep_html = (
             f"Buying a first home without a full 20% deposit is more common than many buyers expect. "
             f"In {m_full}, just over half of all first-home mortgages approved across New Zealand "
-            f"(<strong>{low_cnt_pct:.1f}%</strong>, or <strong>${hi_dollars_m:,.0f}m</strong> in lending) "
-            f"went to buyers with <strong>under a 20% deposit</strong>, {plain_prior_year_pct(low_cnt_pct, low_cnt_yoy)}."
+            f"(<strong>{low_cnt_pct:.1f}%</strong>—<strong>{fhb_hi_loans_int:,} of {fhb_loans_int:,} loans</strong>, or "
+            f"<strong>${hi_dollars_m:,.0f}m</strong> in lending) went to buyers with <strong>under a 20% deposit</strong>, "
+            f"{plain_prior_year_pct(low_cnt_pct, low_cnt_yoy)}."
         )
     elif low_cnt_pct >= 30.0:
         low_dep_html = (
             f"Getting onto the property ladder without a full 20% deposit remains a well-trodden path in New Zealand. "
             f"In {m_full}, <strong>{low_cnt_pct:.1f}%</strong> of approved first-home mortgages "
-            f"(totalling <strong>${hi_dollars_m:,.0f}m</strong>) went to buyers with <strong>under a 20% deposit</strong>, "
-            f"{plain_prior_year_pct(low_cnt_pct, low_cnt_yoy)}."
+            f"(<strong>{fhb_hi_loans_int:,} of {fhb_loans_int:,} loans</strong>, totalling <strong>${hi_dollars_m:,.0f}m</strong>) "
+            f"went to buyers with <strong>under a 20% deposit</strong>, {plain_prior_year_pct(low_cnt_pct, low_cnt_yoy)}."
         )
     else:
         low_dep_html = (
@@ -550,35 +604,135 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             f"right alongside first-home buyers at <strong>{fhb_sh:.1f}%</strong>."
         )
 
+    # New FHB & Equity Position Tickers from C31
+    fhb_lo_val_cur = float(fhb_val.iloc[i] - fhb_hi_val.iloc[i])
+    fhb_lo_cnt_cur = float(fhb_cnt.iloc[i] - fhb_hi_cnt.iloc[i])
+    avg_hi_loan = (float(fhb_hi_val.iloc[i]) * 1_000_000.0) / max(1.0, float(fhb_hi_cnt.iloc[i]))
+    avg_lo_loan = (fhb_lo_val_cur * 1_000_000.0) / max(1.0, fhb_lo_cnt_cur)
+    loan_gap = avg_hi_loan - avg_lo_loan
+
+    if loan_gap > 10_000:
+        fhb_gap_html = (
+            f"First-home buyers with under a 20% deposit actually take out larger mortgages on average "
+            f"(<strong>${avg_hi_loan:,.0f}</strong>) than buyers with a 20%+ deposit (<strong>${avg_lo_loan:,.0f}</strong>)—a "
+            f"<strong>${abs(loan_gap):,.0f}</strong> difference in {m_full}, as higher-earning couples often use a "
+            f"10%–15% deposit to buy sooner rather than renting for extra years to save 20%."
+        )
+    else:
+        fhb_gap_html = (
+            f"In {m_full}, New Zealand first-home buyers with under a 20% deposit borrowed an average of "
+            f"<strong>${avg_hi_loan:,.0f}</strong>, compared with <strong>${avg_lo_loan:,.0f}</strong> for buyers with a 20%+ deposit."
+        )
+
+    fhb_hi_val_share = (float(fhb_hi_val.iloc[i]) / max(1.0, float(all_hi_val.iloc[i]))) * 100.0
+    fhb_hi_cnt_share = (float(fhb_hi_cnt.iloc[i]) / max(1.0, float(all_hi_cnt.iloc[i]))) * 100.0
+    fhb_priority_html = (
+        f"When New Zealand banks approve low-deposit mortgages (&gt;80% LVR), most of their allowance goes to first-home buyers. "
+        f"In {m_full}, <strong>{fhb_hi_val_share:.1f}% of all low-deposit mortgage dollars "
+        f"({fmt_nzd_millions(float(fhb_hi_val.iloc[i]))} of {fmt_nzd_millions(float(all_hi_val.iloc[i]))})</strong> and "
+        f"<strong>{fhb_hi_cnt_share:.1f}% of low-deposit loans ({fhb_hi_loans_int:,} of {int(round(float(all_hi_cnt.iloc[i]))):,})</strong> "
+        f"went directly to first-home buyers."
+    )
+
+    std_dep_pct = (fhb_lo_cnt_cur / max(1.0, float(fhb_cnt.iloc[i]))) * 100.0
+    fhb_20club_html = (
+        f"Crossing the 20% deposit mark unlocks sharp advertised bank special rates and avoids low-equity margins. "
+        f"In {m_full}, <strong>{int(round(fhb_lo_cnt_cur)):,} first-home buyers ({std_dep_pct:.1f}% of approvals, or "
+        f"{fmt_nzd_millions(fhb_lo_val_cur)})</strong> bought with a <strong>20%+ deposit</strong>, borrowing an average of "
+        f"<strong>${avg_lo_loan:,.0f}</strong>."
+    )
+
+    fhb_v = float(fhb_val.iloc[i])
+    inv_v = float(inv_val.iloc[i])
+    diff_fi = fhb_v - inv_v
+    if diff_fi >= 0:
+        fhb_vs_inv_html = (
+            f"First-home buyers are out-borrowing property investors across New Zealand. In {m_full}, banks approved "
+            f"<strong>{fmt_nzd_millions(fhb_v)} ({fhb_sh:.1f}% of lending)</strong> for first-home buyers compared with "
+            f"<strong>{fmt_nzd_millions(inv_v)} ({inv_sh:.1f}%)</strong> for property investors—putting first-home buyers "
+            f"<strong>{fmt_nzd_millions(abs(diff_fi))} ahead</strong>."
+        )
+    else:
+        fhb_vs_inv_html = (
+            f"In {m_full}, New Zealand first-home buyers accounted for <strong>{fmt_nzd_millions(fhb_v)} ({fhb_sh:.1f}% of lending)</strong> "
+            f"alongside <strong>{fmt_nzd_millions(inv_v)} ({inv_sh:.1f}%)</strong> for property investors."
+        )
+
+    oo_tot_c = float(oo_cnt.iloc[i])
+    oo_hi_c = float(oo_hi_cnt.iloc[i])
+    oo_lo_c = oo_tot_c - oo_hi_c
+    oo_lo_v = float(oo_val.iloc[i] - oo_hi_val.iloc[i])
+    oo_20eq_pct = (oo_lo_c / max(1.0, oo_tot_c)) * 100.0
+    oo_avg_20eq = (oo_lo_v * 1_000_000.0) / max(1.0, oo_lo_c)
+    owner_eq_html = (
+        f"Most existing Kiwi homeowners hold more usable equity than they realise. In {m_full}, "
+        f"<strong>{oo_20eq_pct:.1f}%</strong> of existing owner-occupier mortgages approved across New Zealand "
+        f"(<strong>{int(round(oo_lo_c)):,} of {int(round(oo_tot_c)):,} loans</strong>, or <strong>{fmt_nzd_millions(oo_lo_v)}</strong>) "
+        f"had <strong>at least 20% equity</strong>, carrying an average loan size of <strong>${oo_avg_20eq:,.0f}</strong>."
+    )
+
+    inv_c_tot = float(inv_cnt.iloc[i])
+    inv_40plus_pct = (float(inv_le60_cnt.iloc[i]) / max(1.0, inv_c_tot)) * 100.0
+    inv_30to40_pct = (float(inv_gt60_cnt.iloc[i] - inv_gt70_cnt.iloc[i]) / max(1.0, inv_c_tot)) * 100.0
+    inv_u30_cnt = int(round(float(inv_gt70_cnt.iloc[i])))
+    inv_u30_pct = (inv_u30_cnt / max(1.0, inv_c_tot)) * 100.0
+    inv_u30_val = float(inv_gt70_val.iloc[i])
+    inv_eq_html = (
+        f"You don't need 40% equity locked up to buy an investment property. In {m_full}, <strong>{inv_40plus_pct:.1f}%</strong> "
+        f"of approved NZ property investors had 40%+ equity—while <strong>{inv_30to40_pct:.1f}%</strong> bought in the "
+        f"<strong>30%–40% equity band</strong> and <strong>{inv_u30_pct:.1f}% ({inv_u30_cnt:,} loans, or {fmt_nzd_millions(inv_u30_val)})</strong> "
+        f"were approved with <strong>under 30% equity</strong>."
+    )
+
+    oo_low_eq_pct = (oo_hi_c / max(1.0, oo_tot_c)) * 100.0
+    oo_low_eq_prev = (float(oo_hi_cnt.iloc[iy]) / max(1.0, float(oo_cnt.iloc[iy]))) * 100.0
+    mover_low_eq_html = (
+        f"Low-deposit lending isn't restricted to first-home buyers. In {m_full}, New Zealand banks approved "
+        f"<strong>{int(round(oo_hi_c)):,} mortgages ({fmt_nzd_millions(float(oo_hi_val.iloc[i]))})</strong> for existing owner-occupiers "
+        f"moving or borrowing with <strong>under 20% equity (&gt;80% LVR)</strong>—accounting for <strong>{oo_low_eq_pct:.1f}%</strong> "
+        f"of existing homeowner approvals, {plain_prior_year_pct(oo_low_eq_pct, oo_low_eq_prev)}."
+    )
+
     src_c31 = (
         'Source: <a href="https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type" '
         'target="_blank" rel="noopener">RBNZ Table C31</a>, &copy; Reserve Bank of New Zealand. Percentages &amp; averages derived by HLF. '
         'Historical market statistics for general information only, not personalised financial advice.'
     )
 
+    def make_c31_item(html_str: str) -> dict:
+        return {
+            "chip": "RBNZ C31",
+            "as_of": as_of,
+            "max_age_days": MAX_AGE_MONTHLY,
+            "html": html_str,
+            "source_html": src_c31,
+        }
+
     out = {
-        "fhb-low-deposit": {
-            "chip": "RBNZ C31",
-            "as_of": as_of,
-            "max_age_days": MAX_AGE_MONTHLY,
-            "html": low_dep_html,
-            "source_html": src_c31,
-        },
-        "fhb-share": {
-            "chip": "RBNZ C31",
-            "as_of": as_of,
-            "max_age_days": MAX_AGE_MONTHLY,
-            "html": fhb_share_html,
-            "source_html": src_c31,
-        },
-        "investors": {
-            "chip": "RBNZ C31",
-            "as_of": as_of,
-            "max_age_days": MAX_AGE_MONTHLY,
-            "html": inv_html,
-            "source_html": src_c31,
-        },
+        "fhb-low-deposit": make_c31_item(low_dep_html),
+        "fhb-share": make_c31_item(fhb_share_html),
+        "investors": make_c31_item(inv_html),
+        "fhb-loan-size-gap": make_c31_item(fhb_gap_html),
+        "fhb-bank-lvr-priority": make_c31_item(fhb_priority_html),
+        "fhb-20-deposit-club": make_c31_item(fhb_20club_html),
+        "fhb-vs-investors": make_c31_item(fhb_vs_inv_html),
+        "owner-equity-buffer": make_c31_item(owner_eq_html),
+        "investor-equity-tiers": make_c31_item(inv_eq_html),
+        "mover-low-equity": make_c31_item(mover_low_eq_html),
     }
+
+    if i >= 23:
+        r12_cnt = int(round(fhb_cnt.iloc[i - 11 : i + 1].sum()))
+        r12_prev_cnt = int(round(fhb_cnt.iloc[i - 23 : i - 11].sum()))
+        r12_val = float(fhb_val.iloc[i - 11 : i + 1].sum())
+        r12_hi_cnt = int(round(fhb_hi_cnt.iloc[i - 11 : i + 1].sum()))
+        r12_hi_pct = (r12_hi_cnt / max(1, r12_cnt)) * 100.0
+        dir_r12 = "up from" if r12_cnt > r12_prev_cnt else "compared with"
+        out["fhb-annual-milestone"] = make_c31_item(
+            f"Over the 12 months to {m_full}, New Zealand banks approved <strong>{r12_cnt:,} first-home buyer mortgages</strong> "
+            f"totalling <strong>{fmt_nzd_millions(r12_val)} in lending</strong> ({dir_r12} {r12_prev_cnt:,} loans a year earlier)—including "
+            f"<strong>{r12_hi_cnt:,} buyers ({r12_hi_pct:.1f}%)</strong> who bought with <strong>under a 20% deposit</strong>."
+        )
 
     by_ym = {}
     for idx_r in range(len(dates)):
@@ -613,6 +767,8 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
     ref_avg_k = int(round((float(ref_v.iloc[j]) * 1000.0) / float(ref_c.iloc[j])))
     top_sh_c = (float(top_c.iloc[j]) / tot_c) * 100.0
     top_avg_k = int(round((float(top_v.iloc[j]) * 1000.0) / float(top_c.iloc[j])))
+    top_val_m = float(top_v.iloc[j])
+    top_cnt_int = int(round(float(top_c.iloc[j])))
 
     src_c33 = (
         'Source: <a href="https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose" '
@@ -638,8 +794,20 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
                 f"Many Kiwi homeowners tap into existing equity for renovations or upgrades rather than moving house—in {m_full}, "
-                f"<strong>{int(round(float(top_c.iloc[j]))):,}</strong> borrowers topped up an existing mortgage, making up "
+                f"<strong>{top_cnt_int:,}</strong> borrowers topped up an existing mortgage, making up "
                 f"<strong>{top_sh_c:.1f}%</strong> of all mortgage approvals by count (average top-up: <strong>${top_avg_k:,}k</strong>)."
+            ),
+            "source_html": src_c33,
+        },
+        "equity-topup-demand": {
+            "chip": "RBNZ C33",
+            "as_of": as_of,
+            "max_age_days": MAX_AGE_MONTHLY,
+            "html": (
+                f"Tapping into home equity without selling is one of the most common moves in New Zealand banking—in {m_full}, "
+                f"homeowners unlocked <strong>{fmt_nzd_millions(top_val_m)} in mortgage top-ups</strong> across "
+                f"<strong>{top_cnt_int:,} existing properties</strong> (averaging <strong>${top_avg_k:,}k</strong> per top-up) "
+                f"for renovations, debt consolidation, and investment deposits."
             ),
             "source_html": src_c33,
         },
@@ -654,7 +822,6 @@ def build_rbnz_c32_ticker(filepath: pathlib.Path, c31_by_ym: dict | None = None)
     _, oo_io, _ = find_rbnz_series(
         tabs, (), ("owner", "interest only"), ("80", "less", "higher", "existing", "%", "share", "proportion")
     )
-    # Match exact C32 Series IDs from section B ("new lending by borrower type": LVRN.MMB1.AN & LVRN.MMB1.AC)
     _, inv_tot, _ = find_rbnz_series(
         tabs,
         ("LVRN.MMB1.AN",),
@@ -673,48 +840,64 @@ def build_rbnz_c32_ticker(filepath: pathlib.Path, c31_by_ym: dict | None = None)
     oo_io_pct = (float(oo_io.iloc[-1]) / float(oo_tot.iloc[-1])) * 100.0
 
     m_full = dt.strftime("%B %Y")
+    as_of = month_end_iso(dt)
+    src_c32 = (
+        'Source: <a href="https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-and-existing-residential-mortgage-lending-by-payment-type" '
+        'target="_blank" rel="noopener">RBNZ Table C32</a>, &copy; Reserve Bank of New Zealand. Derived by HLF. '
+        'Historical market statistics for general information only, not personalised financial advice.'
+    )
+    io_item = {
+        "chip": "RBNZ C32",
+        "as_of": as_of,
+        "max_age_days": MAX_AGE_MONTHLY,
+        "html": (
+            f"Loan structures look quite different between rental properties and family homes in the Reserve Bank figures—in {m_full}, "
+            f"<strong>{inv_io_pct:.1f}%</strong> of new investor lending was set up on <strong>interest-only</strong> terms "
+            f"(including revolving credit), compared with <strong>{oo_io_pct:.1f}%</strong> for owner-occupiers."
+        ),
+        "source_html": src_c32,
+    }
     return {
-        "interest-only": {
-            "chip": "RBNZ C32",
-            "as_of": month_end_iso(dt),
-            "max_age_days": MAX_AGE_MONTHLY,
-            "html": (
-                f"Loan structures look quite different between rental properties and family homes in the Reserve Bank figures—in {m_full}, "
-                f"<strong>{inv_io_pct:.1f}%</strong> of new investor lending was set up on <strong>interest-only</strong> terms "
-                f"(including revolving credit), compared with <strong>{oo_io_pct:.1f}%</strong> for owner-occupiers."
-            ),
-            "source_html": (
-                'Source: <a href="https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-and-existing-residential-mortgage-lending-by-payment-type" '
-                'target="_blank" rel="noopener">RBNZ Table C32</a>, &copy; Reserve Bank of New Zealand. Derived by HLF. '
-                'Historical market statistics for general information only, not personalised financial advice.'
-            ),
-        }
+        "interest-only": io_item,
+        "investor-vs-owner-io": dict(io_item),
     }
 
 
-def compute_c41_weighted_avg_income(tabs41: list, borrower_kw: str) -> tuple[pd.Timestamp | None, float | None]:
-    """Compute exact borrower-weighted average gross income (NZD) across all TDTI bands in RBNZ C41."""
-    band_keys = ("tdti <= 3", "3 < tdti <= 4", "4 < tdti <= 5", "5 < tdti <= 6", "tdti > 6")
+def compute_c41_weighted_avg_income(tabs41: list, borrower_kw: str, region_mode: str = "nz") -> tuple[pd.Timestamp | None, float | None]:
+    """
+    Compute exact borrower-weighted average gross income (NZD) across TDTI bands in RBNZ C41.
+    Supports both FHB bands (up to tdti > 6) and Investor bands (including 6 < tdti <= 7 and tdti > 7),
+    as well as region_mode='nz' (nationwide) or 'akl' (Auckland).
+    """
+    band_keys = (
+        "tdti <= 3",
+        "3 < tdti <= 4",
+        "4 < tdti <= 5",
+        "5 < tdti <= 6",
+        "6 < tdti <= 7",
+        "tdti > 6",
+        "tdti > 7",
+    )
 
     for _, df41, _, labels41 in tabs41:
-        # 1. Check if an explicit overall non-band average column exists
-        for idx, lbl in enumerate(labels41):
-            if "average gross income" in lbl and borrower_kw in lbl and not any(x in lbl for x in ("auckland", "80", "lvr", "<", ">", "unknown")):
-                v = float(pd.to_numeric(df41.iloc[-1, idx], errors="coerce") or 0.0)
-                if v > 0:
-                    return df41["date"].iloc[-1], (v * 1000.0 if v < 2000 else v)
-
-        # 2. Compute exact harmonic/borrower-weighted mean from Section A (gross income NZDm) & Section B (avg NZD000s)
         inc_cols, avg_cols = {}, {}
         for idx, lbl in enumerate(labels41):
-            if borrower_kw not in lbl or any(x in lbl for x in ("auckland", "80", "lvr")):
+            if borrower_kw not in lbl or any(x in lbl for x in ("80", "lvr")):
                 continue
+            has_akl = "auckland" in lbl
+            has_non = ("outside auckland" in lbl) or ("non auckland" in lbl) or ("excl auckland" in lbl)
+            if region_mode == "nz" and (has_akl or has_non):
+                continue
+            if region_mode == "akl" and (not has_akl or has_non):
+                continue
+
             for bk in band_keys:
                 if bk in lbl:
                     if "average gross income" in lbl:
                         avg_cols[bk] = idx
                     elif "gross income" in lbl:
                         inc_cols[bk] = idx
+
         common = [bk for bk in band_keys if bk in inc_cols and bk in avg_cols]
         if len(common) >= 4:
             tot_inc_m = 0.0
@@ -807,22 +990,53 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
     if c41_path is not None:
         try:
             tabs41 = load_rbnz_sheets(c41_path)
-            dt_fhb, fhb_inc = compute_c41_weighted_avg_income(tabs41, "first home")
-            _, inv_inc = compute_c41_weighted_avg_income(tabs41, "investor")
-            if dt_fhb is not None and fhb_inc and inv_inc and 40000 <= fhb_inc <= 600000:
+            dt_fhb, fhb_inc = compute_c41_weighted_avg_income(tabs41, "first home", "nz")
+            _, fhb_akl_inc = compute_c41_weighted_avg_income(tabs41, "first home", "akl")
+            _, inv_inc = compute_c41_weighted_avg_income(tabs41, "investor", "nz")
+
+            src_c41 = (
+                'Source: <a href="https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi" '
+                'target="_blank" rel="noopener">RBNZ Table C41</a>, &copy; Reserve Bank of New Zealand. Derived by HLF for general information only.'
+            )
+
+            if dt_fhb is not None and fhb_inc and 40000 <= fhb_inc <= 600000:
+                m_c41 = dt_fhb.strftime("%B %Y")
+                as_of_c41 = month_end_iso(dt_fhb)
+
+                if inv_inc and 40000 <= inv_inc <= 900000:
+                    bgi_html = (
+                        f"Because mortgage applications often combine two incomes, approved borrower earnings sit higher than single-earner "
+                        f"averages—in {m_c41}, approved first-home buyers recorded an average gross borrower income of "
+                        f"<strong>${fhb_inc/1000.0:,.1f}k</strong>, compared with <strong>${inv_inc/1000.0:,.1f}k</strong> for property investors."
+                    )
+                else:
+                    bgi_html = (
+                        f"Because mortgage applications often combine two incomes, approved first-home buyers in {m_c41} recorded an "
+                        f"average gross borrower income of <strong>${fhb_inc/1000.0:,.1f}k</strong> nationwide."
+                    )
                 out["borrower-income"] = {
                     "chip": "RBNZ C41",
-                    "as_of": month_end_iso(dt_fhb),
+                    "as_of": as_of_c41,
+                    "max_age_days": MAX_AGE_MONTHLY,
+                    "html": bgi_html,
+                    "source_html": src_c41,
+                }
+
+                akl_clause = (
+                    f" (and <strong>${fhb_akl_inc:,.0f}</strong> in Auckland)"
+                    if fhb_akl_inc and 50000 <= fhb_akl_inc <= 600000
+                    else ""
+                )
+                out["fhb-income-akl-vs-nz"] = {
+                    "chip": "RBNZ C41",
+                    "as_of": as_of_c41,
                     "max_age_days": MAX_AGE_MONTHLY,
                     "html": (
-                        f"Because mortgage applications often combine two incomes, approved borrower earnings sit higher than single-earner "
-                        f"averages—in {dt_fhb.strftime('%B %Y')}, approved first-home buyers recorded an average gross borrower income of "
-                        f"<strong>${fhb_inc/1000.0:,.0f}k</strong>, compared with <strong>${inv_inc/1000.0:,.0f}k</strong> for property investors."
+                        f"Because most first-home applications combine two incomes, approved first-home buyers in {m_c41} averaged "
+                        f"<strong>${fhb_inc:,.0f}</strong> in combined pre-tax income nationwide{akl_clause}—though single-income "
+                        f"buyers regularly qualify using regional price points, boarder income, or Kāinga Ora support."
                     ),
-                    "source_html": (
-                        'Source: <a href="https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi" '
-                        'target="_blank" rel="noopener">RBNZ Table C41</a>, &copy; Reserve Bank of New Zealand. Derived by HLF for general information only.'
-                    ),
+                    "source_html": src_c41,
                 }
         except Exception as exc:
             print(f"[C41 BGI] Parse note: {exc}")
@@ -1174,6 +1388,64 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                     ),
                 }
 
+    # Regional KiwiSaver First-Home Withdrawals (16 Regions)
+    reg_bytes = fetch_url_bytes(session, IRD_KS_REG_PAGE, timeout=30, use_cb=False)
+    if reg_bytes:
+        try:
+            reg_html = reg_bytes.decode("utf-8", errors="ignore")
+            m_yr = re.search(r"year ended 30 June (\d{4})", reg_html, flags=re.I)
+            fy_yr_reg = int(m_yr.group(1)) if m_yr else datetime.datetime.now(datetime.timezone.utc).year
+            ext = SimpleTableExtractor()
+            ext.feed(reg_html)
+            if len(ext.tables) >= 2:
+                amt_map, cnt_map = {}, {}
+                for row in ext.tables[0][1:]:
+                    if len(row) >= 3:
+                        r_name = row[0].strip()
+                        v_str = re.sub(r"[^\d.]", "", row[-1])
+                        if r_name and v_str and r_name.lower() not in ("other", "total", "region"):
+                            amt_map[r_name.lower()] = (r_name, float(v_str))
+                for row in ext.tables[1][1:]:
+                    if len(row) >= 3:
+                        r_name = row[0].strip()
+                        c_str = re.sub(r"[^\d.]", "", row[-1])
+                        if r_name and c_str and r_name.lower() in amt_map:
+                            cnt_map[r_name.lower()] = int(round(float(c_str)))
+
+                reg_list = []
+                tot_nzd, tot_mem = 0.0, 0
+                for k_low, (disp, nzd_val) in amt_map.items():
+                    c_val = cnt_map.get(k_low, 0)
+                    if c_val > 0:
+                        tot_nzd += nzd_val
+                        tot_mem += c_val
+                        clean_disp = disp.replace("Bay Of Plenty", "Bay of Plenty").replace("Hawkes Bay", "Hawke's Bay")
+                        reg_list.append((clean_disp, int(round(nzd_val / c_val))))
+
+                if tot_mem > 0 and len(reg_list) >= 10:
+                    reg_list.sort(key=lambda x: x[1], reverse=True)
+                    nz_avg_p = int(round(tot_nzd / tot_mem))
+                    nz_couple = int(round((nz_avg_p * 2) / 50.0) * 50)
+                    wgtn_avg = dict(reg_list).get("Wellington", reg_list[0][1])
+                    akl_avg = dict(reg_list).get("Auckland", reg_list[1][1])
+                    out["fhb-regional-kiwisaver"] = {
+                        "chip": "Inland Revenue",
+                        "as_of": f"{fy_yr_reg}-06-30",
+                        "max_age_days": MAX_AGE_ANNUAL,
+                        "html": (
+                            f"Pooling two KiwiSaver accounts is how most Kiwi couples build their deposit—over the year to June {fy_yr_reg}, "
+                            f"<strong>{tot_mem:,} first-home buyers</strong> withdrew <strong>${tot_nzd/1_000_000_000.0:.2f}B</strong> from KiwiSaver, "
+                            f"averaging <strong>${nz_avg_p:,} per person nationwide</strong> (<strong>~${nz_couple:,} per couple</strong>), "
+                            f"led by <strong>Wellington (${wgtn_avg:,}/person)</strong> and <strong>Auckland (${akl_avg:,}/person)</strong>."
+                        ),
+                        "source_html": (
+                            f'Source: <a href="{IRD_KS_REG_PAGE}" target="_blank" rel="noopener">Inland Revenue — KiwiSaver Fund Withdrawals by Region (Year ended Jun {fy_yr_reg})</a>, '
+                            'licensed under CC BY 4.0. Per-member averages derived by HLF for general information only.'
+                        ),
+                    }
+        except Exception as exc:
+            print(f"[IRD Regional KiwiSaver] Parse note: {exc}")
+
     tr_bytes = fetch_url_bytes(session, IRD_KS_TR_PAGE, timeout=30)
     if tr_bytes:
         tr_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", tr_bytes.decode("utf-8", errors="ignore")))
@@ -1186,7 +1458,7 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
             fy_yr = int(mt.group(3))
             tr_tot = int(mt.group(2).replace(",", ""))
             mth_avg = int(round(tr_tot / 12.0))
-            out["kiwisaver-switches"] = {
+            sw_item = {
                 "chip": "Inland Revenue",
                 "as_of": f"{fy_yr}-06-30",
                 "max_age_days": MAX_AGE_ANNUAL,
@@ -1200,6 +1472,8 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                     '(CC BY 4.0). Monthly average derived by HLF. General information only, not personalised KiwiSaver advice.'
                 ),
             }
+            out["kiwisaver-switches"] = sw_item
+            out["kiwisaver-active-switchers"] = dict(sw_item)
 
     return out
 
