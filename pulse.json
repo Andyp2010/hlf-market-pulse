@@ -12,14 +12,151 @@
   "date_modified": "2026-11-10",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-10",
-  "dataset_generated_utc": "2026-11-10T07:24:38Z",
+  "dataset_generated_utc": "2026-11-10T08:54:25Z",
   "latest_underlying_data": "September 2026",
   "data_status": "verified",
   "source_status": "current",
-  "active_datasets_count": 40,
+  "active_datasets_count": 54,
   "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, while latest_underlying_data reflects the observation period.",
-  "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / IRD Student Loans) & Semi-Annual (RBNZ FSR / ICNZ / NHC)",
+  "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / IRD Student Loans) & Semi-Annual (FMA / RBNZ FSR / ICNZ / NHC / ACC)",
   "records": [
+    {
+      "ticker": "acc-earners-levy-cap",
+      "name": "ACC Earners' Levy rate, maximum liable earnings cap & 80% weekly compensation ceiling",
+      "also_known_as": "IRD / ACC PAYE Earners' Levy rate & maximum covered salary cap (2026/27)",
+      "category": "Protection & Insurance Pulse",
+      "topic": "ACC levy, high-income cap & mortgage servicing",
+      "value": 156641,
+      "latest_value": "$156,641 max covered earnings | $1.75/$100 levy | $125,313/yr max 80% ACC payout",
+      "unit": "NZD",
+      "observed_period": "2026-04",
+      "latest_underlying_data": "2026/27 Tax Year (from 1 April 2026)",
+      "source_published": "2026-04-30",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "2025/26 Tax Year ($152,790 cap at $1.67/$100)",
+      "change": "+$3,851 earnings cap | +$0.08/$100 levy rate YoY",
+      "source": "ACC & IRD",
+      "source_full": "Accident Compensation Corporation (ACC) & Inland Revenue PAYE Levy Schedule (2026/27)",
+      "source_series_ids": "ACC Earners' Levy Rate & Maximum Liable Earnings Threshold",
+      "source_url": "https://www.acc.co.nz/about-us/our-levies-2/levy-results",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported statutory levy/cap & HLF-calculated 80% gross compensation ceiling",
+      "definition": "The statutory ACC Earners' Levy rate deducted from employee PAYE wages, the maximum liable earnings cap, and the resulting maximum 80% gross weekly compensation payable by ACC.",
+      "official_data": "ACC / IRD 2026/27 Schedule: Earners' levy = $1.75 per $100 incl. GST ($1.52 excl. GST); Maximum liable earnings = $156,641 (vs $152,790 in 2025/26).",
+      "hlf_calculation": "Max Levy: ($156,641 \u00f7 100) \u00d7 $1.75 = $2,741.22/yr | Max 80% Comp: $156,641 \u00d7 80% = $125,312.80/yr ($2,409.86/wk)",
+      "formula": "Max Annual Levy = ($156,641 \u00f7 100) \u00d7 $1.75 = $2,741.22; Max 80% Gross Compensation = $156,641 \u00d7 80% = $125,312.80/yr ($2,409.86/wk gross)",
+      "hlf_interpretation": "HLF market context: This affects borrowers in two ways: (1) In mortgage servicing calculators, the 1.75% ACC levy reduces net take-home pay on earnings up to $156,641; and (2) For an eligible accident, ACC caps income replacement at 80% of earnings up to $156,641 ($125,313/yr gross)\u2014leaving higher-income earners with a larger percentage drop in income, and self-employed company owners splitting shareholder salaries potentially under-covered unless structured via ACC CoverPlus Extra or private cover.",
+      "methodology": "Published by ACC and Inland Revenue for the tax year commencing 1 April 2026 ($1.75 per $100 of liable earnings incl. GST; maximum liable earnings of $156,641).",
+      "frequency": "Annual (1 April Tax Year)",
+      "historical_data_from": "ACC & IRD statutory earners' levy schedule (2025/26\u20132028/29)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/acc-earners-levy-cap/",
+      "summary_text": "For the 2026/27 tax year, the statutory ACC Earners' Levy is $1.75 per $100 (1.75% incl. GST) (up from $1.67 in 2025/26) up to a Maximum Liable Earnings cap of $156,641 (up from $152,790, for a maximum annual levy of $2,741.22)\u2014setting ACC's maximum 80% weekly compensation ceiling at an HLF-derived $125,312.80/year ($2,409.86/week gross).",
+      "related_questions": [
+        "What is the maximum income ACC will cover if I have an accident in 2026/27?",
+        "What is the current ACC Earners' Levy rate in New Zealand?",
+        "How does ACC work for high-income earners and self-employed business owners?"
+      ],
+      "citation_chain": {
+        "official_source": "Accident Compensation Corporation (ACC) & Inland Revenue PAYE Levy Schedule (2026/27)",
+        "official_source_url": "https://www.acc.co.nz/about-us/our-levies-2/levy-results",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/acc-earners-levy-cap/",
+        "hlf_article_title": "How the ACC Earnings Cap & CoverPlus Extra Work for High Earners & Self-Employed Buyers",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "hlf_tool_title": "HLF Borrowing Power Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "2026-27",
+          "label": "2026/27 Tax Year",
+          "value": 156641,
+          "formatted": "$156,641 cap ($1.75/$100 levy)"
+        },
+        {
+          "period": "2025-26",
+          "label": "2025/26 Tax Year",
+          "value": 152790,
+          "formatted": "$152,790 cap ($1.67/$100 levy)"
+        },
+        {
+          "period": "2024-25",
+          "label": "2024/25 Tax Year",
+          "value": 142283,
+          "formatted": "$142,283 cap ($1.60/$100 levy)"
+        }
+      ]
+    },
+    {
+      "ticker": "acc-weekly-compensation-claims",
+      "name": "ACC annual injury claims vs weekly income compensation claims (accident vs illness gap)",
+      "also_known_as": "ACC Annual Report total claims vs weekly compensation claims",
+      "category": "Protection & Insurance Pulse",
+      "topic": "Income protection & ACC coverage limits",
+      "value": 5.0,
+      "latest_value": "105,000 weekly compensation claims (5.0% of 2,100,000+ ACC injury claims)",
+      "unit": "claims",
+      "observed_period": "2026-06",
+      "latest_underlying_data": "2025/26 ACC Financial Year",
+      "source_published": "2026-06-30",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "2024/25 FY (107,000 weekly compensation claims)",
+      "change": "-2,000 weekly compensation claims (-1.9% YoY) | 0% illness cover under ACC",
+      "source": "ACC Annual Report",
+      "source_full": "Accident Compensation Corporation (ACC) \u2014 Annual Report (2025/26)",
+      "source_series_ids": "ACC Total Registered Claims & Weekly Compensation Entitlement Claims",
+      "source_url": "https://www.acc.co.nz/assets/corporate-documents/ACC8911-acc-annual-report-2026.pdf",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported ACC claim counts/costs & HLF-derived weekly compensation share",
+      "definition": "The annual number of new injury claims registered with ACC across New Zealand versus the number of claims receiving weekly income compensation for time off work.",
+      "official_data": "ACC Annual Report (2025/26): Total accepted injury claims = 2,100,000+ (+1.6% YoY); New weekly compensation claims = 105,000 (-1.9% from 107,000 in 2024/25).",
+      "hlf_calculation": "105,000 weekly compensation claims \u00f7 2,100,000 total accepted injury claims = 5.0%",
+      "formula": "Weekly Compensation Share = (105,000 Weekly Compensation Claims \u00f7 2,100,000 Total Accepted Claims) \u00d7 100 = 5.0%",
+      "hlf_interpretation": "HLF market context: Only 5.0% of accepted ACC claims involve weekly income compensation, and under the Accident Compensation Act 2001, ACC only covers physical injuries caused by an accident. ACC provides 0% cover if a homeowner cannot work due to non-injury illness (such as cancer, heart attack, stroke, mental health conditions, or degenerative illness)\u2014which is the gap addressed by private Income Protection, Mortgage Repayment, and Trauma insurance.",
+      "methodology": "Sourced from ACC's Annual Report covering accepted injury claims, treatment/rehabilitation expenditure, and weekly compensation entitlements.",
+      "frequency": "Annual",
+      "historical_data_from": "ACC Annual Report series (2024/25\u20132025/26)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/acc-weekly-compensation-claims/",
+      "summary_text": "In the 2025/26 financial year, ACC accepted over 2,100,000 new injury claims across New Zealand (up 1.6% year-on-year), of which 105,000 claims\u2014an HLF-derived 5.0% share (down 1.9% from 107,000 in 2024/25)\u2014received weekly income compensation for time off work alongside $5.0B+ in treatment and rehabilitation support.",
+      "related_questions": [
+        "Does ACC cover my mortgage repayments if I get sick or diagnosed with an illness?",
+        "How many ACC claims actually pay weekly income compensation in New Zealand?",
+        "What is the difference between ACC and private income protection or mortgage protection insurance?"
+      ],
+      "citation_chain": {
+        "official_source": "Accident Compensation Corporation (ACC) \u2014 Annual Report (2025/26)",
+        "official_source_url": "https://www.acc.co.nz/assets/corporate-documents/ACC8911-acc-annual-report-2026.pdf",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/acc-weekly-compensation-claims/",
+        "hlf_article_title": "ACC vs Income & Mortgage Protection: What Happens If Illness Stops You Working?",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "hlf_tool_title": "Speak with HLF About Income, Mortgage & Trauma Protection",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/contact",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": []
+    },
     {
       "ticker": "borrower-income",
       "name": "Average gross borrower income on approved FHB mortgage applications",
@@ -2896,9 +3033,150 @@
       ]
     },
     {
+      "ticker": "kiwisaver-contributions-10yr",
+      "name": "Annual KiwiSaver employee, employer & Crown contributions (10-year trend & 3.5% default rate)",
+      "also_known_as": "IRD KiwiSaver scheme provider payments & statutory contribution settings",
+      "category": "KiwiSaver",
+      "topic": "KiwiSaver contributions & government match",
+      "value": 11.4,
+      "latest_value": "$11.40B/yr ($6.64B EE | $3.72B ER | $1.04B Crown) | $260.72 max Gov match",
+      "unit": "NZDB",
+      "observed_period": "2026-06",
+      "latest_underlying_data": "Year ended June 2026",
+      "source_published": "2026-06-30",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "FY2016 total IRD transfers: $5.10B",
+      "change": "+$6.30B (+123.5%) over 10 yrs | Default rate 3.5% (from 1 Apr 2026)",
+      "source": "Inland Revenue",
+      "source_full": "Inland Revenue \u2014 KiwiSaver Scheme Provider Payments & Statutory Settings",
+      "source_series_ids": "IRD Annual Deductions & Crown Contributions Passed to Providers",
+      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/contributions/scheme-providers-payments",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported IRD dollar flows & statutory contribution rates",
+      "definition": "Total annual KiwiSaver contributions transferred by Inland Revenue to scheme providers (broken down by employee deductions, employer contributions, and Crown government contributions) over a 10-year window, alongside current statutory default rates.",
+      "official_data": "Inland Revenue KiwiSaver Provider Payments (FY2026): Total = $11.40B (Employee = $6.64B, Employer = $3.72B, Crown = $1.04B; vs $5.10B in FY2016). Statutory default rate = 3.5%; max Government contribution = $260.72/yr.",
+      "hlf_calculation": "Shares: EE $6.64B\u00f7$11.40B=58.2% | ER $3.72B\u00f7$11.40B=32.6% | Crown $1.04B\u00f7$11.40B=9.1%",
+      "formula": "Employee Share = Employee Deductions \u00f7 Total IRD Transfers; 10-Year Growth = (FY2026 Total \u2212 FY2016 Total) \u00f7 FY2016 Total",
+      "hlf_interpretation": "HLF market context: Under current KiwiSaver settings, the maximum annual Government contribution is $260.72 (25 cents per dollar on the first $1,042.86 of member contributions for eligible earners at or below $180,000), and the default employee and employer contribution rate increased from 3.0% to 3.5% from 1 April 2026 (scheduled to reach 4.0% from 1 April 2028).",
+      "methodology": "Compiled from Inland Revenue's annual KiwiSaver payments table (year ended 30 June) and statutory KiwiSaver Act settings.",
+      "frequency": "Annual / Monthly",
+      "historical_data_from": "Inland Revenue 10-year June FY contributions series (FY2016\u2013FY2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-contributions-10yr/",
+      "summary_text": "Over the year ended 30 June 2026, Inland Revenue transferred $11.40B in KiwiSaver contributions to scheme providers (up an HLF-derived +123.5% over 10 years from $5.10B in FY2016)\u2014comprising $6.64B (58.2%) in employee deductions, $3.72B (32.6%) in employer contributions, and $1.04B (9.1%) in Crown contributions (with the statutory default rate at 3.5% EE / 3.5% ER from 1 April 2026 and max annual Government contribution at $260.72).",
+      "related_questions": [
+        "How much do New Zealand employees, employers, and the Government contribute to KiwiSaver each year?",
+        "What is the current KiwiSaver Government contribution amount ($260.72) and default contribution rate (3.5%)?"
+      ],
+      "citation_chain": {
+        "official_source": "Inland Revenue \u2014 KiwiSaver Scheme Provider Payments & Statutory Settings",
+        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/contributions/scheme-providers-payments",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-contributions-10yr/",
+        "hlf_article_title": "KiwiSaver Contribution Rates & Government Contribution Guide",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
+        "hlf_tool_title": "HLF KiwiSaver Strategy & Advice",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/kiwisaver",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "FY2026",
+          "label": "FY2026",
+          "value": 11.4,
+          "formatted": "$11.40B ($6.64B EE / $3.72B ER / $1.04B Crown)"
+        },
+        {
+          "period": "FY2024",
+          "label": "FY2024",
+          "value": 10.65,
+          "formatted": "$10.65B ($6.21B EE / $3.42B ER / $1.02B Crown)"
+        },
+        {
+          "period": "FY2020",
+          "label": "FY2020",
+          "value": 7.64,
+          "formatted": "$7.64B ($4.55B EE / $2.26B ER / $0.83B Crown)"
+        },
+        {
+          "period": "FY2016",
+          "label": "FY2016",
+          "value": 5.1,
+          "formatted": "$5.10B ($3.08B EE / $1.47B ER / $0.55B Crown)"
+        }
+      ]
+    },
+    {
+      "ticker": "kiwisaver-default-vs-active",
+      "name": "KiwiSaver active scheme choice vs default & employer-nominated allocation",
+      "also_known_as": "IRD KiwiSaver scheme entry method (Active choice vs Default allocated)",
+      "category": "KiwiSaver",
+      "topic": "KiwiSaver default vs active membership",
+      "value": 24.5,
+      "latest_value": "24.5% default/employer-allocated (844,791 members) vs 75.5% active choice",
+      "unit": "percent",
+      "observed_period": "2026-06",
+      "latest_underlying_data": "Year ended June 2026",
+      "source_published": "2026-06-30",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Default allocated: 638,563 (18.5%) | Employer nominated: 206,228 (6.0%)",
+      "change": "Active scheme selection grew from ~1.90m (2016) to ~2.60m members",
+      "source": "Inland Revenue",
+      "source_full": "Inland Revenue \u2014 KiwiSaver Scheme Entry Method Statistics",
+      "source_series_ids": "IRD Annual KiwiSaver Members by Scheme Entry Method (June FY)",
+      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/schemes/entry-method",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported IRD member counts & HLF-derived percentage shares",
+      "definition": "Breakdown of enrolled New Zealand KiwiSaver members by how they entered their scheme: active personal choice versus passive IRD default allocation or employer-nominated scheme entry.",
+      "official_data": "Inland Revenue KiwiSaver Entry Method (Year ended 30 June 2026): Default allocated = 638,563; Employer nominated = 206,228; Actively chosen = 2,598,410.",
+      "hlf_calculation": "Passive: (638,563 + 206,228) \u00f7 3,443,201 = 24.5% | Active: 2,598,410 \u00f7 3,443,201 = 75.5%",
+      "formula": "Non-Active Share = ((Default Allocated + Employer Nominated) \u00f7 Total Members) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Since December 2021, default KiwiSaver funds have been mandated to use a Balanced (rather than Conservative) investment mandate, but default allocation still means the member has not actively selected a fund type aligned to their specific first-home or retirement timeframe.",
+      "methodology": "Published annually by Inland Revenue for the year ended 30 June tracking cumulative scheme entry methods.",
+      "frequency": "Annual",
+      "historical_data_from": "Inland Revenue 10-year June FY entry method series (2016\u20132026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-default-vs-active/",
+      "summary_text": "In Inland Revenue's KiwiSaver scheme entry statistics (year ended 30 June 2026), an HLF-derived 24.5% (844,791 members) remained in schemes allocated passively via IRD default allocation (638,563, or 18.5%) or employer nomination (206,228, or 6.0%), compared with 75.5% (2,598,410 members) who actively selected their scheme (up from 1.90m in 2016).",
+      "related_questions": [
+        "How many New Zealanders are still in a default KiwiSaver scheme?",
+        "What percentage of KiwiSaver members actively choose their provider?"
+      ],
+      "citation_chain": {
+        "official_source": "Inland Revenue \u2014 KiwiSaver Scheme Entry Method Statistics",
+        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/schemes/entry-method",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-default-vs-active/",
+        "hlf_article_title": "Default vs Active KiwiSaver Funds: Why Your Fund Type Matters",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
+        "hlf_tool_title": "Book a Free HLF KiwiSaver Review",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/kiwisaver",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": []
+    },
+    {
       "ticker": "kiwisaver-first-home",
-      "name": "Monthly KiwiSaver first-home withdrawal count, value & average per member",
-      "also_known_as": "Monthly IRD KiwiSaver first-home purchase withdrawals",
+      "name": "Monthly & 10-year KiwiSaver first-home withdrawal count, value & average per member",
+      "also_known_as": "Monthly & annual IRD KiwiSaver first-home purchase withdrawals",
       "category": "KiwiSaver",
       "topic": "KiwiSaver & first-home deposits",
       "value": 195.7,
@@ -2912,22 +3190,22 @@
       "date_modified": "2026-11-10",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "$185.2m in prior period",
-      "change": "+10.5m vs prior period",
+      "previous_period": "FY2026: $2.27B (50,470 members) vs FY2016: $495.0m (26,570 members)",
+      "change": "+10.5m vs prior period | +358.6% 10-yr annual dollar growth",
       "source": "Inland Revenue",
       "source_full": "Inland Revenue \u2014 KiwiSaver Withdrawal Statistics",
-      "source_series_ids": "IRD Monthly KiwiSaver First-Home Withdrawals",
+      "source_series_ids": "IRD Monthly & June FY KiwiSaver First-Home Withdrawals",
       "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets",
       "derived_by_hlf": true,
-      "data_type": "Officially reported IRD totals & HLF-derived per-member average",
-      "definition": "The officially reported monthly number of KiwiSaver members withdrawing funds for a first-home purchase and total dollars withdrawn, plus the HLF-derived mean withdrawal per member.",
-      "official_data": "Inland Revenue KiwiSaver Withdrawals (September 2026): First-home purchase withdrawals = 4,250 members and $195.7m.",
-      "hlf_calculation": "$195.7m \u00f7 4,250 members = $46,047/member",
+      "data_type": "Officially reported IRD totals & HLF-derived per-member average and 10-year comparison",
+      "definition": "The officially reported monthly and annual number of KiwiSaver members withdrawing funds for a first-home purchase and total dollars withdrawn, plus the HLF-derived mean withdrawal per member and 10-year comparison.",
+      "official_data": "Inland Revenue KiwiSaver Withdrawals (September 2026): First-home withdrawals = 4,250 members and $195.7m (FY2026: 50,470 members / $2.27B vs FY2016: 26,570 / $495.0m).",
+      "hlf_calculation": "$195.7m \u00f7 4,250 members = $46,047/member (FY2026 avg: $44,977 vs FY2016: $18,630)",
       "formula": "Mean per Member = Total First-Home Withdrawal Dollars \u00f7 Withdrawing Members",
       "hlf_interpretation": "HLF market context: IRD reports individual member withdrawals rather than household applications; when two KiwiSaver members purchase together, both withdrawals are counted separately in the member total.",
-      "methodology": "Compiled monthly by Inland Revenue from KiwiSaver scheme provider reports.",
+      "methodology": "Compiled monthly and annually by Inland Revenue from KiwiSaver scheme provider reports.",
       "frequency": "Monthly",
-      "historical_data_from": "Inland Revenue monthly release (September 2026)",
+      "historical_data_from": "Inland Revenue monthly & 10-year June FY series (September 2026)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -2936,9 +3214,10 @@
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-first-home/",
-      "summary_text": "In September 2026, Inland Revenue recorded 4,250 KiwiSaver members withdrawing a combined $195.7m for a first-home purchase\u2014an HLF-derived mean of $46,047 per withdrawing member.",
+      "summary_text": "In September 2026, Inland Revenue recorded 4,250 KiwiSaver members withdrawing a combined $195.7m for a first-home purchase\u2014an HLF-derived mean of $46,047 per member (with annual first-home withdrawals growing over 10 years from 26,570 members / $495.0m in FY2016 to 50,470 members / $2.27B in FY2026).",
       "related_questions": [
-        "How much is the average KiwiSaver first-home withdrawal per member in New Zealand?"
+        "How much is the average KiwiSaver first-home withdrawal per member in New Zealand?",
+        "How has KiwiSaver first-home withdrawal volume grown over the past 10 years?"
       ],
       "citation_chain": {
         "official_source": "Inland Revenue \u2014 KiwiSaver Withdrawal Statistics",
@@ -2950,11 +3229,285 @@
         "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator",
         "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
       },
-      "history": []
+      "history": [
+        {
+          "period": "FY2026",
+          "label": "FY2026 (Year ended Jun 2026)",
+          "value": 2270.0,
+          "formatted": "$2.27B (50,470 members, avg $44,977)"
+        },
+        {
+          "period": "FY2024",
+          "label": "FY2024 (Year ended Jun 2024)",
+          "value": 1810.0,
+          "formatted": "$1.81B (41,560 members, avg $43,551)"
+        },
+        {
+          "period": "FY2021",
+          "label": "FY2021 (Year ended Jun 2021)",
+          "value": 1490.0,
+          "formatted": "$1.49B (54,320 members, avg $27,430)"
+        },
+        {
+          "period": "FY2016",
+          "label": "FY2016 (Year ended Jun 2016)",
+          "value": 495.0,
+          "formatted": "$495.0m (26,570 members, avg $18,630)"
+        }
+      ]
+    },
+    {
+      "ticker": "kiwisaver-fund-allocation-shift",
+      "name": "Long-term KiwiSaver asset allocation shift (Growth vs Balanced vs Conservative funds)",
+      "also_known_as": "10-year KiwiSaver FUM breakdown by risk profile (FMA / Morningstar)",
+      "category": "KiwiSaver",
+      "topic": "KiwiSaver fund risk profiles & asset allocation",
+      "value": 47.6,
+      "latest_value": "47.6% Growth/Aggressive | 28.1% Balanced | 16.2% Conservative/Cash",
+      "unit": "percent",
+      "observed_period": "2026-03",
+      "latest_underlying_data": "Year ended March 2026",
+      "source_published": "2026-03-31",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "2016 allocation: 28.3% Growth vs 40.4% Conservative/Cash",
+      "change": "+19.3 pts into Growth funds & -24.2 pts out of Conservative over 10 yrs",
+      "source": "FMA KiwiSaver Report",
+      "source_full": "Financial Markets Authority (FMA) KiwiSaver Annual Report \u2014 Fund Type Breakdown",
+      "source_series_ids": "FMA KiwiSaver FUM by Fund Risk Category",
+      "source_url": "https://www.fma.govt.nz/library/reports-and-papers/kiwisaver-annual-report/",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported FMA fund-category totals & HLF-derived percentage shares",
+      "definition": "The proportion of total New Zealand KiwiSaver funds under management (FUM) invested in Growth/Aggressive, Balanced, and Conservative/Defensive fund categories compared with 10 years earlier.",
+      "official_data": "FMA KiwiSaver Annual Report: Growth/Aggressive FUM share = 47.6% (vs 28.3% in 2016); Balanced share = 28.1%; Conservative/Cash share = 16.2% (vs 40.4% in 2016).",
+      "hlf_calculation": "Growth: 47.6% (+19.3 pts vs 2016) | Balanced: 28.1% | Conservative: 16.2% (-24.2 pts vs 2016)",
+      "formula": "Category Share = (Category FUM NZDB \u00f7 Total KiwiSaver FUM NZDB) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Over the past decade, New Zealand KiwiSaver balances have shifted structurally from Conservative/Cash funds into Growth and Balanced funds. In practice, appropriate fund selection depends on when the member intends to withdraw funds (for example, a near-term first-home purchase within 1\u20133 years versus a 10\u201330+ year retirement horizon).",
+      "methodology": "Derived from FMA KiwiSaver Annual Report disclosures categorising scheme FUM by underlying growth-asset allocation.",
+      "frequency": "Annual",
+      "historical_data_from": "FMA KiwiSaver Annual Report 10-year asset allocation series (2016\u20132026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-fund-allocation-shift/",
+      "summary_text": "Over the past decade, New Zealand KiwiSaver funds under management shifted from 40.4% Conservative/Cash and 28.3% Growth in 2016 to an HLF-derived 47.6% in Growth/Aggressive funds, 28.1% in Balanced funds, and 16.2% in Conservative/Cash funds (with average member fees declining from ~1.10% of FUM in 2012 to ~0.70% of FUM).",
+      "related_questions": [
+        "What percentage of KiwiSaver money is in Growth vs Balanced vs Conservative funds?",
+        "Should I switch from a Growth fund to a Conservative or Cash fund before buying a first home?"
+      ],
+      "citation_chain": {
+        "official_source": "Financial Markets Authority (FMA) KiwiSaver Annual Report \u2014 Fund Type Breakdown",
+        "official_source_url": "https://www.fma.govt.nz/library/reports-and-papers/kiwisaver-annual-report/",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-fund-allocation-shift/",
+        "hlf_article_title": "Choosing the Right KiwiSaver Fund for a First Home vs Retirement",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
+        "hlf_tool_title": "Book a Free HLF KiwiSaver Review",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/kiwisaver",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "Growth / Aggressive",
+          "label": "Growth & Aggressive Funds (2026)",
+          "value": 47.6,
+          "formatted": "47.6% of FUM (up from 28.3% in 2016)"
+        },
+        {
+          "period": "Balanced",
+          "label": "Balanced Funds (2026)",
+          "value": 28.1,
+          "formatted": "28.1% of FUM (incl. post-2021 default funds)"
+        },
+        {
+          "period": "Conservative / Cash",
+          "label": "Conservative & Cash Funds (2026)",
+          "value": 16.2,
+          "formatted": "16.2% of FUM (down from 40.4% in 2016)"
+        },
+        {
+          "period": "Moderate / Other",
+          "label": "Moderate & Other Funds (2026)",
+          "value": 8.1,
+          "formatted": "8.1% of FUM"
+        }
+      ]
+    },
+    {
+      "ticker": "kiwisaver-hardship-withdrawals",
+      "name": "Monthly & 10-year KiwiSaver significant financial hardship withdrawals",
+      "also_known_as": "IRD KiwiSaver financial hardship withdrawal count, value & average",
+      "category": "KiwiSaver",
+      "topic": "KiwiSaver financial hardship & household pressure",
+      "value": 47.9,
+      "latest_value": "$47.9m across 5,440 members (avg $8,805/member)",
+      "unit": "NZD",
+      "observed_period": "2026-09",
+      "latest_underlying_data": "September 2026",
+      "source_published": "2026-09-30",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "FY2026: $538.2m (52,330 members) vs FY2016: $59.4m (10,670 members)",
+      "change": "+6.7m vs prior period | +390.4% 10-yr member count growth",
+      "source": "Inland Revenue",
+      "source_full": "Inland Revenue \u2014 KiwiSaver Withdrawal Statistics (Financial Hardship)",
+      "source_series_ids": "IRD Monthly & Annual Financial Hardship Withdrawals",
+      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported IRD hardship counts/values & HLF-derived per-member average",
+      "definition": "The monthly and annual number of KiwiSaver members approved for a significant financial hardship withdrawal, total dollars withdrawn, and HLF-derived average withdrawal per member.",
+      "official_data": "Inland Revenue KiwiSaver Withdrawals (September 2026): Financial hardship withdrawals = 5,440 members and $47.9m (FY2026: 52,330 / $538.2m vs FY2016: 10,670 / $59.4m).",
+      "hlf_calculation": "$47.9m \u00f7 5,440 members = $8,805/member (FY2026 annual avg: $10,285/member)",
+      "formula": "Mean Hardship Withdrawal = Total Hardship Withdrawal Dollars \u00f7 Hardship Withdrawing Members",
+      "hlf_interpretation": "HLF market context: Significant financial hardship withdrawals require supervisor approval when a member cannot meet minimum living expenses or mortgage arrears. Tracking hardship withdrawals alongside first-home withdrawals provides a barometer of household cost-of-living and mortgage-servicing pressure.",
+      "methodology": "Compiled monthly and annually by Inland Revenue from KiwiSaver scheme provider reports.",
+      "frequency": "Monthly",
+      "historical_data_from": "Inland Revenue monthly & 10-year June FY series (September 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-hardship-withdrawals/",
+      "summary_text": "In September 2026, Inland Revenue recorded 5,440 KiwiSaver members approved for a significant financial hardship withdrawal totalling $47.9m\u2014an HLF-derived mean of $8,805 per member (with annual hardship withdrawals rising over 10 years from 10,670 members / $59.4m in FY2016 to 52,330 members / $538.2m in FY2026).",
+      "related_questions": [
+        "How many New Zealanders withdraw KiwiSaver for financial hardship each month?",
+        "What is the average KiwiSaver financial hardship withdrawal amount in NZ?"
+      ],
+      "citation_chain": {
+        "official_source": "Inland Revenue \u2014 KiwiSaver Withdrawal Statistics (Financial Hardship)",
+        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-hardship-withdrawals/",
+        "hlf_article_title": "Managing Mortgage Repayments & Financial Hardship Options in NZ",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "hlf_tool_title": "HLF Home Loan Repayments Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "FY2026",
+          "label": "FY2026 (Year ended Jun 2026)",
+          "value": 538.2,
+          "formatted": "$538.2m (52,330 members, avg $10,285)"
+        },
+        {
+          "period": "FY2024",
+          "label": "FY2024 (Year ended Jun 2024)",
+          "value": 362.5,
+          "formatted": "$362.5m (39,810 members, avg $9,106)"
+        },
+        {
+          "period": "FY2021",
+          "label": "FY2021 (Year ended Jun 2021)",
+          "value": 159.2,
+          "formatted": "$159.2m (21,450 members, avg $7,422)"
+        },
+        {
+          "period": "FY2016",
+          "label": "FY2016 (Year ended Jun 2016)",
+          "value": 59.4,
+          "formatted": "$59.4m (10,670 members, avg $5,567)"
+        }
+      ]
+    },
+    {
+      "ticker": "kiwisaver-savings-suspensions",
+      "name": "KiwiSaver members on active savings suspensions (10-year trend)",
+      "also_known_as": "IRD KiwiSaver contributions holiday / savings suspension statistics",
+      "category": "KiwiSaver",
+      "topic": "KiwiSaver contribution continuity",
+      "value": 83936,
+      "latest_value": "83,936 members on savings suspension (82,794 ordinary | 1,142 hardship)",
+      "unit": "members",
+      "observed_period": "2026-09",
+      "latest_underlying_data": "September 2026",
+      "source_published": "2026-09-30",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "June 2016 active suspensions: 127,360 members",
+      "change": "-43,424 members (-34.1%) over 10 years",
+      "source": "Inland Revenue",
+      "source_full": "Inland Revenue \u2014 KiwiSaver Savings Suspension Statistics",
+      "source_series_ids": "IRD Monthly & Annual Active Savings Suspensions",
+      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/contributions/savings-suspensions",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported IRD counts & HLF-calculated 10-year change",
+      "definition": "The number of enrolled New Zealand KiwiSaver members currently on an approved savings suspension (formerly known as a contributions holiday), broken down by ordinary and financial hardship suspensions.",
+      "official_data": "Inland Revenue KiwiSaver Savings Suspensions (September 2026): Total active suspensions = 83,936 (Ordinary = 82,794, Financial hardship = 1,142; compared with 127,360 in June 2016).",
+      "hlf_calculation": "10Y Change: (83,936 \u2212 127,360) \u00f7 127,360 = -34.1% | Ordinary share: 82,794 \u00f7 83,936 = 98.6%",
+      "formula": "10-Year Change = (Current Active Suspensions \u2212 June 2016 Active Suspensions) \u00f7 June 2016 Active Suspensions",
+      "hlf_interpretation": "HLF market context: Lowering the maximum standard savings suspension duration from 5 years to 1 year (in 2019) contributed to a structural decline in long-term passive suspensions. Pausing employee contributions generally pauses compulsory employer matching contributions unless agreed otherwise.",
+      "methodology": "Published by Inland Revenue tracking active savings suspensions at period end.",
+      "frequency": "Monthly / Annual",
+      "historical_data_from": "Inland Revenue 10-year savings suspension series (2016\u2013September 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-savings-suspensions/",
+      "summary_text": "In September 2026, Inland Revenue recorded 83,936 KiwiSaver members on an active savings suspension (comprising 82,794 ordinary suspensions and 1,142 financial hardship suspensions)\u2014down an HLF-calculated 34.1% over 10 years from 127,360 in June 2016 following the reduction of the maximum standard suspension term from 5 years to 1 year.",
+      "related_questions": [
+        "How many New Zealanders are on a KiwiSaver savings suspension?",
+        "What happens to employer contributions when you pause KiwiSaver?"
+      ],
+      "citation_chain": {
+        "official_source": "Inland Revenue \u2014 KiwiSaver Savings Suspension Statistics",
+        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/contributions/savings-suspensions",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-savings-suspensions/",
+        "hlf_article_title": "KiwiSaver vs Mortgage Payoff: Should You Pause Contributions?",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
+        "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "2026",
+          "label": "September 2026",
+          "value": 83936,
+          "formatted": "83,936 active suspensions (82,794 ordinary / 1,142 hardship)"
+        },
+        {
+          "period": "2023",
+          "label": "June 2023",
+          "value": 91420,
+          "formatted": "91,420 active suspensions"
+        },
+        {
+          "period": "2019",
+          "label": "June 2019 (Max term cut 5yr\u21921yr)",
+          "value": 118650,
+          "formatted": "118,650 active suspensions"
+        },
+        {
+          "period": "2016",
+          "label": "June 2016",
+          "value": 127360,
+          "formatted": "127,360 active suspensions"
+        }
+      ]
     },
     {
       "ticker": "kiwisaver-switches",
-      "name": "Annual and monthly KiwiSaver scheme transfers (members switching providers)",
+      "name": "Annual, monthly & 10-year KiwiSaver scheme transfers (members switching providers)",
       "also_known_as": "KiwiSaver provider switching / KiwiSaver scheme transfers / KiwiSaver member transfers",
       "category": "KiwiSaver",
       "topic": "KiwiSaver scheme transfers",
@@ -2969,22 +3522,22 @@
       "date_modified": "2026-11-10",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Year ended June 2016 (140,557 transfers)",
-      "change": "+58,340 transfers YoY",
+      "previous_period": "FY2016: 140,557 | FY2016: 140,557",
+      "change": "+58,340 YoY | +41.5% (+58,340) over 10 yrs",
       "source": "Inland Revenue",
       "source_full": "Inland Revenue \u2014 KiwiSaver Scheme Transfer Statistics",
-      "source_series_ids": "IRD Annual KiwiSaver Scheme Transfers",
+      "source_series_ids": "IRD Annual KiwiSaver Scheme Transfers (10-Year Series)",
       "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/schemes/transfer",
       "derived_by_hlf": true,
-      "data_type": "Officially reported IRD annual total & HLF-derived monthly average",
-      "definition": "The officially reported annual number of New Zealand KiwiSaver members who transferred their balance to a different KiwiSaver scheme provider over the June financial year, plus the HLF-derived monthly mean.",
-      "official_data": "Inland Revenue KiwiSaver Scheme Transfers (Year ended 30 June 2026): 198,897 inter-scheme transfers (vs 140,557 in FY2016).",
-      "hlf_calculation": "198,897 annual transfers \u00f7 12 months = 16,575/month",
-      "formula": "Annual Scheme Transfers \u00f7 12 months",
+      "data_type": "Officially reported IRD annual totals & HLF-derived monthly average and 10-year change",
+      "definition": "The officially reported annual number of New Zealand KiwiSaver members who transferred their balance to a different KiwiSaver scheme provider over the June financial year, plus the HLF-derived monthly mean and 10-year trend.",
+      "official_data": "Inland Revenue KiwiSaver Scheme Transfers (Year ended 30 June 2026): 198,897 inter-scheme transfers (vs 140,557 in FY2016 and 140,557 in FY2016).",
+      "hlf_calculation": "Monthly mean: 198,897 \u00f7 12 = 16,575/mth | 10Y growth: (198,897 \u2212 140,557) \u00f7 140,557 = +41.5%",
+      "formula": "Monthly Mean = Annual Scheme Transfers \u00f7 12 months; 10-Year Change = (Latest FY \u2212 FY 10 Years Ago) \u00f7 FY 10 Years Ago",
       "hlf_interpretation": "HLF market context: Measures inter-scheme transfers where members move their KiwiSaver balance to a new provider (internal fund-type changes within the same scheme are not counted in IRD's transfer total).",
       "methodology": "Compiled by Inland Revenue from KiwiSaver scheme transfers processed during the year ended 30 June.",
       "frequency": "Annual",
-      "historical_data_from": "Annual June FY series (FY2016\u2013FY2026)",
+      "historical_data_from": "Inland Revenue 10-year June FY series (FY2016\u2013FY2026)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -2993,10 +3546,10 @@
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-switches/",
-      "summary_text": "Over the year ended 30 June 2026, Inland Revenue recorded 198,897 KiwiSaver inter-scheme transfers (compared with 140,557 in FY2016)\u2014an HLF-derived mean of 16,575 transfers per month.",
+      "summary_text": "Over the year ended 30 June 2026, Inland Revenue recorded 198,897 KiwiSaver inter-scheme transfers (up from 140,557 in FY2016, and up an HLF-calculated +41.5% over 10 years from 140,557 in FY2016)\u2014an HLF-derived mean of 16,575 provider switches per month.",
       "related_questions": [
         "How many New Zealanders switch KiwiSaver providers each year?",
-        "How many KiwiSaver scheme transfers happen per month in NZ?"
+        "How has KiwiSaver provider switching changed over the last 10 years?"
       ],
       "citation_chain": {
         "official_source": "Inland Revenue \u2014 KiwiSaver Scheme Transfer Statistics",
@@ -3008,7 +3561,116 @@
         "hlf_tool_url": "https://www.homeloanfactory.co.nz/kiwisaver",
         "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
       },
-      "history": []
+      "history": [
+        {
+          "period": "FY2026",
+          "label": "Year ended June 2026",
+          "value": 198897,
+          "formatted": "198,897 transfers (16,575/mth)"
+        },
+        {
+          "period": "FY2016",
+          "label": "Year ended June 2016",
+          "value": 140557,
+          "formatted": "140,557 transfers (11,713/mth)"
+        },
+        {
+          "period": "FY2021",
+          "label": "Year ended June 2021",
+          "value": 159410,
+          "formatted": "159,410 transfers (13,284/mth)"
+        },
+        {
+          "period": "FY2016",
+          "label": "Year ended June 2016",
+          "value": 140557,
+          "formatted": "140,557 transfers (11,713/mth)"
+        }
+      ]
+    },
+    {
+      "ticker": "kiwisaver-total-fum-balance",
+      "name": "KiwiSaver total funds under management (FUM) & average member balance (10-year growth)",
+      "also_known_as": "FMA KiwiSaver Annual Report total FUM & mean balance per member",
+      "category": "KiwiSaver",
+      "topic": "Long-term KiwiSaver balances & FUM growth",
+      "value": 40349,
+      "latest_value": "$40,349 avg balance ($138.8B FUM across 3.44m members)",
+      "unit": "NZD",
+      "observed_period": "2026-03",
+      "latest_underlying_data": "Year ended March 2026",
+      "source_published": "2026-03-31",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "2025: $36,420 ($123.1B) | 2016: $12,852 ($33.8B)",
+      "change": "+$27,497/member (+214.0%) & +$105.0B FUM (+310.7%) over 10 yrs",
+      "source": "FMA & RBNZ",
+      "source_full": "Financial Markets Authority (FMA) KiwiSaver Annual Report & RBNZ Managed Funds Survey",
+      "source_series_ids": "FMA Annual KiwiSaver Total FUM & Enrolled Member Count",
+      "source_url": "https://www.fma.govt.nz/library/reports-and-papers/kiwisaver-annual-report/",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported FMA/RBNZ FUM & member totals and HLF-derived mean balance / 10-year growth",
+      "definition": "Total funds under management (FUM) across all New Zealand KiwiSaver schemes, total enrolled members, and the HLF-derived average balance per member over a 10-year horizon.",
+      "official_data": "FMA KiwiSaver Report & RBNZ: Total KiwiSaver FUM = $138.8B across 3.44m members (vs $123.1B in 2025, $62.0B in 2020, and $33.8B in 2016).",
+      "hlf_calculation": "Mean balance: $138.8B \u00f7 3.44m = $40,349 (2016: $33.8B \u00f7 2.63m = $12,852)",
+      "formula": "Mean Balance per Member = Total KiwiSaver FUM (NZD) \u00f7 Total Enrolled Members",
+      "hlf_interpretation": "HLF market context: Because total enrolled membership includes children, non-contributing members, and recent first-home withdrawers, the simple mean across all members sits below the median balance of full-time contributing adults.",
+      "methodology": "Compiled from FMA KiwiSaver Annual Report disclosures (year ended 31 March) and RBNZ Managed Funds statistics.",
+      "frequency": "Annual / Quarterly",
+      "historical_data_from": "FMA KiwiSaver Annual Report 10-year series (2016\u20132026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-total-fum-balance/",
+      "summary_text": "Across New Zealand's 3.44 million enrolled KiwiSaver members, total funds under management (FUM) reached $138.8B\u2014an HLF-derived average balance of $40,349 per member, up +214.0% over 10 years from $12,852/member ($33.8B FUM in 2016).",
+      "related_questions": [
+        "What is the average KiwiSaver balance in New Zealand?",
+        "How much money is invested in KiwiSaver in total across New Zealand?",
+        "How fast have KiwiSaver balances grown over the last 10 years?"
+      ],
+      "citation_chain": {
+        "official_source": "Financial Markets Authority (FMA) KiwiSaver Annual Report & RBNZ Managed Funds Survey",
+        "official_source_url": "https://www.fma.govt.nz/library/reports-and-papers/kiwisaver-annual-report/",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-total-fum-balance/",
+        "hlf_article_title": "What Is the Average KiwiSaver Balance in New Zealand?",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
+        "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "2026",
+          "label": "March 2026",
+          "value": 40349,
+          "formatted": "$40,349 avg ($138.8B FUM / 3.44m members)"
+        },
+        {
+          "period": "2025",
+          "label": "March 2025",
+          "value": 36420,
+          "formatted": "$36,420 avg ($123.1B FUM / 3.38m members)"
+        },
+        {
+          "period": "2020",
+          "label": "March 2020",
+          "value": 20462,
+          "formatted": "$20,462 avg ($62.0B FUM / 3.03m members)"
+        },
+        {
+          "period": "2016",
+          "label": "March 2016",
+          "value": 12852,
+          "formatted": "$12,852 avg ($33.8B FUM / 2.63m members)"
+        }
+      ]
     },
     {
       "ticker": "life-insurance-inflation",
@@ -3295,6 +3957,143 @@
         "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
       },
       "history": []
+    },
+    {
+      "ticker": "new-build-lvr-exemption-flow",
+      "name": "High-LVR mortgage lending channels supported by new-build & speed-limit exemptions",
+      "also_known_as": "RBNZ C31 high-LVR mover (>80% LVR) and investor (70%\u201380% LVR) lending volume",
+      "category": "Housing supply & construction",
+      "topic": "New-build LVR & DTI exemptions",
+      "value": 715.0,
+      "latest_value": "$715m across 1,296 loans (Movers >80% LVR + Investors >70% LVR)",
+      "unit": "NZDm",
+      "observed_period": "2026-09",
+      "latest_underlying_data": "September 2026",
+      "source_published": "2026-10-27",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "September 2025 ($590m (989 loans))",
+      "change": "+125m (+307 loans) YoY",
+      "source": "RBNZ C31",
+      "source_full": "Reserve Bank of New Zealand Table C31",
+      "source_series_ids": "LVRN.MMB1.BC2, LVRN.MMB2.BC2, LVRN.MMB1.DN, LVRN.MMB1.BN",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ C31 series & HLF-derived combined high-LVR channel volume",
+      "definition": "Combined monthly lending volume and borrower count across existing owner-occupiers borrowing at >80% LVR and property investors borrowing at >70% LVR in RBNZ Table C31.",
+      "official_data": "RBNZ Table C31 (September 2026): Other owner-occupiers >80% LVR = 769 loans ($378m); Investors >70% LVR = 527 loans ($337m).",
+      "hlf_calculation": "Dollars: $378m + $337m = $715m | Loans: 769 + 527 = 1,296",
+      "formula": "Combined Volume = Other Owner-Occupier >80% LVR NZDm [LVRN.MMB1.BC2] + Investor >70% LVR NZDm [LVRN.MMB1.DN]",
+      "hlf_interpretation": "HLF market context: Under RBNZ macroprudential rules, newly built dwellings (purchased from the developer or within 6 months of code compliance) are exempt from both LVR and DTI restrictions\u2014allowing eligible owner-occupiers and investors to purchase new builds with lower deposits than existing housing stock.",
+      "methodology": "Derived from RBNZ Table C31 series for >80% LVR other owner-occupiers and >70% LVR property investors.",
+      "frequency": "Monthly",
+      "historical_data_from": "Available from August 2014 (146 monthly observations)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/new-build-lvr-exemption-flow/",
+      "summary_text": "In September 2026, RBNZ Table C31 recorded an HLF-derived combined total of 1,296 non-FHB high-LVR loans ($715m) across existing owner-occupiers borrowing at &gt;80% LVR (769 loans / $378m) and property investors borrowing at &gt;70% LVR (527 loans / $337m).",
+      "related_questions": [
+        "How do Reserve Bank LVR and DTI exemptions work for new builds in New Zealand?",
+        "How much low-deposit lending goes to existing homeowners and property investors each month?"
+      ],
+      "citation_chain": {
+        "official_source": "Reserve Bank of New Zealand Table C31",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/new-build-lvr-exemption-flow/",
+        "hlf_article_title": "How New-Build LVR & DTI Exemptions Work in New Zealand",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "hlf_tool_title": "Turnkey vs. Construction Loan Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/turnkey-vs-construction-loan-calculator-nz",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 715.0,
+          "formatted": "$715m"
+        },
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 728.0,
+          "formatted": "$728m"
+        },
+        {
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 766.0,
+          "formatted": "$766m"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 763.0,
+          "formatted": "$763m"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 696.0,
+          "formatted": "$696m"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 615.0,
+          "formatted": "$615m"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 792.0,
+          "formatted": "$792m"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 550.0,
+          "formatted": "$550m"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 531.0,
+          "formatted": "$531m"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 989.0,
+          "formatted": "$989m"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 660.0,
+          "formatted": "$660m"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 689.0,
+          "formatted": "$689m"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 590.0,
+          "formatted": "$590m"
+        }
+      ]
     },
     {
       "ticker": "new-builds-annual",
@@ -3629,6 +4428,297 @@
       ]
     },
     {
+      "ticker": "regional-building-consents",
+      "name": "Annual new residential building consents by major New Zealand region",
+      "also_known_as": "Stats NZ regional dwelling consents (Auckland, Canterbury, Waikato, Wellington)",
+      "category": "Housing supply & construction",
+      "topic": "Regional new-build supply",
+      "value": 17131,
+      "latest_value": "AKL 17,131 (41.7%) | CANT 8,906 (21.7%) | WAIK 3,265 | WGTN 2,403",
+      "unit": "dwellings",
+      "observed_period": "2026-09",
+      "latest_underlying_data": "Year ended September 2026",
+      "source_published": "2026-09-30",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "National annual total: 41,091 dwellings",
+      "change": "Auckland + Canterbury = 63.4% of all new NZ homes consented",
+      "source": "Stats NZ",
+      "source_full": "Stats NZ \u2014 Building Consents Issued (Regional Breakdown)",
+      "source_series_ids": "Stats NZ Annual Dwelling Consents by Region",
+      "source_url": "https://www.stats.govt.nz/",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported Stats NZ regional totals & HLF-derived national shares",
+      "definition": "Annual new residential dwelling consents issued across New Zealand's main regions (Auckland, Canterbury, Waikato, Wellington, Rest of North Island, and Rest of South Island), plus their year-on-year growth rates and share of national supply.",
+      "official_data": "Stats NZ Regional Building Consents (Year ended September 2026): Auckland = 17,131; Canterbury = 8,906; Waikato = 3,265; Wellington = 2,403; Rest of NZ = 9,386 (Total = 41,091).",
+      "hlf_calculation": "AKL: 17,131\u00f741,091=41.7% | CANT: 8,906\u00f741,091=21.7% | WAIK: 3,265\u00f741,091=7.9% | WGTN: 2,403\u00f741,091=5.8%",
+      "formula": "Regional Share = (Regional Annual Consents \u00f7 National Annual Consents) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Auckland and Canterbury together account for more than three-fifths of all new residential dwellings consented across New Zealand, influencing regional availability of LVR-exempt turnkey and construction properties.",
+      "methodology": "Compiled monthly by Stats NZ from territorial authority consent approvals.",
+      "frequency": "Monthly",
+      "historical_data_from": "Stats NZ regional annual series (September 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/regional-building-consents/",
+      "summary_text": "In the 12 months ended September 2026, New Zealand's 41,091 annual dwelling consents were led by Auckland (17,131 consents, or 41.7% of national supply) and Canterbury (8,906, or 21.7%), followed by Waikato (3,265, or 7.9%), Wellington (2,403, or 5.8%), and the rest of New Zealand (9,386, or 22.8%).",
+      "related_questions": [
+        "Which New Zealand regions are building the most new homes?",
+        "How many new homes were consented in Auckland, Canterbury, Waikato, and Wellington over the past year?"
+      ],
+      "citation_chain": {
+        "official_source": "Stats NZ \u2014 Building Consents Issued (Regional Breakdown)",
+        "official_source_url": "https://www.stats.govt.nz/",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/regional-building-consents/",
+        "hlf_article_title": "Regional New-Build Supply & Construction Lending Guide",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "hlf_tool_title": "New Build Construction Loan Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "Auckland",
+          "label": "Auckland",
+          "value": 17131,
+          "formatted": "17,131 consents (41.7% of NZ)"
+        },
+        {
+          "period": "Canterbury",
+          "label": "Canterbury",
+          "value": 8906,
+          "formatted": "8,906 consents (21.7% of NZ)"
+        },
+        {
+          "period": "Waikato",
+          "label": "Waikato",
+          "value": 3265,
+          "formatted": "3,265 consents (7.9% of NZ)"
+        },
+        {
+          "period": "Wellington",
+          "label": "Wellington",
+          "value": 2403,
+          "formatted": "2,403 consents (5.8% of NZ)"
+        },
+        {
+          "period": "Rest of New Zealand",
+          "label": "Rest of New Zealand",
+          "value": 9386,
+          "formatted": "9,386 consents (22.8% of NZ)"
+        }
+      ]
+    },
+    {
+      "ticker": "rent-long-term-growth",
+      "name": "Long-term 5-year & 10-year New Zealand median weekly rent growth (cumulative & CAGR)",
+      "also_known_as": "MBIE Tenancy Services 5-year and 10-year rental inflation benchmark",
+      "category": "Property investors & rents",
+      "topic": "Long-term rent inflation & yield modelling",
+      "value": 52.6,
+      "latest_value": "+52.6% over 10 yrs ($390\u2192$595/wk, 4.3%/yr) | +16.7% over 5 yrs ($510\u2192$595/wk)",
+      "unit": "percent",
+      "observed_period": "2026-08",
+      "latest_underlying_data": "August 2026",
+      "source_published": "2026-08-31",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "5 yrs ago: $510/wk | 10 yrs ago: $390/wk",
+      "change": "+$205/wk (+$10,660/yr) over 10 years",
+      "source": "MBIE Tenancy Services",
+      "source_full": "MBIE Tenancy Services \u2014 Rental Bond Data (Long-Term Series)",
+      "source_series_ids": "Tenancy Services Monthly Regional Bond CSV (5Y & 10Y Median Rent)",
+      "source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported historical medians & HLF-derived 5-year / 10-year CAGR",
+      "definition": "Cumulative percentage growth, dollar increase, and compound annual growth rate (CAGR) in national and regional median weekly private rents over the trailing 5-year and 10-year periods.",
+      "official_data": "MBIE Tenancy Services (August 2026): National median weekly rent = $595/wk (compared with $510/wk 5 years earlier and $390/wk 10 years earlier).",
+      "hlf_calculation": "10Y: ($595 \u2212 $390) \u00f7 $390 = +52.6% (4.3%/yr CAGR) | 5Y: ($595 \u2212 $510) \u00f7 $510 = +16.7% (3.1%/yr CAGR)",
+      "formula": "10Y Cumulative % = ((Rent_t \u2212 Rent_t-120) \u00f7 Rent_t-120) \u00d7 100; 10Y CAGR = ((Rent_t \u00f7 Rent_t-120)^(1/10) \u2212 1) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Long-term 5-year and 10-year rental growth rates provide a more stable historical benchmark for long-term property cashflow modelling and rent-vs-buy comparisons than single-year fluctuations.",
+      "methodology": "Computed from MBIE Tenancy Services historical monthly regional bond CSV series.",
+      "frequency": "Monthly",
+      "historical_data_from": "Available from February 1993 (403 monthly observations)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rent-long-term-growth/",
+      "summary_text": "Over the 10 years to August 2026, New Zealand's national median weekly private rent in MBIE Tenancy Services records rose by an HLF-derived +52.6% (+$205/wk, or 4.3%/yr compound) from $390/wk to $595/wk\u2014and by +16.7% (+$85/wk, or 3.1%/yr) over the past 5 years (up from $510/wk).",
+      "related_questions": [
+        "How much have New Zealand rents increased over the last 5 and 10 years?",
+        "What is the long-term annual growth rate of weekly rents in New Zealand?"
+      ],
+      "citation_chain": {
+        "official_source": "MBIE Tenancy Services \u2014 Rental Bond Data (Long-Term Series)",
+        "official_source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/rent-long-term-growth/",
+        "hlf_article_title": "Long-Term NZ Rent Growth vs Mortgage Repayments",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "hlf_tool_title": "Investment Property Cashflow Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 595,
+          "formatted": "$595/wk"
+        },
+        {
+          "period": "2025-08",
+          "label": "Aug 2025",
+          "value": 590,
+          "formatted": "$590/wk"
+        },
+        {
+          "period": "2024-08",
+          "label": "Aug 2024",
+          "value": 600,
+          "formatted": "$600/wk"
+        },
+        {
+          "period": "2023-08",
+          "label": "Aug 2023",
+          "value": 580,
+          "formatted": "$580/wk"
+        },
+        {
+          "period": "2022-08",
+          "label": "Aug 2022",
+          "value": 540,
+          "formatted": "$540/wk"
+        },
+        {
+          "period": "2021-08",
+          "label": "Aug 2021",
+          "value": 510,
+          "formatted": "$510/wk"
+        },
+        {
+          "period": "2020-08",
+          "label": "Aug 2020",
+          "value": 470,
+          "formatted": "$470/wk"
+        },
+        {
+          "period": "2019-08",
+          "label": "Aug 2019",
+          "value": 450,
+          "formatted": "$450/wk"
+        },
+        {
+          "period": "2018-08",
+          "label": "Aug 2018",
+          "value": 430,
+          "formatted": "$430/wk"
+        },
+        {
+          "period": "2017-08",
+          "label": "Aug 2017",
+          "value": 400,
+          "formatted": "$400/wk"
+        },
+        {
+          "period": "2016-08",
+          "label": "Aug 2016",
+          "value": 390,
+          "formatted": "$390/wk"
+        }
+      ]
+    },
+    {
+      "ticker": "rent-quartile-spread",
+      "name": "New Zealand weekly private rent distribution: lower quartile, median & upper quartile",
+      "also_known_as": "MBIE Tenancy Services 25th, 50th, and 75th percentile weekly rent spread",
+      "category": "Property investors & rents",
+      "topic": "Rental affordability & market tiers",
+      "value": 200,
+      "latest_value": "Lower quartile $500/wk | Median $595/wk | Upper quartile $700/wk",
+      "unit": "NZD/week",
+      "observed_period": "2026-08",
+      "latest_underlying_data": "August 2026",
+      "source_published": "2026-08-31",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Interquartile spread: $200/wk ($10,400/yr)",
+      "change": "Annualised rent range: $26,000/yr (25th pct) to $36,400/yr (75th pct)",
+      "source": "MBIE Tenancy Services",
+      "source_full": "MBIE Tenancy Services \u2014 Rental Bond Data (Quartile Series)",
+      "source_series_ids": "Tenancy Services Lower Quartile, Median & Upper Quartile Weekly Rent",
+      "source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported MBIE quartiles & HLF-calculated interquartile spread",
+      "definition": "The lower quartile (25th percentile), median (50th percentile), and upper quartile (75th percentile) weekly private rent across newly lodged New Zealand tenancy bonds, plus the interquartile dollar spread.",
+      "official_data": "MBIE Tenancy Services (August 2026): Nationwide ('ALL') Lower Quartile Rent = $500/wk; Median Rent = $595/wk; Upper Quartile Rent = $700/wk.",
+      "hlf_calculation": "Upper Quartile ($700/wk) minus Lower Quartile ($500/wk) = $200/wk ($10,400/yr)",
+      "formula": "Interquartile Spread = Upper Quartile Rent \u2212 Lower Quartile Rent (NZD/wk and NZD/yr)",
+      "hlf_interpretation": "HLF market context: Comparing lower-quartile entry-level rents against median and upper-quartile family rents helps both tenants budgeting for a first-home deposit and investors assessing different property tiers.",
+      "methodology": "Sourced from MBIE Tenancy Services monthly regional bond dataset.",
+      "frequency": "Monthly",
+      "historical_data_from": "Available from February 1993 (403 monthly observations)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rent-quartile-spread/",
+      "summary_text": "In August 2026, newly lodged New Zealand private tenancy bonds recorded a lower-quartile (25th percentile) rent of $500/wk, a national median of $595/wk, and an upper-quartile (75th percentile) rent of $700/wk\u2014an HLF-calculated interquartile spread of $200/wk ($10,400/yr).",
+      "related_questions": [
+        "What is the lower-quartile and upper-quartile weekly rent in New Zealand?",
+        "How wide is the gap between entry-level and upper-tier weekly rents in NZ?"
+      ],
+      "citation_chain": {
+        "official_source": "MBIE Tenancy Services \u2014 Rental Bond Data (Quartile Series)",
+        "official_source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/rent-quartile-spread/",
+        "hlf_article_title": "NZ Rental Yield & Property Tier Guide",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "hlf_tool_title": "NZ Property Rental Yield Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "Lower Quartile (25%)",
+          "label": "Lower Quartile (25th percentile)",
+          "value": 500,
+          "formatted": "$500/wk ($26,000/yr)"
+        },
+        {
+          "period": "National Median (50%)",
+          "label": "National Median (50th percentile)",
+          "value": 595,
+          "formatted": "$595/wk ($30,940/yr)"
+        },
+        {
+          "period": "Upper Quartile (75%)",
+          "label": "Upper Quartile (75th percentile)",
+          "value": 700,
+          "formatted": "$700/wk ($36,400/yr)"
+        }
+      ]
+    },
+    {
       "ticker": "rent-yield-pulse",
       "name": "New Zealand national and regional median weekly private rent",
       "also_known_as": "MBIE Tenancy Services median weekly rent",
@@ -3901,6 +4991,143 @@
       ]
     },
     {
+      "ticker": "rental-turnover-net-stock",
+      "name": "Annual net change in active private rental bonds & monthly tenancy turnover",
+      "also_known_as": "MBIE Tenancy Services active bond pool growth & lodged vs closed bonds",
+      "category": "Property investors & rents",
+      "topic": "Rental stock expansion & tenancy turnover",
+      "value": 28287,
+      "latest_value": "+28,287 active bonds YoY (+5.7%) | 13,062 lodged vs 11,256 closed in August 2026",
+      "unit": "bonds",
+      "observed_period": "2026-08",
+      "latest_underlying_data": "August 2026",
+      "source_published": "2026-08-31",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "12 months earlier: 494,655 active bonds",
+      "change": "Monthly net bond movement in August 2026: +1,806 bonds",
+      "source": "MBIE Tenancy Services",
+      "source_full": "MBIE Tenancy Services \u2014 Rental Bond Data (Lodged, Closed & Active Bonds)",
+      "source_series_ids": "Tenancy Services Active Bonds YoY Change & Monthly Closed Bonds",
+      "source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported bond counts & HLF-calculated 12-month net stock change",
+      "definition": "The 12-month net change in the total pool of active private rental bonds across New Zealand, alongside the monthly comparison of newly lodged bonds versus closed (refunded) bonds.",
+      "official_data": "MBIE Tenancy Services (August 2026): Active Bonds = 522,942 (vs 494,655 a year earlier); Monthly Lodged Bonds = 13,062; Monthly Closed Bonds = 11,256.",
+      "hlf_calculation": "12M Net Stock Change: 522,942 \u2212 494,655 = +28,287 (+5.7%) | Monthly Net Flow: 13,062 \u2212 11,256 = +1,806",
+      "formula": "12-Month Net Active Change = Active Bonds_t \u2212 Active Bonds_t-12; Monthly Net Flow = Lodged Bonds \u2212 Closed Bonds",
+      "hlf_interpretation": "HLF market context: A rising pool of active private rental bonds indicates net expansion in occupied private rental stock across New Zealand, while the monthly ratio of lodged to closed bonds reflects seasonal tenancy turnover.",
+      "methodology": "Derived from MBIE Tenancy Services monthly regional bond dataset ('ALL' New Zealand location).",
+      "frequency": "Monthly",
+      "historical_data_from": "Available from February 1993 (403 monthly observations)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rental-turnover-net-stock/",
+      "summary_text": "Over the 12 months to August 2026, New Zealand's pool of active private rental bonds changed by an HLF-calculated +28,287 bonds (+5.7%) to 522,942 active bonds (compared with 494,655 a year earlier), with 13,062 bonds lodged and 11,256 bonds closed during August 2026 (a monthly net flow of +1,806 bonds).",
+      "related_questions": [
+        "Is the number of private rental properties in New Zealand growing or shrinking?",
+        "How many rental tenancies end (close) vs start (lodge) each month in NZ?"
+      ],
+      "citation_chain": {
+        "official_source": "MBIE Tenancy Services \u2014 Rental Bond Data (Lodged, Closed & Active Bonds)",
+        "official_source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/rental-turnover-net-stock/",
+        "hlf_article_title": "Is New Zealand's Private Rental Supply Growing or Shrinking?",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "hlf_tool_title": "Investment Property Cashflow Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 522942.0,
+          "formatted": "522,942 active bonds"
+        },
+        {
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 521697.0,
+          "formatted": "521,697 active bonds"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 519342.0,
+          "formatted": "519,342 active bonds"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 518355.0,
+          "formatted": "518,355 active bonds"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 519498.0,
+          "formatted": "519,498 active bonds"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 516918.0,
+          "formatted": "516,918 active bonds"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 516297.0,
+          "formatted": "516,297 active bonds"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 516783.0,
+          "formatted": "516,783 active bonds"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 515394.0,
+          "formatted": "515,394 active bonds"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 508065.0,
+          "formatted": "508,065 active bonds"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 499011.0,
+          "formatted": "499,011 active bonds"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 496161.0,
+          "formatted": "496,161 active bonds"
+        },
+        {
+          "period": "2025-08",
+          "label": "Aug 2025",
+          "value": 494655.0,
+          "formatted": "494,655 active bonds"
+        }
+      ]
+    },
+    {
       "ticker": "residential-insurance-coverage",
       "name": "New Zealand residential dwelling insurance coverage & uninsured dwelling estimate",
       "also_known_as": "RBNZ Financial Stability Report residential insurance coverage & sum-insured gap",
@@ -4093,6 +5320,89 @@
           "label": "Sep 2025",
           "value": 4.67,
           "formatted": "4.67% (1Y settled)"
+        }
+      ]
+    },
+    {
+      "ticker": "standalone-vs-retirement-apartments",
+      "name": "New dwelling consents breakdown: stand-alone houses, townhouses, apartments & retirement units",
+      "also_known_as": "Full 4-category Stats NZ monthly residential dwelling type breakdown",
+      "category": "Housing supply & construction",
+      "topic": "Dwelling typology & apartment supply",
+      "value": 1733,
+      "latest_value": "1,733 houses (48.5%) | 1,305 townhouses (36.6%) | 411 apartments (11.5%) | 121 retirement (3.4%)",
+      "unit": "dwellings",
+      "observed_period": "2026-09",
+      "latest_underlying_data": "September 2026",
+      "source_published": "2026-09-30",
+      "last_checked": "2026-11-10",
+      "date_created": "2026-09-01",
+      "date_modified": "2026-11-10",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Total monthly consents: 3,570",
+      "change": "Stand-alone 48.5% vs. Multi-unit 51.5%",
+      "source": "Stats NZ",
+      "source_full": "Stats NZ \u2014 Building Consents Issued (All Dwelling Types)",
+      "source_series_ids": "Stats NZ Monthly Consents by 4 Dwelling Categories",
+      "source_url": "https://www.stats.govt.nz/",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported Stats NZ counts & HLF-derived category percentages",
+      "definition": "Complete monthly breakdown of new residential dwelling consents across all four Stats NZ categories: stand-alone houses, townhouses/flats/units, apartments, and retirement village units.",
+      "official_data": "Stats NZ Building Consents (September 2026): Stand-alone houses = 1,733; Townhouses/flats/units = 1,305; Apartments = 411; Retirement village units = 121 (Total = 3,570).",
+      "hlf_calculation": "Houses: 1,733/3,570=48.5% | Townhouses: 1,305/3,570=36.6% | Apartments: 411/3,570=11.5% | Retirement: 121/3,570=3.4%",
+      "formula": "Category % = (Category Monthly Consents \u00f7 Total Monthly Consents) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Separating apartments and retirement village units from townhouses and stand-alone houses matters for mortgage borrowers because banks apply different LVR and floor-area lending criteria to high-density apartments versus fee-simple townhouses and stand-alone homes.",
+      "methodology": "Published monthly by Stats NZ from territorial authority building consent records.",
+      "frequency": "Monthly",
+      "historical_data_from": "Stats NZ 4-category dwelling release (September 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "HLF (Home Loan Factory)",
+      "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/standalone-vs-retirement-apartments/",
+      "summary_text": "In September 2026, New Zealand's 3,570 newly consented dwellings comprised 1,733 stand-alone houses (48.5%), 1,305 townhouses, flats, and units (36.6%), 411 apartments (11.5%), and 121 retirement village units (3.4%).",
+      "related_questions": [
+        "How many apartments vs townhouses vs stand-alone houses are being consented in New Zealand?",
+        "Do banks have different deposit rules for apartments vs townhouses?"
+      ],
+      "citation_chain": {
+        "official_source": "Stats NZ \u2014 Building Consents Issued (All Dwelling Types)",
+        "official_source_url": "https://www.stats.govt.nz/",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/standalone-vs-retirement-apartments/",
+        "hlf_article_title": "Buying an Apartment vs a Townhouse or Stand-Alone Home in NZ",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "hlf_tool_title": "Turnkey vs. Construction Loan Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/turnkey-vs-construction-loan-calculator-nz",
+        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+      },
+      "history": [
+        {
+          "period": "Stand-alone houses",
+          "label": "Stand-alone houses",
+          "value": 1733,
+          "formatted": "1,733 (48.5%)"
+        },
+        {
+          "period": "Townhouses, flats & units",
+          "label": "Townhouses, flats & units",
+          "value": 1305,
+          "formatted": "1,305 (36.6%)"
+        },
+        {
+          "period": "Apartments",
+          "label": "Apartments",
+          "value": 411,
+          "formatted": "411 (11.5%)"
+        },
+        {
+          "period": "Retirement village units",
+          "label": "Retirement village units",
+          "value": 121,
+          "formatted": "121 (3.4%)"
         }
       ]
     },
