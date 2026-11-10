@@ -751,7 +751,8 @@ TICKER_CATALOG = {
     },
 }
 
-PART_1_OF_5# === PART 2A OF 5 ===
+PART_1_OF_5_READY = True
+# === PART 2A OF 5 ===
 TICKER_CATALOG_EXPANSION = {
     # --- Expanded KiwiSaver Datasets (8 KiwiSaver + 1 Regional FHB KiwiSaver) ---
     "kiwisaver-first-home": {
