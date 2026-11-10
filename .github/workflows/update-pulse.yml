@@ -7,6 +7,9 @@ on:
     paths:
       - '*.xlsx'
       - '*.csv'
+      - 'update_pulse.py'
+      - 'update_fhb_benchmark.py'
+      - '.github/workflows/update-pulse.yml'
   schedule:
     # Runs Mon, Wed, Fri at 02:35 UTC (3:35 PM NZDT / 2:35 PM Fiji) to catch:
     # - Stats NZ Building Consents (~1st-4th), Tenancy Services (~10th-15th),
@@ -31,22 +34,26 @@ jobs:
       - name: Install 3-tier browser & Python dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y xvfb libgtk-3-0 libasound2t64 libx11-xcb1 || sudo apt-get install -y xvfb
-          pip install pandas openpyxl curl_cffi "camoufox[geoip]" playwright
+          pip install pandas openpyxl requests curl_cffi "camoufox[geoip]" playwright
           python -m camoufox fetch
-          playwright install chromium
+          python -m playwright install chromium
 
       - name: Fetch RBNZ, Stats NZ, Tenancy & IRD data
-        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" python update_pulse.py
+        run: |
+          xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" python update_pulse.py
+          if [ -f update_fhb_benchmark.py ]; then
+            xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" python update_fhb_benchmark.py
+          fi
 
-      - name: Commit and push if verified data changed
+      - name: Commit and push updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add nz-mortgage-pulse.json index.html
+          git add -A
           if git diff --staged --quiet; then
-            echo "All verified tickers already up to date; no commit needed."
+            echo "No file changes to commit."
           else
-            git commit -m "Auto-update NZ market pulse ($(date -u +'%Y-%m-%d'))"
+            git commit -m "Auto-update HLF Pulse dataset & canonical pages ($(date -u +'%Y-%m-%d %H:%M UTC'))"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
