@@ -6,56 +6,69 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://pulse-data.homeloanfactory.co.nz/build-cost-inflation/">
   <title>Annual residential construction cost inflation (CPI purchase of newly built home) (September 2026 quarter) — HLF Pulse Data Dictionary</title>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "Annual residential construction cost inflation (CPI purchase of newly built home) \u2014 HLF Pulse Data Dictionary & Reference Record (September 2026 quarter)", "description": "The annual percentage change in the cost of purchasing a newly built home in New Zealand as measured by the Stats NZ Consumers Price Index (CPI).", "url": "https://pulse-data.homeloanfactory.co.nz/build-cost-inflation/", "identifier": "build-cost-inflation", "inLanguage": "en-NZ", "temporalCoverage": "2026-09-30", "spatialCoverage": "New Zealand", "isBasedOn": "https://www.stats.govt.nz/", "creator": {"@type": "Organization", "name": "HLF (Home Loan Factory)", "url": "https://www.homeloanfactory.co.nz/"}, "variableMeasured": "Annual residential construction cost inflation (CPI purchase of newly built home)"}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "Annual residential construction cost inflation (CPI purchase of newly built home) \u2014 HLF Pulse Data Dictionary & Reference Record (September 2026 quarter)", "alternateName": "New-build housing cost inflation (Stats NZ CPI)", "description": "The annual percentage change in the cost of purchasing a newly built home in New Zealand as measured by the Stats NZ Consumers Price Index (CPI).", "url": "https://pulse-data.homeloanfactory.co.nz/build-cost-inflation/", "identifier": "build-cost-inflation", "inLanguage": "en-NZ", "temporalCoverage": "2026-09-30", "spatialCoverage": "New Zealand", "isBasedOn": "https://www.stats.govt.nz/", "creator": {"@type": "Organization", "name": "HLF (Home Loan Factory)", "url": "https://www.homeloanfactory.co.nz/"}, "variableMeasured": "Annual residential construction cost inflation (CPI purchase of newly built home)"}</script>
   <style>
     body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111827; background: #f8fafc; margin: 0; padding: 26px 14px 48px; line-height: 1.6; font-variant-numeric: tabular-nums; }
     main { max-width: 920px; margin: 0 auto; background: #ffffff; border-top: 5px solid #0b2559; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(11,37,89,0.05); }
     .crumb { font-size: 0.82rem; margin-bottom: 14px; color: #6b7280; }
     .crumb a { color: #186bd6; font-weight: 600; text-decoration: none; }
-    h1 { margin: 0 0 8px; color: #0b2559; font-size: 1.45rem; letter-spacing: -0.02em; }
+    h1 { margin: 0 0 6px; color: #0b2559; font-size: 1.45rem; letter-spacing: -0.02em; }
     h2 { margin: 26px 0 10px; color: #0b2559; font-size: 1.08rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 6px; }
     p { color: #374151; font-size: 0.9rem; margin: 0 0 12px; }
-    .summary-box { background: #eff6ff; border: 1px solid #dbeafe; border-left: 4px solid #186bd6; border-radius: 8px 14px 14px 8px; padding: 16px 18px; margin: 16px 0 22px; font-size: 0.98rem; color: #111827; }
+    .summary-box { background: #eff6ff; border: 1px solid #dbeafe; border-left: 4px solid #186bd6; border-radius: 8px 14px 14px 8px; padding: 16px 18px; margin: 16px 0 18px; font-size: 0.98rem; color: #111827; }
     .summary-box strong { color: #0b2559; }
+    .layer-stack { display: flex; flex-direction: column; gap: 8px; margin: 14px 0 22px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px 16px; font-size: 0.85rem; }
+    .layer-row { display: flex; align-items: baseline; gap: 10px; }
+    .lbadge { flex-shrink: 0; display: inline-block; width: 128px; text-align: center; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 6px; }
+    .lbadge.is-off { background: #ecfdf5; border: 1px solid #6ee7b7; color: #065f46; }
+    .lbadge.is-calc { background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; }
+    .lbadge.is-interp { background: #fefce8; border: 1px solid #fde68a; color: #92400e; }
     table { width: 100%; border-collapse: collapse; font-size: 0.86rem; margin-top: 8px; }
     th { width: 210px; background: #f8fafc; color: #0b2559; text-align: left; padding: 9px 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
     td { padding: 9px 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; color: #374151; }
     code { background: #eff6ff; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; color: #0b2559; }
     a { color: #186bd6; font-weight: 600; }
-    ul { margin: 8px 0 0; padding-left: 20px; color: #374151; font-size: 0.9rem; }
-    li { margin-bottom: 5px; }
+    ul { margin: 8px 0 0; padding-left: 20px; color: #374151; font-size: 0.88rem; }
+    li { margin-bottom: 6px; }
     .chain { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 10px; margin-top: 10px; }
     .chain-step { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; padding: 11px 13px; font-size: 0.82rem; }
     .chain-step span { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #6b7280; margin-bottom: 3px; }
-    .hist-wrap { max-width: 540px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; margin-top: 10px; }
+    .hist-wrap { max-width: 560px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; margin-top: 10px; }
     .hist-wrap th { width: auto; border-bottom: 2px solid #dbeafe; }
-    .about-footer-box { margin-top: 32px; background: #f8fafc; border: 1px solid #e5e7eb; border-left: 4px solid #0b2559; border-radius: 8px 14px 14px 8px; padding: 20px 22px; }
+    .quality-box { margin-top: 30px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px 22px; }
+    .quality-box h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; }
+    .about-footer-box { margin-top: 18px; background: #eff6ff; border: 1px solid #dbeafe; border-left: 4px solid #0b2559; border-radius: 8px 14px 14px 8px; padding: 20px 22px; }
     .about-footer-box h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; }
   </style>
 </head>
 <body>
   <main>
-    <div class="crumb"><a href="https://pulse-data.homeloanfactory.co.nz/">&larr; All HLF Pulse Reference Series</a> &bull; Data Dictionary Record</div>
+    <div class="crumb"><a href="https://pulse-data.homeloanfactory.co.nz/">&larr; All HLF Pulse Reference Series</a> &bull; Category: <strong>Housing supply &amp; construction</strong></div>
     <h1>Annual residential construction cost inflation (CPI purchase of newly built home)</h1>
-    <div style="font-size:0.82rem;color:#6b7280;">Ticker: <code>build-cost-inflation</code> &bull; Topic: <strong>New builds &amp; construction costs</strong> &bull; Status: <strong>Verified</strong></div>
+    <div style="font-size:0.82rem;color:#6b7280;">Ticker: <code>build-cost-inflation</code> &bull; Latest Underlying Data: <strong>September 2026 quarter</strong> &bull; Last Checked: <strong>10 November 2026</strong></div>
+    <div style='margin-top:4px;font-size:0.8rem;color:#6b7280;'><strong>Also known as:</strong> New-build housing cost inflation (Stats NZ CPI)</div>
 
-    <div class="summary-box">Residential build-cost inflation has settled into single digits compared with the post-pandemic construction surge—Stats NZ recorded a <strong>+3.2%</strong> annual change in the cost of purchasing a newly built home in the September 2026 quarter, alongside <strong>3.7%</strong> overall CPI inflation.</div>
+    <div class="summary-box">In the September 2026 quarter, Stats NZ recorded a <strong>+3.2%</strong> annual change in the cost of purchasing a newly built home, alongside <strong>3.7%</strong> overall annual CPI inflation.</div>
+    <div class='layer-stack'><div class='layer-row'><span class='lbadge is-off'>Official data</span><span>Stats NZ CPI (September 2026 quarter): Purchase of newly built home = +3.2% YoY.</span></div><div class='layer-row'><span class='lbadge is-calc'>HLF calculation</span><span><code>Directly reported Stats NZ CPI purchase of new housing = +3.2% YoY</code></span></div><div class='layer-row'><span class='lbadge is-interp'>HLF interpretation</span><span>Helps construction-loan borrowers evaluate cost-escalation risk and contingency buffers on build contracts.</span></div></div>
 
     <h2>Data Dictionary Specification</h2>
     <table>
       <tbody>
         <tr><th>Name</th><td><strong>Annual residential construction cost inflation (CPI purchase of newly built home)</strong></td></tr>
         <tr><th>Ticker</th><td><code>build-cost-inflation</code></td></tr>
+        <tr><th>Also known as</th><td>New-build housing cost inflation (Stats NZ CPI)</td></tr>
         <tr><th>Source</th><td>Stats NZ CPI (<a href="https://www.stats.govt.nz/" target="_blank" rel="noopener">Stats NZ — Consumers Price Index (CPI)</a>)</td></tr>
         <tr><th>Frequency</th><td>Quarterly</td></tr>
-        <tr><th>Latest period</th><td><strong>September 2026 quarter</strong> (Observation end: <code>2026-09-30</code>)</td></tr>
+        <tr><th>Latest underlying data</th><td><strong>September 2026 quarter</strong> (Observation end: <code>2026-09-30</code>)</td></tr>
         <tr><th>Definition</th><td>The annual percentage change in the cost of purchasing a newly built home in New Zealand as measured by the Stats NZ Consumers Price Index (CPI).</td></tr>
         <tr><th>Current value</th><td><strong>+3.2% YoY</strong></td></tr>
         <tr><th>Previous period &amp; change</th><td>Headline CPI: 3.7% YoY &bull; +3.2% annual change</td></tr>
-        <tr><th>Calculation</th><td><code>Directly reported Stats NZ CPI purchase of new housing = +3.2% YoY</code><div style="margin-top:3px;font-size:0.78rem;color:#6b7280;">Formula: Officially reported Stats NZ annual percentage change for purchase of new housing</div></td></tr>
-        <tr><th>Source data</th><td>Stats NZ — Consumers Price Index (CPI) (Series: <code>Stats NZ CPI Housing &amp; Household Utilities</code>)</td></tr>
+        <tr><th>Official data</th><td>Stats NZ CPI (September 2026 quarter): Purchase of newly built home = +3.2% YoY.</td></tr>
+        <tr><th>HLF calculation</th><td><code>Directly reported Stats NZ CPI purchase of new housing = +3.2% YoY</code><div style="margin-top:3px;font-size:0.78rem;color:#6b7280;">Formula: Officially reported Stats NZ annual percentage change for purchase of new housing</div></td></tr>
+        <tr><th>HLF interpretation</th><td>Helps construction-loan borrowers evaluate cost-escalation risk and contingency buffers on build contracts.</td></tr>
+        <tr><th>Source series IDs</th><td><code>Stats NZ CPI Housing &amp; Household Utilities</code></td></tr>
         <tr><th>HLF derived</th><td><strong>No (Officially reported)</strong> (Officially reported Stats NZ quarterly CPI inflation)</td></tr>
-        <tr><th>Last verified</th><td>10 November 2026 (<code>2026-11-10</code>)</td></tr>
+        <tr><th>Last checked</th><td>10 November 2026 (<code>2026-11-10</code>)</td></tr>
         <tr><th>Historical data</th><td>Stats NZ quarterly CPI release (September 2026)</td></tr>
       </tbody>
     </table>
@@ -73,6 +86,20 @@
     </div>
 
     
+    <section id="data-quality-limitations" class="quality-box" aria-label="Data Quality &amp; Limitations">
+      <h2>Data Quality &amp; Limitations</h2>
+      <ul>
+        <li><strong>Official published sources:</strong> Pulse uses official published data from the Reserve Bank of New Zealand (RBNZ), Stats NZ, Inland Revenue (IRD), and MBIE Tenancy Services wherever available.</li>
+        <li><strong>Unaltered official figures:</strong> HLF does not alter or estimate official source figures.</li>
+        <li><strong>Explicit derivation labels:</strong> Derived statistics (such as percentages, averages, rolling sums, and cohort comparisons) are calculated directly from the underlying official series and identified as <em>HLF-derived</em>.</li>
+        <li><strong>Reporting lags &amp; differing schedules:</strong> Reporting periods differ across agencies (for example, RBNZ lending series publish monthly with a ~4-week lag, MBIE bond data publishes on a ~2-month lag, CPI and student loan balances publish quarterly, and regional KiwiSaver breakdowns publish annually for the June financial year).</li>
+        <li><strong>Commitments vs. settlements:</strong> RBNZ mortgage lending tables (C31, C32, C33, C40, C41) measure firm bank mortgage commitments/approvals rather than LINZ property title settlements.</li>
+        <li><strong>Publisher revisions:</strong> Underlying historical figures may subsequently be revised by the original Crown publisher in later releases.</li>
+        <li><strong>Automatic staleness exclusion:</strong> HLF automatically excludes any series where the underlying source is unavailable, stale past its freshness window, or cannot be verified.</li>
+        <li><strong>Market context vs. individual lending outcomes:</strong> Statistics describe aggregate historical market cohorts and do not predict an individual borrower&rsquo;s credit assessment or lending outcome.</li>
+      </ul>
+    </section>
+
     <section id="about-hlf-pulse" class="about-footer-box" aria-label="About the HLF Pulse &amp; Methodology">
       <h2>About the HLF Pulse</h2>
       <p><strong>HLF Pulse</strong> is a public reference dataset covering New Zealand mortgage, housing and KiwiSaver statistics. Data is compiled from official releases from the <strong>Reserve Bank of New Zealand</strong>, <strong>Stats NZ</strong>, <strong>Inland Revenue</strong> and <strong>MBIE Tenancy Services</strong>.</p>

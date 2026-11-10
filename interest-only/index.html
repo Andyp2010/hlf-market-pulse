@@ -6,56 +6,69 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://pulse-data.homeloanfactory.co.nz/interest-only/">
   <title>Interest-only share of new investor vs owner-occupier mortgages (September 2026) — HLF Pulse Data Dictionary</title>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "Interest-only share of new investor vs owner-occupier mortgages \u2014 HLF Pulse Data Dictionary & Reference Record (September 2026)", "description": "The percentage of new residential investor lending versus new owner-occupier lending set up on interest-only terms (including revolving credit facilities).", "url": "https://pulse-data.homeloanfactory.co.nz/interest-only/", "identifier": "interest-only", "inLanguage": "en-NZ", "temporalCoverage": "2026-09-30", "spatialCoverage": "New Zealand", "isBasedOn": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-and-existing-residential-mortgage-lending-by-payment-type", "creator": {"@type": "Organization", "name": "HLF (Home Loan Factory)", "url": "https://www.homeloanfactory.co.nz/"}, "variableMeasured": "Interest-only share of new investor vs owner-occupier mortgages"}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "Interest-only share of new investor vs owner-occupier mortgages \u2014 HLF Pulse Data Dictionary & Reference Record (September 2026)", "alternateName": "Investor vs owner-occupier interest-only mortgage share / Payment-type split", "description": "The percentage of new residential investor lending versus new owner-occupier lending set up on interest-only terms (including revolving credit facilities).", "url": "https://pulse-data.homeloanfactory.co.nz/interest-only/", "identifier": "interest-only", "inLanguage": "en-NZ", "temporalCoverage": "2026-09-30", "spatialCoverage": "New Zealand", "isBasedOn": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-and-existing-residential-mortgage-lending-by-payment-type", "creator": {"@type": "Organization", "name": "HLF (Home Loan Factory)", "url": "https://www.homeloanfactory.co.nz/"}, "variableMeasured": "Interest-only share of new investor vs owner-occupier mortgages"}</script>
   <style>
     body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111827; background: #f8fafc; margin: 0; padding: 26px 14px 48px; line-height: 1.6; font-variant-numeric: tabular-nums; }
     main { max-width: 920px; margin: 0 auto; background: #ffffff; border-top: 5px solid #0b2559; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(11,37,89,0.05); }
     .crumb { font-size: 0.82rem; margin-bottom: 14px; color: #6b7280; }
     .crumb a { color: #186bd6; font-weight: 600; text-decoration: none; }
-    h1 { margin: 0 0 8px; color: #0b2559; font-size: 1.45rem; letter-spacing: -0.02em; }
+    h1 { margin: 0 0 6px; color: #0b2559; font-size: 1.45rem; letter-spacing: -0.02em; }
     h2 { margin: 26px 0 10px; color: #0b2559; font-size: 1.08rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 6px; }
     p { color: #374151; font-size: 0.9rem; margin: 0 0 12px; }
-    .summary-box { background: #eff6ff; border: 1px solid #dbeafe; border-left: 4px solid #186bd6; border-radius: 8px 14px 14px 8px; padding: 16px 18px; margin: 16px 0 22px; font-size: 0.98rem; color: #111827; }
+    .summary-box { background: #eff6ff; border: 1px solid #dbeafe; border-left: 4px solid #186bd6; border-radius: 8px 14px 14px 8px; padding: 16px 18px; margin: 16px 0 18px; font-size: 0.98rem; color: #111827; }
     .summary-box strong { color: #0b2559; }
+    .layer-stack { display: flex; flex-direction: column; gap: 8px; margin: 14px 0 22px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px 16px; font-size: 0.85rem; }
+    .layer-row { display: flex; align-items: baseline; gap: 10px; }
+    .lbadge { flex-shrink: 0; display: inline-block; width: 128px; text-align: center; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 6px; }
+    .lbadge.is-off { background: #ecfdf5; border: 1px solid #6ee7b7; color: #065f46; }
+    .lbadge.is-calc { background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; }
+    .lbadge.is-interp { background: #fefce8; border: 1px solid #fde68a; color: #92400e; }
     table { width: 100%; border-collapse: collapse; font-size: 0.86rem; margin-top: 8px; }
     th { width: 210px; background: #f8fafc; color: #0b2559; text-align: left; padding: 9px 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
     td { padding: 9px 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; color: #374151; }
     code { background: #eff6ff; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; color: #0b2559; }
     a { color: #186bd6; font-weight: 600; }
-    ul { margin: 8px 0 0; padding-left: 20px; color: #374151; font-size: 0.9rem; }
-    li { margin-bottom: 5px; }
+    ul { margin: 8px 0 0; padding-left: 20px; color: #374151; font-size: 0.88rem; }
+    li { margin-bottom: 6px; }
     .chain { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 10px; margin-top: 10px; }
     .chain-step { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; padding: 11px 13px; font-size: 0.82rem; }
     .chain-step span { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #6b7280; margin-bottom: 3px; }
-    .hist-wrap { max-width: 540px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; margin-top: 10px; }
+    .hist-wrap { max-width: 560px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; margin-top: 10px; }
     .hist-wrap th { width: auto; border-bottom: 2px solid #dbeafe; }
-    .about-footer-box { margin-top: 32px; background: #f8fafc; border: 1px solid #e5e7eb; border-left: 4px solid #0b2559; border-radius: 8px 14px 14px 8px; padding: 20px 22px; }
+    .quality-box { margin-top: 30px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px 22px; }
+    .quality-box h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; }
+    .about-footer-box { margin-top: 18px; background: #eff6ff; border: 1px solid #dbeafe; border-left: 4px solid #0b2559; border-radius: 8px 14px 14px 8px; padding: 20px 22px; }
     .about-footer-box h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; }
   </style>
 </head>
 <body>
   <main>
-    <div class="crumb"><a href="https://pulse-data.homeloanfactory.co.nz/">&larr; All HLF Pulse Reference Series</a> &bull; Data Dictionary Record</div>
+    <div class="crumb"><a href="https://pulse-data.homeloanfactory.co.nz/">&larr; All HLF Pulse Reference Series</a> &bull; Category: <strong>Mortgage lending &amp; rates</strong></div>
     <h1>Interest-only share of new investor vs owner-occupier mortgages</h1>
-    <div style="font-size:0.82rem;color:#6b7280;">Ticker: <code>interest-only</code> &bull; Topic: <strong>Loan structure &amp; interest-only</strong> &bull; Status: <strong>Verified</strong></div>
+    <div style="font-size:0.82rem;color:#6b7280;">Ticker: <code>interest-only</code> &bull; Latest Underlying Data: <strong>September 2026</strong> &bull; Last Checked: <strong>10 November 2026</strong></div>
+    <div style='margin-top:4px;font-size:0.8rem;color:#6b7280;'><strong>Also known as:</strong> Investor vs owner-occupier interest-only mortgage share / Payment-type split</div>
 
-    <div class="summary-box">Loan structures look quite different between rental properties and family homes in the Reserve Bank figures—in September 2026, <strong>31.5%</strong> of new investor lending was set up on <strong>interest-only</strong> terms (including revolving credit), compared with <strong>13.7%</strong> for owner-occupiers.</div>
+    <div class="summary-box">In September 2026, <strong>31.5%</strong> of new residential investor mortgage lending was set up on <strong>interest-only</strong> terms (including revolving credit), compared with <strong>13.7%</strong> for owner-occupiers in RBNZ Table C32.</div>
+    <div class='layer-stack'><div class='layer-row'><span class='lbadge is-off'>Official data</span><span>RBNZ Table C32 (September 2026): New investor interest-only = $420m of $1,335m; New owner-occupier interest-only = $828m of $6,064m.</span></div><div class='layer-row'><span class='lbadge is-calc'>HLF calculation</span><span><code>Investors: $420m ÷ $1,335m = 31.5% | Owner-Occupiers: $828m ÷ $6,064m = 13.7%</code></span></div><div class='layer-row'><span class='lbadge is-interp'>HLF interpretation</span><span>In practice, property investors frequently use interest-only terms to manage rental cash flow and tax deductibility, whereas owner-occupiers predominantly use principal-and-interest repayments to reduce non-deductible home debt.</span></div></div>
 
     <h2>Data Dictionary Specification</h2>
     <table>
       <tbody>
         <tr><th>Name</th><td><strong>Interest-only share of new investor vs owner-occupier mortgages</strong></td></tr>
         <tr><th>Ticker</th><td><code>interest-only</code></td></tr>
+        <tr><th>Also known as</th><td>Investor vs owner-occupier interest-only mortgage share / Payment-type split</td></tr>
         <tr><th>Source</th><td>RBNZ C32 (<a href="https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-and-existing-residential-mortgage-lending-by-payment-type" target="_blank" rel="noopener">Reserve Bank of New Zealand Table C32</a>)</td></tr>
         <tr><th>Frequency</th><td>Monthly</td></tr>
-        <tr><th>Latest period</th><td><strong>September 2026</strong> (Observation end: <code>2026-09-30</code>)</td></tr>
+        <tr><th>Latest underlying data</th><td><strong>September 2026</strong> (Observation end: <code>2026-09-30</code>)</td></tr>
         <tr><th>Definition</th><td>The percentage of new residential investor lending versus new owner-occupier lending set up on interest-only terms (including revolving credit facilities).</td></tr>
         <tr><th>Current value</th><td><strong>31.5% investor IO vs 13.7% owner-occupier IO</strong></td></tr>
         <tr><th>Previous period &amp; change</th><td>September 2025 (35.9% investor IO) &bull; -4.4 percentage points YoY (investor IO)</td></tr>
-        <tr><th>Calculation</th><td><code>Investors: $420m ÷ $1,335m = 31.5% | Owner-Occupiers: $828m ÷ $6,064m = 13.7%</code><div style="margin-top:3px;font-size:0.78rem;color:#6b7280;">Formula: (New Investor Interest-Only NZDm ÷ Total New Investor NZDm) × 100</div></td></tr>
-        <tr><th>Source data</th><td>Reserve Bank of New Zealand Table C32 (Series: <code>LVRN.MMB1.AN, LVRN.MMB1.AC</code>)</td></tr>
+        <tr><th>Official data</th><td>RBNZ Table C32 (September 2026): New investor interest-only = $420m of $1,335m; New owner-occupier interest-only = $828m of $6,064m.</td></tr>
+        <tr><th>HLF calculation</th><td><code>Investors: $420m ÷ $1,335m = 31.5% | Owner-Occupiers: $828m ÷ $6,064m = 13.7%</code><div style="margin-top:3px;font-size:0.78rem;color:#6b7280;">Formula: (New Investor Interest-Only NZDm ÷ Total New Investor NZDm) × 100</div></td></tr>
+        <tr><th>HLF interpretation</th><td>In practice, property investors frequently use interest-only terms to manage rental cash flow and tax deductibility, whereas owner-occupiers predominantly use principal-and-interest repayments to reduce non-deductible home debt.</td></tr>
+        <tr><th>Source series IDs</th><td><code>LVRN.MMB1.AN, LVRN.MMB1.AC</code></td></tr>
         <tr><th>HLF derived</th><td><strong>Yes</strong> (HLF-derived share (from RBNZ C32 payment-type series))</td></tr>
-        <tr><th>Last verified</th><td>10 November 2026 (<code>2026-11-10</code>)</td></tr>
+        <tr><th>Last checked</th><td>10 November 2026 (<code>2026-11-10</code>)</td></tr>
         <tr><th>Historical data</th><td>Available from July 2015 (135 monthly observations)</td></tr>
       </tbody>
     </table>
@@ -73,6 +86,20 @@
     </div>
 
     
+    <section id="data-quality-limitations" class="quality-box" aria-label="Data Quality &amp; Limitations">
+      <h2>Data Quality &amp; Limitations</h2>
+      <ul>
+        <li><strong>Official published sources:</strong> Pulse uses official published data from the Reserve Bank of New Zealand (RBNZ), Stats NZ, Inland Revenue (IRD), and MBIE Tenancy Services wherever available.</li>
+        <li><strong>Unaltered official figures:</strong> HLF does not alter or estimate official source figures.</li>
+        <li><strong>Explicit derivation labels:</strong> Derived statistics (such as percentages, averages, rolling sums, and cohort comparisons) are calculated directly from the underlying official series and identified as <em>HLF-derived</em>.</li>
+        <li><strong>Reporting lags &amp; differing schedules:</strong> Reporting periods differ across agencies (for example, RBNZ lending series publish monthly with a ~4-week lag, MBIE bond data publishes on a ~2-month lag, CPI and student loan balances publish quarterly, and regional KiwiSaver breakdowns publish annually for the June financial year).</li>
+        <li><strong>Commitments vs. settlements:</strong> RBNZ mortgage lending tables (C31, C32, C33, C40, C41) measure firm bank mortgage commitments/approvals rather than LINZ property title settlements.</li>
+        <li><strong>Publisher revisions:</strong> Underlying historical figures may subsequently be revised by the original Crown publisher in later releases.</li>
+        <li><strong>Automatic staleness exclusion:</strong> HLF automatically excludes any series where the underlying source is unavailable, stale past its freshness window, or cannot be verified.</li>
+        <li><strong>Market context vs. individual lending outcomes:</strong> Statistics describe aggregate historical market cohorts and do not predict an individual borrower&rsquo;s credit assessment or lending outcome.</li>
+      </ul>
+    </section>
+
     <section id="about-hlf-pulse" class="about-footer-box" aria-label="About the HLF Pulse &amp; Methodology">
       <h2>About the HLF Pulse</h2>
       <p><strong>HLF Pulse</strong> is a public reference dataset covering New Zealand mortgage, housing and KiwiSaver statistics. Data is compiled from official releases from the <strong>Reserve Bank of New Zealand</strong>, <strong>Stats NZ</strong>, <strong>Inland Revenue</strong> and <strong>MBIE Tenancy Services</strong>.</p>
