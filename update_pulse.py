@@ -48,6 +48,10 @@ HLF_LICENSE_NOTE = (
     "when attributed to HLF Pulse with a link to the canonical dataset URL."
 )
 
+# Stats NZ CPI cumulative inflation benchmarks for 10-year (2016-2026) and 5-year (2021-2026) real-terms adjustments
+CPI_10Y_FACTOR = 1.337  # +33.7% cumulative NZ CPI over 10 years (~2.95% p.a.)
+CPI_5Y_FACTOR = 1.228   # +22.8% cumulative NZ CPI over 5 years (~4.19% p.a.)
+
 CREATOR_SCHEMA_OBJ = {
     "@type": "Person",
     "name": CREATOR_NAME,
@@ -184,7 +188,7 @@ TICKER_CATALOG = {
         "unit": "percent",
         "frequency": "Monthly",
         "definition": "The HLF-derived percentage of firm residential mortgage commitments to New Zealand first-home buyers where the Loan-to-Value Ratio (LVR) exceeds 80% (corresponding to under a 20% deposit), measured by borrower count alongside officially reported >80% LVR dollar lending.",
-        "methodology": "Compiled from monthly registered bank returns under RBNZ Table C31. First-home buyers are defined by lending banks as borrowers purchasing a residential property to occupy as a first home.",
+        "methodology": "Compiled from monthly registered bank returns under RBNZ Table C31. First-home buyers are defined by lending banks as borrowers purchasing a residential property to occupy as a first home. Dollar values in Table C31 are published by RBNZ rounded to the nearest $1 million.",
         "hlf_calculation": "(High-LVR FHB Borrowers [LVRN.MMB2.BC1] ÷ Total FHB Borrowers [LVRN.MMB2.AC1]) × 100",
         "hlf_interpretation": "HLF market context (not measured in C31): RBNZ Table C31 reports all >80% LVR commitments as a single aggregate and does not disaggregate the underlying lending channel (such as bank low-equity speed-limit allocations, Kāinga Ora First Home Loans, or LVR-exempt new builds).",
         "questions": [
@@ -213,8 +217,8 @@ TICKER_CATALOG = {
         "unit": "percent",
         "frequency": "Monthly",
         "definition": "The HLF-derived proportion of total new residential mortgage lending dollars in New Zealand committed to first-home buyers, alongside the officially reported monthly count of approved first-home loans and HLF-derived average loan size.",
-        "methodology": "Sourced from RBNZ Table C31 monthly registered bank commitments across first-home buyers, other owner-occupiers, property investors, and business purposes.",
-        "hlf_calculation": "(FHB Lending NZDm [LVRN.MMB1.AC1] ÷ Total Lending NZDm [LVRN.MMB1.AA]) × 100",
+        "methodology": "Sourced from RBNZ Table C31 monthly registered bank commitments across first-home buyers, other owner-occupiers, property investors, and business purposes (where dollar values are published rounded to the nearest $1m).",
+        "hlf_calculation": "(FHB Lending NZDm [LVRN.MMB1.AC1] ÷ All Borrower Lending NZDm [LVRN.MMB1.AA]) × 100",
         "hlf_interpretation": "HLF market context: Tracks the proportion of new bank mortgage commitments going to first-home buyers relative to other owner-occupiers, investors, and business borrowers.",
         "questions": [
             "What share of New Zealand mortgages go to first-home buyers?",
@@ -240,8 +244,8 @@ TICKER_CATALOG = {
         "unit": "NZD",
         "frequency": "Monthly",
         "definition": "HLF-derived comparison of the mean approved mortgage size for New Zealand first-home buyers at >80% LVR (under 20% deposit) versus first-home buyers at <=80% LVR (20%+ deposit).",
-        "methodology": "Derived from RBNZ Table C31 by dividing total monthly dollar lending in each LVR tier by the number of approved first-home borrowers in that same LVR tier.",
-        "hlf_calculation": "(LVRN.MMB1.BC1 × $1m ÷ LVRN.MMB2.BC1) minus (LVRN.MMB1.CC1 × $1m ÷ LVRN.MMB2.CC1)",
+        "methodology": "Derived from RBNZ Table C31 by dividing total monthly dollar lending in each LVR tier (published by RBNZ in rounded $ millions) by the exact number of approved first-home borrowers in that same LVR tier.",
+        "hlf_calculation": "(>80% LVR FHB NZDm × $1m ÷ >80% LVR FHB Borrowers) minus (<=80% LVR FHB NZDm × $1m ÷ <=80% LVR FHB Borrowers)",
         "hlf_interpretation": "HLF market context: The data shows that first-home buyers at >80% LVR take out larger mortgages on average than those at <=80% LVR. RBNZ Table C31 does not record property purchase prices or borrower motivations; factors can include borrowing a higher percentage of the purchase price, regional price mix, or household income.",
         "questions": [
             "Do low-deposit first-home buyers borrow more or less than 20% deposit buyers?",
@@ -267,7 +271,7 @@ TICKER_CATALOG = {
         "unit": "percent",
         "frequency": "Monthly",
         "definition": "The HLF-derived share of all >80% LVR residential mortgage lending across New Zealand committed to first-home buyers.",
-        "methodology": "Compares high-LVR first-home commitments against high-LVR commitments across all borrower types combined in RBNZ Table C31.",
+        "methodology": "Compares high-LVR first-home commitments against high-LVR commitments across all borrower types combined in RBNZ Table C31 (where dollar series are published rounded to the nearest $1m).",
         "hlf_calculation": "(FHB >80% LVR Lending [LVRN.MMB1.BC1] ÷ All Borrower >80% LVR Lending [LVRN.MMB1.BA]) × 100",
         "hlf_interpretation": "HLF market context: Shows that first-home buyers account for the majority of >80% LVR commitments in RBNZ Table C31. Table C31 includes both speed-limit lending and LVR-exempt lending (such as Kāinga Ora First Home Loans and new builds).",
         "questions": [
@@ -319,7 +323,7 @@ TICKER_CATALOG = {
         "unit": "percent",
         "frequency": "Monthly",
         "definition": "The officially reported number and dollar value, plus HLF-derived percentage share and average loan size, of New Zealand first-home buyers approved at an LVR of 80% or less (corresponding to a deposit of 20% or more).",
-        "methodology": "Sourced from RBNZ Table C31 series for <=80% LVR first-home buyer lending and borrower counts.",
+        "methodology": "Sourced from RBNZ Table C31 series for <=80% LVR first-home buyer lending and borrower counts (dollar values rounded by RBNZ to the nearest $1m).",
         "hlf_calculation": "(<=80% LVR FHB Borrowers [LVRN.MMB2.CC1] ÷ Total FHB Borrowers [LVRN.MMB2.AC1]) × 100",
         "hlf_interpretation": "HLF market context (not measured in C31): An LVR of <=80% (a 20%+ deposit) can improve access to advertised special-rate pricing and generally avoids low-equity margins, subject to individual lender policy.",
         "questions": [
@@ -397,7 +401,7 @@ TICKER_CATALOG = {
         "unit": "percent",
         "frequency": "Monthly",
         "definition": "The HLF-derived percentage and average loan size of 'Other owner-occupier' mortgage approvals (movers, refinancers, and top-up borrowers, excluding first-home buyers) written at an LVR of 80% or less.",
-        "methodology": "Derived from RBNZ Table C31 'Other owner-occupiers' series at or below 80% LVR.",
+        "methodology": "Derived from RBNZ Table C31 'Other owner-occupiers' series at or below 80% LVR (dollar series rounded by RBNZ to the nearest $1m).",
         "hlf_calculation": "(<=80% LVR Other Owner-Occupiers [LVRN.MMB2.CC2] ÷ Total Other Owner-Occupiers [LVRN.MMB2.AC2]) × 100",
         "hlf_interpretation": "HLF market context: An LVR of <=80% on a mortgage commitment corresponds to holding at least 20% security equity in the mortgaged property. Note that RBNZ C31 only measures homeowners who apply for a new loan, refinance, or top-up during the month, not unmortgaged homeowners.",
         "questions": [
@@ -449,7 +453,7 @@ TICKER_CATALOG = {
         "unit": "loans",
         "frequency": "Monthly",
         "definition": "The officially reported number and dollar value of residential property investor mortgages approved at >80% LVR (under 20% deposit), alongside the HLF-derived 70% < LVR <= 80% band (20%–30% deposit).",
-        "methodology": "In RBNZ Table C31, >80% LVR investor loans are reported in LVRN.MMB2.BN / LVRN.MMB1.BN, while the 70% < LVR <= 80% band is derived by subtracting >80% LVR from >70% LVR (LVRN.MMB2.DN minus LVRN.MMB2.BN).",
+        "methodology": "In RBNZ Table C31, >80% LVR investor loans are reported in LVRN.MMB2.BN / LVRN.MMB1.BN, while the 70% < LVR <= 80% band is derived by subtracting >80% LVR from >70% LVR (LVRN.MMB2.DN minus LVRN.MMB2.BN; dollar series rounded by RBNZ to $1m).",
         "hlf_calculation": ">80% LVR = LVRN.MMB2.BN; 70%–80% LVR = LVRN.MMB2.DN minus LVRN.MMB2.BN",
         "hlf_interpretation": "HLF market context (not disaggregated in C31): Captures investor lending above 80% LVR and between 70% and 80% LVR. This can include lending supported by new-build exemptions, combined-collateral refinancing, bank high-LVR allocations, and other lending permitted under individual lender policies.",
         "questions": [
@@ -527,7 +531,7 @@ TICKER_CATALOG = {
         "unit": "percent",
         "frequency": "Monthly",
         "definition": "The officially reported monthly number of borrowers and dollar value of residential mortgages changing loan provider in RBNZ Table C33, plus the HLF-derived share of total lending and average loan size.",
-        "methodology": "Compiled from RBNZ Table C33 (New residential mortgage lending by purpose — Change in loan provider).",
+        "methodology": "Compiled from RBNZ Table C33 (New residential mortgage lending by purpose — Change in loan provider; dollar series published rounded to $1m).",
         "hlf_calculation": "(Refinance Lending NZDm [LVRN.MMB1.AZD] ÷ Total Purpose Lending NZDm) × 100",
         "hlf_interpretation": "HLF market context: Measures external refinancing where a borrower switches from one mortgage provider to another (internal refixes with the same bank are not counted in Table C33).",
         "questions": [
@@ -553,7 +557,7 @@ TICKER_CATALOG = {
         "unit": "percent",
         "frequency": "Monthly",
         "definition": "The officially reported monthly number of New Zealand borrowers approved for a top-up on their existing mortgage in RBNZ Table C33, alongside the HLF-derived share of total approvals and average top-up amount.",
-        "methodology": "Compiled from RBNZ Table C33 (New residential mortgage lending by purpose — Top-ups).",
+        "methodology": "Compiled from RBNZ Table C33 (New residential mortgage lending by purpose — Top-ups; dollar series published rounded to $1m).",
         "hlf_calculation": "(Top-Up Borrowers [LVRN.MMB2.AZB] ÷ Total Purpose Borrowers) × 100",
         "hlf_interpretation": "HLF market context (not disaggregated in C33): RBNZ Table C33 records top-ups as a single purpose category without disaggregating how borrowers use the funds (such as renovations, debt consolidation, or investment deposits).",
         "questions": [
@@ -579,7 +583,7 @@ TICKER_CATALOG = {
         "unit": "NZDm",
         "frequency": "Monthly",
         "definition": "Total monthly dollar value of new residential mortgage top-up commitments approved for existing borrowers in RBNZ Table C33.",
-        "methodology": "Sourced from RBNZ Table C33 series LVRN.MMB1.AZB (Top-up lending value) and LVRN.MMB2.AZB (Top-up borrower count).",
+        "methodology": "Sourced from RBNZ Table C33 series LVRN.MMB1.AZB (Top-up lending value, rounded to $1m) and LVRN.MMB2.AZB (Top-up borrower count).",
         "hlf_calculation": "Officially reported LVRN.MMB1.AZB dollar total; Avg top-up = LVRN.MMB1.AZB × $1m ÷ LVRN.MMB2.AZB",
         "hlf_interpretation": "HLF market context: This represents homeowners drawing additional borrowing against existing property equity, subject to lender servicing and LVR policy.",
         "questions": [
@@ -604,7 +608,7 @@ TICKER_CATALOG = {
         "unit": "percent",
         "frequency": "Monthly",
         "definition": "The HLF-derived percentage of new residential investor lending versus new owner-occupier lending set up on interest-only terms (including revolving credit facilities) in RBNZ Table C32.",
-        "methodology": "Derived from RBNZ Table C32 (New and existing residential mortgage lending by payment type).",
+        "methodology": "Derived from RBNZ Table C32 (New and existing residential mortgage lending by payment type; dollar series rounded to $1m).",
         "hlf_calculation": "(New Investor Interest-Only NZDm ÷ Total New Investor NZDm) × 100",
         "hlf_interpretation": "HLF market context: Shows the difference in interest-only usage between residential investment loans and owner-occupied home loans, subject to lender interest-only term limits.",
         "questions": [
@@ -656,9 +660,9 @@ TICKER_CATALOG = {
         "unit": "NZD",
         "frequency": "Monthly",
         "definition": "The HLF-calculated mean annual pre-tax gross income across approved New Zealand first-home buyer mortgage applications (combining all single and joint applicants on the loan).",
-        "methodology": "Computed by HLF from RBNZ Table C41 (Residential mortgage borrower gross income) by dividing total gross income across all Total Debt-to-Income (TDTI) bands by the implied borrower count (Band Total Income ÷ Band Average Income).",
-        "hlf_calculation": "Total Gross Income NZDm across all C41 TDTI bands ÷ Implied Borrower Count (Sum of [Band NZDm ÷ Band Avg Income NZD000s])",
-        "hlf_interpretation": "HLF market context: RBNZ Table C41 publishes band-level figures rather than a single nationwide mean; the overall figure is calculated by HLF. Because C41 measures total gross income per mortgage application (often combining two earners plus eligible boarder income), it represents combined application income rather than an individual salary.",
+        "methodology": "Computed by HLF from RBNZ Table C41 (Residential mortgage borrower gross income) by dividing total gross income across all Total Debt-to-Income (TDTI) bands by the implied borrower count (Band Total Income ÷ Band Average Income). Note that RBNZ publishes band income pools rounded to $0.1m and band averages rounded to $1,000s, so implied application counts reflect source rounding.",
+        "hlf_calculation": "Total Gross Income NZDm across all C41 TDTI bands ÷ Implied Application Count (Sum of [Band NZDm × 1,000 ÷ Band Avg Income NZD000s])",
+        "hlf_interpretation": "HLF market context: RBNZ Table C41 publishes band-level figures rather than a single nationwide mean; the overall figure is calculated by HLF from those published band figures. Because C41 measures total gross income per mortgage application (often combining two earners plus eligible boarder income), it represents combined application income rather than an individual salary.",
         "questions": [
             "What is the average combined household income on an approved first-home mortgage in NZ?",
         ],
@@ -676,14 +680,14 @@ TICKER_CATALOG = {
         "source_full": "Reserve Bank of New Zealand Table C41",
         "series_ids": "DTINI.MPA (Nationwide First-Home Buyer TDTI income bands)",
         "source_url": RBNZ_SOURCES["c41"]["pages"][0],
-        "data_type": "Officially reported TDTI band averages & HLF-calculated overall mean (Total band income ÷ implied borrowers)",
+        "data_type": "Officially reported TDTI band averages & HLF-calculated overall mean (Total band income ÷ implied applications)",
         "derived_by_hlf": True,
         "unit": "NZD",
         "frequency": "Monthly",
         "definition": "Official RBNZ Table C41 average pre-tax gross borrower income across each of the five first-home buyer Total Debt-to-Income (TDTI) bands, alongside the HLF-calculated mean across all bands.",
-        "methodology": "Sourced from RBNZ Table C41 (Residential mortgage borrower gross income) across the five first-home buyer TDTI bands.",
-        "hlf_calculation": "Total Gross Income NZDm across all 5 FHB TDTI bands ÷ Sum of Implied Band Borrowers (Band NZDm ÷ Band Avg Income)",
-        "hlf_interpretation": "HLF market context: RBNZ Table C41 reports each TDTI band separately; the overall mean is derived by HLF. Because mortgage applications frequently combine two incomes, application averages sit higher than single-earner salaries.",
+        "methodology": "Sourced from RBNZ Table C41 (Residential mortgage borrower gross income) across the five first-home buyer TDTI bands. Implied application counts per band are derived from RBNZ's published band income totals ($m) and band averages ($000s) and are subject to rounding in RBNZ's source tables.",
+        "hlf_calculation": "Sum of Band Gross Income Pools ($m) ÷ Sum of Implied Band Applications (Band Pool $m × 1,000 ÷ Band Avg Income $000s)",
+        "hlf_interpretation": "HLF market context: RBNZ Table C41 reports each TDTI band separately; the overall mean is derived by HLF and can be reproduced directly from the band breakdown table below. Because mortgage applications frequently combine two incomes, application averages sit higher than single-earner salaries.",
         "questions": [
             "How does first-home buyer gross income vary across Debt-to-Income (TDTI) bands in RBNZ C41?",
             "What is the average gross borrower income on an approved first-home mortgage application in New Zealand?",
@@ -747,8 +751,7 @@ TICKER_CATALOG = {
     },
 }
 
-PART_1_OF_5_READY = True
-# === PART 2 OF 5 ===
+PART_1_OF_5# === PART 2A OF 5 ===
 TICKER_CATALOG_EXPANSION = {
     # --- Expanded KiwiSaver Datasets (8 KiwiSaver + 1 Regional FHB KiwiSaver) ---
     "kiwisaver-first-home": {
@@ -760,17 +763,17 @@ TICKER_CATALOG_EXPANSION = {
         "source_full": "Inland Revenue — KiwiSaver Withdrawal Statistics",
         "series_ids": "IRD Monthly & June FY KiwiSaver First-Home Withdrawals",
         "source_url": IRD_KS_DATA_PAGE,
-        "data_type": "Officially reported IRD totals & HLF-derived per-member average and 10-year comparison",
+        "data_type": "Officially reported IRD totals & HLF-derived per-member average and 10-year nominal/real comparison",
         "derived_by_hlf": True,
         "unit": "NZD",
         "frequency": "Monthly",
-        "definition": "The officially reported monthly and annual number of KiwiSaver members withdrawing funds for a first-home purchase and total dollars withdrawn, plus the HLF-derived mean withdrawal per member and 10-year comparison.",
+        "definition": "The officially reported monthly and annual number of KiwiSaver members withdrawing funds for a first-home purchase and total dollars withdrawn, plus the HLF-derived mean withdrawal per member and 10-year nominal and CPI inflation-adjusted comparison.",
         "methodology": "Compiled monthly and annually by Inland Revenue from KiwiSaver scheme provider reports.",
-        "hlf_calculation": "Mean per Member = Total First-Home Withdrawal Dollars ÷ Withdrawing Members",
+        "hlf_calculation": "Mean per Member = Total First-Home Withdrawal Dollars ÷ Withdrawing Members; 10Y Real Growth = ((FY2026 ÷ FY2016) ÷ CPI_10Y_Factor [1.337]) − 1",
         "hlf_interpretation": "HLF market context: IRD reports individual member withdrawals rather than household applications; when two KiwiSaver members purchase together, both withdrawals are counted separately in the member total.",
         "questions": [
             "How much is the average KiwiSaver first-home withdrawal per member in New Zealand?",
-            "How has KiwiSaver first-home withdrawal volume grown over the past 10 years?",
+            "How has KiwiSaver first-home withdrawal volume grown over the past 10 years in nominal and real terms?",
         ],
         "article_title": "",
         "article_url": "",
@@ -829,26 +832,26 @@ TICKER_CATALOG_EXPANSION = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator",
     },
     "kiwisaver-total-fum-balance": {
-        "name": "KiwiSaver total funds under management (FUM) & average member balance (10-year growth)",
-        "also_known_as": "FMA KiwiSaver Annual Report total FUM & mean balance per member",
+        "name": "KiwiSaver total funds under management (FUM) & average member balance (10-year nominal & real growth)",
+        "also_known_as": "FMA KiwiSaver Annual Report total FUM & official average balance per member",
         "category": "KiwiSaver",
         "topic": "Long-term KiwiSaver balances & FUM growth",
         "source": "FMA & RBNZ",
         "source_full": "Financial Markets Authority (FMA) KiwiSaver Annual Report & RBNZ Managed Funds Survey",
-        "series_ids": "FMA Annual KiwiSaver Total FUM & Enrolled Member Count",
+        "series_ids": "FMA Annual KiwiSaver Total FUM, Enrolled Member Count & Published Average Balance",
         "source_url": FMA_KS_REPORT_PAGE,
-        "data_type": "Officially reported FMA/RBNZ FUM & member totals and HLF-derived mean balance / 10-year growth",
+        "data_type": "Officially reported FMA average balance/FUM & HLF-calculated 10-year nominal and CPI inflation-adjusted (real) growth",
         "derived_by_hlf": True,
         "unit": "NZD",
-        "frequency": "Annual / Quarterly",
-        "definition": "Total funds under management (FUM) across all New Zealand KiwiSaver schemes, total enrolled members, and the HLF-derived average balance per member over a 10-year horizon.",
-        "methodology": "Compiled from FMA KiwiSaver Annual Report disclosures (year ended 31 March) and RBNZ Managed Funds statistics.",
-        "hlf_calculation": "Mean Balance per Member = Total KiwiSaver FUM (NZD) ÷ Total Enrolled Members",
-        "hlf_interpretation": "HLF market context: Because total enrolled membership includes children, non-contributing members, and recent first-home withdrawers, the simple mean across all members sits below the median balance of full-time contributing adults.",
+        "frequency": "Annual",
+        "definition": "Total funds under management (FUM) across all New Zealand KiwiSaver schemes, total enrolled members, and the FMA's officially published average balance per member ($40,340 as at 31 March 2026), alongside HLF-calculated 10-year nominal and CPI inflation-adjusted (real) growth rates.",
+        "methodology": "Sourced from the FMA KiwiSaver Annual Report (for the year ended 31 March 2026, published 10 September 2026). Real (inflation-adjusted) 10-year growth is deflated by HLF using Stats NZ's cumulative 10-year all-groups CPI factor (+33.7% / 1.337x from March 2016 to March 2026).",
+        "hlf_calculation": "Official FMA Average Balance = $40,340; 10Y Nominal Growth = ($40,340 − $12,852) ÷ $12,852 = +213.9% (+12.1% p.a.); 10Y Real (CPI-Adjusted) Growth = (($40,340 ÷ $12,852) ÷ 1.337) − 1 = +134.8% (+8.9% p.a.)",
+        "hlf_interpretation": "HLF market context: The FMA's published average member balance ($40,340) is calculated across all 3.44 million enrolled KiwiSaver accounts—which includes children, non-contributing members, and members who have recently withdrawn funds for a first home.",
         "questions": [
             "What is the average KiwiSaver balance in New Zealand?",
             "How much money is invested in KiwiSaver in total across New Zealand?",
-            "How fast have KiwiSaver balances grown over the last 10 years?",
+            "How fast have KiwiSaver balances grown over the last 10 years after adjusting for inflation?",
         ],
         "article_title": "",
         "article_url": "",
@@ -882,7 +885,7 @@ TICKER_CATALOG_EXPANSION = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator",
     },
     "kiwisaver-contributions-10yr": {
-        "name": "Annual KiwiSaver employee, employer & Crown contributions (10-year trend & 3.5% default rate)",
+        "name": "Annual KiwiSaver employee, employer & Crown contributions (10-year nominal/real trend & 3.5% default rate)",
         "also_known_as": "IRD KiwiSaver scheme provider payments & statutory contribution settings",
         "category": "KiwiSaver",
         "topic": "KiwiSaver contributions & government match",
@@ -890,13 +893,13 @@ TICKER_CATALOG_EXPANSION = {
         "source_full": "Inland Revenue — KiwiSaver Scheme Provider Payments & Statutory Settings",
         "series_ids": "IRD Annual Deductions & Crown Contributions Passed to Providers",
         "source_url": IRD_KS_PAY_PAGE,
-        "data_type": "Officially reported IRD dollar flows & statutory contribution rates",
+        "data_type": "Officially reported IRD dollar flows, statutory rates & HLF-calculated nominal/real 10-year growth",
         "derived_by_hlf": True,
         "unit": "NZDB",
         "frequency": "Annual / Monthly",
-        "definition": "Total annual KiwiSaver contributions transferred by Inland Revenue to scheme providers (broken down by employee deductions, employer contributions, and Crown government contributions) over a 10-year window, alongside current statutory default rates.",
-        "methodology": "Compiled from Inland Revenue's annual KiwiSaver payments table (year ended 30 June) and statutory KiwiSaver Act settings.",
-        "hlf_calculation": "Employee Share = Employee Deductions ÷ Total IRD Transfers; 10-Year Growth = (FY2026 Total − FY2016 Total) ÷ FY2016 Total",
+        "definition": "Total annual KiwiSaver contributions transferred by Inland Revenue to scheme providers (broken down by employee deductions, employer contributions, and Crown government contributions) over a 10-year window in both nominal and CPI inflation-adjusted terms, alongside current statutory default rates.",
+        "methodology": "Compiled from Inland Revenue's annual KiwiSaver payments table (year ended 30 June) and statutory KiwiSaver Act settings, deflated over 10 years using Stats NZ's cumulative CPI factor (+33.7%).",
+        "hlf_calculation": "10Y Nominal Growth = ($11.40B − $5.10B) ÷ $5.10B = +123.5% (+8.4% p.a.); 10Y Real (CPI-Adjusted) Growth = (($11.40B ÷ $5.10B) ÷ 1.337) − 1 = +67.2% (+5.3% p.a.)",
         "hlf_interpretation": "HLF market context: Under current KiwiSaver settings, the maximum annual Government contribution is $260.72 (25 cents per dollar on the first $1,042.86 of member contributions for eligible earners at or below $180,000), and the default employee and employer contribution rate increased from 3.0% to 3.5% from 1 April 2026 (scheduled to reach 4.0% from 1 April 2028).",
         "questions": [
             "How much do New Zealand employees, employers, and the Government contribute to KiwiSaver each year?",
@@ -921,7 +924,7 @@ TICKER_CATALOG_EXPANSION = {
         "unit": "percent",
         "frequency": "Annual",
         "definition": "The proportion of total New Zealand KiwiSaver funds under management (FUM) invested in Growth/Aggressive, Balanced, and Conservative/Defensive fund categories compared with 10 years earlier.",
-        "methodology": "Derived from FMA KiwiSaver Annual Report disclosures categorising scheme FUM by underlying growth-asset allocation.",
+        "methodology": "Derived from FMA KiwiSaver Annual Report disclosures (year ended 31 March 2026, published 10 September 2026) categorising scheme FUM by underlying growth-asset allocation.",
         "hlf_calculation": "Category Share = (Category FUM NZDB ÷ Total KiwiSaver FUM NZDB) × 100",
         "hlf_interpretation": "HLF market context: Over the past decade, New Zealand KiwiSaver balances have shifted structurally from Conservative/Cash funds into Growth and Balanced funds. In practice, appropriate fund selection depends on when the member intends to withdraw funds (for example, a near-term first-home purchase within 1–3 years versus a 10–30+ year retirement horizon).",
         "questions": [
@@ -1130,7 +1133,7 @@ TICKER_CATALOG_EXPANSION = {
         "unit": "NZDm",
         "frequency": "Monthly",
         "definition": "Combined monthly lending volume and borrower count across existing owner-occupiers borrowing at >80% LVR and property investors borrowing at >70% LVR in RBNZ Table C31.",
-        "methodology": "Derived from RBNZ Table C31 series for >80% LVR other owner-occupiers and >70% LVR property investors.",
+        "methodology": "Derived from RBNZ Table C31 series for >80% LVR other owner-occupiers and >70% LVR property investors (dollar series rounded by RBNZ to $1m).",
         "hlf_calculation": "Combined Volume = Other Owner-Occupier >80% LVR NZDm [LVRN.MMB1.BC2] + Investor >70% LVR NZDm [LVRN.MMB1.DN]",
         "hlf_interpretation": "HLF market context: Under RBNZ macroprudential rules, newly built dwellings (purchased from the developer or within 6 months of code compliance) are exempt from both LVR and DTI restrictions—allowing eligible owner-occupiers and investors to purchase new builds with lower deposits than existing housing stock.",
         "questions": [
@@ -1195,25 +1198,25 @@ TICKER_CATALOG_EXPANSION = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator",
     },
     "rent-long-term-growth": {
-        "name": "Long-term 5-year & 10-year New Zealand median weekly rent growth (cumulative & CAGR)",
-        "also_known_as": "MBIE Tenancy Services 5-year and 10-year rental inflation benchmark",
+        "name": "Long-term 5-year & 10-year New Zealand median weekly rent growth (nominal & real CPI-adjusted)",
+        "also_known_as": "MBIE Tenancy Services 5-year and 10-year nominal and real rental growth benchmark",
         "category": "Property investors & rents",
         "topic": "Long-term rent inflation & yield modelling",
-        "source": "MBIE Tenancy Services",
-        "source_full": "MBIE Tenancy Services — Rental Bond Data (Long-Term Series)",
+        "source": "MBIE Tenancy Services & Stats NZ CPI",
+        "source_full": "MBIE Tenancy Services — Rental Bond Data (Long-Term Series) & Stats NZ CPI",
         "series_ids": "Tenancy Services Monthly Regional Bond CSV (5Y & 10Y Median Rent)",
         "source_url": TENANCY_PAGE,
-        "data_type": "Officially reported historical medians & HLF-derived 5-year / 10-year CAGR",
+        "data_type": "Officially reported historical medians & HLF-derived 5-year / 10-year nominal and real (CPI-adjusted) CAGR",
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "Cumulative percentage growth, dollar increase, and compound annual growth rate (CAGR) in national median weekly private rents over the trailing 5-year and 10-year periods.",
-        "methodology": "Computed from MBIE Tenancy Services historical monthly regional bond CSV series.",
-        "hlf_calculation": "10Y Cumulative % = ((Rent_t − Rent_t-120) ÷ Rent_t-120) × 100; 10Y CAGR = ((Rent_t ÷ Rent_t-120)^(1/10) − 1) × 100",
-        "hlf_interpretation": "HLF market context: Long-term 5-year and 10-year rental growth rates provide a more stable historical benchmark for long-term property cashflow modelling and rent-vs-buy comparisons than single-year fluctuations.",
+        "definition": "Cumulative percentage growth, dollar increase, and compound annual growth rate (CAGR) in national median weekly private rents over the trailing 5-year and 10-year periods in both nominal and CPI inflation-adjusted (real) terms.",
+        "methodology": "Computed from MBIE Tenancy Services historical monthly regional bond CSV series, with real-terms growth deflated by Stats NZ cumulative CPI (+33.7% over 10 years; +22.8% over 5 years).",
+        "hlf_calculation": "10Y Nominal % = ((Rent_t − Rent_t-120) ÷ Rent_t-120) × 100; 10Y Real % = (((Rent_t ÷ Rent_t-120) ÷ 1.337) − 1) × 100; 10Y Real CAGR = (((Rent_t ÷ Rent_t-120) ÷ 1.337)^(1/10) − 1) × 100",
+        "hlf_interpretation": "HLF market context: Comparing both nominal and inflation-adjusted (real) 5-year and 10-year rental growth provides a balanced benchmark for long-term property cashflow modelling and rent-vs-buy comparisons.",
         "questions": [
-            "How much have New Zealand rents increased over the last 5 and 10 years?",
-            "What is the long-term annual growth rate of weekly rents in New Zealand?",
+            "How much have New Zealand rents increased over the last 5 and 10 years in nominal and real terms?",
+            "Have New Zealand rents grown faster than general CPI inflation over the last decade?",
         ],
         "article_title": "",
         "article_url": "",
@@ -1272,7 +1275,13 @@ TICKER_CATALOG_EXPANSION = {
         "tool_title": "Investment Property Cashflow Calculator",
         "tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator",
     },
+}
 
+TICKER_CATALOG.update(TICKER_CATALOG_EXPANSION)
+
+PART_2A_OF_5_READY = True_READY = True
+# === PART 2B OF 5 ===
+TICKER_CATALOG_INSURANCE = {
     # --- 3-Way Insurance Taxonomy (12 Datasets Total) ---
     # 1. Property & Natural Hazard Insurance (6 Datasets)
     "building-insurance-inflation": {
@@ -1369,7 +1378,7 @@ TICKER_CATALOG_EXPANSION = {
         "frequency": "Annual / Semi-Annual",
         "definition": "Average household expenditure on insurance reported in Stats NZ's Household Expenditure Survey (HES) alongside the Reserve Bank of New Zealand's domestic dwelling insurance premium benchmark.",
         "methodology": "Combines Stats NZ HES average weekly household insurance expenditure across all NZ households with RBNZ Financial Stability Report analysis of quoted/paid domestic building insurance premiums for insured homeowners.",
-        "hlf_calculation": "Annualised household expenditure = Weekly HES expenditure × 52 weeks; compared against RBNZ insured homeowner dwelling premium benchmarks",
+        "hlf_calculation": "Annualised household expenditure = Weekly HES expenditure ($24.80/wk) × 52 weeks = $1,289.60/yr; compared against RBNZ insured homeowner dwelling premium benchmark (~$2,850/yr)",
         "hlf_interpretation": "HLF market context: Stats NZ's HES averages insurance spending across all households (including renters who do not pay building insurance), whereas RBNZ dwelling figures reflect the actual annual building premium paid by insured homeowners. Lenders require uninterrupted building insurance as a mandatory condition of every residential mortgage.",
         "questions": [
             "How much do New Zealand households typically spend on house and contents insurance?",
@@ -1421,7 +1430,7 @@ TICKER_CATALOG_EXPANSION = {
         "unit": "percent",
         "frequency": "Semi-Annual",
         "definition": "The estimated proportion and number of New Zealand domestic residential dwellings with active building insurance cover versus uninsured dwellings, as analysed in the Reserve Bank of New Zealand's May 2026 Financial Stability Report.",
-        "methodology": "Sourced from RBNZ's May 2026 Financial Stability Report and Natural Hazards Commission Toka Tū Ake residential dwelling exposure estimates (~2.0 million domestic dwellings representing ~$1.5 trillion in total residential sum insured).",
+        "methodology": "Sourced from RBNZ's May 2026 Financial Stability Report (published 6 May 2026) and Natural Hazards Commission Toka Tū Ake residential dwelling exposure estimates (~2.0 million domestic dwellings representing ~$1.5 trillion in total residential sum insured).",
         "hlf_calculation": "Uninsured Share = (60,000 Uninsured Dwellings ÷ 2,000,000 Total Domestic Dwellings) × 100 = 3.0%; Insured Share = 1,940,000 ÷ 2,000,000 = 97.0%",
         "hlf_interpretation": "HLF market context: RBNZ estimates that while roughly 97% of New Zealand domestic dwellings carry building insurance (primarily because mortgage lenders require full replacement/sum-insured cover as a loan condition), around 60,000 mostly unmortgaged dwellings have no building insurance—and many insured homeowners still face underinsurance risk if their sum insured lags behind rebuild costs.",
         "questions": [
@@ -1490,25 +1499,25 @@ TICKER_CATALOG_EXPANSION = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
     },
     "acc-weekly-compensation-claims": {
-        "name": "ACC annual injury claims vs weekly income compensation claims (accident vs illness scope)",
-        "also_known_as": "ACC Annual Report total claims vs weekly compensation claims",
+        "name": "ACC annual accepted injury claims vs new weekly income compensation claims",
+        "also_known_as": "ACC Annual Report total accepted injury claims & weekly compensation claim counts",
         "category": "Personal Risk & Income Protection",
         "topic": "Income protection & ACC coverage scope",
         "source": "ACC Annual Report",
         "source_full": "Accident Compensation Corporation (ACC) — Annual Report (2025/26)",
-        "series_ids": "ACC Total Registered Claims & Weekly Compensation Entitlement Claims",
+        "series_ids": "ACC Annual Accepted Injury Claims & New Weekly Compensation Entitlement Claims",
         "source_url": ACC_REPORT_PAGE,
-        "data_type": "Officially reported ACC claim counts/costs & HLF-derived weekly compensation share",
+        "data_type": "Officially reported ACC annual claim counts & HLF-calculated claim-count ratio",
         "derived_by_hlf": True,
         "unit": "claims",
         "frequency": "Annual",
-        "definition": "The annual number of new injury claims registered with ACC across New Zealand versus the number of claims receiving weekly income compensation for time off work.",
-        "methodology": "Sourced from ACC's Annual Report covering accepted injury claims, treatment/rehabilitation expenditure, and weekly compensation entitlements.",
-        "hlf_calculation": "Weekly Compensation Share = (105,000 Weekly Compensation Claims ÷ 2,100,000 Total Accepted Claims) × 100 = 5.0%",
-        "hlf_interpretation": "HLF market context: Only 5.0% of accepted ACC claims involve weekly income compensation. Under the Accident Compensation Act 2001, ACC covers physical injuries caused by an accident (plus narrow statutory categories such as work-related gradual-process conditions, treatment injuries, and certain mental injuries), and generally does not cover non-injury illness (such as cancer, heart attack, stroke, or degenerative illness)—which is the gap addressed by private Income Protection, Mortgage Repayment, and Trauma insurance.",
+        "definition": "Comparison of two separate annual claim counts published by ACC: total new accepted injury claims registered across New Zealand (comprising mainly minor treatment-only claims such as GP, physiotherapy, and dental visits) versus new weekly income compensation entitlement claims for time off work.",
+        "methodology": "Sourced from ACC's Annual Report covering accepted injury claims, treatment/rehabilitation expenditure, and weekly compensation entitlements. Note: the two series measure separate annual claim counts (total accepted claims include non-earners and minor treatment-only injuries that do not require time off work).",
+        "hlf_calculation": "Claim-Count Ratio = 105,000 New Weekly Compensation Claims ÷ 2,100,000 Total Accepted Injury Claims = 5.0 weekly compensation claims per 100 accepted injury claims",
+        "hlf_interpretation": "HLF market context: The 5.0% ratio compares annual weekly-compensation claim counts against total accepted injury claims (most of which are minor treatment-only visits). For mortgage borrowers, the critical distinction is statutory scope: under the Accident Compensation Act 2001, ACC covers physical injuries caused by an accident (plus narrow statutory categories such as work-related gradual-process conditions, treatment injuries, and certain mental injuries), and generally does not cover non-injury illness (such as cancer, heart attack, stroke, or degenerative illness)—which is the gap addressed by private Income Protection, Mortgage Repayment, and Trauma insurance.",
         "questions": [
             "Does ACC cover my mortgage repayments if I get sick or diagnosed with an illness?",
-            "How many ACC claims actually pay weekly income compensation in New Zealand?",
+            "How many weekly compensation claims does ACC accept each year in New Zealand?",
             "What is the difference between ACC and private income protection or mortgage protection insurance?",
         ],
         "article_title": "",
@@ -1560,7 +1569,7 @@ TICKER_CATALOG_EXPANSION = {
         "frequency": "Annual / Semi-Annual",
         "definition": "Total annual Gross Written Premiums (GWP), Net Earned Premiums (after reinsurance), and Net Incurred Claims across licensed New Zealand general insurers regulated by the Reserve Bank of New Zealand.",
         "methodology": "Compiled from RBNZ licensed insurer financial returns and Financial Stability Report general insurance series.",
-        "hlf_calculation": "Reinsurance Outflow = Gross Written Premiums (NZDB) minus Net Earned Premiums (NZDB); compared against Net Incurred Claims (NZDB)",
+        "hlf_calculation": "Reinsurance Outflow = Gross Written Premiums ($9.85B) minus Net Earned Premiums ($7.40B) = $2.45B; compared against Net Incurred Claims ($4.66B)",
         "hlf_interpretation": "HLF market context: Illustrates the scale of claims paid back to New Zealand households and businesses relative to total premiums collected, alongside the portion of gross premiums paid by NZ insurers for international catastrophe reinsurance.",
         "questions": [
             "How much do New Zealand insurers pay out in claims compared with premiums collected?",
@@ -1586,7 +1595,7 @@ TICKER_CATALOG_EXPANSION = {
         "frequency": "Annual / Semi-Annual",
         "definition": "The percentage of net earned insurance premiums (after reinsurance costs) paid out in net incurred claims across licensed New Zealand general insurers.",
         "methodology": "Calculated from RBNZ licensed insurer financial performance series by dividing Net Incurred Claims by Net Earned Premium.",
-        "hlf_calculation": "(Net Incurred Claims NZDB ÷ Net Earned Premium NZDB) × 100",
+        "hlf_calculation": "(Net Incurred Claims [$4.66B] ÷ Net Earned Premium [$7.40B]) × 100 = 63.0%",
         "hlf_interpretation": "HLF market context: A net loss ratio around 60%–68% in non-catastrophe years (and spiking above 80%–100%+ in major weather/earthquake years) shows the proportion of net premiums consumed directly by claims before operating expenses, tax, and RBNZ solvency capital requirements.",
         "questions": [
             "How much of every insurance premium dollar goes toward paying claims in New Zealand?",
@@ -1599,7 +1608,7 @@ TICKER_CATALOG_EXPANSION = {
     },
 }
 
-TICKER_CATALOG.update(TICKER_CATALOG_EXPANSION)
+TICKER_CATALOG.update(TICKER_CATALOG_INSURANCE)
 
 # Silent legacy alias map ONLY for nz-mortgage-pulse.json so existing Webflow bubbles never break
 LEGACY_BUBBLE_ALIASES = {
@@ -1658,6 +1667,25 @@ def month_end_iso(dt: pd.Timestamp) -> str:
     return last.strftime("%Y-%m-%d")
 
 
+def extract_html_release_date(html_str: str, fallback_note: str) -> str:
+    """Extract actual agency release/publication date from HTML metadata or text without copying period_end."""
+    if not html_str:
+        return fallback_note
+    for pat in (
+        r'<meta[^>]+(?:name|property)=["\'](?:DC\.Date|dcterms\.created|article:published_time|article:modified_time|date)["\'][^>]+content=["\']([^"\']+)["\']',
+        r'<time[^>]+datetime=["\'](20\d{2}-\d{2}-\d{2})["\']',
+        r'(?:Release date|Last updated|Published date|Date published|Published)[:\s]+(\d{1,2}\s+[A-Za-z]+\s+20\d{2})',
+    ):
+        m = re.search(pat, html_str, flags=re.I)
+        if m:
+            raw_d = m.group(1).strip()
+            dt = pd.to_datetime(raw_d[:10] if re.match(r"^20\d{2}-\d{2}-\d{2}", raw_d) else raw_d, errors="coerce")
+            if pd.notna(dt):
+                return f"{dt.strftime('%Y-%m-%d')} ({dt.day} {dt.strftime('%B %Y')})"
+            return raw_d
+    return fallback_note
+
+
 def is_fresh(as_of_iso: str, max_age_days: int) -> bool:
     try:
         obs_date = datetime.date.fromisoformat(as_of_iso[:10])
@@ -1706,8 +1734,8 @@ def make_history_list(dates: pd.Series, values: pd.Series, fmt_fn, n: int = 13) 
             })
     return out
 
-PART_2_OF_5_READY = True
-# === PART 3 OF 5 ===
+PART_2B_OF_5_READY = True
+# === PART 3A OF 5 ===
 # ---------------------------------------------------------------------------
 # 3-Tier Anti-Cloudflare & HTTP Download Pipeline
 # ---------------------------------------------------------------------------
@@ -1974,20 +2002,21 @@ def norm_label(txt: str) -> str:
 
 
 def extract_rbnz_published_date(filepath: pathlib.Path) -> str:
+    """Extract official Published Date from the RBNZ 'Table Description' sheet without falling back to period_end."""
     try:
         xls = pd.ExcelFile(filepath)
         for tab in xls.sheet_names:
             if "description" in tab.lower():
                 df_desc = pd.read_excel(xls, sheet_name=tab, header=None)
-                for r in range(min(12, df_desc.shape[0])):
+                for r in range(min(15, df_desc.shape[0])):
                     k_str = str(df_desc.iloc[r, 0] or "").strip().lower()
-                    if "published date" in k_str and df_desc.shape[1] > 1:
+                    if ("published" in k_str or "release" in k_str) and df_desc.shape[1] > 1:
                         dt_p = pd.to_datetime(df_desc.iloc[r, 1], errors="coerce")
                         if pd.notna(dt_p):
-                            return dt_p.strftime("%Y-%m-%d")
+                            return f"{dt_p.strftime('%Y-%m-%d')} ({dt_p.day} {dt_p.strftime('%B %Y')})"
     except Exception:
         pass
-    return ""
+    return "Monthly RBNZ statistical release (~4 weeks after reference month-end)"
 
 
 def load_rbnz_sheets(filepath: pathlib.Path) -> list:
@@ -2050,9 +2079,10 @@ def find_rbnz_series(tabs: list, exact_sids=(), include_all=(), exclude_any=(), 
                     return df["date"], ser, (sids[idx] or lbl[:45])
     raise KeyError(f"RBNZ series not found: sids={exact_sids}, include={include_all}")
 
-
+PART_3A_OF_5_READY = True
+# === PART 3B OF 5 ===
 # ---------------------------------------------------------------------------
-# Reference-Grade RBNZ Parsers (C31, C32, C33, C40, C41 & B30)
+# Reference-Grade RBNZ C31 Parser — Audited Math & Source Rounding Disclosures
 # ---------------------------------------------------------------------------
 def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     pub_date = extract_rbnz_published_date(filepath)
@@ -2065,7 +2095,11 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     except KeyError:
         bus_val = pd.Series([0.0] * len(dates))
 
-    tot_val = fhb_val.fillna(0) + oo_val.fillna(0) + inv_val.fillna(0) + bus_val.fillna(0)
+    try:
+        _, tot_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AA",), ("total lending", "all borrower"))
+    except KeyError:
+        tot_val = fhb_val.fillna(0) + oo_val.fillna(0) + inv_val.fillna(0) + bus_val.fillna(0)
+
     _, fhb_hi_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.BC1",), ("80", "lending", "first home"), ("less", "equal"))
     _, fhb_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.AC1",), ("borrowers", "first home"), ("80",))
     _, fhb_hi_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.BC1",), ("80", "borrowers", "first home"), ("less", "equal"))
@@ -2110,7 +2144,8 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
 
     fhb_sh = float(ser_fhb_sh_pct.iloc[i])
     fhb_sh_yoy = float(ser_fhb_sh_pct.iloc[iy])
-    fhb_avg_k = int(round((float(fhb_val.iloc[i]) * 1000.0) / float(fhb_cnt.iloc[i])))
+    fhb_avg_nzd = int(round((float(fhb_val.iloc[i]) * 1_000_000.0) / float(fhb_cnt.iloc[i])))
+    fhb_avg_k = int(round(fhb_avg_nzd / 1000.0))
 
     inv_sh = float(ser_inv_sh_pct.iloc[i])
     inv_sh_yoy = float(ser_inv_sh_pct.iloc[iy])
@@ -2126,7 +2161,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     fhb_share_html = (
         f"In {m_full}, registered banks approved <strong>{fhb_loans_int:,}</strong> first-home buyer mortgages totalling "
         f"<strong>{fmt_nzd_millions(float(fhb_val.iloc[i]))}</strong>—representing an HLF-derived <strong>{fhb_sh:.1f}%</strong> share of all new "
-        f"residential mortgage lending ({plain_prior_year_pct(fhb_sh, fhb_sh_yoy)}) and a mean loan size of <strong>${fhb_avg_k:,}k</strong>."
+        f"residential mortgage lending ({plain_prior_year_pct(fhb_sh, fhb_sh_yoy)}) and a mean loan size of <strong>${fhb_avg_nzd:,} (~${fhb_avg_k:,}k)</strong>."
     )
 
     inv_html = (
@@ -2138,15 +2173,15 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     fhb_lo_val_cur = float(fhb_val.iloc[i] - fhb_hi_val.iloc[i])
     fhb_lo_cnt_cur = float(fhb_cnt.iloc[i] - fhb_hi_cnt.iloc[i])
     fhb_lo_loans_int = int(round(fhb_lo_cnt_cur))
-    avg_hi_loan = (float(fhb_hi_val.iloc[i]) * 1_000_000.0) / max(1.0, float(fhb_hi_cnt.iloc[i]))
-    avg_lo_loan = (fhb_lo_val_cur * 1_000_000.0) / max(1.0, fhb_lo_cnt_cur)
+    avg_hi_loan = int(round((float(fhb_hi_val.iloc[i]) * 1_000_000.0) / max(1.0, float(fhb_hi_cnt.iloc[i]))))
+    avg_lo_loan = int(round((fhb_lo_val_cur * 1_000_000.0) / max(1.0, fhb_lo_cnt_cur)))
     loan_gap = avg_hi_loan - avg_lo_loan
 
     fhb_gap_html = (
         f"In {m_full}, the HLF-derived mean mortgage size for first-home buyers at &gt;80% LVR (under 20% deposit) was "
-        f"<strong>${avg_hi_loan:,.0f}</strong> ({fhb_hi_loans_int:,} loans / ${hi_dollars_m:,.0f}m), compared with "
-        f"<strong>${avg_lo_loan:,.0f}</strong> for first-home buyers at &le;80% LVR ({fhb_lo_loans_int:,} loans / ${fhb_lo_val_cur:,.0f}m)—an "
-        f"HLF-calculated difference of <strong>${abs(loan_gap):,.0f}</strong>."
+        f"<strong>${avg_hi_loan:,}</strong> ({fhb_hi_loans_int:,} loans / ${hi_dollars_m:,.0f}m), compared with "
+        f"<strong>${avg_lo_loan:,}</strong> for first-home buyers at &le;80% LVR ({fhb_lo_loans_int:,} loans / ${fhb_lo_val_cur:,.0f}m)—an "
+        f"HLF-calculated difference of <strong>${abs(loan_gap):,}</strong> (derived from RBNZ Table C31 dollar series rounded to $1m)."
     )
 
     fhb_hi_val_share = float(ser_fhb_prio_pct.iloc[i])
@@ -2163,7 +2198,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     fhb_20club_html = (
         f"In {m_full}, RBNZ Table C31 recorded <strong>{fhb_lo_loans_int:,} first-home buyers ({fmt_nzd_millions(fhb_lo_val_cur)})</strong> "
         f"approved at <strong>&le;80% LVR</strong> (corresponding to a 20% or greater deposit)—representing an HLF-derived "
-        f"<strong>{std_dep_pct:.1f}%</strong> share of first-home approvals and a mean loan size of <strong>${avg_lo_loan:,.0f}</strong>."
+        f"<strong>{std_dep_pct:.1f}%</strong> share of first-home approvals and a mean loan size of <strong>${avg_lo_loan:,}</strong>."
     )
 
     fhb_v = float(fhb_val.iloc[i])
@@ -2187,11 +2222,11 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     oo_lo_c = oo_tot_c - oo_hi_c
     oo_lo_v = float(oo_val.iloc[i] - oo_hi_val.iloc[i])
     oo_20eq_pct = float(ser_oo_20eq_pct.iloc[i])
-    oo_avg_20eq = (oo_lo_v * 1_000_000.0) / max(1.0, oo_lo_c)
+    oo_avg_20eq = int(round((oo_lo_v * 1_000_000.0) / max(1.0, oo_lo_c)))
     owner_eq_html = (
         f"In {m_full}, RBNZ Table C31 recorded <strong>{int(round(oo_lo_c)):,} of {int(round(oo_tot_c)):,}</strong> existing ('other') "
         f"owner-occupier mortgage approvals (<strong>{fmt_nzd_millions(oo_lo_v)}</strong>) at <strong>&le;80% LVR</strong> (corresponding to 20%+ "
-        f"security equity)—an HLF-derived share of <strong>{oo_20eq_pct:.1f}%</strong> and mean loan size of <strong>${oo_avg_20eq:,.0f}</strong>."
+        f"security equity)—an HLF-derived share of <strong>{oo_20eq_pct:.1f}%</strong> and mean loan size of <strong>${oo_avg_20eq:,}</strong>."
     )
 
     inv_c_tot = int(round(float(inv_cnt.iloc[i])))
@@ -2289,40 +2324,40 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         "fhb-low-deposit": make_c31_item(
             low_dep_html,
             f"RBNZ Table C31 ({m_full}): {fhb_hi_loans_int:,} high-LVR (>80% LVR) FHB borrowers (${hi_dollars_m:,.0f}m) out of {fhb_loans_int:,} total FHB borrowers (${fhb_v:,.0f}m).",
-            low_cnt_pct, f"{low_cnt_pct:.1f}%", f"{low_cnt_yoy:.1f}%",
+            low_cnt_pct, f"{low_cnt_pct:.1f}% ({fhb_hi_loans_int:,} of {fhb_loans_int:,} loans)", f"{low_cnt_yoy:.1f}%",
             f"{low_cnt_pct - low_cnt_yoy:+.1f} percentage points YoY",
             f"{fhb_hi_loans_int:,} ÷ {fhb_loans_int:,} = {low_cnt_pct:.1f}% (Lending: ${hi_dollars_m:,.0f}m ÷ ${fhb_v:,.0f}m = {(hi_dollars_m/max(1.0,fhb_v))*100:.1f}%)",
             make_history_list(dates, ser_low_dep_pct, lambda x: f"{x:.1f}%"),
         ),
         "fhb-share": make_c31_item(
             fhb_share_html,
-            f"RBNZ Table C31 ({m_full}): {fhb_loans_int:,} FHB borrowers and ${fhb_v:,.0f}m FHB lending out of ${tot_val_m:,.0f}m total new residential lending.",
-            fhb_sh, f"{fhb_sh:.1f}% ({fhb_loans_int:,} loans)", f"{fhb_sh_yoy:.1f}%",
+            f"RBNZ Table C31 ({m_full}): {fhb_loans_int:,} FHB borrowers and ${fhb_v:,.0f}m FHB lending out of ${tot_val_m:,.0f}m total new residential lending (LVRN.MMB1.AA).",
+            fhb_sh, f"{fhb_sh:.1f}% ({fhb_loans_int:,} loans, avg ${fhb_avg_nzd:,})", f"{fhb_sh_yoy:.1f}%",
             f"{fhb_sh - fhb_sh_yoy:+.1f} percentage points YoY",
-            f"${fhb_v:,.0f}m ÷ ${tot_val_m:,.0f}m = {fhb_sh:.1f}% (Avg loan: ${fhb_v:,.0f}m ÷ {fhb_loans_int:,} = ${fhb_avg_k:,}k)",
+            f"${fhb_v:,.0f}m ÷ ${tot_val_m:,.0f}m = {fhb_sh:.1f}% (Mean loan: ${fhb_v:,.0f}m × $1m ÷ {fhb_loans_int:,} = ${fhb_avg_nzd:,}; RBNZ dollar series rounded to $1m)",
             make_history_list(dates, ser_fhb_sh_pct, lambda x: f"{x:.1f}%"),
         ),
         "investors": make_c31_item(
             inv_html,
-            f"RBNZ Table C31 ({m_full}): {inv_c_tot:,} investor borrowers and ${inv_v:,.0f}m investor lending out of ${tot_val_m:,.0f}m total lending.",
-            inv_sh, f"{inv_sh:.1f}% (${inv_b:.2f}B)", f"{inv_sh_yoy:.1f}%",
+            f"RBNZ Table C31 ({m_full}): {inv_c_tot:,} investor borrowers and ${inv_v:,.0f}m investor lending out of ${tot_val_m:,.0f}m total lending (LVRN.MMB1.AA).",
+            inv_sh, f"{inv_sh:.1f}% (${inv_b:.2f}B across {inv_c_tot:,} loans)", f"{inv_sh_yoy:.1f}%",
             f"{inv_sh - inv_sh_yoy:+.1f} percentage points YoY",
             f"${inv_v:,.0f}m ÷ ${tot_val_m:,.0f}m = {inv_sh:.1f}%",
             make_history_list(dates, ser_inv_sh_pct, lambda x: f"{x:.1f}%"),
         ),
         "fhb-loan-size-gap": make_c31_item(
             fhb_gap_html,
-            f"RBNZ Table C31 ({m_full}): >80% LVR FHB = ${hi_dollars_m:,.0f}m across {fhb_hi_loans_int:,} borrowers; <=80% LVR FHB = ${fhb_lo_val_cur:,.0f}m across {fhb_lo_loans_int:,} borrowers.",
-            loan_gap / 1000.0, f"${avg_hi_loan:,.0f} (>80% LVR) vs ${avg_lo_loan:,.0f} (<=80% LVR)",
+            f"RBNZ Table C31 ({m_full}): >80% LVR FHB = ${hi_dollars_m:,.0f}m across {fhb_hi_loans_int:,} borrowers; <=80% LVR FHB = ${fhb_lo_val_cur:,.0f}m across {fhb_lo_loans_int:,} borrowers (dollar series rounded to $1m).",
+            loan_gap / 1000.0, f"${avg_hi_loan:,} at >80% LVR vs ${avg_lo_loan:,} at <=80% LVR (+${abs(loan_gap):,})",
             f"${float(ser_fhb_hi_avg_k.iloc[iy])*1000:,.0f} vs ${float(ser_fhb_lo_avg_k.iloc[iy])*1000:,.0f}",
-            f"${abs(loan_gap):,.0f} difference between LVR tiers",
-            f"(${hi_dollars_m:,.0f}m ÷ {fhb_hi_loans_int:,} = ${avg_hi_loan:,.0f}) minus (${fhb_lo_val_cur:,.0f}m ÷ {fhb_lo_loans_int:,} = ${avg_lo_loan:,.0f}) = ${loan_gap:,.0f}",
+            f"${abs(loan_gap):,} difference between LVR tiers",
+            f"(${hi_dollars_m:,.0f}m × $1m ÷ {fhb_hi_loans_int:,} = ${avg_hi_loan:,}) minus (${fhb_lo_val_cur:,.0f}m × $1m ÷ {fhb_lo_loans_int:,} = ${avg_lo_loan:,}) = ${loan_gap:,} (subject to RBNZ $1m rounding)",
             make_history_list(dates, ser_fhb_hi_avg_k, lambda x: f"${x:,.1f}k (>80% LVR avg)"),
         ),
         "fhb-bank-lvr-priority": make_c31_item(
             fhb_priority_html,
             f"RBNZ Table C31 ({m_full}): FHB >80% LVR = ${hi_dollars_m:,.0f}m ({fhb_hi_loans_int:,} loans); All Borrower >80% LVR = ${float(all_hi_val.iloc[i]):,.0f}m ({all_hi_loans_int:,} loans).",
-            fhb_hi_val_share, f"{fhb_hi_val_share:.1f}% of >80% LVR dollars ({fhb_hi_cnt_share:.1f}% of loans)",
+            fhb_hi_val_share, f"{fhb_hi_val_share:.1f}% of >80% LVR dollars | {fhb_hi_cnt_share:.1f}% of >80% LVR loans",
             f"{float(ser_fhb_prio_pct.iloc[iy]):.1f}%",
             f"{fhb_hi_val_share - float(ser_fhb_prio_pct.iloc[iy]):+.1f} percentage points YoY",
             f"Dollars: ${hi_dollars_m:,.0f}m ÷ ${float(all_hi_val.iloc[i]):,.0f}m = {fhb_hi_val_share:.1f}% | Loans: {fhb_hi_loans_int:,} ÷ {all_hi_loans_int:,} = {fhb_hi_cnt_share:.1f}%",
@@ -2331,10 +2366,10 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         "fhb-20-deposit-club": make_c31_item(
             fhb_20club_html,
             f"RBNZ Table C31 ({m_full}): {fhb_lo_loans_int:,} <=80% LVR FHB borrowers (${fhb_lo_val_cur:,.0f}m) out of {fhb_loans_int:,} total FHB borrowers.",
-            std_dep_pct, f"{std_dep_pct:.1f}% ({fhb_lo_loans_int:,} loans, avg ${avg_lo_loan:,.0f})",
+            std_dep_pct, f"{std_dep_pct:.1f}% ({fhb_lo_loans_int:,} loans, avg ${avg_lo_loan:,})",
             f"{float(ser_fhb_20club_pct.iloc[iy]):.1f}%",
             f"{std_dep_pct - float(ser_fhb_20club_pct.iloc[iy]):+.1f} percentage points YoY",
-            f"{fhb_lo_loans_int:,} ÷ {fhb_loans_int:,} = {std_dep_pct:.1f}% (Avg loan: ${fhb_lo_val_cur:,.0f}m ÷ {fhb_lo_loans_int:,} = ${avg_lo_loan:,.0f})",
+            f"{fhb_lo_loans_int:,} ÷ {fhb_loans_int:,} = {std_dep_pct:.1f}% (Mean loan: ${fhb_lo_val_cur:,.0f}m × $1m ÷ {fhb_lo_loans_int:,} = ${avg_lo_loan:,})",
             make_history_list(dates, ser_fhb_20club_pct, lambda x: f"{x:.1f}%"),
         ),
         "fhb-vs-investors": make_c31_item(
@@ -2349,16 +2384,16 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         "owner-equity-buffer": make_c31_item(
             owner_eq_html,
             f"RBNZ Table C31 ({m_full}): {int(round(oo_lo_c)):,} <=80% LVR other owner-occupier borrowers (${oo_lo_v:,.0f}m) out of {int(round(oo_tot_c)):,} total other owner-occupier borrowers.",
-            oo_20eq_pct, f"{oo_20eq_pct:.1f}% (avg loan ${oo_avg_20eq:,.0f})",
+            oo_20eq_pct, f"{oo_20eq_pct:.1f}% at <=80% LVR (avg loan ${oo_avg_20eq:,})",
             f"{float(ser_oo_20eq_pct.iloc[iy]):.1f}%",
             f"{oo_20eq_pct - float(ser_oo_20eq_pct.iloc[iy]):+.1f} percentage points YoY",
-            f"{int(round(oo_lo_c)):,} ÷ {int(round(oo_tot_c)):,} = {oo_20eq_pct:.1f}% (Avg loan: ${oo_lo_v:,.0f}m ÷ {int(round(oo_lo_c)):,} = ${oo_avg_20eq:,.0f})",
+            f"{int(round(oo_lo_c)):,} ÷ {int(round(oo_tot_c)):,} = {oo_20eq_pct:.1f}% (Mean loan: ${oo_lo_v:,.0f}m × $1m ÷ {int(round(oo_lo_c)):,} = ${oo_avg_20eq:,})",
             make_history_list(dates, ser_oo_20eq_pct, lambda x: f"{x:.1f}%"),
         ),
         "investor-equity-tiers": make_c31_item(
             inv_eq_html,
             f"RBNZ Table C31 ({m_full}): Total investors = {inv_c_tot:,}; <=60% LVR = {inv_le60_c:,}; >60% LVR = {int(round(float(inv_gt60_cnt.iloc[i]))):,}; >70% LVR = {inv_u30_cnt:,} (${inv_u30_val:,.0f}m).",
-            inv_40plus_pct, f"{inv_40plus_pct:.1f}% (<=60% LVR) | {inv_30to40_pct:.1f}% (60–70% LVR) | {inv_u30_pct:.1f}% (>70% LVR)",
+            inv_40plus_pct, f"<=60% LVR: {inv_40plus_pct:.1f}% | 60–70% LVR: {inv_30to40_pct:.1f}% | >70% LVR: {inv_u30_pct:.1f}%",
             f"{100.0 - float(ser_inv_u30_pct.iloc[iy]):.1f}% at <=70% LVR",
             f"{inv_u30_pct - float(ser_inv_u30_pct.iloc[iy]):+.1f} pts shift in >70% LVR share",
             f"<=60% LVR: {inv_le60_c:,} ÷ {inv_c_tot:,} = {inv_40plus_pct:.1f}% | 60–70% LVR: {inv_30to40_c:,} ÷ {inv_c_tot:,} = {inv_30to40_pct:.1f}% | >70% LVR: {inv_u30_cnt:,} ÷ {inv_c_tot:,} = {inv_u30_pct:.1f}%",
@@ -2367,7 +2402,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         "investor-low-deposit": make_c31_item(
             inv_low_dep_html,
             f"RBNZ Table C31 ({m_full}): >80% LVR investors = {inv_gt80_c:,} loans (${inv_gt80_v:,.0f}m); >70% LVR investors = {inv_u30_cnt:,} loans (${inv_u30_val:,.0f}m).",
-            float(inv_gt80_c), f"{inv_gt80_c:,} loans (${inv_gt80_v:,.0f}m) >80% LVR + {inv_70to80_c:,} loans (${inv_70to80_v:,.0f}m) 70–80% LVR",
+            float(inv_gt80_c), f">80% LVR: {inv_gt80_c:,} loans (${inv_gt80_v:,.0f}m) | 70–80% LVR: {inv_70to80_c:,} loans (${inv_70to80_v:,.0f}m)",
             f"{inv_gt80_c_prev:,} loans (${inv_gt80_v_prev:,.0f}m) >80% LVR",
             f"{inv_gt80_c - inv_gt80_c_prev:+d} loans ({inv_gt80_v - inv_gt80_v_prev:+.0f}m) YoY in >80% LVR tier",
             f">80% LVR: {inv_gt80_c:,} ÷ {inv_c_tot:,} = {inv_gt80_pct:.1f}% (${inv_gt80_v:,.0f}m) | 70–80% LVR: {inv_u30_cnt:,} - {inv_gt80_c:,} = {inv_70to80_c:,} loans (${inv_70to80_v:,.0f}m)",
@@ -2376,7 +2411,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         "investor-new-build-lvr": make_c31_item(
             inv_nb_lvr_html,
             f"RBNZ Table C31 ({m_full}): >70% LVR investors = {inv_u30_cnt:,} loans (${inv_u30_val:,.0f}m) out of {inv_c_tot:,} total investor loans.",
-            inv_u30_pct, f"{inv_u30_pct:.1f}% ({inv_u30_cnt:,} loans / ${inv_u30_val:,.0f}m at >70% LVR)",
+            inv_u30_pct, f"{inv_u30_pct:.1f}% at >70% LVR ({inv_u30_cnt:,} loans / ${inv_u30_val:,.0f}m)",
             f"{float(ser_inv_u30_pct.iloc[iy]):.1f}%",
             f"{inv_u30_pct - float(ser_inv_u30_pct.iloc[iy]):+.1f} percentage points YoY",
             f"{inv_u30_cnt:,} ÷ {inv_c_tot:,} = {inv_u30_pct:.1f}% ({inv_70to80_c:,} loans in 70–80% LVR + {inv_gt80_c:,} loans in >80% LVR)",
@@ -2385,7 +2420,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         "mover-low-equity": make_c31_item(
             mover_low_eq_html,
             f"RBNZ Table C31 ({m_full}): {int(round(oo_hi_c)):,} >80% LVR other owner-occupier loans (${oo_hi_v:,.0f}m) out of {int(round(oo_tot_c)):,} total other owner-occupier loans.",
-            oo_low_eq_pct, f"{oo_low_eq_pct:.1f}% ({int(round(oo_hi_c)):,} loans / ${oo_hi_v:,.0f}m)",
+            oo_low_eq_pct, f"{oo_low_eq_pct:.1f}% at >80% LVR ({int(round(oo_hi_c)):,} loans / ${oo_hi_v:,.0f}m)",
             f"{oo_low_eq_prev:.1f}%",
             f"{oo_low_eq_pct - oo_low_eq_prev:+.1f} percentage points YoY",
             f"{int(round(oo_hi_c)):,} ÷ {int(round(oo_tot_c)):,} = {oo_low_eq_pct:.1f}%",
@@ -2394,7 +2429,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         "new-build-lvr-exemption-flow": make_c31_item(
             nb_ex_flow_html,
             f"RBNZ Table C31 ({m_full}): Other owner-occupiers >80% LVR = {int(round(oo_hi_c)):,} loans (${oo_hi_v:,.0f}m); Investors >70% LVR = {inv_u30_cnt:,} loans (${inv_u30_val:,.0f}m).",
-            comb_ex_v, f"{fmt_nzd_millions(comb_ex_v)} across {comb_ex_c:,} loans (Movers >80% LVR + Investors >70% LVR)",
+            comb_ex_v, f"{fmt_nzd_millions(comb_ex_v)} across {comb_ex_c:,} high-LVR mover & investor loans",
             f"{fmt_nzd_millions(comb_ex_v_prev)} ({comb_ex_c_prev:,} loans)",
             f"{comb_ex_v - comb_ex_v_prev:+.0f}m ({comb_ex_c - comb_ex_c_prev:+,d} loans) YoY",
             f"Dollars: ${oo_hi_v:,.0f}m + ${inv_u30_val:,.0f}m = ${comb_ex_v:,.0f}m | Loans: {int(round(oo_hi_c)):,} + {inv_u30_cnt:,} = {comb_ex_c:,}",
@@ -2415,7 +2450,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             f"totalling <strong>{fmt_nzd_millions(r12_val)} in lending</strong> ({dir_r12} {r12_prev_cnt:,} loans a year earlier)—including "
             f"<strong>{r12_hi_cnt:,} borrowers ({r12_hi_pct:.1f}%)</strong> approved at <strong>&gt;80% LVR (under a 20% deposit)</strong>.",
             f"RBNZ Table C31 (12 months to {m_full}): Sum of monthly FHB approvals = {r12_cnt:,} loans (${r12_val:,.0f}m); >80% LVR FHB approvals = {r12_hi_cnt:,} loans.",
-            float(r12_cnt), f"{r12_cnt:,} loans ({fmt_nzd_millions(r12_val)})", f"{r12_prev_cnt:,} loans",
+            float(r12_cnt), f"{r12_cnt:,} loans / {fmt_nzd_millions(r12_val)} (12m rolling)", f"{r12_prev_cnt:,} loans",
             f"{r12_cnt - r12_prev_cnt:+,d} annual FHB loans YoY",
             f"12-month sum = {r12_cnt:,} loans (${r12_val:,.0f}m); >80% LVR share = {r12_hi_cnt:,} ÷ {r12_cnt:,} = {r12_hi_pct:.1f}%",
             make_history_list(dates, r12_ser, lambda x: f"{int(round(x)):,} loans (12m rolling)"),
@@ -2431,7 +2466,8 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         }
     return out, by_ym
 
-
+PART_3B_OF_5_READY = True
+# === PART 3C OF 5 ===
 def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
     pub_date = extract_rbnz_published_date(filepath)
     tabs = load_rbnz_sheets(filepath)
@@ -2460,11 +2496,14 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
     ref_val_m = float(ref_v.iloc[j])
     ref_cnt_int = int(round(float(ref_c.iloc[j])))
     ref_sh = float(ref_sh_ser.iloc[j])
-    ref_avg_k = int(round((ref_val_m * 1000.0) / max(1, ref_cnt_int)))
+    ref_avg_nzd = int(round((ref_val_m * 1_000_000.0) / max(1, ref_cnt_int)))
+    ref_avg_k = int(round(ref_avg_nzd / 1000.0))
+
     top_sh_c = float(top_sh_c_ser.iloc[j])
     top_val_m = float(top_v.iloc[j])
     top_cnt_int = int(round(float(top_c.iloc[j])))
-    top_avg_k = int(round((top_val_m * 1000.0) / max(1, top_cnt_int)))
+    top_avg_nzd = int(round((top_val_m * 1_000_000.0) / max(1, top_cnt_int)))
+    top_avg_k = int(round(top_avg_nzd / 1000.0))
 
     src_c33 = (
         'Source: <a href="https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose" '
@@ -2478,17 +2517,18 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
                 f"In {m_full}, RBNZ Table C33 recorded <strong>{ref_cnt_int:,}</strong> borrowers changing loan provider and "
-                f"<strong>${ref_val_m/1000.0:.2f}B</strong> in refinanced loans—representing an HLF-derived <strong>{ref_sh:.1f}%</strong> "
-                f"share of all new residential lending and a mean loan size of <strong>${ref_avg_k:,}k</strong>."
+                f"<strong>${ref_val_m/1000.0:.2f}B (${ref_val_m:,.0f}m)</strong> in refinanced loans—representing an HLF-derived "
+                f"<strong>{ref_sh:.1f}%</strong> share of all new residential lending and a mean loan size of "
+                f"<strong>${ref_avg_nzd:,} (~${ref_avg_k:,}k)</strong>."
             ),
-            "official_data_summary": f"RBNZ Table C33 ({m_full}): Change in loan provider = {ref_cnt_int:,} borrowers and ${ref_val_m:,.0f}m out of ${tot_v:,.0f}m total purpose lending.",
+            "official_data_summary": f"RBNZ Table C33 ({m_full}): Change in loan provider = {ref_cnt_int:,} borrowers and ${ref_val_m:,.0f}m out of ${tot_v:,.0f}m total purpose lending (dollar series rounded to $1m).",
             "source_html": src_c33,
             "latest_period": m_full,
             "value": round(ref_sh, 2),
-            "latest_value": f"{ref_sh:.1f}% (${ref_val_m/1000.0:.2f}B / {ref_cnt_int:,} loans)",
+            "latest_value": f"{ref_sh:.1f}% of lending (${ref_val_m/1000.0:.2f}B across {ref_cnt_int:,} loans, avg ${ref_avg_nzd:,})",
             "previous_period": f"{dates.iloc[jy].strftime('%B %Y')} ({float(ref_sh_ser.iloc[jy]):.1f}%)",
             "change": f"{ref_sh - float(ref_sh_ser.iloc[jy]):+.1f} percentage points YoY",
-            "calculation_live": f"${ref_val_m:,.0f}m ÷ ${tot_v:,.0f}m = {ref_sh:.1f}% (Avg loan: ${ref_val_m:,.0f}m ÷ {ref_cnt_int:,} = ${ref_avg_k:,}k)",
+            "calculation_live": f"${ref_val_m:,.0f}m ÷ ${tot_v:,.0f}m = {ref_sh:.1f}% (Mean loan: ${ref_val_m:,.0f}m × $1m ÷ {ref_cnt_int:,} = ${ref_avg_nzd:,}; RBNZ dollar series rounded to $1m)",
             "historical_data_from": hist_start_lbl,
             "history": make_history_list(dates, ref_sh_ser, lambda x: f"{x:.1f}%"),
         },
@@ -2499,16 +2539,17 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
                 f"In {m_full}, RBNZ Table C33 recorded <strong>{top_cnt_int:,}</strong> borrowers approved for a mortgage top-up on an existing property—"
-                f"an HLF-derived <strong>{top_sh_c:.1f}%</strong> share of all mortgage approvals by count and a mean top-up of <strong>${top_avg_k:,}k</strong>."
+                f"an HLF-derived <strong>{top_sh_c:.1f}%</strong> share of all mortgage approvals by count and a mean top-up of "
+                f"<strong>${top_avg_nzd:,} (~${top_avg_k:,}k)</strong>."
             ),
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up approvals = {top_cnt_int:,} borrowers (${top_val_m:,.0f}m) out of {tot_c:,} total approvals.",
             "source_html": src_c33,
             "latest_period": m_full,
             "value": round(top_sh_c, 2),
-            "latest_value": f"{top_sh_c:.1f}% ({top_cnt_int:,} top-ups, avg ${top_avg_k:,}k)",
+            "latest_value": f"{top_sh_c:.1f}% of approvals ({top_cnt_int:,} top-ups, avg ${top_avg_nzd:,})",
             "previous_period": f"{dates.iloc[jy].strftime('%B %Y')} ({float(top_sh_c_ser.iloc[jy]):.1f}%)",
             "change": f"{top_sh_c - float(top_sh_c_ser.iloc[jy]):+.1f} percentage points YoY",
-            "calculation_live": f"{top_cnt_int:,} ÷ {tot_c:,} = {top_sh_c:.1f}% (Avg top-up: ${top_val_m:,.0f}m ÷ {top_cnt_int:,} = ${top_avg_k:,}k)",
+            "calculation_live": f"{top_cnt_int:,} ÷ {tot_c:,} = {top_sh_c:.1f}% (Mean top-up: ${top_val_m:,.0f}m × $1m ÷ {top_cnt_int:,} = ${top_avg_nzd:,})",
             "historical_data_from": hist_start_lbl,
             "history": make_history_list(dates, top_sh_c_ser, lambda x: f"{x:.1f}%"),
         },
@@ -2519,16 +2560,16 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
                 f"In {m_full}, RBNZ Table C33 recorded <strong>{fmt_nzd_millions(top_val_m)} of mortgage top-up lending</strong> across "
-                f"<strong>{top_cnt_int:,} borrowers</strong> (an HLF-derived mean of <strong>${top_avg_k:,}k</strong> per top-up)."
+                f"<strong>{top_cnt_int:,} borrowers</strong> (an HLF-derived mean of <strong>${top_avg_nzd:,}</strong> per top-up)."
             ),
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up lending value = ${top_val_m:,.0f}m across {top_cnt_int:,} borrowers.",
             "source_html": src_c33,
             "latest_period": m_full,
             "value": round(top_val_m, 1),
-            "latest_value": f"{fmt_nzd_millions(top_val_m)} of top-up lending across {top_cnt_int:,} borrowers",
+            "latest_value": f"{fmt_nzd_millions(top_val_m)} across {top_cnt_int:,} borrowers (avg ${top_avg_nzd:,})",
             "previous_period": f"{dates.iloc[jy].strftime('%B %Y')} ({fmt_nzd_millions(float(top_v.iloc[jy]))})",
             "change": f"{top_val_m - float(top_v.iloc[jy]):+.0f}m YoY",
-            "calculation_live": f"Directly reported ${top_val_m:,.0f}m of top-up lending ÷ {top_cnt_int:,} borrowers = ${top_avg_k:,}k avg",
+            "calculation_live": f"Directly reported ${top_val_m:,.0f}m of top-up lending × $1m ÷ {top_cnt_int:,} borrowers = ${top_avg_nzd:,} mean",
             "historical_data_from": hist_start_lbl,
             "history": make_history_list(dates, top_v, lambda x: f"${x:,.0f}m"),
         },
@@ -2596,7 +2637,9 @@ def build_rbnz_c32_ticker(filepath: pathlib.Path, c31_by_ym: dict | None = None)
     }
 
 
-def compute_c41_weighted_avg_income(tabs41: list, borrower_kw: str, region_mode: str = "nz") -> tuple[pd.Timestamp | None, float | None, pd.Series | None, pd.Series | None, list[dict]]:
+def compute_c41_weighted_avg_income(
+    tabs41: list, borrower_kw: str, region_mode: str = "nz"
+) -> tuple[pd.Timestamp | None, float | None, pd.Series | None, pd.Series | None, list[dict], float, float]:
     band_defs = [
         ("tdti <= 3", "TDTI ≤ 3x income"),
         ("3 < tdti <= 4", "3x < TDTI ≤ 4x income"),
@@ -2631,6 +2674,8 @@ def compute_c41_weighted_avg_income(tabs41: list, borrower_kw: str, region_mode:
             tot_inc_ser = pd.Series(0.0, index=df41.index)
             tot_cnt_ser = pd.Series(0.0, index=df41.index)
             band_rows = []
+            sum_pool_m = 0.0
+            sum_implied_apps = 0.0
             for bk, b_label in common:
                 a_m = pd.to_numeric(df41.iloc[:, inc_cols[bk]], errors="coerce")
                 b_k = pd.to_numeric(df41.iloc[:, avg_cols[bk]], errors="coerce")
@@ -2643,17 +2688,29 @@ def compute_c41_weighted_avg_income(tabs41: list, borrower_kw: str, region_mode:
                 last_a = float(a_m.iloc[-1]) if pd.notna(a_m.iloc[-1]) else 0.0
                 last_b = float(b_k.iloc[-1]) if pd.notna(b_k.iloc[-1]) else 0.0
                 if last_a > 0 and last_b > 0:
+                    imp_apps = (last_a * 1000.0) / last_b
+                    sum_pool_m += last_a
+                    sum_implied_apps += imp_apps
                     band_rows.append({
                         "band": b_label,
                         "avg_income_nzd": int(round(last_b * 1000.0)),
                         "total_income_m": round(last_a, 1),
+                        "implied_borrowers": round(imp_apps, 1),
                     })
 
             weighted_k_ser = tot_inc_ser / tot_cnt_ser.replace(0.0, float("nan"))
             valid_w = weighted_k_ser.dropna()
             if len(valid_w):
-                return df41["date"].iloc[-1], float(valid_w.iloc[-1]) * 1000.0, df41["date"], weighted_k_ser, band_rows
-    return None, None, None, None, []
+                return (
+                    df41["date"].iloc[-1],
+                    float(valid_w.iloc[-1]) * 1000.0,
+                    df41["date"],
+                    weighted_k_ser,
+                    band_rows,
+                    round(sum_pool_m, 1),
+                    round(sum_implied_apps, 1),
+                )
+    return None, None, None, None, [], 0.0, 0.0
 
 
 def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathlib.Path | None) -> dict:
@@ -2724,7 +2781,7 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
                     ),
                     "latest_period": m_full,
                     "value": round(val_pct, 2),
-                    "latest_value": f"{val_pct:.1f}% (>6x DTI, {diff_cap:.1f} pts below 20% benchmark)",
+                    "latest_value": f"{val_pct:.1f}% at >6x DTI ({diff_cap:.1f} pts below 20% benchmark)",
                     "previous_period": f"{dti_dates.iloc[iy].strftime('%B %Y')} ({prev_v:.1f}%)",
                     "change": f"{val_pct - prev_v:+.1f} percentage points YoY",
                     "calculation_live": f"${last_hi_v:,.1f}m ÷ ${last_tot_v:,.1f}m = {val_pct:.1f}% (Benchmark diff: 20.0% - {val_pct:.1f}% = {diff_cap:.1f} pts)",
@@ -2738,8 +2795,12 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
         try:
             pub_c41 = extract_rbnz_published_date(c41_path)
             tabs41 = load_rbnz_sheets(c41_path)
-            dt_fhb, fhb_inc, d41_dates, fhb_inc_ser, fhb_bands = compute_c41_weighted_avg_income(tabs41, "first home", "nz")
-            _, inv_inc, _, _, _ = compute_c41_weighted_avg_income(tabs41, "investor", "nz")
+            dt_fhb, fhb_inc, d41_dates, fhb_inc_ser, fhb_bands, fhb_pool_m, fhb_imp_apps = compute_c41_weighted_avg_income(
+                tabs41, "first home", "nz"
+            )
+            _, inv_inc, _, _, _, inv_pool_m, inv_imp_apps = compute_c41_weighted_avg_income(
+                tabs41, "investor", "nz"
+            )
 
             src_c41 = (
                 'Source: <a href="https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi" '
@@ -2754,23 +2815,28 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
                 hist_41 = make_history_list(d41_dates, fhb_inc_ser, lambda x: f"${x*1000:,.0f}")
                 hist_start_c41 = f"Available from {d41_dates.iloc[0].strftime('%B %Y')} ({len(d41_dates)} monthly observations)"
 
-                band_summary_parts = [f"{b['band']}: ${b['avg_income_nzd']:,}" for b in fhb_bands]
+                band_summary_parts = [
+                    f"{b['band']}: ${b['avg_income_nzd']:,} avg (${b['total_income_m']:,.1f}m pool / {b['implied_borrowers']:,.1f} implied apps)"
+                    for b in fhb_bands
+                ]
                 band_summary_str = " | ".join(band_summary_parts) if band_summary_parts else f"Overall mean: ${fhb_inc:,.0f}"
                 lo_band = min((b["avg_income_nzd"] for b in fhb_bands), default=int(round(fhb_inc)))
                 hi_band = max((b["avg_income_nzd"] for b in fhb_bands), default=int(round(fhb_inc)))
 
                 if inv_inc and 40000 <= inv_inc <= 900000:
                     bgi_html = (
-                        f"Based on HLF's calculation across RBNZ Table C41's Debt-to-Income bands (total band gross income divided by implied "
-                        f"borrower count), approved New Zealand first-home buyer mortgage applications averaged <strong>${fhb_inc:,.0f}</strong> "
-                        f"in gross borrower income in {m_c41}, compared with <strong>${inv_inc:,.0f}</strong> across approved property investor applications."
+                        f"Based on HLF's calculation across RBNZ Table C41's Debt-to-Income bands (<strong>${fhb_pool_m:,.1f}m</strong> total "
+                        f"band gross income divided by <strong>{fhb_imp_apps:,.1f}</strong> implied applications), approved New Zealand "
+                        f"first-home buyer mortgage applications averaged <strong>${fhb_inc:,.0f}</strong> in gross borrower income in {m_c41}, "
+                        f"compared with <strong>${inv_inc:,.0f}</strong> (${inv_pool_m:,.1f}m ÷ {inv_imp_apps:,.1f} implied applications) "
+                        f"across approved property investor applications."
                     )
                 else:
                     bgi_html = (
-                        f"Based on HLF's calculation across RBNZ Table C41's five Debt-to-Income bands (total band gross income divided by implied "
-                        f"borrower count), approved New Zealand first-home buyer mortgage applications averaged <strong>${fhb_inc:,.0f}</strong> "
-                        f"in gross borrower income in {m_c41} (with official RBNZ band averages ranging from <strong>${lo_band:,}</strong> to "
-                        f"<strong>${hi_band:,}</strong>)."
+                        f"Based on HLF's calculation across RBNZ Table C41's five Debt-to-Income bands (<strong>${fhb_pool_m:,.1f}m</strong> total "
+                        f"band gross income divided by <strong>{fhb_imp_apps:,.1f}</strong> implied applications), approved New Zealand "
+                        f"first-home buyer mortgage applications averaged <strong>${fhb_inc:,.0f}</strong> in gross borrower income in {m_c41} "
+                        f"(with official RBNZ band averages ranging from <strong>${lo_band:,}</strong> to <strong>${hi_band:,}</strong>)."
                     )
                 out["borrower-income"] = {
                     "chip": "RBNZ C41",
@@ -2778,14 +2844,18 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
                     "source_published": pub_c41,
                     "max_age_days": MAX_AGE_MONTHLY,
                     "html": bgi_html,
-                    "official_data_summary": f"RBNZ Table C41 ({m_c41}) Official FHB Band Averages: {band_summary_str}.",
+                    "official_data_summary": f"RBNZ Table C41 ({m_c41}) Official FHB Band Figures (pools rounded to $0.1m, averages to $1,000): {band_summary_str}.",
                     "source_html": src_c41,
                     "latest_period": m_c41,
                     "value": int(round(fhb_inc)),
-                    "latest_value": f"${fhb_inc:,.0f} FHB mean" + (f" vs ${inv_inc:,.0f} Investor" if inv_inc else ""),
+                    "latest_value": f"${fhb_inc:,.0f} FHB mean" + (f" vs ${inv_inc:,.0f} Investor mean" if inv_inc else ""),
                     "previous_period": f"{d41_dates.iloc[iy41].strftime('%B %Y')} (${prev_inc_k*1000:,.0f} FHB)",
                     "change": f"${fhb_inc - (prev_inc_k*1000):+,.0f} YoY",
-                    "calculation_live": f"Total band gross income ÷ implied borrower count across C41 TDTI bands = ${fhb_inc:,.0f} (FHB)" + (f" | ${inv_inc:,.0f} (Investor)" if inv_inc else ""),
+                    "calculation_live": (
+                        f"FHB: ${fhb_pool_m:,.1f}m total band income ÷ {fhb_imp_apps:,.1f} implied applications = ${fhb_inc:,.0f}"
+                        + (f" | Investor: ${inv_pool_m:,.1f}m ÷ {inv_imp_apps:,.1f} = ${inv_inc:,.0f}" if inv_inc else "")
+                        + " (subject to RBNZ band rounding)"
+                    ),
                     "historical_data_from": hist_start_c41,
                     "history": hist_41,
                 }
@@ -2798,17 +2868,20 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
                     "html": (
                         f"In {m_c41}, official RBNZ Table C41 average gross borrower incomes across New Zealand first-home buyer Debt-to-Income "
                         f"bands ranged from <strong>${lo_band:,}</strong> to <strong>${hi_band:,}</strong>, with an HLF-calculated mean of "
-                        f"<strong>${fhb_inc:,.0f}</strong> (total band gross income divided by implied borrowers) across all approved first-home applications."
+                        f"<strong>${fhb_inc:,.0f}</strong> (<strong>${fhb_pool_m:,.1f}m</strong> total band gross income divided by "
+                        f"<strong>{fhb_imp_apps:,.1f}</strong> implied applications across all 5 bands; see reproducible table below)."
                     ),
-                    "official_data_summary": f"RBNZ Table C41 ({m_c41}) Official FHB Band Averages: {band_summary_str}.",
+                    "official_data_summary": f"RBNZ Table C41 ({m_c41}) Official FHB Band Figures (pools rounded to $0.1m, averages to $1,000): {band_summary_str}.",
                     "source_html": src_c41,
                     "latest_period": m_c41,
                     "value": int(round(fhb_inc)),
                     "tdti_bands": fhb_bands,
-                    "latest_value": f"${fhb_inc:,.0f} HLF mean (Official C41 bands: ${lo_band:,}–${hi_band:,})",
+                    "tdti_total_pool_m": fhb_pool_m,
+                    "tdti_total_implied_apps": fhb_imp_apps,
+                    "latest_value": f"${fhb_inc:,.0f} HLF mean | Official C41 bands: ${lo_band:,}–${hi_band:,}",
                     "previous_period": f"{d41_dates.iloc[iy41].strftime('%B %Y')} (${prev_inc_k*1000:,.0f} HLF mean)",
                     "change": f"${fhb_inc - (prev_inc_k*1000):+,.0f} ({((fhb_inc - prev_inc_k*1000)/(prev_inc_k*1000))*100:+.1f}%) YoY",
-                    "calculation_live": f"Total band gross income ÷ implied borrowers across {len(fhb_bands)} FHB TDTI bands = ${fhb_inc:,.0f} ({band_summary_str})",
+                    "calculation_live": f"${fhb_pool_m:,.1f}m total band income × $1m ÷ {fhb_imp_apps:,.1f} total implied applications = ${fhb_inc:,.0f} (reproducible from the 5 band rows; subject to RBNZ rounding)",
                     "historical_data_from": hist_start_c41,
                     "history": hist_41,
                 }
@@ -2850,7 +2923,7 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path) -> dict:
             ),
             "latest_period": m_full,
             "value": round(v1, 2),
-            "latest_value": f"{v1:.2f}% (1-year settled) | {v2:.2f}% (2-year settled)",
+            "latest_value": f"{v1:.2f}% 1-yr settled | {v2:.2f}% 2-yr settled",
             "previous_period": f"{dates.iloc[iy].strftime('%B %Y')} ({v1_prev:.2f}% 1-year settled)",
             "change": f"{v1 - v1_prev:+.2f}% YoY (1-year settled)",
             "calculation_live": f"Directly reported RBNZ B30 series NCFA.MAM1PR.D1 = {v1:.2f}% (1Y) & NCFA.MAM1PR.D2 = {v2:.2f}% (2Y)",
@@ -2859,7 +2932,7 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path) -> dict:
         }
     }
 
-PART_3_OF_5_READY = True
+PART_3C_OF_5_READY = True
 # === PART 4A OF 5 ===
 def make_pulse_item(
     chip: str,
@@ -2907,11 +2980,13 @@ def build_insurance_pulse_tickers(
     cpi_all_val: float | None,
     cpi_url: str,
     cpi_text: str = "",
+    cpi_pub_date: str = "",
 ) -> dict:
     today = datetime.datetime.now(datetime.timezone.utc).date()
     cpi_as_of = q_as_of or month_end_iso(pd.Timestamp(datetime.date(today.year, 9 if today.month >= 10 else 6, 1)))
     cpi_period_lbl = q_lbl or "September 2026 quarter"
     cpi_ref_url = cpi_url or STATS_CPI_PAGE
+    cpi_pub = cpi_pub_date or "Quarterly Stats NZ CPI release (~3 weeks after quarter-end)"
     headline_cpi = cpi_all_val if cpi_all_val is not None else 3.2
 
     def extract_ins_cpi(pattern: str, default_val: float) -> float:
@@ -2951,23 +3026,28 @@ def build_insurance_pulse_tickers(
     )
     src_acc_rep = (
         f'Source: <a href="{ACC_REPORT_PAGE}" target="_blank" rel="noopener">Accident Compensation Corporation (ACC) — Annual Report 2025/26</a>. '
-        'Weekly compensation share derived by HLF (CC BY 4.0).'
+        'Claim-count ratio derived by HLF (CC BY 4.0).'
     )
     src_acc_levy = (
         f'Source: <a href="{ACC_LEVY_PAGE}" target="_blank" rel="noopener">Accident Compensation (Earners&rsquo; Levy) Regulations &amp; Inland Revenue PAYE Schedule (2026/27)</a>. '
         '80% compensation ceiling derived by HLF (CC BY 4.0).'
     )
 
-    bldg_gap, cont_gap, veh_gap, hlth_gap, life_gap = (
-        bldg_inf - headline_cpi,
-        cont_inf - headline_cpi,
-        veh_gap_v := veh_inf - headline_cpi,
-        hlth_inf - headline_cpi,
-        life_inf - headline_cpi,
-    )
+    bldg_gap = bldg_inf - headline_cpi
+    cont_gap = cont_inf - headline_cpi
+    veh_gap_v = veh_inf - headline_cpi
+    hlth_gap = hlth_inf - headline_cpi
+    life_gap = life_inf - headline_cpi
+
     fsr_as_of = f"{today.year}-05-31" if today.month >= 5 else f"{today.year - 1}-11-30"
     fy_as_of = f"{today.year}-06-30" if today.month >= 7 else f"{today.year - 1}-06-30"
     acc_levy_as_of = f"{today.year}-04-30" if today.month >= 4 else f"{today.year - 1}-04-30"
+
+    fsr_pub_date = "2026-05-06 (6 May 2026 — RBNZ Financial Stability Report release)"
+    rbnz_ins_pub_date = "RBNZ semi-annual Insurance Statistics & Financial Stability Report release"
+    nhc_pub_date = "2024-07-01 (1 July 2024 — Natural Hazards Insurance Act 2023 commencement)"
+    acc_rep_pub_date = "2026-10-29 (29 October 2026 — ACC Annual Report 2025/26 release)"
+    acc_levy_pub_date = "2026-04-01 (1 April 2026 — 2026/27 ACC Earners' Levy schedule effective date)"
 
     hes_wk, hes_ann, rbnz_Prem = 24.80, round(24.80 * 52.0, 2), 2850
     gwp_b, nep_b, claims_b = 9.85, 7.40, 4.66
@@ -2990,6 +3070,8 @@ def build_insurance_pulse_tickers(
             {"period": "2025-09", "label": "Q3 2025", "value": q3_25, "formatted": f"+{q3_25:.1f}% YoY"},
         ]
 
+    cpi_extra = {"source_published": cpi_pub, "source_url": cpi_ref_url}
+
     return {
         "building-insurance-inflation": make_pulse_item(
             "Stats NZ CPI",
@@ -3010,6 +3092,7 @@ def build_insurance_pulse_tickers(
             f"Dwelling insurance CPI (+{bldg_inf:.1f}%) minus All-groups CPI (+{headline_cpi:.1f}%) = {bldg_gap:+.1f} percentage points",
             "Stats NZ quarterly CPI insurance sub-index series",
             cpi_hist(bldg_inf, 16.2, 18.4, 21.0, 24.6),
+            cpi_extra,
         ),
         "contents-insurance-inflation": make_pulse_item(
             "Stats NZ CPI",
@@ -3030,6 +3113,7 @@ def build_insurance_pulse_tickers(
             f"Contents insurance CPI (+{cont_inf:.1f}%) minus All-groups CPI (+{headline_cpi:.1f}%) = {cont_gap:+.1f} percentage points",
             "Stats NZ quarterly CPI insurance sub-index series",
             cpi_hist(cont_inf, 10.8, 12.1, 14.3, 16.5),
+            cpi_extra,
         ),
         "vehicle-insurance-inflation": make_pulse_item(
             "Stats NZ CPI",
@@ -3050,6 +3134,7 @@ def build_insurance_pulse_tickers(
             f"Vehicle insurance CPI (+{veh_inf:.1f}%) minus All-groups CPI (+{headline_cpi:.1f}%) = {veh_gap_v:+.1f} percentage points",
             "Stats NZ quarterly CPI insurance sub-index series",
             cpi_hist(veh_inf, 10.4, 12.9, 15.8, 19.2),
+            cpi_extra,
         ),
         "health-insurance-inflation": make_pulse_item(
             "Stats NZ CPI",
@@ -3070,6 +3155,7 @@ def build_insurance_pulse_tickers(
             f"Health insurance CPI (+{hlth_inf:.1f}%) minus All-groups CPI (+{headline_cpi:.1f}%) = {hlth_gap:+.1f} percentage points",
             "Stats NZ quarterly CPI insurance sub-index series",
             cpi_hist(hlth_inf, 11.8, 12.4, 13.1, 13.9),
+            cpi_extra,
         ),
         "life-insurance-inflation": make_pulse_item(
             "Stats NZ CPI",
@@ -3089,6 +3175,7 @@ def build_insurance_pulse_tickers(
             f"Life insurance CPI (+{life_inf:.1f}%) minus All-groups CPI (+{headline_cpi:.1f}%) = {life_gap:+.1f} percentage points",
             "Stats NZ quarterly CPI insurance sub-index series",
             cpi_hist(life_inf, 3.1, 3.4, 3.8, 4.1),
+            cpi_extra,
         ),
         "household-insurance-expenditure": make_pulse_item(
             "Stats NZ & RBNZ",
@@ -3104,11 +3191,13 @@ def build_insurance_pulse_tickers(
             src_hes_rbnz,
             "May 2026 RBNZ FSR & Stats NZ HES",
             rbnz_Prem,
-            f"~${rbnz_Prem:,}/yr insured homeowner benchmark (Stats NZ HES all-household avg: ${hes_wk:.2f}/wk)",
+            f"~${rbnz_Prem:,}/yr insured homeowner benchmark | Stats NZ HES all-household avg: ${hes_wk:.2f}/wk",
             f"Annualised HES all-household average: ${hes_ann:,.2f}/yr",
             "Regional & hazard-zone pricing ranges from ~$2,100 to $4,500+/yr",
             f"Stats NZ HES: ${hes_wk:.2f}/wk × 52 weeks = ${hes_ann:,.2f}/yr (all households) vs. ~${rbnz_Prem:,}/yr (insured homeowners)",
             "Stats NZ triennial HES & RBNZ semi-annual Financial Stability Reports",
+            None,
+            {"source_published": fsr_pub_date},
         ),
         "insurance-claims-trends": make_pulse_item(
             "RBNZ Insurance Stats",
@@ -3128,6 +3217,8 @@ def build_insurance_pulse_tickers(
             f"Reinsurance & catastrophe protection outflow: ~${gwp_b - nep_b:.2f}B/yr",
             f"Gross Written Premiums (${gwp_b:.2f}B) minus Reinsurance (${gwp_b - nep_b:.2f}B) = ${nep_b:.2f}B Net Earned Premiums vs. ${claims_b:.2f}B Net Claims",
             "RBNZ licensed general insurer financial series",
+            None,
+            {"source_published": rbnz_ins_pub_date},
         ),
         "insurer-loss-ratios": make_pulse_item(
             "RBNZ Insurance Stats",
@@ -3147,6 +3238,8 @@ def build_insurance_pulse_tickers(
             "Normalised from 2023 North Island weather catastrophe peak",
             f"(${claims_b:.2f}B Net Incurred Claims ÷ ${nep_b:.2f}B Net Earned Premiums) × 100 = {loss_ratio:.1f}%",
             "RBNZ insurer financial performance series",
+            None,
+            {"source_published": rbnz_ins_pub_date},
         ),
         "natural-hazard-claims": make_pulse_item(
             "NHI Act 2023 & NHC",
@@ -3167,6 +3260,8 @@ def build_insurance_pulse_tickers(
             f"Max annual NHC levy: ${nhc_levy_ex} + GST (${nhc_levy_inc:.2f} incl. GST) at 16c/$100",
             f"Cap incl. GST: ${nhc_cap_ex:,} × 1.15 = ${nhc_cap_inc:,} | Max Levy incl. GST: (${nhc_cap_ex:,} ÷ 100 × $0.16) × 1.15 = ${nhc_levy_inc:.2f}",
             "Natural Hazards Insurance Act 2023 & NHC statutory schedule",
+            None,
+            {"source_published": nhc_pub_date},
         ),
         "residential-insurance-coverage": make_pulse_item(
             "RBNZ FSR & NHC",
@@ -3187,26 +3282,30 @@ def build_insurance_pulse_tickers(
             f"~{unins_cnt:,} domestic dwellings estimated without building insurance cover",
             f"Uninsured: {unins_cnt:,} ÷ {tot_dwell:,} = {unins_pct:.1f}% | Insured: ({tot_dwell:,} − {unins_cnt:,}) ÷ {tot_dwell:,} = {ins_pct:.1f}%",
             "RBNZ May 2026 Financial Stability Report & NHC exposure dataset",
+            None,
+            {"source_published": fsr_pub_date},
         ),
         "acc-weekly-compensation-claims": make_pulse_item(
             "ACC Annual Report",
             fy_as_of,
             MAX_AGE_INSURANCE,
             (
-                f"In the 2025/26 financial year, ACC accepted over <strong>{acc_tot_claims:,}</strong> new injury claims across New Zealand "
-                f"(up 1.6% year-on-year), of which <strong>{acc_wk_claims:,} claims</strong>—an HLF-derived <strong>{acc_wk_pct:.1f}%</strong> "
-                f"share (down 1.9% from {acc_wk_prev:,} in 2024/25)—received weekly income compensation for time off work alongside "
-                f"<strong>$5.0B+</strong> in treatment and rehabilitation support."
+                f"In the 2025/26 financial year, ACC recorded two distinct annual claim volumes: over <strong>{acc_tot_claims:,}</strong> "
+                f"total accepted injury claims across New Zealand (up 1.6% year-on-year, mostly minor treatment-only visits) and "
+                f"<strong>{acc_wk_claims:,}</strong> new weekly income compensation entitlement claims for time off work (down 1.9% from "
+                f"{acc_wk_prev:,} in 2024/25—an HLF-calculated ratio of <strong>{acc_wk_pct:.1f} weekly compensation claims per 100 accepted injury claims</strong>)."
             ),
-            f"ACC Annual Report (2025/26): Total accepted injury claims = {acc_tot_claims:,}+ (+1.6% YoY); New weekly compensation claims = {acc_wk_claims:,} (-1.9% from {acc_wk_prev:,} in 2024/25).",
+            f"ACC Annual Report (2025/26): Total accepted injury claims = {acc_tot_claims:,}+ (+1.6% YoY, including minor treatment-only claims); New weekly compensation entitlement claims = {acc_wk_claims:,} (-1.9% from {acc_wk_prev:,} in 2024/25).",
             src_acc_rep,
             "2025/26 ACC Financial Year",
             acc_wk_pct,
-            f"{acc_wk_claims:,} weekly compensation claims ({acc_wk_pct:.1f}% of {acc_tot_claims:,}+ ACC injury claims)",
+            f"{acc_wk_claims:,} weekly comp claims vs {acc_tot_claims:,}+ total injury claims ({acc_wk_pct:.1f} per 100 claims)",
             f"2024/25 FY ({acc_wk_prev:,} weekly compensation claims)",
-            f"{acc_wk_claims - acc_wk_prev:+,d} weekly compensation claims (-1.9% YoY) | ACC covers accidental injury (generally not non-injury illness)",
-            f"{acc_wk_claims:,} weekly compensation claims ÷ {acc_tot_claims:,} total accepted injury claims = {acc_wk_pct:.1f}%",
+            f"{acc_wk_claims - acc_wk_prev:+,d} weekly comp claims (-1.9% YoY) | ACC covers accidental injury (generally not non-injury illness)",
+            f"{acc_wk_claims:,} new weekly compensation claims ÷ {acc_tot_claims:,} total accepted injury claims = {acc_wk_pct:.1f} per 100 accepted claims (separate annual claim counts)",
             "ACC Annual Report series (2024/25–2025/26)",
+            None,
+            {"source_published": acc_rep_pub_date},
         ),
         "acc-earners-levy-cap": make_pulse_item(
             "ACC & IRD Schedule",
@@ -3232,10 +3331,12 @@ def build_insurance_pulse_tickers(
                 {"period": "2025-26", "label": "2025/26 Tax Year", "value": acc_max_earn_prev, "formatted": f"${acc_max_earn_prev:,} cap ($1.67/$100 levy)"},
                 {"period": "2024-25", "label": "2024/25 Tax Year", "value": 142283, "formatted": "$142,283 cap ($1.60/$100 levy)"},
             ],
+            {"source_published": acc_levy_pub_date},
         ),
     }
 
-
+PART_4A_OF_5_READY = True
+# === PART 4B OF 5 ===
 def build_stats_nz_tickers(session) -> dict:
     out = {}
     today = datetime.datetime.now(datetime.timezone.utc).date()
@@ -3267,6 +3368,9 @@ def build_stats_nz_tickers(session) -> dict:
         html = fetched_html.get(url, "")
         if not html:
             continue
+        bc_pub_date = extract_html_release_date(
+            html, "Monthly Stats NZ Building Consents release (~4 weeks after reference month-end)"
+        )
         text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html))
         m_ann = re.search(
             r"year ended\s+[A-Za-z]+\s+\d{4},\s+the actual number of new dwellings consented was\s+([\d,]+),\s+(up|down|unchanged)?\s*([\d.]+)?",
@@ -3317,6 +3421,8 @@ def build_stats_nz_tickers(session) -> dict:
                 f'Source: <a href="{url}" target="_blank" rel="noopener">Stats NZ — Building Consents Issued ({m_full})</a>, '
                 'licensed under CC BY 4.0. Derived shares licensed by HLF under CC BY 4.0.'
             )
+            bc_extra = {"source_published": bc_pub_date, "source_url": url}
+
             out["new-builds-annual"] = make_pulse_item(
                 "Stats NZ",
                 as_of,
@@ -3331,6 +3437,8 @@ def build_stats_nz_tickers(session) -> dict:
                 f"{dir_word.capitalize()} {ann_pct:.1f}% YoY" if dir_word else "Reported by Stats NZ",
                 f"Directly reported Stats NZ annual total = {ann_tot:,} ({mth_tot:,} in {m_full})",
                 f"Stats NZ monthly release ({m_full})",
+                None,
+                bc_extra,
             )
             out["townhouse-share"] = make_pulse_item(
                 "Stats NZ",
@@ -3347,7 +3455,7 @@ def build_stats_nz_tickers(session) -> dict:
                 f"Multi-unit overall: ({mth_tot:,} − {houses:,}) ÷ {mth_tot:,} = {multi_tot:,} ÷ {mth_tot:,} = {multi_pct:.1f}% | Townhouses/flats/units specifically: {townhouses:,} ÷ {mth_tot:,} = {tfu_pct:.1f}%",
                 f"Stats NZ monthly release ({m_full})",
                 None,
-                {"townhouse_flat_unit_share_pct": round(tfu_pct, 1)},
+                {"townhouse_flat_unit_share_pct": round(tfu_pct, 1), **bc_extra},
             )
             out["standalone-vs-retirement-apartments"] = make_pulse_item(
                 "Stats NZ",
@@ -3375,6 +3483,7 @@ def build_stats_nz_tickers(session) -> dict:
                     {"period": "Apartments", "label": "Apartments", "value": apts, "formatted": f"{apts:,} ({apts_pct:.1f}%)"},
                     {"period": "Retirement village units", "label": "Retirement village units", "value": ret_u, "formatted": f"{ret_u:,} ({ret_pct:.1f}%)"},
                 ],
+                bc_extra,
             )
 
             def reg_bc(reg_name: str, default_cnt: int) -> int:
@@ -3422,15 +3531,19 @@ def build_stats_nz_tickers(session) -> dict:
                     {"period": "Wellington", "label": "Wellington", "value": wgtn_bc, "formatted": f"{wgtn_bc:,} consents ({wgtn_sh:.1f}% of NZ)"},
                     {"period": "Rest of New Zealand", "label": "Rest of New Zealand", "value": other_bc, "formatted": f"{other_bc:,} consents ({other_sh:.1f}% of NZ)"},
                 ],
+                bc_extra,
             )
             print(f"[Stats NZ Consents] Parsed {m_full}: {ann_tot:,} annual, {multi_pct:.1f}% multi-unit")
             break
 
-    latest_cpi_as_of, latest_cpi_lbl, latest_cpi_all, latest_cpi_url, latest_cpi_txt = "", "", None, "", ""
+    latest_cpi_as_of, latest_cpi_lbl, latest_cpi_all, latest_cpi_url, latest_cpi_txt, latest_cpi_pub = "", "", None, "", "", ""
     for yr, qm, qname, cpi_url in cpi_candidates:
         html = fetched_html.get(cpi_url, "")
         if not html:
             continue
+        cpi_pub_date = extract_html_release_date(
+            html, "Quarterly Stats NZ CPI release (~3 weeks after reference quarter-end)"
+        )
         text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html))
         m_cpi_all = re.search(r"CPI all groups\s+[-+]?[\d.]+\s+([-+]?[\d.]+)", text, flags=re.I)
         cpi_all_val = float(m_cpi_all.group(1)) if m_cpi_all else None
@@ -3462,31 +3575,36 @@ def build_stats_nz_tickers(session) -> dict:
                 f"{'-' if is_down else '+'}{val:.1f}% annual change",
                 f"Directly reported Stats NZ CPI purchase of new housing = {'-' if is_down else '+'}{val:.1f}% YoY",
                 f"Stats NZ quarterly CPI release ({qname.capitalize()} {yr})",
+                None,
+                {"source_published": cpi_pub_date, "source_url": cpi_url},
             )
-            latest_cpi_as_of, latest_cpi_lbl, latest_cpi_all, latest_cpi_url, latest_cpi_txt = (
+            latest_cpi_as_of, latest_cpi_lbl, latest_cpi_all, latest_cpi_url, latest_cpi_txt, latest_cpi_pub = (
                 q_as_of_iso,
                 q_lbl_str,
                 cpi_all_val,
                 cpi_url,
                 text,
+                cpi_pub_date,
             )
             print(f"[Stats NZ CPI] Parsed {qname.capitalize()} {yr}: {'-' if is_down else '+'}{val:.1f}% YoY")
             break
 
     out.update(
         build_insurance_pulse_tickers(
-            session, latest_cpi_as_of, latest_cpi_lbl, latest_cpi_all, latest_cpi_url, latest_cpi_txt
+            session, latest_cpi_as_of, latest_cpi_lbl, latest_cpi_all, latest_cpi_url, latest_cpi_txt, latest_cpi_pub
         )
     )
     return out
 
-PART_4A_OF_5_READY = True
-# === PART 4B OF 5 ===
+
 def build_tenancy_tickers(session) -> dict:
     page_bytes = fetch_url_bytes(session, TENANCY_PAGE, timeout=30)
     if not page_bytes:
         raise RuntimeError("Could not reach Tenancy Services rental bond page.")
     html = page_bytes.decode("utf-8", errors="ignore")
+    ten_pub_date = extract_html_release_date(
+        html, "Monthly MBIE Tenancy Services rental bond release (~6–8 weeks after reference month-end)"
+    )
     csv_url = ""
     for href in re.findall(r'href=["\']([^"\']*\.csv[^"\']*)["\']', html, flags=re.I):
         if "region" in href.lower():
@@ -3529,10 +3647,11 @@ def build_tenancy_tickers(session) -> dict:
     wgtn_r = reg_med("Wellington")
 
     src_mbie = (
-        'Source: <a href="https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/" '
-        'target="_blank" rel="noopener">MBIE Tenancy Services — Rental Bond Data</a>, licensed under CC BY 4.0. '
+        f'Source: <a href="{TENANCY_PAGE}" target="_blank" rel="noopener">MBIE Tenancy Services — Rental Bond Data</a> '
+        f'(<a href="{csv_url}" target="_blank" rel="noopener">By-Region CSV</a>, licensed under CC BY 4.0). '
         'Derived figures licensed by HLF under CC BY 4.0.'
     )
+    mbie_extra = {"source_published": ten_pub_date, "source_url": csv_url}
 
     lodged_int = int(round(float(last["Lodged Bonds"])))
     active_int = int(round(float(last["Active Bonds"])))
@@ -3542,10 +3661,20 @@ def build_tenancy_tickers(session) -> dict:
     r10_rows = nat[nat["dt"] == (dt - pd.DateOffset(years=10))]
     r5_val = int(round(float(r5_rows.iloc[-1]["Median Rent"]))) if len(r5_rows) else int(round(nat_r / 1.24))
     r10_val = int(round(float(r10_rows.iloc[-1]["Median Rent"]))) if len(r10_rows) else int(round(nat_r / 1.54))
+
     pct_5y = ((nat_r - r5_val) / max(1, r5_val)) * 100.0
     pct_10y = ((nat_r - r10_val) / max(1, r10_val)) * 100.0
     cagr_5y = (((nat_r / max(1, r5_val)) ** (1.0 / 5.0)) - 1.0) * 100.0
     cagr_10y = (((nat_r / max(1, r10_val)) ** (1.0 / 10.0)) - 1.0) * 100.0
+
+    # Real (CPI inflation-adjusted) 5-year and 10-year rent growth
+    real_factor_10y = (nat_r / max(1, r10_val)) / CPI_10Y_FACTOR
+    real_pct_10y = (real_factor_10y - 1.0) * 100.0
+    real_cagr_10y = ((real_factor_10y ** (1.0 / 10.0)) - 1.0) * 100.0
+
+    real_factor_5y = (nat_r / max(1, r5_val)) / CPI_5Y_FACTOR
+    real_pct_5y = (real_factor_5y - 1.0) * 100.0
+    real_cagr_5y = ((real_factor_5y ** (1.0 / 5.0)) - 1.0) * 100.0
 
     lt_hist = []
     for yr_back in range(0, 11):
@@ -3585,6 +3714,7 @@ def build_tenancy_tickers(session) -> dict:
             f"Reported national median = ${nat_r}/wk; YoY = (${nat_r} - ${prev_r}) ÷ ${prev_r} = {yoy_pct:+.1f}%",
             hist_start_mbie,
             make_history_list(nat["dt"], nat["Median Rent"], lambda x: f"${int(round(x))}/wk"),
+            mbie_extra,
         ),
         "rental-bonds-supply": make_pulse_item(
             "Tenancy Services",
@@ -3604,27 +3734,34 @@ def build_tenancy_tickers(session) -> dict:
             f"Directly reported MBIE 'ALL' location: {lodged_int:,} lodged bonds & {active_int:,} active bonds",
             hist_start_mbie,
             make_history_list(nat["dt"], nat["Lodged Bonds"], lambda x: f"{int(round(x)):,} lodged bonds"),
+            mbie_extra,
         ),
         "rent-long-term-growth": make_pulse_item(
             "Tenancy Services",
             as_of,
             MAX_AGE_TENANCY,
             (
-                f"Over the 10 years to {m_full}, New Zealand's national median weekly private rent in MBIE Tenancy Services records rose "
-                f"by an HLF-derived <strong>+{pct_10y:.1f}% (+${nat_r - r10_val}/wk, or {cagr_10y:.1f}%/yr compound)</strong> from "
-                f"<strong>${r10_val}/wk</strong> to <strong>${nat_r}/wk</strong>—and by <strong>+{pct_5y:.1f}% (+${nat_r - r5_val}/wk, "
-                f"or {cagr_5y:.1f}%/yr)</strong> over the past 5 years (up from <strong>${r5_val}/wk</strong>)."
+                f"Over the 10 years to {m_full}, New Zealand's national median weekly private rent rose in nominal terms by an HLF-derived "
+                f"<strong>+{pct_10y:.1f}% (+${nat_r - r10_val}/wk, or +{cagr_10y:.1f}%/yr nominal)</strong> from <strong>${r10_val}/wk</strong> "
+                f"to <strong>${nat_r}/wk</strong>—equivalent to <strong>{real_pct_10y:+.1f}% ({real_cagr_10y:+.1f}%/yr) in CPI inflation-adjusted "
+                f"(real) terms</strong>. Over the past 5 years (from <strong>${r5_val}/wk</strong>), median rent rose <strong>+{pct_5y:.1f}% "
+                f"(+{cagr_5y:.1f}%/yr) nominally</strong> and <strong>{real_pct_5y:+.1f}% ({real_cagr_5y:+.1f}%/yr) in real terms</strong>."
             ),
             f"MBIE Tenancy Services ({m_full}): National median weekly rent = ${nat_r}/wk (compared with ${r5_val}/wk 5 years earlier and ${r10_val}/wk 10 years earlier).",
             src_mbie,
             m_full,
             round(pct_10y, 1),
-            f"+{pct_10y:.1f}% over 10 yrs (${r10_val}→${nat_r}/wk, {cagr_10y:.1f}%/yr) | +{pct_5y:.1f}% over 5 yrs (${r5_val}→${nat_r}/wk)",
-            f"5 yrs ago: ${r5_val}/wk | 10 yrs ago: ${r10_val}/wk",
-            f"+${nat_r - r10_val}/wk (+${(nat_r - r10_val)*52:,}/yr) over 10 years",
-            f"10Y: (${nat_r} − ${r10_val}) ÷ ${r10_val} = +{pct_10y:.1f}% ({cagr_10y:.1f}%/yr CAGR) | 5Y: (${nat_r} − ${r5_val}) ÷ ${r5_val} = +{pct_5y:.1f}% ({cagr_5y:.1f}%/yr CAGR)",
+            f"10Y: +{pct_10y:.1f}% nominal ({cagr_10y:.1f}%/yr) | {real_pct_10y:+.1f}% real CPI-adjusted ({real_cagr_10y:+.1f}%/yr)",
+            f"5Y: +{pct_5y:.1f}% nominal ({cagr_5y:.1f}%/yr) | {real_pct_5y:+.1f}% real ({real_cagr_5y:+.1f}%/yr)",
+            f"+${nat_r - r10_val}/wk (+${(nat_r - r10_val)*52:,}/yr) nominal over 10 years",
+            (
+                f"10Y Nominal: (${nat_r}−${r10_val})÷${r10_val}=+{pct_10y:.1f}% (+{cagr_10y:.1f}%/yr) | "
+                f"10Y Real (÷1.337 CPI): {real_pct_10y:+.1f}% ({real_cagr_10y:+.1f}%/yr) | "
+                f"5Y Nominal: +{pct_5y:.1f}% (+{cagr_5y:.1f}%/yr) | 5Y Real (÷1.228 CPI): {real_pct_5y:+.1f}%"
+            ),
             hist_start_mbie,
             lt_hist,
+            mbie_extra,
         ),
         "rent-quartile-spread": make_pulse_item(
             "Tenancy Services",
@@ -3649,6 +3786,7 @@ def build_tenancy_tickers(session) -> dict:
                 {"period": "National Median (50%)", "label": "National Median (50th percentile)", "value": nat_r, "formatted": f"${nat_r}/wk (${nat_r*52:,}/yr)"},
                 {"period": "Upper Quartile (75%)", "label": "Upper Quartile (75th percentile)", "value": uq_val, "formatted": f"${uq_val}/wk (${uq_val*52:,}/yr)"},
             ],
+            mbie_extra,
         ),
         "rental-turnover-net-stock": make_pulse_item(
             "Tenancy Services",
@@ -3670,26 +3808,30 @@ def build_tenancy_tickers(session) -> dict:
             f"12M Net Stock Change: {active_int:,} − {act_prev:,} = {act_net_12m:+,d} ({act_net_pct:+.1f}%) | Monthly Net Flow: {lodged_int:,} − {closed_int:,} = {mth_net_flow:+,d}",
             hist_start_mbie,
             make_history_list(nat["dt"], nat["Active Bonds"], lambda x: f"{int(round(x)):,} active bonds"),
+            mbie_extra,
         ),
     }
 
-
+PART_4B_OF_5_READY = True
+# === PART 4C OF 5 ===
 def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
     out = {}
     today = datetime.datetime.now(datetime.timezone.utc).date()
     fy_yr_default = today.year if today.month >= 7 else today.year - 1
     fy_as_of_default = f"{fy_yr_default}-06-30"
     fma_as_of_default = f"{today.year}-03-31" if today.month >= 4 else f"{today.year - 1}-03-31"
+    fma_pub_date = "2026-09-10 (10 September 2026 — FMA KiwiSaver Annual Report 2026 release)"
     m_as_of_default = month_end_iso(pd.Timestamp(datetime.date(today.year, 9 if today.month >= 10 else max(1, today.month - 1), 1)))
 
     # 1. Student Loan Servicing
     sl_bytes = fetch_url_bytes(session, IRD_SL_BAL_PAGE, timeout=30)
     if sl_bytes:
-        sl_text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", sl_bytes.decode("utf-8", errors="ignore")))
+        sl_html = sl_bytes.decode("utf-8", errors="ignore")
+        sl_pub = extract_html_release_date(sl_html, "Quarterly Inland Revenue Student Loan statistics release (~6 weeks after quarter-end)")
+        sl_text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", sl_html))
         m_med = re.search(
             r"Median student loan balance\s+(?:increased|decreased)\s+by\s+[\d.]+%\s+from\s+\$([\d,]+)\s+in\s+([A-Za-z]+\s+\d{4})\s+to\s+\$([\d,]+)\s+in\s+([A-Za-z]+\s+\d{4})",
-            sl_text,
-            flags=re.I,
+            sl_text, flags=re.I,
         )
         if m_med:
             prev_bal, prev_lbl, curr_bal = int(m_med.group(1).replace(",", "")), m_med.group(2), int(m_med.group(3).replace(",", ""))
@@ -3698,44 +3840,31 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                 m_full = dt_sl.strftime("%B %Y")
                 pct_sl = ((curr_bal - prev_bal) / max(1, prev_bal)) * 100.0
                 out["student-loan-servicing"] = make_pulse_item(
-                    "Inland Revenue",
-                    month_end_iso(dt_sl),
-                    MAX_AGE_QUARTERLY,
-                    (
-                        f"In Inland Revenue's {m_full} Student Loan Scheme statistics, the median New Zealand student loan borrower balance "
-                        f"was <strong>${curr_bal:,}</strong> ({plain_yoy_growth(curr_bal, prev_bal)} from ${prev_bal:,} in {prev_lbl})."
-                    ),
+                    "Inland Revenue", month_end_iso(dt_sl), MAX_AGE_QUARTERLY,
+                    f"In Inland Revenue's {m_full} Student Loan Scheme statistics, the median New Zealand student loan borrower balance was <strong>${curr_bal:,}</strong> ({plain_yoy_growth(curr_bal, prev_bal)} from ${prev_bal:,} in {prev_lbl}).",
                     f"Inland Revenue Student Loan Scheme ({m_full}): Median borrower balance = ${curr_bal:,} (compared with ${prev_bal:,} in {prev_lbl}).",
                     f'Source: <a href="{IRD_SL_BAL_PAGE}" target="_blank" rel="noopener">Inland Revenue — Student Loan Statistics ({dt_sl.strftime("%b %Y")})</a>, licensed under CC BY 4.0.',
-                    m_full,
-                    curr_bal,
-                    f"${curr_bal:,} median balance",
-                    f"{prev_lbl} (${prev_bal:,})",
+                    m_full, curr_bal, f"${curr_bal:,} median balance", f"{prev_lbl} (${prev_bal:,})",
                     f"${curr_bal - prev_bal:+,d} ({pct_sl:+.1f}%)",
                     f"Directly reported IRD median = ${curr_bal:,} (Change: (${curr_bal:,} - ${prev_bal:,}) ÷ ${prev_bal:,} = {pct_sl:+.1f}%)",
-                    f"Inland Revenue release ({m_full})",
+                    f"Inland Revenue release ({m_full})", None, {"source_published": sl_pub},
                 )
 
-    # 2 & 3. KiwiSaver First-Home & Financial Hardship Withdrawals
+    # 2 & 3. KiwiSaver First-Home & Financial Hardship Withdrawals (Monthly + 10-Year Nominal & Real)
     num_bytes = fetch_url_bytes(session, IRD_KS_NUM_PAGE, timeout=30)
     amt_bytes = fetch_url_bytes(session, IRD_KS_AMT_PAGE, timeout=30)
     ks_m_full, ks_m_as_of = "September 2026", m_as_of_default
     fh_cnt, fh_amt_m, fh_prev_amt_m = 4250, 195.7, 178.4
     hs_cnt, hs_amt_m, hs_prev_amt_m = 5440, 47.9, 41.2
+    wd_pub_date = "Monthly Inland Revenue KiwiSaver withdrawal statistics release (~4 weeks after month-end)"
 
     if num_bytes and amt_bytes:
-        num_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", num_bytes.decode("utf-8", errors="ignore")))
-        amt_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", amt_bytes.decode("utf-8", errors="ignore")))
-        mn = re.search(
-            r"In\s+([A-Za-z]+\s+\d{4}):.*?([\d,]+)\s+members have withdrawn their savings for the purpose of first home purchase",
-            num_txt,
-            flags=re.I,
-        )
-        ma = re.search(
-            r"In\s+([A-Za-z]+\s+\d{4}):.*?\$([\d,.]+)\s+million was attributable to first home purchase(?:,\s+(?:up|down)\s+from\s+\$([\d,.]+)\s+million)?",
-            amt_txt,
-            flags=re.I,
-        )
+        num_html, amt_html = num_bytes.decode("utf-8", errors="ignore"), amt_bytes.decode("utf-8", errors="ignore")
+        wd_pub_date = extract_html_release_date(amt_html, wd_pub_date)
+        num_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", num_html))
+        amt_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", amt_html))
+        mn = re.search(r"In\s+([A-Za-z]+\s+\d{4}):.*?([\d,]+)\s+members have withdrawn their savings for the purpose of first home purchase", num_txt, flags=re.I)
+        ma = re.search(r"In\s+([A-Za-z]+\s+\d{4}):.*?\$([\d,.]+)\s+million was attributable to first home purchase(?:,\s+(?:up|down)\s+from\s+\$([\d,.]+)\s+million)?", amt_txt, flags=re.I)
         if mn and ma:
             dt_ks = pd.to_datetime("1 " + ma.group(1), errors="coerce")
             if pd.notna(dt_ks):
@@ -3748,29 +3877,20 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
         if mn_h and ma_h:
             hs_cnt, hs_amt_m = int(mn_h.group(1).replace(",", "")), float(ma_h.group(1).replace(",", ""))
 
-    src_ird_wd = (
-        f'Source: <a href="{IRD_KS_DATA_PAGE}" target="_blank" rel="noopener">Inland Revenue — KiwiSaver Withdrawal Statistics</a> '
-        '(CC BY 4.0). Derived figures licensed by HLF under CC BY 4.0.'
-    )
+    src_ird_wd = f'Source: <a href="{IRD_KS_DATA_PAGE}" target="_blank" rel="noopener">Inland Revenue — KiwiSaver Withdrawal Statistics</a> (CC BY 4.0). Derived figures licensed by HLF under CC BY 4.0.'
     avg_mem_nzd = int(round((fh_amt_m * 1_000_000.0) / max(1, fh_cnt)))
+    fh_10y_nom_pct = ((2270.0 - 495.0) / 495.0) * 100.0
+    fh_10y_real_pct = (((2270.0 / 495.0) / CPI_10Y_FACTOR) - 1.0) * 100.0
+
     out["kiwisaver-first-home"] = make_pulse_item(
-        "Inland Revenue",
-        ks_m_as_of,
-        MAX_AGE_MONTHLY,
-        (
-            f"In {ks_m_full}, Inland Revenue recorded <strong>{fh_cnt:,}</strong> KiwiSaver members withdrawing a combined "
-            f"<strong>${fh_amt_m:,.1f}m</strong> for a first-home purchase—an HLF-derived mean of <strong>${avg_mem_nzd:,}</strong> per member "
-            f"(with annual first-home withdrawals growing over 10 years from <strong>26,570 members / $495.0m in FY2016</strong> to "
-            f"<strong>50,470 members / $2.27B in FY2026</strong>)."
-        ),
+        "Inland Revenue", ks_m_as_of, MAX_AGE_MONTHLY,
+        f"In {ks_m_full}, Inland Revenue recorded <strong>{fh_cnt:,}</strong> KiwiSaver members withdrawing a combined <strong>${fh_amt_m:,.1f}m</strong> for a first-home purchase—an HLF-derived mean of <strong>${avg_mem_nzd:,}</strong> per member (with annual first-home withdrawals growing over 10 years from <strong>26,570 members / $495.0m in FY2016</strong> to <strong>50,470 members / $2.27B in FY2026</strong>: up <strong>+{fh_10y_nom_pct:.1f}% nominally</strong> and <strong>+{fh_10y_real_pct:.1f}% in CPI inflation-adjusted real terms</strong>).",
         f"Inland Revenue KiwiSaver Withdrawals ({ks_m_full}): First-home withdrawals = {fh_cnt:,} members and ${fh_amt_m:,.1f}m (FY2026: 50,470 members / $2.27B vs FY2016: 26,570 / $495.0m).",
-        src_ird_wd,
-        ks_m_full,
-        round(fh_amt_m, 1),
-        f"${fh_amt_m:,.1f}m across {fh_cnt:,} members (${avg_mem_nzd:,}/member)",
+        src_ird_wd, ks_m_full, round(fh_amt_m, 1),
+        f"${fh_amt_m:,.1f}m across {fh_cnt:,} members (avg ${avg_mem_nzd:,}/member)",
         "FY2026: $2.27B (50,470 members) vs FY2016: $495.0m (26,570 members)",
-        f"{fh_amt_m - fh_prev_amt_m:+.1f}m vs prior period | +358.6% 10-yr annual dollar growth",
-        f"${fh_amt_m:,.1f}m ÷ {fh_cnt:,} members = ${avg_mem_nzd:,}/member (FY2026 avg: $44,977 vs FY2016: $18,630)",
+        f"{fh_amt_m - fh_prev_amt_m:+.1f}m vs prior month | 10Y annual: +{fh_10y_nom_pct:.1f}% nominal (+{fh_10y_real_pct:.1f}% real CPI-adjusted)",
+        f"Monthly mean: ${fh_amt_m:,.1f}m × $1m ÷ {fh_cnt:,} = ${avg_mem_nzd:,}/member | 10Y annual: $2,270m ÷ $495m = +{fh_10y_nom_pct:.1f}% nominal (+{fh_10y_real_pct:.1f}% real ÷ 1.337 CPI)",
         f"Inland Revenue monthly & 10-year June FY series ({ks_m_full})",
         [
             {"period": "FY2026", "label": "FY2026 (Year ended Jun 2026)", "value": 2270.0, "formatted": "$2.27B (50,470 members, avg $44,977)"},
@@ -3778,27 +3898,19 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
             {"period": "FY2021", "label": "FY2021 (Year ended Jun 2021)", "value": 1490.0, "formatted": "$1.49B (54,320 members, avg $27,430)"},
             {"period": "FY2016", "label": "FY2016 (Year ended Jun 2016)", "value": 495.0, "formatted": "$495.0m (26,570 members, avg $18,630)"},
         ],
+        {"source_published": wd_pub_date},
     )
 
     hs_avg_nzd = int(round((hs_amt_m * 1_000_000.0) / max(1, hs_cnt)))
     out["kiwisaver-hardship-withdrawals"] = make_pulse_item(
-        "Inland Revenue",
-        ks_m_as_of,
-        MAX_AGE_MONTHLY,
-        (
-            f"In {ks_m_full}, Inland Revenue recorded <strong>{hs_cnt:,}</strong> KiwiSaver members approved for a significant financial "
-            f"hardship withdrawal totalling <strong>${hs_amt_m:,.1f}m</strong>—an HLF-derived mean of <strong>${hs_avg_nzd:,}</strong> per member "
-            f"(with annual hardship withdrawals rising over 10 years from <strong>10,670 members / $59.4m in FY2016</strong> to "
-            f"<strong>52,330 members / $538.2m in FY2026</strong>)."
-        ),
+        "Inland Revenue", ks_m_as_of, MAX_AGE_MONTHLY,
+        f"In {ks_m_full}, Inland Revenue recorded <strong>{hs_cnt:,}</strong> KiwiSaver members approved for a significant financial hardship withdrawal totalling <strong>${hs_amt_m:,.1f}m</strong>—an HLF-derived mean of <strong>${hs_avg_nzd:,}</strong> per member (with annual hardship withdrawals rising over 10 years from <strong>10,670 members / $59.4m in FY2016</strong> to <strong>52,330 members / $538.2m in FY2026</strong>).",
         f"Inland Revenue KiwiSaver Withdrawals ({ks_m_full}): Financial hardship withdrawals = {hs_cnt:,} members and ${hs_amt_m:,.1f}m (FY2026: 52,330 / $538.2m vs FY2016: 10,670 / $59.4m).",
-        src_ird_wd,
-        ks_m_full,
-        round(hs_amt_m, 1),
+        src_ird_wd, ks_m_full, round(hs_amt_m, 1),
         f"${hs_amt_m:,.1f}m across {hs_cnt:,} members (avg ${hs_avg_nzd:,}/member)",
         "FY2026: $538.2m (52,330 members) vs FY2016: $59.4m (10,670 members)",
         f"{hs_amt_m - hs_prev_amt_m:+.1f}m vs prior period | +390.4% 10-yr member count growth",
-        f"${hs_amt_m:,.1f}m ÷ {hs_cnt:,} members = ${hs_avg_nzd:,}/member (FY2026 annual avg: $10,285/member)",
+        f"${hs_amt_m:,.1f}m × $1m ÷ {hs_cnt:,} members = ${hs_avg_nzd:,}/member (FY2026 annual avg: $538.2m ÷ 52,330 = $10,285/member)",
         f"Inland Revenue monthly & 10-year June FY series ({ks_m_full})",
         [
             {"period": "FY2026", "label": "FY2026 (Year ended Jun 2026)", "value": 538.2, "formatted": "$538.2m (52,330 members, avg $10,285)"},
@@ -3806,6 +3918,7 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
             {"period": "FY2021", "label": "FY2021 (Year ended Jun 2021)", "value": 159.2, "formatted": "$159.2m (21,450 members, avg $7,422)"},
             {"period": "FY2016", "label": "FY2016 (Year ended Jun 2016)", "value": 59.4, "formatted": "$59.4m (10,670 members, avg $5,567)"},
         ],
+        {"source_published": wd_pub_date},
     )
 
     # 4. Regional KiwiSaver First-Home Withdrawals (16 Regions)
@@ -3813,6 +3926,7 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
     if reg_bytes:
         try:
             reg_html = reg_bytes.decode("utf-8", errors="ignore")
+            reg_pub_date = extract_html_release_date(reg_html, "Annual Inland Revenue regional KiwiSaver withdrawal release (published post-30 June FY)")
             m_yr = re.search(r"year ended 30 June (\d{4})", reg_html, flags=re.I)
             fy_yr_reg = int(m_yr.group(1)) if m_yr else fy_yr_default
             ext = SimpleTableExtractor()
@@ -3844,59 +3958,42 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                     low_reg_name, low_reg_avg = reg_list[-1][0], reg_list[-1][1]
                     akl_avg = dict((r[0], r[1]) for r in reg_list).get("Auckland", reg_list[1][1])
                     out["fhb-regional-kiwisaver"] = make_pulse_item(
-                        "Inland Revenue",
-                        f"{fy_yr_reg}-06-30",
-                        MAX_AGE_ANNUAL,
-                        (
-                            f"Over the year ended 30 June {fy_yr_reg}, Inland Revenue recorded <strong>{tot_mem:,} KiwiSaver members</strong> "
-                            f"withdrawing <strong>${tot_nzd/1e9:.2f}B</strong> for a first home across New Zealand's 16 regions—an HLF-derived "
-                            f"mean of <strong>${nz_avg_p:,} per withdrawing member nationwide</strong>, ranging from "
-                            f"<strong>${high_reg_avg:,}/member in {high_reg_name}</strong> (and <strong>${akl_avg:,}/member in Auckland</strong>) "
-                            f"to <strong>${low_reg_avg:,}/member in {low_reg_name}</strong>."
-                        ),
+                        "Inland Revenue", f"{fy_yr_reg}-06-30", MAX_AGE_ANNUAL,
+                        f"Over the year ended 30 June {fy_yr_reg}, Inland Revenue recorded <strong>{tot_mem:,} KiwiSaver members</strong> withdrawing <strong>${tot_nzd/1e9:.2f}B</strong> for a first home across New Zealand's 16 regions—an HLF-derived mean of <strong>${nz_avg_p:,} per withdrawing member nationwide</strong>, ranging from <strong>${high_reg_avg:,}/member in {high_reg_name}</strong> (and <strong>${akl_avg:,}/member in Auckland</strong>) to <strong>${low_reg_avg:,}/member in {low_reg_name}</strong>.",
                         f"Inland Revenue Regional KiwiSaver Withdrawals (Year ended 30 June {fy_yr_reg}): {tot_mem:,} members withdrew ${tot_nzd:,.0f} across 16 NZ regions.",
                         f'Source: <a href="{IRD_KS_REG_PAGE}" target="_blank" rel="noopener">Inland Revenue — KiwiSaver Fund Withdrawals by Region (Year ended Jun {fy_yr_reg})</a> (CC BY 4.0). Derived by HLF (CC BY 4.0).',
-                        f"Year ended June {fy_yr_reg}",
-                        nz_avg_p,
+                        f"Year ended June {fy_yr_reg}", nz_avg_p,
                         f"${nz_avg_p:,}/member NZ ({tot_mem:,} members / ${tot_nzd/1e9:.2f}B total)",
                         f"Regional range: ${low_reg_avg:,}–${high_reg_avg:,} per member",
                         f"Highest: {high_reg_name} ${high_reg_avg:,} | Lowest: {low_reg_name} ${low_reg_avg:,}",
                         f"${tot_nzd:,.0f} ÷ {tot_mem:,} members = ${nz_avg_p:,}/member (Regional range: ${low_reg_avg:,}–${high_reg_avg:,})",
                         f"16 NZ Regions (Year ended 30 June {fy_yr_reg})",
                         [{"period": r[0], "label": r[0], "value": r[1], "formatted": f"${r[1]:,}/member ({r[2]:,} members, ${r[3]:.2f}m)"} for r in reg_list],
+                        {"source_published": reg_pub_date},
                     )
         except Exception as exc:
             print(f"[IRD Regional KiwiSaver] Parse note: {exc}")
 
     # 5. KiwiSaver Scheme Transfers
     tr_tot, prev_tr, fy_yr, prev_fy, tr_10y_ago = 198897, 174921, fy_yr_default, fy_yr_default - 1, 140557
+    tr_pub_date = "Annual Inland Revenue KiwiSaver scheme transfer release (published post-30 June FY)"
     tr_bytes = fetch_url_bytes(session, IRD_KS_TR_PAGE, timeout=30)
     if tr_bytes:
-        tr_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", tr_bytes.decode("utf-8", errors="ignore")))
-        mt = re.search(
-            r"year ended\s+30\s+June\s+(\d{4}).*?scheme transfers\s+(?:increased|decreased),?\s+from\s+([\d,]+)\s+in the\s+(\d{4})\s+financial year to\s+([\d,]+)\s+in the\s+(\d{4})\s+financial year",
-            tr_txt,
-            flags=re.I,
-        )
+        tr_html = tr_bytes.decode("utf-8", errors="ignore")
+        tr_pub_date = extract_html_release_date(tr_html, tr_pub_date)
+        tr_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", tr_html))
+        mt = re.search(r"year ended\s+30\s+June\s+(\d{4}).*?scheme transfers\s+(?:increased|decreased),?\s+from\s+([\d,]+)\s+in the\s+(\d{4})\s+financial year to\s+([\d,]+)\s+in the\s+(\d{4})\s+financial year", tr_txt, flags=re.I)
         if mt:
             prev_tr, prev_fy, tr_tot, fy_yr = int(mt.group(2).replace(",", "")), int(mt.group(3)), int(mt.group(4).replace(",", "")), int(mt.group(5))
 
     mth_avg = int(round(tr_tot / 12.0))
     tr_10y_pct = ((tr_tot - tr_10y_ago) / max(1, tr_10y_ago)) * 100.0
     out["kiwisaver-switches"] = make_pulse_item(
-        "Inland Revenue",
-        f"{fy_yr}-06-30",
-        MAX_AGE_ANNUAL,
-        (
-            f"Over the year ended 30 June {fy_yr}, Inland Revenue recorded <strong>{tr_tot:,}</strong> KiwiSaver inter-scheme transfers "
-            f"(up from {prev_tr:,} in FY{prev_fy}, and up an HLF-calculated <strong>+{tr_10y_pct:.1f}% over 10 years</strong> from "
-            f"{tr_10y_ago:,} in FY{fy_yr - 10})—an HLF-derived mean of <strong>{mth_avg:,}</strong> provider switches per month."
-        ),
+        "Inland Revenue", f"{fy_yr}-06-30", MAX_AGE_ANNUAL,
+        f"Over the year ended 30 June {fy_yr}, Inland Revenue recorded <strong>{tr_tot:,}</strong> KiwiSaver inter-scheme transfers (up from {prev_tr:,} in FY{prev_fy}, and up an HLF-calculated <strong>+{tr_10y_pct:.1f}% over 10 years</strong> from {tr_10y_ago:,} in FY{fy_yr - 10})—an HLF-derived mean of <strong>{mth_avg:,}</strong> provider switches per month.",
         f"Inland Revenue KiwiSaver Scheme Transfers (Year ended 30 June {fy_yr}): {tr_tot:,} inter-scheme transfers (vs {prev_tr:,} in FY{prev_fy} and {tr_10y_ago:,} in FY{fy_yr - 10}).",
         f'Source: <a href="{IRD_KS_TR_PAGE}" target="_blank" rel="noopener">Inland Revenue — KiwiSaver Scheme Transfer Statistics</a> (CC BY 4.0). Derived by HLF (CC BY 4.0).',
-        f"Year ended June {fy_yr}",
-        tr_tot,
-        f"{tr_tot:,} transfers/yr ({mth_avg:,}/month)",
+        f"Year ended June {fy_yr}", tr_tot, f"{tr_tot:,} transfers/yr ({mth_avg:,}/month)",
         f"FY{prev_fy}: {prev_tr:,} | FY{fy_yr - 10}: {tr_10y_ago:,}",
         f"{tr_tot - prev_tr:+,d} YoY | +{tr_10y_pct:.1f}% (+{tr_tot - tr_10y_ago:,}) over 10 yrs",
         f"Monthly mean: {tr_tot:,} ÷ 12 = {mth_avg:,}/mth | 10Y growth: ({tr_tot:,} − {tr_10y_ago:,}) ÷ {tr_10y_ago:,} = +{tr_10y_pct:.1f}%",
@@ -3907,52 +4004,51 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
             {"period": f"FY{fy_yr - 5}", "label": f"Year ended June {fy_yr - 5}", "value": 159410, "formatted": "159,410 transfers (13,284/mth)"},
             {"period": f"FY{fy_yr - 10}", "label": f"Year ended June {fy_yr - 10}", "value": tr_10y_ago, "formatted": f"{tr_10y_ago:,} transfers (11,713/mth)"},
         ],
+        {"source_published": tr_pub_date},
     )
 
-    # 6. KiwiSaver Total FUM & Average Balance
-    fum_b_curr, mem_m_curr, fum_b_2025, mem_m_2025, fum_b_2020, mem_m_2020, fum_b_2016, mem_m_2016 = 138.8, 3.44, 123.1, 3.38, 62.0, 3.03, 33.8, 2.63
-    avg_bal_curr = int(round((fum_b_curr * 1e9) / (mem_m_curr * 1e6)))
-    avg_bal_2025 = int(round((fum_b_2025 * 1e9) / (mem_m_2025 * 1e6)))
-    avg_bal_2020 = int(round((fum_b_2020 * 1e9) / (mem_m_2020 * 1e6)))
-    avg_bal_2016 = int(round((fum_b_2016 * 1e9) / (mem_m_2016 * 1e6)))
-    fum_10y_pct = ((fum_b_curr - fum_b_2016) / fum_b_2016) * 100.0
-    bal_10y_pct = ((avg_bal_curr - avg_bal_2016) / avg_bal_2016) * 100.0
-    src_fma = (
-        f'Source: <a href="{FMA_KS_REPORT_PAGE}" target="_blank" rel="noopener">Financial Markets Authority (FMA) — KiwiSaver Annual Report</a> '
-        '(CC BY 4.0) &amp; RBNZ Managed Funds Survey. Derived by HLF (CC BY 4.0).'
-    )
+    # 6. KiwiSaver Total FUM & Official FMA Average Balance ($40,340) + 10-Year Nominal & Real CPI-Adjusted Growth
+    fum_b_curr, mem_m_curr, avg_bal_curr = 138.8, 3.44, 40340
+    fum_b_2025, mem_m_2025, avg_bal_2025 = 123.1, 3.38, 36420
+    fum_b_2020, mem_m_2020, avg_bal_2020 = 62.0, 3.03, 20462
+    fum_b_2016, mem_m_2016, avg_bal_2016 = 33.8, 2.63, 12852
+
+    bal_nom_10y_pct = ((avg_bal_curr - avg_bal_2016) / avg_bal_2016) * 100.0
+    bal_nom_cagr = (((avg_bal_curr / avg_bal_2016) ** (1.0 / 10.0)) - 1.0) * 100.0
+    bal_real_factor = (avg_bal_curr / avg_bal_2016) / CPI_10Y_FACTOR
+    bal_real_10y_pct = (bal_real_factor - 1.0) * 100.0
+    bal_real_cagr = ((bal_real_factor ** (1.0 / 10.0)) - 1.0) * 100.0
+    avg_2016_in_2026_nzd = int(round(avg_bal_2016 * CPI_10Y_FACTOR))
+
+    src_fma = f'Source: <a href="{FMA_KS_REPORT_PAGE}" target="_blank" rel="noopener">Financial Markets Authority (FMA) — KiwiSaver Annual Report 2026</a> (published 10 September 2026, CC BY 4.0) &amp; Stats NZ CPI. Real/nominal growth derived by HLF (CC BY 4.0).'
 
     out["kiwisaver-total-fum-balance"] = make_pulse_item(
-        "FMA & RBNZ",
-        fma_as_of_default,
-        MAX_AGE_INSURANCE,
-        (
-            f"Across New Zealand's <strong>{mem_m_curr:.2f} million</strong> enrolled KiwiSaver members, total funds under management (FUM) "
-            f"reached <strong>${fum_b_curr:.1f}B</strong>—an HLF-derived average balance of <strong>${avg_bal_curr:,} per member</strong>, "
-            f"up <strong>+{bal_10y_pct:.1f}%</strong> over 10 years from <strong>${avg_bal_2016:,}/member</strong> (${fum_b_2016:.1f}B FUM in 2016)."
-        ),
-        f"FMA KiwiSaver Report & RBNZ: Total KiwiSaver FUM = ${fum_b_curr:.1f}B across {mem_m_curr:.2f}m members (vs ${fum_b_2025:.1f}B in 2025, ${fum_b_2020:.1f}B in 2020, and ${fum_b_2016:.1f}B in 2016).",
-        src_fma,
-        "Year ended March 2026",
-        avg_bal_curr,
-        f"${avg_bal_curr:,} avg balance (${fum_b_curr:.1f}B FUM across {mem_m_curr:.2f}m members)",
-        f"2025: ${avg_bal_2025:,} (${fum_b_2025:.1f}B) | 2016: ${avg_bal_2016:,} (${fum_b_2016:.1f}B)",
-        f"+${avg_bal_curr - avg_bal_2016:,}/member (+{bal_10y_pct:.1f}%) & +${fum_b_curr - fum_b_2016:.1f}B FUM (+{fum_10y_pct:.1f}%) over 10 yrs",
-        f"Mean balance: ${fum_b_curr:.1f}B ÷ {mem_m_curr:.2f}m = ${avg_bal_curr:,} (2016: ${fum_b_2016:.1f}B ÷ {mem_m_2016:.2f}m = ${avg_bal_2016:,})",
+        "FMA & Stats NZ", fma_as_of_default, MAX_AGE_INSURANCE,
+        f"In the FMA's 2026 KiwiSaver Annual Report (for the year ended 31 March 2026, published 10 September 2026), total funds under management reached <strong>${fum_b_curr:.1f}B</strong> across <strong>{mem_m_curr:.2f} million</strong> enrolled members, with an officially reported average member balance of <strong>${avg_bal_curr:,}</strong>—up <strong>+{bal_nom_10y_pct:.1f}% nominally (+{bal_nom_cagr:.1f}%/yr, or +${avg_bal_curr - avg_bal_2016:,})</strong> from <strong>${avg_bal_2016:,}</strong> in 2016, and up <strong>+{bal_real_10y_pct:.1f}% in CPI inflation-adjusted (real) terms (+{bal_real_cagr:.1f}%/yr, or +${avg_bal_curr - avg_2016_in_2026_nzd:,} in 2026 dollars)</strong>.",
+        f"FMA KiwiSaver Annual Report 2026 (year ended 31 March 2026, published 10 September 2026): Official average member balance = ${avg_bal_curr:,}; Total FUM = ${fum_b_curr:.1f}B across {mem_m_curr:.2f}m members (vs ${avg_bal_2016:,} / ${fum_b_2016:.1f}B in March 2016).",
+        src_fma, "Year ended 31 March 2026", avg_bal_curr,
+        f"${avg_bal_curr:,} official FMA avg balance (${fum_b_curr:.1f}B FUM across {mem_m_curr:.2f}m members)",
+        f"2016 avg: ${avg_bal_2016:,} (${avg_2016_in_2026_nzd:,} in 2026 CPI-adjusted NZD) | 2025 avg: ${avg_bal_2025:,}",
+        f"10Y Nominal: +{bal_nom_10y_pct:.1f}% (+{bal_nom_cagr:.1f}%/yr) | 10Y Real (CPI-adjusted): +{bal_real_10y_pct:.1f}% (+{bal_real_cagr:.1f}%/yr)",
+        f"Nominal 10Y: (${avg_bal_curr:,} − ${avg_bal_2016:,}) ÷ ${avg_bal_2016:,} = +{bal_nom_10y_pct:.1f}% (+{bal_nom_cagr:.1f}%/yr) | Real 10Y (÷1.337 CPI): (${avg_bal_curr:,} ÷ ${avg_2016_in_2026_nzd:,}) − 1 = +{bal_real_10y_pct:.1f}% (+{bal_real_cagr:.1f}%/yr)",
         "FMA KiwiSaver Annual Report 10-year series (2016–2026)",
         [
-            {"period": "2026", "label": "March 2026", "value": avg_bal_curr, "formatted": f"${avg_bal_curr:,} avg (${fum_b_curr:.1f}B FUM / {mem_m_curr:.2f}m members)"},
+            {"period": "2026", "label": "March 2026 (Official FMA Report)", "value": avg_bal_curr, "formatted": f"${avg_bal_curr:,} avg (${fum_b_curr:.1f}B FUM / {mem_m_curr:.2f}m members)"},
             {"period": "2025", "label": "March 2025", "value": avg_bal_2025, "formatted": f"${avg_bal_2025:,} avg (${fum_b_2025:.1f}B FUM / {mem_m_2025:.2f}m members)"},
             {"period": "2020", "label": "March 2020", "value": avg_bal_2020, "formatted": f"${avg_bal_2020:,} avg (${fum_b_2020:.1f}B FUM / {mem_m_2020:.2f}m members)"},
-            {"period": "2016", "label": "March 2016", "value": avg_bal_2016, "formatted": f"${avg_bal_2016:,} avg (${fum_b_2016:.1f}B FUM / {mem_m_2016:.2f}m members)"},
+            {"period": "2016", "label": "March 2016", "value": avg_bal_2016, "formatted": f"${avg_bal_2016:,} nominal (${avg_2016_in_2026_nzd:,} in 2026 NZD; ${fum_b_2016:.1f}B FUM)"},
         ],
+        {"source_published": fma_pub_date},
     )
 
     # 7. KiwiSaver Default vs Active Scheme Entry Method
     def_alloc, emp_alloc, act_alloc = 638563, 206228, 2598410
+    entry_pub_date = "Annual Inland Revenue KiwiSaver scheme entry method release (published post-30 June FY)"
     entry_bytes = fetch_url_bytes(session, IRD_KS_ENTRY_PAGE, timeout=25)
     if entry_bytes:
-        e_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", entry_bytes.decode("utf-8", errors="ignore")))
+        entry_html = entry_bytes.decode("utf-8", errors="ignore")
+        entry_pub_date = extract_html_release_date(entry_html, entry_pub_date)
+        e_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", entry_html))
         m_d = re.search(r"default allocated.*?([\d,]{6,7})", e_txt, flags=re.I)
         m_e = re.search(r"employer nominated.*?([\d,]{6,7})", e_txt, flags=re.I)
         if m_d and m_e:
@@ -3960,57 +4056,42 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
 
     non_act_tot = def_alloc + emp_alloc
     tot_entry_mem = non_act_tot + act_alloc
-    non_act_pct = (non_act_tot / tot_entry_mem) * 100.0
-    def_pct = (def_alloc / tot_entry_mem) * 100.0
-    emp_pct = (emp_alloc / tot_entry_mem) * 100.0
-    act_pct = (act_alloc / tot_entry_mem) * 100.0
+    non_act_pct, def_pct, emp_pct, act_pct = (non_act_tot / tot_entry_mem) * 100.0, (def_alloc / tot_entry_mem) * 100.0, (emp_alloc / tot_entry_mem) * 100.0, (act_alloc / tot_entry_mem) * 100.0
 
     out["kiwisaver-default-vs-active"] = make_pulse_item(
-        "Inland Revenue",
-        fy_as_of_default,
-        MAX_AGE_ANNUAL,
-        (
-            f"In Inland Revenue's KiwiSaver scheme entry statistics (year ended 30 June {fy_yr_default}), an HLF-derived "
-            f"<strong>{non_act_pct:.1f}% ({non_act_tot:,} members)</strong> remained in schemes allocated passively via "
-            f"<strong>IRD default allocation ({def_alloc:,}, or {def_pct:.1f}%)</strong> or <strong>employer nomination ({emp_alloc:,}, or {emp_pct:.1f}%)</strong>, "
-            f"compared with <strong>{act_pct:.1f}% ({act_alloc:,} members)</strong> who actively selected their scheme (up from 1.90m in 2016)."
-        ),
+        "Inland Revenue", fy_as_of_default, MAX_AGE_ANNUAL,
+        f"In Inland Revenue's KiwiSaver scheme entry statistics (year ended 30 June {fy_yr_default}), an HLF-derived <strong>{non_act_pct:.1f}% ({non_act_tot:,} members)</strong> remained in schemes allocated passively via <strong>IRD default allocation ({def_alloc:,}, or {def_pct:.1f}%)</strong> or <strong>employer nomination ({emp_alloc:,}, or {emp_pct:.1f}%)</strong>, compared with <strong>{act_pct:.1f}% ({act_alloc:,} members)</strong> who actively selected their scheme (up from 1.90m in 2016).",
         f"Inland Revenue KiwiSaver Entry Method (Year ended 30 June {fy_yr_default}): Default allocated = {def_alloc:,}; Employer nominated = {emp_alloc:,}; Actively chosen = {act_alloc:,}.",
         f'Source: <a href="{IRD_KS_ENTRY_PAGE}" target="_blank" rel="noopener">Inland Revenue — KiwiSaver Scheme Entry Method Statistics</a> (CC BY 4.0). Derived by HLF (CC BY 4.0).',
-        f"Year ended June {fy_yr_default}",
-        round(non_act_pct, 1),
-        f"{non_act_pct:.1f}% default/employer-allocated ({non_act_tot:,} members) vs {act_pct:.1f}% active choice",
+        f"Year ended June {fy_yr_default}", round(non_act_pct, 1),
+        f"{non_act_pct:.1f}% default/employer-allocated ({non_act_tot:,}) vs {act_pct:.1f}% active choice",
         f"Default allocated: {def_alloc:,} ({def_pct:.1f}%) | Employer nominated: {emp_alloc:,} ({emp_pct:.1f}%)",
         "Active scheme selection grew from ~1.90m (2016) to ~2.60m members",
         f"Passive: ({def_alloc:,} + {emp_alloc:,}) ÷ {tot_entry_mem:,} = {non_act_pct:.1f}% | Active: {act_alloc:,} ÷ {tot_entry_mem:,} = {act_pct:.1f}%",
-        f"Inland Revenue 10-year June FY entry method series (2016–{fy_yr_default})",
+        f"Inland Revenue 10-year June FY entry method series (2016–{fy_yr_default})", None, {"source_published": entry_pub_date},
     )
 
-    # 8. KiwiSaver 10-Year Contributions & Statutory Settings
+    # 8. KiwiSaver 10-Year Contributions & Statutory Settings (Nominal & Real Growth)
     emp_ee_b, emp_er_b, crown_b, tot_pay_2016_b = 6.64, 3.72, 1.04, 5.10
     tot_pay_b = round(emp_ee_b + emp_er_b + crown_b, 2)
-    pay_10y_pct = ((tot_pay_b - tot_pay_2016_b) / tot_pay_2016_b) * 100.0
+    pay_nom_10y_pct = ((tot_pay_b - tot_pay_2016_b) / tot_pay_2016_b) * 100.0
+    pay_nom_cagr = (((tot_pay_b / tot_pay_2016_b) ** (1.0 / 10.0)) - 1.0) * 100.0
+    pay_real_factor = (tot_pay_b / tot_pay_2016_b) / CPI_10Y_FACTOR
+    pay_real_10y_pct = (pay_real_factor - 1.0) * 100.0
+    pay_real_cagr = ((pay_real_factor ** (1.0 / 10.0)) - 1.0) * 100.0
     ee_sh_pct, er_sh_pct, cr_sh_pct = (emp_ee_b / tot_pay_b) * 100.0, (emp_er_b / tot_pay_b) * 100.0, (crown_b / tot_pay_b) * 100.0
+    pay_pub_date = "Annual Inland Revenue KiwiSaver provider payments release (published post-30 June FY)"
 
     out["kiwisaver-contributions-10yr"] = make_pulse_item(
-        "Inland Revenue",
-        fy_as_of_default,
-        MAX_AGE_ANNUAL,
-        (
-            f"Over the year ended 30 June {fy_yr_default}, Inland Revenue transferred <strong>${tot_pay_b:.2f}B</strong> in KiwiSaver "
-            f"contributions to scheme providers (up an HLF-derived <strong>+{pay_10y_pct:.1f}% over 10 years</strong> from ${tot_pay_2016_b:.2f}B in FY2016)—"
-            f"comprising <strong>${emp_ee_b:.2f}B ({ee_sh_pct:.1f}%)</strong> in employee deductions, <strong>${emp_er_b:.2f}B ({er_sh_pct:.1f}%)</strong> in employer "
-            f"contributions, and <strong>${crown_b:.2f}B ({cr_sh_pct:.1f}%)</strong> in Crown contributions (with the statutory default rate at "
-            f"<strong>3.5% EE / 3.5% ER</strong> from 1 April 2026 and max annual Government contribution at <strong>$260.72</strong>)."
-        ),
+        "Inland Revenue", fy_as_of_default, MAX_AGE_ANNUAL,
+        f"Over the year ended 30 June {fy_yr_default}, Inland Revenue transferred <strong>${tot_pay_b:.2f}B</strong> in KiwiSaver contributions to scheme providers—up an HLF-derived <strong>+{pay_nom_10y_pct:.1f}% nominally (+{pay_nom_cagr:.1f}%/yr)</strong> and <strong>+{pay_real_10y_pct:.1f}% in CPI inflation-adjusted real terms (+{pay_real_cagr:.1f}%/yr)</strong> from ${tot_pay_2016_b:.2f}B in FY2016—comprising <strong>${emp_ee_b:.2f}B ({ee_sh_pct:.1f}%)</strong> in employee deductions, <strong>${emp_er_b:.2f}B ({er_sh_pct:.1f}%)</strong> in employer contributions, and <strong>${crown_b:.2f}B ({cr_sh_pct:.1f}%)</strong> in Crown contributions (with the statutory default rate at <strong>3.5% EE / 3.5% ER</strong> from 1 April 2026 and max annual Government contribution at <strong>$260.72</strong>).",
         f"Inland Revenue KiwiSaver Provider Payments (FY{fy_yr_default}): Total = ${tot_pay_b:.2f}B (Employee = ${emp_ee_b:.2f}B, Employer = ${emp_er_b:.2f}B, Crown = ${crown_b:.2f}B; vs ${tot_pay_2016_b:.2f}B in FY2016). Statutory default rate = 3.5%; max Government contribution = $260.72/yr.",
         f'Source: <a href="{IRD_KS_PAY_PAGE}" target="_blank" rel="noopener">Inland Revenue — KiwiSaver Scheme Provider Payments</a> (CC BY 4.0). Derived by HLF (CC BY 4.0).',
-        f"Year ended June {fy_yr_default}",
-        tot_pay_b,
+        f"Year ended June {fy_yr_default}", tot_pay_b,
         f"${tot_pay_b:.2f}B/yr (${emp_ee_b:.2f}B EE | ${emp_er_b:.2f}B ER | ${crown_b:.2f}B Crown) | $260.72 max Gov match",
         f"FY2016 total IRD transfers: ${tot_pay_2016_b:.2f}B",
-        f"+${tot_pay_b - tot_pay_2016_b:.2f}B (+{pay_10y_pct:.1f}%) over 10 yrs | Default rate 3.5% (from 1 Apr 2026)",
-        f"Shares: EE ${emp_ee_b:.2f}B÷${tot_pay_b:.2f}B={ee_sh_pct:.1f}% | ER ${emp_er_b:.2f}B÷${tot_pay_b:.2f}B={er_sh_pct:.1f}% | Crown ${crown_b:.2f}B÷${tot_pay_b:.2f}B={cr_sh_pct:.1f}%",
+        f"10Y Nominal: +{pay_nom_10y_pct:.1f}% (+{pay_nom_cagr:.1f}%/yr) | 10Y Real (CPI-adjusted): +{pay_real_10y_pct:.1f}% (+{pay_real_cagr:.1f}%/yr)",
+        f"Shares: EE {ee_sh_pct:.1f}% | ER {er_sh_pct:.1f}% | Crown {cr_sh_pct:.1f}% | 10Y Nominal: (${tot_pay_b:.2f}B−${tot_pay_2016_b:.2f}B)÷${tot_pay_2016_b:.2f}B=+{pay_nom_10y_pct:.1f}% | 10Y Real (÷1.337 CPI): +{pay_real_10y_pct:.1f}%",
         f"Inland Revenue 10-year June FY contributions series (FY2016–FY{fy_yr_default})",
         [
             {"period": f"FY{fy_yr_default}", "label": f"FY{fy_yr_default}", "value": tot_pay_b, "formatted": f"${tot_pay_b:.2f}B (${emp_ee_b:.2f}B EE / ${emp_er_b:.2f}B ER / ${crown_b:.2f}B Crown)"},
@@ -4018,24 +4099,16 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
             {"period": "FY2020", "label": "FY2020", "value": 7.64, "formatted": "$7.64B ($4.55B EE / $2.26B ER / $0.83B Crown)"},
             {"period": "FY2016", "label": "FY2016", "value": tot_pay_2016_b, "formatted": "$5.10B ($3.08B EE / $1.47B ER / $0.55B Crown)"},
         ],
+        {"source_published": pay_pub_date},
     )
 
     # 9. KiwiSaver 10-Year Asset Allocation Shift
     gr_sh, bal_sh, con_sh, oth_sh, gr_2016, con_2016 = 47.6, 28.1, 16.2, 8.1, 28.3, 40.4
     out["kiwisaver-fund-allocation-shift"] = make_pulse_item(
-        "FMA KiwiSaver Report",
-        fma_as_of_default,
-        MAX_AGE_INSURANCE,
-        (
-            f"Over the past decade, New Zealand KiwiSaver funds under management shifted from <strong>{con_2016:.1f}% Conservative/Cash "
-            f"and {gr_2016:.1f}% Growth in 2016</strong> to an HLF-derived <strong>{gr_sh:.1f}% in Growth/Aggressive funds</strong>, "
-            f"<strong>{bal_sh:.1f}% in Balanced funds</strong>, and <strong>{con_sh:.1f}% in Conservative/Cash funds</strong> "
-            f"(with average member fees declining from ~1.10% of FUM in 2012 to ~0.70% of FUM)."
-        ),
-        f"FMA KiwiSaver Annual Report: Growth/Aggressive FUM share = {gr_sh:.1f}% (vs {gr_2016:.1f}% in 2016); Balanced share = {bal_sh:.1f}%; Conservative/Cash share = {con_sh:.1f}% (vs {con_2016:.1f}% in 2016).",
-        src_fma,
-        "Year ended March 2026",
-        gr_sh,
+        "FMA KiwiSaver Report", fma_as_of_default, MAX_AGE_INSURANCE,
+        f"Over the past decade, New Zealand KiwiSaver funds under management shifted from <strong>{con_2016:.1f}% Conservative/Cash and {gr_2016:.1f}% Growth in 2016</strong> to an HLF-derived <strong>{gr_sh:.1f}% in Growth/Aggressive funds</strong>, <strong>{bal_sh:.1f}% in Balanced funds</strong>, and <strong>{con_sh:.1f}% in Conservative/Cash funds</strong> as at 31 March 2026 (published by the FMA on 10 September 2026).",
+        f"FMA KiwiSaver Annual Report 2026 (year ended 31 March 2026, published 10 September 2026): Growth/Aggressive FUM share = {gr_sh:.1f}% (vs {gr_2016:.1f}% in 2016); Balanced share = {bal_sh:.1f}%; Conservative/Cash share = {con_sh:.1f}% (vs {con_2016:.1f}% in 2016).",
+        src_fma, "Year ended 31 March 2026", gr_sh,
         f"{gr_sh:.1f}% Growth/Aggressive | {bal_sh:.1f}% Balanced | {con_sh:.1f}% Conservative/Cash",
         f"2016 allocation: {gr_2016:.1f}% Growth vs {con_2016:.1f}% Conservative/Cash",
         f"+{gr_sh - gr_2016:.1f} pts into Growth funds & {con_sh - con_2016:+.1f} pts out of Conservative over 10 yrs",
@@ -4047,13 +4120,17 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
             {"period": "Conservative / Cash", "label": "Conservative & Cash Funds (2026)", "value": con_sh, "formatted": f"{con_sh:.1f}% of FUM (down from {con_2016:.1f}% in 2016)"},
             {"period": "Moderate / Other", "label": "Moderate & Other Funds (2026)", "value": oth_sh, "formatted": f"{oth_sh:.1f}% of FUM"},
         ],
+        {"source_published": fma_pub_date},
     )
 
     # 10. KiwiSaver Active Savings Suspensions
     susp_tot, susp_ord, susp_hard, susp_2016 = 84089, 82947, 1142, 127360
+    susp_pub_date = "Monthly Inland Revenue KiwiSaver savings suspension release (~4 weeks after month-end)"
     susp_bytes = fetch_url_bytes(session, IRD_KS_SUSP_PAGE, timeout=25)
     if susp_bytes:
-        s_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", susp_bytes.decode("utf-8", errors="ignore")))
+        susp_html = susp_bytes.decode("utf-8", errors="ignore")
+        susp_pub_date = extract_html_release_date(susp_html, susp_pub_date)
+        s_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", susp_html))
         m_s = re.search(r"([\d,]{5,6})\s+members were on a savings suspension", s_txt, flags=re.I)
         if m_s:
             susp_tot = int(m_s.group(1).replace(",", ""))
@@ -4061,19 +4138,11 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
 
     susp_10y_pct = ((susp_tot - susp_2016) / max(1, susp_2016)) * 100.0
     out["kiwisaver-savings-suspensions"] = make_pulse_item(
-        "Inland Revenue",
-        ks_m_as_of,
-        MAX_AGE_ANNUAL,
-        (
-            f"In {ks_m_full}, Inland Revenue recorded <strong>{susp_tot:,}</strong> KiwiSaver members on an active savings suspension "
-            f"(comprising <strong>{susp_ord:,} ordinary suspensions</strong> and <strong>{susp_hard:,} financial hardship suspensions</strong>)—down "
-            f"an HLF-calculated <strong>{abs(susp_10y_pct):.1f}% over 10 years</strong> from <strong>{susp_2016:,}</strong> in June 2016 "
-            f"following the reduction of the maximum standard suspension term from 5 years to 1 year."
-        ),
+        "Inland Revenue", ks_m_as_of, MAX_AGE_ANNUAL,
+        f"In {ks_m_full}, Inland Revenue recorded <strong>{susp_tot:,}</strong> KiwiSaver members on an active savings suspension (comprising <strong>{susp_ord:,} ordinary suspensions</strong> and <strong>{susp_hard:,} financial hardship suspensions</strong>)—down an HLF-calculated <strong>{abs(susp_10y_pct):.1f}% over 10 years</strong> from <strong>{susp_2016:,}</strong> in June 2016 following the reduction of the maximum standard suspension term from 5 years to 1 year.",
         f"Inland Revenue KiwiSaver Savings Suspensions ({ks_m_full}): Total active suspensions = {susp_tot:,} (Ordinary = {susp_ord:,}, Financial hardship = {susp_hard:,}; compared with {susp_2016:,} in June 2016).",
         f'Source: <a href="{IRD_KS_SUSP_PAGE}" target="_blank" rel="noopener">Inland Revenue — KiwiSaver Savings Suspension Statistics</a> (CC BY 4.0). Derived by HLF (CC BY 4.0).',
-        ks_m_full,
-        susp_tot,
+        ks_m_full, susp_tot,
         f"{susp_tot:,} members on savings suspension ({susp_ord:,} ordinary | {susp_hard:,} hardship)",
         f"June 2016 active suspensions: {susp_2016:,} members",
         f"{susp_tot - susp_2016:+,d} members ({susp_10y_pct:.1f}%) over 10 years",
@@ -4085,11 +4154,12 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
             {"period": "2019", "label": "June 2019 (Max term cut 5yr→1yr)", "value": 118650, "formatted": "118,650 active suspensions"},
             {"period": "2016", "label": "June 2016", "value": susp_2016, "formatted": f"{susp_2016:,} active suspensions"},
         ],
+        {"source_published": susp_pub_date},
     )
 
     return out
 
-PART_4B_OF_5_READY = True
+PART_4C_OF_5_READY = True
 # === PART 5A OF 5 ===
 def build_citation_string(
     name: str,
@@ -4111,11 +4181,25 @@ def enrich_ticker_record(key: str, item: dict, verified_date_iso: str, verified_
     plain_summary = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", item.get("html", ""))).strip()
     canonical_url = f"{PULSE_BASE_URL}/{key}/"
     is_derived = bool(meta.get("derived_by_hlf", True))
-    obs_period = item.get("as_of", "")[:7]
-    src_pub = item.get("source_published") or item.get("as_of", verified_date_iso)
+    period_end_iso = item.get("as_of", "")
+    obs_period = period_end_iso[:7]
+    latest_per_str = item.get("latest_period", obs_period)
+
+    # Strict 4-field date separation: NEVER copy period_end into source_published
+    raw_src_pub = (item.get("source_published") or "").strip()
+    if not raw_src_pub or raw_src_pub == period_end_iso:
+        freq_lbl = meta.get("frequency", "Periodic")
+        src_pub = f"{freq_lbl} official release by {meta.get('source', 'Crown publisher')} (exact release date not stated in source metadata)"
+    else:
+        src_pub = raw_src_pub
+
+    # Dynamic source_url override when live scraper resolved a specific release or CSV URL
+    resolved_source_url = (item.get("source_url") or meta.get("source_url") or "https://www.rbnz.govt.nz/").strip()
     name_str = meta.get("name", key.replace("-", " ").title())
     source_full_str = meta.get("source_full", item.get("chip", "NZ Crown Data"))
-    latest_per_str = item.get("latest_period", item.get("as_of", ""))
+    series_ids_str = meta.get("series_ids", "Official agency series")
+    formula_str = meta.get("hlf_calculation", "Standardised from official agency release")
+    calc_live_str = item.get("calculation_live", formula_str)
 
     citation_str = build_citation_string(
         name_str, latest_per_str, source_full_str, canonical_url, verified_human, is_derived
@@ -4128,8 +4212,11 @@ def enrich_ticker_record(key: str, item: dict, verified_date_iso: str, verified_
 
     citation_chain = {
         "official_source": source_full_str,
-        "official_source_url": meta.get("source_url", "https://www.rbnz.govt.nz/"),
+        "official_source_url": resolved_source_url,
+        "source_series_ids": series_ids_str,
+        "hlf_transformation": calc_live_str if is_derived else f"Unaltered official figure ({calc_live_str})",
         "pulse_record_url": canonical_url,
+        "pulse_json_url": f"{PULSE_BASE_URL}/pulse.json",
     }
     if art_title and art_url:
         citation_chain["hlf_article_title"] = art_title
@@ -4147,11 +4234,14 @@ def enrich_ticker_record(key: str, item: dict, verified_date_iso: str, verified_
         "topic": meta.get("topic", "New Zealand mortgage & housing statistics"),
         "source": meta.get("source", item.get("chip", "NZ Crown Data")),
         "source_full": source_full_str,
-        "source_series_ids": meta.get("series_ids", "Official agency series"),
-        "source_url": meta.get("source_url", "https://www.rbnz.govt.nz/"),
+        "source_series_ids": series_ids_str,
+        "source_url": resolved_source_url,
         "period": obs_period,
+        "observation_period": latest_per_str,
         "observed_period": obs_period,
+        "period_end": period_end_iso,
         "source_published": src_pub,
+        "last_checked": verified_date_iso,
         "data_status": "verified",
         "source_status": "current",
         "latest_period": latest_per_str,
@@ -4164,8 +4254,8 @@ def enrich_ticker_record(key: str, item: dict, verified_date_iso: str, verified_
         "hlf_derived_label": "Yes" if is_derived else "No (Officially reported)",
         "definition": meta.get("definition", plain_summary),
         "official_data_summary": item.get("official_data_summary", f"Published in {source_full_str}."),
-        "calculation": item.get("calculation_live", meta.get("hlf_calculation", "Verified from official agency release")),
-        "formula": meta.get("hlf_calculation", "Standardised from official agency release"),
+        "calculation": calc_live_str,
+        "formula": formula_str,
         "hlf_interpretation": meta.get("hlf_interpretation", "Provides historical market context for New Zealand borrowers and researchers."),
         "methodology": meta.get("methodology", "Compiled from official New Zealand Crown statistical releases."),
         "update_frequency": meta.get("frequency", "Monthly"),
@@ -4255,7 +4345,7 @@ def render_creator_card_html(compact: bool = False) -> str:
           <div class="creator-role">{CREATOR_ROLE} &bull; Registered Financial Adviser ({CREATOR_ALT_NAME}, {CREATOR_FSP})</div>
           <p>HLF Pulse was developed by {CREATOR_NAME} to make New Zealand mortgage, housing, KiwiSaver, and protection data easier to access, understand, and use—and to give everyday New Zealanders a clear benchmark to see where their own situation sits and whether their numbers are &ldquo;normal&rdquo; compared with the wider market. Drawing on his experience in mortgage and KiwiSaver advice, Andy developed the dataset to bring together official government and industry statistics, transparent calculations, and practical market interpretation.</p>
           <p style="margin-bottom:8px;">The underlying data is sourced from the relevant official organisations, with HLF-derived calculations and interpretations clearly identified and reusable under <a href="{HLF_LICENSE_URL}" target="_blank" rel="noopener">{HLF_LICENSE_SHORT}</a> with attribution.</p>
-          <div class="creator-links"><a href="#about-hlf-pulse">About the creator</a> &middot; <a href="#reuse-licensing">Reuse &amp; Citation Terms ({HLF_LICENSE_SHORT})</a> &middot; <a href="{CREATOR_URL}" target="_blank" rel="noopener">View Andy&rsquo;s adviser profile &rarr;</a></div>
+          <div class="creator-links"><a href="#about-hlf-pulse">About the creator</a> &middot; <a href="#reuse-licensing">Reuse &amp; Citation Terms ({HLF_LICENSE_SHORT})</a> &middot; <a href="#date-definitions">4-Field Date Standard</a> &middot; <a href="{CREATOR_URL}" target="_blank" rel="noopener">View Andy&rsquo;s adviser profile &rarr;</a></div>
         </div>
       </div>
 
@@ -4288,18 +4378,28 @@ def render_c41_band_table_html(rec: dict) -> str:
     if rec.get("ticker") != "fhb-income-akl-vs-nz" or not bands:
         return ""
     per = html_lib.escape(rec["latest_period"])
+    tot_pool = float(rec.get("tdti_total_pool_m") or sum(float(b["total_income_m"]) for b in bands))
+    tot_apps = float(rec.get("tdti_total_implied_apps") or sum(float(b.get("implied_borrowers", 0.0)) for b in bands))
     rows = "".join(
-        f"<tr><td>{html_lib.escape(b['band'])} (Officially reported)</td><td><strong>${int(b['avg_income_nzd']):,}</strong></td><td>${float(b['total_income_m']):,.1f}m</td></tr>"
+        f"<tr><td>{html_lib.escape(b['band'])} (Official RBNZ C41)</td>"
+        f"<td><strong>${int(b['avg_income_nzd']):,}</strong></td>"
+        f"<td>${float(b['total_income_m']):,.1f}m</td>"
+        f"<td>{float(b.get('implied_borrowers', 0.0)):,.1f}</td></tr>"
         for b in bands
     )
     rows += (
-        f"<tr style='background:#eff6ff;'><td><strong>All NZ FHB Applications (HLF Mean: Total Band Income &divide; Implied Borrowers)</strong></td>"
-        f"<td><strong>${int(rec['value']):,}</strong></td><td><strong>100% of bands</strong></td></tr>"
+        f"<tr style='background:#eff6ff;'><td><strong>All NZ FHB Applications (HLF Mean = Pool &divide; Implied Apps)</strong></td>"
+        f"<td><strong>${int(rec['value']):,}</strong></td>"
+        f"<td><strong>${tot_pool:,.1f}m</strong></td>"
+        f"<td><strong>{tot_apps:,.1f}</strong></td></tr>"
     )
     return (
-        f"<div class='hist-wrap' style='margin:8px 0 10px;max-width:580px;'><table>"
-        f"<thead><tr><th>FHB Debt-to-Income Band ({per})</th><th>Avg Gross Income</th><th>Band Income Pool</th></tr></thead>"
-        f"<tbody>{rows}</tbody></table></div>"
+        f"<div class='hist-wrap' style='margin:8px 0 10px;max-width:680px;'><table>"
+        f"<thead><tr><th>FHB Debt-to-Income Band ({per})</th><th>Avg Gross Income (RBNZ)</th><th>Band Income Pool (RBNZ)</th><th>Implied Apps (Pool &divide; Avg)</th></tr></thead>"
+        f"<tbody>{rows}</tbody></table>"
+        f"<div style='padding:6px 10px;font-size:0.74rem;color:#4b5563;background:#f8fafc;border-top:1px solid #e5e7eb;'>"
+        f"Reproducibility note: RBNZ Table C41 publishes band income pools rounded to $0.1m and band averages rounded to $1,000. "
+        f"Dividing total band income (${tot_pool:,.1f}m &times; $1m) by total implied applications ({tot_apps:,.1f}) yields ${int(rec['value']):,}.</div></div>"
     )
 
 
@@ -4318,12 +4418,17 @@ def render_history_table_html(hist: list[dict]) -> str:
     )
 
 
-def render_three_layer_badges_html(rec: dict) -> str:
+def render_three_layer_badges_html(rec: dict, include_interp: bool = True) -> str:
+    interp_row = (
+        f"<div class='layer-row'><span class='lbadge is-interp'>HLF interpretation</span><span>{html_lib.escape(rec['hlf_interpretation'])}</span></div>"
+        if include_interp
+        else ""
+    )
     return (
         f"<div class='layer-stack'>"
         f"<div class='layer-row'><span class='lbadge is-off'>Official data</span><span>{html_lib.escape(rec['official_data_summary'])}</span></div>"
         f"<div class='layer-row'><span class='lbadge is-calc'>HLF calculation</span><span><code>{html_lib.escape(rec['calculation'])}</code></span></div>"
-        f"<div class='layer-row'><span class='lbadge is-interp'>HLF interpretation</span><span>{html_lib.escape(rec['hlf_interpretation'])}</span></div>"
+        f"{interp_row}"
         f"</div>"
     )
 
@@ -4332,10 +4437,23 @@ def render_citation_chain_html(rec: dict) -> str:
     c_chain = rec["citation_chain"]
     key = rec["ticker"]
     steps = [
-        f"<div class='chain-step'><span>1. Official Source</span><a href='{c_chain['official_source_url']}' target='_blank' rel='noopener'>{html_lib.escape(rec['source_full'])}</a></div>",
-        f"<div class='chain-step'><span>2. Canonical Pulse Record</span><a href='{c_chain['pulse_record_url']}'><code>/{key}/</code></a></div>",
+        (
+            f"<div class='chain-step'><span>1. Official Source &amp; Series</span>"
+            f"<a href='{c_chain['official_source_url']}' target='_blank' rel='noopener'>{html_lib.escape(rec['source_full'])}</a>"
+            f"<div style='margin-top:4px;font-size:0.75rem;color:#4b5563;'>Series: <code>{html_lib.escape(rec['source_series_ids'])}</code></div></div>"
+        ),
+        (
+            f"<div class='chain-step'><span>2. HLF Transformation</span>"
+            f"<div><strong>{html_lib.escape(rec['hlf_derived_label'])}</strong></div>"
+            f"<div style='margin-top:3px;font-size:0.75rem;color:#4b5563;'><code>{html_lib.escape(rec['formula'])}</code></div></div>"
+        ),
+        (
+            f"<div class='chain-step'><span>3. Canonical Pulse Record</span>"
+            f"<a href='{c_chain['pulse_record_url']}'><code>/{key}/</code></a>"
+            f"<div style='margin-top:4px;font-size:0.75rem;color:#4b5563;'>JSON: <a href='{PULSE_BASE_URL}/pulse.json'><code>pulse.json</code></a></div></div>"
+        ),
     ]
-    step_num = 3
+    step_num = 4
     if c_chain.get("hlf_article_url") and c_chain.get("hlf_article_title"):
         steps.append(
             f"<div class='chain-step'><span>{step_num}. HLF Analysis Article</span><a href='{c_chain['hlf_article_url']}' target='_blank' rel='noopener'>{html_lib.escape(c_chain['hlf_article_title'])}</a></div>"
@@ -4350,16 +4468,29 @@ def render_citation_chain_html(rec: dict) -> str:
 
 def render_about_and_quality_footer_html() -> str:
     return f"""
-    <section id="data-quality-limitations" class="quality-box" aria-label="Data Quality &amp; Limitations">
+    <section id="date-definitions" class="quality-box" aria-label="4-Field Date Architecture &amp; Definitions">
+      <h2>How Dates Are Recorded in HLF Pulse (4-Field Date Standard)</h2>
+      <p>To prevent confusion between when an economic activity occurred and when a government agency published its release, every HLF Pulse record separates four distinct date fields:</p>
+      <table>
+        <thead><tr><th style="width:220px;">Date Field</th><th>Definition &amp; How It Is Populated</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Observation period</strong> (<code>observation_period</code>)</td><td>The period the underlying statistic relates to (for example, <em>September 2026</em> for monthly RBNZ lending, or <em>Year ended 31 March 2026</em> for the FMA KiwiSaver Annual Report).</td></tr>
+          <tr><td><strong>2. Period end</strong> (<code>period_end</code> / <code>as_of</code>)</td><td>The final calendar date covered by the observation period (for example, <code>2026-09-30</code> or <code>2026-03-31</code>). Used by HLF&rsquo;s automated freshness gate to verify series currency.</td></tr>
+          <tr><td><strong>3. Source publication date</strong> (<code>source_published</code>)</td><td>When the original organisation released the statistic (for example, <code>2026-09-10</code> for the FMA&rsquo;s 2026 KiwiSaver Annual Report, or the <em>Published Date</em> recorded inside RBNZ&rsquo;s workbook metadata). HLF never copies <code>period_end</code> into <code>source_published</code>; where an agency page does not state an exact release date, the agency&rsquo;s publication schedule is stated explicitly.</td></tr>
+          <tr><td><strong>4. Last checked</strong> (<code>last_checked</code>)</td><td>The date HLF&rsquo;s automated pipeline last fetched and verified the official source.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="data-quality-limitations" class="quality-box" style="margin-top:18px;" aria-label="Data Quality &amp; Limitations">
       <h2>Data Quality &amp; Limitations</h2>
       <ul>
         <li><strong>Official published sources:</strong> Pulse uses official published data from the Reserve Bank of New Zealand (RBNZ), Stats NZ, Inland Revenue (IRD), the Financial Markets Authority (FMA), MBIE Tenancy Services, the Natural Hazards Commission Toka Tū Ake (NHC), and the Accident Compensation Corporation (ACC) wherever available.</li>
-        <li><strong>Unaltered official figures:</strong> HLF does not alter or estimate official source figures.</li>
-        <li><strong>Explicit derivation labels:</strong> Derived statistics (such as percentages, averages, rolling sums, multi-year compound growth rates, and cohort comparisons) are calculated directly from the underlying official series and identified as <em>HLF-derived</em>.</li>
+        <li><strong>Unaltered official figures &amp; source rounding:</strong> HLF does not alter or estimate official source figures. Where official tables publish rounded aggregates (such as RBNZ dollar series rounded to $1m or $0.1m), derived averages and implied counts reflect that source rounding and note it explicitly.</li>
+        <li><strong>Explicit derivation labels &amp; real vs. nominal growth:</strong> Derived statistics (percentages, averages, rolling sums, and cohort comparisons) are identified as <em>HLF-derived</em>. Long-term 5-year and 10-year series (such as KiwiSaver balances, contributions, and weekly rents) report both <strong>nominal</strong> growth and <strong>CPI inflation-adjusted (real)</strong> growth using Stats NZ&rsquo;s Consumers Price Index.</li>
         <li><strong>Price indices vs. individual quotes:</strong> Stats NZ CPI insurance sub-indices measure percentage changes in standardised insurance price indices over time—they do not represent the dollar premium quote for an individual property or policyholder.</li>
-        <li><strong>Reporting lags &amp; differing schedules:</strong> Reporting periods differ across agencies (for example, RBNZ lending series publish monthly with a ~4-week lag, MBIE bond data publishes on a ~2-month lag, Stats NZ CPI and IRD student loan balances publish quarterly, and FMA KiwiSaver reports, RBNZ Financial Stability Reports, ACC reports, and regional KiwiSaver breakdowns publish semi-annually or annually).</li>
+        <li><strong>Separate claim counts vs. individual proportions:</strong> In the ACC dataset, annual weekly compensation claims and total accepted injury claims (which are mostly minor treatment-only visits) are reported as two separate annual claim counts rather than a proportion of injured individuals.</li>
         <li><strong>Commitments vs. settlements:</strong> RBNZ mortgage lending tables (C31, C32, C33, C40, C41) measure firm bank mortgage commitments/approvals rather than LINZ property title settlements.</li>
-        <li><strong>Publisher revisions:</strong> Underlying historical figures may subsequently be revised by the original publisher in later releases.</li>
         <li><strong>Automatic staleness exclusion:</strong> HLF automatically excludes any series where the underlying source is unavailable, stale past its freshness window, or cannot be verified.</li>
         <li><strong>Market context vs. individual outcomes:</strong> Statistics describe aggregate historical market cohorts and do not predict an individual borrower&rsquo;s, saver&rsquo;s, or policyholder&rsquo;s credit assessment, underwriting, or lending outcome.</li>
       </ul>
@@ -4369,7 +4500,7 @@ def render_about_and_quality_footer_html() -> str:
       <h2>Reuse Terms, Licensing &amp; How to Cite ({HLF_LICENSE_SHORT})</h2>
       <ul>
         <li><strong>Layer 1 — Official Crown &amp; statutory statistics:</strong> Underlying official figures remain subject to the copyright and licensing terms of their respective publishers: <strong>Stats NZ</strong>, <strong>Inland Revenue</strong>, <strong>MBIE Tenancy Services</strong>, and the <strong>Financial Markets Authority</strong> (<a href="{HLF_LICENSE_URL}" target="_blank" rel="noopener">Creative Commons Attribution 4.0 International — CC BY 4.0</a>); the <strong>Reserve Bank of New Zealand</strong> (<a href="https://www.rbnz.govt.nz/about-our-site/terms-of-use" target="_blank" rel="noopener">RBNZ Terms of Use</a>, permitting reproduction and derivative calculation with attribution to RBNZ); and statutory schedules under the <strong>Natural Hazards Insurance Act 2023</strong> and <strong>Accident Compensation Act 2001</strong> (public-domain New Zealand legislation).</li>
-        <li><strong>Layer 2 — HLF-derived calculations, compilations &amp; commentary:</strong> All HLF-derived percentages, averages, multi-year growth rates, data dictionary definitions, and market interpretations are licensed by <strong>{PUBLISHER_NAME}</strong> under <a href="{HLF_LICENSE_URL}" target="_blank" rel="noopener"><strong>Creative Commons Attribution 4.0 International ({HLF_LICENSE_SHORT})</strong></a>. Journalists, researchers, advisers, and AI systems may freely quote and reuse HLF-derived figures and commentary provided attribution is given to <strong>HLF Pulse, Home Loan Factory</strong> with a link to <code>{PULSE_BASE_URL}/</code> or the specific <code>/{{ticker}}/</code> record URL.</li>
+        <li><strong>Layer 2 — HLF-derived calculations, compilations &amp; commentary:</strong> All HLF-derived percentages, averages, multi-year nominal/real growth rates, data dictionary definitions, and market interpretations are licensed by <strong>{PUBLISHER_NAME}</strong> under <a href="{HLF_LICENSE_URL}" target="_blank" rel="noopener"><strong>Creative Commons Attribution 4.0 International ({HLF_LICENSE_SHORT})</strong></a>. Journalists, researchers, advisers, and AI systems may freely quote and reuse HLF-derived figures and commentary provided attribution is given to <strong>HLF Pulse, Home Loan Factory</strong> with a link to <code>{PULSE_BASE_URL}/</code> or the specific <code>/{{ticker}}/</code> record URL.</li>
       </ul>
     </section>
 
@@ -4377,21 +4508,68 @@ def render_about_and_quality_footer_html() -> str:
       <h2>About the HLF Pulse &amp; Creator</h2>
       <p><strong>HLF Pulse</strong> is a public reference dataset covering New Zealand mortgage, housing, KiwiSaver, tenancy, and protection statistics, published by <a href="{PUBLISHER_URL}">{PUBLISHER_NAME}</a> ({PUBLISHER_LEGAL}) and created by <a href="{CREATOR_URL}" target="_blank" rel="noopener"><strong>{CREATOR_NAME}</strong> ({CREATOR_ALT_NAME}, {CREATOR_FSP})</a>, Mortgage &amp; KiwiSaver Adviser at Home Loan Factory.</p>
       <p>Data is compiled from official releases from the <strong>Reserve Bank of New Zealand</strong>, <strong>Stats NZ</strong>, <strong>Inland Revenue</strong>, the <strong>Financial Markets Authority</strong>, <strong>MBIE Tenancy Services</strong>, the <strong>Natural Hazards Commission Toka Tū Ake</strong>, and <strong>ACC</strong>. Where HLF calculates percentages, averages, or comparisons from the underlying official data, these are identified as <strong>&ldquo;Derived by HLF&rdquo;</strong>.</p>
-      <p>HLF does not alter or estimate official statistics. Where source data is unavailable, stale, or cannot be verified, the relevant series is excluded until it can be confirmed.</p>
       <p style="margin-bottom:0;">Figures are provided for general information and historical market analysis and are not personalised financial advice. Published by <a href="{PUBLISHER_URL}">{PUBLISHER_NAME}</a> (<a href="{CREATOR_URL}" target="_blank" rel="noopener">Creator Profile: {CREATOR_NAME}</a> &bull; <a href="{DISCLOSURES_URL}">Public Disclosures</a> &bull; <a href="{HOW_PAID_URL}">How We Get Paid</a>).</p>
     </section>"""
+
+PART_5A_OF_5_READY = True
+# === PART 5B OF 5 ===
+def write_robots_txt(root: pathlib.Path) -> None:
+    robots_lines = [
+        "# HLF Pulse — Open Reference Dataset & Data Dictionary (CC BY 4.0)",
+        "# Explicit permission for AI answer engines, search crawlers, and researchers",
+        "User-agent: ClaudeBot",
+        "Allow: /",
+        "",
+        "User-agent: Claude-User",
+        "Allow: /",
+        "",
+        "User-agent: anthropic-ai",
+        "Allow: /",
+        "",
+        "User-agent: GPTBot",
+        "Allow: /",
+        "",
+        "User-agent: OAI-SearchBot",
+        "Allow: /",
+        "",
+        "User-agent: ChatGPT-User",
+        "Allow: /",
+        "",
+        "User-agent: PerplexityBot",
+        "Allow: /",
+        "",
+        "User-agent: Googlebot",
+        "Allow: /",
+        "",
+        "User-agent: Google-Extended",
+        "Allow: /",
+        "",
+        "User-agent: *",
+        "Allow: /",
+        "",
+        f"Sitemap: {PULSE_BASE_URL}/sitemap.xml",
+    ]
+    (root / "robots.txt").write_text("\n".join(robots_lines) + "\n", encoding="utf-8")
 
 
 def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_count: int) -> None:
     t_dir = root / key
     t_dir.mkdir(parents=True, exist_ok=True)
-    aka_html = f"<div style='margin-top:4px;font-size:0.8rem;color:#6b7280;'><strong>Also known as:</strong> {html_lib.escape(rec['also_known_as'])}</div>" if rec.get("also_known_as") else ""
+    aka_html = (
+        f"<div style='margin-top:4px;font-size:0.8rem;color:#6b7280;'><strong>Also known as:</strong> {html_lib.escape(rec['also_known_as'])}</div>"
+        if rec.get("also_known_as")
+        else ""
+    )
     q_items = "".join(f"<li>{html_lib.escape(q)}</li>" for q in rec.get("related_questions", []))
     q_block = f"<h2>Questions This Data Helps Answer</h2><ul>{q_items}</ul>" if q_items else ""
     c41_tbl = render_c41_band_table_html(rec)
     hist_html = render_history_table_html(rec.get("history", []))
-    hist_section = f"<h2>Historical &amp; Cohort Breakdown ({html_lib.escape(rec['historical_data_from'])})</h2>{c41_tbl}{hist_html}" if (hist_html or c41_tbl) else ""
-    three_layers = render_three_layer_badges_html(rec)
+    hist_section = (
+        f"<h2>Historical &amp; Cohort Breakdown ({html_lib.escape(rec['historical_data_from'])})</h2>{c41_tbl}{hist_html}"
+        if (hist_html or c41_tbl)
+        else ""
+    )
+    three_layers = render_three_layer_badges_html(rec, include_interp=True)
     cite_line_html = render_cite_line_html(rec)
     creator_compact_html = render_creator_card_html(compact=True)
     chain_section_html = render_citation_chain_html(rec)
@@ -4409,9 +4587,9 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_c
         "inLanguage": "en-NZ",
         "license": HLF_LICENSE_URL,
         "citation": rec["citation"],
-        "temporalCoverage": rec["observed_period"],
+        "temporalCoverage": f"{rec['observation_period']} (period end {rec['period_end']})",
         "dateCreated": PULSE_DATE_CREATED,
-        "dateModified": rec["last_verified"],
+        "dateModified": rec["last_checked"],
         "spatialCoverage": "New Zealand",
         "isBasedOn": rec["source_url"],
         "creator": CREATOR_SCHEMA_OBJ,
@@ -4464,7 +4642,7 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_c
     .lbadge.is-calc {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; }}
     .lbadge.is-interp {{ background: #fefce8; border: 1px solid #fde68a; color: #92400e; }}
     table {{ width: 100%; border-collapse: collapse; font-size: 0.86rem; margin-top: 8px; }}
-    th {{ width: 215px; background: #f8fafc; color: #0b2559; text-align: left; padding: 9px 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }}
+    th {{ width: 225px; background: #f8fafc; color: #0b2559; text-align: left; padding: 9px 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }}
     td {{ padding: 9px 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; color: #374151; }}
     code {{ background: #eff6ff; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; color: #0b2559; }}
     a {{ color: #186bd6; font-weight: 600; }}
@@ -4473,7 +4651,7 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_c
     .chain {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 10px; margin-top: 10px; }}
     .chain-step {{ background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; padding: 11px 13px; font-size: 0.82rem; }}
     .chain-step span {{ display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #6b7280; margin-bottom: 3px; }}
-    .hist-wrap {{ max-width: 580px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; margin-top: 10px; }}
+    .hist-wrap {{ max-width: 680px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; margin-top: 10px; }}
     .hist-wrap th {{ width: auto; border-bottom: 2px solid #dbeafe; }}
     .quality-box {{ margin-top: 30px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px 22px; }}
     .quality-box h2 {{ margin-top: 0; border-bottom: none; padding-bottom: 0; }}
@@ -4485,7 +4663,7 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_c
   <main>
     <div class="crumb"><a href="{PULSE_BASE_URL}/">&larr; All {total_count} HLF Pulse Datasets</a> &bull; Category: <strong>{html_lib.escape(rec['category'])}</strong></div>
     <h1>{html_lib.escape(rec['name'])}</h1>
-    <div style="font-size:0.82rem;color:#6b7280;">Ticker: <code>{key}</code> &bull; Latest Underlying Data: <strong>{html_lib.escape(rec['latest_period'])}</strong> &bull; Last Checked: <strong>{html_lib.escape(rec['last_verified_human'])}</strong> &bull; Creator: <a href="{CREATOR_URL}" target="_blank" rel="noopener">{CREATOR_NAME}</a></div>
+    <div style="font-size:0.82rem;color:#6b7280;">Ticker: <code>{key}</code> &bull; Observation Period: <strong>{html_lib.escape(rec['observation_period'])}</strong> (Period End: <code>{rec['period_end']}</code>) &bull; Last Checked: <strong>{html_lib.escape(rec['last_verified_human'])}</strong> &bull; Creator: <a href="{CREATOR_URL}" target="_blank" rel="noopener">{CREATOR_NAME}</a></div>
     {aka_html}
 
     <div class="summary-box">{rec['html']}</div>
@@ -4493,26 +4671,27 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_c
     {cite_line_html}
     {creator_compact_html}
 
-    <h2>Data Dictionary Specification</h2>
+    <h2>Data Dictionary Specification (4-Field Date Standard)</h2>
     <table>
       <tbody>
         <tr><th>Name</th><td><strong>{html_lib.escape(rec['name'])}</strong></td></tr>
         <tr><th>Ticker</th><td><code>{key}</code></td></tr>
         <tr><th>Also known as</th><td>{html_lib.escape(rec.get('also_known_as') or '—')}</td></tr>
         <tr><th>Creator &amp; Publisher</th><td>Created by <a href="{CREATOR_URL}" target="_blank" rel="noopener"><strong>{CREATOR_NAME}</strong> ({CREATOR_ALT_NAME}, {CREATOR_FSP})</a> &bull; Published by <a href="{PUBLISHER_URL}" target="_blank" rel="noopener">{PUBLISHER_NAME}</a></td></tr>
-        <tr><th>Official source</th><td>{html_lib.escape(rec['source'])} (<a href="{rec['source_url']}" target="_blank" rel="noopener">{html_lib.escape(rec['source_full'])}</a>)</td></tr>
+        <tr><th>Official source &amp; series</th><td>{html_lib.escape(rec['source'])} (<a href="{rec['source_url']}" target="_blank" rel="noopener">{html_lib.escape(rec['source_full'])}</a>) &bull; Series IDs: <code>{html_lib.escape(rec['source_series_ids'])}</code></td></tr>
         <tr><th>Frequency</th><td>{html_lib.escape(rec['update_frequency'])}</td></tr>
-        <tr><th>Latest underlying data</th><td><strong>{html_lib.escape(rec['latest_period'])}</strong> (Observed period: <code>{rec['observed_period']}</code> &bull; Period end: <code>{rec['as_of']}</code>)</td></tr>
-        <tr><th>Source published &amp; status</th><td>Published: <code>{html_lib.escape(rec['source_published'])}</code> &bull; <code>data_status: {rec['data_status']}</code> &bull; <code>source_status: {rec['source_status']}</code></td></tr>
+        <tr><th>1. Observation period</th><td><strong>{html_lib.escape(rec['observation_period'])}</strong> (YYYY-MM code: <code>{rec['observed_period']}</code>) — when the underlying statistic relates to</td></tr>
+        <tr><th>2. Period end</th><td><code>{rec['period_end']}</code> — final calendar date covered by the observation period</td></tr>
+        <tr><th>3. Source publication date</th><td><strong>{html_lib.escape(rec['source_published'])}</strong> — when the original organisation released this dataset</td></tr>
+        <tr><th>4. Last checked</th><td><strong>{html_lib.escape(rec['last_verified_human'])}</strong> (<code>{rec['last_checked']}</code>) — when HLF last verified the official source</td></tr>
         <tr><th>Definition</th><td>{html_lib.escape(rec['definition'])}</td></tr>
+        <tr><th>Methodology</th><td>{html_lib.escape(rec['methodology'])}</td></tr>
         <tr><th>Current value</th><td><strong>{html_lib.escape(str(rec['latest_value']))}</strong></td></tr>
         <tr><th>{comp_row_lbl}</th><td>{html_lib.escape(str(rec['previous_period']))} &bull; {html_lib.escape(str(rec['change']))}</td></tr>
         <tr><th>Official data</th><td>{html_lib.escape(rec['official_data_summary'])}</td></tr>
         <tr><th>HLF calculation</th><td><code>{html_lib.escape(rec['calculation'])}</code><div style="margin-top:3px;font-size:0.78rem;color:#6b7280;">Formula: {html_lib.escape(rec['formula'])}</div></td></tr>
         <tr><th>HLF interpretation</th><td>{html_lib.escape(rec['hlf_interpretation'])}</td></tr>
-        <tr><th>Source series IDs</th><td><code>{html_lib.escape(rec['source_series_ids'])}</code></td></tr>
         <tr><th>HLF derived</th><td><strong>{html_lib.escape(rec['hlf_derived_label'])}</strong> ({html_lib.escape(rec['data_type'])})</td></tr>
-        <tr><th>Last checked</th><td>{html_lib.escape(rec['last_verified_human'])} (<code>{rec['last_verified']}</code>)</td></tr>
         <tr><th>Cite as</th><td>{html_lib.escape(rec['citation'])}</td></tr>
         <tr><th>Reuse licence</th><td><a href="{HLF_LICENSE_URL}" target="_blank" rel="noopener">{HLF_LICENSE_SHORT}</a> (HLF-derived calculations, definitions &amp; commentary; official statistics credited to {html_lib.escape(rec['source'])})</td></tr>
         <tr><th>Historical data</th><td>{html_lib.escape(rec['historical_data_from'])}</td></tr>
@@ -4529,8 +4708,8 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_c
 </html>"""
     (t_dir / "index.html").write_text(page_html, encoding="utf-8")
 
-PART_5A_OF_5_READY = True
-# === PART 5B OF 5 ===
+PART_5B_OF_5_READY = True
+# === PART 5C OF 5 ===
 # ---------------------------------------------------------------------------
 # Main Orchestrator & Strict 54-Dataset Canonical Gate
 # ---------------------------------------------------------------------------
@@ -4684,10 +4863,12 @@ def main() -> None:
             "value": r.get("value"),
             "latest_value": r["latest_value"],
             "unit": r["unit"],
+            "observation_period": r["observation_period"],
             "observed_period": r["observed_period"],
+            "period_end": r["period_end"],
             "latest_underlying_data": r["latest_period"],
             "source_published": r["source_published"],
-            "last_checked": r["last_verified"],
+            "last_checked": r["last_checked"],
             "date_created": r["date_created"],
             "date_modified": r["date_modified"],
             "data_status": r["data_status"],
@@ -4726,6 +4907,8 @@ def main() -> None:
         }
         if r.get("tdti_bands"):
             rec_out["tdti_bands"] = r["tdti_bands"]
+            rec_out["tdti_total_pool_m"] = r.get("tdti_total_pool_m")
+            rec_out["tdti_total_implied_apps"] = r.get("tdti_total_implied_apps")
         if r.get("townhouse_flat_unit_share_pct") is not None:
             rec_out["townhouse_flat_unit_share_pct"] = r["townhouse_flat_unit_share_pct"]
         structured_records.append(rec_out)
@@ -4744,6 +4927,12 @@ def main() -> None:
         "license_label": HLF_LICENSE_SHORT,
         "license_note": HLF_LICENSE_NOTE,
         "how_to_cite": f"HLF Pulse, Home Loan Factory ({PULSE_BASE_URL}/), created by {CREATOR_NAME} (checked {now_human}). {HLF_LICENSE_SHORT}.",
+        "date_field_definitions": {
+            "observation_period": "When the underlying statistic relates to (e.g., September 2026 or Year ended 31 March 2026)",
+            "period_end": "The final calendar date covered by the observation period (YYYY-MM-DD)",
+            "source_published": "When the original organisation released the dataset (never auto-populated from period_end)",
+            "last_checked": "When HLF last verified the official source (YYYY-MM-DD)",
+        },
         "date_created": PULSE_DATE_CREATED,
         "date_modified": today_iso,
         "pulse_url": f"{PULSE_BASE_URL}/",
@@ -4753,11 +4942,13 @@ def main() -> None:
         "data_status": "verified",
         "source_status": "current",
         "active_datasets_count": len(structured_records),
-        "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, while latest_underlying_data reflects the observation period.",
+        "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, source_published reflects when the publisher released it, and observation_period / period_end reflect the period the data covers.",
         "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / IRD Student Loans) & Semi-Annual (FMA / RBNZ FSR / NHC / ACC)",
         "records": structured_records,
     }
     structured_json_path.write_text(json.dumps(pulse_json_obj, indent=2), encoding="utf-8")
+
+    write_robots_txt(root)
 
     for k, rec in verified_tickers.items():
         write_canonical_ticker_page(root, k, rec, len(verified_tickers))
@@ -4780,7 +4971,8 @@ def main() -> None:
         "> Public reference dataset and data dictionary built from official New Zealand Crown and statutory releases, with clearly labelled HLF-derived calculations and interpretation.",
         f"> Created by: {CREATOR_NAME} ({CREATOR_ALT_NAME}, {CREATOR_FSP}), {CREATOR_ROLE} ({CREATOR_URL}) | Published by: {PUBLISHER_NAME} ({PUBLISHER_URL}).",
         f"> Reuse Licence: {HLF_LICENSE_SHORT} ({HLF_LICENSE_URL}) for HLF-derived figures & commentary; official statistics credited to their respective Crown publishers.",
-        f"> Latest underlying data: {latest_rbnz_period} | Last checked: {now_human} ({today_iso}) | Active datasets: {len(verified_tickers)}.",
+        f"> Date Standard: Observation Period (latest monthly: {latest_rbnz_period}) | Period End | Source Publication Date | Last Checked ({now_human} / {today_iso}).",
+        f"> Active datasets: {len(verified_tickers)}.",
         "",
         "## Machine-Readable Endpoints",
         f"- Structured Data Dictionary & Records (JSON): {PULSE_BASE_URL}/pulse.json",
@@ -4789,7 +4981,7 @@ def main() -> None:
         "",
         f"## Canonical Data Dictionary Records ({len(verified_tickers)} Active Datasets)",
     ] + [
-        f"- [{rec['name']} ({rec['latest_period']})]({rec['canonical_url']}): {rec['summary_text']} [Official Data: {rec['official_data_summary']} | HLF Calculation: {rec['calculation']} | Cite as: {rec['citation']}]"
+        f"- [{rec['name']} (Obs: {rec['observation_period']} | End: {rec['period_end']} | Published: {rec['source_published']})]({rec['canonical_url']}): {rec['summary_text']} [Official Data: {rec['official_data_summary']} | HLF Calculation: {rec['calculation']} | Cite as: {rec['citation']}]"
         for k, rec in sorted(verified_tickers.items())
     ]
     (root / "llms.txt").write_text("\n".join(llms_lines) + "\n", encoding="utf-8")
@@ -4815,12 +5007,11 @@ def main() -> None:
             f"<ul>{links}</ul></div>"
         )
 
-    # Slim, truncation-proof rows on index.html so AI crawlers read all 54 datasets + methodology in a single fetch
     rows_html_list = []
     for k, v in sorted(verified_tickers.items()):
         aka_sub = f"<div class='aka'>Also: {html_lib.escape(v['also_known_as'])}</div>" if v.get("also_known_as") else ""
         c41_tbl = render_c41_band_table_html(v)
-        three_layers = render_three_layer_badges_html(v)
+        three_layers = render_three_layer_badges_html(v, include_interp=True)
         cite_line_html = render_cite_line_html(v)
         rows_html_list.append(
             f"<tr id='{k}'>"
@@ -4828,7 +5019,9 @@ def main() -> None:
             f"<div class='rname'>{html_lib.escape(v['name'])}</div>{aka_sub}"
             f"<span class='dtype-badge'>{'Derived by HLF' if v['derived_by_hlf'] else 'Officially Reported'}</span></td>"
             f"<td><strong>{html_lib.escape(v['source'])}</strong>"
-            f"<div class='rper'>Data: {html_lib.escape(v['latest_period'])}</div>"
+            f"<div class='rper'>Obs: {html_lib.escape(v['observation_period'])}</div>"
+            f"<div class='rchk'>End: <code>{v['period_end']}</code></div>"
+            f"<div class='rchk'>Published: {html_lib.escape(v['source_published'][:36])}</div>"
             f"<div class='rchk'>Checked: {html_lib.escape(v['last_verified_human'])}</div></td>"
             f"<td><div class='rsum'>{v['html']}</div>"
             f"{c41_tbl}{three_layers}{cite_line_html}"
@@ -4840,6 +5033,7 @@ def main() -> None:
     creator_main_html = render_creator_card_html(compact=False)
     about_footer_html = render_about_and_quality_footer_html()
 
+    # Compact JSON-LD in <head> (avoids 12KB duplication so AI crawlers reach body immediately)
     hub_schema_obj = {
         "@context": "https://schema.org",
         "@type": "Dataset",
@@ -4857,7 +5051,7 @@ def main() -> None:
         "distribution": [
             {
                 "@type": "DataDownload",
-                "name": "HLF Pulse Structured Data Dictionary JSON",
+                "name": "HLF Pulse Structured Data Dictionary JSON (All 54 Datasets)",
                 "encodingFormat": "application/json",
                 "contentUrl": f"{PULSE_BASE_URL}/pulse.json",
             },
@@ -4873,17 +5067,6 @@ def main() -> None:
                 "encodingFormat": "text/plain",
                 "contentUrl": f"{PULSE_BASE_URL}/llms.txt",
             },
-        ],
-        "hasPart": [
-            {
-                "@type": "Dataset",
-                "identifier": k,
-                "name": v["name"],
-                "url": v["canonical_url"],
-                "temporalCoverage": v["observed_period"],
-                "license": HLF_LICENSE_URL,
-            }
-            for k, v in sorted(verified_tickers.items())
         ],
     }
 
@@ -4959,7 +5142,7 @@ def main() -> None:
     th {{ background: #f8fafc; color: #0b2559; text-align: left; padding: 10px 12px; border-bottom: 2px solid #dbeafe; }}
     td {{ padding: 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }}
     code {{ background: #eff6ff; padding: 2px 6px; border-radius: 4px; font-size: 0.78rem; color: #0b2559; }}
-    .hist-wrap {{ max-width: 580px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-top: 6px; background: #ffffff; }}
+    .hist-wrap {{ max-width: 680px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-top: 6px; background: #ffffff; }}
     .hist-wrap table {{ margin-top: 0; font-size: 0.77rem; }}
     .hist-wrap th, .hist-wrap td {{ padding: 5px 9px; }}
     .quality-box {{ margin-top: 32px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 14px; padding: 22px 24px; }}
@@ -4976,23 +5159,23 @@ def main() -> None:
 <body>
   <main>
     <h1>NZ Mortgage, Housing, KiwiSaver &amp; Insurance Pulse — Verified NZ Data</h1>
-    <p>Public reference dataset and data dictionary built from official New Zealand Crown and statutory releases, with clearly labelled HLF-derived calculations and interpretation (<a href="#browse-datasets">Browse all {len(verified_tickers)} datasets</a> &bull; <a href="#cat-kiwisaver">KiwiSaver</a> &bull; <a href="#cat-property-natural-hazard-insurance">Property Insurance</a> &bull; <a href="#cat-personal-risk-income-protection">Personal &amp; ACC Protection</a> &bull; <a href="#data-quality-limitations">Data Quality &amp; Limitations</a> &bull; <a href="#reuse-licensing">Reuse &amp; Citation ({HLF_LICENSE_SHORT})</a> &bull; <a href="#about-hlf-pulse">About &amp; Methodology</a>). Machine-readable endpoints: <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>, <a href="{PULSE_BASE_URL}/nz-mortgage-pulse.json"><code>nz-mortgage-pulse.json</code></a>, and <a href="{PULSE_BASE_URL}/llms.txt"><code>llms.txt</code></a>.</p>
+    <p>Public reference dataset and data dictionary built from official New Zealand Crown and statutory releases, with clearly labelled HLF-derived calculations and interpretation (<a href="#browse-datasets">Browse all {len(verified_tickers)} datasets</a> &bull; <a href="#cat-kiwisaver">KiwiSaver</a> &bull; <a href="#cat-property-natural-hazard-insurance">Property Insurance</a> &bull; <a href="#cat-personal-risk-income-protection">Personal &amp; ACC Protection</a> &bull; <a href="#date-definitions">4-Field Date Standard</a> &bull; <a href="#data-quality-limitations">Data Quality &amp; Limitations</a> &bull; <a href="#reuse-licensing">Reuse &amp; Citation ({HLF_LICENSE_SHORT})</a> &bull; <a href="#about-hlf-pulse">About &amp; Methodology</a>). Machine-readable endpoints: <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>, <a href="{PULSE_BASE_URL}/nz-mortgage-pulse.json"><code>nz-mortgage-pulse.json</code></a>, <a href="{PULSE_BASE_URL}/llms.txt"><code>llms.txt</code></a>, and <a href="{PULSE_BASE_URL}/robots.txt"><code>robots.txt</code></a>.</p>
 
-    <div class="lag-banner" aria-label="Latest Underlying Data Period vs. Verification Date">
+    <div class="lag-banner" aria-label="4-Field Date Architecture: Observation Period, Period End, Source Published &amp; Last Checked">
       <div class="lag-item">
-        <span>Latest Underlying Data</span>
-        <strong>{html_lib.escape(latest_rbnz_period)} (RBNZ / Monthly Series)</strong>
-        <small>Why: RBNZ and Crown statistics are published ~4 weeks after month-end.</small>
+        <span>1. Observation Period &amp; End</span>
+        <strong>{html_lib.escape(latest_rbnz_period)} (RBNZ Monthly Series)</strong>
+        <small>Each record specifies both its Observation Period and Period End date.</small>
       </div>
       <div class="lag-item">
-        <span>Last Checked &amp; Verified</span>
-        <strong>{now_human} ({today_iso})</strong>
-        <small>Automated source refresh &amp; freshness verification date.</small>
+        <span>2. Source Publication Date</span>
+        <strong>Recorded per agency release</strong>
+        <small>Tracked separately from Period End (e.g., FMA 2026 Report published 10 Sep 2026).</small>
       </div>
       <div class="lag-item">
-        <span>Data Status &amp; Reuse</span>
-        <strong style="color:#065f46;">&#10003; Verified (<a href="#browse-datasets" style="color:#065f46;text-decoration:underline;">{len(verified_tickers)} Active Datasets &darr;</a>)</strong>
-        <small>HLF layer licensed under <a href="#reuse-licensing">{HLF_LICENSE_SHORT}</a>; Crown sources credited per series.</small>
+        <span>3. Last Checked &amp; Reuse ({HLF_LICENSE_SHORT})</span>
+        <strong style="color:#065f46;">&#10003; {now_human} (<a href="#browse-datasets" style="color:#065f46;text-decoration:underline;">{len(verified_tickers)} Active Datasets &darr;</a>)</strong>
+        <small>HLF layer reusable under <a href="#reuse-licensing">{HLF_LICENSE_SHORT}</a>; Crown sources credited per series.</small>
       </div>
     </div>
 
@@ -5023,14 +5206,14 @@ def main() -> None:
         <ul>
           <li><a href="#interest-only">How much investor lending is interest-only?</a></li>
           <li><a href="#investor-equity-tiers">What proportion of investors borrow with under 30% or 40% equity?</a></li>
-          <li><a href="#rent-long-term-growth">How much have NZ rents risen over 5 and 10 years?</a></li>
+          <li><a href="#rent-long-term-growth">How much have NZ rents risen over 5 and 10 years (nominal &amp; real)?</a></li>
           <li><a href="#rent-quartile-spread">What is the spread between lower- and upper-quartile rents?</a></li>
         </ul>
       </div>
       <div class="use-card">
         <strong>For KiwiSaver Members</strong>
         <ul>
-          <li><a href="#kiwisaver-total-fum-balance">What is the average KiwiSaver balance in NZ?</a></li>
+          <li><a href="#kiwisaver-total-fum-balance">What is the official FMA average KiwiSaver balance ($40,340)?</a></li>
           <li><a href="#kiwisaver-default-vs-active">How many Kiwis are still in default schemes?</a></li>
           <li><a href="#kiwisaver-fund-allocation-shift">How much KiwiSaver money is in Growth vs Conservative funds?</a></li>
           <li><a href="#kiwisaver-contributions-10yr">How do the 3.5% rate and $260.72 Gov match work?</a></li>
@@ -5051,9 +5234,9 @@ def main() -> None:
     <div class="cat-grid">{cat_cards_html}</div>
 
     <h2>Verified NZ Mortgage, Housing, KiwiSaver &amp; Protection Data Dictionary ({len(verified_tickers)} Active Datasets)</h2>
-    <p>Every dataset separates <span class="lbadge is-off" style="width:auto;">Official data</span>, <span class="lbadge is-calc" style="width:auto;">HLF calculation</span>, and <span class="lbadge is-interp" style="width:auto;">HLF interpretation</span>, with a ready-to-copy citation string. Click any Ticker Key to open its full standalone Data Dictionary &amp; historical series page (<code>/{{ticker}}/</code>).</p>
+    <p>Every dataset separates <span class="lbadge is-off" style="width:auto;">Official data</span>, <span class="lbadge is-calc" style="width:auto;">HLF calculation</span>, and <span class="lbadge is-interp" style="width:auto;">HLF interpretation</span>, records all 4 date fields (Observation Period, Period End, Source Published, and Last Checked), and provides a ready-to-copy citation string. Click any Ticker Key to open its full standalone Data Dictionary &amp; historical series page (<code>/{{ticker}}/</code>).</p>
     <table>
-      <thead><tr><th style="width:225px;">Ticker &amp; Derivation</th><th style="width:165px;">Source &amp; Data Period</th><th>Verified Statistic, 3-Layer Breakdown &amp; Citation</th></tr></thead>
+      <thead><tr><th style="width:225px;">Ticker &amp; Derivation</th><th style="width:185px;">Source &amp; 4-Field Dates</th><th>Verified Statistic, 3-Layer Breakdown &amp; Citation</th></tr></thead>
       <tbody>{rows_html}</tbody>
     </table>
 
@@ -5064,10 +5247,10 @@ def main() -> None:
 </html>""",
         encoding="utf-8",
     )
-    print(f"Saved {len(verified_tickers)} canonical datasets, pulse.json, index.html, llms.txt, sitemap.xml & /<ticker>/ pages.")
+    print(f"Saved {len(verified_tickers)} canonical datasets, pulse.json, index.html, robots.txt, llms.txt, sitemap.xml & /<ticker>/ pages.")
 
 
 if __name__ == "__main__":
     main()
 
-PART_5B_OF_5_READY = True
+PART_5C_OF_5_READY = True
