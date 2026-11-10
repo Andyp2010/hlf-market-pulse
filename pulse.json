@@ -8,23 +8,27 @@
   "creator_fsp": "FSP1004725",
   "creator_role": "Mortgage & KiwiSaver Adviser \u00b7 Home Loan Factory",
   "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "license_label": "CC BY 4.0",
+  "license_note": "Official statistics remain under their respective Crown/statutory publisher terms (Stats NZ, Inland Revenue, MBIE & FMA under CC BY 4.0; RBNZ under RBNZ Terms of Use; NHC & ACC statutory caps/levies under public-domain NZ legislation). HLF-derived calculations, data dictionary compilations, and market interpretations are licensed by HLF (Home Loan Factory) under Creative Commons Attribution 4.0 International (CC BY 4.0) when attributed to HLF Pulse with a link to the canonical dataset URL.",
+  "how_to_cite": "HLF Pulse, Home Loan Factory (https://pulse-data.homeloanfactory.co.nz/), created by Andy Palliser (checked 10 November 2026). CC BY 4.0.",
   "date_created": "2026-09-01",
   "date_modified": "2026-11-10",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-10",
-  "dataset_generated_utc": "2026-11-10T08:54:25Z",
+  "dataset_generated_utc": "2026-11-10T10:55:14Z",
   "latest_underlying_data": "September 2026",
   "data_status": "verified",
   "source_status": "current",
   "active_datasets_count": 54,
   "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, while latest_underlying_data reflects the observation period.",
-  "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / IRD Student Loans) & Semi-Annual (FMA / RBNZ FSR / ICNZ / NHC / ACC)",
+  "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / IRD Student Loans) & Semi-Annual (FMA / RBNZ FSR / NHC / ACC)",
   "records": [
     {
       "ticker": "acc-earners-levy-cap",
       "name": "ACC Earners' Levy rate, maximum liable earnings cap & 80% weekly compensation ceiling",
       "also_known_as": "IRD / ACC PAYE Earners' Levy rate & maximum covered salary cap (2026/27)",
-      "category": "Protection & Insurance Pulse",
+      "category": "Personal Risk & Income Protection",
       "topic": "ACC levy, high-income cap & mortgage servicing",
       "value": 156641,
       "latest_value": "$156,641 max covered earnings | $1.75/$100 levy | $125,313/yr max 80% ACC payout",
@@ -39,20 +43,20 @@
       "source_status": "current",
       "previous_period": "2025/26 Tax Year ($152,790 cap at $1.67/$100)",
       "change": "+$3,851 earnings cap | +$0.08/$100 levy rate YoY",
-      "source": "ACC & IRD",
-      "source_full": "Accident Compensation Corporation (ACC) & Inland Revenue PAYE Levy Schedule (2026/27)",
+      "source": "ACC & IRD Statutory Schedule",
+      "source_full": "Accident Compensation (Earners' Levy) Regulations & Inland Revenue PAYE Schedule (2026/27)",
       "source_series_ids": "ACC Earners' Levy Rate & Maximum Liable Earnings Threshold",
       "source_url": "https://www.acc.co.nz/about-us/our-levies-2/levy-results",
       "derived_by_hlf": true,
-      "data_type": "Officially reported statutory levy/cap & HLF-calculated 80% gross compensation ceiling",
+      "data_type": "Public-domain statutory levy/cap & HLF-calculated 80% gross compensation ceiling",
       "definition": "The statutory ACC Earners' Levy rate deducted from employee PAYE wages, the maximum liable earnings cap, and the resulting maximum 80% gross weekly compensation payable by ACC.",
-      "official_data": "ACC / IRD 2026/27 Schedule: Earners' levy = $1.75 per $100 incl. GST ($1.52 excl. GST); Maximum liable earnings = $156,641 (vs $152,790 in 2025/26).",
+      "official_data": "ACC / IRD 2026/27 Statutory Schedule: Earners' levy = $1.75 per $100 incl. GST ($1.52 excl. GST); Maximum liable earnings = $156,641 (vs $152,790 in 2025/26).",
       "hlf_calculation": "Max Levy: ($156,641 \u00f7 100) \u00d7 $1.75 = $2,741.22/yr | Max 80% Comp: $156,641 \u00d7 80% = $125,312.80/yr ($2,409.86/wk)",
       "formula": "Max Annual Levy = ($156,641 \u00f7 100) \u00d7 $1.75 = $2,741.22; Max 80% Gross Compensation = $156,641 \u00d7 80% = $125,312.80/yr ($2,409.86/wk gross)",
       "hlf_interpretation": "HLF market context: This affects borrowers in two ways: (1) In mortgage servicing calculators, the 1.75% ACC levy reduces net take-home pay on earnings up to $156,641; and (2) For an eligible accident, ACC caps income replacement at 80% of earnings up to $156,641 ($125,313/yr gross)\u2014leaving higher-income earners with a larger percentage drop in income, and self-employed company owners splitting shareholder salaries potentially under-covered unless structured via ACC CoverPlus Extra or private cover.",
-      "methodology": "Published by ACC and Inland Revenue for the tax year commencing 1 April 2026 ($1.75 per $100 of liable earnings incl. GST; maximum liable earnings of $156,641).",
+      "methodology": "Published by ACC and Inland Revenue under statutory regulations for the tax year commencing 1 April 2026 ($1.75 per $100 of liable earnings incl. GST; maximum liable earnings of $156,641).",
       "frequency": "Annual (1 April Tax Year)",
-      "historical_data_from": "ACC & IRD statutory earners' levy schedule (2025/26\u20132028/29)",
+      "historical_data_from": "ACC & IRD statutory earners' levy schedule (2024/25\u20132026/27)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -60,6 +64,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"ACC Earners' Levy rate, maximum liable earnings cap & 80% weekly compensation ceiling,\" 2026/27 Tax Year (from 1 April 2026). Derived by HLF from Accident Compensation (Earners' Levy) Regulations & Inland Revenue PAYE Schedule (2026/27). https://pulse-data.homeloanfactory.co.nz/acc-earners-levy-cap/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/acc-earners-levy-cap/",
       "summary_text": "For the 2026/27 tax year, the statutory ACC Earners' Levy is $1.75 per $100 (1.75% incl. GST) (up from $1.67 in 2025/26) up to a Maximum Liable Earnings cap of $156,641 (up from $152,790, for a maximum annual levy of $2,741.22)\u2014setting ACC's maximum 80% weekly compensation ceiling at an HLF-derived $125,312.80/year ($2,409.86/week gross).",
       "related_questions": [
@@ -68,14 +75,11 @@
         "How does ACC work for high-income earners and self-employed business owners?"
       ],
       "citation_chain": {
-        "official_source": "Accident Compensation Corporation (ACC) & Inland Revenue PAYE Levy Schedule (2026/27)",
+        "official_source": "Accident Compensation (Earners' Levy) Regulations & Inland Revenue PAYE Schedule (2026/27)",
         "official_source_url": "https://www.acc.co.nz/about-us/our-levies-2/levy-results",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/acc-earners-levy-cap/",
-        "hlf_article_title": "How the ACC Earnings Cap & CoverPlus Extra Work for High Earners & Self-Employed Buyers",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Borrowing Power Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
       "history": [
         {
@@ -100,10 +104,10 @@
     },
     {
       "ticker": "acc-weekly-compensation-claims",
-      "name": "ACC annual injury claims vs weekly income compensation claims (accident vs illness gap)",
+      "name": "ACC annual injury claims vs weekly income compensation claims (accident vs illness scope)",
       "also_known_as": "ACC Annual Report total claims vs weekly compensation claims",
-      "category": "Protection & Insurance Pulse",
-      "topic": "Income protection & ACC coverage limits",
+      "category": "Personal Risk & Income Protection",
+      "topic": "Income protection & ACC coverage scope",
       "value": 5.0,
       "latest_value": "105,000 weekly compensation claims (5.0% of 2,100,000+ ACC injury claims)",
       "unit": "claims",
@@ -116,7 +120,7 @@
       "data_status": "verified",
       "source_status": "current",
       "previous_period": "2024/25 FY (107,000 weekly compensation claims)",
-      "change": "-2,000 weekly compensation claims (-1.9% YoY) | 0% illness cover under ACC",
+      "change": "-2,000 weekly compensation claims (-1.9% YoY) | ACC covers accidental injury (generally not non-injury illness)",
       "source": "ACC Annual Report",
       "source_full": "Accident Compensation Corporation (ACC) \u2014 Annual Report (2025/26)",
       "source_series_ids": "ACC Total Registered Claims & Weekly Compensation Entitlement Claims",
@@ -127,7 +131,7 @@
       "official_data": "ACC Annual Report (2025/26): Total accepted injury claims = 2,100,000+ (+1.6% YoY); New weekly compensation claims = 105,000 (-1.9% from 107,000 in 2024/25).",
       "hlf_calculation": "105,000 weekly compensation claims \u00f7 2,100,000 total accepted injury claims = 5.0%",
       "formula": "Weekly Compensation Share = (105,000 Weekly Compensation Claims \u00f7 2,100,000 Total Accepted Claims) \u00d7 100 = 5.0%",
-      "hlf_interpretation": "HLF market context: Only 5.0% of accepted ACC claims involve weekly income compensation, and under the Accident Compensation Act 2001, ACC only covers physical injuries caused by an accident. ACC provides 0% cover if a homeowner cannot work due to non-injury illness (such as cancer, heart attack, stroke, mental health conditions, or degenerative illness)\u2014which is the gap addressed by private Income Protection, Mortgage Repayment, and Trauma insurance.",
+      "hlf_interpretation": "HLF market context: Only 5.0% of accepted ACC claims involve weekly income compensation. Under the Accident Compensation Act 2001, ACC covers physical injuries caused by an accident (plus narrow statutory categories such as work-related gradual-process conditions, treatment injuries, and certain mental injuries), and generally does not cover non-injury illness (such as cancer, heart attack, stroke, or degenerative illness)\u2014which is the gap addressed by private Income Protection, Mortgage Repayment, and Trauma insurance.",
       "methodology": "Sourced from ACC's Annual Report covering accepted injury claims, treatment/rehabilitation expenditure, and weekly compensation entitlements.",
       "frequency": "Annual",
       "historical_data_from": "ACC Annual Report series (2024/25\u20132025/26)",
@@ -138,6 +142,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"ACC annual injury claims vs weekly income compensation claims (accident vs illness scope),\" 2025/26 ACC Financial Year. Derived by HLF from Accident Compensation Corporation (ACC) \u2014 Annual Report (2025/26). https://pulse-data.homeloanfactory.co.nz/acc-weekly-compensation-claims/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/acc-weekly-compensation-claims/",
       "summary_text": "In the 2025/26 financial year, ACC accepted over 2,100,000 new injury claims across New Zealand (up 1.6% year-on-year), of which 105,000 claims\u2014an HLF-derived 5.0% share (down 1.9% from 107,000 in 2024/25)\u2014received weekly income compensation for time off work alongside $5.0B+ in treatment and rehabilitation support.",
       "related_questions": [
@@ -149,22 +156,19 @@
         "official_source": "Accident Compensation Corporation (ACC) \u2014 Annual Report (2025/26)",
         "official_source_url": "https://www.acc.co.nz/assets/corporate-documents/ACC8911-acc-annual-report-2026.pdf",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/acc-weekly-compensation-claims/",
-        "hlf_article_title": "ACC vs Income & Mortgage Protection: What Happens If Illness Stops You Working?",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
-        "hlf_tool_title": "Speak with HLF About Income, Mortgage & Trauma Protection",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/contact",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "HLF Home Loan Repayments Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator"
       },
       "history": []
     },
     {
       "ticker": "borrower-income",
       "name": "Average gross borrower income on approved FHB mortgage applications",
-      "also_known_as": "RBNZ C41 Borrower Gross Income (BGI) \u2014 First-home buyer weighted mean",
+      "also_known_as": "RBNZ C41 Borrower Gross Income (BGI) \u2014 First-home buyer mean application income",
       "category": "First-home buyers",
       "topic": "Borrower income & servicing",
       "value": 144232,
-      "latest_value": "$144,232 FHB weighted mean",
+      "latest_value": "$144,232 FHB mean",
       "unit": "NZD",
       "observed_period": "2026-09",
       "latest_underlying_data": "September 2026",
@@ -181,13 +185,13 @@
       "source_series_ids": "DTINI.MPA (Borrower Gross Income by TDTI band)",
       "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi",
       "derived_by_hlf": true,
-      "data_type": "HLF-derived borrower-weighted harmonic average (from RBNZ C41 income bands)",
-      "definition": "The HLF-derived borrower-weighted average annual pre-tax gross income across approved New Zealand first-home buyer mortgage applications (combining all single and joint applicants on the loan).",
+      "data_type": "HLF-calculated mean gross income across C41 TDTI bands (Total band income \u00f7 implied borrower count)",
+      "definition": "The HLF-calculated mean annual pre-tax gross income across approved New Zealand first-home buyer mortgage applications (combining all single and joint applicants on the loan).",
       "official_data": "RBNZ Table C41 (September 2026) Official FHB Band Averages: TDTI \u2264 3x income: $197,000 | 3x < TDTI \u2264 4x income: $151,000 | 4x < TDTI \u2264 5x income: $139,000 | 5x < TDTI \u2264 6x income: $125,000 | TDTI > 6x income: $123,000.",
-      "hlf_calculation": "HLF borrower-weighted harmonic mean across C41 TDTI bands = $144,232 (FHB)",
-      "formula": "Total Gross Income NZDm across all TDTI bands \u00f7 Implied Borrower Count (Band NZDm \u00f7 Band Avg Income NZD000s)",
+      "hlf_calculation": "Total band gross income \u00f7 implied borrower count across C41 TDTI bands = $144,232 (FHB)",
+      "formula": "Total Gross Income NZDm across all C41 TDTI bands \u00f7 Implied Borrower Count (Sum of [Band NZDm \u00f7 Band Avg Income NZD000s])",
       "hlf_interpretation": "HLF market context: RBNZ Table C41 publishes band-level figures rather than a single nationwide mean; the overall figure is calculated by HLF. Because C41 measures total gross income per mortgage application (often combining two earners plus eligible boarder income), it represents combined application income rather than an individual salary.",
-      "methodology": "Computed by HLF from RBNZ Table C41 (Residential mortgage borrower gross income) across all Total Debt-to-Income bands.",
+      "methodology": "Computed by HLF from RBNZ Table C41 (Residential mortgage borrower gross income) by dividing total gross income across all Total Debt-to-Income (TDTI) bands by the implied borrower count (Band Total Income \u00f7 Band Average Income).",
       "frequency": "Monthly",
       "historical_data_from": "Available from June 2017 (112 monthly observations)",
       "creator_name": "Andy Palliser",
@@ -197,8 +201,11 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Average gross borrower income on approved FHB mortgage applications,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C41. https://pulse-data.homeloanfactory.co.nz/borrower-income/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/borrower-income/",
-      "summary_text": "Based on HLF's borrower-weighted calculation across RBNZ Table C41's five Debt-to-Income bands, approved New Zealand first-home buyer mortgage applications averaged $144,232 in gross borrower income in September 2026 (with official RBNZ band averages ranging from $123,000 to $197,000).",
+      "summary_text": "Based on HLF's calculation across RBNZ Table C41's five Debt-to-Income bands (total band gross income divided by implied borrower count), approved New Zealand first-home buyer mortgage applications averaged $144,232 in gross borrower income in September 2026 (with official RBNZ band averages ranging from $123,000 to $197,000).",
       "related_questions": [
         "What is the average combined household income on an approved first-home mortgage in NZ?"
       ],
@@ -206,11 +213,8 @@
         "official_source": "Reserve Bank of New Zealand Table C41",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/borrower-income/",
-        "hlf_article_title": "How Banks Assess Your Income for a New Zealand Mortgage",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Borrowing Power Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
       "history": [
         {
@@ -314,8 +318,8 @@
       "change": "+3.2% annual change",
       "source": "Stats NZ CPI",
       "source_full": "Stats NZ \u2014 Consumers Price Index (CPI)",
-      "source_series_ids": "Stats NZ CPI Housing & Household Utilities",
-      "source_url": "https://www.stats.govt.nz/",
+      "source_series_ids": "Stats NZ CPI Housing & Household Utilities (Purchase of New Housing)",
+      "source_url": "https://www.stats.govt.nz/indicators/consumers-price-index-cpi/",
       "derived_by_hlf": false,
       "data_type": "Officially reported Stats NZ quarterly CPI inflation",
       "definition": "The annual percentage change in the cost of purchasing a newly built home in New Zealand as measured by the Stats NZ Consumers Price Index (CPI).",
@@ -333,6 +337,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Annual residential construction cost inflation (CPI purchase of newly built home),\" September 2026 quarter. Source: Stats NZ \u2014 Consumers Price Index (CPI). https://pulse-data.homeloanfactory.co.nz/build-cost-inflation/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/build-cost-inflation/",
       "summary_text": "In the September 2026 quarter, Stats NZ reported a +3.2% annual change in the CPI index for purchasing a newly built home, alongside 3.7% overall annual CPI inflation.",
       "related_questions": [
@@ -340,13 +347,10 @@
       ],
       "citation_chain": {
         "official_source": "Stats NZ \u2014 Consumers Price Index (CPI)",
-        "official_source_url": "https://www.stats.govt.nz/",
+        "official_source_url": "https://www.stats.govt.nz/indicators/consumers-price-index-cpi/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/build-cost-inflation/",
-        "hlf_article_title": "Managing Fixed-Price vs Cost-Escalation Build Contracts",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "New Build Construction Loan Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator"
       },
       "history": []
     },
@@ -354,7 +358,7 @@
       "ticker": "building-insurance-inflation",
       "name": "Dwelling (building) insurance annual price inflation (Stats NZ CPI)",
       "also_known_as": "House insurance CPI price inflation / Residential building insurance price index change",
-      "category": "Protection & Insurance Pulse",
+      "category": "Property & Natural Hazard Insurance",
       "topic": "House & dwelling insurance pricing",
       "value": 14.6,
       "latest_value": "+14.6% YoY (Dwelling insurance CPI index)",
@@ -390,6 +394,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Dwelling (building) insurance annual price inflation (Stats NZ CPI),\" September 2026 quarter. Source: Stats NZ \u2014 Consumers Price Index (Dwelling Insurance Sub-Index). https://pulse-data.homeloanfactory.co.nz/building-insurance-inflation/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/building-insurance-inflation/",
       "summary_text": "In the September 2026 quarter, Stats NZ's Consumers Price Index recorded a +14.6% annual increase in the dwelling (building) insurance price index\u2014sitting +10.9 percentage points above headline CPI inflation (3.7%). Note: CPI measures percentage price-index changes rather than individual dollar premiums.",
       "related_questions": [
@@ -401,11 +408,8 @@
         "official_source": "Stats NZ \u2014 Consumers Price Index (Dwelling Insurance Sub-Index)",
         "official_source_url": "https://www.stats.govt.nz/indicators/consumers-price-index-cpi/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/building-insurance-inflation/",
-        "hlf_article_title": "Why House Insurance Has Become More Expensive in New Zealand",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
-        "hlf_tool_title": "Speak with HLF About Property & Personal Risk Insurance",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/contact",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "New Build & Rebuild Cost Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator"
       },
       "history": [
         {
@@ -444,7 +448,7 @@
       "ticker": "contents-insurance-inflation",
       "name": "Household contents insurance annual price inflation (Stats NZ CPI)",
       "also_known_as": "Contents insurance CPI price movement",
-      "category": "Protection & Insurance Pulse",
+      "category": "Property & Natural Hazard Insurance",
       "topic": "Contents insurance pricing",
       "value": 9.4,
       "latest_value": "+9.4% YoY (Contents insurance CPI index)",
@@ -480,6 +484,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Household contents insurance annual price inflation (Stats NZ CPI),\" September 2026 quarter. Source: Stats NZ \u2014 Consumers Price Index (Contents Insurance Sub-Index). https://pulse-data.homeloanfactory.co.nz/contents-insurance-inflation/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/contents-insurance-inflation/",
       "summary_text": "In the September 2026 quarter, Stats NZ's Consumers Price Index recorded a +9.4% annual increase in the household contents insurance price index (compared with +3.7% headline CPI inflation). Note: CPI measures percentage price-index movements rather than individual policy quotes.",
       "related_questions": [
@@ -490,11 +497,8 @@
         "official_source": "Stats NZ \u2014 Consumers Price Index (Contents Insurance Sub-Index)",
         "official_source_url": "https://www.stats.govt.nz/indicators/consumers-price-index-cpi/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/contents-insurance-inflation/",
-        "hlf_article_title": "Home & Contents Insurance Guide for New Zealand Buyers",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
-        "hlf_tool_title": "HLF Insurance & Mortgage Protection Enquiry",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/contact",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "HLF Home Loan Repayments Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator"
       },
       "history": [
         {
@@ -569,6 +573,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"First-home buyer high-DTI (>6x) lending share & speed-limit comparison,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C40. https://pulse-data.homeloanfactory.co.nz/dti-headroom/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/dti-headroom/",
       "summary_text": "In September 2026, an HLF-derived 9.1% of total first-home buyer mortgage commitments in RBNZ Table C40 had a Total Debt-to-Income (TDTI) ratio above 6x ($139.0m of $1,527.0m)\u2014sitting 10.9 percentage points below the 20% RBNZ speed-limit threshold on non-exempt lending.",
       "related_questions": [
@@ -582,8 +589,7 @@
         "hlf_article_title": "Being Able to Afford a House vs Feeling Safe Buying One",
         "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights/the-difference-between-being-able-to-afford-a-house-and-feeling-safe-buying-one",
         "hlf_tool_title": "HLF Borrowing Power Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
       "history": [
         {
@@ -706,6 +712,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Monthly mortgage top-up lending,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C33. https://pulse-data.homeloanfactory.co.nz/equity-topup-demand/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/equity-topup-demand/",
       "summary_text": "In September 2026, RBNZ Table C33 recorded $962m of mortgage top-up lending across 9,639 borrowers (an HLF-derived mean of $100k per top-up).",
       "related_questions": [
@@ -715,11 +724,8 @@
         "official_source": "Reserve Bank of New Zealand Table C33",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/equity-topup-demand/",
-        "hlf_article_title": "Using a Mortgage Top-Up to Renovate or Invest",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Usable Equity Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator"
       },
       "history": [
         {
@@ -842,6 +848,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"First-home buyers approved at <=80% LVR (20% or greater deposit),\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/fhb-20-deposit-club/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-20-deposit-club/",
       "summary_text": "In September 2026, RBNZ Table C31 recorded 1,325 first-home buyers ($680m) approved at &le;80% LVR (corresponding to a 20% or greater deposit)\u2014representing an HLF-derived 49.7% share of first-home approvals and a mean loan size of $513,208.",
       "related_questions": [
@@ -852,11 +861,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/fhb-20-deposit-club/",
-        "hlf_article_title": "How a 20% Deposit Affects Mortgage Rates & Margins",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "Compare NZ Mortgage Rates",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates"
       },
       "history": [
         {
@@ -979,6 +985,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Annual rolling 12-month first-home buyer mortgage approvals,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/fhb-annual-milestone/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-annual-milestone/",
       "summary_text": "Over the 12 months to September 2026, RBNZ Table C31 recorded an HLF-derived rolling total of 33,485 first-home buyer mortgages totalling $19.61B in lending (up from 31,589 loans a year earlier)\u2014including 15,743 borrowers (47.0%) approved at &gt;80% LVR (under a 20% deposit).",
       "related_questions": [
@@ -989,11 +998,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/fhb-annual-milestone/",
-        "hlf_article_title": "NZ First-Home Buyer Market Trends",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "NZ Sale & Purchase Agreement Walkthrough",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/nz-sale-and-purchase-agreement-walkthrough",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/nz-sale-and-purchase-agreement-walkthrough"
       },
       "history": [
         {
@@ -1116,6 +1122,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"First-home buyer share of all >80% LVR mortgage lending,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/fhb-bank-lvr-priority/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-bank-lvr-priority/",
       "summary_text": "In September 2026, first-home buyers accounted for an HLF-derived 67.2% of all &gt;80% LVR mortgage dollars ($850m of $1.26B) and 62.0% of &gt;80% LVR loans (1,342 of 2,165) reported in RBNZ Table C31.",
       "related_questions": [
@@ -1126,11 +1135,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/fhb-bank-lvr-priority/",
-        "hlf_article_title": "How Bank LVR Speed Limits Work in New Zealand",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Borrowing Power Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
       "history": [
         {
@@ -1220,7 +1226,7 @@
       "category": "First-home buyers",
       "topic": "First-home lending & borrower income",
       "value": 144232,
-      "latest_value": "$144,232 HLF weighted mean (Official C41 bands: $123,000\u2013$197,000)",
+      "latest_value": "$144,232 HLF mean (Official C41 bands: $123,000\u2013$197,000)",
       "unit": "NZD",
       "observed_period": "2026-09",
       "latest_underlying_data": "September 2026",
@@ -1230,19 +1236,19 @@
       "date_modified": "2026-11-10",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "September 2025 ($144,534 HLF weighted mean)",
+      "previous_period": "September 2025 ($144,534 HLF mean)",
       "change": "$-302 (-0.2%) YoY",
       "source": "RBNZ C41",
       "source_full": "Reserve Bank of New Zealand Table C41",
       "source_series_ids": "DTINI.MPA (Nationwide First-Home Buyer TDTI income bands)",
       "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi",
       "derived_by_hlf": true,
-      "data_type": "Officially reported TDTI band averages & HLF-derived borrower-weighted mean",
-      "definition": "Official RBNZ Table C41 average pre-tax gross borrower income across each of the five first-home buyer Total Debt-to-Income (TDTI) bands, alongside the HLF-derived borrower-weighted mean across all bands.",
+      "data_type": "Officially reported TDTI band averages & HLF-calculated overall mean (Total band income \u00f7 implied borrowers)",
+      "definition": "Official RBNZ Table C41 average pre-tax gross borrower income across each of the five first-home buyer Total Debt-to-Income (TDTI) bands, alongside the HLF-calculated mean across all bands.",
       "official_data": "RBNZ Table C41 (September 2026) Official FHB Band Averages: TDTI \u2264 3x income: $197,000 | 3x < TDTI \u2264 4x income: $151,000 | 4x < TDTI \u2264 5x income: $139,000 | 5x < TDTI \u2264 6x income: $125,000 | TDTI > 6x income: $123,000.",
-      "hlf_calculation": "HLF harmonic mean across 5 FHB TDTI bands = $144,232 (TDTI \u2264 3x income: $197,000 | 3x < TDTI \u2264 4x income: $151,000 | 4x < TDTI \u2264 5x income: $139,000 | 5x < TDTI \u2264 6x income: $125,000 | TDTI > 6x income: $123,000)",
-      "formula": "Harmonic borrower-weighted mean across all 5 FHB TDTI bands (Sum of Band Gross Income NZDm \u00f7 Sum of Implied Band Borrowers)",
-      "hlf_interpretation": "HLF market context: RBNZ Table C41 reports each TDTI band separately; the overall weighted mean is derived by HLF. Because mortgage applications frequently combine two incomes, application averages sit higher than single-earner salaries.",
+      "hlf_calculation": "Total band gross income \u00f7 implied borrowers across 5 FHB TDTI bands = $144,232 (TDTI \u2264 3x income: $197,000 | 3x < TDTI \u2264 4x income: $151,000 | 4x < TDTI \u2264 5x income: $139,000 | 5x < TDTI \u2264 6x income: $125,000 | TDTI > 6x income: $123,000)",
+      "formula": "Total Gross Income NZDm across all 5 FHB TDTI bands \u00f7 Sum of Implied Band Borrowers (Band NZDm \u00f7 Band Avg Income)",
+      "hlf_interpretation": "HLF market context: RBNZ Table C41 reports each TDTI band separately; the overall mean is derived by HLF. Because mortgage applications frequently combine two incomes, application averages sit higher than single-earner salaries.",
       "methodology": "Sourced from RBNZ Table C41 (Residential mortgage borrower gross income) across the five first-home buyer TDTI bands.",
       "frequency": "Monthly",
       "historical_data_from": "Available from June 2017 (112 monthly observations)",
@@ -1253,8 +1259,11 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Approved FHB gross borrower income by Debt-to-Income band \u2014 New Zealand,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C41. https://pulse-data.homeloanfactory.co.nz/fhb-income-akl-vs-nz/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-income-akl-vs-nz/",
-      "summary_text": "In September 2026, official RBNZ Table C41 average gross borrower incomes across New Zealand first-home buyer Debt-to-Income bands ranged from $123,000 to $197,000, with an HLF-derived borrower-weighted mean of $144,232 across all approved first-home applications.",
+      "summary_text": "In September 2026, official RBNZ Table C41 average gross borrower incomes across New Zealand first-home buyer Debt-to-Income bands ranged from $123,000 to $197,000, with an HLF-calculated mean of $144,232 (total band gross income divided by implied borrowers) across all approved first-home applications.",
       "related_questions": [
         "How does first-home buyer gross income vary across Debt-to-Income (TDTI) bands in RBNZ C41?",
         "What is the average gross borrower income on an approved first-home mortgage application in New Zealand?"
@@ -1263,11 +1272,8 @@
         "official_source": "Reserve Bank of New Zealand Table C41",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/fhb-income-akl-vs-nz/",
-        "hlf_article_title": "Buying a First Home on a Single or Modest Income",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Borrowing Power Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
       "history": [
         {
@@ -1417,6 +1423,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"First-home buyer average mortgage size by LVR tier (>80% LVR vs <=80% LVR),\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/fhb-loan-size-gap/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-loan-size-gap/",
       "summary_text": "In September 2026, the HLF-derived mean mortgage size for first-home buyers at &gt;80% LVR (under 20% deposit) was $633,383 (1,342 loans / $850m), compared with $513,208 for first-home buyers at &le;80% LVR (1,325 loans / $680m)\u2014an HLF-calculated difference of $120,175.",
       "related_questions": [
@@ -1428,11 +1437,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/fhb-loan-size-gap/",
-        "hlf_article_title": "Buying Sooner With a Low Deposit vs Waiting for 20%",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Home Loan Repayments Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator"
       },
       "history": [
         {
@@ -1555,6 +1561,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"First-home buyers using under 20% deposit (>80% LVR),\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/fhb-low-deposit/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-low-deposit/",
       "summary_text": "In September 2026, 50.3% of first-home mortgages approved across New Zealand (1,342 of 2,667 loans, or $850m in lending) were written at an LVR above 80% (corresponding to under a 20% deposit, derived by HLF from RBNZ Table C31), up from 46.0% a year earlier.",
       "related_questions": [
@@ -1568,11 +1577,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/fhb-low-deposit/",
-        "hlf_article_title": "First-Home Buyer Guides & Low-Deposit Insights",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "K\u0101inga Ora First Home Loan & LMI Estimator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kainga-ora-lmi-fee-estimator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kainga-ora-lmi-fee-estimator"
       },
       "history": [
         {
@@ -1695,6 +1701,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Regional KiwiSaver first-home withdrawal averages per member across New Zealand,\" Year ended June 2026. Derived by HLF from Inland Revenue \u2014 KiwiSaver Fund Withdrawals by Region. https://pulse-data.homeloanfactory.co.nz/fhb-regional-kiwisaver/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-regional-kiwisaver/",
       "summary_text": "Over the year ended 30 June 2026, Inland Revenue recorded 50,330 KiwiSaver members withdrawing $2.27B for a first home across New Zealand's 16 regions\u2014an HLF-derived mean of $45,005 per withdrawing member nationwide, ranging from $50,364/member in Wellington (and $47,630/member in Auckland) to $39,916/member in Southland.",
       "related_questions": [
@@ -1704,11 +1713,8 @@
         "official_source": "Inland Revenue \u2014 KiwiSaver Fund Withdrawals by Region",
         "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/kiwisaver-fund-withdrawals-by-region",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/fhb-regional-kiwisaver/",
-        "hlf_article_title": "How Kiwis Piece Together a First-Home Deposit by Region",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
-        "hlf_tool_title": "HLF KiwiSaver & First-Home Advice",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/kiwisaver",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator"
       },
       "history": [
         {
@@ -1849,6 +1855,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"First-home buyer share of total New Zealand mortgage lending,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/fhb-share/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-share/",
       "summary_text": "In September 2026, registered banks approved 2,667 first-home buyer mortgages totalling $1.53B\u2014representing an HLF-derived 20.3% share of all new residential mortgage lending (up from 19.2% a year earlier) and a mean loan size of $574k.",
       "related_questions": [
@@ -1860,11 +1869,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/fhb-share/",
-        "hlf_article_title": "NZ Mortgage Market Updates & Insights",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Borrowing Power Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
       "history": [
         {
@@ -1987,6 +1993,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"First-home buyers vs property investors monthly lending comparison,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/fhb-vs-investors/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-vs-investors/",
       "summary_text": "In September 2026, RBNZ Table C31 recorded $1.53B (20.3% of lending) in commitments to first-home buyers compared with $1.33B (17.7%) to residential property investors\u2014an HLF-calculated difference of +$195m toward first-home buyers.",
       "related_questions": [
@@ -1997,11 +2006,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/fhb-vs-investors/",
-        "hlf_article_title": "First-Home Buyers vs Property Investors in NZ",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Borrowing Power Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
       "history": [
         {
@@ -2088,7 +2094,7 @@
       "ticker": "health-insurance-inflation",
       "name": "Health insurance annual price inflation (Stats NZ CPI)",
       "also_known_as": "Private medical & health insurance CPI price change NZ",
-      "category": "Protection & Insurance Pulse",
+      "category": "Personal Risk & Income Protection",
       "topic": "Personal risk & health insurance",
       "value": 11.2,
       "latest_value": "+11.2% YoY (Health insurance CPI index)",
@@ -2124,6 +2130,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Health insurance annual price inflation (Stats NZ CPI),\" September 2026 quarter. Source: Stats NZ \u2014 Consumers Price Index (Health Insurance Sub-Index). https://pulse-data.homeloanfactory.co.nz/health-insurance-inflation/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/health-insurance-inflation/",
       "summary_text": "In the September 2026 quarter, Stats NZ's Consumers Price Index recorded a +11.2% annual increase in the private health insurance price index\u2014sitting +7.5 percentage points above headline CPI (+3.7%).",
       "related_questions": [
@@ -2134,11 +2143,8 @@
         "official_source": "Stats NZ \u2014 Consumers Price Index (Health Insurance Sub-Index)",
         "official_source_url": "https://www.stats.govt.nz/indicators/consumers-price-index-cpi/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/health-insurance-inflation/",
-        "hlf_article_title": "Reviewing Health & Personal Risk Cover Alongside Your Mortgage",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
-        "hlf_tool_title": "Request a Personal Risk & Insurance Referral via HLF",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/contact",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "HLF Borrowing Power Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
       "history": [
         {
@@ -2177,7 +2183,7 @@
       "ticker": "household-insurance-expenditure",
       "name": "Household expenditure on insurance & average domestic dwelling premium",
       "also_known_as": "Stats NZ Household Expenditure Survey (HES) insurance spend & RBNZ dwelling premium benchmark",
-      "category": "Protection & Insurance Pulse",
+      "category": "Property & Natural Hazard Insurance",
       "topic": "Household insurance affordability",
       "value": 2850,
       "latest_value": "~$2,850/yr insured homeowner benchmark (Stats NZ HES all-household avg: $24.80/wk)",
@@ -2201,8 +2207,8 @@
       "definition": "Average household expenditure on insurance reported in Stats NZ's Household Expenditure Survey (HES) alongside the Reserve Bank of New Zealand's domestic dwelling insurance premium benchmark.",
       "official_data": "Stats NZ HES: Average dwelling insurance expenditure across all households = $24.80/week; RBNZ FSR insured homeowner dwelling premium benchmark = ~$2,850/year.",
       "hlf_calculation": "Stats NZ HES: $24.80/wk \u00d7 52 weeks = $1,289.60/yr (all households) vs. ~$2,850/yr (insured homeowners)",
-      "formula": "Annualised household expenditure = Weekly HES expenditure \u00d7 52 weeks; compared against RBNZ & ICNZ insured homeowner dwelling premium benchmarks",
-      "hlf_interpretation": "HLF market context: Stats NZ's HES averages insurance spending across all households (including renters who do not pay building insurance), whereas RBNZ and ICNZ dwelling figures reflect the actual annual building premium paid by insured homeowners. Lenders require uninterrupted building insurance as a mandatory condition of every residential mortgage.",
+      "formula": "Annualised household expenditure = Weekly HES expenditure \u00d7 52 weeks; compared against RBNZ insured homeowner dwelling premium benchmarks",
+      "hlf_interpretation": "HLF market context: Stats NZ's HES averages insurance spending across all households (including renters who do not pay building insurance), whereas RBNZ dwelling figures reflect the actual annual building premium paid by insured homeowners. Lenders require uninterrupted building insurance as a mandatory condition of every residential mortgage.",
       "methodology": "Combines Stats NZ HES average weekly household insurance expenditure across all NZ households with RBNZ Financial Stability Report analysis of quoted/paid domestic building insurance premiums for insured homeowners.",
       "frequency": "Annual / Semi-Annual",
       "historical_data_from": "Stats NZ triennial HES & RBNZ semi-annual Financial Stability Reports",
@@ -2213,8 +2219,11 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Household expenditure on insurance & average domestic dwelling premium,\" May 2026 RBNZ FSR & Stats NZ HES. Derived by HLF from Stats NZ Household Expenditure Statistics & RBNZ Financial Stability Report. https://pulse-data.homeloanfactory.co.nz/household-insurance-expenditure/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/household-insurance-expenditure/",
-      "summary_text": "Across all New Zealand households (including renters), Stats NZ's Household Expenditure Survey recorded average dwelling insurance expenditure of $24.80/week (an HLF-derived $1,289.60/year), while RBNZ and industry benchmarks place average annual domestic building insurance premiums for insured homeowners at approximately $2,850/year (with higher-risk flood/seismic zones exceeding $3,500\u2013$4,500+/year).",
+      "summary_text": "Across all New Zealand households (including renters), Stats NZ's Household Expenditure Survey recorded average dwelling insurance expenditure of $24.80/week (an HLF-derived $1,289.60/year), while RBNZ Financial Stability Report benchmarks place average annual domestic building insurance premiums for insured homeowners at approximately $2,850/year (with higher-risk flood/seismic zones exceeding $3,500\u2013$4,500+/year).",
       "related_questions": [
         "How much do New Zealand households typically spend on house and contents insurance?",
         "Why do bank mortgage calculators include building insurance as a fixed homeowner cost?"
@@ -2223,25 +2232,22 @@
         "official_source": "Stats NZ Household Expenditure Statistics & RBNZ Financial Stability Report",
         "official_source_url": "https://www.rbnz.govt.nz/financial-stability/financial-stability-report",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/household-insurance-expenditure/",
-        "hlf_article_title": "The True Ongoing Cost of Owning a Home in New Zealand",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
-        "hlf_tool_title": "HLF Home Loan & Ongoing Costs Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "HLF Home Loan Repayments Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator"
       },
       "history": []
     },
     {
       "ticker": "insurance-claims-trends",
-      "name": "New Zealand general insurance Gross Written Premiums vs. Claims Incurred",
-      "also_known_as": "ICNZ general & domestic insurance market premiums and claims volume",
-      "category": "Protection & Insurance Pulse",
+      "name": "New Zealand general insurance Gross Written Premiums vs. Net Incurred Claims (RBNZ)",
+      "also_known_as": "RBNZ general & domestic insurance market premiums, reinsurance & claims volume",
+      "category": "Insurance Market & Claims",
       "topic": "Insurance industry claims & premiums",
       "value": 4.66,
       "latest_value": "$4.66B Net Incurred Claims vs. $9.85B Gross Written Premiums",
       "unit": "NZDB",
       "observed_period": "2026-06",
-      "latest_underlying_data": "Annual ICNZ Market Data",
+      "latest_underlying_data": "Annual RBNZ Insurance Series",
       "source_published": "2026-06-30",
       "last_checked": "2026-11-10",
       "date_created": "2026-09-01",
@@ -2250,20 +2256,20 @@
       "source_status": "current",
       "previous_period": "Net Earned Premium (after reinsurance): $7.40B",
       "change": "Reinsurance & catastrophe protection outflow: ~$2.45B/yr",
-      "source": "ICNZ Market Data",
-      "source_full": "Insurance Council of New Zealand (Te K\u0101hui Inihua o Aotearoa) \u2014 Market Data",
-      "source_series_ids": "ICNZ Annual General Insurance GWP & Net Incurred Claims",
-      "source_url": "https://www.icnz.org.nz/industry/market-data/",
+      "source": "RBNZ Insurance Statistics",
+      "source_full": "Reserve Bank of New Zealand \u2014 Insurance Statistics & Financial Stability Report",
+      "source_series_ids": "RBNZ General Insurer Gross Written Premium, Net Earned Premium & Net Incurred Claims",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
       "derived_by_hlf": true,
-      "data_type": "Officially reported ICNZ industry totals & HLF-calculated comparison",
-      "definition": "Total annual Gross Written Premiums (GWP) and Net Incurred Claims across the New Zealand general insurance sector (covering domestic building, contents, motor vehicle, and commercial lines) reported by the Insurance Council of New Zealand (ICNZ).",
-      "official_data": "ICNZ General Insurance Market Data: Gross Written Premiums = ~$9.85B; Net Earned Premiums = ~$7.40B; Net Incurred Claims = ~$4.66B.",
+      "data_type": "Officially reported RBNZ insurer aggregates & HLF-calculated reinsurance/claims comparison",
+      "definition": "Total annual Gross Written Premiums (GWP), Net Earned Premiums (after reinsurance), and Net Incurred Claims across licensed New Zealand general insurers regulated by the Reserve Bank of New Zealand.",
+      "official_data": "RBNZ Insurance Statistics: Gross Written Premiums = ~$9.85B; Net Earned Premiums = ~$7.40B; Net Incurred Claims = ~$4.66B.",
       "hlf_calculation": "Gross Written Premiums ($9.85B) minus Reinsurance ($2.45B) = $7.40B Net Earned Premiums vs. $4.66B Net Claims",
-      "formula": "Comparison of total Gross Written Premiums (NZDB), Net Earned Premiums (NZDB), and Net Incurred Claims (NZDB)",
-      "hlf_interpretation": "HLF market context: Illustrates the scale of claims paid back to New Zealand households and businesses relative to total premiums collected, alongside the portion of gross premiums paid out by NZ insurers for international catastrophe reinsurance.",
-      "methodology": "Compiled by ICNZ from financial returns submitted by member general insurers writing business in New Zealand.",
-      "frequency": "Annual / Quarterly",
-      "historical_data_from": "ICNZ annual general insurance industry series",
+      "formula": "Reinsurance Outflow = Gross Written Premiums (NZDB) minus Net Earned Premiums (NZDB); compared against Net Incurred Claims (NZDB)",
+      "hlf_interpretation": "HLF market context: Illustrates the scale of claims paid back to New Zealand households and businesses relative to total premiums collected, alongside the portion of gross premiums paid by NZ insurers for international catastrophe reinsurance.",
+      "methodology": "Compiled from RBNZ licensed insurer financial returns and Financial Stability Report general insurance series.",
+      "frequency": "Annual / Semi-Annual",
+      "historical_data_from": "RBNZ licensed general insurer financial series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -2271,35 +2277,35 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand general insurance Gross Written Premiums vs. Net Incurred Claims (RBNZ),\" Annual RBNZ Insurance Series. Derived by HLF from Reserve Bank of New Zealand \u2014 Insurance Statistics & Financial Stability Report. https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/",
-      "summary_text": "Across the New Zealand general insurance sector, Insurance Council of New Zealand (ICNZ) market data records approximately $9.85B in annual Gross Written Premiums ($7.40B in Net Earned Premiums after reinsurance) alongside $4.66B in Net Incurred Claims.",
+      "summary_text": "Across licensed New Zealand general insurers regulated by RBNZ, annual Gross Written Premiums reached approximately $9.85B ($7.40B in Net Earned Premiums after international reinsurance) alongside $4.66B in Net Incurred Claims.",
       "related_questions": [
         "How much do New Zealand insurers pay out in claims compared with premiums collected?",
-        "How large is the New Zealand domestic and general insurance market?"
+        "How much of New Zealand general insurance premiums goes toward international reinsurance?"
       ],
       "citation_chain": {
-        "official_source": "Insurance Council of New Zealand (Te K\u0101hui Inihua o Aotearoa) \u2014 Market Data",
-        "official_source_url": "https://www.icnz.org.nz/industry/market-data/",
+        "official_source": "Reserve Bank of New Zealand \u2014 Insurance Statistics & Financial Stability Report",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/",
-        "hlf_article_title": "How Claims & Reinsurance Drive New Zealand House Insurance Premiums",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
-        "hlf_tool_title": "Speak with HLF About Protecting Your Property & Income",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/contact",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "HLF Home Loan Repayments Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator"
       },
       "history": []
     },
     {
       "ticker": "insurer-loss-ratios",
-      "name": "New Zealand general insurer net loss ratio (claims incurred \u00f7 net earned premiums)",
-      "also_known_as": "ICNZ general insurance claims loss ratio",
-      "category": "Protection & Insurance Pulse",
+      "name": "New Zealand general insurer net loss ratio (net claims incurred \u00f7 net earned premiums)",
+      "also_known_as": "RBNZ general insurer claims loss ratio",
+      "category": "Insurance Market & Claims",
       "topic": "Insurer loss ratios & claims",
       "value": 63.0,
       "latest_value": "63.0% Net Loss Ratio ($4.66B claims \u00f7 $7.40B net earned premium)",
       "unit": "percent",
       "observed_period": "2026-06",
-      "latest_underlying_data": "Annual ICNZ / RBNZ Series",
+      "latest_underlying_data": "Annual RBNZ Insurance Series",
       "source_published": "2026-06-30",
       "last_checked": "2026-11-10",
       "date_created": "2026-09-01",
@@ -2308,20 +2314,20 @@
       "source_status": "current",
       "previous_period": "2023 Severe Weather Event Peak: >85% net loss ratio",
       "change": "Normalised from 2023 North Island weather catastrophe peak",
-      "source": "ICNZ Market Data",
-      "source_full": "Insurance Council of New Zealand (ICNZ) & RBNZ Insurer Solvency Data",
-      "source_series_ids": "ICNZ Net Incurred Claims \u00f7 Net Earned Premium",
-      "source_url": "https://www.icnz.org.nz/industry/market-data/",
+      "source": "RBNZ Insurance Statistics",
+      "source_full": "Reserve Bank of New Zealand \u2014 Insurance Statistics & Financial Stability Report",
+      "source_series_ids": "RBNZ General Insurer Net Incurred Claims \u00f7 Net Earned Premium",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
       "derived_by_hlf": true,
-      "data_type": "Officially reported ICNZ / RBNZ ratio & HLF-derived verification",
-      "definition": "The percentage of net earned insurance premiums (after reinsurance costs) paid out in net incurred claims across New Zealand general insurers.",
-      "official_data": "ICNZ / RBNZ General Insurance: Net Incurred Claims = $4.66B; Net Earned Premiums = $7.40B.",
+      "data_type": "Officially reported RBNZ insurer series & HLF-derived net loss ratio",
+      "definition": "The percentage of net earned insurance premiums (after reinsurance costs) paid out in net incurred claims across licensed New Zealand general insurers.",
+      "official_data": "RBNZ General Insurance Series: Net Incurred Claims = $4.66B; Net Earned Premiums = $7.40B.",
       "hlf_calculation": "($4.66B Net Incurred Claims \u00f7 $7.40B Net Earned Premiums) \u00d7 100 = 63.0%",
       "formula": "(Net Incurred Claims NZDB \u00f7 Net Earned Premium NZDB) \u00d7 100",
-      "hlf_interpretation": "HLF market context: A net loss ratio around 60%\u201368% in non-catastrophe years (and spiking above 80%\u2013100%+ in major weather/earthquake years) shows the proportion of net premiums consumed directly by claims before operating expenses, tax, and solvency capital requirements.",
-      "methodology": "Calculated from ICNZ industry market data and RBNZ insurer financial stability series by dividing Net Incurred Claims by Net Earned Premium.",
+      "hlf_interpretation": "HLF market context: A net loss ratio around 60%\u201368% in non-catastrophe years (and spiking above 80%\u2013100%+ in major weather/earthquake years) shows the proportion of net premiums consumed directly by claims before operating expenses, tax, and RBNZ solvency capital requirements.",
+      "methodology": "Calculated from RBNZ licensed insurer financial performance series by dividing Net Incurred Claims by Net Earned Premium.",
       "frequency": "Annual / Semi-Annual",
-      "historical_data_from": "ICNZ & RBNZ insurer financial performance series",
+      "historical_data_from": "RBNZ insurer financial performance series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -2329,21 +2335,21 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand general insurer net loss ratio (net claims incurred \u00f7 net earned premiums),\" Annual RBNZ Insurance Series. Derived by HLF from Reserve Bank of New Zealand \u2014 Insurance Statistics & Financial Stability Report. https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/",
-      "summary_text": "Based on Insurance Council of New Zealand (ICNZ) and RBNZ general insurance figures, New Zealand general insurers recorded an HLF-verified net loss ratio of 63.0% ($4.66B in net incurred claims divided by $7.40B in net earned premiums).",
+      "summary_text": "Based on Reserve Bank of New Zealand general insurer statistics, licensed New Zealand general insurers recorded an HLF-derived net loss ratio of 63.0% ($4.66B in net incurred claims divided by $7.40B in net earned premiums).",
       "related_questions": [
         "How much of every insurance premium dollar goes toward paying claims in New Zealand?",
         "What is the average loss ratio for New Zealand general insurers?"
       ],
       "citation_chain": {
-        "official_source": "Insurance Council of New Zealand (ICNZ) & RBNZ Insurer Solvency Data",
-        "official_source_url": "https://www.icnz.org.nz/industry/market-data/",
+        "official_source": "Reserve Bank of New Zealand \u2014 Insurance Statistics & Financial Stability Report",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/",
-        "hlf_article_title": "Understanding How Insurance Pricing & Loss Ratios Work in NZ",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
-        "hlf_tool_title": "HLF Insurance & Mortgage Protection Enquiry",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/contact",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "HLF Home Loan Repayments Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator"
       },
       "history": []
     },
@@ -2387,6 +2393,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Interest-only share of new investor vs owner-occupier mortgages,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C32. https://pulse-data.homeloanfactory.co.nz/interest-only/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/interest-only/",
       "summary_text": "In September 2026, an HLF-derived 31.5% of new residential investor mortgage lending was set up on interest-only terms (including revolving credit), compared with 13.7% for owner-occupiers in RBNZ Table C32.",
       "related_questions": [
@@ -2397,11 +2406,8 @@
         "official_source": "Reserve Bank of New Zealand Table C32",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-and-existing-residential-mortgage-lending-by-payment-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/interest-only/",
-        "hlf_article_title": "Interest-Only vs Principal & Interest Mortgages in NZ",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "Investment Property Cashflow Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator"
       },
       "history": [
         {
@@ -2524,6 +2530,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Property investor LVR & equity tier breakdown (<=60% LVR, 60%\u201370% LVR, >70% LVR),\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/investor-equity-tiers/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-equity-tiers/",
       "summary_text": "In September 2026, RBNZ Table C31 investor commitments comprised an HLF-derived 43.8% at &le;60% LVR (1,169 loans), 36.4% between 60% and 70% LVR (972 loans), and 19.8% at &gt;70% LVR (527 loans, or $337m).",
       "related_questions": [
@@ -2534,11 +2543,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/investor-equity-tiers/",
-        "hlf_article_title": "Using Home Equity to Buy an Investment Property",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
-        "hlf_tool_title": "HLF Usable Equity & Investment Cashflow Calculators",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "HLF Usable Equity Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator"
       },
       "history": [
         {
@@ -2661,6 +2667,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Property investor loans approved at >80% LVR (<20% deposit) & 70%\u201380% LVR,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/investor-low-deposit/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-low-deposit/",
       "summary_text": "In September 2026, RBNZ Table C31 recorded 52 property investor mortgages ($36m) at &gt;80% LVR (an HLF-derived 1.9% share of investors, up from 34 loans / $23m a year earlier) (and an HLF-derived 12-month total of 508 loans / $328m), alongside an HLF-derived 475 investor loans ($301m, or 17.8%) in the 70%\u201380% LVR band.",
       "related_questions": [
@@ -2671,11 +2680,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/investor-low-deposit/",
-        "hlf_article_title": "New-Build & Low-Deposit Rules for Property Investors",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "Turnkey vs. Construction Loan Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/turnkey-vs-construction-loan-calculator-nz",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/turnkey-vs-construction-loan-calculator-nz"
       },
       "history": [
         {
@@ -2798,6 +2804,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Property investors approved at >70% LVR (under 30% deposit),\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/investor-new-build-lvr/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-new-build-lvr/",
       "summary_text": "In September 2026, RBNZ Table C31 recorded 527 property investor loans ($337m) at &gt;70% LVR (an HLF-derived 19.8% share of investor approvals)\u2014comprising an HLF-derived 475 loans ($301m) in the 70%\u201380% LVR band and 52 reported loans ($36m) at &gt;80% LVR.",
       "related_questions": [
@@ -2808,11 +2817,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/investor-new-build-lvr/",
-        "hlf_article_title": "New-Build LVR Exemptions for Property Investors",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "NZ Property Rental Yield Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator"
       },
       "history": [
         {
@@ -2935,6 +2941,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Property investor share of new New Zealand mortgage lending,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/investors/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investors/",
       "summary_text": "In September 2026, residential property investors accounted for an HLF-derived 17.7% share of new mortgage commitments ($1.33B reported in RBNZ Table C31, down from 21.2% a year earlier), compared with 20.3% for first-home buyers.",
       "related_questions": [
@@ -2945,11 +2954,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/investors/",
-        "hlf_article_title": "NZ Property Investment & Lending Insights",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "Investment Property Cashflow Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator"
       },
       "history": [
         {
@@ -3072,6 +3078,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Annual KiwiSaver employee, employer & Crown contributions (10-year trend & 3.5% default rate),\" Year ended June 2026. Derived by HLF from Inland Revenue \u2014 KiwiSaver Scheme Provider Payments & Statutory Settings. https://pulse-data.homeloanfactory.co.nz/kiwisaver-contributions-10yr/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-contributions-10yr/",
       "summary_text": "Over the year ended 30 June 2026, Inland Revenue transferred $11.40B in KiwiSaver contributions to scheme providers (up an HLF-derived +123.5% over 10 years from $5.10B in FY2016)\u2014comprising $6.64B (58.2%) in employee deductions, $3.72B (32.6%) in employer contributions, and $1.04B (9.1%) in Crown contributions (with the statutory default rate at 3.5% EE / 3.5% ER from 1 April 2026 and max annual Government contribution at $260.72).",
       "related_questions": [
@@ -3082,11 +3091,8 @@
         "official_source": "Inland Revenue \u2014 KiwiSaver Scheme Provider Payments & Statutory Settings",
         "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/contributions/scheme-providers-payments",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-contributions-10yr/",
-        "hlf_article_title": "KiwiSaver Contribution Rates & Government Contribution Guide",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
-        "hlf_tool_title": "HLF KiwiSaver Strategy & Advice",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/kiwisaver",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator"
       },
       "history": [
         {
@@ -3155,6 +3161,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"KiwiSaver active scheme choice vs default & employer-nominated allocation,\" Year ended June 2026. Derived by HLF from Inland Revenue \u2014 KiwiSaver Scheme Entry Method Statistics. https://pulse-data.homeloanfactory.co.nz/kiwisaver-default-vs-active/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-default-vs-active/",
       "summary_text": "In Inland Revenue's KiwiSaver scheme entry statistics (year ended 30 June 2026), an HLF-derived 24.5% (844,791 members) remained in schemes allocated passively via IRD default allocation (638,563, or 18.5%) or employer nomination (206,228, or 6.0%), compared with 75.5% (2,598,410 members) who actively selected their scheme (up from 1.90m in 2016).",
       "related_questions": [
@@ -3165,11 +3174,8 @@
         "official_source": "Inland Revenue \u2014 KiwiSaver Scheme Entry Method Statistics",
         "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/schemes/entry-method",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-default-vs-active/",
-        "hlf_article_title": "Default vs Active KiwiSaver Funds: Why Your Fund Type Matters",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
-        "hlf_tool_title": "Book a Free HLF KiwiSaver Review",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/kiwisaver",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator"
       },
       "history": []
     },
@@ -3213,6 +3219,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Monthly & 10-year KiwiSaver first-home withdrawal count, value & average per member,\" September 2026. Derived by HLF from Inland Revenue \u2014 KiwiSaver Withdrawal Statistics. https://pulse-data.homeloanfactory.co.nz/kiwisaver-first-home/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-first-home/",
       "summary_text": "In September 2026, Inland Revenue recorded 4,250 KiwiSaver members withdrawing a combined $195.7m for a first-home purchase\u2014an HLF-derived mean of $46,047 per member (with annual first-home withdrawals growing over 10 years from 26,570 members / $495.0m in FY2016 to 50,470 members / $2.27B in FY2026).",
       "related_questions": [
@@ -3223,11 +3232,8 @@
         "official_source": "Inland Revenue \u2014 KiwiSaver Withdrawal Statistics",
         "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-first-home/",
-        "hlf_article_title": "Using Your KiwiSaver for a First-Home Deposit",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
         "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator"
       },
       "history": [
         {
@@ -3259,7 +3265,7 @@
     {
       "ticker": "kiwisaver-fund-allocation-shift",
       "name": "Long-term KiwiSaver asset allocation shift (Growth vs Balanced vs Conservative funds)",
-      "also_known_as": "10-year KiwiSaver FUM breakdown by risk profile (FMA / Morningstar)",
+      "also_known_as": "10-year KiwiSaver FUM breakdown by risk profile (FMA KiwiSaver Report)",
       "category": "KiwiSaver",
       "topic": "KiwiSaver fund risk profiles & asset allocation",
       "value": 47.6,
@@ -3296,6 +3302,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Long-term KiwiSaver asset allocation shift (Growth vs Balanced vs Conservative funds),\" Year ended March 2026. Derived by HLF from Financial Markets Authority (FMA) KiwiSaver Annual Report \u2014 Fund Type Breakdown. https://pulse-data.homeloanfactory.co.nz/kiwisaver-fund-allocation-shift/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-fund-allocation-shift/",
       "summary_text": "Over the past decade, New Zealand KiwiSaver funds under management shifted from 40.4% Conservative/Cash and 28.3% Growth in 2016 to an HLF-derived 47.6% in Growth/Aggressive funds, 28.1% in Balanced funds, and 16.2% in Conservative/Cash funds (with average member fees declining from ~1.10% of FUM in 2012 to ~0.70% of FUM).",
       "related_questions": [
@@ -3306,11 +3315,8 @@
         "official_source": "Financial Markets Authority (FMA) KiwiSaver Annual Report \u2014 Fund Type Breakdown",
         "official_source_url": "https://www.fma.govt.nz/library/reports-and-papers/kiwisaver-annual-report/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-fund-allocation-shift/",
-        "hlf_article_title": "Choosing the Right KiwiSaver Fund for a First Home vs Retirement",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
-        "hlf_tool_title": "Book a Free HLF KiwiSaver Review",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/kiwisaver",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator"
       },
       "history": [
         {
@@ -3379,6 +3385,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Monthly & 10-year KiwiSaver significant financial hardship withdrawals,\" September 2026. Derived by HLF from Inland Revenue \u2014 KiwiSaver Withdrawal Statistics (Financial Hardship). https://pulse-data.homeloanfactory.co.nz/kiwisaver-hardship-withdrawals/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-hardship-withdrawals/",
       "summary_text": "In September 2026, Inland Revenue recorded 5,440 KiwiSaver members approved for a significant financial hardship withdrawal totalling $47.9m\u2014an HLF-derived mean of $8,805 per member (with annual hardship withdrawals rising over 10 years from 10,670 members / $59.4m in FY2016 to 52,330 members / $538.2m in FY2026).",
       "related_questions": [
@@ -3389,11 +3398,8 @@
         "official_source": "Inland Revenue \u2014 KiwiSaver Withdrawal Statistics (Financial Hardship)",
         "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-hardship-withdrawals/",
-        "hlf_article_title": "Managing Mortgage Repayments & Financial Hardship Options in NZ",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Home Loan Repayments Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator"
       },
       "history": [
         {
@@ -3462,6 +3468,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"KiwiSaver members on active savings suspensions (10-year trend),\" September 2026. Derived by HLF from Inland Revenue \u2014 KiwiSaver Savings Suspension Statistics. https://pulse-data.homeloanfactory.co.nz/kiwisaver-savings-suspensions/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-savings-suspensions/",
       "summary_text": "In September 2026, Inland Revenue recorded 83,936 KiwiSaver members on an active savings suspension (comprising 82,794 ordinary suspensions and 1,142 financial hardship suspensions)\u2014down an HLF-calculated 34.1% over 10 years from 127,360 in June 2016 following the reduction of the maximum standard suspension term from 5 years to 1 year.",
       "related_questions": [
@@ -3472,11 +3481,8 @@
         "official_source": "Inland Revenue \u2014 KiwiSaver Savings Suspension Statistics",
         "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/contributions/savings-suspensions",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-savings-suspensions/",
-        "hlf_article_title": "KiwiSaver vs Mortgage Payoff: Should You Pause Contributions?",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
         "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator"
       },
       "history": [
         {
@@ -3545,6 +3551,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Annual, monthly & 10-year KiwiSaver scheme transfers (members switching providers),\" Year ended June 2026. Derived by HLF from Inland Revenue \u2014 KiwiSaver Scheme Transfer Statistics. https://pulse-data.homeloanfactory.co.nz/kiwisaver-switches/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-switches/",
       "summary_text": "Over the year ended 30 June 2026, Inland Revenue recorded 198,897 KiwiSaver inter-scheme transfers (up from 140,557 in FY2016, and up an HLF-calculated +41.5% over 10 years from 140,557 in FY2016)\u2014an HLF-derived mean of 16,575 provider switches per month.",
       "related_questions": [
@@ -3555,11 +3564,8 @@
         "official_source": "Inland Revenue \u2014 KiwiSaver Scheme Transfer Statistics",
         "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/schemes/transfer",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-switches/",
-        "hlf_article_title": "How to Review Your KiwiSaver Fund & Provider",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
-        "hlf_tool_title": "Book a Free HLF KiwiSaver Review",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/kiwisaver",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator"
       },
       "history": [
         {
@@ -3628,6 +3634,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"KiwiSaver total funds under management (FUM) & average member balance (10-year growth),\" Year ended March 2026. Derived by HLF from Financial Markets Authority (FMA) KiwiSaver Annual Report & RBNZ Managed Funds Survey. https://pulse-data.homeloanfactory.co.nz/kiwisaver-total-fum-balance/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-total-fum-balance/",
       "summary_text": "Across New Zealand's 3.44 million enrolled KiwiSaver members, total funds under management (FUM) reached $138.8B\u2014an HLF-derived average balance of $40,349 per member, up +214.0% over 10 years from $12,852/member ($33.8B FUM in 2016).",
       "related_questions": [
@@ -3639,11 +3648,8 @@
         "official_source": "Financial Markets Authority (FMA) KiwiSaver Annual Report & RBNZ Managed Funds Survey",
         "official_source_url": "https://www.fma.govt.nz/library/reports-and-papers/kiwisaver-annual-report/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-total-fum-balance/",
-        "hlf_article_title": "What Is the Average KiwiSaver Balance in New Zealand?",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
         "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator"
       },
       "history": [
         {
@@ -3676,7 +3682,7 @@
       "ticker": "life-insurance-inflation",
       "name": "Life insurance annual price movement (Stats NZ CPI)",
       "also_known_as": "Term life insurance CPI price index change NZ",
-      "category": "Protection & Insurance Pulse",
+      "category": "Personal Risk & Income Protection",
       "topic": "Personal risk, life & income protection",
       "value": 2.9,
       "latest_value": "+2.9% YoY (Constant-age life insurance CPI index)",
@@ -3712,6 +3718,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Life insurance annual price movement (Stats NZ CPI),\" September 2026 quarter. Source: Stats NZ \u2014 Consumers Price Index (Life Insurance Sub-Index). https://pulse-data.homeloanfactory.co.nz/life-insurance-inflation/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/life-insurance-inflation/",
       "summary_text": "In the September 2026 quarter, Stats NZ's constant-age, constant-sum-insured life insurance price index recorded a +2.9% annual change (alongside +3.7% headline CPI inflation).",
       "related_questions": [
@@ -3723,11 +3732,8 @@
         "official_source": "Stats NZ \u2014 Consumers Price Index (Life Insurance Sub-Index)",
         "official_source_url": "https://www.stats.govt.nz/indicators/consumers-price-index-cpi/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/life-insurance-inflation/",
-        "hlf_article_title": "How Much Life & Income Protection Cover Do NZ Mortgage Holders Need?",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
-        "hlf_tool_title": "Speak with HLF About Life, Trauma & Mortgage Protection Cover",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/contact",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "HLF Home Loan Repayments Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator"
       },
       "history": [
         {
@@ -3802,6 +3808,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Existing owner-occupiers approved at >80% LVR (under 20% equity),\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/mover-low-equity/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mover-low-equity/",
       "summary_text": "In September 2026, RBNZ Table C31 recorded 769 mortgages ($378m) for existing ('other') owner-occupiers at &gt;80% LVR\u2014an HLF-derived 5.1% share of existing owner-occupier approvals, up from 3.3% a year earlier.",
       "related_questions": [
@@ -3812,11 +3821,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/mover-low-equity/",
-        "hlf_article_title": "Upgrading Your Home With Less Than 20% Equity",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "Net Proceeds & Next Home Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/net-proceeds-and-next-home-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/net-proceeds-and-next-home-calculator"
       },
       "history": [
         {
@@ -3901,15 +3907,15 @@
     },
     {
       "ticker": "natural-hazard-claims",
-      "name": "New Zealand natural hazard insured losses & NHCover statutory building cap",
-      "also_known_as": "Natural Hazards Commission Toka T\u016b Ake (NHC / EQC) cap & ICNZ weather/disaster claims",
-      "category": "Protection & Insurance Pulse",
+      "name": "Natural Hazards Insurance Act (NHCover) statutory building cap, levy & disaster claims benchmark",
+      "also_known_as": "Natural Hazards Commission Toka T\u016b Ake (NHC / EQC) statutory cap & RBNZ catastrophe claims",
+      "category": "Property & Natural Hazard Insurance",
       "topic": "Natural hazards, flood risk & NHCover",
       "value": 300000,
-      "latest_value": "$300,000 + GST ($345,000 incl. GST) NHCover cap | $3.81B+ 2023 weather claims",
+      "latest_value": "$300,000 + GST ($345,000 incl. GST) NHCover cap | $480 + GST max annual levy",
       "unit": "NZD",
       "observed_period": "2026-05",
-      "latest_underlying_data": "Current NHC Statutory Schedule & ICNZ Disaster Series",
+      "latest_underlying_data": "Current NHI Act 2023 Schedule",
       "source_published": "2026-05-31",
       "last_checked": "2026-11-10",
       "date_created": "2026-09-01",
@@ -3918,20 +3924,20 @@
       "source_status": "current",
       "previous_period": "Prior EQC cap (pre-Oct 2022): $150,000 + GST ($172,500)",
       "change": "Max annual NHC levy: $480 + GST ($552.00 incl. GST) at 16c/$100",
-      "source": "NHC & ICNZ",
-      "source_full": "Natural Hazards Commission Toka T\u016b Ake & Insurance Council of New Zealand",
-      "source_series_ids": "NHC Statutory Building Cap (NHI Act) & ICNZ Natural Disaster Insured Losses",
-      "source_url": "https://www.naturalhazards.govt.nz/about-nhc/how-we-work/natural-hazard-fund/",
+      "source": "NHI Act 2023 & NHC",
+      "source_full": "Natural Hazards Insurance Act 2023, NHC Toka T\u016b Ake & RBNZ Financial Stability Report",
+      "source_series_ids": "NHI Act 2023 Statutory Building Cap & Levy Schedule",
+      "source_url": "https://www.legislation.govt.nz/act/public/2023/0001/latest/LMS487791.html",
       "derived_by_hlf": true,
-      "data_type": "Officially reported statutory cap / disaster claims & HLF-calculated GST-inclusive totals",
-      "definition": "The statutory first-loss residential building cover cap and levy under the Natural Hazards Insurance Act (NHC Toka T\u016b Ake), alongside ICNZ insured natural-disaster loss benchmarks.",
-      "official_data": "NHC Toka T\u016b Ake Statutory Schedule: Building cap = $300,000 (excl. GST), max annual levy = $480 (excl. GST); ICNZ 2023 North Island weather catastrophe insured losses = $3.81B+.",
+      "data_type": "Public-domain statutory cap/levy schedule & HLF-calculated GST-inclusive totals",
+      "definition": "The statutory first-loss residential building cover cap and levy rate under the Natural Hazards Insurance Act 2023 (administered by NHC Toka T\u016b Ake), alongside RBNZ natural-disaster insured loss benchmarks.",
+      "official_data": "Natural Hazards Insurance Act 2023 Statutory Schedule: Building cap = $300,000 (excl. GST), max annual levy = $480 (excl. GST); 2023 North Island weather catastrophe insured losses = $3.8B+.",
       "hlf_calculation": "Cap incl. GST: $300,000 \u00d7 1.15 = $345,000 | Max Levy incl. GST: ($300,000 \u00f7 100 \u00d7 $0.16) \u00d7 1.15 = $552.00",
       "formula": "NHCover Cap = $300,000 + 15% GST ($345,000); Max Annual Levy = ($300,000 \u00f7 $100) \u00d7 $0.16 = $480 + 15% GST ($552.00)",
       "hlf_interpretation": "HLF market context: NHCover provides the first $300,000 + GST ($345,000) of natural-hazard building cover (for earthquakes, landslips, volcanic activity, hydrothermal activity, and tsunamis, plus statutory residential land cover), while private house insurance tops cover up to the homeowner's full sum insured and covers non-NHC perils such as flood and storm damage to the building.",
-      "methodology": "Sourced from the Natural Hazards Commission Toka T\u016b Ake statutory schedule ($300,000 + GST per dwelling at 16c per $100 cover) and ICNZ Cost of Natural Disasters records.",
-      "frequency": "Annual / Event-Updated",
-      "historical_data_from": "NHC statutory schedule & ICNZ natural disaster records (1968\u2013present)",
+      "methodology": "Sourced from the Natural Hazards Insurance Act 2023 statutory schedule ($300,000 + GST per dwelling at 16c per $100 cover) and RBNZ Financial Stability Report catastrophe loss analysis.",
+      "frequency": "Statutory / Event-Updated",
+      "historical_data_from": "Natural Hazards Insurance Act 2023 & NHC statutory schedule",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -3939,29 +3945,29 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Natural Hazards Insurance Act (NHCover) statutory building cap, levy & disaster claims benchmark,\" Current NHI Act 2023 Schedule. Derived by HLF from Natural Hazards Insurance Act 2023, NHC Toka T\u016b Ake & RBNZ Financial Stability Report. https://pulse-data.homeloanfactory.co.nz/natural-hazard-claims/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/natural-hazard-claims/",
-      "summary_text": "Under the Natural Hazards Insurance Act, the Natural Hazards Commission Toka T\u016b Ake (NHC) provides statutory first-loss residential building cover up to $300,000 + GST (an HLF-calculated $345,000 incl. GST) per dwelling at a levy of 16c per $100 of cover (capped at $480 + GST / $552.00 incl. GST per year), following $3.81B+ in insured losses from the 2023 Auckland Anniversary floods and Cyclone Gabrielle reported by ICNZ.",
+      "summary_text": "Under the Natural Hazards Insurance Act 2023, the Natural Hazards Commission Toka T\u016b Ake (NHC) provides statutory first-loss residential building cover up to $300,000 + GST (an HLF-calculated $345,000 incl. GST) per dwelling at a levy of 16c per $100 of cover (capped at $480 + GST / $552.00 incl. GST per year), following $3.8B+ in insured catastrophe losses from the 2023 North Island severe weather events.",
       "related_questions": [
         "How much does the Natural Hazards Commission (formerly EQC) cover on a New Zealand house?",
         "Could my home become harder or more expensive to insure due to flood or natural-hazard risk?",
         "Why is checking insurance availability essential before going unconditional on a property?"
       ],
       "citation_chain": {
-        "official_source": "Natural Hazards Commission Toka T\u016b Ake & Insurance Council of New Zealand",
-        "official_source_url": "https://www.naturalhazards.govt.nz/about-nhc/how-we-work/natural-hazard-fund/",
+        "official_source": "Natural Hazards Insurance Act 2023, NHC Toka T\u016b Ake & RBNZ Financial Stability Report",
+        "official_source_url": "https://www.legislation.govt.nz/act/public/2023/0001/latest/LMS487791.html",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/natural-hazard-claims/",
-        "hlf_article_title": "Could Your Home Become Uninsurable? Natural Hazards & Buying Property in NZ",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
-        "hlf_tool_title": "NZ Sale & Purchase Agreement Walkthrough (Insurance Clause)",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/nz-sale-and-purchase-agreement-walkthrough",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_title": "NZ Sale & Purchase Agreement Walkthrough",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/nz-sale-and-purchase-agreement-walkthrough"
       },
       "history": []
     },
     {
       "ticker": "new-build-lvr-exemption-flow",
       "name": "High-LVR mortgage lending channels supported by new-build & speed-limit exemptions",
-      "also_known_as": "RBNZ C31 high-LVR mover (>80% LVR) and investor (70%\u201380% LVR) lending volume",
+      "also_known_as": "RBNZ C31 high-LVR mover (>80% LVR) and investor (>70% LVR) lending volume",
       "category": "Housing supply & construction",
       "topic": "New-build LVR & DTI exemptions",
       "value": 715.0,
@@ -3998,6 +4004,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"High-LVR mortgage lending channels supported by new-build & speed-limit exemptions,\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/new-build-lvr-exemption-flow/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/new-build-lvr-exemption-flow/",
       "summary_text": "In September 2026, RBNZ Table C31 recorded an HLF-derived combined total of 1,296 non-FHB high-LVR loans ($715m) across existing owner-occupiers borrowing at &gt;80% LVR (769 loans / $378m) and property investors borrowing at &gt;70% LVR (527 loans / $337m).",
       "related_questions": [
@@ -4008,11 +4017,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/new-build-lvr-exemption-flow/",
-        "hlf_article_title": "How New-Build LVR & DTI Exemptions Work in New Zealand",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "Turnkey vs. Construction Loan Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/turnkey-vs-construction-loan-calculator-nz",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/turnkey-vs-construction-loan-calculator-nz"
       },
       "history": [
         {
@@ -4117,7 +4123,7 @@
       "source": "Stats NZ",
       "source_full": "Stats NZ \u2014 Building Consents Issued",
       "source_series_ids": "Stats NZ Building Consents Monthly Release",
-      "source_url": "https://www.stats.govt.nz/",
+      "source_url": "https://www.stats.govt.nz/topics/building/",
       "derived_by_hlf": false,
       "data_type": "Officially reported Stats NZ figures",
       "definition": "The total number of new residential dwellings consented across New Zealand over the trailing 12-month period and in the latest single month.",
@@ -4135,6 +4141,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Annual new residential dwellings consented in New Zealand,\" Year ended September 2026. Source: Stats NZ \u2014 Building Consents Issued. https://pulse-data.homeloanfactory.co.nz/new-builds-annual/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/new-builds-annual/",
       "summary_text": "In the 12 months ended September 2026, Stats NZ reported 41,091 new residential dwellings consented across New Zealand (up 18.0% year-on-year, with 3,570 dwellings consented in the month of September 2026).",
       "related_questions": [
@@ -4143,13 +4152,10 @@
       ],
       "citation_chain": {
         "official_source": "Stats NZ \u2014 Building Consents Issued",
-        "official_source_url": "https://www.stats.govt.nz/",
+        "official_source_url": "https://www.stats.govt.nz/topics/building/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/new-builds-annual/",
-        "hlf_article_title": "Guide to New-Build & Turnkey Construction Loans",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "New Build Construction Loan Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator"
       },
       "history": []
     },
@@ -4193,6 +4199,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Existing owner-occupiers approved at <=80% LVR (20% or more equity),\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C31. https://pulse-data.homeloanfactory.co.nz/owner-equity-buffer/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/owner-equity-buffer/",
       "summary_text": "In September 2026, RBNZ Table C31 recorded 14,327 of 15,096 existing ('other') owner-occupier mortgage approvals ($4.16B) at &le;80% LVR (corresponding to 20%+ security equity)\u2014an HLF-derived share of 94.9% and mean loan size of $290,082.",
       "related_questions": [
@@ -4203,11 +4212,8 @@
         "official_source": "Reserve Bank of New Zealand Table C31",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/owner-equity-buffer/",
-        "hlf_article_title": "How to Calculate & Use Your Usable Home Equity",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Usable Equity Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator"
       },
       "history": [
         {
@@ -4330,6 +4336,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Monthly mortgage refinancing (borrowers changing loan provider),\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C33. https://pulse-data.homeloanfactory.co.nz/refinance/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/refinance/",
       "summary_text": "In September 2026, RBNZ Table C33 recorded 2,772 borrowers changing loan provider and $1.73B in refinanced loans\u2014representing an HLF-derived 23.0% share of all new residential lending and a mean loan size of $624k.",
       "related_questions": [
@@ -4340,11 +4349,8 @@
         "official_source": "Reserve Bank of New Zealand Table C33",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/refinance/",
-        "hlf_article_title": "When Does Refinancing Your Mortgage Make Sense?",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Refinance & Cashback Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/refinance-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/refinance-calculator"
       },
       "history": [
         {
@@ -4449,10 +4455,10 @@
       "source": "Stats NZ",
       "source_full": "Stats NZ \u2014 Building Consents Issued (Regional Breakdown)",
       "source_series_ids": "Stats NZ Annual Dwelling Consents by Region",
-      "source_url": "https://www.stats.govt.nz/",
+      "source_url": "https://www.stats.govt.nz/topics/building/",
       "derived_by_hlf": true,
       "data_type": "Officially reported Stats NZ regional totals & HLF-derived national shares",
-      "definition": "Annual new residential dwelling consents issued across New Zealand's main regions (Auckland, Canterbury, Waikato, Wellington, Rest of North Island, and Rest of South Island), plus their year-on-year growth rates and share of national supply.",
+      "definition": "Annual new residential dwelling consents issued across New Zealand's main regions (Auckland, Canterbury, Waikato, Wellington, and Rest of New Zealand), plus their share of national supply.",
       "official_data": "Stats NZ Regional Building Consents (Year ended September 2026): Auckland = 17,131; Canterbury = 8,906; Waikato = 3,265; Wellington = 2,403; Rest of NZ = 9,386 (Total = 41,091).",
       "hlf_calculation": "AKL: 17,131\u00f741,091=41.7% | CANT: 8,906\u00f741,091=21.7% | WAIK: 3,265\u00f741,091=7.9% | WGTN: 2,403\u00f741,091=5.8%",
       "formula": "Regional Share = (Regional Annual Consents \u00f7 National Annual Consents) \u00d7 100",
@@ -4467,6 +4473,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Annual new residential building consents by major New Zealand region,\" Year ended September 2026. Derived by HLF from Stats NZ \u2014 Building Consents Issued (Regional Breakdown). https://pulse-data.homeloanfactory.co.nz/regional-building-consents/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/regional-building-consents/",
       "summary_text": "In the 12 months ended September 2026, New Zealand's 41,091 annual dwelling consents were led by Auckland (17,131 consents, or 41.7% of national supply) and Canterbury (8,906, or 21.7%), followed by Waikato (3,265, or 7.9%), Wellington (2,403, or 5.8%), and the rest of New Zealand (9,386, or 22.8%).",
       "related_questions": [
@@ -4475,13 +4484,10 @@
       ],
       "citation_chain": {
         "official_source": "Stats NZ \u2014 Building Consents Issued (Regional Breakdown)",
-        "official_source_url": "https://www.stats.govt.nz/",
+        "official_source_url": "https://www.stats.govt.nz/topics/building/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/regional-building-consents/",
-        "hlf_article_title": "Regional New-Build Supply & Construction Lending Guide",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "New Build Construction Loan Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator"
       },
       "history": [
         {
@@ -4541,7 +4547,7 @@
       "source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
       "derived_by_hlf": true,
       "data_type": "Officially reported historical medians & HLF-derived 5-year / 10-year CAGR",
-      "definition": "Cumulative percentage growth, dollar increase, and compound annual growth rate (CAGR) in national and regional median weekly private rents over the trailing 5-year and 10-year periods.",
+      "definition": "Cumulative percentage growth, dollar increase, and compound annual growth rate (CAGR) in national median weekly private rents over the trailing 5-year and 10-year periods.",
       "official_data": "MBIE Tenancy Services (August 2026): National median weekly rent = $595/wk (compared with $510/wk 5 years earlier and $390/wk 10 years earlier).",
       "hlf_calculation": "10Y: ($595 \u2212 $390) \u00f7 $390 = +52.6% (4.3%/yr CAGR) | 5Y: ($595 \u2212 $510) \u00f7 $510 = +16.7% (3.1%/yr CAGR)",
       "formula": "10Y Cumulative % = ((Rent_t \u2212 Rent_t-120) \u00f7 Rent_t-120) \u00d7 100; 10Y CAGR = ((Rent_t \u00f7 Rent_t-120)^(1/10) \u2212 1) \u00d7 100",
@@ -4556,6 +4562,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Long-term 5-year & 10-year New Zealand median weekly rent growth (cumulative & CAGR),\" August 2026. Derived by HLF from MBIE Tenancy Services \u2014 Rental Bond Data (Long-Term Series). https://pulse-data.homeloanfactory.co.nz/rent-long-term-growth/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rent-long-term-growth/",
       "summary_text": "Over the 10 years to August 2026, New Zealand's national median weekly private rent in MBIE Tenancy Services records rose by an HLF-derived +52.6% (+$205/wk, or 4.3%/yr compound) from $390/wk to $595/wk\u2014and by +16.7% (+$85/wk, or 3.1%/yr) over the past 5 years (up from $510/wk).",
       "related_questions": [
@@ -4566,11 +4575,8 @@
         "official_source": "MBIE Tenancy Services \u2014 Rental Bond Data (Long-Term Series)",
         "official_source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/rent-long-term-growth/",
-        "hlf_article_title": "Long-Term NZ Rent Growth vs Mortgage Repayments",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "Investment Property Cashflow Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator"
       },
       "history": [
         {
@@ -4681,6 +4687,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand weekly private rent distribution: lower quartile, median & upper quartile,\" August 2026. Derived by HLF from MBIE Tenancy Services \u2014 Rental Bond Data (Quartile Series). https://pulse-data.homeloanfactory.co.nz/rent-quartile-spread/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rent-quartile-spread/",
       "summary_text": "In August 2026, newly lodged New Zealand private tenancy bonds recorded a lower-quartile (25th percentile) rent of $500/wk, a national median of $595/wk, and an upper-quartile (75th percentile) rent of $700/wk\u2014an HLF-calculated interquartile spread of $200/wk ($10,400/yr).",
       "related_questions": [
@@ -4691,11 +4700,8 @@
         "official_source": "MBIE Tenancy Services \u2014 Rental Bond Data (Quartile Series)",
         "official_source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/rent-quartile-spread/",
-        "hlf_article_title": "NZ Rental Yield & Property Tier Guide",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "NZ Property Rental Yield Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator"
       },
       "history": [
         {
@@ -4758,6 +4764,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand national and regional median weekly private rent,\" August 2026. Derived by HLF from MBIE Tenancy Services \u2014 Rental Bond Data. https://pulse-data.homeloanfactory.co.nz/rent-yield-pulse/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rent-yield-pulse/",
       "summary_text": "In August 2026, MBIE Tenancy Services reported a national median weekly rent across newly lodged private tenancy bonds of $595/wk (up 0.8% on a year earlier, derived by HLF), with regional medians of $650/wk in Auckland, $580/wk in Wellington, and $550/wk in Canterbury.",
       "related_questions": [
@@ -4767,11 +4776,8 @@
         "official_source": "MBIE Tenancy Services \u2014 Rental Bond Data",
         "official_source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/rent-yield-pulse/",
-        "hlf_article_title": "Rental Yield & Cashflow Guide for NZ Investors",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "NZ Property Rental Yield Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator"
       },
       "history": [
         {
@@ -4894,6 +4900,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Monthly newly lodged and active private rental bonds in New Zealand,\" August 2026. Source: MBIE Tenancy Services \u2014 Rental Bond Data. https://pulse-data.homeloanfactory.co.nz/rental-bonds-supply/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rental-bonds-supply/",
       "summary_text": "In August 2026, MBIE Tenancy Services recorded 13,062 newly lodged private rental bonds and 522,942 active private rental bonds nationwide.",
       "related_questions": [
@@ -4903,11 +4912,8 @@
         "official_source": "MBIE Tenancy Services \u2014 Rental Bond Data",
         "official_source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/rental-bonds-supply/",
-        "hlf_article_title": "NZ Rental Market Supply & Investor Insights",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "Investment Property Cashflow Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator"
       },
       "history": [
         {
@@ -5030,6 +5036,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Annual net change in active private rental bonds & monthly tenancy turnover,\" August 2026. Derived by HLF from MBIE Tenancy Services \u2014 Rental Bond Data (Lodged, Closed & Active Bonds). https://pulse-data.homeloanfactory.co.nz/rental-turnover-net-stock/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rental-turnover-net-stock/",
       "summary_text": "Over the 12 months to August 2026, New Zealand's pool of active private rental bonds changed by an HLF-calculated +28,287 bonds (+5.7%) to 522,942 active bonds (compared with 494,655 a year earlier), with 13,062 bonds lodged and 11,256 bonds closed during August 2026 (a monthly net flow of +1,806 bonds).",
       "related_questions": [
@@ -5040,11 +5049,8 @@
         "official_source": "MBIE Tenancy Services \u2014 Rental Bond Data (Lodged, Closed & Active Bonds)",
         "official_source_url": "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/rental-turnover-net-stock/",
-        "hlf_article_title": "Is New Zealand's Private Rental Supply Growing or Shrinking?",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "Investment Property Cashflow Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator"
       },
       "history": [
         {
@@ -5131,7 +5137,7 @@
       "ticker": "residential-insurance-coverage",
       "name": "New Zealand residential dwelling insurance coverage & uninsured dwelling estimate",
       "also_known_as": "RBNZ Financial Stability Report residential insurance coverage & sum-insured gap",
-      "category": "Protection & Insurance Pulse",
+      "category": "Property & Natural Hazard Insurance",
       "topic": "Residential insurance coverage & underinsurance",
       "value": 97.0,
       "latest_value": "97.0% insured (~1,940,000 dwellings) | 3.0% uninsured (~60,000 dwellings)",
@@ -5167,6 +5173,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand residential dwelling insurance coverage & uninsured dwelling estimate,\" May 2026 RBNZ Financial Stability Report. Derived by HLF from Reserve Bank of New Zealand Financial Stability Report (May 2026) & Natural Hazards Commission. https://pulse-data.homeloanfactory.co.nz/residential-insurance-coverage/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/residential-insurance-coverage/",
       "summary_text": "In its May 2026 Financial Stability Report, the Reserve Bank of New Zealand estimated that approximately 60,000 of New Zealand's ~2,000,000 domestic residential dwellings had no building insurance cover\u2014representing an HLF-derived 3.0% uninsured share and 97.0% (~1,940,000 dwellings) insured across ~$1.5 trillion in residential sum insured.",
       "related_questions": [
@@ -5178,11 +5187,8 @@
         "official_source": "Reserve Bank of New Zealand Financial Stability Report (May 2026) & Natural Hazards Commission",
         "official_source_url": "https://www.rbnz.govt.nz/financial-stability/financial-stability-report",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/residential-insurance-coverage/",
-        "hlf_article_title": "Is Your House Insured for Enough to Rebuild It? Avoiding Underinsurance in NZ",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "New Build & Rebuild Cost Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator"
       },
       "history": []
     },
@@ -5226,6 +5232,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Weighted-average settled 1-year and 2-year fixed mortgage interest rates,\" September 2026. Source: Reserve Bank of New Zealand Table B30. https://pulse-data.homeloanfactory.co.nz/settled-rates/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/settled-rates/",
       "summary_text": "In September 2026, RBNZ Table B30 reported a dollar-weighted average settled fixed mortgage interest rate of 4.82% for 1-year terms and 5.09% for 2-year terms across New Zealand owner-occupiers.",
       "related_questions": [
@@ -5239,8 +5248,7 @@
         "hlf_article_title": "Why Fixed Mortgage Rates Don't Simply Follow the OCR",
         "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights/why-fixed-mortgage-rates-dont-follow-the-ocr-nz",
         "hlf_tool_title": "Compare NZ Mortgage Rates & Historical Tracker",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates"
       },
       "history": [
         {
@@ -5345,7 +5353,7 @@
       "source": "Stats NZ",
       "source_full": "Stats NZ \u2014 Building Consents Issued (All Dwelling Types)",
       "source_series_ids": "Stats NZ Monthly Consents by 4 Dwelling Categories",
-      "source_url": "https://www.stats.govt.nz/",
+      "source_url": "https://www.stats.govt.nz/topics/building/",
       "derived_by_hlf": true,
       "data_type": "Officially reported Stats NZ counts & HLF-derived category percentages",
       "definition": "Complete monthly breakdown of new residential dwelling consents across all four Stats NZ categories: stand-alone houses, townhouses/flats/units, apartments, and retirement village units.",
@@ -5363,6 +5371,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New dwelling consents breakdown: stand-alone houses, townhouses, apartments & retirement units,\" September 2026. Derived by HLF from Stats NZ \u2014 Building Consents Issued (All Dwelling Types). https://pulse-data.homeloanfactory.co.nz/standalone-vs-retirement-apartments/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/standalone-vs-retirement-apartments/",
       "summary_text": "In September 2026, New Zealand's 3,570 newly consented dwellings comprised 1,733 stand-alone houses (48.5%), 1,305 townhouses, flats, and units (36.6%), 411 apartments (11.5%), and 121 retirement village units (3.4%).",
       "related_questions": [
@@ -5371,13 +5382,10 @@
       ],
       "citation_chain": {
         "official_source": "Stats NZ \u2014 Building Consents Issued (All Dwelling Types)",
-        "official_source_url": "https://www.stats.govt.nz/",
+        "official_source_url": "https://www.stats.govt.nz/topics/building/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/standalone-vs-retirement-apartments/",
-        "hlf_article_title": "Buying an Apartment vs a Townhouse or Stand-Alone Home in NZ",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "Turnkey vs. Construction Loan Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/turnkey-vs-construction-loan-calculator-nz",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/turnkey-vs-construction-loan-calculator-nz"
       },
       "history": [
         {
@@ -5446,6 +5454,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand median student loan balance,\" June 2026. Derived by HLF from Inland Revenue \u2014 Student Loan Scheme Statistics. https://pulse-data.homeloanfactory.co.nz/student-loan-servicing/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/student-loan-servicing/",
       "summary_text": "In Inland Revenue's June 2026 Student Loan Scheme statistics, the median New Zealand student loan borrower balance was $18,301 (up 4.5% on a year earlier from $17,516 in June 2025).",
       "related_questions": [
@@ -5456,11 +5467,8 @@
         "official_source": "Inland Revenue \u2014 Student Loan Scheme Statistics",
         "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/statistics-on-the-student-loan-scheme/statistics-on-student-loan-balances",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/student-loan-servicing/",
-        "hlf_article_title": "How Student Loans Impact Your Mortgage Borrowing Power",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Borrowing Power Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
       "history": []
     },
@@ -5504,6 +5512,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Monthly mortgage top-ups on existing properties (borrower share & average top-up),\" September 2026. Derived by HLF from Reserve Bank of New Zealand Table C33. https://pulse-data.homeloanfactory.co.nz/top-ups/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/top-ups/",
       "summary_text": "In September 2026, RBNZ Table C33 recorded 9,639 borrowers approved for a mortgage top-up on an existing property\u2014an HLF-derived 46.4% share of all mortgage approvals by count and a mean top-up of $100k.",
       "related_questions": [
@@ -5514,11 +5525,8 @@
         "official_source": "Reserve Bank of New Zealand Table C33",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/top-ups/",
-        "hlf_article_title": "How Mortgage Top-Ups Work for Renovations & Upgrades",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Usable Equity Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator"
       },
       "history": [
         {
@@ -5623,7 +5631,7 @@
       "source": "Stats NZ",
       "source_full": "Stats NZ \u2014 Building Consents Issued",
       "source_series_ids": "Stats NZ Dwelling Type Breakdown",
-      "source_url": "https://www.stats.govt.nz/",
+      "source_url": "https://www.stats.govt.nz/topics/building/",
       "derived_by_hlf": true,
       "data_type": "Officially reported counts & HLF-derived multi-unit and townhouse/flat/unit shares",
       "definition": "The HLF-derived percentage of new residential building consents in New Zealand issued for multi-unit/non-standalone dwellings overall (townhouses, flats, units, apartments, and retirement village units), alongside the specific share for townhouses, flats, and units.",
@@ -5641,6 +5649,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Multi-unit share of new residential building consents,\" September 2026. Derived by HLF from Stats NZ \u2014 Building Consents Issued. https://pulse-data.homeloanfactory.co.nz/townhouse-share/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/townhouse-share/",
       "summary_text": "In September 2026, an HLF-derived 51.5% (1,837 of 3,570) of new residential dwelling consents were for multi-unit/non-standalone dwellings (including townhouses, flats, units, apartments, and retirement village units)\u2014with townhouses, flats, and units specifically accounting for 36.6% (1,305 of 3,570) and apartments plus retirement village units accounting for 14.9% (532).",
       "related_questions": [
@@ -5649,13 +5660,10 @@
       ],
       "citation_chain": {
         "official_source": "Stats NZ \u2014 Building Consents Issued",
-        "official_source_url": "https://www.stats.govt.nz/",
+        "official_source_url": "https://www.stats.govt.nz/topics/building/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/townhouse-share/",
-        "hlf_article_title": "Turnkey vs Construction Loans for Townhouses & New Builds",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "Turnkey vs. Construction Loan Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/turnkey-vs-construction-loan-calculator-nz",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/turnkey-vs-construction-loan-calculator-nz"
       },
       "history": [],
       "townhouse_flat_unit_share_pct": 36.6
@@ -5664,7 +5672,7 @@
       "ticker": "vehicle-insurance-inflation",
       "name": "Vehicle insurance annual price inflation (Stats NZ CPI)",
       "also_known_as": "Motor vehicle insurance CPI price movement / Car insurance inflation NZ",
-      "category": "Protection & Insurance Pulse",
+      "category": "Property & Natural Hazard Insurance",
       "topic": "Motor vehicle insurance pricing",
       "value": 8.8,
       "latest_value": "+8.8% YoY (Vehicle insurance CPI index)",
@@ -5700,6 +5708,9 @@
       "publisher": "HLF (Home Loan Factory)",
       "publisher_legal_name": "HLF Financial Limited (FSP1008571)",
       "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Vehicle insurance annual price inflation (Stats NZ CPI),\" September 2026 quarter. Source: Stats NZ \u2014 Consumers Price Index (Vehicle Insurance Sub-Index). https://pulse-data.homeloanfactory.co.nz/vehicle-insurance-inflation/ (checked 10 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/vehicle-insurance-inflation/",
       "summary_text": "In the September 2026 quarter, Stats NZ's Consumers Price Index recorded a +8.8% annual increase in the motor vehicle insurance price index\u2014sitting +5.1 percentage points above headline CPI (+3.7%).",
       "related_questions": [
@@ -5710,11 +5721,8 @@
         "official_source": "Stats NZ \u2014 Consumers Price Index (Vehicle Insurance Sub-Index)",
         "official_source_url": "https://www.stats.govt.nz/indicators/consumers-price-index-cpi/",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/vehicle-insurance-inflation/",
-        "hlf_article_title": "Managing Household Fixed Expenses When Applying for a Mortgage",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights",
         "hlf_tool_title": "HLF Borrowing Power Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact"
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
       "history": [
         {
