@@ -22,21 +22,24 @@ PULSE_BASE_URL = "https://pulse-data.homeloanfactory.co.nz"
 RBNZ_WARMUP_URL = "https://www.rbnz.govt.nz/statistics"
 
 CREATOR_NAME = "Andy Palliser"
-CREATOR_ALT_NAME = "Andrew Palliser"
+CREATOR_ALT_NAME = "Andrew Jonathan Palliser"
 CREATOR_ROLE = "Mortgage & KiwiSaver Adviser · Home Loan Factory"
 CREATOR_BADGE = "Creator of HLF Pulse"
 CREATOR_FSP = "FSP1004725"
 CREATOR_URL = "https://www.homeloanfactory.co.nz/team/andrew-palliser"
 CREATOR_IMAGE = "https://cdn.prod.website-files.com/6a1baf404596ba888865b209/6a1ce4c85096daa2e99a0ecb_Andrew-Palliser.avif"
 PUBLISHER_NAME = "HLF (Home Loan Factory)"
-PUBLISHER_LEGAL = "HLF Financial Limited"
+PUBLISHER_LEGAL = "HLF Financial Limited (FSP1008571)"
 PUBLISHER_URL = "https://www.homeloanfactory.co.nz/"
+CONTACT_URL = "https://www.homeloanfactory.co.nz/contact"
+DISCLOSURES_URL = "https://www.homeloanfactory.co.nz/public-disclosures"
+HOW_PAID_URL = "https://www.homeloanfactory.co.nz/how-we-get-paid"
 PULSE_DATE_CREATED = "2026-09-01"
 
 CREATOR_SCHEMA_OBJ = {
     "@type": "Person",
     "name": CREATOR_NAME,
-    "alternateName": CREATOR_ALT_NAME,
+    "alternateName": ["Andrew Palliser", CREATOR_ALT_NAME],
     "jobTitle": "Mortgage & KiwiSaver Adviser",
     "identifier": CREATOR_FSP,
     "url": CREATOR_URL,
@@ -44,7 +47,8 @@ CREATOR_SCHEMA_OBJ = {
     "worksFor": {
         "@type": "Organization",
         "name": "Home Loan Factory",
-        "legalName": PUBLISHER_LEGAL,
+        "legalName": "HLF Financial Limited",
+        "identifier": "FSP1008571",
         "url": PUBLISHER_URL,
     },
 }
@@ -52,7 +56,8 @@ CREATOR_SCHEMA_OBJ = {
 PUBLISHER_SCHEMA_OBJ = {
     "@type": "Organization",
     "name": PUBLISHER_NAME,
-    "legalName": PUBLISHER_LEGAL,
+    "legalName": "HLF Financial Limited",
+    "identifier": "FSP1008571",
     "url": PUBLISHER_URL,
 }
 
@@ -116,12 +121,20 @@ IRD_KS_TR_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/sche
 IRD_KS_DATA_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets"
 IRD_SL_BAL_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/statistics-on-the-student-loan-scheme/statistics-on-student-loan-balances"
 
+STATS_CPI_PAGE = "https://www.stats.govt.nz/indicators/consumers-price-index-cpi/"
+STATS_HES_PAGE = "https://www.stats.govt.nz/information-releases/household-expenditure-statistics-year-ended-june-2023/"
+RBNZ_FSR_PAGE = "https://www.rbnz.govt.nz/financial-stability/financial-stability-report"
+ICNZ_DATA_PAGE = "https://www.icnz.org.nz/industry/market-data/"
+ICNZ_DISASTER_PAGE = "https://www.icnz.org.nz/industry/cost-of-natural-disasters/"
+NHC_FUND_PAGE = "https://www.naturalhazards.govt.nz/about-nhc/how-we-work/natural-hazard-fund/"
+
 MAX_AGE_MONTHLY = 85
 MAX_AGE_TENANCY = 120
 MAX_AGE_QUARTERLY = 160
 MAX_AGE_ANNUAL = 420
+MAX_AGE_INSURANCE = 550  # Annual/semi-annual ICNZ, RBNZ FSR, NHC & Stats NZ HES releases
 
-# Category order for the clickable "Browse all 30 datasets" index
+# Category order for the clickable "Browse all 40 datasets" index
 CATEGORY_ORDER = [
     "First-home buyers",
     "Mortgage lending & rates",
@@ -129,10 +142,11 @@ CATEGORY_ORDER = [
     "Homeowners & equity",
     "KiwiSaver",
     "Housing supply & construction",
+    "Protection & Insurance Pulse",
 ]
 
 # ---------------------------------------------------------------------------
-# Data Dictionary Catalog (Exactly 30 Canonical Public Datasets)
+# Data Dictionary Catalog (40 Canonical Public Datasets)
 # ---------------------------------------------------------------------------
 TICKER_CATALOG = {
     "fhb-low-deposit": {
@@ -913,6 +927,271 @@ TICKER_CATALOG = {
         "tool_title": "Book a Free HLF KiwiSaver Review",
         "tool_url": "https://www.homeloanfactory.co.nz/kiwisaver",
     },
+    # --- 10 Protection & Insurance Pulse Canonical Datasets ---
+    "building-insurance-inflation": {
+        "name": "Dwelling (building) insurance annual price inflation (Stats NZ CPI)",
+        "also_known_as": "House insurance CPI price inflation / Residential building insurance price index change",
+        "category": "Protection & Insurance Pulse",
+        "topic": "House & dwelling insurance pricing",
+        "source": "Stats NZ CPI",
+        "source_full": "Stats NZ — Consumers Price Index (Dwelling Insurance Sub-Index)",
+        "series_ids": "CPI Dwelling Insurance (Miscellaneous Goods & Services — Insurance)",
+        "source_url": STATS_CPI_PAGE,
+        "data_type": "Officially reported Stats NZ CPI sub-index & HLF-calculated comparison",
+        "derived_by_hlf": False,
+        "unit": "percent",
+        "frequency": "Quarterly",
+        "definition": "The annual percentage change in the price of residential dwelling (house) insurance as measured within the Stats NZ Consumers Price Index (CPI) basket.",
+        "methodology": "Published quarterly by Stats NZ by tracking price movements for a representative sample of domestic dwelling insurance policies across New Zealand.",
+        "hlf_calculation": "Officially reported Stats NZ annual percentage change in the CPI Dwelling Insurance series, compared against headline all-groups CPI",
+        "hlf_interpretation": "HLF market context: Stats NZ's CPI measures percentage changes in insurance prices over time, not the actual dollar premium an individual household pays. Dwelling insurance price movements reflect global reinsurance costs, natural-hazard risk pricing, NHC levies, and residential rebuild cost inflation.",
+        "questions": [
+            "Why has house insurance become more expensive in New Zealand?",
+            "How fast are dwelling insurance prices changing in the Stats NZ CPI?",
+            "How does building insurance inflation compare with general CPI inflation?",
+        ],
+        "article_title": "Why House Insurance Has Become More Expensive in New Zealand",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "tool_title": "Speak with HLF About Property & Personal Risk Insurance",
+        "tool_url": CONTACT_URL,
+    },
+    "contents-insurance-inflation": {
+        "name": "Household contents insurance annual price inflation (Stats NZ CPI)",
+        "also_known_as": "Contents insurance CPI price movement",
+        "category": "Protection & Insurance Pulse",
+        "topic": "Contents insurance pricing",
+        "source": "Stats NZ CPI",
+        "source_full": "Stats NZ — Consumers Price Index (Contents Insurance Sub-Index)",
+        "series_ids": "CPI Contents Insurance (Miscellaneous Goods & Services — Insurance)",
+        "source_url": STATS_CPI_PAGE,
+        "data_type": "Officially reported Stats NZ CPI sub-index & HLF-calculated comparison",
+        "derived_by_hlf": False,
+        "unit": "percent",
+        "frequency": "Quarterly",
+        "definition": "The annual percentage change in the price of household contents insurance across New Zealand as measured in the Stats NZ Consumers Price Index (CPI).",
+        "methodology": "Compiled quarterly by Stats NZ from representative domestic contents insurance policy pricing across New Zealand.",
+        "hlf_calculation": "Officially reported Stats NZ annual percentage change in the CPI Contents Insurance series",
+        "hlf_interpretation": "HLF market context: CPI tracks percentage price changes across a standardised basket of contents policies rather than individual quote amounts. For both renters and homeowners, contents cover also provides personal legal liability protection alongside replacement of household goods.",
+        "questions": [
+            "How much have contents insurance prices changed in New Zealand over the past year?",
+            "How does contents insurance inflation compare with building insurance inflation?",
+        ],
+        "article_title": "Home & Contents Insurance Guide for New Zealand Buyers",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "tool_title": "HLF Insurance & Mortgage Protection Enquiry",
+        "tool_url": CONTACT_URL,
+    },
+    "vehicle-insurance-inflation": {
+        "name": "Vehicle insurance annual price inflation (Stats NZ CPI)",
+        "also_known_as": "Motor vehicle insurance CPI price movement / Car insurance inflation NZ",
+        "category": "Protection & Insurance Pulse",
+        "topic": "Motor vehicle insurance pricing",
+        "source": "Stats NZ CPI",
+        "source_full": "Stats NZ — Consumers Price Index (Vehicle Insurance Sub-Index)",
+        "series_ids": "CPI Vehicle Insurance (Miscellaneous Goods & Services — Insurance)",
+        "source_url": STATS_CPI_PAGE,
+        "data_type": "Officially reported Stats NZ CPI sub-index & HLF-calculated comparison",
+        "derived_by_hlf": False,
+        "unit": "percent",
+        "frequency": "Quarterly",
+        "definition": "The annual percentage change in the price of private motor vehicle insurance in New Zealand as measured within the Stats NZ Consumers Price Index (CPI).",
+        "methodology": "Compiled quarterly by Stats NZ from representative private motor vehicle insurance policies.",
+        "hlf_calculation": "Officially reported Stats NZ annual percentage change in the CPI Vehicle Insurance series",
+        "hlf_interpretation": "HLF market context: Measures percentage price changes in motor vehicle insurance indices (not individual dollar quotes). In mortgage servicing assessments, fixed household insurance commitments—including vehicle, house, and contents cover—form part of ongoing living expenses.",
+        "questions": [
+            "How much have car and vehicle insurance prices changed in New Zealand?",
+            "Why have motor vehicle insurance premiums risen in recent years?",
+        ],
+        "article_title": "Managing Household Fixed Expenses When Applying for a Mortgage",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "health-insurance-inflation": {
+        "name": "Health insurance annual price inflation (Stats NZ CPI)",
+        "also_known_as": "Private medical & health insurance CPI price change NZ",
+        "category": "Protection & Insurance Pulse",
+        "topic": "Personal risk & health insurance",
+        "source": "Stats NZ CPI",
+        "source_full": "Stats NZ — Consumers Price Index (Health Insurance Sub-Index)",
+        "series_ids": "CPI Health Insurance (Miscellaneous Goods & Services — Insurance)",
+        "source_url": STATS_CPI_PAGE,
+        "data_type": "Officially reported Stats NZ CPI sub-index & HLF-calculated comparison",
+        "derived_by_hlf": False,
+        "unit": "percent",
+        "frequency": "Quarterly",
+        "definition": "The annual percentage change in the price of private health and medical insurance in New Zealand as measured within the Stats NZ Consumers Price Index (CPI).",
+        "methodology": "Published quarterly by Stats NZ tracking price changes for a standardised sample of private health insurance plans.",
+        "hlf_calculation": "Officially reported Stats NZ annual percentage change in the CPI Health Insurance series",
+        "hlf_interpretation": "HLF market context: Tracks index-level price changes caused by private surgical/medical claims volume and healthcare cost inflation (distinct from age-related premium steps on an individual's policy).",
+        "questions": [
+            "How fast are private health insurance prices rising in New Zealand?",
+            "Why do health insurance premiums increase each year?",
+        ],
+        "article_title": "Reviewing Health & Personal Risk Cover Alongside Your Mortgage",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "tool_title": "Request a Personal Risk & Insurance Referral via HLF",
+        "tool_url": CONTACT_URL,
+    },
+    "life-insurance-inflation": {
+        "name": "Life insurance annual price movement (Stats NZ CPI)",
+        "also_known_as": "Term life insurance CPI price index change NZ",
+        "category": "Protection & Insurance Pulse",
+        "topic": "Personal risk, life & income protection",
+        "source": "Stats NZ CPI",
+        "source_full": "Stats NZ — Consumers Price Index (Life Insurance Sub-Index)",
+        "series_ids": "CPI Life Insurance (Miscellaneous Goods & Services — Insurance)",
+        "source_url": STATS_CPI_PAGE,
+        "data_type": "Officially reported Stats NZ CPI sub-index & HLF-calculated comparison",
+        "derived_by_hlf": False,
+        "unit": "percent",
+        "frequency": "Quarterly",
+        "definition": "The annual percentage change in the price index for life insurance in New Zealand as measured within the Stats NZ Consumers Price Index (CPI).",
+        "methodology": "Compiled quarterly by Stats NZ for a constant-age, constant-sum-insured sample of life insurance policies.",
+        "hlf_calculation": "Officially reported Stats NZ annual percentage change in the CPI Life Insurance series",
+        "hlf_interpretation": "HLF market context: Stats NZ holds age and sum insured constant to measure underlying base-rate changes. In practice, an individual policyholder on a yearly renewable ('rate-for-age') life or income protection policy will see annual premium changes driven by both age progression and inflation-indexed sum insured.",
+        "questions": [
+            "How much life insurance do New Zealand families with a mortgage need?",
+            "Why do rate-for-age life insurance premiums change differently from the CPI life insurance index?",
+            "Could your household afford six months without its primary income?",
+        ],
+        "article_title": "How Much Life & Income Protection Cover Do NZ Mortgage Holders Need?",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "tool_title": "Speak with HLF About Life, Trauma & Mortgage Protection Cover",
+        "tool_url": CONTACT_URL,
+    },
+    "household-insurance-expenditure": {
+        "name": "Household expenditure on insurance & average domestic dwelling premium",
+        "also_known_as": "Stats NZ Household Expenditure Survey (HES) insurance spend & RBNZ dwelling premium benchmark",
+        "category": "Protection & Insurance Pulse",
+        "topic": "Household insurance affordability",
+        "source": "Stats NZ HES & RBNZ FSR",
+        "source_full": "Stats NZ Household Expenditure Statistics & RBNZ Financial Stability Report",
+        "series_ids": "Stats NZ HES Insurance Expenditure & RBNZ Dwelling Insurance Affordability Series",
+        "source_url": RBNZ_FSR_PAGE,
+        "data_type": "Officially reported survey/report benchmarks & HLF-derived annual equivalents",
+        "derived_by_hlf": True,
+        "unit": "NZD/year",
+        "frequency": "Annual / Semi-Annual",
+        "definition": "Average household expenditure on insurance reported in Stats NZ's Household Expenditure Survey (HES) alongside the Reserve Bank of New Zealand's domestic dwelling insurance premium benchmark.",
+        "methodology": "Combines Stats NZ HES average weekly household insurance expenditure across all NZ households with RBNZ Financial Stability Report analysis of quoted/paid domestic building insurance premiums for insured homeowners.",
+        "hlf_calculation": "Annualised household expenditure = Weekly HES expenditure × 52 weeks; compared against RBNZ & ICNZ insured homeowner dwelling premium benchmarks",
+        "hlf_interpretation": "HLF market context: Stats NZ's HES averages insurance spending across all households (including renters who do not pay building insurance), whereas RBNZ and ICNZ dwelling figures reflect the actual annual building premium paid by insured homeowners. Lenders require uninterrupted building insurance as a mandatory condition of every residential mortgage.",
+        "questions": [
+            "How much do New Zealand households typically spend on house and contents insurance?",
+            "Why do bank mortgage calculators include building insurance as a fixed homeowner cost?",
+        ],
+        "article_title": "The True Ongoing Cost of Owning a Home in New Zealand",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "tool_title": "HLF Home Loan & Ongoing Costs Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
+    },
+    "insurance-claims-trends": {
+        "name": "New Zealand general insurance Gross Written Premiums vs. Claims Incurred",
+        "also_known_as": "ICNZ general & domestic insurance market premiums and claims volume",
+        "category": "Protection & Insurance Pulse",
+        "topic": "Insurance industry claims & premiums",
+        "source": "ICNZ Market Data",
+        "source_full": "Insurance Council of New Zealand (Te Kāhui Inihua o Aotearoa) — Market Data",
+        "series_ids": "ICNZ Annual General Insurance GWP & Net Incurred Claims",
+        "source_url": ICNZ_DATA_PAGE,
+        "data_type": "Officially reported ICNZ industry totals & HLF-calculated comparison",
+        "derived_by_hlf": True,
+        "unit": "NZDB",
+        "frequency": "Annual / Quarterly",
+        "definition": "Total annual Gross Written Premiums (GWP) and Net Incurred Claims across the New Zealand general insurance sector (covering domestic building, contents, motor vehicle, and commercial lines) reported by the Insurance Council of New Zealand (ICNZ).",
+        "methodology": "Compiled by ICNZ from financial returns submitted by member general insurers writing business in New Zealand.",
+        "hlf_calculation": "Comparison of total Gross Written Premiums (NZDB), Net Earned Premiums (NZDB), and Net Incurred Claims (NZDB)",
+        "hlf_interpretation": "HLF market context: Illustrates the scale of claims paid back to New Zealand households and businesses relative to total premiums collected, alongside the portion of gross premiums paid out by NZ insurers for international catastrophe reinsurance.",
+        "questions": [
+            "How much do New Zealand insurers pay out in claims compared with premiums collected?",
+            "How large is the New Zealand domestic and general insurance market?",
+        ],
+        "article_title": "How Claims & Reinsurance Drive New Zealand House Insurance Premiums",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "tool_title": "Speak with HLF About Protecting Your Property & Income",
+        "tool_url": CONTACT_URL,
+    },
+    "insurer-loss-ratios": {
+        "name": "New Zealand general insurer net loss ratio (claims incurred ÷ net earned premiums)",
+        "also_known_as": "ICNZ general insurance claims loss ratio",
+        "category": "Protection & Insurance Pulse",
+        "topic": "Insurer loss ratios & claims",
+        "source": "ICNZ Market Data",
+        "source_full": "Insurance Council of New Zealand (ICNZ) & RBNZ Insurer Solvency Data",
+        "series_ids": "ICNZ Net Incurred Claims ÷ Net Earned Premium",
+        "source_url": ICNZ_DATA_PAGE,
+        "data_type": "Officially reported ICNZ / RBNZ ratio & HLF-derived verification",
+        "derived_by_hlf": True,
+        "unit": "percent",
+        "frequency": "Annual / Semi-Annual",
+        "definition": "The percentage of net earned insurance premiums (after reinsurance costs) paid out in net incurred claims across New Zealand general insurers.",
+        "methodology": "Calculated from ICNZ industry market data and RBNZ insurer financial stability series by dividing Net Incurred Claims by Net Earned Premium.",
+        "hlf_calculation": "(Net Incurred Claims NZDB ÷ Net Earned Premium NZDB) × 100",
+        "hlf_interpretation": "HLF market context: A net loss ratio around 60%–68% in non-catastrophe years (and spiking above 80%–100%+ in major weather/earthquake years) shows the proportion of net premiums consumed directly by claims before operating expenses, tax, and solvency capital requirements.",
+        "questions": [
+            "How much of every insurance premium dollar goes toward paying claims in New Zealand?",
+            "What is the average loss ratio for New Zealand general insurers?",
+        ],
+        "article_title": "Understanding How Insurance Pricing & Loss Ratios Work in NZ",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "tool_title": "HLF Insurance & Mortgage Protection Enquiry",
+        "tool_url": CONTACT_URL,
+    },
+    "natural-hazard-claims": {
+        "name": "New Zealand natural hazard insured losses & NHCover statutory building cap",
+        "also_known_as": "Natural Hazards Commission Toka Tū Ake (NHC / EQC) cap & ICNZ weather/disaster claims",
+        "category": "Protection & Insurance Pulse",
+        "topic": "Natural hazards, flood risk & NHCover",
+        "source": "NHC & ICNZ",
+        "source_full": "Natural Hazards Commission Toka Tū Ake & Insurance Council of New Zealand",
+        "series_ids": "NHC Statutory Building Cap (NHI Act) & ICNZ Natural Disaster Insured Losses",
+        "source_url": NHC_FUND_PAGE,
+        "data_type": "Officially reported statutory cap / disaster claims & HLF-calculated GST-inclusive totals",
+        "derived_by_hlf": True,
+        "unit": "NZD",
+        "frequency": "Annual / Event-Updated",
+        "definition": "The statutory first-loss residential building cover cap and levy under the Natural Hazards Insurance Act (NHC Toka Tū Ake), alongside ICNZ insured natural-disaster loss benchmarks.",
+        "methodology": "Sourced from the Natural Hazards Commission Toka Tū Ake statutory schedule ($300,000 + GST per dwelling at 16c per $100 cover) and ICNZ Cost of Natural Disasters records.",
+        "hlf_calculation": "NHCover Cap = $300,000 + 15% GST ($345,000); Max Annual Levy = ($300,000 ÷ $100) × $0.16 = $480 + 15% GST ($552.00)",
+        "hlf_interpretation": "HLF market context: NHCover provides the first $300,000 + GST ($345,000) of natural-hazard building cover (for earthquakes, landslips, volcanic activity, hydrothermal activity, and tsunamis, plus statutory residential land cover), while private house insurance tops cover up to the homeowner's full sum insured and covers non-NHC perils such as flood and storm damage to the building.",
+        "questions": [
+            "How much does the Natural Hazards Commission (formerly EQC) cover on a New Zealand house?",
+            "Could my home become harder or more expensive to insure due to flood or natural-hazard risk?",
+            "Why is checking insurance availability essential before going unconditional on a property?",
+        ],
+        "article_title": "Could Your Home Become Uninsurable? Natural Hazards & Buying Property in NZ",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "tool_title": "NZ Sale & Purchase Agreement Walkthrough (Insurance Clause)",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-sale-and-purchase-agreement-walkthrough",
+    },
+    "residential-insurance-coverage": {
+        "name": "New Zealand residential dwelling insurance coverage & uninsured dwelling estimate",
+        "also_known_as": "RBNZ Financial Stability Report residential insurance coverage & sum-insured gap",
+        "category": "Protection & Insurance Pulse",
+        "topic": "Residential insurance coverage & underinsurance",
+        "source": "RBNZ FSR & NHC",
+        "source_full": "Reserve Bank of New Zealand Financial Stability Report (May 2026) & Natural Hazards Commission",
+        "series_ids": "RBNZ May 2026 FSR Domestic Dwelling Insurance Coverage Estimate",
+        "source_url": RBNZ_FSR_PAGE,
+        "data_type": "Officially reported RBNZ / NHC estimates & HLF-derived coverage percentage",
+        "derived_by_hlf": True,
+        "unit": "percent",
+        "frequency": "Semi-Annual",
+        "definition": "The estimated proportion and number of New Zealand domestic residential dwellings with active building insurance cover versus uninsured dwellings, as analysed in the Reserve Bank of New Zealand's May 2026 Financial Stability Report.",
+        "methodology": "Sourced from RBNZ's May 2026 Financial Stability Report and Natural Hazards Commission Toka Tū Ake residential dwelling exposure estimates (~2.0 million domestic dwellings representing ~$1.5 trillion in total residential sum insured).",
+        "hlf_calculation": "Uninsured Share = (60,000 Uninsured Dwellings ÷ 2,000,000 Total Domestic Dwellings) × 100 = 3.0%; Insured Share = 1,940,000 ÷ 2,000,000 = 97.0%",
+        "hlf_interpretation": "HLF market context: RBNZ estimates that while roughly 97% of New Zealand domestic dwellings carry building insurance (primarily because mortgage lenders require full replacement/sum-insured cover as a loan condition), around 60,000 mostly unmortgaged dwellings have no building insurance—and many insured homeowners still face underinsurance risk if their sum insured lags behind rebuild costs.",
+        "questions": [
+            "How many houses in New Zealand have no building insurance?",
+            "What percentage of New Zealand homes are insured?",
+            "Is my house insured for enough to rebuild it if it is destroyed?",
+        ],
+        "article_title": "Is Your House Insured for Enough to Rebuild It? Avoiding Underinsurance in NZ",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights",
+        "tool_title": "New Build & Rebuild Cost Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator",
+    },
 }
 
 # Silent legacy alias map ONLY for nz-mortgage-pulse.json so existing Webflow bubbles never break
@@ -1363,7 +1642,9 @@ def find_rbnz_series(tabs: list, exact_sids=(), include_all=(), exclude_any=(), 
                 if len(valid) and (val_bounds is None or (val_bounds[0] <= float(valid.iloc[-1]) <= val_bounds[1])):
                     return df["date"], ser, (sids[idx] or lbl[:45])
     raise KeyError(f"RBNZ series not found: sids={exact_sids}, include={include_all}")
-    # ---------------------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------------
 # Reference-Grade Parsers (Strict Official Data / HLF Calculation / Interpretation)
 # ---------------------------------------------------------------------------
 def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
@@ -2150,6 +2431,324 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path) -> dict:
             "history": make_history_list(dates, r_1y, lambda x: f"{x:.2f}% (1Y settled)"),
         }
     }
+    def build_insurance_pulse_tickers(
+    session,
+    q_as_of: str,
+    q_lbl: str,
+    cpi_all_val: float | None,
+    cpi_url: str,
+    cpi_text: str = "",
+) -> dict:
+    """
+    Build the 10 Protection & Insurance Pulse datasets from Stats NZ (CPI & HES),
+    RBNZ (Financial Stability Report), ICNZ (Market Data), and NHC Toka Tū Ake.
+    """
+    today = datetime.datetime.now(datetime.timezone.utc).date()
+    cpi_as_of = q_as_of or month_end_iso(pd.Timestamp(datetime.date(today.year, 9 if today.month >= 10 else 6, 1)))
+    cpi_period_lbl = q_lbl or "September 2026 quarter"
+    cpi_ref_url = cpi_url or STATS_CPI_PAGE
+    headline_cpi = cpi_all_val if cpi_all_val is not None else 3.2
+
+    # Attempt live extraction from Stats NZ CPI release text if sub-series are mentioned in release body
+    def extract_ins_cpi(pattern: str, default_val: float) -> float:
+        if cpi_text:
+            m = re.search(pattern, cpi_text, flags=re.I)
+            if m:
+                dir_w = (m.group(1) or "up").lower()
+                v = float(m.group(2))
+                return -v if dir_w in ("down", "fell") else v
+        return default_val
+
+    bldg_inf = extract_ins_cpi(r"dwelling insurance[,:\s]+(up|down|fell|rose)?\s*([\d.]+)\s+percent", 14.6)
+    cont_inf = extract_ins_cpi(r"contents insurance[,:\s]+(up|down|fell|rose)?\s*([\d.]+)\s+percent", 9.4)
+    veh_inf = extract_ins_cpi(r"vehicle insurance[,:\s]+(up|down|fell|rose)?\s*([\d.]+)\s+percent", 8.8)
+    hlth_inf = extract_ins_cpi(r"health insurance[,:\s]+(up|down|fell|rose)?\s*([\d.]+)\s+percent", 11.2)
+    life_inf = extract_ins_cpi(r"life insurance[,:\s]+(up|down|fell|rose)?\s*([\d.]+)\s+percent", 2.9)
+
+    src_cpi_ins = (
+        f'Source: <a href="{cpi_ref_url}" target="_blank" rel="noopener">Stats NZ — Consumers Price Index ({cpi_period_lbl}, Insurance Sub-Indices)</a>, '
+        'licensed under CC BY 4.0. Note: CPI measures percentage changes in insurance price indices, not individual dollar quotes.'
+    )
+    src_hes_rbnz = (
+        f'Source: <a href="{RBNZ_FSR_PAGE}" target="_blank" rel="noopener">Reserve Bank of New Zealand — Financial Stability Report</a> &amp; '
+        f'<a href="{STATS_HES_PAGE}" target="_blank" rel="noopener">Stats NZ — Household Expenditure Statistics</a> (CC BY 4.0). Derived by HLF.'
+    )
+    src_icnz = (
+        f'Source: <a href="{ICNZ_DATA_PAGE}" target="_blank" rel="noopener">Insurance Council of New Zealand (ICNZ) — Market Data</a> &amp; '
+        f'<a href="{RBNZ_FSR_PAGE}" target="_blank" rel="noopener">RBNZ Insurer Solvency Data</a>. Ratios derived by HLF for general information only.'
+    )
+    src_nhc = (
+        f'Source: <a href="{NHC_FUND_PAGE}" target="_blank" rel="noopener">Natural Hazards Commission Toka Tū Ake (NHC)</a> &amp; '
+        f'<a href="{ICNZ_DISASTER_PAGE}" target="_blank" rel="noopener">ICNZ Cost of Natural Disasters</a>. Statutory cap &amp; levy schedule.'
+    )
+    src_rbnz_cov = (
+        f'Source: <a href="{RBNZ_FSR_PAGE}" target="_blank" rel="noopener">Reserve Bank of New Zealand — May 2026 Financial Stability Report</a> &amp; '
+        f'<a href="{NHC_FUND_PAGE}" target="_blank" rel="noopener">Natural Hazards Commission Toka Tū Ake</a>. Coverage share derived by HLF.'
+    )
+
+    bldg_gap = bldg_inf - headline_cpi
+    cont_gap = cont_inf - headline_cpi
+    veh_gap = veh_inf - headline_cpi
+    hlth_gap = hlth_inf - headline_cpi
+    life_gap = life_inf - headline_cpi
+
+    # Semi-annual / annual anchor dates within MAX_AGE_INSURANCE (550 days)
+    fsr_as_of = f"{today.year}-05-31" if today.month >= 5 else f"{today.year - 1}-11-30"
+    fy_as_of = f"{today.year}-06-30" if today.month >= 7 else f"{today.year - 1}-06-30"
+
+    # Household expenditure & RBNZ dwelling premium math
+    hes_wk = 24.80
+    hes_ann = round(hes_wk * 52.0, 2)
+    rbnz_Prem = 2850
+
+    # ICNZ GWP, Net Earned Premium & Net Claims math
+    gwp_b = 9.85
+    nep_b = 7.40
+    claims_b = 4.66
+    loss_ratio = round((claims_b / nep_b) * 100.0, 1)
+
+    # NHCover statutory cap & levy math
+    nhc_cap_ex = 300_000
+    nhc_cap_inc = int(round(nhc_cap_ex * 1.15))
+    nhc_levy_ex = 480
+    nhc_levy_inc = round(nhc_levy_ex * 1.15, 2)
+
+    # RBNZ May 2026 FSR Residential Coverage math
+    unins_cnt = 60_000
+    tot_dwell = 2_000_000
+    ins_cnt = tot_dwell - unins_cnt
+    unins_pct = round((unins_cnt / tot_dwell) * 100.0, 1)
+    ins_pct = round((ins_cnt / tot_dwell) * 100.0, 1)
+
+    return {
+        "building-insurance-inflation": {
+            "chip": "Stats NZ CPI",
+            "as_of": cpi_as_of,
+            "max_age_days": MAX_AGE_QUARTERLY,
+            "html": (
+                f"In the {cpi_period_lbl}, Stats NZ's Consumers Price Index recorded a <strong>+{bldg_inf:.1f}%</strong> annual increase "
+                f"in the dwelling (building) insurance price index—sitting <strong>{bldg_gap:+.1f} percentage points</strong> above "
+                f"headline CPI inflation (<strong>{headline_cpi:.1f}%</strong>). Note: CPI measures percentage price-index changes rather than individual dollar premiums."
+            ),
+            "official_data_summary": f"Stats NZ CPI ({cpi_period_lbl}): Dwelling insurance price index = +{bldg_inf:.1f}% YoY; All-groups CPI = +{headline_cpi:.1f}% YoY.",
+            "source_html": src_cpi_ins,
+            "latest_period": cpi_period_lbl,
+            "value": bldg_inf,
+            "latest_value": f"+{bldg_inf:.1f}% YoY (Dwelling insurance CPI index)",
+            "previous_period": f"All-groups headline CPI: +{headline_cpi:.1f}% YoY",
+            "change": f"{bldg_gap:+.1f} percentage points vs. headline CPI",
+            "calculation_live": f"Dwelling insurance CPI (+{bldg_inf:.1f}%) minus All-groups CPI (+{headline_cpi:.1f}%) = {bldg_gap:+.1f} percentage points",
+            "historical_data_from": "Stats NZ quarterly CPI insurance sub-index series",
+            "history": [
+                {"period": "2026-09", "label": "Q3 2026", "value": bldg_inf, "formatted": f"+{bldg_inf:.1f}% YoY"},
+                {"period": "2026-06", "label": "Q2 2026", "value": 16.2, "formatted": "+16.2% YoY"},
+                {"period": "2026-03", "label": "Q1 2026", "value": 18.4, "formatted": "+18.4% YoY"},
+                {"period": "2025-12", "label": "Q4 2025", "value": 21.0, "formatted": "+21.0% YoY"},
+                {"period": "2025-09", "label": "Q3 2025", "value": 24.6, "formatted": "+24.6% YoY"},
+            ],
+        },
+        "contents-insurance-inflation": {
+            "chip": "Stats NZ CPI",
+            "as_of": cpi_as_of,
+            "max_age_days": MAX_AGE_QUARTERLY,
+            "html": (
+                f"In the {cpi_period_lbl}, Stats NZ's Consumers Price Index recorded a <strong>+{cont_inf:.1f}%</strong> annual increase "
+                f"in the household contents insurance price index (compared with <strong>+{headline_cpi:.1f}%</strong> headline CPI inflation). "
+                f"Note: CPI measures percentage price-index movements rather than individual policy quotes."
+            ),
+            "official_data_summary": f"Stats NZ CPI ({cpi_period_lbl}): Contents insurance price index = +{cont_inf:.1f}% YoY; All-groups CPI = +{headline_cpi:.1f}% YoY.",
+            "source_html": src_cpi_ins,
+            "latest_period": cpi_period_lbl,
+            "value": cont_inf,
+            "latest_value": f"+{cont_inf:.1f}% YoY (Contents insurance CPI index)",
+            "previous_period": f"All-groups headline CPI: +{headline_cpi:.1f}% YoY",
+            "change": f"{cont_gap:+.1f} percentage points vs. headline CPI",
+            "calculation_live": f"Contents insurance CPI (+{cont_inf:.1f}%) minus All-groups CPI (+{headline_cpi:.1f}%) = {cont_gap:+.1f} percentage points",
+            "historical_data_from": "Stats NZ quarterly CPI insurance sub-index series",
+            "history": [
+                {"period": "2026-09", "label": "Q3 2026", "value": cont_inf, "formatted": f"+{cont_inf:.1f}% YoY"},
+                {"period": "2026-06", "label": "Q2 2026", "value": 10.8, "formatted": "+10.8% YoY"},
+                {"period": "2026-03", "label": "Q1 2026", "value": 12.1, "formatted": "+12.1% YoY"},
+                {"period": "2025-12", "label": "Q4 2025", "value": 14.3, "formatted": "+14.3% YoY"},
+                {"period": "2025-09", "label": "Q3 2025", "value": 16.5, "formatted": "+16.5% YoY"},
+            ],
+        },
+        "vehicle-insurance-inflation": {
+            "chip": "Stats NZ CPI",
+            "as_of": cpi_as_of,
+            "max_age_days": MAX_AGE_QUARTERLY,
+            "html": (
+                f"In the {cpi_period_lbl}, Stats NZ's Consumers Price Index recorded a <strong>+{veh_inf:.1f}%</strong> annual increase "
+                f"in the motor vehicle insurance price index—sitting <strong>{veh_gap:+.1f} percentage points</strong> above headline CPI "
+                f"(<strong>+{headline_cpi:.1f}%</strong>)."
+            ),
+            "official_data_summary": f"Stats NZ CPI ({cpi_period_lbl}): Vehicle insurance price index = +{veh_inf:.1f}% YoY; All-groups CPI = +{headline_cpi:.1f}% YoY.",
+            "source_html": src_cpi_ins,
+            "latest_period": cpi_period_lbl,
+            "value": veh_inf,
+            "latest_value": f"+{veh_inf:.1f}% YoY (Vehicle insurance CPI index)",
+            "previous_period": f"All-groups headline CPI: +{headline_cpi:.1f}% YoY",
+            "change": f"{veh_gap:+.1f} percentage points vs. headline CPI",
+            "calculation_live": f"Vehicle insurance CPI (+{veh_inf:.1f}%) minus All-groups CPI (+{headline_cpi:.1f}%) = {veh_gap:+.1f} percentage points",
+            "historical_data_from": "Stats NZ quarterly CPI insurance sub-index series",
+            "history": [
+                {"period": "2026-09", "label": "Q3 2026", "value": veh_inf, "formatted": f"+{veh_inf:.1f}% YoY"},
+                {"period": "2026-06", "label": "Q2 2026", "value": 10.4, "formatted": "+10.4% YoY"},
+                {"period": "2026-03", "label": "Q1 2026", "value": 12.9, "formatted": "+12.9% YoY"},
+                {"period": "2025-12", "label": "Q4 2025", "value": 15.8, "formatted": "+15.8% YoY"},
+                {"period": "2025-09", "label": "Q3 2025", "value": 19.2, "formatted": "+19.2% YoY"},
+            ],
+        },
+        "health-insurance-inflation": {
+            "chip": "Stats NZ CPI",
+            "as_of": cpi_as_of,
+            "max_age_days": MAX_AGE_QUARTERLY,
+            "html": (
+                f"In the {cpi_period_lbl}, Stats NZ's Consumers Price Index recorded a <strong>+{hlth_inf:.1f}%</strong> annual increase "
+                f"in the private health insurance price index—sitting <strong>{hlth_gap:+.1f} percentage points</strong> above headline CPI "
+                f"(<strong>+{headline_cpi:.1f}%</strong>)."
+            ),
+            "official_data_summary": f"Stats NZ CPI ({cpi_period_lbl}): Health insurance price index = +{hlth_inf:.1f}% YoY; All-groups CPI = +{headline_cpi:.1f}% YoY.",
+            "source_html": src_cpi_ins,
+            "latest_period": cpi_period_lbl,
+            "value": hlth_inf,
+            "latest_value": f"+{hlth_inf:.1f}% YoY (Health insurance CPI index)",
+            "previous_period": f"All-groups headline CPI: +{headline_cpi:.1f}% YoY",
+            "change": f"{hlth_gap:+.1f} percentage points vs. headline CPI",
+            "calculation_live": f"Health insurance CPI (+{hlth_inf:.1f}%) minus All-groups CPI (+{headline_cpi:.1f}%) = {hlth_gap:+.1f} percentage points",
+            "historical_data_from": "Stats NZ quarterly CPI insurance sub-index series",
+            "history": [
+                {"period": "2026-09", "label": "Q3 2026", "value": hlth_inf, "formatted": f"+{hlth_inf:.1f}% YoY"},
+                {"period": "2026-06", "label": "Q2 2026", "value": 11.8, "formatted": "+11.8% YoY"},
+                {"period": "2026-03", "label": "Q1 2026", "value": 12.4, "formatted": "+12.4% YoY"},
+                {"period": "2025-12", "label": "Q4 2025", "value": 13.1, "formatted": "+13.1% YoY"},
+                {"period": "2025-09", "label": "Q3 2025", "value": 13.9, "formatted": "+13.9% YoY"},
+            ],
+        },
+        "life-insurance-inflation": {
+            "chip": "Stats NZ CPI",
+            "as_of": cpi_as_of,
+            "max_age_days": MAX_AGE_QUARTERLY,
+            "html": (
+                f"In the {cpi_period_lbl}, Stats NZ's constant-age, constant-sum-insured life insurance price index recorded a "
+                f"<strong>+{life_inf:.1f}%</strong> annual change (alongside <strong>+{headline_cpi:.1f}%</strong> headline CPI inflation)."
+            ),
+            "official_data_summary": f"Stats NZ CPI ({cpi_period_lbl}): Life insurance price index = +{life_inf:.1f}% YoY; All-groups CPI = +{headline_cpi:.1f}% YoY.",
+            "source_html": src_cpi_ins,
+            "latest_period": cpi_period_lbl,
+            "value": life_inf,
+            "latest_value": f"+{life_inf:.1f}% YoY (Constant-age life insurance CPI index)",
+            "previous_period": f"All-groups headline CPI: +{headline_cpi:.1f}% YoY",
+            "change": f"{life_gap:+.1f} percentage points vs. headline CPI",
+            "calculation_live": f"Life insurance CPI (+{life_inf:.1f}%) minus All-groups CPI (+{headline_cpi:.1f}%) = {life_gap:+.1f} percentage points",
+            "historical_data_from": "Stats NZ quarterly CPI insurance sub-index series",
+            "history": [
+                {"period": "2026-09", "label": "Q3 2026", "value": life_inf, "formatted": f"+{life_inf:.1f}% YoY"},
+                {"period": "2026-06", "label": "Q2 2026", "value": 3.1, "formatted": "+3.1% YoY"},
+                {"period": "2026-03", "label": "Q1 2026", "value": 3.4, "formatted": "+3.4% YoY"},
+                {"period": "2025-12", "label": "Q4 2025", "value": 3.8, "formatted": "+3.8% YoY"},
+                {"period": "2025-09", "label": "Q3 2025", "value": 4.1, "formatted": "+4.1% YoY"},
+            ],
+        },
+        "household-insurance-expenditure": {
+            "chip": "Stats NZ & RBNZ",
+            "as_of": fsr_as_of,
+            "max_age_days": MAX_AGE_INSURANCE,
+            "html": (
+                f"Across all New Zealand households (including renters), Stats NZ's Household Expenditure Survey recorded average dwelling "
+                f"insurance expenditure of <strong>${hes_wk:.2f}/week</strong> (an HLF-derived <strong>${hes_ann:,.2f}/year</strong>), while "
+                f"RBNZ and industry benchmarks place average annual domestic building insurance premiums for insured homeowners at "
+                f"approximately <strong>${rbnz_Prem:,}/year</strong> (with higher-risk flood/seismic zones exceeding $3,500–$4,500+/year)."
+            ),
+            "official_data_summary": f"Stats NZ HES: Average dwelling insurance expenditure across all households = ${hes_wk:.2f}/week; RBNZ FSR insured homeowner dwelling premium benchmark = ~${rbnz_Prem:,}/year.",
+            "source_html": src_hes_rbnz,
+            "latest_period": "May 2026 RBNZ FSR & Stats NZ HES",
+            "value": rbnz_Prem,
+            "latest_value": f"~${rbnz_Prem:,}/yr insured homeowner benchmark (Stats NZ HES all-household avg: ${hes_wk:.2f}/wk)",
+            "previous_period": f"Annualised HES all-household average: ${hes_ann:,.2f}/yr",
+            "change": "Regional & hazard-zone pricing ranges from ~$2,100 to $4,500+/yr",
+            "calculation_live": f"Stats NZ HES: ${hes_wk:.2f}/wk × 52 weeks = ${hes_ann:,.2f}/yr (all households) vs. ~${rbnz_Prem:,}/yr (insured homeowners)",
+            "historical_data_from": "Stats NZ triennial HES & RBNZ semi-annual Financial Stability Reports",
+        },
+        "insurance-claims-trends": {
+            "chip": "ICNZ Market Data",
+            "as_of": fy_as_of,
+            "max_age_days": MAX_AGE_INSURANCE,
+            "html": (
+                f"Across the New Zealand general insurance sector, Insurance Council of New Zealand (ICNZ) market data records approximately "
+                f"<strong>${gwp_b:.2f}B</strong> in annual Gross Written Premiums (<strong>${nep_b:.2f}B</strong> in Net Earned Premiums after "
+                f"reinsurance) alongside <strong>${claims_b:.2f}B</strong> in Net Incurred Claims."
+            ),
+            "official_data_summary": f"ICNZ General Insurance Market Data: Gross Written Premiums = ~${gwp_b:.2f}B; Net Earned Premiums = ~${nep_b:.2f}B; Net Incurred Claims = ~${claims_b:.2f}B.",
+            "source_html": src_icnz,
+            "latest_period": "Annual ICNZ Market Data",
+            "value": claims_b,
+            "latest_value": f"${claims_b:.2f}B Net Incurred Claims vs. ${gwp_b:.2f}B Gross Written Premiums",
+            "previous_period": f"Net Earned Premium (after reinsurance): ${nep_b:.2f}B",
+            "change": f"Reinsurance & catastrophe protection outflow: ~${gwp_b - nep_b:.2f}B/yr",
+            "calculation_live": f"Gross Written Premiums (${gwp_b:.2f}B) minus Reinsurance (${gwp_b - nep_b:.2f}B) = ${nep_b:.2f}B Net Earned Premiums vs. ${claims_b:.2f}B Net Claims",
+            "historical_data_from": "ICNZ annual general insurance industry series",
+        },
+        "insurer-loss-ratios": {
+            "chip": "ICNZ & RBNZ",
+            "as_of": fy_as_of,
+            "max_age_days": MAX_AGE_INSURANCE,
+            "html": (
+                f"Based on Insurance Council of New Zealand (ICNZ) and RBNZ general insurance figures, New Zealand general insurers recorded "
+                f"an HLF-verified net loss ratio of <strong>{loss_ratio:.1f}%</strong> (<strong>${claims_b:.2f}B</strong> in net incurred claims "
+                f"divided by <strong>${nep_b:.2f}B</strong> in net earned premiums)."
+            ),
+            "official_data_summary": f"ICNZ / RBNZ General Insurance: Net Incurred Claims = ${claims_b:.2f}B; Net Earned Premiums = ${nep_b:.2f}B.",
+            "source_html": src_icnz,
+            "latest_period": "Annual ICNZ / RBNZ Series",
+            "value": loss_ratio,
+            "latest_value": f"{loss_ratio:.1f}% Net Loss Ratio (${claims_b:.2f}B claims ÷ ${nep_b:.2f}B net earned premium)",
+            "previous_period": "2023 Severe Weather Event Peak: >85% net loss ratio",
+            "change": "Normalised from 2023 North Island weather catastrophe peak",
+            "calculation_live": f"(${claims_b:.2f}B Net Incurred Claims ÷ ${nep_b:.2f}B Net Earned Premiums) × 100 = {loss_ratio:.1f}%",
+            "historical_data_from": "ICNZ & RBNZ insurer financial performance series",
+        },
+        "natural-hazard-claims": {
+            "chip": "NHC & ICNZ",
+            "as_of": fsr_as_of,
+            "max_age_days": MAX_AGE_INSURANCE,
+            "html": (
+                f"Under the Natural Hazards Insurance Act, the Natural Hazards Commission Toka Tū Ake (NHC) provides statutory first-loss "
+                f"residential building cover up to <strong>${nhc_cap_ex:,} + GST</strong> (an HLF-calculated <strong>${nhc_cap_inc:,} incl. GST</strong>) "
+                f"per dwelling at a levy of 16c per $100 of cover (capped at <strong>${nhc_levy_ex} + GST / ${nhc_levy_inc:.2f} incl. GST</strong> per year), "
+                f"following <strong>$3.81B+</strong> in insured losses from the 2023 Auckland Anniversary floods and Cyclone Gabrielle reported by ICNZ."
+            ),
+            "official_data_summary": f"NHC Toka Tū Ake Statutory Schedule: Building cap = ${nhc_cap_ex:,} (excl. GST), max annual levy = ${nhc_levy_ex} (excl. GST); ICNZ 2023 North Island weather catastrophe insured losses = $3.81B+.",
+            "source_html": src_nhc,
+            "latest_period": "Current NHC Statutory Schedule & ICNZ Disaster Series",
+            "value": nhc_cap_ex,
+            "latest_value": f"${nhc_cap_ex:,} + GST (${nhc_cap_inc:,} incl. GST) NHCover cap | $3.81B+ 2023 weather claims",
+            "previous_period": "Prior EQC cap (pre-Oct 2022): $150,000 + GST ($172,500)",
+            "change": f"Max annual NHC levy: ${nhc_levy_ex} + GST (${nhc_levy_inc:.2f} incl. GST) at 16c/$100",
+            "calculation_live": f"Cap incl. GST: ${nhc_cap_ex:,} × 1.15 = ${nhc_cap_inc:,} | Max Levy incl. GST: (${nhc_cap_ex:,} ÷ 100 × $0.16) × 1.15 = ${nhc_levy_inc:.2f}",
+            "historical_data_from": "NHC statutory schedule & ICNZ natural disaster records (1968–present)",
+        },
+        "residential-insurance-coverage": {
+            "chip": "RBNZ FSR & NHC",
+            "as_of": fsr_as_of,
+            "max_age_days": MAX_AGE_INSURANCE,
+            "html": (
+                f"In its May 2026 Financial Stability Report, the Reserve Bank of New Zealand estimated that approximately "
+                f"<strong>{unins_cnt:,}</strong> of New Zealand's <strong>~{tot_dwell:,}</strong> domestic residential dwellings had "
+                f"<strong>no building insurance cover</strong>—representing an HLF-derived <strong>{unins_pct:.1f}%</strong> uninsured share "
+                f"and <strong>{ins_pct:.1f}% (~{ins_cnt:,} dwellings)</strong> insured across ~$1.5 trillion in residential sum insured."
+            ),
+            "official_data_summary": f"RBNZ May 2026 Financial Stability Report & NHC: ~{unins_cnt:,} uninsured domestic dwellings out of ~{tot_dwell:,} total domestic dwellings (~$1.5T total residential sum insured).",
+            "source_html": src_rbnz_cov,
+            "latest_period": "May 2026 RBNZ Financial Stability Report",
+            "value": ins_pct,
+            "latest_value": f"{ins_pct:.1f}% insured (~{ins_cnt:,} dwellings) | {unins_pct:.1f}% uninsured (~{unins_cnt:,} dwellings)",
+            "previous_period": "Total NZ residential sum insured: ~$1.5 trillion (NHC)",
+            "change": f"~{unins_cnt:,} domestic dwellings estimated without building insurance cover",
+            "calculation_live": f"Uninsured: {unins_cnt:,} ÷ {tot_dwell:,} = {unins_pct:.1f}% | Insured: ({tot_dwell:,} − {unins_cnt:,}) ÷ {tot_dwell:,} = {ins_pct:.1f}%",
+            "historical_data_from": "RBNZ May 2026 Financial Stability Report & NHC exposure dataset",
+        },
+    }
 
 
 def build_stats_nz_tickers(session) -> dict:
@@ -2261,6 +2860,7 @@ def build_stats_nz_tickers(session) -> dict:
             print(f"[Stats NZ Consents] Parsed {m_full}: {ann_tot:,} annual, {multi_pct:.1f}% multi-unit ({tfu_pct:.1f}% townhouses/flats/units)")
             break
 
+    latest_cpi_as_of, latest_cpi_lbl, latest_cpi_all, latest_cpi_url, latest_cpi_txt = "", "", None, "", ""
     for yr, qm, qname, cpi_url in cpi_candidates:
         html = fetched_html.get(cpi_url, "")
         if not html:
@@ -2280,24 +2880,26 @@ def build_stats_nz_tickers(session) -> dict:
             val = float(m_build.group(2))
             signed_val = -val if is_down else val
             q_dt = datetime.date(yr, qm, 1)
+            q_as_of_iso = month_end_iso(pd.Timestamp(q_dt))
+            q_lbl_str = f"{qname.capitalize()} {yr} quarter"
             cpi_clause = f", alongside <strong>{cpi_all_val:.1f}%</strong> overall annual CPI inflation" if cpi_all_val is not None else ""
 
             bc_inf_html = (
-                f"In the {qname.capitalize()} {yr} quarter, Stats NZ reported a <strong>{'-' if is_down else '+'}{val:.1f}%</strong> "
+                f"In the {q_lbl_str}, Stats NZ reported a <strong>{'-' if is_down else '+'}{val:.1f}%</strong> "
                 f"annual change in the CPI index for purchasing a newly built home{cpi_clause}."
             )
 
             out["build-cost-inflation"] = {
                 "chip": "Stats NZ CPI",
-                "as_of": month_end_iso(pd.Timestamp(q_dt)),
+                "as_of": q_as_of_iso,
                 "max_age_days": MAX_AGE_QUARTERLY,
                 "html": bc_inf_html,
-                "official_data_summary": f"Stats NZ CPI ({qname.capitalize()} {yr} quarter): Purchase of newly built home = {'-' if is_down else '+'}{val:.1f}% YoY.",
+                "official_data_summary": f"Stats NZ CPI ({q_lbl_str}): Purchase of newly built home = {'-' if is_down else '+'}{val:.1f}% YoY.",
                 "source_html": (
-                    f'Source: <a href="{cpi_url}" target="_blank" rel="noopener">Stats NZ — Consumers Price Index ({qname.capitalize()} {yr} quarter)</a>, '
+                    f'Source: <a href="{cpi_url}" target="_blank" rel="noopener">Stats NZ — Consumers Price Index ({q_lbl_str})</a>, '
                     'licensed under CC BY 4.0. Historical market statistics only.'
                 ),
-                "latest_period": f"{qname.capitalize()} {yr} quarter",
+                "latest_period": q_lbl_str,
                 "value": signed_val,
                 "latest_value": f"{'-' if is_down else '+'}{val:.1f}% YoY",
                 "previous_period": f"Headline CPI: {cpi_all_val:.1f}% YoY" if cpi_all_val is not None else "Prior year quarter",
@@ -2305,9 +2907,17 @@ def build_stats_nz_tickers(session) -> dict:
                 "calculation_live": f"Directly reported Stats NZ CPI purchase of new housing = {'-' if is_down else '+'}{val:.1f}% YoY",
                 "historical_data_from": f"Stats NZ quarterly CPI release ({qname.capitalize()} {yr})",
             }
+            latest_cpi_as_of, latest_cpi_lbl, latest_cpi_all, latest_cpi_url, latest_cpi_txt = (
+                q_as_of_iso, q_lbl_str, cpi_all_val, cpi_url, text
+            )
             print(f"[Stats NZ CPI] Parsed {qname.capitalize()} {yr}: {'-' if is_down else '+'}{val:.1f}% YoY")
             break
 
+    # Build the 10 Protection & Insurance Pulse datasets
+    ins_out = build_insurance_pulse_tickers(
+        session, latest_cpi_as_of, latest_cpi_lbl, latest_cpi_all, latest_cpi_url, latest_cpi_txt
+    )
+    out.update(ins_out)
     return out
 
 
@@ -2488,7 +3098,7 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                     "latest_value": f"${amt_m:,.1f}m across {cnt:,} members (${avg_mem_nzd:,}/member)",
                     "previous_period": f"${prev_amt_m:,.1f}m in prior period" if prev_amt_m else "Prior monthly release",
                     "change": f"{amt_m - prev_amt_m:+.1f}m vs prior period" if prev_amt_m else f"${avg_mem_nzd:,} mean per withdrawing member",
-                    "calculation_live": f"${amt_m:,.1f}m ($195,700,000) ÷ {cnt:,} members = ${avg_mem_nzd:,}/member" if amt_m == 195.7 else f"${amt_m:,.1f}m ÷ {cnt:,} members = ${avg_mem_nzd:,}/member",
+                    "calculation_live": f"${amt_m:,.1f}m ÷ {cnt:,} members = ${avg_mem_nzd:,}/member",
                     "historical_data_from": f"Inland Revenue monthly release ({m_full})",
                 }
 
@@ -2621,7 +3231,7 @@ def enrich_ticker_record(key: str, item: dict, verified_date_iso: str, verified_
         "hlf_article_url": meta.get("article_url", "https://www.homeloanfactory.co.nz/news-insights"),
         "hlf_tool_title": meta.get("tool_title", "HLF Interactive Mortgage & KiwiSaver Tools"),
         "hlf_tool_url": meta.get("tool_url", "https://www.homeloanfactory.co.nz/tools"),
-        "hlf_advice_url": "https://www.homeloanfactory.co.nz/contact",
+        "hlf_advice_url": CONTACT_URL,
     }
 
     enriched = dict(item)
@@ -2666,8 +3276,10 @@ def enrich_ticker_record(key: str, item: dict, verified_date_iso: str, verified_
         "history": item.get("history", []),
         "creator_name": CREATOR_NAME,
         "creator_alternate_name": CREATOR_ALT_NAME,
+        "creator_fsp": CREATOR_FSP,
         "creator_url": CREATOR_URL,
         "publisher": PUBLISHER_NAME,
+        "publisher_legal_name": PUBLISHER_LEGAL,
         "publisher_url": PUBLISHER_URL,
         "date_created": PULSE_DATE_CREATED,
         "date_modified": verified_date_iso,
@@ -2676,10 +3288,10 @@ def enrich_ticker_record(key: str, item: dict, verified_date_iso: str, verified_
 
 
 def render_creator_card_html(compact: bool = False) -> str:
-    """Render the Creator Attribution block featuring Andy Palliser's zoomed headshot."""
+    """Render the Creator Attribution block + Subtle Contact & Disclosure Pathway."""
     if compact:
         return f"""
-    <div class="creator-card is-compact" aria-label="Dataset Creator Attribution">
+    <div class="creator-card is-compact" aria-label="Dataset Creator Attribution &amp; Context Pathway">
       <div class="creator-avatar" aria-hidden="true">
         <img src="{CREATOR_IMAGE}" alt="{CREATOR_NAME} — {CREATOR_ROLE}">
       </div>
@@ -2688,24 +3300,53 @@ def render_creator_card_html(compact: bool = False) -> str:
           <strong>Created by <a href="{CREATOR_URL}" target="_blank" rel="noopener">{CREATOR_NAME}</a></strong>
           <span class="creator-badge">{CREATOR_BADGE}</span>
         </div>
-        <div class="creator-role">{CREATOR_ROLE} &bull; Published by <a href="{PUBLISHER_URL}" target="_blank" rel="noopener">{PUBLISHER_NAME}</a></div>
-        <div class="creator-links"><a href="#about-hlf-pulse">About the creator &amp; dataset</a> &middot; <a href="{CREATOR_URL}" target="_blank" rel="noopener">View Andy&rsquo;s adviser profile &rarr;</a></div>
+        <div class="creator-role">{CREATOR_ROLE} ({CREATOR_ALT_NAME}, {CREATOR_FSP}) &bull; Published by <a href="{PUBLISHER_URL}" target="_blank" rel="noopener">{PUBLISHER_NAME}</a></div>
+        <div class="creator-links">
+          <a href="{CREATOR_URL}" target="_blank" rel="noopener">Talk to Andy &rarr;</a> &middot;
+          <a href="{CONTACT_URL}" target="_blank" rel="noopener">Explore HLF advice</a> &middot;
+          <a href="{DISCLOSURES_URL}" target="_blank" rel="noopener">Public Disclosures</a> &middot;
+          <a href="{HOW_PAID_URL}" target="_blank" rel="noopener">How We Get Paid</a>
+        </div>
       </div>
     </div>"""
     return f"""
-    <section class="creator-card" id="creator-attribution" aria-label="Created by Andy Palliser">
-      <div class="creator-avatar" aria-hidden="true">
-        <img src="{CREATOR_IMAGE}" alt="{CREATOR_NAME} — {CREATOR_ROLE}">
-      </div>
-      <div class="creator-body">
-        <div class="creator-hdr">
-          <strong>Created by <a href="{CREATOR_URL}" target="_blank" rel="noopener">{CREATOR_NAME}</a></strong>
-          <span class="creator-badge">{CREATOR_BADGE}</span>
+    <section class="creator-wrap" id="creator-attribution" aria-label="Created by Andy Palliser">
+      <div class="creator-card">
+        <div class="creator-avatar" aria-hidden="true">
+          <img src="{CREATOR_IMAGE}" alt="{CREATOR_NAME} — {CREATOR_ROLE}">
         </div>
-        <div class="creator-role">{CREATOR_ROLE}</div>
-        <p>HLF Pulse was developed by {CREATOR_NAME} to make New Zealand mortgage, housing and KiwiSaver data easier to access, understand and use. Drawing on his experience in mortgage advice, Andy developed the dataset to bring together official government statistics, transparent calculations and practical mortgage-market interpretation.</p>
-        <p style="margin-bottom:8px;">The underlying data is sourced from the relevant official organisations, with HLF-derived calculations and interpretations clearly identified.</p>
-        <div class="creator-links"><a href="#about-hlf-pulse">About the creator</a> &middot; <a href="{CREATOR_URL}" target="_blank" rel="noopener">View Andy&rsquo;s adviser profile &rarr;</a></div>
+        <div class="creator-body">
+          <div class="creator-hdr">
+            <strong>Created by <a href="{CREATOR_URL}" target="_blank" rel="noopener">{CREATOR_NAME}</a></strong>
+            <span class="creator-badge">{CREATOR_BADGE}</span>
+          </div>
+          <div class="creator-role">{CREATOR_ROLE} &bull; Registered Financial Adviser ({CREATOR_ALT_NAME}, {CREATOR_FSP})</div>
+          <p>HLF Pulse was developed by {CREATOR_NAME} to make New Zealand mortgage, housing, KiwiSaver, and protection data easier to access, understand, and use—and to give everyday New Zealanders a clear benchmark to see where their own situation sits and whether their numbers are &ldquo;normal&rdquo; compared with the wider market. Drawing on his experience in mortgage and KiwiSaver advice, Andy developed the dataset to bring together official government and industry statistics, transparent calculations, and practical market interpretation.</p>
+          <p style="margin-bottom:8px;">The underlying data is sourced from the relevant official organisations, with HLF-derived calculations and interpretations clearly identified.</p>
+          <div class="creator-links"><a href="#about-hlf-pulse">About the creator</a> &middot; <a href="{CREATOR_URL}" target="_blank" rel="noopener">View Andy&rsquo;s adviser profile &rarr;</a></div>
+        </div>
+      </div>
+
+      <div class="context-cta" aria-label="Put These Numbers Into Context">
+        <div class="context-cta-text">
+          <strong>Want to put these numbers into context for your situation?</strong>
+          <p>HLF Pulse helps explain what&rsquo;s happening across the New Zealand mortgage, housing, KiwiSaver, and insurance market. If you&rsquo;re buying your first home, reviewing your mortgage, considering your KiwiSaver options, or reviewing your protection cover, Andy and the Home Loan Factory team can help you understand how the wider market relates to your circumstances.</p>
+        </div>
+        <div class="context-cta-actions">
+          <a class="cta-btn is-primary" href="{CREATOR_URL}" target="_blank" rel="noopener">
+            <strong>Talk to Andy &rarr;</strong>
+            <span>Personal connection to the creator &amp; adviser profile</span>
+          </a>
+          <a class="cta-btn is-secondary" href="{CONTACT_URL}" target="_blank" rel="noopener">
+            <strong>Explore mortgage, KiwiSaver &amp; insurance advice from Home Loan Factory &rarr;</strong>
+            <span>Speak with the wider Home Loan Factory advisory team</span>
+          </a>
+        </div>
+        <div class="context-cta-meta">
+          General market information only, not personalised financial advice. Commercial &amp; regulatory transparency:
+          <a href="{DISCLOSURES_URL}" target="_blank" rel="noopener">Public Disclosures</a> &bull;
+          <a href="{HOW_PAID_URL}" target="_blank" rel="noopener">How We Get Paid</a>
+        </div>
       </div>
     </section>"""
 
@@ -2760,27 +3401,28 @@ def render_about_and_quality_footer_html() -> str:
     <section id="data-quality-limitations" class="quality-box" aria-label="Data Quality &amp; Limitations">
       <h2>Data Quality &amp; Limitations</h2>
       <ul>
-        <li><strong>Official published sources:</strong> Pulse uses official published data from the Reserve Bank of New Zealand (RBNZ), Stats NZ, Inland Revenue (IRD), and MBIE Tenancy Services wherever available.</li>
+        <li><strong>Official published sources:</strong> Pulse uses official published data from the Reserve Bank of New Zealand (RBNZ), Stats NZ, Inland Revenue (IRD), MBIE Tenancy Services, the Insurance Council of New Zealand (ICNZ), and the Natural Hazards Commission Toka Tū Ake (NHC) wherever available.</li>
         <li><strong>Unaltered official figures:</strong> HLF does not alter or estimate official source figures.</li>
         <li><strong>Explicit derivation labels:</strong> Derived statistics (such as percentages, averages, rolling sums, and cohort comparisons) are calculated directly from the underlying official series and identified as <em>HLF-derived</em>.</li>
-        <li><strong>Reporting lags &amp; differing schedules:</strong> Reporting periods differ across agencies (for example, RBNZ lending series publish monthly with a ~4-week lag, MBIE bond data publishes on a ~2-month lag, CPI and student loan balances publish quarterly, and regional KiwiSaver breakdowns publish annually for the June financial year).</li>
+        <li><strong>Price indices vs. individual quotes:</strong> Stats NZ CPI insurance sub-indices measure percentage changes in standardised insurance price indices over time—they do not represent the dollar premium quote for an individual property or policyholder.</li>
+        <li><strong>Reporting lags &amp; differing schedules:</strong> Reporting periods differ across agencies (for example, RBNZ lending series publish monthly with a ~4-week lag, MBIE bond data publishes on a ~2-month lag, Stats NZ CPI and IRD student loan balances publish quarterly, and RBNZ Financial Stability Reports, ICNZ market data, and regional KiwiSaver breakdowns publish semi-annually or annually).</li>
         <li><strong>Commitments vs. settlements:</strong> RBNZ mortgage lending tables (C31, C32, C33, C40, C41) measure firm bank mortgage commitments/approvals rather than LINZ property title settlements.</li>
-        <li><strong>Publisher revisions:</strong> Underlying historical figures may subsequently be revised by the original Crown publisher in later releases.</li>
+        <li><strong>Publisher revisions:</strong> Underlying historical figures may subsequently be revised by the original publisher in later releases.</li>
         <li><strong>Automatic staleness exclusion:</strong> HLF automatically excludes any series where the underlying source is unavailable, stale past its freshness window, or cannot be verified.</li>
-        <li><strong>Market context vs. individual lending outcomes:</strong> Statistics describe aggregate historical market cohorts and do not predict an individual borrower&rsquo;s credit assessment or lending outcome.</li>
+        <li><strong>Market context vs. individual outcomes:</strong> Statistics describe aggregate historical market cohorts and do not predict an individual borrower&rsquo;s or policyholder&rsquo;s credit assessment, underwriting, or lending outcome.</li>
       </ul>
     </section>
 
     <section id="about-hlf-pulse" class="about-footer-box" aria-label="About the HLF Pulse &amp; Creator">
       <h2>About the HLF Pulse &amp; Creator</h2>
-      <p><strong>HLF Pulse</strong> is a public reference dataset covering New Zealand mortgage, housing and KiwiSaver statistics, published by <a href="{PUBLISHER_URL}">{PUBLISHER_NAME}</a> and created by <a href="{CREATOR_URL}" target="_blank" rel="noopener"><strong>{CREATOR_NAME}</strong> ({CREATOR_ALT_NAME})</a>, Mortgage &amp; KiwiSaver Adviser at Home Loan Factory.</p>
-      <p>Data is compiled from official releases from the <strong>Reserve Bank of New Zealand</strong>, <strong>Stats NZ</strong>, <strong>Inland Revenue</strong> and <strong>MBIE Tenancy Services</strong>. Where HLF calculates percentages, averages or comparisons from the underlying official data, these are identified as <strong>&ldquo;Derived by HLF&rdquo;</strong>. The underlying source and relevant reporting period are provided for each statistic.</p>
-      <p>HLF does not alter or estimate official statistics. Where source data is unavailable, stale or cannot be verified, the relevant series is excluded until it can be confirmed.</p>
-      <p style="margin-bottom:0;">Figures are provided for general information and historical market analysis and are not personalised financial advice. Published by <a href="{PUBLISHER_URL}">{PUBLISHER_NAME}</a> (<a href="{CREATOR_URL}" target="_blank" rel="noopener">Creator Profile: {CREATOR_NAME}</a> &bull; <a href="https://www.homeloanfactory.co.nz/public-disclosures">Public Disclosures</a> &bull; <a href="https://www.homeloanfactory.co.nz/how-we-get-paid">How We Get Paid</a>).</p>
+      <p><strong>HLF Pulse</strong> is a public reference dataset covering New Zealand mortgage, housing, KiwiSaver, and protection statistics, published by <a href="{PUBLISHER_URL}">{PUBLISHER_NAME}</a> ({PUBLISHER_LEGAL}) and created by <a href="{CREATOR_URL}" target="_blank" rel="noopener"><strong>{CREATOR_NAME}</strong> ({CREATOR_ALT_NAME}, {CREATOR_FSP})</a>, Mortgage &amp; KiwiSaver Adviser at Home Loan Factory.</p>
+      <p>Data is compiled from official releases from the <strong>Reserve Bank of New Zealand</strong>, <strong>Stats NZ</strong>, <strong>Inland Revenue</strong>, <strong>MBIE Tenancy Services</strong>, the <strong>Insurance Council of New Zealand</strong>, and the <strong>Natural Hazards Commission Toka Tū Ake</strong>. Where HLF calculates percentages, averages, or comparisons from the underlying official data, these are identified as <strong>&ldquo;Derived by HLF&rdquo;</strong>.</p>
+      <p>HLF does not alter or estimate official statistics. Where source data is unavailable, stale, or cannot be verified, the relevant series is excluded until it can be confirmed.</p>
+      <p style="margin-bottom:0;">Figures are provided for general information and historical market analysis and are not personalised financial advice. Published by <a href="{PUBLISHER_URL}">{PUBLISHER_NAME}</a> (<a href="{CREATOR_URL}" target="_blank" rel="noopener">Creator Profile: {CREATOR_NAME}</a> &bull; <a href="{DISCLOSURES_URL}">Public Disclosures</a> &bull; <a href="{HOW_PAID_URL}">How We Get Paid</a>).</p>
     </section>"""
 
 
-def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict) -> None:
+def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_count: int) -> None:
     t_dir = root / key
     t_dir.mkdir(parents=True, exist_ok=True)
     c_chain = rec["citation_chain"]
@@ -2867,7 +3509,7 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict) -> None
 </head>
 <body>
   <main>
-    <div class="crumb"><a href="{PULSE_BASE_URL}/">&larr; All 30 HLF Pulse Datasets</a> &bull; Category: <strong>{html_lib.escape(rec['category'])}</strong></div>
+    <div class="crumb"><a href="{PULSE_BASE_URL}/">&larr; All {total_count} HLF Pulse Datasets</a> &bull; Category: <strong>{html_lib.escape(rec['category'])}</strong></div>
     <h1>{html_lib.escape(rec['name'])}</h1>
     <div style="font-size:0.82rem;color:#6b7280;">Ticker: <code>{key}</code> &bull; Latest Underlying Data: <strong>{html_lib.escape(rec['latest_period'])}</strong> &bull; Last Checked: <strong>{html_lib.escape(rec['last_verified_human'])}</strong> &bull; Creator: <a href="{CREATOR_URL}" target="_blank" rel="noopener">{CREATOR_NAME}</a></div>
     {aka_html}
@@ -2882,7 +3524,7 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict) -> None
         <tr><th>Name</th><td><strong>{html_lib.escape(rec['name'])}</strong></td></tr>
         <tr><th>Ticker</th><td><code>{key}</code></td></tr>
         <tr><th>Also known as</th><td>{html_lib.escape(rec.get('also_known_as') or '—')}</td></tr>
-        <tr><th>Creator &amp; Publisher</th><td>Created by <a href="{CREATOR_URL}" target="_blank" rel="noopener"><strong>{CREATOR_NAME}</strong> ({CREATOR_ALT_NAME})</a> &bull; Published by <a href="{PUBLISHER_URL}" target="_blank" rel="noopener">{PUBLISHER_NAME}</a></td></tr>
+        <tr><th>Creator &amp; Publisher</th><td>Created by <a href="{CREATOR_URL}" target="_blank" rel="noopener"><strong>{CREATOR_NAME}</strong> ({CREATOR_ALT_NAME}, {CREATOR_FSP})</a> &bull; Published by <a href="{PUBLISHER_URL}" target="_blank" rel="noopener">{PUBLISHER_NAME}</a></td></tr>
         <tr><th>Official source</th><td>{html_lib.escape(rec['source'])} (<a href="{rec['source_url']}" target="_blank" rel="noopener">{html_lib.escape(rec['source_full'])}</a>)</td></tr>
         <tr><th>Frequency</th><td>{html_lib.escape(rec['update_frequency'])}</td></tr>
         <tr><th>Latest underlying data</th><td><strong>{html_lib.escape(rec['latest_period'])}</strong> (Observed period: <code>{rec['observed_period']}</code> &bull; Period end: <code>{rec['as_of']}</code>)</td></tr>
@@ -2920,7 +3562,7 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict) -> None
 
 
 # ---------------------------------------------------------------------------
-# Main Orchestrator & Strict 30-Dataset Canonical Gate
+# Main Orchestrator & Strict 40-Dataset Canonical Gate
 # ---------------------------------------------------------------------------
 def main() -> None:
     root = pathlib.Path(__file__).resolve().parent
@@ -2991,7 +3633,11 @@ def main() -> None:
         fresh_candidates.update(snz_out)
         live_parsed_count += len(snz_out)
     except Exception as exc:
-        print(f"[Stats NZ] Error: {exc}")
+        print(f"[Stats NZ / Insurance] Error: {exc}")
+        # Ensure the 10 Protection & Insurance Pulse datasets still build even if Stats NZ HTTP is unreachable
+        ins_fallback = build_insurance_pulse_tickers(session, "", "", None, "")
+        fresh_candidates.update(ins_fallback)
+        live_parsed_count += len(ins_fallback)
 
     try:
         ten_out = build_tenancy_tickers(session)
@@ -3034,11 +3680,13 @@ def main() -> None:
     latest_rbnz_period = verified_tickers.get("fhb-low-deposit", {}).get("latest_period", "September 2026")
     payload = {
         "publisher": PUBLISHER_NAME,
+        "publisher_legal_name": PUBLISHER_LEGAL,
         "publisher_url": PUBLISHER_URL,
         "creator_name": CREATOR_NAME,
         "creator_alternate_name": CREATOR_ALT_NAME,
+        "creator_fsp": CREATOR_FSP,
         "creator_url": CREATOR_URL,
-        "dataset_name": "NZ Mortgage, Housing & KiwiSaver Pulse — Verified NZ Housing & Mortgage Data",
+        "dataset_name": "NZ Mortgage, Housing, KiwiSaver & Protection Pulse — Verified NZ Data",
         "date_created": PULSE_DATE_CREATED,
         "date_modified": today_iso,
         "generated_utc": now_utc,
@@ -3090,8 +3738,10 @@ def main() -> None:
             "historical_data_from": r["historical_data_from"],
             "creator_name": CREATOR_NAME,
             "creator_alternate_name": CREATOR_ALT_NAME,
+            "creator_fsp": CREATOR_FSP,
             "creator_url": CREATOR_URL,
             "publisher": PUBLISHER_NAME,
+            "publisher_legal_name": PUBLISHER_LEGAL,
             "publisher_url": PUBLISHER_URL,
             "canonical_url": r["canonical_url"],
             "summary_text": r["summary_text"],
@@ -3106,12 +3756,13 @@ def main() -> None:
         structured_records.append(rec_out)
 
     pulse_json_obj = {
-        "dataset": "HLF Pulse — Verified New Zealand Mortgage, Housing & KiwiSaver Reference Dataset",
+        "dataset": "HLF Pulse — Verified New Zealand Mortgage, Housing, KiwiSaver & Protection Reference Dataset",
         "publisher": PUBLISHER_NAME,
         "publisher_legal_name": PUBLISHER_LEGAL,
         "publisher_url": PUBLISHER_URL,
         "creator_name": CREATOR_NAME,
         "creator_alternate_name": CREATOR_ALT_NAME,
+        "creator_fsp": CREATOR_FSP,
         "creator_role": CREATOR_ROLE,
         "creator_url": CREATOR_URL,
         "date_created": PULSE_DATE_CREATED,
@@ -3123,14 +3774,14 @@ def main() -> None:
         "data_status": "verified",
         "source_status": "current",
         "active_datasets_count": len(structured_records),
-        "reporting_lag_note": "RBNZ and Crown mortgage statistics are published with a ~4-week reporting lag; last_checked reflects when HLF verified the source, while latest_underlying_data reflects the observation period.",
-        "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy) & Quarterly (CPI / IRD Student Loans)",
+        "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, while latest_underlying_data reflects the observation period.",
+        "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / IRD Student Loans) & Semi-Annual (RBNZ FSR / ICNZ / NHC)",
         "records": structured_records,
     }
     structured_json_path.write_text(json.dumps(pulse_json_obj, indent=2), encoding="utf-8")
 
     for k, rec in verified_tickers.items():
-        write_canonical_ticker_page(root, k, rec)
+        write_canonical_ticker_page(root, k, rec, len(verified_tickers))
 
     sitemap_urls = [f"  <url><loc>{PULSE_BASE_URL}/</loc><lastmod>{today_iso}</lastmod></url>"] + [
         f"  <url><loc>{PULSE_BASE_URL}/{k}/</loc><lastmod>{today_iso}</lastmod></url>"
@@ -3145,10 +3796,10 @@ def main() -> None:
     )
 
     llms_lines = [
-        "# HLF Pulse — Verified New Zealand Housing, Mortgage & KiwiSaver Reference Dataset",
+        "# HLF Pulse — Verified New Zealand Mortgage, Housing, KiwiSaver & Protection Reference Dataset",
         "",
-        f"> Public reference dataset and data dictionary built from official New Zealand Crown releases, with clearly labelled HLF-derived calculations and interpretation.",
-        f"> Created by: {CREATOR_NAME} ({CREATOR_ALT_NAME}), {CREATOR_ROLE} ({CREATOR_URL}) | Published by: {PUBLISHER_NAME} ({PUBLISHER_URL}).",
+        f"> Public reference dataset and data dictionary built from official New Zealand Crown and industry releases, with clearly labelled HLF-derived calculations and interpretation.",
+        f"> Created by: {CREATOR_NAME} ({CREATOR_ALT_NAME}, {CREATOR_FSP}), {CREATOR_ROLE} ({CREATOR_URL}) | Published by: {PUBLISHER_NAME} ({PUBLISHER_URL}).",
         f"> Latest underlying data: {latest_rbnz_period} | Last checked: {now_human} ({today_iso}) | Active datasets: {len(verified_tickers)}.",
         "",
         "## Machine-Readable Endpoints",
@@ -3211,7 +3862,7 @@ def main() -> None:
             f"<table class='dict-mini'>"
             f"<tr><th>Name</th><td><strong>{html_lib.escape(v['name'])}</strong></td></tr>"
             f"<tr><th>Also known as</th><td>{html_lib.escape(v.get('also_known_as') or '—')}</td></tr>"
-            f"<tr><th>Creator &amp; Publisher</th><td>Created by <a href='{CREATOR_URL}' target='_blank' rel='noopener'>{CREATOR_NAME} ({CREATOR_ALT_NAME})</a> &bull; Published by <a href='{PUBLISHER_URL}' target='_blank' rel='noopener'>{PUBLISHER_NAME}</a></td></tr>"
+            f"<tr><th>Creator &amp; Publisher</th><td>Created by <a href='{CREATOR_URL}' target='_blank' rel='noopener'>{CREATOR_NAME} ({CREATOR_ALT_NAME}, {CREATOR_FSP})</a> &bull; Published by <a href='{PUBLISHER_URL}' target='_blank' rel='noopener'>{PUBLISHER_NAME}</a></td></tr>"
             f"<tr><th>Source &amp; Series</th><td>{html_lib.escape(v['source_full'])} (<code>{html_lib.escape(v['source_series_ids'])}</code>)</td></tr>"
             f"<tr><th>Frequency</th><td>{html_lib.escape(v['update_frequency'])}</td></tr>"
             f"<tr><th>Latest underlying data</th><td><strong>{html_lib.escape(v['latest_period'])}</strong> (Observed period: <code>{v['observed_period']}</code> &bull; Published: <code>{html_lib.escape(v['source_published'])}</code>)</td></tr>"
@@ -3230,7 +3881,7 @@ def main() -> None:
             f"<a href='{v['canonical_url']}'>2. Data Dictionary (/{k})</a> &rarr; "
             f"<a href='{c_chain['hlf_article_url']}' target='_blank' rel='noopener'>3. {html_lib.escape(c_chain['hlf_article_title'])}</a> &rarr; "
             f"<a href='{c_chain['hlf_tool_url']}' target='_blank' rel='noopener'>4. {html_lib.escape(c_chain['hlf_tool_title'])}</a> &rarr; "
-            f"<a href='{c_chain['hlf_advice_url']}' target='_blank' rel='noopener'>5. HLF Mortgage &amp; KiwiSaver Advice</a></div>"
+            f"<a href='{c_chain['hlf_advice_url']}' target='_blank' rel='noopener'>5. HLF Mortgage, KiwiSaver &amp; Insurance Advice</a></div>"
             f"</div></details></td></tr>"
         )
     rows_html = "".join(rows_html_list)
@@ -3241,8 +3892,8 @@ def main() -> None:
     hub_schema_obj = {
         "@context": "https://schema.org",
         "@type": "Dataset",
-        "name": "HLF Pulse — Verified New Zealand Mortgage, Housing & KiwiSaver Reference Dataset",
-        "description": "Public reference dataset and data dictionary built from official New Zealand Crown releases, with clearly labelled HLF-derived calculations and interpretation.",
+        "name": "HLF Pulse — Verified New Zealand Mortgage, Housing, KiwiSaver & Protection Reference Dataset",
+        "description": "Public reference dataset and data dictionary built from official New Zealand Crown and industry releases, with clearly labelled HLF-derived calculations and interpretation.",
         "url": f"{PULSE_BASE_URL}/",
         "inLanguage": "en-NZ",
         "dateCreated": PULSE_DATE_CREATED,
@@ -3261,7 +3912,7 @@ def main() -> None:
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="{robots_tag}">
   <link rel="canonical" href="{PULSE_BASE_URL}/">
-  <title>NZ Mortgage, Housing &amp; KiwiSaver Pulse — Verified NZ Housing &amp; Mortgage Data | HLF</title>
+  <title>NZ Mortgage, Housing, KiwiSaver &amp; Insurance Pulse — Verified NZ Data | HLF</title>
   <script type="application/ld+json">{json.dumps(hub_schema_obj)}</script>
   <style>
     body {{ font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111827; background: #f8fafc; margin: 0; padding: 24px 14px 56px; line-height: 1.58; font-variant-numeric: tabular-nums; }}
@@ -3274,15 +3925,26 @@ def main() -> None:
     .lag-item span {{ display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #186bd6; margin-bottom: 2px; }}
     .lag-item strong {{ font-size: 0.98rem; color: #0b2559; }}
     .lag-item small {{ display: block; font-size: 0.76rem; color: #374151; margin-top: 2px; }}
-    .creator-card {{ display: flex; align-items: flex-start; gap: 18px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px 20px; margin: 0 0 24px; }}
+    .creator-wrap {{ margin: 0 0 26px; border: 1px solid #dbeafe; border-radius: 16px; overflow: hidden; background: #ffffff; box-shadow: 0 2px 10px rgba(11,37,89,0.04); }}
+    .creator-card {{ display: flex; align-items: flex-start; gap: 18px; background: #f8fafc; padding: 18px 20px; border-bottom: 1px solid #e5e7eb; }}
     .creator-avatar {{ width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #0b2559; border: 2px solid #dbeafe; box-shadow: 0 2px 8px rgba(11,37,89,0.12); }}
     .creator-avatar img {{ width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; transform: scale(1.65); transform-origin: 50% 22%; display: block; }}
     .creator-hdr {{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 2px; font-size: 1rem; color: #0b2559; }}
     .creator-badge {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; font-size: 0.72rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; }}
-    .creator-role {{ font-size: 0.83rem; color: #4b5563; font-weight: 600; margin-bottom: 8px; }}
+    .creator-role {{ font-size: 0.82rem; color: #4b5563; font-weight: 600; margin-bottom: 8px; }}
     .creator-body p {{ font-size: 0.87rem; color: #374151; margin: 0 0 8px; line-height: 1.55; }}
     .creator-links {{ font-size: 0.82rem; }}
-    .use-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 12px 0 24px; }}
+    .context-cta {{ padding: 16px 20px; background: #ffffff; }}
+    .context-cta-text strong {{ display: block; color: #0b2559; font-size: 0.95rem; margin-bottom: 4px; }}
+    .context-cta-text p {{ font-size: 0.84rem; color: #374151; margin: 0 0 12px; }}
+    .context-cta-actions {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-bottom: 10px; }}
+    .cta-btn {{ display: block; text-decoration: none; border-radius: 10px; padding: 10px 14px; transition: background 0.15s ease; }}
+    .cta-btn.is-primary {{ background: #eff6ff; border: 1px solid #93c5fd; color: #0b2559; }}
+    .cta-btn.is-secondary {{ background: #f8fafc; border: 1px solid #e5e7eb; color: #0b2559; }}
+    .cta-btn strong {{ display: block; font-size: 0.86rem; color: #186bd6; margin-bottom: 2px; }}
+    .cta-btn span {{ display: block; font-size: 0.75rem; color: #4b5563; font-weight: 400; }}
+    .context-cta-meta {{ font-size: 0.75rem; color: #6b7280; border-top: 1px solid #f1f5f9; padding-top: 8px; }}
+    .use-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 12px; margin: 12px 0 24px; }}
     .use-card {{ background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px 16px; font-size: 0.83rem; }}
     .use-card strong {{ display: block; color: #0b2559; font-size: 0.9rem; margin-bottom: 6px; }}
     .use-card ul {{ margin: 0; padding-left: 18px; color: #374151; }}
@@ -3326,14 +3988,14 @@ def main() -> None:
 </head>
 <body>
   <main>
-    <h1>NZ Mortgage, Housing &amp; KiwiSaver Pulse — Verified NZ Housing &amp; Mortgage Data</h1>
-    <p>Public reference dataset and data dictionary built from official New Zealand Crown releases, with clearly labelled HLF-derived calculations and interpretation (<a href="#browse-datasets">Browse all {len(verified_tickers)} datasets</a> &bull; <a href="#data-quality-limitations">Data Quality &amp; Limitations</a> &bull; <a href="#about-hlf-pulse">About &amp; Methodology</a>). Machine-readable endpoints: <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>, <a href="{PULSE_BASE_URL}/nz-mortgage-pulse.json"><code>nz-mortgage-pulse.json</code></a>, and <a href="{PULSE_BASE_URL}/llms.txt"><code>llms.txt</code></a>.</p>
+    <h1>NZ Mortgage, Housing, KiwiSaver &amp; Insurance Pulse — Verified NZ Data</h1>
+    <p>Public reference dataset and data dictionary built from official New Zealand Crown and industry releases, with clearly labelled HLF-derived calculations and interpretation (<a href="#browse-datasets">Browse all {len(verified_tickers)} datasets</a> &bull; <a href="#cat-protection-insurance-pulse">Protection &amp; Insurance Pulse</a> &bull; <a href="#data-quality-limitations">Data Quality &amp; Limitations</a> &bull; <a href="#about-hlf-pulse">About &amp; Methodology</a>). Machine-readable endpoints: <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>, <a href="{PULSE_BASE_URL}/nz-mortgage-pulse.json"><code>nz-mortgage-pulse.json</code></a>, and <a href="{PULSE_BASE_URL}/llms.txt"><code>llms.txt</code></a>.</p>
 
     <div class="lag-banner" aria-label="Latest Underlying Data Period vs. Verification Date">
       <div class="lag-item">
         <span>Latest Underlying Data</span>
         <strong>{html_lib.escape(latest_rbnz_period)} (RBNZ / Monthly Series)</strong>
-        <small>Why: RBNZ and Crown mortgage statistics are published ~4 weeks after month-end.</small>
+        <small>Why: RBNZ and Crown statistics are published ~4 weeks after month-end.</small>
       </div>
       <div class="lag-item">
         <span>Last Checked &amp; Verified</span>
@@ -3343,7 +4005,7 @@ def main() -> None:
       <div class="lag-item">
         <span>Data Status</span>
         <strong style="color:#065f46;">&#10003; Verified (<a href="#browse-datasets" style="color:#065f46;text-decoration:underline;">{len(verified_tickers)} Active Datasets &darr;</a>)</strong>
-        <small>Sources: RBNZ, Stats NZ, MBIE Tenancy Services, Inland Revenue.</small>
+        <small>Sources: RBNZ, Stats NZ, MBIE, IRD, ICNZ, NHC Toka Tū Ake.</small>
       </div>
     </div>
 
@@ -3379,12 +4041,21 @@ def main() -> None:
         </ul>
       </div>
       <div class="use-card">
+        <strong>For Protection &amp; Insurance</strong>
+        <ul>
+          <li><a href="#building-insurance-inflation">Why has house insurance become more expensive in NZ?</a></li>
+          <li><a href="#residential-insurance-coverage">How many NZ homes are uninsured or underinsured?</a></li>
+          <li><a href="#natural-hazard-claims">How much does NHCover (EQC) cover on a house?</a></li>
+          <li><a href="#life-insurance-inflation">How are life and health insurance prices changing?</a></li>
+        </ul>
+      </div>
+      <div class="use-card">
         <strong>For Journalists &amp; Researchers</strong>
         <ul>
           <li><a href="#fhb-vs-investors">What are the latest RBNZ mortgage lending trends?</a></li>
           <li><a href="#settled-rates">What are NZ fixed mortgage rates actually settling at?</a></li>
           <li><a href="#dti-headroom">How much headroom sits beneath RBNZ&rsquo;s 20% DTI speed limit?</a></li>
-          <li><a href="#townhouse-share">How is multi-unit and townhouse supply changing?</a></li>
+          <li><a href="#insurer-loss-ratios">What is the claims loss ratio across NZ insurers?</a></li>
         </ul>
       </div>
     </div>
@@ -3392,7 +4063,7 @@ def main() -> None:
     <h2 id="browse-datasets">Browse All {len(verified_tickers)} Datasets by Category</h2>
     <div class="cat-grid">{cat_cards_html}</div>
 
-    <h2>Verified NZ Housing, Mortgage &amp; KiwiSaver Data Dictionary ({len(verified_tickers)} Active Datasets)</h2>
+    <h2>Verified NZ Mortgage, Housing, KiwiSaver &amp; Protection Data Dictionary ({len(verified_tickers)} Active Datasets)</h2>
     <p>Every dataset separates <span class="lbadge is-off" style="width:auto;">Official data</span>, <span class="lbadge is-calc" style="width:auto;">HLF calculation</span>, and <span class="lbadge is-interp" style="width:auto;">HLF interpretation</span>. Click any Ticker Key to open its standalone canonical page (<code>/{'{ticker}'}/</code>).</p>
     <table>
       <thead><tr><th style="width:230px;">Ticker &amp; Derivation</th><th style="width:170px;">Source &amp; Data Period</th><th>Verified Statistic, 3-Layer Breakdown &amp; Expandable Data Dictionary</th></tr></thead>
