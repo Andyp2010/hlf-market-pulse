@@ -2431,25 +2431,13 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path) -> dict:
             "history": make_history_list(dates, r_1y, lambda x: f"{x:.2f}% (1Y settled)"),
         }
     }
-def build_insurance_pulse_tickers(
-    session,
-    q_as_of: str,
-    q_lbl: str,
-    cpi_all_val: float | None,
-    cpi_url: str,
-    cpi_text: str = "",
-) -> dict:
-    """
-    Build the 10 Protection & Insurance Pulse datasets from Stats NZ (CPI & HES),
-    RBNZ (Financial Stability Report), ICNZ (Market Data), and NHC Toka Tū Ake.
-    """
+    def build_insurance_pulse_tickers(session, q_as_of: str, q_lbl: str, cpi_all_val: float | None, cpi_url: str, cpi_text: str = "") -> dict:
     today = datetime.datetime.now(datetime.timezone.utc).date()
     cpi_as_of = q_as_of or month_end_iso(pd.Timestamp(datetime.date(today.year, 9 if today.month >= 10 else 6, 1)))
     cpi_period_lbl = q_lbl or "September 2026 quarter"
     cpi_ref_url = cpi_url or STATS_CPI_PAGE
     headline_cpi = cpi_all_val if cpi_all_val is not None else 3.2
 
-    # Attempt live extraction from Stats NZ CPI release text if sub-series are mentioned in release body
     def extract_ins_cpi(pattern: str, default_val: float) -> float:
         if cpi_text:
             m = re.search(pattern, cpi_text, flags=re.I)
@@ -2492,28 +2480,23 @@ def build_insurance_pulse_tickers(
     hlth_gap = hlth_inf - headline_cpi
     life_gap = life_inf - headline_cpi
 
-    # Semi-annual / annual anchor dates within MAX_AGE_INSURANCE (550 days)
     fsr_as_of = f"{today.year}-05-31" if today.month >= 5 else f"{today.year - 1}-11-30"
     fy_as_of = f"{today.year}-06-30" if today.month >= 7 else f"{today.year - 1}-06-30"
 
-    # Household expenditure & RBNZ dwelling premium math
     hes_wk = 24.80
     hes_ann = round(hes_wk * 52.0, 2)
     rbnz_Prem = 2850
 
-    # ICNZ GWP, Net Earned Premium & Net Claims math
     gwp_b = 9.85
     nep_b = 7.40
     claims_b = 4.66
     loss_ratio = round((claims_b / nep_b) * 100.0, 1)
 
-    # NHCover statutory cap & levy math
     nhc_cap_ex = 300_000
     nhc_cap_inc = int(round(nhc_cap_ex * 1.15))
     nhc_levy_ex = 480
     nhc_levy_inc = round(nhc_levy_ex * 1.15, 2)
 
-    # RBNZ May 2026 FSR Residential Coverage math
     unins_cnt = 60_000
     tot_dwell = 2_000_000
     ins_cnt = tot_dwell - unins_cnt
@@ -2913,7 +2896,6 @@ def build_stats_nz_tickers(session) -> dict:
             print(f"[Stats NZ CPI] Parsed {qname.capitalize()} {yr}: {'-' if is_down else '+'}{val:.1f}% YoY")
             break
 
-    # Build the 10 Protection & Insurance Pulse datasets
     ins_out = build_insurance_pulse_tickers(
         session, latest_cpi_as_of, latest_cpi_lbl, latest_cpi_all, latest_cpi_url, latest_cpi_txt
     )
@@ -3288,7 +3270,6 @@ def enrich_ticker_record(key: str, item: dict, verified_date_iso: str, verified_
 
 
 def render_creator_card_html(compact: bool = False) -> str:
-    """Render the Creator Attribution block + Subtle Contact & Disclosure Pathway."""
     if compact:
         return f"""
     <div class="creator-card is-compact" aria-label="Dataset Creator Attribution &amp; Context Pathway">
@@ -3634,7 +3615,6 @@ def main() -> None:
         live_parsed_count += len(snz_out)
     except Exception as exc:
         print(f"[Stats NZ / Insurance] Error: {exc}")
-        # Ensure the 10 Protection & Insurance Pulse datasets still build even if Stats NZ HTTP is unreachable
         ins_fallback = build_insurance_pulse_tickers(session, "", "", None, "")
         fresh_candidates.update(ins_fallback)
         live_parsed_count += len(ins_fallback)
