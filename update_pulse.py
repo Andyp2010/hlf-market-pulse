@@ -3083,7 +3083,7 @@ def main() -> None:
 
     # 4. Build Category Directory & Rows for index.html
     by_cat = {c: [] for c in CATEGORY_ORDER}
-    for k, rec in sorted(verified_tickers.keys()):
+    for k, rec in sorted(verified_tickers.items()):
         cat = rec.get("category", "Mortgage lending & rates")
         by_cat.setdefault(cat, []).append((k, rec))
 
