@@ -2431,7 +2431,7 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path) -> dict:
             "history": make_history_list(dates, r_1y, lambda x: f"{x:.2f}% (1Y settled)"),
         }
     }
-    def build_insurance_pulse_tickers(
+def build_insurance_pulse_tickers(
     session,
     q_as_of: str,
     q_lbl: str,
