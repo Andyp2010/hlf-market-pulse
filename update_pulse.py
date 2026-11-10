@@ -2430,8 +2430,8 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path) -> dict:
             "historical_data_from": hist_start_b30,
             "history": make_history_list(dates, r_1y, lambda x: f"{x:.2f}% (1Y settled)"),
         }
-    }
-    def build_insurance_pulse_tickers(session, q_as_of: str, q_lbl: str, cpi_all_val: float | None, cpi_url: str, cpi_text: str = "") -> dict:
+    }    
+def build_insurance_pulse_tickers(session, q_as_of: str, q_lbl: str, cpi_all_val: float | None, cpi_url: str, cpi_text: str = "") -> dict:
     today = datetime.datetime.now(datetime.timezone.utc).date()
     cpi_as_of = q_as_of or month_end_iso(pd.Timestamp(datetime.date(today.year, 9 if today.month >= 10 else 6, 1)))
     cpi_period_lbl = q_lbl or "September 2026 quarter"
