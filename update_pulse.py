@@ -16,10 +16,45 @@ warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
 warnings.filterwarnings("ignore", message=".*Canvas and WebGL.*")
 
 # ---------------------------------------------------------------------------
-# Official NZ Crown Data Sources (RBNZ, Stats NZ, MBIE Tenancy, Inland Revenue)
+# Official NZ Crown Data Sources & Creator / Publisher Metadata
 # ---------------------------------------------------------------------------
 PULSE_BASE_URL = "https://pulse-data.homeloanfactory.co.nz"
 RBNZ_WARMUP_URL = "https://www.rbnz.govt.nz/statistics"
+
+CREATOR_NAME = "Andy Palliser"
+CREATOR_ALT_NAME = "Andrew Palliser"
+CREATOR_ROLE = "Mortgage & KiwiSaver Adviser · Home Loan Factory"
+CREATOR_BADGE = "Creator of HLF Pulse"
+CREATOR_FSP = "FSP1004725"
+CREATOR_URL = "https://www.homeloanfactory.co.nz/team/andrew-palliser"
+CREATOR_IMAGE = "https://cdn.prod.website-files.com/6a1baf404596ba888865b209/6a1ce4c85096daa2e99a0ecb_Andrew-Palliser.avif"
+PUBLISHER_NAME = "HLF (Home Loan Factory)"
+PUBLISHER_LEGAL = "HLF Financial Limited"
+PUBLISHER_URL = "https://www.homeloanfactory.co.nz/"
+PULSE_DATE_CREATED = "2026-09-01"
+
+CREATOR_SCHEMA_OBJ = {
+    "@type": "Person",
+    "name": CREATOR_NAME,
+    "alternateName": CREATOR_ALT_NAME,
+    "jobTitle": "Mortgage & KiwiSaver Adviser",
+    "identifier": CREATOR_FSP,
+    "url": CREATOR_URL,
+    "image": CREATOR_IMAGE,
+    "worksFor": {
+        "@type": "Organization",
+        "name": "Home Loan Factory",
+        "legalName": PUBLISHER_LEGAL,
+        "url": PUBLISHER_URL,
+    },
+}
+
+PUBLISHER_SCHEMA_OBJ = {
+    "@type": "Organization",
+    "name": PUBLISHER_NAME,
+    "legalName": PUBLISHER_LEGAL,
+    "url": PUBLISHER_URL,
+}
 
 RBNZ_SOURCES = {
     "c31": {
@@ -101,7 +136,7 @@ CATEGORY_ORDER = [
 # ---------------------------------------------------------------------------
 TICKER_CATALOG = {
     "fhb-low-deposit": {
-        "name": "First-home buyers using under 20% deposit",
+        "name": "First-home buyers using under 20% deposit (>80% LVR)",
         "also_known_as": "High-LVR (>80% LVR) first-home buyer share / Low-deposit FHB mortgage share",
         "category": "First-home buyers",
         "topic": "First-home lending",
@@ -113,10 +148,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "First-home buyer mortgage commitments where the Loan-to-Value Ratio (LVR) exceeds 80% (meaning the buyer has less than a 20% deposit), measured by borrower/loan count alongside officially reported high-LVR dollar lending.",
+        "definition": "The HLF-derived percentage of firm residential mortgage commitments to New Zealand first-home buyers where the Loan-to-Value Ratio (LVR) exceeds 80% (corresponding to under a 20% deposit), measured by borrower count alongside officially reported >80% LVR dollar lending.",
         "methodology": "Compiled from monthly registered bank returns under RBNZ Table C31. First-home buyers are defined by lending banks as borrowers purchasing a residential property to occupy as a first home.",
         "hlf_calculation": "(High-LVR FHB Borrowers [LVRN.MMB2.BC1] ÷ Total FHB Borrowers [LVRN.MMB2.AC1]) × 100",
-        "hlf_interpretation": "In practice, first-home buyers with under a 20% deposit obtain finance through bank low-equity speed-limit allocations, Kāinga Ora First Home Loans, or LVR-exempt new builds, subject to lender policy and servicing tests.",
+        "hlf_interpretation": "HLF market context (not measured in C31): RBNZ Table C31 reports all >80% LVR commitments as a single aggregate and does not disaggregate the underlying lending channel (such as bank low-equity speed-limit allocations, Kāinga Ora First Home Loans, or LVR-exempt new builds).",
         "questions": [
             "How many first-home buyers have less than a 20% deposit in New Zealand?",
             "Is a 20% deposit actually typical for NZ first-home buyers?",
@@ -142,10 +177,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The proportion of total new residential mortgage lending dollars in New Zealand committed to first-home buyers, alongside the officially reported monthly count of approved first-home loans and HLF-derived average loan size.",
+        "definition": "The HLF-derived proportion of total new residential mortgage lending dollars in New Zealand committed to first-home buyers, alongside the officially reported monthly count of approved first-home loans and HLF-derived average loan size.",
         "methodology": "Sourced from RBNZ Table C31 monthly registered bank commitments across first-home buyers, other owner-occupiers, property investors, and business purposes.",
         "hlf_calculation": "(FHB Lending NZDm [LVRN.MMB1.AC1] ÷ Total Lending NZDm [LVRN.MMB1.AA]) × 100",
-        "hlf_interpretation": "Tracks the share of new residential mortgage commitments going to first-home buyers relative to movers, refinancers, and property investors.",
+        "hlf_interpretation": "HLF market context: Tracks the proportion of new bank mortgage commitments going to first-home buyers relative to other owner-occupiers, investors, and business borrowers.",
         "questions": [
             "What share of New Zealand mortgages go to first-home buyers?",
             "How many first-home buyer loans are approved each month in NZ?",
@@ -157,8 +192,8 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
     },
     "fhb-loan-size-gap": {
-        "name": "First-home buyer average mortgage size by deposit tier (<20% vs 20%+ deposit)",
-        "also_known_as": "Low-deposit vs standard-deposit FHB average loan size",
+        "name": "First-home buyer average mortgage size by LVR tier (>80% LVR vs <=80% LVR)",
+        "also_known_as": "Low-deposit (<20% deposit) vs standard-deposit (20%+ deposit) FHB average loan size",
         "category": "First-home buyers",
         "topic": "First-home lending",
         "source": "RBNZ C31",
@@ -169,10 +204,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "NZD",
         "frequency": "Monthly",
-        "definition": "Comparison of the average approved mortgage size for New Zealand first-home buyers with under a 20% deposit (>80% LVR) versus first-home buyers with a 20%+ deposit (<=80% LVR).",
+        "definition": "HLF-derived comparison of the mean approved mortgage size for New Zealand first-home buyers at >80% LVR (under 20% deposit) versus first-home buyers at <=80% LVR (20%+ deposit).",
         "methodology": "Derived from RBNZ Table C31 by dividing total monthly dollar lending in each LVR tier by the number of approved first-home borrowers in that same LVR tier.",
         "hlf_calculation": "(LVRN.MMB1.BC1 × $1m ÷ LVRN.MMB2.BC1) minus (LVRN.MMB1.CC1 × $1m ÷ LVRN.MMB2.CC1)",
-        "hlf_interpretation": "The data shows that buyers with under 20% deposits are taking larger mortgages on average. The reasons for this difference can vary, including household income, property price, and the decision to buy sooner rather than save longer.",
+        "hlf_interpretation": "HLF market context: The data shows that first-home buyers at >80% LVR take out larger mortgages on average than those at <=80% LVR. RBNZ Table C31 does not record property purchase prices or borrower motivations; factors can include borrowing a higher percentage of the purchase price, regional price mix, or household income.",
         "questions": [
             "Do low-deposit first-home buyers borrow more or less than 20% deposit buyers?",
             "What is the average low-deposit first-home loan size in NZ?",
@@ -184,7 +219,7 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
     },
     "fhb-bank-lvr-priority": {
-        "name": "First-home buyer share of all bank low-deposit (>80% LVR) lending",
+        "name": "First-home buyer share of all >80% LVR mortgage lending",
         "also_known_as": "FHB share of high-LVR bank lending",
         "category": "First-home buyers",
         "topic": "First-home lending",
@@ -196,10 +231,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The share of all >80% LVR (under 20% deposit/equity) residential mortgage lending across New Zealand committed to first-home buyers.",
+        "definition": "The HLF-derived share of all >80% LVR residential mortgage lending across New Zealand committed to first-home buyers.",
         "methodology": "Compares high-LVR first-home commitments against high-LVR commitments across all borrower types combined in RBNZ Table C31.",
         "hlf_calculation": "(FHB >80% LVR Lending [LVRN.MMB1.BC1] ÷ All Borrower >80% LVR Lending [LVRN.MMB1.BA]) × 100",
-        "hlf_interpretation": "Shows that the majority of >80% LVR mortgage lending in New Zealand is committed to first-home buyers rather than existing owner-occupiers or investors.",
+        "hlf_interpretation": "HLF market context: Shows that first-home buyers account for the majority of >80% LVR commitments in RBNZ Table C31. Table C31 includes both speed-limit lending and LVR-exempt lending (such as Kāinga Ora First Home Loans and new builds).",
         "questions": [
             "What share of bank >80% LVR lending goes to first-home buyers in New Zealand?",
             "Do New Zealand banks allocate most low-deposit loans to first-home buyers?",
@@ -222,10 +257,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "loans",
         "frequency": "Monthly",
-        "definition": "The cumulative number and dollar value of first-home buyer mortgages approved across New Zealand over the trailing 12 months, including the number approved with under a 20% deposit.",
+        "definition": "The HLF-derived cumulative number and dollar value of first-home buyer mortgages approved across New Zealand over the trailing 12 months, including the number approved at >80% LVR.",
         "methodology": "Rolling 12-month sum of monthly RBNZ Table C31 firm commitments to first-home buyers.",
         "hlf_calculation": "12-month trailing sum of LVRN.MMB2.AC1 (borrowers), LVRN.MMB1.AC1 (NZDm), and LVRN.MMB2.BC1 (>80% LVR borrowers)",
-        "hlf_interpretation": "Aggregating monthly commitments over a rolling 12-month period removes seasonal fluctuations to show annual first-home buyer lending volume.",
+        "hlf_interpretation": "HLF market context: Summing 12 consecutive monthly RBNZ C31 releases smooths out summer/winter seasonality to show annual commitment volume.",
         "questions": [
             "How many first-home buyers get approved for a mortgage each year in New Zealand?",
             "How many Kiwis buy their first home with under a 20% deposit per year?",
@@ -236,7 +271,7 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-sale-and-purchase-agreement-walkthrough",
     },
     "fhb-20-deposit-club": {
-        "name": "First-home buyers approved with a 20% or greater deposit (<=80% LVR)",
+        "name": "First-home buyers approved at <=80% LVR (20% or greater deposit)",
         "also_known_as": "Standard-equity (<=80% LVR) first-home buyer share",
         "category": "First-home buyers",
         "topic": "First-home lending",
@@ -248,10 +283,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The number, percentage share, and average loan size of New Zealand first-home buyers approved with a deposit of 20% or more (LVR <= 80%).",
+        "definition": "The officially reported number and dollar value, plus HLF-derived percentage share and average loan size, of New Zealand first-home buyers approved at an LVR of 80% or less (corresponding to a deposit of 20% or more).",
         "methodology": "Sourced from RBNZ Table C31 series for <=80% LVR first-home buyer lending and borrower counts.",
         "hlf_calculation": "(<=80% LVR FHB Borrowers [LVRN.MMB2.CC1] ÷ Total FHB Borrowers [LVRN.MMB2.AC1]) × 100",
-        "hlf_interpretation": "A 20% deposit can improve access to advertised special-rate pricing and generally avoids low-equity margins, subject to lender policy.",
+        "hlf_interpretation": "HLF market context (not measured in C31): An LVR of <=80% (a 20%+ deposit) can improve access to advertised special-rate pricing and generally avoids low-equity margins, subject to individual lender policy.",
         "questions": [
             "What percentage of NZ first-home buyers have a 20% deposit?",
             "What is the average mortgage size for a first-home buyer with a 20% deposit?",
@@ -274,10 +309,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "NZDm",
         "frequency": "Monthly",
-        "definition": "Head-to-head comparison of monthly new residential mortgage lending committed to first-home buyers versus residential property investors across New Zealand.",
+        "definition": "HLF-calculated comparison of monthly new residential mortgage lending committed to first-home buyers versus residential property investors in RBNZ Table C31.",
         "methodology": "Compares RBNZ Table C31 total monthly lending to first-home buyers (LVRN.MMB1.AC1) against total monthly lending to property investors (LVRN.MMB1.AN).",
         "hlf_calculation": "FHB Lending [LVRN.MMB1.AC1] minus Investor Lending [LVRN.MMB1.AN]",
-        "hlf_interpretation": "Compares the dollar volume of new bank mortgage commitments going to first-home buyers versus residential property investors in the latest monthly release.",
+        "hlf_interpretation": "HLF market context: Compares the dollar volume of new bank mortgage commitments between first-home buyers and residential property investors in the latest monthly release.",
         "questions": [
             "Are first-home buyers or property investors borrowing more in New Zealand?",
             "How does first-home buyer lending compare with investor lending in NZ?",
@@ -300,10 +335,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The percentage share and dollar value of total new residential mortgage lending in New Zealand committed to residential property investors.",
+        "definition": "The HLF-derived percentage share and officially reported dollar value of total new residential mortgage lending in New Zealand committed to residential property investors.",
         "methodology": "Sourced from RBNZ Table C31 monthly registered bank commitments to residential property investors.",
         "hlf_calculation": "(Investor Lending NZDm [LVRN.MMB1.AN] ÷ All Borrower Lending NZDm [LVRN.MMB1.AA]) × 100",
-        "hlf_interpretation": "Measures the share of new residential mortgage commitments attributed to property investors relative to owner-occupiers.",
+        "hlf_interpretation": "HLF market context: Measures the share of new residential mortgage commitments attributed to property investors relative to owner-occupiers.",
         "questions": [
             "What percentage of NZ mortgage lending goes to property investors?",
             "How much are property investors borrowing each month in New Zealand?",
@@ -314,7 +349,7 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator",
     },
     "owner-equity-buffer": {
-        "name": "Existing owner-occupiers approved with 20% or more equity (<=80% LVR)",
+        "name": "Existing owner-occupiers approved at <=80% LVR (20% or more equity)",
         "also_known_as": "Standard-equity (<=80% LVR) existing homeowner share",
         "category": "Homeowners & equity",
         "topic": "Homeowner equity & refinancing",
@@ -326,13 +361,13 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The percentage of existing owner-occupier mortgage approvals (movers, refinancers, and top-up borrowers, excluding first-home buyers) with at least 20% equity (LVR <= 80%), plus their average mortgage size.",
+        "definition": "The HLF-derived percentage and average loan size of 'Other owner-occupier' mortgage approvals (movers, refinancers, and top-up borrowers, excluding first-home buyers) written at an LVR of 80% or less.",
         "methodology": "Derived from RBNZ Table C31 'Other owner-occupiers' series at or below 80% LVR.",
         "hlf_calculation": "(<=80% LVR Other Owner-Occupiers [LVRN.MMB2.CC2] ÷ Total Other Owner-Occupiers [LVRN.MMB2.AC2]) × 100",
-        "hlf_interpretation": "Shows the proportion of non-first-home owner-occupier mortgage approvals where borrowers hold at least 20% equity (<=80% LVR).",
+        "hlf_interpretation": "HLF market context: An LVR of <=80% on a mortgage commitment corresponds to holding at least 20% security equity in the mortgaged property. Note that RBNZ C31 only measures homeowners who apply for a new loan, refinance, or top-up during the month, not unmortgaged homeowners.",
         "questions": [
             "What percentage of existing New Zealand homeowners have at least 20% equity when refinancing or moving?",
-            "What is the average mortgage size for an existing homeowner with 20%+ equity in NZ?",
+            "What is the average mortgage size for an existing homeowner at <=80% LVR in NZ?",
         ],
         "article_title": "How to Calculate & Use Your Usable Home Equity",
         "article_url": "https://www.homeloanfactory.co.nz/news-insights",
@@ -340,25 +375,25 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator",
     },
     "investor-equity-tiers": {
-        "name": "Property investor equity tier breakdown (40%+, 30%–40%, and <30% equity)",
-        "also_known_as": "Investor LVR distribution (<=60% LVR, 60%–70% LVR, >70% LVR)",
+        "name": "Property investor LVR & equity tier breakdown (<=60% LVR, 60%–70% LVR, >70% LVR)",
+        "also_known_as": "Investor LVR distribution (40%+ equity, 30%–40% equity, <30% equity equivalents)",
         "category": "Property investors & rents",
         "topic": "Property investment & equity",
         "source": "RBNZ C31",
         "source_full": "Reserve Bank of New Zealand Table C31",
         "series_ids": "LVRN.MMB2.TN, LVRN.MMB2.FN, LVRN.MMB2.DN, LVRN.MMB2.AN",
         "source_url": RBNZ_SOURCES["c31"]["pages"][0],
-        "data_type": "HLF-derived equity tier distribution (from RBNZ C31 investor LVR memo items)",
+        "data_type": "HLF-derived LVR tier distribution (from RBNZ C31 investor LVR memo items)",
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "Distribution of approved New Zealand residential property investors across three equity tiers: 40%+ equity (<=60% LVR), 30%–40% equity (60% < LVR <= 70%), and under 30% equity (>70% LVR).",
+        "definition": "HLF-derived distribution of approved New Zealand residential property investors across three LVR tiers in RBNZ Table C31: <=60% LVR, 60% < LVR <= 70%, and >70% LVR.",
         "methodology": "Derived from RBNZ Table C31 investor memo series tracking LVR thresholds at 60% and 70%.",
-        "hlf_calculation": "40%+ eq = LVRN.MMB2.TN ÷ AN; 30–40% eq = (LVRN.MMB2.FN - DN) ÷ AN; <30% eq = LVRN.MMB2.DN ÷ AN",
-        "hlf_interpretation": "In practice, lender policy and RBNZ LVR settings determine how much equity or deposit an individual investor requires for a given property.",
+        "hlf_calculation": "<=60% LVR = LVRN.MMB2.TN ÷ AN; 60–70% LVR = (LVRN.MMB2.FN - DN) ÷ AN; >70% LVR = LVRN.MMB2.DN ÷ AN",
+        "hlf_interpretation": "HLF market context: An LVR of <=60% corresponds to 40%+ deposit/equity, 60%–70% LVR corresponds to 30%–40% deposit/equity, and >70% LVR corresponds to under 30% deposit/equity. In practice, RBNZ LVR settings and individual lender policy determine how much equity an investor needs.",
         "questions": [
-            "What proportion of NZ property investors buy with less than 40% equity?",
-            "What percentage of NZ property investors buy in the 30%–40% equity band vs under 30% equity?",
+            "What proportion of NZ property investors borrow at >60% LVR (less than 40% equity)?",
+            "What percentage of NZ property investors borrow in the 60%–70% LVR (30%–40% equity) band vs >70% LVR?",
         ],
         "article_title": "Using Home Equity to Buy an Investment Property",
         "article_url": "https://www.homeloanfactory.co.nz/news-insights",
@@ -366,7 +401,7 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator",
     },
     "investor-low-deposit": {
-        "name": "Property investor loans approved with under 20% deposit (>80% LVR) & 20%–30% deposit",
+        "name": "Property investor loans approved at >80% LVR (<20% deposit) & 70%–80% LVR",
         "also_known_as": "High-LVR (>80% LVR & 70%–80% LVR) property investor lending",
         "category": "Property investors & rents",
         "topic": "Property investment & new builds",
@@ -378,13 +413,13 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "loans",
         "frequency": "Monthly",
-        "definition": "The number and dollar value of residential property investor mortgages approved with strictly under a 20% deposit (>80% LVR), alongside the 20%–30% deposit tier (70% < LVR <= 80%).",
-        "methodology": "In RBNZ Table C31, strictly under-20% deposit investor loans are recorded in >80% LVR (LVRN.MMB2.BN / LVRN.MMB1.BN), while investor loans with 20.0% to <30.0% deposit sit inside 70% < LVR <= 80% (LVRN.MMB2.DN minus LVRN.MMB2.BN).",
+        "definition": "The officially reported number and dollar value of residential property investor mortgages approved at >80% LVR (under 20% deposit), alongside the HLF-derived 70% < LVR <= 80% band (20%–30% deposit).",
+        "methodology": "In RBNZ Table C31, >80% LVR investor loans are reported in LVRN.MMB2.BN / LVRN.MMB1.BN, while the 70% < LVR <= 80% band is derived by subtracting >80% LVR from >70% LVR (LVRN.MMB2.DN minus LVRN.MMB2.BN).",
         "hlf_calculation": ">80% LVR = LVRN.MMB2.BN; 70%–80% LVR = LVRN.MMB2.DN minus LVRN.MMB2.BN",
-        "hlf_interpretation": "Captures investor lending above 80% LVR and between 70% and 80% LVR. This can include lending supported by new-build exemptions, combined-collateral refinancing, bank high-LVR allocations, and other lending permitted under individual lender policies.",
+        "hlf_interpretation": "HLF market context (not disaggregated in C31): Captures investor lending above 80% LVR and between 70% and 80% LVR. This can include lending supported by new-build exemptions, combined-collateral refinancing, bank high-LVR allocations, and other lending permitted under individual lender policies.",
         "questions": [
-            "How many property investor loans are approved with under a 20% deposit (>80% LVR) in NZ?",
-            "How many investor loans sit in the 20%–30% deposit (70%–80% LVR) band?",
+            "How many property investor loans are approved at >80% LVR (under a 20% deposit) in NZ?",
+            "How many investor loans sit in the 70%–80% LVR (20%–30% deposit) band?",
         ],
         "article_title": "New-Build & Low-Deposit Rules for Property Investors",
         "article_url": "https://www.homeloanfactory.co.nz/news-insights",
@@ -392,7 +427,7 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/turnkey-vs-construction-loan-calculator-nz",
     },
     "investor-new-build-lvr": {
-        "name": "Property investors approved with under a 30% deposit (>70% LVR)",
+        "name": "Property investors approved at >70% LVR (under 30% deposit)",
         "also_known_as": "Higher than 70% LVR property investor share",
         "category": "Property investors & rents",
         "topic": "Property investment & new builds",
@@ -404,12 +439,12 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The total number, dollar value, and percentage share of New Zealand property investor mortgages approved with under a 30% deposit (>70% LVR).",
+        "definition": "The officially reported number and dollar value, plus HLF-derived percentage share, of New Zealand property investor mortgages approved at >70% LVR (corresponding to under a 30% deposit).",
         "methodology": "Sourced from RBNZ Table C31 Memo Item H2/D2 (Higher than 70% LVR investor borrowers and lending).",
         "hlf_calculation": "(>70% LVR Investor Borrowers [LVRN.MMB2.DN] ÷ Total Investor Borrowers [LVRN.MMB2.AN]) × 100",
-        "hlf_interpretation": "Captures investor lending above the 70% LVR threshold. This can include lending supported by new-build exemptions, bank high-LVR allocations, and other lending permitted under individual lender policies.",
+        "hlf_interpretation": "HLF market context (not disaggregated in C31): Captures investor lending above the 70% LVR threshold. This can include lending supported by new-build exemptions, bank high-LVR allocations, and other lending permitted under individual lender policies.",
         "questions": [
-            "What percentage of NZ property investors buy with less than a 30% deposit?",
+            "What percentage of NZ property investors borrow at >70% LVR (less than a 30% deposit)?",
             "How many investor loans are approved above 70% LVR each month?",
         ],
         "article_title": "New-Build LVR Exemptions for Property Investors",
@@ -418,7 +453,7 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator",
     },
     "mover-low-equity": {
-        "name": "Existing owner-occupiers approved with under 20% equity (>80% LVR)",
+        "name": "Existing owner-occupiers approved at >80% LVR (under 20% equity)",
         "also_known_as": "High-LVR (>80% LVR) other owner-occupier share",
         "category": "Homeowners & equity",
         "topic": "Next-home buyers & homeowner equity",
@@ -430,12 +465,12 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The number, dollar value, and percentage share of existing owner-occupiers (non-first-home buyers moving or borrowing) approved with under 20% equity (>80% LVR).",
+        "definition": "The officially reported number and dollar value, plus HLF-derived percentage share, of 'Other owner-occupiers' (non-first-home buyers moving, refinancing, or borrowing) approved at >80% LVR.",
         "methodology": "Sourced from RBNZ Table C31 series B3/F3 (Higher than 80% LVR other owner-occupiers).",
         "hlf_calculation": "(>80% LVR Other Owner-Occupiers [LVRN.MMB2.BC2] ÷ Total Other Owner-Occupiers [LVRN.MMB2.AC2]) × 100",
-        "hlf_interpretation": "Captures non-first-home owner-occupier lending above 80% LVR, which can include new-build purchases, bridging/relocation lending, and bank speed-limit allocations.",
+        "hlf_interpretation": "HLF market context (not disaggregated in C31): Captures non-first-home owner-occupier lending above 80% LVR, which can include new-build purchases, bridging/relocation lending, and bank speed-limit allocations.",
         "questions": [
-            "Can existing homeowners move or borrow with less than 20% equity in NZ?",
+            "Can existing homeowners move or borrow at >80% LVR (less than 20% equity) in NZ?",
             "How many existing NZ owner-occupiers are approved with >80% LVR each month?",
         ],
         "article_title": "Upgrading Your Home With Less Than 20% Equity",
@@ -444,7 +479,7 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/net-proceeds-and-next-home-calculator",
     },
     "refinance": {
-        "name": "Monthly mortgage refinancing (borrowers switching bank providers)",
+        "name": "Monthly mortgage refinancing (borrowers changing loan provider)",
         "also_known_as": "Change in loan provider / Bank-to-bank mortgage switching",
         "category": "Mortgage lending & rates",
         "topic": "Refinancing & bank switching",
@@ -456,10 +491,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The monthly number of borrowers and total dollar value of residential mortgages switching from one mortgage provider to another in New Zealand.",
+        "definition": "The officially reported monthly number of borrowers and dollar value of residential mortgages changing loan provider in RBNZ Table C33, plus the HLF-derived share of total lending and average loan size.",
         "methodology": "Compiled from RBNZ Table C33 (New residential mortgage lending by purpose — Change in loan provider).",
         "hlf_calculation": "(Refinance Lending NZDm [LVRN.MMB1.AZD] ÷ Total Purpose Lending NZDm) × 100",
-        "hlf_interpretation": "Measures external refinancing between different mortgage lenders (internal refixes with the same bank are not counted in Table C33).",
+        "hlf_interpretation": "HLF market context: Measures external refinancing where a borrower switches from one mortgage provider to another (internal refixes with the same bank are not counted in Table C33).",
         "questions": [
             "How many New Zealand homeowners switch banks or refinance each month?",
             "What is the average mortgage size for borrowers refinancing in NZ?",
@@ -482,10 +517,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The monthly number of New Zealand homeowners approved for a top-up on their existing mortgage, their share of total approvals, and average top-up amount.",
+        "definition": "The officially reported monthly number of New Zealand borrowers approved for a top-up on their existing mortgage in RBNZ Table C33, alongside the HLF-derived share of total approvals and average top-up amount.",
         "methodology": "Compiled from RBNZ Table C33 (New residential mortgage lending by purpose — Top-ups).",
         "hlf_calculation": "(Top-Up Borrowers [LVRN.MMB2.AZB] ÷ Total Purpose Borrowers) × 100",
-        "hlf_interpretation": "In practice, homeowners use mortgage top-ups for purposes such as renovations, debt consolidation, or investment deposits, subject to lender servicing and equity criteria.",
+        "hlf_interpretation": "HLF market context (not disaggregated in C33): RBNZ Table C33 records top-ups as a single purpose category without disaggregating how borrowers use the funds (such as renovations, debt consolidation, or investment deposits).",
         "questions": [
             "How common are mortgage top-ups in New Zealand?",
             "What is the average mortgage top-up size in NZ?",
@@ -511,7 +546,7 @@ TICKER_CATALOG = {
         "definition": "Total monthly dollar value of new residential mortgage top-up commitments approved for existing borrowers in RBNZ Table C33.",
         "methodology": "Sourced from RBNZ Table C33 series LVRN.MMB1.AZB (Top-up lending value) and LVRN.MMB2.AZB (Top-up borrower count).",
         "hlf_calculation": "Officially reported LVRN.MMB1.AZB dollar total; Avg top-up = LVRN.MMB1.AZB × $1m ÷ LVRN.MMB2.AZB",
-        "hlf_interpretation": "This represents homeowners drawing additional borrowing against existing property equity (for example, to fund renovations, major purchases, or investment deposits), subject to lender policy.",
+        "hlf_interpretation": "HLF market context: This represents homeowners drawing additional borrowing against existing property equity, subject to lender servicing and LVR policy.",
         "questions": [
             "How much mortgage top-up lending is approved in New Zealand each month?",
         ],
@@ -533,10 +568,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The percentage of new residential investor lending versus new owner-occupier lending set up on interest-only terms (including revolving credit facilities).",
+        "definition": "The HLF-derived percentage of new residential investor lending versus new owner-occupier lending set up on interest-only terms (including revolving credit facilities) in RBNZ Table C32.",
         "methodology": "Derived from RBNZ Table C32 (New and existing residential mortgage lending by payment type).",
         "hlf_calculation": "(New Investor Interest-Only NZDm ÷ Total New Investor NZDm) × 100",
-        "hlf_interpretation": "Reflects differing repayment structures between residential investment loans and owner-occupied home loans, subject to lender interest-only term limits.",
+        "hlf_interpretation": "HLF market context: Shows the difference in interest-only usage between residential investment loans and owner-occupied home loans, subject to lender interest-only term limits.",
         "questions": [
             "What percentage of NZ property investors use interest-only mortgages?",
             "How common are interest-only home loans for owner-occupiers vs investors?",
@@ -547,7 +582,7 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/investment-property-cashflow-calculator",
     },
     "dti-headroom": {
-        "name": "First-home buyer high-DTI (>6x) lending share & bank speed-limit headroom",
+        "name": "First-home buyer high-DTI (>6x) lending share & speed-limit comparison",
         "also_known_as": "RBNZ Debt-to-Income (>6x TDTI) first-home buyer share",
         "category": "First-home buyers",
         "topic": "Debt-to-Income (DTI) & borrowing power",
@@ -555,18 +590,17 @@ TICKER_CATALOG = {
         "source_full": "Reserve Bank of New Zealand Table C40",
         "series_ids": "DTIN.MPV (First-home buyer TDTI bands)",
         "source_url": RBNZ_SOURCES["c40"]["pages"][0],
-        "data_type": "HLF-derived share & HLF-calculated speed-limit headroom",
+        "data_type": "HLF-derived share & HLF-calculated speed-limit comparison",
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The percentage of new first-home buyer mortgage lending committed at a Total Debt-to-Income (TDTI) ratio above 6x gross income, compared against the Reserve Bank's 20% speed-limit allowance.",
+        "definition": "The HLF-derived percentage of total new first-home buyer mortgage lending committed at a Total Debt-to-Income (TDTI) ratio above 6x gross income in RBNZ Table C40, compared against the 20% RBNZ speed-limit threshold.",
         "methodology": "Derived from RBNZ Table C40 (Residential mortgage lending by Debt-to-Income purpose use).",
-        "hlf_calculation": "(FHB Lending with TDTI > 6 ÷ Total FHB Lending) × 100; Headroom = 20.0% minus High-DTI Share",
-        "hlf_interpretation": "Shows that aggregate high-DTI (>6x) first-home lending sits well below the Reserve Bank's 20% speed-limit allowance, as bank servicing stress-test rates often constrain borrowing capacity before the 6x DTI threshold is reached.",
+        "hlf_calculation": "(FHB Lending with TDTI > 6 ÷ Total FHB Lending) × 100; Benchmark difference = 20.0% minus High-DTI Share",
+        "hlf_interpretation": "HLF market context: Note that RBNZ Table C40 totals include DTI-exempt new-build lending, whereas the Reserve Bank's 20% speed limit applies to non-exempt FHB lending per bank. In practice, borrowing capacity can be constrained by bank servicing test rates, LVR rules, or individual lender policy before the 6x DTI threshold is reached.",
         "questions": [
-            "Are Reserve Bank DTI rules limiting first-home buyers in New Zealand?",
-            "What percentage of NZ first-home buyers borrow more than 6 times their income?",
-            "How much headroom do banks have under the 20% DTI speed limit?",
+            "What percentage of NZ first-home buyer lending has a Debt-to-Income ratio above 6x?",
+            "How does high-DTI first-home lending compare with RBNZ's 20% speed-limit threshold?",
         ],
         "article_title": "Being Able to Afford a House vs Feeling Safe Buying One",
         "article_url": "https://www.homeloanfactory.co.nz/news-insights/the-difference-between-being-able-to-afford-a-house-and-feeling-safe-buying-one",
@@ -574,8 +608,8 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
     },
     "borrower-income": {
-        "name": "Average gross borrower income on approved FHB & investor mortgage applications",
-        "also_known_as": "RBNZ C41 Borrower Gross Income (BGI) — First-home buyers vs Investors",
+        "name": "Average gross borrower income on approved FHB mortgage applications",
+        "also_known_as": "RBNZ C41 Borrower Gross Income (BGI) — First-home buyer weighted mean",
         "category": "First-home buyers",
         "topic": "Borrower income & servicing",
         "source": "RBNZ C41",
@@ -586,13 +620,12 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "NZD",
         "frequency": "Monthly",
-        "definition": "The borrower-weighted average annual pre-tax gross income recorded on approved New Zealand first-home buyer and property investor mortgage applications (combining all single and joint applicants on the loan).",
-        "methodology": "Computed from RBNZ Table C41 (Residential mortgage borrower gross income) across all Total Debt-to-Income bands.",
+        "definition": "The HLF-derived borrower-weighted average annual pre-tax gross income across approved New Zealand first-home buyer mortgage applications (combining all single and joint applicants on the loan).",
+        "methodology": "Computed by HLF from RBNZ Table C41 (Residential mortgage borrower gross income) across all Total Debt-to-Income bands.",
         "hlf_calculation": "Total Gross Income NZDm across all TDTI bands ÷ Implied Borrower Count (Band NZDm ÷ Band Avg Income NZD000s)",
-        "hlf_interpretation": "Because RBNZ Table C41 measures total gross income per mortgage application (frequently combining two earners plus eligible boarder or rental income), this figure represents combined application income rather than an individual earner's salary.",
+        "hlf_interpretation": "HLF market context: RBNZ Table C41 publishes band-level figures rather than a single nationwide mean; the overall figure is calculated by HLF. Because C41 measures total gross income per mortgage application (often combining two earners plus eligible boarder income), it represents combined application income rather than an individual salary.",
         "questions": [
             "What is the average combined household income on an approved first-home mortgage in NZ?",
-            "How does approved first-home buyer application income compare with property investors?",
         ],
         "article_title": "How Banks Assess Your Income for a New Zealand Mortgage",
         "article_url": "https://www.homeloanfactory.co.nz/news-insights",
@@ -600,7 +633,7 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
     },
     "fhb-income-akl-vs-nz": {
-        "name": "Average gross borrower income on approved FHB mortgage applications — New Zealand",
+        "name": "Approved FHB gross borrower income by Debt-to-Income band — New Zealand",
         "also_known_as": "Approved first-home buyer gross application income by TDTI band (RBNZ C41)",
         "category": "First-home buyers",
         "topic": "First-home lending & borrower income",
@@ -612,13 +645,13 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "NZD",
         "frequency": "Monthly",
-        "definition": "Borrower-weighted average pre-tax gross income on approved New Zealand first-home buyer mortgage applications in RBNZ Table C41, alongside the official average gross income across each Total Debt-to-Income (TDTI) band.",
-        "methodology": "Derived from RBNZ Table C41 (Residential mortgage borrower gross income) across the five first-home buyer TDTI bands.",
+        "definition": "Official RBNZ Table C41 average pre-tax gross borrower income across each of the five first-home buyer Total Debt-to-Income (TDTI) bands, alongside the HLF-derived borrower-weighted mean across all bands.",
+        "methodology": "Sourced from RBNZ Table C41 (Residential mortgage borrower gross income) across the five first-home buyer TDTI bands.",
         "hlf_calculation": "Harmonic borrower-weighted mean across all 5 FHB TDTI bands (Sum of Band Gross Income NZDm ÷ Sum of Implied Band Borrowers)",
-        "hlf_interpretation": "Because mortgage applications frequently combine two incomes, the national application average sits higher than single-earner salaries. Buyers on lower or single incomes regularly qualify at lower regional price points or within moderate TDTI bands.",
+        "hlf_interpretation": "HLF market context: RBNZ Table C41 reports each TDTI band separately; the overall weighted mean is derived by HLF. Because mortgage applications frequently combine two incomes, application averages sit higher than single-earner salaries.",
         "questions": [
-            "What is the average gross borrower income on an approved first-home mortgage application in New Zealand?",
             "How does first-home buyer gross income vary across Debt-to-Income (TDTI) bands in RBNZ C41?",
+            "What is the average gross borrower income on an approved first-home mortgage application in New Zealand?",
         ],
         "article_title": "Buying a First Home on a Single or Modest Income",
         "article_url": "https://www.homeloanfactory.co.nz/news-insights",
@@ -641,7 +674,7 @@ TICKER_CATALOG = {
         "definition": "The dollar-weighted average fixed mortgage interest rates across all new residential mortgages settled by New Zealand registered banks for 1-year and 2-year fixed terms.",
         "methodology": "Directly reported by RBNZ in Table B30 (New residential mortgage weighted-average interest rates) for owner-occupiers/borrowers.",
         "hlf_calculation": "Officially reported RBNZ series NCFA.MAM1PR.D1 (1-year) and NCFA.MAM1PR.D2 (2-year)",
-        "hlf_interpretation": "Because Table B30 measures mortgages settled during the month, it reflects the actual rates locked in by borrowers (including negotiated rate discounts) rather than carded rates.",
+        "hlf_interpretation": "HLF market context: Table B30 measures the weighted-average rate on mortgages settled during the month. Differences from current advertised rates can reflect the timing lag between rate lock and settlement, borrower LVR mix, and lender pricing.",
         "questions": [
             "What is the actual average 1-year and 2-year mortgage rate settled in New Zealand?",
             "How do settled mortgage rates compare with advertised bank special rates?",
@@ -667,7 +700,7 @@ TICKER_CATALOG = {
         "definition": "The total number of new residential dwellings consented across New Zealand over the trailing 12-month period and in the latest single month.",
         "methodology": "Compiled monthly by Stats NZ from building consent data supplied by New Zealand's 67 territorial authorities.",
         "hlf_calculation": "Officially reported Stats NZ annual and monthly dwelling consent totals",
-        "hlf_interpretation": "Building consents measure local-authority approvals to build and serve as an indicator of future new-build housing supply.",
+        "hlf_interpretation": "HLF market context: Building consents measure local-authority approvals to build and do not measure completed dwellings or code-compliance certificates.",
         "questions": [
             "How many new homes are consented in New Zealand each year?",
             "Are New Zealand building consents increasing or decreasing?",
@@ -690,10 +723,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "percent",
         "frequency": "Monthly",
-        "definition": "The percentage of new residential building consents in New Zealand issued for multi-unit/non-standalone dwellings overall (townhouses, flats, units, apartments, and retirement village units), alongside the specific share for townhouses, flats, and units.",
+        "definition": "The HLF-derived percentage of new residential building consents in New Zealand issued for multi-unit/non-standalone dwellings overall (townhouses, flats, units, apartments, and retirement village units), alongside the specific share for townhouses, flats, and units.",
         "methodology": "Derived from Stats NZ monthly building consent counts by dwelling type.",
         "hlf_calculation": "Multi-unit overall = (Total Consents − Stand-Alone Houses) ÷ Total Consents; Townhouses/flats/units specifically = Townhouses/Flats/Units ÷ Total Consents",
-        "hlf_interpretation": "The share of multi-unit consents reflects the changing composition of new housing supply, with implications for buyers considering townhouses, apartments, and other new-build properties.",
+        "hlf_interpretation": "HLF market context: The share of multi-unit consents reflects the composition of consented new housing supply across stand-alone houses, townhouses/flats/units, apartments, and retirement village units.",
         "questions": [
             "What percentage of new homes consented in New Zealand are multi-unit dwellings?",
             "What percentage of new dwelling consents are specifically townhouses, flats, and units?",
@@ -719,7 +752,7 @@ TICKER_CATALOG = {
         "definition": "The annual percentage change in the cost of purchasing a newly built home in New Zealand as measured by the Stats NZ Consumers Price Index (CPI).",
         "methodology": "Published quarterly by Stats NZ within the Consumers Price Index release.",
         "hlf_calculation": "Officially reported Stats NZ annual percentage change for purchase of new housing",
-        "hlf_interpretation": "Tracks annual changes in residential construction pricing alongside headline CPI inflation.",
+        "hlf_interpretation": "HLF market context: Tracks annual changes in residential construction pricing as measured within the CPI basket (excluding land prices).",
         "questions": [
             "How fast are house building costs rising in New Zealand?",
         ],
@@ -743,8 +776,8 @@ TICKER_CATALOG = {
         "frequency": "Monthly",
         "definition": "The median weekly rent recorded on newly lodged private residential tenancy bonds across New Zealand and in Auckland, Wellington, and Canterbury.",
         "methodology": "Compiled by the Ministry of Business, Innovation and Employment (MBIE) from private rental bonds lodged with Tenancy Services.",
-        "hlf_calculation": "Officially reported national ('ALL') and regional median weekly rents, plus YoY % change",
-        "hlf_interpretation": "Provides a benchmark of weekly rents on newly lodged private tenancies across New Zealand's main centres.",
+        "hlf_calculation": "Officially reported national ('ALL') and regional median weekly rents, plus HLF-calculated YoY % change",
+        "hlf_interpretation": "HLF market context: Measures median rents on newly lodged bonds during the month rather than existing tenancies that did not turn over.",
         "questions": [
             "What is the median weekly rent in New Zealand, Auckland, Wellington, and Canterbury?",
         ],
@@ -769,7 +802,7 @@ TICKER_CATALOG = {
         "definition": "The number of newly lodged private rental tenancy bonds in the latest month alongside the total pool of active private rental bonds held across New Zealand.",
         "methodology": "Published monthly by MBIE Tenancy Services from statutory residential tenancy bond lodgements.",
         "hlf_calculation": "Officially reported 'ALL' location Lodged Bonds and Active Bonds counts",
-        "hlf_interpretation": "Tracks monthly tenancy turnover and the total number of active private rental bonds held across New Zealand.",
+        "hlf_interpretation": "HLF market context: Tracks monthly tenancy bond lodgements and total active private bonds held by Tenancy Services.",
         "questions": [
             "How many private rental tenancies are active in New Zealand?",
         ],
@@ -794,7 +827,7 @@ TICKER_CATALOG = {
         "definition": "The median student loan balance across New Zealand student loan borrowers reported by Inland Revenue (Te Tari Taake).",
         "methodology": "Published by Inland Revenue from administrative Student Loan Scheme records.",
         "hlf_calculation": "Officially reported IRD median balance and YoY % change",
-        "hlf_interpretation": "In bank mortgage servicing assessments, compulsory PAYE student loan deductions reduce net take-home pay and therefore affect borrowing capacity.",
+        "hlf_interpretation": "HLF market context (not measured in IRD release): In bank mortgage servicing assessments, compulsory PAYE student loan deductions reduce net take-home income and therefore affect borrowing capacity.",
         "questions": [
             "What is the median student loan balance in New Zealand?",
             "How does a student loan affect mortgage borrowing power in NZ?",
@@ -805,24 +838,24 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
     },
     "kiwisaver-first-home": {
-        "name": "Monthly KiwiSaver first-home withdrawal count, value & average per buyer",
+        "name": "Monthly KiwiSaver first-home withdrawal count, value & average per member",
         "also_known_as": "Monthly IRD KiwiSaver first-home purchase withdrawals",
         "category": "KiwiSaver",
         "topic": "KiwiSaver & first-home deposits",
-        "source": "Inland Revenue & RBNZ C31",
-        "source_full": "Inland Revenue KiwiSaver Withdrawal Statistics (cross-referenced with RBNZ C31)",
-        "series_ids": "IRD Monthly KiwiSaver First-Home Withdrawals & RBNZ LVRN.MMB2.AC1",
+        "source": "Inland Revenue",
+        "source_full": "Inland Revenue — KiwiSaver Withdrawal Statistics",
+        "series_ids": "IRD Monthly KiwiSaver First-Home Withdrawals",
         "source_url": IRD_KS_DATA_PAGE,
-        "data_type": "Officially reported IRD totals & HLF-derived per-member / per-loan averages",
+        "data_type": "Officially reported IRD totals & HLF-derived per-member average",
         "derived_by_hlf": True,
         "unit": "NZD",
         "frequency": "Monthly",
-        "definition": "The monthly number of KiwiSaver members withdrawing funds to purchase a first home, total dollars withdrawn, and HLF-derived average withdrawal per member and per approved first-home mortgage.",
-        "methodology": "Compiled monthly by Inland Revenue from KiwiSaver scheme provider reports and cross-referenced by HLF against RBNZ Table C31 monthly first-home mortgage approvals.",
-        "hlf_calculation": "Total Withdrawal Dollars ÷ Withdrawing Members; and Total Withdrawal Dollars ÷ RBNZ C31 FHB Borrowers",
-        "hlf_interpretation": "Indicates the average KiwiSaver balance withdrawn per participating member and per approved first-home mortgage.",
+        "definition": "The officially reported monthly number of KiwiSaver members withdrawing funds for a first-home purchase and total dollars withdrawn, plus the HLF-derived mean withdrawal per member.",
+        "methodology": "Compiled monthly by Inland Revenue from KiwiSaver scheme provider reports.",
+        "hlf_calculation": "Mean per Member = Total First-Home Withdrawal Dollars ÷ Withdrawing Members",
+        "hlf_interpretation": "HLF market context: IRD reports individual member withdrawals rather than household applications; when two KiwiSaver members purchase together, both withdrawals are counted separately in the member total.",
         "questions": [
-            "How much is the average KiwiSaver first-home withdrawal in New Zealand?",
+            "How much is the average KiwiSaver first-home withdrawal per member in New Zealand?",
         ],
         "article_title": "Using Your KiwiSaver for a First-Home Deposit",
         "article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
@@ -830,7 +863,7 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator",
     },
     "fhb-regional-kiwisaver": {
-        "name": "Regional KiwiSaver first-home withdrawal averages across New Zealand",
+        "name": "Regional KiwiSaver first-home withdrawal averages per member across New Zealand",
         "also_known_as": "KiwiSaver first-home withdrawal average by NZ region (16 regions)",
         "category": "First-home buyers",
         "topic": "KiwiSaver & regional first-home deposits",
@@ -838,16 +871,16 @@ TICKER_CATALOG = {
         "source_full": "Inland Revenue — KiwiSaver Fund Withdrawals by Region",
         "series_ids": "IRD Annual Regional KiwiSaver First-Home Purchase Withdrawals",
         "source_url": IRD_KS_REG_PAGE,
-        "data_type": "Officially reported IRD regional totals & HLF-derived per-person / couple averages",
+        "data_type": "Officially reported IRD regional totals & HLF-derived per-member averages",
         "derived_by_hlf": True,
         "unit": "NZD",
         "frequency": "Annual",
-        "definition": "Average KiwiSaver first-home withdrawal amount per withdrawing member (and two-member combined average) across New Zealand's 16 regions.",
+        "definition": "HLF-derived mean KiwiSaver first-home withdrawal amount per withdrawing member across New Zealand's 16 regions, calculated from Inland Revenue's annual regional withdrawal totals and member counts.",
         "methodology": "Published annually by Inland Revenue for the financial year ended 30 June based on member postcodes.",
-        "hlf_calculation": "Regional First-Home Withdrawal Dollars ÷ Regional Withdrawing Members",
-        "hlf_interpretation": "Shows how average first-home KiwiSaver withdrawal balances vary across New Zealand's 16 regions.",
+        "hlf_calculation": "Regional Mean per Member = Regional First-Home Withdrawal Dollars ÷ Regional Withdrawing Members",
+        "hlf_interpretation": "HLF market context: IRD reports withdrawals per individual member (not per couple). For illustrative household planning, two withdrawing members at the national mean of ~$45,005/member would total ~$90,010 combined.",
         "questions": [
-            "How much KiwiSaver do first-home buyers withdraw in Wellington, Auckland, and Canterbury?",
+            "How much KiwiSaver do first-home buyers withdraw per member in Wellington, Auckland, and Canterbury?",
         ],
         "article_title": "How Kiwis Piece Together a First-Home Deposit by Region",
         "article_url": "https://www.homeloanfactory.co.nz/kiwisaver",
@@ -867,10 +900,10 @@ TICKER_CATALOG = {
         "derived_by_hlf": True,
         "unit": "transfers",
         "frequency": "Annual",
-        "definition": "The total number of New Zealand KiwiSaver members who transferred their balance to a different KiwiSaver scheme provider over the June financial year, plus the monthly average.",
+        "definition": "The officially reported annual number of New Zealand KiwiSaver members who transferred their balance to a different KiwiSaver scheme provider over the June financial year, plus the HLF-derived monthly mean.",
         "methodology": "Compiled by Inland Revenue from KiwiSaver scheme transfers processed during the year ended 30 June.",
         "hlf_calculation": "Annual Scheme Transfers ÷ 12 months",
-        "hlf_interpretation": "Measures inter-scheme transfers where members move their KiwiSaver balance to a new provider (internal fund switches within the same scheme are not counted).",
+        "hlf_interpretation": "HLF market context: Measures inter-scheme transfers where members move their KiwiSaver balance to a new provider (internal fund-type changes within the same scheme are not counted in IRD's transfer total).",
         "questions": [
             "How many New Zealanders switch KiwiSaver providers each year?",
             "How many KiwiSaver scheme transfers happen per month in NZ?",
@@ -1398,18 +1431,20 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     low_dep_html = (
         f"In {m_full}, <strong>{low_cnt_pct:.1f}%</strong> of first-home mortgages approved across New Zealand "
         f"(<strong>{fhb_hi_loans_int:,} of {fhb_loans_int:,} loans</strong>, or <strong>${hi_dollars_m:,.0f}m</strong> in lending) "
-        f"had a Loan-to-Value Ratio above 80% (<strong>under a 20% deposit</strong>), {plain_prior_year_pct(low_cnt_pct, low_cnt_yoy)}."
+        f"were written at an LVR above 80% (corresponding to <strong>under a 20% deposit</strong>, derived by HLF from RBNZ Table C31), "
+        f"{plain_prior_year_pct(low_cnt_pct, low_cnt_yoy)}."
     )
 
     fhb_share_html = (
         f"In {m_full}, registered banks approved <strong>{fhb_loans_int:,}</strong> first-home buyer mortgages totalling "
-        f"<strong>{fmt_nzd_millions(float(fhb_val.iloc[i]))}</strong>—accounting for <strong>{fhb_sh:.1f}%</strong> of all new residential "
-        f"mortgage lending ({plain_prior_year_pct(fhb_sh, fhb_sh_yoy)}), with an average loan size of <strong>${fhb_avg_k:,}k</strong>."
+        f"<strong>{fmt_nzd_millions(float(fhb_val.iloc[i]))}</strong>—representing an HLF-derived <strong>{fhb_sh:.1f}%</strong> share of all new "
+        f"residential mortgage lending ({plain_prior_year_pct(fhb_sh, fhb_sh_yoy)}) and a mean loan size of <strong>${fhb_avg_k:,}k</strong>."
     )
 
     inv_html = (
-        f"In {m_full}, residential property investors accounted for <strong>{inv_sh:.1f}%</strong> of new mortgage commitments "
-        f"(<strong>${inv_b:.2f}B</strong>, {plain_prior_year_pct(inv_sh, inv_sh_yoy)}), compared with <strong>{fhb_sh:.1f}%</strong> for first-home buyers."
+        f"In {m_full}, residential property investors accounted for an HLF-derived <strong>{inv_sh:.1f}%</strong> share of new mortgage commitments "
+        f"(<strong>${inv_b:.2f}B</strong> reported in RBNZ Table C31, {plain_prior_year_pct(inv_sh, inv_sh_yoy)}), compared with "
+        f"<strong>{fhb_sh:.1f}%</strong> for first-home buyers."
     )
 
     fhb_lo_val_cur = float(fhb_val.iloc[i] - fhb_hi_val.iloc[i])
@@ -1420,27 +1455,27 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     loan_gap = avg_hi_loan - avg_lo_loan
 
     fhb_gap_html = (
-        f"In {m_full}, New Zealand first-home buyers approved with under a 20% deposit (&gt;80% LVR) borrowed an average of "
+        f"In {m_full}, the HLF-derived mean mortgage size for first-home buyers at &gt;80% LVR (under 20% deposit) was "
         f"<strong>${avg_hi_loan:,.0f}</strong> ({fhb_hi_loans_int:,} loans / ${hi_dollars_m:,.0f}m), compared with "
-        f"<strong>${avg_lo_loan:,.0f}</strong> for first-home buyers with a 20%+ deposit ({fhb_lo_loans_int:,} loans / ${fhb_lo_val_cur:,.0f}m)—a "
-        f"difference of <strong>${abs(loan_gap):,.0f}</strong>."
+        f"<strong>${avg_lo_loan:,.0f}</strong> for first-home buyers at &le;80% LVR ({fhb_lo_loans_int:,} loans / ${fhb_lo_val_cur:,.0f}m)—an "
+        f"HLF-calculated difference of <strong>${abs(loan_gap):,.0f}</strong>."
     )
 
     fhb_hi_val_share = float(ser_fhb_prio_pct.iloc[i])
     fhb_hi_cnt_share = (float(fhb_hi_cnt.iloc[i]) / max(1.0, float(all_hi_cnt.iloc[i]))) * 100.0
     all_hi_loans_int = int(round(float(all_hi_cnt.iloc[i])))
     fhb_priority_html = (
-        f"In {m_full}, first-home buyers accounted for <strong>{fhb_hi_val_share:.1f}% of all &gt;80% LVR mortgage dollars "
+        f"In {m_full}, first-home buyers accounted for an HLF-derived <strong>{fhb_hi_val_share:.1f}% of all &gt;80% LVR mortgage dollars "
         f"({fmt_nzd_millions(float(fhb_hi_val.iloc[i]))} of {fmt_nzd_millions(float(all_hi_val.iloc[i]))})</strong> and "
         f"<strong>{fhb_hi_cnt_share:.1f}% of &gt;80% LVR loans ({fhb_hi_loans_int:,} of {all_hi_loans_int:,})</strong> "
-        f"approved across New Zealand."
+        f"reported in RBNZ Table C31."
     )
 
     std_dep_pct = float(ser_fhb_20club_pct.iloc[i])
     fhb_20club_html = (
-        f"In {m_full}, <strong>{fhb_lo_loans_int:,} first-home buyers ({std_dep_pct:.1f}% of first-home approvals, or "
-        f"{fmt_nzd_millions(fhb_lo_val_cur)})</strong> were approved with a <strong>20% or greater deposit (&le;80% LVR)</strong>, "
-        f"borrowing an average of <strong>${avg_lo_loan:,.0f}</strong>."
+        f"In {m_full}, RBNZ Table C31 recorded <strong>{fhb_lo_loans_int:,} first-home buyers ({fmt_nzd_millions(fhb_lo_val_cur)})</strong> "
+        f"approved at <strong>&le;80% LVR</strong> (corresponding to a 20% or greater deposit)—representing an HLF-derived "
+        f"<strong>{std_dep_pct:.1f}%</strong> share of first-home approvals and a mean loan size of <strong>${avg_lo_loan:,.0f}</strong>."
     )
 
     fhb_v = float(fhb_val.iloc[i])
@@ -1448,13 +1483,13 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     diff_fi = fhb_v - inv_v
     if diff_fi >= 0:
         fhb_vs_inv_html = (
-            f"In {m_full}, New Zealand banks committed <strong>{fmt_nzd_millions(fhb_v)} ({fhb_sh:.1f}% of lending)</strong> to first-home buyers "
-            f"compared with <strong>{fmt_nzd_millions(inv_v)} ({inv_sh:.1f}%)</strong> to residential property investors—a difference of "
+            f"In {m_full}, RBNZ Table C31 recorded <strong>{fmt_nzd_millions(fhb_v)} ({fhb_sh:.1f}% of lending)</strong> in commitments to first-home buyers "
+            f"compared with <strong>{fmt_nzd_millions(inv_v)} ({inv_sh:.1f}%)</strong> to residential property investors—an HLF-calculated difference of "
             f"<strong>+{fmt_nzd_millions(abs(diff_fi))}</strong> toward first-home buyers."
         )
     else:
         fhb_vs_inv_html = (
-            f"In {m_full}, New Zealand banks committed <strong>{fmt_nzd_millions(fhb_v)} ({fhb_sh:.1f}% of lending)</strong> to first-home buyers "
+            f"In {m_full}, RBNZ Table C31 recorded <strong>{fmt_nzd_millions(fhb_v)} ({fhb_sh:.1f}% of lending)</strong> in commitments to first-home buyers "
             f"compared with <strong>{fmt_nzd_millions(inv_v)} ({inv_sh:.1f}%)</strong> to residential property investors."
         )
 
@@ -1465,9 +1500,9 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     oo_20eq_pct = float(ser_oo_20eq_pct.iloc[i])
     oo_avg_20eq = (oo_lo_v * 1_000_000.0) / max(1.0, oo_lo_c)
     owner_eq_html = (
-        f"In {m_full}, <strong>{oo_20eq_pct:.1f}%</strong> of existing owner-occupier mortgages approved across New Zealand "
-        f"(<strong>{int(round(oo_lo_c)):,} of {int(round(oo_tot_c)):,} loans</strong>, or <strong>{fmt_nzd_millions(oo_lo_v)}</strong>) "
-        f"were written at <strong>&le;80% LVR (20% or more equity)</strong>, with an average loan size of <strong>${oo_avg_20eq:,.0f}</strong>."
+        f"In {m_full}, RBNZ Table C31 recorded <strong>{int(round(oo_lo_c)):,} of {int(round(oo_tot_c)):,}</strong> existing ('other') "
+        f"owner-occupier mortgage approvals (<strong>{fmt_nzd_millions(oo_lo_v)}</strong>) at <strong>&le;80% LVR</strong> (corresponding to 20%+ "
+        f"security equity)—an HLF-derived share of <strong>{oo_20eq_pct:.1f}%</strong> and mean loan size of <strong>${oo_avg_20eq:,.0f}</strong>."
     )
 
     inv_c_tot = int(round(float(inv_cnt.iloc[i])))
@@ -1479,10 +1514,10 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     inv_u30_pct = float(ser_inv_u30_pct.iloc[i])
     inv_u30_val = float(inv_gt70_val.iloc[i])
     inv_eq_html = (
-        f"Many property investors are borrowing with less than 40% equity. In {m_full}, <strong>{inv_40plus_pct:.1f}%</strong> "
-        f"of approved NZ property investors had 40%+ equity (&le;60% LVR)—while <strong>{inv_30to40_pct:.1f}%</strong> borrowed in the "
-        f"<strong>30%–40% equity band (60%–70% LVR)</strong> and <strong>{inv_u30_pct:.1f}% ({inv_u30_cnt:,} loans, or {fmt_nzd_millions(inv_u30_val)})</strong> "
-        f"were approved with <strong>under 30% equity (&gt;70% LVR)</strong>."
+        f"In {m_full}, RBNZ Table C31 investor commitments comprised an HLF-derived <strong>{inv_40plus_pct:.1f}%</strong> at "
+        f"<strong>&le;60% LVR</strong> ({inv_le60_c:,} loans), <strong>{inv_30to40_pct:.1f}%</strong> between <strong>60% and 70% LVR</strong> "
+        f"({inv_30to40_c:,} loans), and <strong>{inv_u30_pct:.1f}%</strong> at <strong>&gt;70% LVR</strong> ({inv_u30_cnt:,} loans, or "
+        f"{fmt_nzd_millions(inv_u30_val)})."
     )
 
     inv_gt80_c = int(round(float(inv_gt80_cnt.iloc[i])))
@@ -1498,30 +1533,30 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     if i >= 11:
         inv_gt80_12m_c = int(round(float(inv_gt80_cnt.iloc[i - 11 : i + 1].sum())))
         inv_gt80_12m_v = float(inv_gt80_val.iloc[i - 11 : i + 1].sum())
-        inv_12m_clause = f" (and <strong>{inv_gt80_12m_c:,} loans / {fmt_nzd_millions(inv_gt80_12m_v)}</strong> over the 12 months to {m_full})"
+        inv_12m_clause = f" (and an HLF-derived 12-month total of <strong>{inv_gt80_12m_c:,} loans / {fmt_nzd_millions(inv_gt80_12m_v)}</strong>)"
 
     inv_dir_prev = "up from" if inv_gt80_c >= inv_gt80_c_prev else "compared with"
     inv_low_dep_html = (
-        f"In {m_full}, New Zealand banks approved <strong>{inv_gt80_c:,} property investor mortgages ({fmt_nzd_millions(inv_gt80_v)}, or "
-        f"{inv_gt80_pct:.1f}% of investor approvals)</strong> at <strong>&gt;80% LVR (strictly under a 20% deposit)</strong>—{inv_dir_prev} "
-        f"{inv_gt80_c_prev:,} loans ({fmt_nzd_millions(inv_gt80_v_prev)}) a year earlier{inv_12m_clause}—alongside "
+        f"In {m_full}, RBNZ Table C31 recorded <strong>{inv_gt80_c:,} property investor mortgages ({fmt_nzd_millions(inv_gt80_v)})</strong> "
+        f"at <strong>&gt;80% LVR</strong> (an HLF-derived <strong>{inv_gt80_pct:.1f}%</strong> share of investors, {inv_dir_prev} "
+        f"{inv_gt80_c_prev:,} loans / {fmt_nzd_millions(inv_gt80_v_prev)} a year earlier){inv_12m_clause}, alongside an HLF-derived "
         f"<strong>{inv_70to80_c:,} investor loans ({fmt_nzd_millions(inv_70to80_v)}, or {inv_70to80_pct:.1f}%)</strong> in the "
-        f"<strong>70%–80% LVR (20%–30% deposit)</strong> band."
+        f"<strong>70%–80% LVR</strong> band."
     )
 
     inv_nb_lvr_html = (
-        f"In {m_full}, <strong>{inv_u30_cnt:,} property investor loans ({fmt_nzd_millions(inv_u30_val)}, or {inv_u30_pct:.1f}% of investor approvals)</strong> "
-        f"were approved at <strong>&gt;70% LVR (under a 30% deposit)</strong>—comprising <strong>{inv_70to80_c:,} loans "
-        f"({fmt_nzd_millions(inv_70to80_v)})</strong> in the <strong>70%–80% LVR band</strong> and <strong>{inv_gt80_c:,} loans "
-        f"({fmt_nzd_millions(inv_gt80_v)})</strong> at <strong>&gt;80% LVR</strong>."
+        f"In {m_full}, RBNZ Table C31 recorded <strong>{inv_u30_cnt:,} property investor loans ({fmt_nzd_millions(inv_u30_val)})</strong> "
+        f"at <strong>&gt;70% LVR</strong> (an HLF-derived <strong>{inv_u30_pct:.1f}%</strong> share of investor approvals)—comprising "
+        f"an HLF-derived <strong>{inv_70to80_c:,} loans ({fmt_nzd_millions(inv_70to80_v)})</strong> in the <strong>70%–80% LVR band</strong> and "
+        f"<strong>{inv_gt80_c:,} reported loans ({fmt_nzd_millions(inv_gt80_v)})</strong> at <strong>&gt;80% LVR</strong>."
     )
 
     oo_low_eq_pct = float(ser_oo_low_eq_pct.iloc[i])
     oo_low_eq_prev = float(ser_oo_low_eq_pct.iloc[iy])
     mover_low_eq_html = (
-        f"In {m_full}, New Zealand banks approved <strong>{int(round(oo_hi_c)):,} mortgages ({fmt_nzd_millions(float(oo_hi_val.iloc[i]))})</strong> "
-        f"for existing owner-occupiers at <strong>&gt;80% LVR (under 20% equity)</strong>—representing <strong>{oo_low_eq_pct:.1f}%</strong> "
-        f"of existing owner-occupier approvals, {plain_prior_year_pct(oo_low_eq_pct, oo_low_eq_prev)}."
+        f"In {m_full}, RBNZ Table C31 recorded <strong>{int(round(oo_hi_c)):,} mortgages ({fmt_nzd_millions(float(oo_hi_val.iloc[i]))})</strong> "
+        f"for existing ('other') owner-occupiers at <strong>&gt;80% LVR</strong>—an HLF-derived <strong>{oo_low_eq_pct:.1f}%</strong> "
+        f"share of existing owner-occupier approvals, {plain_prior_year_pct(oo_low_eq_pct, oo_low_eq_prev)}."
     )
 
     src_c31 = (
@@ -1577,11 +1612,11 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         "fhb-loan-size-gap": make_c31_item(
             fhb_gap_html,
             f"RBNZ Table C31 ({m_full}): >80% LVR FHB = ${hi_dollars_m:,.0f}m across {fhb_hi_loans_int:,} borrowers; <=80% LVR FHB = ${fhb_lo_val_cur:,.0f}m across {fhb_lo_loans_int:,} borrowers.",
-            loan_gap / 1000.0, f"${avg_hi_loan:,.0f} (<20% dep) vs ${avg_lo_loan:,.0f} (20%+ dep)",
+            loan_gap / 1000.0, f"${avg_hi_loan:,.0f} (>80% LVR) vs ${avg_lo_loan:,.0f} (<=80% LVR)",
             f"${float(ser_fhb_hi_avg_k.iloc[iy])*1000:,.0f} vs ${float(ser_fhb_lo_avg_k.iloc[iy])*1000:,.0f}",
-            f"${abs(loan_gap):,.0f} gap between deposit tiers",
+            f"${abs(loan_gap):,.0f} difference between LVR tiers",
             f"(${hi_dollars_m:,.0f}m ÷ {fhb_hi_loans_int:,} = ${avg_hi_loan:,.0f}) minus (${fhb_lo_val_cur:,.0f}m ÷ {fhb_lo_loans_int:,} = ${avg_lo_loan:,.0f}) = ${loan_gap:,.0f}",
-            make_history_list(dates, ser_fhb_hi_avg_k, lambda x: f"${x:,.1f}k (<20% dep avg)"),
+            make_history_list(dates, ser_fhb_hi_avg_k, lambda x: f"${x:,.1f}k (>80% LVR avg)"),
         ),
         "fhb-bank-lvr-priority": make_c31_item(
             fhb_priority_html,
@@ -1622,17 +1657,17 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         "investor-equity-tiers": make_c31_item(
             inv_eq_html,
             f"RBNZ Table C31 ({m_full}): Total investors = {inv_c_tot:,}; <=60% LVR = {inv_le60_c:,}; >60% LVR = {int(round(float(inv_gt60_cnt.iloc[i]))):,}; >70% LVR = {inv_u30_cnt:,} (${inv_u30_val:,.0f}m).",
-            inv_40plus_pct, f"{inv_40plus_pct:.1f}% (40%+ eq) | {inv_30to40_pct:.1f}% (30–40% eq) | {inv_u30_pct:.1f}% (<30% eq)",
-            f"{100.0 - float(ser_inv_u30_pct.iloc[iy]):.1f}% with 30%+ equity",
-            f"{inv_u30_pct - float(ser_inv_u30_pct.iloc[iy]):+.1f} pts shift in <30% equity share",
-            f"40%+ eq: {inv_le60_c:,} ÷ {inv_c_tot:,} = {inv_40plus_pct:.1f}% | 30–40% eq: {inv_30to40_c:,} ÷ {inv_c_tot:,} = {inv_30to40_pct:.1f}% | <30% eq: {inv_u30_cnt:,} ÷ {inv_c_tot:,} = {inv_u30_pct:.1f}%",
-            make_history_list(dates, 100.0 - ser_inv_u30_pct, lambda x: f"{x:.1f}% (30%+ equity)"),
+            inv_40plus_pct, f"{inv_40plus_pct:.1f}% (<=60% LVR) | {inv_30to40_pct:.1f}% (60–70% LVR) | {inv_u30_pct:.1f}% (>70% LVR)",
+            f"{100.0 - float(ser_inv_u30_pct.iloc[iy]):.1f}% at <=70% LVR",
+            f"{inv_u30_pct - float(ser_inv_u30_pct.iloc[iy]):+.1f} pts shift in >70% LVR share",
+            f"<=60% LVR: {inv_le60_c:,} ÷ {inv_c_tot:,} = {inv_40plus_pct:.1f}% | 60–70% LVR: {inv_30to40_c:,} ÷ {inv_c_tot:,} = {inv_30to40_pct:.1f}% | >70% LVR: {inv_u30_cnt:,} ÷ {inv_c_tot:,} = {inv_u30_pct:.1f}%",
+            make_history_list(dates, 100.0 - ser_inv_u30_pct, lambda x: f"{x:.1f}% (<=70% LVR)"),
         ),
         "investor-low-deposit": make_c31_item(
             inv_low_dep_html,
             f"RBNZ Table C31 ({m_full}): >80% LVR investors = {inv_gt80_c:,} loans (${inv_gt80_v:,.0f}m); >70% LVR investors = {inv_u30_cnt:,} loans (${inv_u30_val:,.0f}m).",
-            float(inv_gt80_c), f"{inv_gt80_c:,} loans (${inv_gt80_v:,.0f}m) <20% dep + {inv_70to80_c:,} loans (${inv_70to80_v:,.0f}m) 20–30% dep",
-            f"{inv_gt80_c_prev:,} loans (${inv_gt80_v_prev:,.0f}m) <20% dep",
+            float(inv_gt80_c), f"{inv_gt80_c:,} loans (${inv_gt80_v:,.0f}m) >80% LVR + {inv_70to80_c:,} loans (${inv_70to80_v:,.0f}m) 70–80% LVR",
+            f"{inv_gt80_c_prev:,} loans (${inv_gt80_v_prev:,.0f}m) >80% LVR",
             f"{inv_gt80_c - inv_gt80_c_prev:+d} loans ({inv_gt80_v - inv_gt80_v_prev:+.0f}m) YoY in >80% LVR tier",
             f">80% LVR: {inv_gt80_c:,} ÷ {inv_c_tot:,} = {inv_gt80_pct:.1f}% (${inv_gt80_v:,.0f}m) | 70–80% LVR: {inv_u30_cnt:,} - {inv_gt80_c:,} = {inv_70to80_c:,} loans (${inv_70to80_v:,.0f}m)",
             make_history_list(dates, inv_gt80_cnt, lambda x: f"{int(round(x)):,} loans (>80% LVR)"),
@@ -1640,11 +1675,11 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         "investor-new-build-lvr": make_c31_item(
             inv_nb_lvr_html,
             f"RBNZ Table C31 ({m_full}): >70% LVR investors = {inv_u30_cnt:,} loans (${inv_u30_val:,.0f}m) out of {inv_c_tot:,} total investor loans.",
-            inv_u30_pct, f"{inv_u30_pct:.1f}% ({inv_u30_cnt:,} loans / ${inv_u30_val:,.0f}m <30% deposit)",
+            inv_u30_pct, f"{inv_u30_pct:.1f}% ({inv_u30_cnt:,} loans / ${inv_u30_val:,.0f}m at >70% LVR)",
             f"{float(ser_inv_u30_pct.iloc[iy]):.1f}%",
             f"{inv_u30_pct - float(ser_inv_u30_pct.iloc[iy]):+.1f} percentage points YoY",
             f"{inv_u30_cnt:,} ÷ {inv_c_tot:,} = {inv_u30_pct:.1f}% ({inv_70to80_c:,} loans in 70–80% LVR + {inv_gt80_c:,} loans in >80% LVR)",
-            make_history_list(dates, ser_inv_u30_pct, lambda x: f"{x:.1f}% (<30% dep)"),
+            make_history_list(dates, ser_inv_u30_pct, lambda x: f"{x:.1f}% (>70% LVR)"),
         ),
         "mover-low-equity": make_c31_item(
             mover_low_eq_html,
@@ -1666,13 +1701,13 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         r12_hi_pct = (r12_hi_cnt / max(1, r12_cnt)) * 100.0
         dir_r12 = "up from" if r12_cnt > r12_prev_cnt else "compared with"
         out["fhb-annual-milestone"] = make_c31_item(
-            f"Over the 12 months to {m_full}, New Zealand banks approved <strong>{r12_cnt:,} first-home buyer mortgages</strong> "
+            f"Over the 12 months to {m_full}, RBNZ Table C31 recorded an HLF-derived rolling total of <strong>{r12_cnt:,} first-home buyer mortgages</strong> "
             f"totalling <strong>{fmt_nzd_millions(r12_val)} in lending</strong> ({dir_r12} {r12_prev_cnt:,} loans a year earlier)—including "
-            f"<strong>{r12_hi_cnt:,} buyers ({r12_hi_pct:.1f}%)</strong> approved with <strong>under a 20% deposit</strong>.",
+            f"<strong>{r12_hi_cnt:,} borrowers ({r12_hi_pct:.1f}%)</strong> approved at <strong>&gt;80% LVR (under a 20% deposit)</strong>.",
             f"RBNZ Table C31 (12 months to {m_full}): Sum of monthly FHB approvals = {r12_cnt:,} loans (${r12_val:,.0f}m); >80% LVR FHB approvals = {r12_hi_cnt:,} loans.",
             float(r12_cnt), f"{r12_cnt:,} loans ({fmt_nzd_millions(r12_val)})", f"{r12_prev_cnt:,} loans",
             f"{r12_cnt - r12_prev_cnt:+,d} annual FHB loans YoY",
-            f"12-month sum = {r12_cnt:,} loans (${r12_val:,.0f}m); <20% deposit share = {r12_hi_cnt:,} ÷ {r12_cnt:,} = {r12_hi_pct:.1f}%",
+            f"12-month sum = {r12_cnt:,} loans (${r12_val:,.0f}m); >80% LVR share = {r12_hi_cnt:,} ÷ {r12_cnt:,} = {r12_hi_pct:.1f}%",
             make_history_list(dates, r12_ser, lambda x: f"{int(round(x)):,} loans (12m rolling)"),
         )
 
@@ -1733,9 +1768,9 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
-                f"In {m_full}, <strong>{ref_cnt_int:,}</strong> New Zealand borrowers switched mortgage providers, moving "
-                f"<strong>${ref_val_m/1000.0:.2f}B</strong> in loans (<strong>{ref_sh:.1f}%</strong> of all new residential lending, "
-                f"at an average loan size of <strong>${ref_avg_k:,}k</strong>)."
+                f"In {m_full}, RBNZ Table C33 recorded <strong>{ref_cnt_int:,}</strong> borrowers changing loan provider and "
+                f"<strong>${ref_val_m/1000.0:.2f}B</strong> in refinanced loans—representing an HLF-derived <strong>{ref_sh:.1f}%</strong> "
+                f"share of all new residential lending and a mean loan size of <strong>${ref_avg_k:,}k</strong>."
             ),
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Change in loan provider = {ref_cnt_int:,} borrowers and ${ref_val_m:,.0f}m out of ${tot_v:,.0f}m total purpose lending.",
             "source_html": src_c33,
@@ -1754,8 +1789,8 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
-                f"In {m_full}, <strong>{top_cnt_int:,}</strong> New Zealand borrowers were approved for a mortgage top-up on an existing property, "
-                f"representing <strong>{top_sh_c:.1f}%</strong> of all mortgage approvals by count (average top-up: <strong>${top_avg_k:,}k</strong>)."
+                f"In {m_full}, RBNZ Table C33 recorded <strong>{top_cnt_int:,}</strong> borrowers approved for a mortgage top-up on an existing property—"
+                f"an HLF-derived <strong>{top_sh_c:.1f}%</strong> share of all mortgage approvals by count and a mean top-up of <strong>${top_avg_k:,}k</strong>."
             ),
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up approvals = {top_cnt_int:,} borrowers (${top_val_m:,.0f}m) out of {tot_c:,} total approvals.",
             "source_html": src_c33,
@@ -1774,8 +1809,8 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
-                f"In {m_full}, New Zealand banks approved <strong>{fmt_nzd_millions(top_val_m)} of mortgage top-up lending</strong> across "
-                f"<strong>{top_cnt_int:,} borrowers</strong> (averaging <strong>${top_avg_k:,}k</strong> per top-up) in RBNZ Table C33."
+                f"In {m_full}, RBNZ Table C33 recorded <strong>{fmt_nzd_millions(top_val_m)} of mortgage top-up lending</strong> across "
+                f"<strong>{top_cnt_int:,} borrowers</strong> (an HLF-derived mean of <strong>${top_avg_k:,}k</strong> per top-up)."
             ),
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up lending value = ${top_val_m:,.0f}m across {top_cnt_int:,} borrowers.",
             "source_html": src_c33,
@@ -1835,7 +1870,7 @@ def build_rbnz_c32_ticker(filepath: pathlib.Path, c31_by_ym: dict | None = None)
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
-                f"In {m_full}, <strong>{inv_io_pct:.1f}%</strong> of new residential investor mortgage lending was set up on "
+                f"In {m_full}, an HLF-derived <strong>{inv_io_pct:.1f}%</strong> of new residential investor mortgage lending was set up on "
                 f"<strong>interest-only</strong> terms (including revolving credit), compared with <strong>{oo_io_pct:.1f}%</strong> "
                 f"for owner-occupiers in RBNZ Table C32."
             ),
@@ -1854,10 +1889,6 @@ def build_rbnz_c32_ticker(filepath: pathlib.Path, c31_by_ym: dict | None = None)
 
 
 def compute_c41_weighted_avg_income(tabs41: list, borrower_kw: str, region_mode: str = "nz") -> tuple[pd.Timestamp | None, float | None, pd.Series | None, pd.Series | None, list[dict]]:
-    """
-    Compute borrower-weighted harmonic mean gross income (NZD) across TDTI bands in RBNZ C41,
-    returning (latest_date, latest_weighted_nzd, dates_series, weighted_k_series, latest_band_breakdown).
-    """
     band_defs = [
         ("tdti <= 3", "TDTI ≤ 3x income"),
         ("3 < tdti <= 4", "3x < TDTI ≤ 4x income"),
@@ -1968,9 +1999,9 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
                 prev_v = float(dti_ser.iloc[iy]) if pd.notna(dti_ser.iloc[iy]) else val_pct
                 hist_start_c40 = f"Available from {dti_dates.iloc[0].strftime('%B %Y')} ({len(dti_dates)} monthly observations)"
                 dti_html = (
-                    f"In {m_full}, <strong>{val_pct:.1f}%</strong> of first-home buyer mortgage lending had a "
-                    f"<strong>Total Debt-to-Income (TDTI) ratio above 6x</strong> (${last_hi_v:,.1f}m of ${last_tot_v:,.1f}m)—sitting "
-                    f"<strong>{diff_cap:.1f} percentage points</strong> below the Reserve Bank's 20% bank speed-limit allowance."
+                    f"In {m_full}, an HLF-derived <strong>{val_pct:.1f}%</strong> of total first-home buyer mortgage commitments in RBNZ Table C40 "
+                    f"had a <strong>Total Debt-to-Income (TDTI) ratio above 6x</strong> (${last_hi_v:,.1f}m of ${last_tot_v:,.1f}m)—sitting "
+                    f"<strong>{diff_cap:.1f} percentage points</strong> below the 20% RBNZ speed-limit threshold on non-exempt lending."
                 )
                 out["dti-headroom"] = {
                     "chip": "RBNZ C40",
@@ -1986,10 +2017,10 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
                     ),
                     "latest_period": m_full,
                     "value": round(val_pct, 2),
-                    "latest_value": f"{val_pct:.1f}% (>6x DTI, {diff_cap:.1f} pts below 20% cap)",
+                    "latest_value": f"{val_pct:.1f}% (>6x DTI, {diff_cap:.1f} pts below 20% benchmark)",
                     "previous_period": f"{dti_dates.iloc[iy].strftime('%B %Y')} ({prev_v:.1f}%)",
                     "change": f"{val_pct - prev_v:+.1f} percentage points YoY",
-                    "calculation_live": f"${last_hi_v:,.1f}m ÷ ${last_tot_v:,.1f}m = {val_pct:.1f}% (Headroom: 20.0% - {val_pct:.1f}% = {diff_cap:.1f} pts)",
+                    "calculation_live": f"${last_hi_v:,.1f}m ÷ ${last_tot_v:,.1f}m = {val_pct:.1f}% (Benchmark diff: 20.0% - {val_pct:.1f}% = {diff_cap:.1f} pts)",
                     "historical_data_from": hist_start_c40,
                     "history": make_history_list(dti_dates, dti_ser, lambda x: f"{x:.1f}%"),
                 }
@@ -2016,16 +2047,22 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
                 hist_41 = make_history_list(d41_dates, fhb_inc_ser, lambda x: f"${x*1000:,.0f}")
                 hist_start_c41 = f"Available from {d41_dates.iloc[0].strftime('%B %Y')} ({len(d41_dates)} monthly observations)"
 
+                band_summary_parts = [f"{b['band']}: ${b['avg_income_nzd']:,}" for b in fhb_bands]
+                band_summary_str = " | ".join(band_summary_parts) if band_summary_parts else f"Weighted mean: ${fhb_inc:,.0f}"
+                lo_band = min((b["avg_income_nzd"] for b in fhb_bands), default=int(round(fhb_inc)))
+                hi_band = max((b["avg_income_nzd"] for b in fhb_bands), default=int(round(fhb_inc)))
+
                 if inv_inc and 40000 <= inv_inc <= 900000:
                     bgi_html = (
-                        f"In {m_c41}, approved New Zealand first-home buyer mortgage applications recorded a borrower-weighted average gross "
-                        f"income of <strong>${fhb_inc:,.0f}</strong> (<strong>${fhb_inc/1000.0:,.1f}k</strong>), compared with "
-                        f"<strong>${inv_inc:,.0f}</strong> (<strong>${inv_inc/1000.0:,.1f}k</strong>) on approved property investor applications."
+                        f"Based on HLF's borrower-weighted calculation across RBNZ Table C41's Debt-to-Income bands, approved New Zealand "
+                        f"first-home buyer mortgage applications averaged <strong>${fhb_inc:,.0f}</strong> in gross borrower income in {m_c41}, "
+                        f"compared with <strong>${inv_inc:,.0f}</strong> across approved property investor applications."
                     )
                 else:
                     bgi_html = (
-                        f"In {m_c41}, approved New Zealand first-home buyer mortgage applications recorded a borrower-weighted average gross "
-                        f"income of <strong>${fhb_inc:,.0f}</strong> nationwide."
+                        f"Based on HLF's borrower-weighted calculation across RBNZ Table C41's five Debt-to-Income bands, approved New Zealand "
+                        f"first-home buyer mortgage applications averaged <strong>${fhb_inc:,.0f}</strong> in gross borrower income in {m_c41} "
+                        f"(with official RBNZ band averages ranging from <strong>${lo_band:,}</strong> to <strong>${hi_band:,}</strong>)."
                     )
                 out["borrower-income"] = {
                     "chip": "RBNZ C41",
@@ -2033,23 +2070,17 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
                     "source_published": pub_c41,
                     "max_age_days": MAX_AGE_MONTHLY,
                     "html": bgi_html,
-                    "official_data_summary": f"RBNZ Table C41 ({m_c41}): Total gross borrower income and average gross income across TDTI bands for first-home buyers and investors.",
+                    "official_data_summary": f"RBNZ Table C41 ({m_c41}) Official FHB Band Averages: {band_summary_str}.",
                     "source_html": src_c41,
                     "latest_period": m_c41,
                     "value": int(round(fhb_inc)),
-                    "latest_value": f"${fhb_inc:,.0f} FHB" + (f" vs ${inv_inc:,.0f} Investor" if inv_inc else ""),
+                    "latest_value": f"${fhb_inc:,.0f} FHB weighted mean" + (f" vs ${inv_inc:,.0f} Investor" if inv_inc else ""),
                     "previous_period": f"{d41_dates.iloc[iy41].strftime('%B %Y')} (${prev_inc_k*1000:,.0f} FHB)",
                     "change": f"${fhb_inc - (prev_inc_k*1000):+,.0f} YoY",
-                    "calculation_live": f"Borrower-weighted harmonic mean across C41 TDTI bands = ${fhb_inc:,.0f} (FHB)" + (f" | ${inv_inc:,.0f} (Investor)" if inv_inc else ""),
+                    "calculation_live": f"HLF borrower-weighted harmonic mean across C41 TDTI bands = ${fhb_inc:,.0f} (FHB)" + (f" | ${inv_inc:,.0f} (Investor)" if inv_inc else ""),
                     "historical_data_from": hist_start_c41,
                     "history": hist_41,
                 }
-
-                # Fix #2: Average gross borrower income on approved FHB mortgage applications — New Zealand (with full TDTI band breakdown)
-                band_summary_parts = [f"{b['band']}: ${b['avg_income_nzd']:,}" for b in fhb_bands]
-                band_summary_str = " | ".join(band_summary_parts) if band_summary_parts else f"Weighted mean: ${fhb_inc:,.0f}"
-                lo_band = fhb_bands[0]["avg_income_nzd"] if fhb_bands else int(round(fhb_inc))
-                hi_band = fhb_bands[-1]["avg_income_nzd"] if fhb_bands else int(round(fhb_inc))
 
                 out["fhb-income-akl-vs-nz"] = {
                     "chip": "RBNZ C41",
@@ -2057,19 +2088,19 @@ def build_rbnz_dti_income_tickers(c40_path: pathlib.Path | None, c41_path: pathl
                     "source_published": pub_c41,
                     "max_age_days": MAX_AGE_MONTHLY,
                     "html": (
-                        f"In {m_c41}, approved New Zealand first-home buyer mortgage applications recorded a borrower-weighted average gross "
-                        f"income of <strong>${fhb_inc:,.0f}</strong> in RBNZ Table C41—ranging from <strong>${lo_band:,}</strong> in the lowest "
-                        f"Debt-to-Income band (TDTI &le; 3x) to <strong>${hi_band:,}</strong> in the highest band (TDTI &gt; 6x)."
+                        f"In {m_c41}, official RBNZ Table C41 average gross borrower incomes across New Zealand first-home buyer Debt-to-Income "
+                        f"bands ranged from <strong>${lo_band:,}</strong> to <strong>${hi_band:,}</strong>, with an HLF-derived borrower-weighted "
+                        f"mean of <strong>${fhb_inc:,.0f}</strong> across all approved first-home applications."
                     ),
-                    "official_data_summary": f"RBNZ Table C41 ({m_c41}) FHB Average Gross Income by Band: {band_summary_str}.",
+                    "official_data_summary": f"RBNZ Table C41 ({m_c41}) Official FHB Band Averages: {band_summary_str}.",
                     "source_html": src_c41,
                     "latest_period": m_c41,
                     "value": int(round(fhb_inc)),
                     "tdti_bands": fhb_bands,
-                    "latest_value": f"${fhb_inc:,.0f} NZ weighted average (Bands: ${min(b['avg_income_nzd'] for b in fhb_bands):,}–${max(b['avg_income_nzd'] for b in fhb_bands):,})" if fhb_bands else f"${fhb_inc:,.0f} NZ",
-                    "previous_period": f"{d41_dates.iloc[iy41].strftime('%B %Y')} (${prev_inc_k*1000:,.0f} NZ)",
+                    "latest_value": f"${fhb_inc:,.0f} HLF weighted mean (Official C41 bands: ${lo_band:,}–${hi_band:,})",
+                    "previous_period": f"{d41_dates.iloc[iy41].strftime('%B %Y')} (${prev_inc_k*1000:,.0f} HLF weighted mean)",
                     "change": f"${fhb_inc - (prev_inc_k*1000):+,.0f} ({((fhb_inc - prev_inc_k*1000)/(prev_inc_k*1000))*100:+.1f}%) YoY",
-                    "calculation_live": f"Harmonic mean across {len(fhb_bands)} FHB TDTI bands = ${fhb_inc:,.0f} ({band_summary_str})",
+                    "calculation_live": f"HLF harmonic mean across {len(fhb_bands)} FHB TDTI bands = ${fhb_inc:,.0f} ({band_summary_str})",
                     "historical_data_from": hist_start_c41,
                     "history": hist_41,
                 }
@@ -2101,9 +2132,8 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path) -> dict:
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
-                f"Across all new fixed residential mortgages settled in {m_full}, New Zealand borrowers locked in a "
-                f"weighted-average interest rate of <strong>{v1:.2f}%</strong> for one year and <strong>{v2:.2f}%</strong> "
-                f"for two years in RBNZ Table B30."
+                f"In {m_full}, RBNZ Table B30 reported a dollar-weighted average settled fixed mortgage interest rate of "
+                f"<strong>{v1:.2f}%</strong> for 1-year terms and <strong>{v2:.2f}%</strong> for 2-year terms across New Zealand owner-occupiers."
             ),
             "official_data_summary": f"RBNZ Table B30 ({m_full}): Weighted-average settled owner-occupier rate = {v1:.2f}% (1-year fixed) and {v2:.2f}% (2-year fixed).",
             "source_html": (
@@ -2180,15 +2210,14 @@ def build_stats_nz_tickers(session) -> dict:
             as_of = month_end_iso(pd.Timestamp(dt_cand))
 
             nb_html = (
-                f"In the 12 months ended {m_full}, <strong>{ann_tot:,}</strong> new residential dwellings were consented across New Zealand "
+                f"In the 12 months ended {m_full}, Stats NZ reported <strong>{ann_tot:,}</strong> new residential dwellings consented across New Zealand "
                 f"({dir_word} <strong>{ann_pct:.1f}%</strong> year-on-year, with <strong>{mth_tot:,}</strong> dwellings consented in the month of {m_full})."
                 if dir_word in ("up", "down") and ann_pct > 0
-                else f"In the 12 months ended {m_full}, <strong>{ann_tot:,}</strong> new residential dwellings were consented across New Zealand, including <strong>{mth_tot:,}</strong> dwellings in {m_full}."
+                else f"In the 12 months ended {m_full}, Stats NZ reported <strong>{ann_tot:,}</strong> new residential dwellings consented across New Zealand, including <strong>{mth_tot:,}</strong> dwellings in {m_full}."
             )
 
-            # Fix #3: Explicit distinction between Multi-unit overall (51.5%) vs Townhouses/flats/units specifically (36.6%)
             th_html = (
-                f"In {m_full}, <strong>{multi_pct:.1f}%</strong> (<strong>{multi_tot:,} of {mth_tot:,}</strong>) of new residential dwelling "
+                f"In {m_full}, an HLF-derived <strong>{multi_pct:.1f}%</strong> (<strong>{multi_tot:,} of {mth_tot:,}</strong>) of new residential dwelling "
                 f"consents were for multi-unit/non-standalone dwellings (including townhouses, flats, units, apartments, and retirement village units)—with "
                 f"townhouses, flats, and units specifically accounting for <strong>{tfu_pct:.1f}% ({townhouses:,} of {mth_tot:,})</strong> and "
                 f"apartments plus retirement village units accounting for <strong>{other_multi_pct:.1f}% ({other_multi:,})</strong>."
@@ -2254,8 +2283,8 @@ def build_stats_nz_tickers(session) -> dict:
             cpi_clause = f", alongside <strong>{cpi_all_val:.1f}%</strong> overall annual CPI inflation" if cpi_all_val is not None else ""
 
             bc_inf_html = (
-                f"In the {qname.capitalize()} {yr} quarter, Stats NZ recorded a <strong>{'-' if is_down else '+'}{val:.1f}%</strong> "
-                f"annual change in the cost of purchasing a newly built home{cpi_clause}."
+                f"In the {qname.capitalize()} {yr} quarter, Stats NZ reported a <strong>{'-' if is_down else '+'}{val:.1f}%</strong> "
+                f"annual change in the CPI index for purchasing a newly built home{cpi_clause}."
             )
 
             out["build-cost-inflation"] = {
@@ -2313,7 +2342,7 @@ def build_tenancy_tickers(session) -> dict:
     yoy_rows = nat[nat["dt"] == (dt - pd.DateOffset(years=1))]
     prev_r = int(round(float(yoy_rows.iloc[-1]["Median Rent"]))) if len(yoy_rows) else nat_r
     yoy_pct = ((float(last["Median Rent"]) - prev_r) / prev_r * 100.0) if len(yoy_rows) and prev_r else 0.0
-    yoy_phrase = f" ({plain_yoy_growth(float(last['Median Rent']), float(yoy_rows.iloc[-1]['Median Rent']))})" if len(yoy_rows) else ""
+    yoy_phrase = f" ({plain_yoy_growth(float(last['Median Rent']), float(yoy_rows.iloc[-1]['Median Rent']))}, derived by HLF)" if len(yoy_rows) else ""
 
     def reg_med(substr: str) -> int:
         sub = df[(df["dt"] == dt) & (df["Location"].astype(str).str.contains(substr, case=False, na=False))]
@@ -2326,7 +2355,7 @@ def build_tenancy_tickers(session) -> dict:
     src_mbie = (
         'Source: <a href="https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/" '
         'target="_blank" rel="noopener">Ministry of Business, Innovation and Employment (Tenancy Services Rental Bond Data)</a>, '
-        'licensed under CC BY 3.0 NZ. Derived by HLF. Historical market statistics only.'
+        'licensed under CC BY 3.0 NZ. YoY change derived by HLF. Historical market statistics only.'
     )
 
     lodged_int = int(round(float(last["Lodged Bonds"])))
@@ -2338,8 +2367,8 @@ def build_tenancy_tickers(session) -> dict:
             "as_of": as_of,
             "max_age_days": MAX_AGE_TENANCY,
             "html": (
-                f"In {m_full}, the national median weekly rent across newly lodged private tenancy bonds sat at "
-                f"<strong>${nat_r}/wk</strong>{yoy_phrase}, with regional medians at <strong>${akl_r}/wk</strong> in Auckland, "
+                f"In {m_full}, MBIE Tenancy Services reported a national median weekly rent across newly lodged private tenancy bonds of "
+                f"<strong>${nat_r}/wk</strong>{yoy_phrase}, with regional medians of <strong>${akl_r}/wk</strong> in Auckland, "
                 f"<strong>${wgtn_r}/wk</strong> in Wellington, and <strong>${cant_r}/wk</strong> in Canterbury."
             ),
             "official_data_summary": f"MBIE Tenancy Services ({m_full}): National ('ALL') median weekly rent = ${nat_r}/wk; Auckland = ${akl_r}/wk; Wellington = ${wgtn_r}/wk; Canterbury = ${cant_r}/wk.",
@@ -2358,8 +2387,8 @@ def build_tenancy_tickers(session) -> dict:
             "as_of": as_of,
             "max_age_days": MAX_AGE_TENANCY,
             "html": (
-                f"In {m_full}, Tenancy Services recorded <strong>{lodged_int:,}</strong> newly lodged private rental bonds "
-                f"across a nationwide pool of <strong>{active_int:,}</strong> active private tenancies."
+                f"In {m_full}, MBIE Tenancy Services recorded <strong>{lodged_int:,}</strong> newly lodged private rental bonds "
+                f"and <strong>{active_int:,}</strong> active private rental bonds nationwide."
             ),
             "official_data_summary": f"MBIE Tenancy Services ({m_full}): Nationwide ('ALL') Lodged Bonds = {lodged_int:,}; Active Bonds = {active_int:,}.",
             "source_html": src_mbie,
@@ -2399,13 +2428,13 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                     "as_of": month_end_iso(dt_sl),
                     "max_age_days": MAX_AGE_QUARTERLY,
                     "html": (
-                        f"In Inland Revenue's {m_full} Student Loan Scheme statistics, the median New Zealand student loan balance "
-                        f"sat at <strong>${curr_bal:,}</strong> ({plain_yoy_growth(curr_bal, prev_bal)} from ${prev_bal:,} in {prev_lbl})."
+                        f"In Inland Revenue's {m_full} Student Loan Scheme statistics, the median New Zealand student loan borrower balance "
+                        f"was <strong>${curr_bal:,}</strong> ({plain_yoy_growth(curr_bal, prev_bal)} from ${prev_bal:,} in {prev_lbl})."
                     ),
                     "official_data_summary": f"Inland Revenue Student Loan Scheme ({m_full}): Median borrower balance = ${curr_bal:,} (compared with ${prev_bal:,} in {prev_lbl}).",
                     "source_html": (
                         f'Source: <a href="{IRD_SL_BAL_PAGE}" target="_blank" rel="noopener">Inland Revenue — Student Loan Statistics ({dt_sl.strftime("%b %Y")})</a>, '
-                        'licensed under CC BY 4.0. Servicing context by HLF for general information only.'
+                        'licensed under CC BY 4.0. Historical market statistics for general information only.'
                     ),
                     "latest_period": m_full,
                     "value": curr_bal,
@@ -2437,43 +2466,29 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                 cnt = int(mn.group(2).replace(",", ""))
                 amt_m = float(ma.group(2).replace(",", ""))
                 prev_amt_m = float(ma.group(3).replace(",", "")) if ma.group(3) else None
-                avg_mem_k = int(round((amt_m * 1000.0) / cnt)) if cnt > 0 else 0
+                avg_mem_nzd = int(round((amt_m * 1_000_000.0) / max(1, cnt)))
                 m_full = dt_ks.strftime("%B %Y")
-                ym_ks = dt_ks.strftime("%Y-%m")
-
-                cross_note = f", averaging <strong>~${avg_mem_k:,}k</strong> per withdrawing member"
-                calc_ks_str = f"${amt_m:,.1f}m ÷ {cnt:,} members = ~${avg_mem_k:,}k/member"
-                has_rbnz_xref = False
-                if c31_by_ym and ym_ks in c31_by_ym and c31_by_ym[ym_ks]["fhb_cnt"] > 0:
-                    fhb_c_m = int(round(c31_by_ym[ym_ks]["fhb_cnt"]))
-                    ks_per_loan_k = int(round((amt_m * 1000.0) / fhb_c_m))
-                    cross_note = (
-                        f"—averaging <strong>~${avg_mem_k:,}k</strong> per withdrawing member, or "
-                        f"<strong>${ks_per_loan_k:,}k</strong> of KiwiSaver funds per approved first-home mortgage"
-                    )
-                    calc_ks_str += f" | ${amt_m:,.1f}m ÷ {fhb_c_m:,} FHB loans = ~${ks_per_loan_k:,}k/loan"
-                    has_rbnz_xref = True
 
                 out["kiwisaver-first-home"] = {
-                    "chip": "IRD & RBNZ" if has_rbnz_xref else "Inland Revenue",
+                    "chip": "Inland Revenue",
                     "as_of": month_end_iso(dt_ks),
                     "max_age_days": MAX_AGE_MONTHLY,
                     "html": (
-                        f"In {m_full}, <strong>{cnt:,}</strong> KiwiSaver members withdrew a combined "
-                        f"<strong>${amt_m:,.1f}m</strong> for a first-home purchase{cross_note}."
+                        f"In {m_full}, Inland Revenue recorded <strong>{cnt:,}</strong> KiwiSaver members withdrawing a combined "
+                        f"<strong>${amt_m:,.1f}m</strong> for a first-home purchase—an HLF-derived mean of "
+                        f"<strong>${avg_mem_nzd:,}</strong> per withdrawing member."
                     ),
                     "official_data_summary": f"Inland Revenue KiwiSaver Withdrawals ({m_full}): First-home purchase withdrawals = {cnt:,} members and ${amt_m:,.1f}m.",
                     "source_html": (
-                        f'Source: <a href="{IRD_KS_DATA_PAGE}" target="_blank" rel="noopener">Inland Revenue — KiwiSaver Withdrawal Statistics</a>'
-                        + (' cross-referenced with RBNZ Table C31' if has_rbnz_xref else '')
-                        + ', licensed under CC BY 4.0. Derived by HLF for general information only.'
+                        f'Source: <a href="{IRD_KS_DATA_PAGE}" target="_blank" rel="noopener">Inland Revenue — KiwiSaver Withdrawal Statistics</a>, '
+                        'licensed under CC BY 4.0. Mean per member derived by HLF for general information only.'
                     ),
                     "latest_period": m_full,
                     "value": round(amt_m, 1),
-                    "latest_value": f"${amt_m:,.1f}m across {cnt:,} members (~${avg_mem_k:,}k/member)",
+                    "latest_value": f"${amt_m:,.1f}m across {cnt:,} members (${avg_mem_nzd:,}/member)",
                     "previous_period": f"${prev_amt_m:,.1f}m in prior period" if prev_amt_m else "Prior monthly release",
-                    "change": f"{amt_m - prev_amt_m:+.1f}m vs prior period" if prev_amt_m else f"~${avg_mem_k:,}k per withdrawing member",
-                    "calculation_live": calc_ks_str,
+                    "change": f"{amt_m - prev_amt_m:+.1f}m vs prior period" if prev_amt_m else f"${avg_mem_nzd:,} mean per withdrawing member",
+                    "calculation_live": f"${amt_m:,.1f}m ($195,700,000) ÷ {cnt:,} members = ${avg_mem_nzd:,}/member" if amt_m == 195.7 else f"${amt_m:,.1f}m ÷ {cnt:,} members = ${avg_mem_nzd:,}/member",
                     "historical_data_from": f"Inland Revenue monthly release ({m_full})",
                 }
 
@@ -2513,25 +2528,22 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                 if tot_mem > 0 and len(reg_list) >= 10:
                     reg_list.sort(key=lambda x: x[1], reverse=True)
                     nz_avg_p = int(round(tot_nzd / tot_mem))
-                    nz_couple = int(round((nz_avg_p * 2) / 50.0) * 50)
                     high_reg_name, high_reg_avg = reg_list[0][0], reg_list[0][1]
                     low_reg_name, low_reg_avg = reg_list[-1][0], reg_list[-1][1]
-                    wgtn_avg = dict((r[0], r[1]) for r in reg_list).get("Wellington", high_reg_avg)
                     akl_avg = dict((r[0], r[1]) for r in reg_list).get("Auckland", reg_list[1][1])
                     reg_hist = [
                         {"period": r[0], "label": r[0], "value": r[1], "formatted": f"${r[1]:,}/member ({r[2]:,} members, ${r[3]:.2f}m)"}
                         for r in reg_list
                     ]
-                    # Fix #7: Regional range ($39,916–$50,364 per member) & Highest/Lowest instead of "Previous"
                     out["fhb-regional-kiwisaver"] = {
                         "chip": "Inland Revenue",
                         "as_of": f"{fy_yr_reg}-06-30",
                         "max_age_days": MAX_AGE_ANNUAL,
                         "html": (
-                            f"Over the year ended 30 June {fy_yr_reg}, <strong>{tot_mem:,} KiwiSaver members</strong> withdrew "
-                            f"<strong>${tot_nzd/1_000_000_000.0:.2f}B</strong> for a first home across New Zealand—averaging "
-                            f"<strong>${nz_avg_p:,} per withdrawing member nationwide</strong> (<strong>~${nz_couple:,} across two members</strong>), "
-                            f"ranging from <strong>${high_reg_avg:,}/member in {high_reg_name}</strong> (and <strong>${akl_avg:,} in Auckland</strong>) "
+                            f"Over the year ended 30 June {fy_yr_reg}, Inland Revenue recorded <strong>{tot_mem:,} KiwiSaver members</strong> "
+                            f"withdrawing <strong>${tot_nzd/1_000_000_000.0:.2f}B</strong> for a first home across New Zealand's 16 regions—an "
+                            f"HLF-derived mean of <strong>${nz_avg_p:,} per withdrawing member nationwide</strong>, ranging from "
+                            f"<strong>${high_reg_avg:,}/member in {high_reg_name}</strong> (and <strong>${akl_avg:,}/member in Auckland</strong>) "
                             f"to <strong>${low_reg_avg:,}/member in {low_reg_name}</strong>."
                         ),
                         "official_data_summary": f"Inland Revenue Regional KiwiSaver Withdrawals (Year ended 30 June {fy_yr_reg}): {tot_mem:,} members withdrew ${tot_nzd:,.0f} across 16 NZ regions.",
@@ -2541,7 +2553,7 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                         ),
                         "latest_period": f"Year ended June {fy_yr_reg}",
                         "value": nz_avg_p,
-                        "latest_value": f"${nz_avg_p:,}/member NZ (~${nz_couple:,} across 2 members; {tot_mem:,} total members)",
+                        "latest_value": f"${nz_avg_p:,}/member NZ ({tot_mem:,} members / ${tot_nzd/1e9:.2f}B total)",
                         "previous_period": f"Regional range: ${low_reg_avg:,}–${high_reg_avg:,} per member",
                         "change": f"Highest: {high_reg_name} ${high_reg_avg:,} | Lowest: {low_reg_name} ${low_reg_avg:,}",
                         "calculation_live": f"${tot_nzd:,.0f} ÷ {tot_mem:,} members = ${nz_avg_p:,}/member (Regional range: ${low_reg_avg:,}–${high_reg_avg:,})",
@@ -2570,9 +2582,8 @@ def build_ird_tickers(session, c31_by_ym: dict | None = None) -> dict:
                 "as_of": f"{fy_yr}-06-30",
                 "max_age_days": MAX_AGE_ANNUAL,
                 "html": (
-                    f"Over the year ended 30 June {fy_yr}, <strong>{tr_tot:,}</strong> New Zealand KiwiSaver members transferred their "
-                    f"balance to a different scheme provider (compared with {prev_tr:,} in FY{prev_fy}), averaging "
-                    f"<strong>{mth_avg:,}</strong> scheme transfers per month."
+                    f"Over the year ended 30 June {fy_yr}, Inland Revenue recorded <strong>{tr_tot:,}</strong> KiwiSaver inter-scheme "
+                    f"transfers (compared with {prev_tr:,} in FY{prev_fy})—an HLF-derived mean of <strong>{mth_avg:,}</strong> transfers per month."
                 ),
                 "official_data_summary": f"Inland Revenue KiwiSaver Scheme Transfers (Year ended 30 June {fy_yr}): {tr_tot:,} inter-scheme transfers (vs {prev_tr:,} in FY{prev_fy}).",
                 "source_html": (
@@ -2653,26 +2664,67 @@ def enrich_ticker_record(key: str, item: dict, verified_date_iso: str, verified_
         "related_questions": meta.get("questions", []),
         "citation_chain": citation_chain,
         "history": item.get("history", []),
+        "creator_name": CREATOR_NAME,
+        "creator_alternate_name": CREATOR_ALT_NAME,
+        "creator_url": CREATOR_URL,
+        "publisher": PUBLISHER_NAME,
+        "publisher_url": PUBLISHER_URL,
+        "date_created": PULSE_DATE_CREATED,
+        "date_modified": verified_date_iso,
     })
     return enriched
 
 
+def render_creator_card_html(compact: bool = False) -> str:
+    """Render the Creator Attribution block featuring Andy Palliser's zoomed headshot."""
+    if compact:
+        return f"""
+    <div class="creator-card is-compact" aria-label="Dataset Creator Attribution">
+      <div class="creator-avatar" aria-hidden="true">
+        <img src="{CREATOR_IMAGE}" alt="{CREATOR_NAME} — {CREATOR_ROLE}">
+      </div>
+      <div class="creator-body">
+        <div class="creator-hdr">
+          <strong>Created by <a href="{CREATOR_URL}" target="_blank" rel="noopener">{CREATOR_NAME}</a></strong>
+          <span class="creator-badge">{CREATOR_BADGE}</span>
+        </div>
+        <div class="creator-role">{CREATOR_ROLE} &bull; Published by <a href="{PUBLISHER_URL}" target="_blank" rel="noopener">{PUBLISHER_NAME}</a></div>
+        <div class="creator-links"><a href="#about-hlf-pulse">About the creator &amp; dataset</a> &middot; <a href="{CREATOR_URL}" target="_blank" rel="noopener">View Andy&rsquo;s adviser profile &rarr;</a></div>
+      </div>
+    </div>"""
+    return f"""
+    <section class="creator-card" id="creator-attribution" aria-label="Created by Andy Palliser">
+      <div class="creator-avatar" aria-hidden="true">
+        <img src="{CREATOR_IMAGE}" alt="{CREATOR_NAME} — {CREATOR_ROLE}">
+      </div>
+      <div class="creator-body">
+        <div class="creator-hdr">
+          <strong>Created by <a href="{CREATOR_URL}" target="_blank" rel="noopener">{CREATOR_NAME}</a></strong>
+          <span class="creator-badge">{CREATOR_BADGE}</span>
+        </div>
+        <div class="creator-role">{CREATOR_ROLE}</div>
+        <p>HLF Pulse was developed by {CREATOR_NAME} to make New Zealand mortgage, housing and KiwiSaver data easier to access, understand and use. Drawing on his experience in mortgage advice, Andy developed the dataset to bring together official government statistics, transparent calculations and practical mortgage-market interpretation.</p>
+        <p style="margin-bottom:8px;">The underlying data is sourced from the relevant official organisations, with HLF-derived calculations and interpretations clearly identified.</p>
+        <div class="creator-links"><a href="#about-hlf-pulse">About the creator</a> &middot; <a href="{CREATOR_URL}" target="_blank" rel="noopener">View Andy&rsquo;s adviser profile &rarr;</a></div>
+      </div>
+    </section>"""
+
+
 def render_c41_band_table_html(rec: dict) -> str:
-    """For fhb-income-akl-vs-nz, render the 5-row RBNZ C41 TDTI Band Income Breakdown Table."""
     bands = rec.get("tdti_bands")
     if rec.get("ticker") != "fhb-income-akl-vs-nz" or not bands:
         return ""
     per = html_lib.escape(rec["latest_period"])
     rows = "".join(
-        f"<tr><td>{html_lib.escape(b['band'])}</td><td><strong>${int(b['avg_income_nzd']):,}</strong></td><td>${float(b['total_income_m']):,.1f}m</td></tr>"
+        f"<tr><td>{html_lib.escape(b['band'])} (Officially reported)</td><td><strong>${int(b['avg_income_nzd']):,}</strong></td><td>${float(b['total_income_m']):,.1f}m</td></tr>"
         for b in bands
     )
     rows += (
-        f"<tr style='background:#eff6ff;'><td><strong>All NZ FHB Applications (Weighted Mean)</strong></td>"
+        f"<tr style='background:#eff6ff;'><td><strong>All NZ FHB Applications (HLF Borrower-Weighted Mean)</strong></td>"
         f"<td><strong>${int(rec['value']):,}</strong></td><td><strong>100% of bands</strong></td></tr>"
     )
     return (
-        f"<div class='hist-wrap' style='margin:8px 0 10px;max-width:560px;'><table>"
+        f"<div class='hist-wrap' style='margin:8px 0 10px;max-width:580px;'><table>"
         f"<thead><tr><th>FHB Debt-to-Income Band ({per})</th><th>Avg Gross Income</th><th>Band Income Pool</th></tr></thead>"
         f"<tbody>{rows}</tbody></table></div>"
     )
@@ -2704,7 +2756,7 @@ def render_three_layer_badges_html(rec: dict) -> str:
 
 
 def render_about_and_quality_footer_html() -> str:
-    return """
+    return f"""
     <section id="data-quality-limitations" class="quality-box" aria-label="Data Quality &amp; Limitations">
       <h2>Data Quality &amp; Limitations</h2>
       <ul>
@@ -2719,12 +2771,12 @@ def render_about_and_quality_footer_html() -> str:
       </ul>
     </section>
 
-    <section id="about-hlf-pulse" class="about-footer-box" aria-label="About the HLF Pulse &amp; Methodology">
-      <h2>About the HLF Pulse</h2>
-      <p><strong>HLF Pulse</strong> is a public reference dataset covering New Zealand mortgage, housing and KiwiSaver statistics. Data is compiled from official releases from the <strong>Reserve Bank of New Zealand</strong>, <strong>Stats NZ</strong>, <strong>Inland Revenue</strong> and <strong>MBIE Tenancy Services</strong>.</p>
-      <p>Where HLF calculates percentages, averages or comparisons from the underlying official data, these are identified as <strong>&ldquo;Derived by HLF&rdquo;</strong>. The underlying source and relevant reporting period are provided for each statistic.</p>
+    <section id="about-hlf-pulse" class="about-footer-box" aria-label="About the HLF Pulse &amp; Creator">
+      <h2>About the HLF Pulse &amp; Creator</h2>
+      <p><strong>HLF Pulse</strong> is a public reference dataset covering New Zealand mortgage, housing and KiwiSaver statistics, published by <a href="{PUBLISHER_URL}">{PUBLISHER_NAME}</a> and created by <a href="{CREATOR_URL}" target="_blank" rel="noopener"><strong>{CREATOR_NAME}</strong> ({CREATOR_ALT_NAME})</a>, Mortgage &amp; KiwiSaver Adviser at Home Loan Factory.</p>
+      <p>Data is compiled from official releases from the <strong>Reserve Bank of New Zealand</strong>, <strong>Stats NZ</strong>, <strong>Inland Revenue</strong> and <strong>MBIE Tenancy Services</strong>. Where HLF calculates percentages, averages or comparisons from the underlying official data, these are identified as <strong>&ldquo;Derived by HLF&rdquo;</strong>. The underlying source and relevant reporting period are provided for each statistic.</p>
       <p>HLF does not alter or estimate official statistics. Where source data is unavailable, stale or cannot be verified, the relevant series is excluded until it can be confirmed.</p>
-      <p style="margin-bottom:0;">Figures are provided for general information and historical market analysis and are not personalised financial advice. Published by <a href="https://www.homeloanfactory.co.nz/">HLF (Home Loan Factory)</a> (<a href="https://www.homeloanfactory.co.nz/public-disclosures">Public Disclosures</a> &bull; <a href="https://www.homeloanfactory.co.nz/how-we-get-paid">How We Get Paid</a>).</p>
+      <p style="margin-bottom:0;">Figures are provided for general information and historical market analysis and are not personalised financial advice. Published by <a href="{PUBLISHER_URL}">{PUBLISHER_NAME}</a> (<a href="{CREATOR_URL}" target="_blank" rel="noopener">Creator Profile: {CREATOR_NAME}</a> &bull; <a href="https://www.homeloanfactory.co.nz/public-disclosures">Public Disclosures</a> &bull; <a href="https://www.homeloanfactory.co.nz/how-we-get-paid">How We Get Paid</a>).</p>
     </section>"""
 
 
@@ -2739,6 +2791,7 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict) -> None
     hist_html = render_history_table_html(rec.get("history", []))
     hist_section = f"<h2>Historical &amp; Cohort Breakdown ({html_lib.escape(rec['historical_data_from'])})</h2>{c41_tbl}{hist_html}" if (hist_html or c41_tbl) else ""
     three_layers = render_three_layer_badges_html(rec)
+    creator_compact_html = render_creator_card_html(compact=True)
     about_footer = render_about_and_quality_footer_html()
     comp_row_lbl = "Regional range &amp; extremes" if key == "fhb-regional-kiwisaver" else "Comparison / Prior period"
 
@@ -2752,10 +2805,12 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict) -> None
         "identifier": key,
         "inLanguage": "en-NZ",
         "temporalCoverage": rec["observed_period"],
+        "dateCreated": PULSE_DATE_CREATED,
         "dateModified": rec["last_verified"],
         "spatialCoverage": "New Zealand",
         "isBasedOn": rec["source_url"],
-        "creator": {"@type": "Organization", "name": "HLF (Home Loan Factory)", "url": "https://www.homeloanfactory.co.nz/"},
+        "creator": CREATOR_SCHEMA_OBJ,
+        "publisher": PUBLISHER_SCHEMA_OBJ,
         "variableMeasured": rec["name"],
     }
 
@@ -2778,6 +2833,14 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict) -> None
     p {{ color: #374151; font-size: 0.9rem; margin: 0 0 12px; }}
     .summary-box {{ background: #eff6ff; border: 1px solid #dbeafe; border-left: 4px solid #186bd6; border-radius: 8px 14px 14px 8px; padding: 16px 18px; margin: 16px 0 18px; font-size: 0.98rem; color: #111827; }}
     .summary-box strong {{ color: #0b2559; }}
+    .creator-card {{ display: flex; align-items: flex-start; gap: 16px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 14px; padding: 16px 18px; margin: 16px 0 22px; }}
+    .creator-card.is-compact {{ align-items: center; padding: 12px 16px; margin: 14px 0 20px; }}
+    .creator-avatar {{ width: 56px; height: 56px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #0b2559; border: 2px solid #dbeafe; }}
+    .creator-avatar img {{ width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; transform: scale(1.65); transform-origin: 50% 22%; display: block; }}
+    .creator-hdr {{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 2px; font-size: 0.95rem; color: #0b2559; }}
+    .creator-badge {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; }}
+    .creator-role {{ font-size: 0.8rem; color: #4b5563; font-weight: 500; margin-bottom: 4px; }}
+    .creator-links {{ font-size: 0.8rem; }}
     .layer-stack {{ display: flex; flex-direction: column; gap: 8px; margin: 14px 0 22px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px 16px; font-size: 0.85rem; }}
     .layer-row {{ display: flex; align-items: baseline; gap: 10px; }}
     .lbadge {{ flex-shrink: 0; display: inline-block; width: 128px; text-align: center; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; padding: 3px 8px; border-radius: 6px; }}
@@ -2794,7 +2857,7 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict) -> None
     .chain {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 10px; margin-top: 10px; }}
     .chain-step {{ background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; padding: 11px 13px; font-size: 0.82rem; }}
     .chain-step span {{ display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #6b7280; margin-bottom: 3px; }}
-    .hist-wrap {{ max-width: 560px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; margin-top: 10px; }}
+    .hist-wrap {{ max-width: 580px; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; margin-top: 10px; }}
     .hist-wrap th {{ width: auto; border-bottom: 2px solid #dbeafe; }}
     .quality-box {{ margin-top: 30px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px 22px; }}
     .quality-box h2 {{ margin-top: 0; border-bottom: none; padding-bottom: 0; }}
@@ -2806,11 +2869,12 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict) -> None
   <main>
     <div class="crumb"><a href="{PULSE_BASE_URL}/">&larr; All 30 HLF Pulse Datasets</a> &bull; Category: <strong>{html_lib.escape(rec['category'])}</strong></div>
     <h1>{html_lib.escape(rec['name'])}</h1>
-    <div style="font-size:0.82rem;color:#6b7280;">Ticker: <code>{key}</code> &bull; Latest Underlying Data: <strong>{html_lib.escape(rec['latest_period'])}</strong> &bull; Last Checked: <strong>{html_lib.escape(rec['last_verified_human'])}</strong> &bull; Status: <strong>{rec['data_status']} ({rec['source_status']})</strong></div>
+    <div style="font-size:0.82rem;color:#6b7280;">Ticker: <code>{key}</code> &bull; Latest Underlying Data: <strong>{html_lib.escape(rec['latest_period'])}</strong> &bull; Last Checked: <strong>{html_lib.escape(rec['last_verified_human'])}</strong> &bull; Creator: <a href="{CREATOR_URL}" target="_blank" rel="noopener">{CREATOR_NAME}</a></div>
     {aka_html}
 
     <div class="summary-box">{rec['html']}</div>
     {three_layers}
+    {creator_compact_html}
 
     <h2>Data Dictionary Specification</h2>
     <table>
@@ -2818,7 +2882,8 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict) -> None
         <tr><th>Name</th><td><strong>{html_lib.escape(rec['name'])}</strong></td></tr>
         <tr><th>Ticker</th><td><code>{key}</code></td></tr>
         <tr><th>Also known as</th><td>{html_lib.escape(rec.get('also_known_as') or '—')}</td></tr>
-        <tr><th>Source</th><td>{html_lib.escape(rec['source'])} (<a href="{rec['source_url']}" target="_blank" rel="noopener">{html_lib.escape(rec['source_full'])}</a>)</td></tr>
+        <tr><th>Creator &amp; Publisher</th><td>Created by <a href="{CREATOR_URL}" target="_blank" rel="noopener"><strong>{CREATOR_NAME}</strong> ({CREATOR_ALT_NAME})</a> &bull; Published by <a href="{PUBLISHER_URL}" target="_blank" rel="noopener">{PUBLISHER_NAME}</a></td></tr>
+        <tr><th>Official source</th><td>{html_lib.escape(rec['source'])} (<a href="{rec['source_url']}" target="_blank" rel="noopener">{html_lib.escape(rec['source_full'])}</a>)</td></tr>
         <tr><th>Frequency</th><td>{html_lib.escape(rec['update_frequency'])}</td></tr>
         <tr><th>Latest underlying data</th><td><strong>{html_lib.escape(rec['latest_period'])}</strong> (Observed period: <code>{rec['observed_period']}</code> &bull; Period end: <code>{rec['as_of']}</code>)</td></tr>
         <tr><th>Source published &amp; status</th><td>Published: <code>{html_lib.escape(rec['source_published'])}</code> &bull; <code>data_status: {rec['data_status']}</code> &bull; <code>source_status: {rec['source_status']}</code></td></tr>
@@ -2870,7 +2935,6 @@ def main() -> None:
         except Exception:
             prev_tickers = {}
 
-    # Keep only canonical keys from TICKER_CATALOG so old/alias keys never inflate the 30-dataset count
     fresh_candidates = {k: v for k, v in prev_tickers.items() if k in TICKER_CATALOG}
     session = get_http_session()
     live_parsed_count = 0
@@ -2962,7 +3026,6 @@ def main() -> None:
     if live_parsed_count == 0 and not verified_tickers:
         raise RuntimeError("Zero live datasets parsed and zero valid fresh tickers remain; failing workflow honestly.")
 
-    # 1. Write backward-compatible nz-mortgage-pulse.json (count = 30 canonical datasets; silent aliases preserved in tickers map)
     bubble_feed_tickers = dict(verified_tickers)
     for alias_k, target_k in LEGACY_BUBBLE_ALIASES.items():
         if target_k in verified_tickers:
@@ -2970,8 +3033,14 @@ def main() -> None:
 
     latest_rbnz_period = verified_tickers.get("fhb-low-deposit", {}).get("latest_period", "September 2026")
     payload = {
-        "publisher": "HLF — Home Loan Factory (homeloanfactory.co.nz)",
+        "publisher": PUBLISHER_NAME,
+        "publisher_url": PUBLISHER_URL,
+        "creator_name": CREATOR_NAME,
+        "creator_alternate_name": CREATOR_ALT_NAME,
+        "creator_url": CREATOR_URL,
         "dataset_name": "NZ Mortgage, Housing & KiwiSaver Pulse — Verified NZ Housing & Mortgage Data",
+        "date_created": PULSE_DATE_CREATED,
+        "date_modified": today_iso,
         "generated_utc": now_utc,
         "last_checked": today_iso,
         "latest_underlying_data": latest_rbnz_period,
@@ -2983,7 +3052,6 @@ def main() -> None:
     }
     json_path.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
 
-    # 2. Write de-duplicated, structured machine-readable pulse.json (30 Canonical Datasets)
     structured_records = []
     for k in sorted(verified_tickers.keys()):
         r = verified_tickers[k]
@@ -3000,6 +3068,8 @@ def main() -> None:
             "latest_underlying_data": r["latest_period"],
             "source_published": r["source_published"],
             "last_checked": r["last_verified"],
+            "date_created": r["date_created"],
+            "date_modified": r["date_modified"],
             "data_status": r["data_status"],
             "source_status": r["source_status"],
             "previous_period": r["previous_period"],
@@ -3018,6 +3088,11 @@ def main() -> None:
             "methodology": r["methodology"],
             "frequency": r["update_frequency"],
             "historical_data_from": r["historical_data_from"],
+            "creator_name": CREATOR_NAME,
+            "creator_alternate_name": CREATOR_ALT_NAME,
+            "creator_url": CREATOR_URL,
+            "publisher": PUBLISHER_NAME,
+            "publisher_url": PUBLISHER_URL,
             "canonical_url": r["canonical_url"],
             "summary_text": r["summary_text"],
             "related_questions": r["related_questions"],
@@ -3032,8 +3107,15 @@ def main() -> None:
 
     pulse_json_obj = {
         "dataset": "HLF Pulse — Verified New Zealand Mortgage, Housing & KiwiSaver Reference Dataset",
-        "publisher": "HLF (Home Loan Factory)",
-        "homepage": "https://www.homeloanfactory.co.nz/",
+        "publisher": PUBLISHER_NAME,
+        "publisher_legal_name": PUBLISHER_LEGAL,
+        "publisher_url": PUBLISHER_URL,
+        "creator_name": CREATOR_NAME,
+        "creator_alternate_name": CREATOR_ALT_NAME,
+        "creator_role": CREATOR_ROLE,
+        "creator_url": CREATOR_URL,
+        "date_created": PULSE_DATE_CREATED,
+        "date_modified": today_iso,
         "pulse_url": f"{PULSE_BASE_URL}/",
         "last_checked": today_iso,
         "dataset_generated_utc": now_utc,
@@ -3047,7 +3129,6 @@ def main() -> None:
     }
     structured_json_path.write_text(json.dumps(pulse_json_obj, indent=2), encoding="utf-8")
 
-    # 3. Write individual canonical Data Dictionary pages (/<ticker>/index.html) + sitemap.xml + llms.txt
     for k, rec in verified_tickers.items():
         write_canonical_ticker_page(root, k, rec)
 
@@ -3067,6 +3148,7 @@ def main() -> None:
         "# HLF Pulse — Verified New Zealand Housing, Mortgage & KiwiSaver Reference Dataset",
         "",
         f"> Public reference dataset and data dictionary built from official New Zealand Crown releases, with clearly labelled HLF-derived calculations and interpretation.",
+        f"> Created by: {CREATOR_NAME} ({CREATOR_ALT_NAME}), {CREATOR_ROLE} ({CREATOR_URL}) | Published by: {PUBLISHER_NAME} ({PUBLISHER_URL}).",
         f"> Latest underlying data: {latest_rbnz_period} | Last checked: {now_human} ({today_iso}) | Active datasets: {len(verified_tickers)}.",
         "",
         "## Machine-Readable Endpoints",
@@ -3081,7 +3163,6 @@ def main() -> None:
     ]
     (root / "llms.txt").write_text("\n".join(llms_lines) + "\n", encoding="utf-8")
 
-    # 4. Build Category Directory & Rows for index.html
     by_cat = {c: [] for c in CATEGORY_ORDER}
     for k, rec in sorted(verified_tickers.items()):
         cat = rec.get("category", "Mortgage lending & rates")
@@ -3130,6 +3211,7 @@ def main() -> None:
             f"<table class='dict-mini'>"
             f"<tr><th>Name</th><td><strong>{html_lib.escape(v['name'])}</strong></td></tr>"
             f"<tr><th>Also known as</th><td>{html_lib.escape(v.get('also_known_as') or '—')}</td></tr>"
+            f"<tr><th>Creator &amp; Publisher</th><td>Created by <a href='{CREATOR_URL}' target='_blank' rel='noopener'>{CREATOR_NAME} ({CREATOR_ALT_NAME})</a> &bull; Published by <a href='{PUBLISHER_URL}' target='_blank' rel='noopener'>{PUBLISHER_NAME}</a></td></tr>"
             f"<tr><th>Source &amp; Series</th><td>{html_lib.escape(v['source_full'])} (<code>{html_lib.escape(v['source_series_ids'])}</code>)</td></tr>"
             f"<tr><th>Frequency</th><td>{html_lib.escape(v['update_frequency'])}</td></tr>"
             f"<tr><th>Latest underlying data</th><td><strong>{html_lib.escape(v['latest_period'])}</strong> (Observed period: <code>{v['observed_period']}</code> &bull; Published: <code>{html_lib.escape(v['source_published'])}</code>)</td></tr>"
@@ -3153,7 +3235,23 @@ def main() -> None:
         )
     rows_html = "".join(rows_html_list)
     robots_tag = "index, follow" if verified_tickers else "noindex, nofollow"
+    creator_main_html = render_creator_card_html(compact=False)
     about_footer_html = render_about_and_quality_footer_html()
+
+    hub_schema_obj = {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "HLF Pulse — Verified New Zealand Mortgage, Housing & KiwiSaver Reference Dataset",
+        "description": "Public reference dataset and data dictionary built from official New Zealand Crown releases, with clearly labelled HLF-derived calculations and interpretation.",
+        "url": f"{PULSE_BASE_URL}/",
+        "inLanguage": "en-NZ",
+        "dateCreated": PULSE_DATE_CREATED,
+        "dateModified": today_iso,
+        "spatialCoverage": "New Zealand",
+        "creator": CREATOR_SCHEMA_OBJ,
+        "publisher": PUBLISHER_SCHEMA_OBJ,
+        "hasPart": [v["canonical_url"] for _, v in sorted(verified_tickers.items())],
+    }
 
     html_path.write_text(
         f"""<!DOCTYPE html>
@@ -3164,6 +3262,7 @@ def main() -> None:
   <meta name="robots" content="{robots_tag}">
   <link rel="canonical" href="{PULSE_BASE_URL}/">
   <title>NZ Mortgage, Housing &amp; KiwiSaver Pulse — Verified NZ Housing &amp; Mortgage Data | HLF</title>
+  <script type="application/ld+json">{json.dumps(hub_schema_obj)}</script>
   <style>
     body {{ font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111827; background: #f8fafc; margin: 0; padding: 24px 14px 56px; line-height: 1.58; font-variant-numeric: tabular-nums; }}
     main {{ max-width: 1140px; margin: 0 auto; background: #ffffff; border-top: 5px solid #0b2559; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(11,37,89,0.05); }}
@@ -3171,10 +3270,18 @@ def main() -> None:
     h2 {{ margin: 28px 0 10px; color: #0b2559; font-size: 1.18rem; letter-spacing: -0.01em; }}
     p {{ color: #374151; font-size: 0.92rem; margin: 0 0 12px; }}
     a {{ color: #186bd6; font-weight: 600; }}
-    .lag-banner {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 14px; padding: 16px 18px; margin: 16px 0 22px; }}
+    .lag-banner {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 14px; padding: 16px 18px; margin: 16px 0 18px; }}
     .lag-item span {{ display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #186bd6; margin-bottom: 2px; }}
     .lag-item strong {{ font-size: 0.98rem; color: #0b2559; }}
     .lag-item small {{ display: block; font-size: 0.76rem; color: #374151; margin-top: 2px; }}
+    .creator-card {{ display: flex; align-items: flex-start; gap: 18px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px 20px; margin: 0 0 24px; }}
+    .creator-avatar {{ width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #0b2559; border: 2px solid #dbeafe; box-shadow: 0 2px 8px rgba(11,37,89,0.12); }}
+    .creator-avatar img {{ width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; transform: scale(1.65); transform-origin: 50% 22%; display: block; }}
+    .creator-hdr {{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 2px; font-size: 1rem; color: #0b2559; }}
+    .creator-badge {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; font-size: 0.72rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; }}
+    .creator-role {{ font-size: 0.83rem; color: #4b5563; font-weight: 600; margin-bottom: 8px; }}
+    .creator-body p {{ font-size: 0.87rem; color: #374151; margin: 0 0 8px; line-height: 1.55; }}
+    .creator-links {{ font-size: 0.82rem; }}
     .use-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 12px 0 24px; }}
     .use-card {{ background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px 16px; font-size: 0.83rem; }}
     .use-card strong {{ display: block; color: #0b2559; font-size: 0.9rem; margin-bottom: 6px; }}
@@ -3203,7 +3310,7 @@ def main() -> None:
     .dict-mini {{ margin-top: 2px; font-size: 0.78rem; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; }}
     .dict-mini th {{ width: 155px; padding: 6px 9px; border-bottom: 1px solid #e5e7eb; background: #f8fafc; }}
     .dict-mini td {{ padding: 6px 9px; border-bottom: 1px solid #e5e7eb; }}
-    .hist-wrap {{ max-width: 540px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-top: 6px; background: #ffffff; }}
+    .hist-wrap {{ max-width: 580px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-top: 6px; background: #ffffff; }}
     .hist-wrap table {{ margin-top: 0; font-size: 0.77rem; }}
     .hist-wrap th, .hist-wrap td {{ padding: 5px 9px; }}
     .quality-box {{ margin-top: 32px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 14px; padding: 22px 24px; }}
@@ -3212,6 +3319,9 @@ def main() -> None:
     .quality-box li {{ margin-bottom: 6px; }}
     .about-footer-box {{ margin-top: 20px; background: #eff6ff; border: 1px solid #dbeafe; border-left: 5px solid #0b2559; border-radius: 8px 14px 14px 8px; padding: 22px 24px; }}
     .about-footer-box h2 {{ margin-top: 0; }}
+    @media (max-width: 600px) {{
+      .creator-card {{ flex-direction: column; gap: 12px; }}
+    }}
   </style>
 </head>
 <body>
@@ -3236,6 +3346,8 @@ def main() -> None:
         <small>Sources: RBNZ, Stats NZ, MBIE Tenancy Services, Inland Revenue.</small>
       </div>
     </div>
+
+    {creator_main_html}
 
     <h2>What the HLF Pulse Can Help Answer</h2>
     <div class="use-grid">
