@@ -43,9 +43,10 @@ jobs:
       - name: Install 3-tier browser & Python dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y xvfb libgtk-3-0 libasound2t64 libx11-xcb1 || sudo apt-get install -y xvfb
-          pip install pandas openpyxl requests curl_cffi "camoufox[geoip]" playwright
+          python -m pip install --upgrade pip
+          pip install pandas openpyxl requests curl_cffi "camoufox[geoip]" playwright pypdf
           python -m camoufox fetch
-          python -m playwright install chromium
+          python -m playwright install --with-deps chromium
 
       - name: Fetch RBNZ, Stats NZ, Tenancy & IRD data
         run: |
