@@ -4854,7 +4854,12 @@ def build_kainga_ora_tickers(session) -> dict:
     prev_str = f"Monthly approvals in quarter: {m1a:,}, {m2a:,}, {m3a:,}"
     chg_str = f"{q_set:,} First Home Loans settled in {q_disp} ({conv:.1f}% conversion)"
     fhl_hist = [
-        {"period": q["q_label"], "label": q["q_label"], "value": q["app_row"][3], "formatted": f"{q['app_row'][3]:,} approvals | {q['set_row'][3]:,} settlements ({(q['set_row'][3]/max(1,q['app_row'][3]))*100:.1f}% settled)"}
+        {
+            "period": q["q_label"],
+            "label": q["q_label"],
+            "value": q["app_row"][3],
+            "formatted": f"{q['app_row'][3]:,} approvals | {q['set_row'][3]:,} settlements ({(q['set_row'][3]/max(1,q['app_row'][3]))*100:.1f}% settled)",
+        }
         for q in parsed_quarters
     ]
 
@@ -4885,9 +4890,11 @@ def build_kainga_ora_tickers(session) -> dict:
         roll_set_12m = sum(q["set_row"][3] for q in q4_list)
         roll_clause = f" Over the rolling 12-month period, Kāinga Ora recorded <strong>{roll_app_12m:,} approvals</strong> and <strong>{roll_set_12m:,} settled First Home Loans</strong>."
         mth_uw_12m, mth_ap_12m = int(round(roll_set_12m / 12.0)), int(round(roll_app_12m / 12.0))
+        set_expr_4q = " + ".join(f"{q['set_row'][3]:,}" for q in q4_list)
+        app_expr_4q = " + ".join(f"{q['app_row'][3]:,}" for q in q4_list)
         uw_calc = (
-            f"12-Month Underwritten Settlements: {' + '.join(f'{q[\"set_row\"][3]:,}' for q in q4_list)} = {roll_set_12m:,} loans ({mth_uw_12m:,}/mth) | "
-            f"12-Month Approvals: {' + '.join(f'{q[\"app_row\"][3]:,}' for q in q4_list)} = {roll_app_12m:,} approvals ({mth_ap_12m:,}/mth)"
+            f"12-Month Underwritten Settlements: {set_expr_4q} = {roll_set_12m:,} loans ({mth_uw_12m:,}/mth) | "
+            f"12-Month Approvals: {app_expr_4q} = {roll_app_12m:,} approvals ({mth_ap_12m:,}/mth)"
         )
         out["kainga-ora-underwritten-loan-book"] = make_pulse_item(
             "Kāinga Ora Report", q_end_iso, MAX_AGE_QUARTERLY,
@@ -5019,7 +5026,8 @@ def build_kainga_ora_tickers(session) -> dict:
                 ypct = ((curr_a - ya) / max(1, ya)) * 100.0
                 yoy_cl = f" ({plain_yoy_growth(curr_a, ya)} from {ya:,} in {yq}, and {'up' if qoq_pct >= 0 else 'down'} {abs(qoq_pct):.1f}% QoQ from {prev_a:,} in {prev_q})"
                 yoy_chg = f"{curr_a - ya:+,d} ({ypct:+.1f}% YoY vs {yq}: {ya:,}) | {curr_a - prev_a:+,d} ({qoq_pct:+.1f}% QoQ)"
-            sc_calc = f"12-Month Rolling Approvals: {' + '.join(f'{x:,}' for x in app_s[-4:])} = {roll_12m:,} approvals/yr | Latest Quarter ({curr_q}): {curr_a:,} approved of {curr_r:,} received (÷ 3 = {mth_a:,}/mth)"
+            sc_expr_4q = " + ".join(f"{x:,}" for x in app_s[-4:])
+            sc_calc = f"12-Month Rolling Approvals: {sc_expr_4q} = {roll_12m:,} approvals/yr | Latest Quarter ({curr_q}): {curr_a:,} approved of {curr_r:,} received (÷ 3 = {mth_a:,}/mth)"
             sc_hist = [{"period": ql, "label": ql, "value": av, "formatted": f"{av:,} approved (of {rv:,} received)"} for ql, av, rv in reversed(list(zip(q_list, app_s, rec_s)))]
             out["kainga-ora-second-chance-kiwisaver-approvals"] = make_pulse_item(
                 "Kāinga Ora Report", q_end_iso, MAX_AGE_QUARTERLY,
@@ -5052,9 +5060,11 @@ def build_kainga_ora_tickers(session) -> dict:
             roll_avg_nzd = int(round((roll_dlr_12m * 1e6) / max(1, roll_cnt_12m)))
             q_now_lbl, q_cnt_now, q_dlr_now = ks_qs[-1], cnt_4q[-1], dlr_4q[-1]
             q_avg_now = int(round((q_dlr_now * 1e6) / max(1, q_cnt_now)))
+            cnt_expr_4q = " + ".join(f"{x:,}" for x in cnt_4q)
+            dlr_expr_4q = " + ".join(f"${x}m" for x in dlr_4q)
             ks4_calc = (
-                f"12-Month Rolling Total: {' + '.join(f'{x:,}' for x in cnt_4q)} = {roll_cnt_12m:,} withdrawals & "
-                f"{' + '.join(f'${x}m' for x in dlr_4q)} = ${roll_dlr_12m:,}m (${roll_dlr_12m/1000:.3f}B; avg ${roll_avg_nzd:,}/withdrawal)"
+                f"12-Month Rolling Total: {cnt_expr_4q} = {roll_cnt_12m:,} withdrawals & "
+                f"{dlr_expr_4q} = ${roll_dlr_12m:,}m (${roll_dlr_12m/1000:.3f}B; avg ${roll_avg_nzd:,}/withdrawal)"
             )
             ks4_hist = [
                 {"period": ql, "label": ql, "value": dv, "formatted": f"${dv:,}m across {cv:,} withdrawals (avg ${int(round((dv*1e6)/max(1,cv))):,})"}
