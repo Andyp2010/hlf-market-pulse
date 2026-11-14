@@ -14,8 +14,11 @@ import os
 import pathlib
 import re
 import time
+import warnings
 
 import pandas as pd
+
+warnings.filterwarnings("ignore")
 
 PULSE_BASE_URL = "https://pulse-data.homeloanfactory.co.nz"
 PULSE_DATE_CREATED = "2026-02-01"
@@ -73,6 +76,11 @@ GLOSSARY_LINKS_BY_CATEGORY = {
         ("Debt-to-Income (DTI) Ratio", f"{GLOSSARY_BASE_URL}#dti"),
         ("Loan-to-Value Ratio (LVR)", f"{GLOSSARY_BASE_URL}#lvr"),
         ("Servicing Test Rate", f"{GLOSSARY_BASE_URL}#test-rate"),
+    ],
+    "Household debt, credit cards & borrower stress": [
+        ("Debt-to-Income (DTI) Ratio", f"{GLOSSARY_BASE_URL}#dti"),
+        ("Servicing Test Rate", f"{GLOSSARY_BASE_URL}#test-rate"),
+        ("Refinancing & Debt Consolidation", f"{GLOSSARY_BASE_URL}#refinancing"),
     ],
     "New builds & construction": [
         ("Turnkey New Build", f"{GLOSSARY_BASE_URL}#turnkey"),
@@ -172,6 +180,24 @@ RBNZ_SOURCES = {
         "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/b30-new-residential-mortgage-weighted-average-interest-rates.xlsx",
         "match": "b30",
     },
+    "c5": {
+        "pages": [
+            "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/registered-banks-and-non-bank-lending-institutions-sector-lending",
+            "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/sector-lending",
+        ],
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c5/c5-sector-lending.xlsx",
+        "match": "c5",
+    },
+    "c12": {
+        "pages": ["https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances"],
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c12/c12-credit-card-balances.xlsx",
+        "match": "c12",
+    },
+    "s50": {
+        "pages": ["https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-by-asset-quality"],
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/s/s50/s50-banks-assets-loans-by-asset-quality.xlsx",
+        "match": "s50",
+    },
     "j10": {
         "pages": [
             "https://www.rbnz.govt.nz/statistics/series/insurance/insurance-income-and-expenditure",
@@ -192,6 +218,7 @@ RBNZ_SOURCES = {
 
 TENANCY_PAGE = "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/"
 IRD_SL_BAL_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/student-loans/scheme-balances"
+IRD_TAX_DEBT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/tax-and-entitlement-debt-statistics"
 IRD_KS_NUM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/numbers"
 IRD_KS_AMT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/amounts"
 IRD_KS_TR_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/Joining-and-transfers/scheme-transfers"
@@ -204,6 +231,8 @@ FMA_KS_REPORT_PAGE = "https://www.fma.govt.nz/library/reports-and-papers/kiwisav
 KAINGA_ORA_QTR_REPORT_PAGE = "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/"
 KAINGA_ORA_ANN_REPORT_PAGE = "https://kaingaora.govt.nz/en_NZ/publications/core-publications/annual-report/"
 STATS_CPI_PAGE = "https://www.stats.govt.nz/information-releases/consumers-price-index-september-2026-quarter/"
+STATS_HLPI_PAGE = "https://www.stats.govt.nz/information-releases/household-living-costs-price-indexes-september-2026-quarter/"
+STATS_HLPI_NEWS_PAGE = "https://www.stats.govt.nz/news/household-living-costs-increase-3-0-percent-annually/"
 STATS_HES_PAGE = "https://www.stats.govt.nz/information-releases/household-expenditure-statistics-year-ended-june-2025/"
 RBNZ_FSR_PAGE = "https://www.rbnz.govt.nz/financial-stability/financial-stability-report"
 RBNZ_INS_STATS_PAGE = "https://www.rbnz.govt.nz/statistics/series/insurance"
@@ -221,6 +250,7 @@ CATEGORY_ORDER = [
     "Homeowners & refinancing",
     "Property investors",
     "LVR, DTI & credit policy",
+    "Household debt, credit cards & borrower stress",
     "New builds & construction",
     "Rents & tenancy",
     "KiwiSaver",
@@ -228,7 +258,6 @@ CATEGORY_ORDER = [
     "Personal Risk & Income Protection",
     "Insurance Market & Claims",
 ]
-
 TICKER_CATALOG = {
     "fhb-low-deposit": {
         "name": "First-home buyers using under 20% deposit (>80% LVR)",
@@ -395,16 +424,16 @@ TICKER_CATALOG = {
         "topic": "Kāinga Ora 5% deposit First Home Loan approvals, settlements & annual growth",
         "source": "Kāinga Ora Quarterly Report",
         "source_full": "Kāinga Ora – Homes and Communities — Home Ownership Products Quarterly Report (CC BY 4.0)",
-        "series_ids": "Kāinga Ora Home Ownership Products Report — First Home Loans: Approvals and Settlements (5-Quarter Series & Monthly Totals)",
+        "series_ids": "Kāinga Ora Home Ownership Products Report — First Home Loans: Approvals and Settlements",
         "source_url": KAINGA_ORA_QTR_REPORT_PAGE,
         "data_type": "Officially reported Kāinga Ora quarterly PDF series & HLF-derived YoY/QoQ growth & 12-month rolling totals",
         "derived_by_hlf": True,
         "unit": "loans",
         "frequency": "Quarterly",
-        "definition": "The nominal number of Kāinga Ora-underwritten First Home Loan (5% deposit) approvals and settlements each month, quarter, and rolling 12-month period across New Zealand, alongside quarter-on-quarter and year-on-year percentage trends.",
-        "methodology": "Automatically fetched and parsed from Kāinga Ora's Home Ownership Products Quarterly Report PDF (licensed under CC BY 4.0). Extracts the 5-quarter Approvals and Settlements series on Page 2 and verifies the latest quarter against the monthly Territorial Local Authority Total rows on Page 4.",
-        "hlf_calculation": "12-Month Rolling Approvals = Sum of latest 4 quarters; YoY % = ((Latest Quarter − Prior-Year Quarter) ÷ Prior-Year Quarter) × 100; Settlement Ratio = (Settlements ÷ Approvals) × 100",
-        "hlf_interpretation": "HLF market context: Because Kāinga Ora First Home Loans require only a 5% deposit and are exempt from RBNZ's 20% bank low-deposit speed limit, tracking whether nominal approvals and settlements are rising or falling shows how actively participating lenders are using the scheme.",
+        "definition": "The nominal number of Kāinga Ora-underwritten First Home Loan (5% deposit) approvals and settlements each month, quarter, and rolling 12-month period across New Zealand.",
+        "methodology": "Automatically fetched and parsed from Kāinga Ora's Home Ownership Products Quarterly Report PDF (licensed under CC BY 4.0).",
+        "hlf_calculation": "Monthly Mean Approvals = Quarterly Approvals ÷ 3; Settlement Conversion Rate = (Settlements ÷ Approvals) × 100",
+        "hlf_interpretation": "HLF market context: Because Kāinga Ora First Home Loans require only a 5% deposit and are exempt from RBNZ's 20% bank low-deposit speed limit, they provide a major pathway for income-eligible buyers ($95k solo / $150k joint or with dependants).",
         "questions": [
             "How many Kāinga Ora First Home Loans are approved and settled each quarter in New Zealand?",
             "Are Kāinga Ora 5% deposit First Home Loan approvals going up or down?",
@@ -421,16 +450,16 @@ TICKER_CATALOG = {
         "topic": "Regional Kāinga Ora 5% deposit First Home Loan approvals by council",
         "source": "Kāinga Ora Quarterly Report",
         "source_full": "Kāinga Ora – Homes and Communities — Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)",
-        "series_ids": "Kāinga Ora Home Ownership Products Report — First Home Loan Approvals & Settlements by Territorial Local Authority",
+        "series_ids": "Kāinga Ora Home Ownership Products Report — First Home Loan Approvals & Settlements by TLA",
         "source_url": KAINGA_ORA_QTR_REPORT_PAGE,
         "data_type": "Officially reported Kāinga Ora council-level tables & HLF-derived national shares",
         "derived_by_hlf": True,
         "unit": "loans",
         "frequency": "Quarterly",
         "definition": "Distribution of Kāinga Ora 5% deposit First Home Loan approvals and settlements across New Zealand's major cities and Territorial Local Authorities.",
-        "methodology": "Automatically parsed from the Territorial Local Authority Approvals and Settlements tables (Pages 2–4) in Kāinga Ora's Home Ownership Products Quarterly Report PDF, verifying that each council's 3 monthly figures sum to its quarterly total.",
+        "methodology": "Automatically parsed from the Territorial Local Authority Approvals and Settlements tables in Kāinga Ora's Home Ownership Products Quarterly Report PDF.",
         "hlf_calculation": "Council Share of National Approvals (%) = (Council Quarterly Approvals ÷ National Quarterly Approvals) × 100",
-        "hlf_interpretation": "HLF market context: Auckland and Christchurch account for over 43% of all Kāinga Ora First Home Loan approvals nationwide, followed by Hamilton, Wellington, Dunedin, Napier/Hastings, and Tauranga.",
+        "hlf_interpretation": "HLF market context: Auckland and Christchurch account for over 43% of all Kāinga Ora First Home Loan approvals nationwide, followed by Hamilton, Dunedin, Wellington, Napier/Hastings, and Tauranga.",
         "questions": [
             "Which New Zealand cities have the most Kāinga Ora First Home Loan approvals?",
             "How many Kāinga Ora First Home Loans are approved in Auckland, Christchurch, Hamilton, and Wellington?",
@@ -454,9 +483,9 @@ TICKER_CATALOG = {
         "unit": "approvals",
         "frequency": "Quarterly",
         "definition": "The number of previous New Zealand homeowners approved by Kāinga Ora each quarter (and over the rolling 12-month period) to make a 'second-chance' KiwiSaver savings withdrawal to buy a home.",
-        "methodology": "Automatically fetched and parsed from the 'Previous Owner Savings Withdrawal Applications' chart on Page 5 of Kāinga Ora's Home Ownership Products Quarterly Report PDF. Extracts Applications Approved across all 5 published quarters and sums the 4 most recent quarters for the rolling 12-month approval total.",
+        "methodology": "Automatically fetched and parsed from the 'Previous Owner Savings Withdrawal Applications' chart on Page 5 of Kāinga Ora's Home Ownership Products Quarterly Report PDF.",
         "hlf_calculation": "12-Month Rolling Approvals = Sum of Applications Approved across the 4 most recent quarters; Monthly Mean = Quarterly Approvals ÷ 3",
-        "hlf_interpretation": "HLF market context: Previous homeowners who no longer own property and are in a similar financial position to a first-home buyer (typically after a relationship separation or career relocation) can apply to Kāinga Ora for a determination letter to unlock their KiwiSaver balance for another home purchase—with over 4,100 approvals granted annually.",
+        "hlf_interpretation": "HLF market context: Previous homeowners who no longer own property and are in a similar financial position to a first-home buyer can apply to Kāinga Ora for a determination letter to unlock their KiwiSaver balance—with over 4,100 approvals granted annually.",
         "questions": [
             "How many previous homeowners get approved for a second-chance KiwiSaver withdrawal in New Zealand?",
             "Can I use my KiwiSaver to buy a house if I have owned a property before in NZ?",
@@ -468,21 +497,21 @@ TICKER_CATALOG = {
     },
     "kainga-ora-underwritten-loan-book": {
         "name": "Kāinga Ora First Home Loan annual mortgages settled/underwritten & approval-to-settlement pipeline",
-        "also_known_as": "Kāinga Ora 12-Month Rolling First Home Loan Settlements Underwritten & Approvals (SPE 4.1)",
+        "also_known_as": "Kāinga Ora First Home Loan Settlements Underwritten & Approvals (SPE 4.1)",
         "category": "First-home buyers",
         "topic": "Annual Kāinga Ora First Home Loans underwritten & Mortgage Insurance Scheme",
         "source": "Kāinga Ora Reports",
         "source_full": "Kāinga Ora – Homes and Communities — Home Ownership Products Report & Annual Report (SPE 4.1)",
-        "series_ids": "Kāinga Ora 4-Quarter Rolling First Home Loan Approvals & Underwritten Settlements (SPE 4.1)",
+        "series_ids": "Kāinga Ora First Home Loan Approvals & Underwritten Settlements (SPE 4.1)",
         "source_url": KAINGA_ORA_QTR_REPORT_PAGE,
-        "data_type": "Officially reported Kāinga Ora series & HLF-derived 12-month rolling totals",
+        "data_type": "Officially reported Kāinga Ora series & HLF-derived rolling totals",
         "derived_by_hlf": True,
         "unit": "loans",
         "frequency": "Quarterly / Annual",
-        "definition": "The rolling 12-month number of First Home Loan (5% deposit) mortgages settled/underwritten and approved by Kāinga Ora under the Crown Mortgage Insurance Scheme.",
-        "methodology": "Derived live by summing the 4 most recent quarters of Kāinga Ora First Home Loan settlements and approvals in the Home Ownership Products Quarterly Report PDF (and cross-checked against SPE 4.1 in Kāinga Ora's Annual Report).",
-        "hlf_calculation": "12-Month Underwritten Settlements = Sum of 4 quarters of FHL settlements; 12-Month Approvals = Sum of 4 quarters of FHL approvals",
-        "hlf_interpretation": "HLF market context: Under the user-pays Mortgage Insurance Scheme (funded via the 1.2% Lenders Mortgage Insurance fee), Kāinga Ora approves ~9,500+ applications and underwrites over 4,000 settled 5%-deposit mortgages per year.",
+        "definition": "The number of First Home Loan (5% deposit) mortgages settled/underwritten and approved by Kāinga Ora under the Crown Mortgage Insurance Scheme.",
+        "methodology": "Derived live from Kāinga Ora's Home Ownership Products Quarterly Report PDF.",
+        "hlf_calculation": "Monthly Mean Settlements = Quarterly Settlements ÷ 3; Annualised Pace = Quarterly Settlements × 4",
+        "hlf_interpretation": "HLF market context: Under the user-pays Mortgage Insurance Scheme (funded via the 1.2% Lenders Mortgage Insurance fee), Kāinga Ora underwrites ~4,000+ settled 5%-deposit mortgages per year.",
         "questions": [
             "How many First Home Loans does Kāinga Ora approve and underwrite each year in New Zealand?",
             "Why are Kāinga Ora First Home Loan approvals higher than settlements?",
@@ -507,11 +536,220 @@ TICKER_CATALOG = {
         "frequency": "Quarterly",
         "definition": "Quarterly and 12-month rolling total number and dollar value ($ millions) of KiwiSaver first-home savings withdrawals across New Zealand, plus the average withdrawal per buyer.",
         "methodology": "Automatically parsed from the 'KiwiSaver First Home Savings Withdrawal (IRD)' 4-quarter chart on Page 5 of Kāinga Ora's Home Ownership Products Quarterly Report PDF.",
-        "hlf_calculation": "12-Month Rolling Total = Sum of 4 quarters (Withdrawals & $m); Mean Withdrawal = Quarterly Value ($m × $1m) ÷ Quarterly Withdrawals",
+        "hlf_calculation": "12-Month Rolling Total = Sum of 4 quarters (Withdrawals & $m); Mean Withdrawal = Value ($m × $1m) ÷ Withdrawals",
         "hlf_interpretation": "HLF market context: Over 51,000 New Zealanders withdraw more than $2.30B from KiwiSaver annually (~$45,000 per withdrawing member) to form the core of their home deposit.",
         "questions": [
             "How much is withdrawn from KiwiSaver for first homes each quarter and year in New Zealand?",
             "How many New Zealanders use KiwiSaver to buy a first home each year?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "credit-card-balances-interest-share": {
+        "name": "New Zealand credit card debt, share accruing interest & weighted average interest rate (RBNZ Table C12)",
+        "also_known_as": "RBNZ Table C12 Credit Card Balances — Total advances outstanding, interest-bearing share & interest rate",
+        "category": "Household debt, credit cards & borrower stress",
+        "topic": "Credit card debt, interest-bearing share & interest rates",
+        "source": "RBNZ Table C12",
+        "source_full": "Reserve Bank of New Zealand — Credit card balances (Table C12)",
+        "series_ids": "RBNZ Table C12 — Total Advances Outstanding ($m), Interest-Bearing Advances ($m) & Weighted Average Interest Rate (%)",
+        "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances",
+        "data_type": "Officially reported RBNZ series & HLF-derived interest-bearing share",
+        "derived_by_hlf": True,
+        "unit": "NZD_millions",
+        "frequency": "Monthly",
+        "definition": "Total outstanding balances on New Zealand credit cards, the percentage of balances accruing interest, and the weighted average interest rate charged on interest-bearing balances.",
+        "methodology": "Extracted live from RBNZ Table C12 (Credit card balances). Divides interest-bearing personal advances by total personal advances outstanding to compute the proportion of cardholders carrying revolving interest-bearing debt.",
+        "hlf_calculation": "Interest-Bearing Share (%) = (Interest-Bearing Advances [$m] ÷ Total Advances Outstanding [$m]) × 100",
+        "hlf_interpretation": "HLF market context: Slightly over half of New Zealand credit card balances accrue interest at ~19.7%–20.0% p.a.—more than triple typical mortgage interest rates—making credit card consolidation or payoff a high-priority step before applying for a mortgage.",
+        "questions": [
+            "How much credit card debt do New Zealanders owe?",
+            "What is the average credit card interest rate in New Zealand?",
+            "What percentage of NZ credit card balances pay interest?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "credit-card-limits-servicing-impact": {
+        "name": "Total New Zealand credit card limits, utilisation rate & mortgage borrowing power impact (RBNZ Table C12)",
+        "also_known_as": "RBNZ Table C12 Total Credit Card Limits ($B), Unused Limits & 3%/month Bank Servicing Haircut",
+        "category": "Household debt, credit cards & borrower stress",
+        "topic": "Credit card limits & mortgage servicing impact",
+        "source": "RBNZ Table C12",
+        "source_full": "Reserve Bank of New Zealand — Credit card balances and credit limits (Table C12)",
+        "series_ids": "RBNZ Table C12 — Total Credit Limits ($m) & Total Advances Outstanding ($m)",
+        "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances",
+        "data_type": "Officially reported RBNZ series & HLF-derived utilisation rate",
+        "derived_by_hlf": True,
+        "unit": "NZD_millions",
+        "frequency": "Monthly",
+        "definition": "Total approved credit card limits across New Zealand ($ billions), the percentage of limits currently utilised, and the volume of unused credit card limits.",
+        "methodology": "Extracted live from RBNZ Table C12 by comparing total credit limits ($m) against total credit card balances outstanding ($m). Unused credit limit equals Total Credit Limits minus Total Advances Outstanding.",
+        "hlf_calculation": "Utilisation Rate (%) = (Total Advances Outstanding ÷ Total Credit Limits) × 100; Unused Limits = Total Limits − Advances",
+        "hlf_interpretation": "HLF market context: New Zealanders hold ~$21B in credit card limits but only use ~30% of them. Because NZ banks assess mortgage affordability assuming you spend 3% of your total credit limit every month ($300/mo on a $10,000 limit, even if the balance is $0), every $10,000 of unused card limit reduces mortgage borrowing power by ~$45,000.",
+        "questions": [
+            "How much does a $10,000 credit card limit reduce mortgage borrowing power in NZ?",
+            "What is the total value of credit card limits and unused credit limits in New Zealand?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "total-housing-debt-stock": {
+        "name": "Total New Zealand residential mortgage debt outstanding & share of private sector credit (RBNZ Table C5)",
+        "also_known_as": "RBNZ Table C5 Sector Lending — Total Housing Lending Stock ($B) across Banks & Non-Bank Lenders",
+        "category": "Household debt, credit cards & borrower stress",
+        "topic": "Total New Zealand housing mortgage debt stock",
+        "source": "RBNZ Table C5",
+        "source_full": "Reserve Bank of New Zealand — Registered banks and non-bank lending institutions: Sector lending (Table C5)",
+        "series_ids": "RBNZ Table C5 — Total Housing Lending ($m) & Total Private Sector Lending ($m)",
+        "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/registered-banks-and-non-bank-lending-institutions-sector-lending",
+        "data_type": "Officially reported RBNZ series & HLF-derived sector share & YoY change",
+        "derived_by_hlf": True,
+        "unit": "NZD_billions",
+        "frequency": "Monthly",
+        "definition": "The total stock of residential mortgage debt owed by New Zealand households across registered banks and non-bank lending institutions, alongside its share of all private sector credit.",
+        "methodology": "Extracted live from RBNZ Table C5 (Sector lending). Computes year-on-year dollar and percentage growth and divides total housing lending by total private sector lending (housing + consumer + business + agriculture).",
+        "hlf_calculation": "Housing Share of Total Credit (%) = (Total Housing Lending ÷ Total Sector Lending) × 100; YoY Growth (%)",
+        "hlf_interpretation": "HLF market context: Housing mortgages account for ~64% of all private debt in New Zealand (~$390B+), explaining why changes in the Official Cash Rate and fixed mortgage rates have such a powerful transmission effect on household cashflow.",
+        "questions": [
+            "What is the total amount of mortgage debt in New Zealand?",
+            "What percentage of New Zealand debt is housing debt?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Home Loan Repayments Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
+    },
+    "consumer-personal-lending-stock": {
+        "name": "Total New Zealand personal & consumer lending stock across banks & non-bank lenders (RBNZ Table C5)",
+        "also_known_as": "RBNZ Table C5 Consumer Sector Lending — Personal loans, car finance, cards & non-bank share",
+        "category": "Household debt, credit cards & borrower stress",
+        "topic": "Personal & consumer lending stock (banks & non-bank lenders)",
+        "source": "RBNZ Table C5",
+        "source_full": "Reserve Bank of New Zealand — Registered banks and non-bank lending institutions: Sector lending (Table C5)",
+        "series_ids": "RBNZ Table C5 — Total Consumer Lending ($m), Bank Consumer Lending & Non-Bank Lending Institutions Consumer Lending",
+        "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/registered-banks-and-non-bank-lending-institutions-sector-lending",
+        "data_type": "Officially reported RBNZ series & HLF-derived non-bank share & YoY change",
+        "derived_by_hlf": True,
+        "unit": "NZD_billions",
+        "frequency": "Monthly",
+        "definition": "Total personal and consumer debt owed by New Zealand households (including personal loans, motor vehicle finance, hire purchase, overdrafts, and credit cards) across registered banks and non-bank lending institutions.",
+        "methodology": "Extracted live from RBNZ Table C5 (Sector lending — Consumer). Tracks total consumer credit alongside the share provided by non-bank lending institutions.",
+        "hlf_calculation": "Non-Bank Share (%) = (Non-Bank Consumer Lending ÷ Total Consumer Lending) × 100; YoY % change",
+        "hlf_interpretation": "HLF market context: While personal and consumer debt (~$14.5B–$15B) is small compared to housing debt, its short loan terms (3–5 years) and high interest rates (12%–25%) create heavy monthly repayments that sharply reduce mortgage servicing capacity.",
+        "questions": [
+            "How much personal and consumer debt do New Zealanders owe?",
+            "What share of New Zealand consumer loans comes from non-bank lenders?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "mortgage-non-performing-arrears": {
+        "name": "Residential mortgage borrower stress: non-performing housing loans & NPL ratio (RBNZ Table S50)",
+        "also_known_as": "RBNZ Table S50 Bank Asset Quality — Non-performing housing loans (90+ days past due & impaired)",
+        "category": "Household debt, credit cards & borrower stress",
+        "topic": "Mortgage arrears & non-performing housing loans",
+        "source": "RBNZ Table S50",
+        "source_full": "Reserve Bank of New Zealand — Banks: Assets – Loans by asset quality (Table S50)",
+        "series_ids": "RBNZ Table S50 — Non-Performing Housing Loans ($m) & Housing NPL Ratio (%)",
+        "source_url": "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-by-asset-quality",
+        "data_type": "Officially reported RBNZ series & HLF-derived YoY comparison",
+        "derived_by_hlf": True,
+        "unit": "percent",
+        "frequency": "Monthly",
+        "definition": "The percentage and dollar value of New Zealand bank residential mortgage loans classified as non-performing (90+ days past due or individually impaired).",
+        "methodology": "Extracted live from RBNZ Table S50 (Banks: Assets – Loans by asset quality). Tracks total non-performing housing loans ($m) and the ratio of non-performing housing loans to total housing loans (%).",
+        "hlf_calculation": "Housing Non-Performing Loan Ratio (%) = (Non-Performing Housing Loans [$m] ÷ Total Bank Housing Loans [$m]) × 100",
+        "hlf_interpretation": "HLF market context: RBNZ Table S50 is the Reserve Bank's primary gauge of severe mortgage stress—tracking borrowers who have fallen 90+ days behind on repayments or entered formal loan impairment.",
+        "questions": [
+            "What percentage of New Zealand mortgages are non-performing or 90+ days in arrears?",
+            "Are mortgage arrears rising or falling in New Zealand?",
+        ],
+        "article_title": "Mortgage Refinance & Restructure Guide",
+        "article_url": "https://www.homeloanfactory.co.nz/services/mortgages/mortgage-refinance/",
+        "tool_title": "HLF Mortgage Refinance Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/refinance-calculator",
+    },
+    "consumer-loan-stress-npl": {
+        "name": "Personal & consumer loan borrower stress: non-performing consumer loans & NPL ratio (RBNZ Table S50)",
+        "also_known_as": "RBNZ Table S50 Bank Asset Quality — Non-performing personal/consumer lending ratio (%)",
+        "category": "Household debt, credit cards & borrower stress",
+        "topic": "Consumer & personal loan arrears & non-performing ratio",
+        "source": "RBNZ Table S50",
+        "source_full": "Reserve Bank of New Zealand — Banks: Assets – Loans by asset quality (Table S50)",
+        "series_ids": "RBNZ Table S50 — Non-Performing Consumer Loans ($m) & Consumer NPL Ratio (%)",
+        "source_url": "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-by-asset-quality",
+        "data_type": "Officially reported RBNZ series & HLF-derived comparison vs housing NPLs",
+        "derived_by_hlf": True,
+        "unit": "percent",
+        "frequency": "Monthly",
+        "definition": "The non-performing loan (NPL) ratio and dollar value for New Zealand bank personal and consumer loans (90+ days past due or impaired).",
+        "methodology": "Extracted live from RBNZ Table S50 (Banks: Assets – Loans by asset quality — Consumer/Personal lending).",
+        "hlf_calculation": "Consumer NPL Ratio (%) = (Non-Performing Consumer Loans [$m] ÷ Total Bank Consumer Loans [$m]) × 100",
+        "hlf_interpretation": "HLF market context: Unsecured personal and credit card lending typically experiences a non-performing loan rate 2x to 3x higher than residential mortgages, as households prioritise keeping their home loan current during periods of financial pressure.",
+        "questions": [
+            "What is the default and non-performing rate on personal loans in New Zealand?",
+            "How does consumer loan stress compare with mortgage stress in NZ?",
+        ],
+        "article_title": "Mortgage Refinance & Restructure Guide",
+        "article_url": "https://www.homeloanfactory.co.nz/services/mortgages/mortgage-refinance/",
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "hlpi-household-living-costs-interest": {
+        "name": "Household Living-Costs Price Index (HLPI): all-households inflation, interest payments & council rates (Stats NZ)",
+        "also_known_as": "Stats NZ HLPI vs CPI — Household interest payment changes & local authority rates inflation",
+        "category": "Household debt, credit cards & borrower stress",
+        "topic": "Household living-cost inflation & mortgage interest payment changes",
+        "source": "Stats NZ HLPI",
+        "source_full": "Stats NZ — Household living-costs price indexes (HLPI)",
+        "series_ids": "Stats NZ HLPI — All-Households Annual % Change, Interest Payments Annual % Change & Local Authority Rates % Change",
+        "source_url": STATS_HLPI_PAGE,
+        "data_type": "Officially reported Stats NZ quarterly release & HLF-derived spread vs CPI",
+        "derived_by_hlf": True,
+        "unit": "percent",
+        "frequency": "Quarterly",
+        "definition": "The annual percentage change in New Zealand's Household Living-Costs Price Index (HLPI) for all households, including the annual change in household debt interest payments and local authority council rates.",
+        "methodology": "Automatically fetched and parsed from Stats NZ's quarterly Household Living-Costs Price Indexes (HLPI) release. Unlike CPI (which excludes mortgage interest), the HLPI directly measures the debt-servicing interest cost experienced by households.",
+        "hlf_calculation": "Official Stats NZ HLPI All-Households Annual % Change & HLPI Interest Payments Annual % Change",
+        "hlf_interpretation": "HLF market context: Because the CPI excludes mortgage interest payments while the HLPI includes them, tracking the HLPI shows how fixed-rate mortgage refixes and council rate rises are impacting real household budgets.",
+        "questions": [
+            "How much have New Zealand household living costs and mortgage interest payments changed over the past year?",
+            "What is the difference between Stats NZ CPI and the Household Living-Costs Price Index (HLPI)?",
+        ],
+        "article_title": "Mortgage Refinance & Restructure Guide",
+        "article_url": "https://www.homeloanfactory.co.nz/services/mortgages/mortgage-refinance/",
+        "tool_title": "HLF Home Loan Repayments Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
+    },
+    "ird-overdue-tax-debt-stress": {
+        "name": "Inland Revenue overdue tax & entitlement debt: total customers, total debt & individual debt (IRD)",
+        "also_known_as": "IRD Tax and Entitlements Debt Statistics — Overdue tax arrears across individuals & businesses",
+        "category": "Household debt, credit cards & borrower stress",
+        "topic": "Overdue IRD tax debt & self-employed borrower stress",
+        "source": "Inland Revenue",
+        "source_full": "Inland Revenue — Tax and entitlements debt statistics (CC BY 4.0)",
+        "series_ids": "IRD Tax and Entitlements Debt — Customers in Debt, Total Overdue Debt ($B) & Individual Overdue Debt ($B)",
+        "source_url": IRD_TAX_DEBT_PAGE,
+        "data_type": "Officially reported Inland Revenue release & HLF-derived YoY changes",
+        "derived_by_hlf": True,
+        "unit": "NZD_billions",
+        "frequency": "Quarterly / Annual",
+        "definition": "The total dollar value of overdue tax and entitlements debt owed to Inland Revenue across New Zealand ($ billions), the number of customers with overdue tax debt, and the amount owed specifically by individuals.",
+        "methodology": "Automatically fetched and parsed from Inland Revenue's Tax and Entitlements Debt Statistics release page on ird.govt.nz (licensed under CC BY 4.0).",
+        "hlf_calculation": "Average Overdue Debt per Customer = Total Overdue Debt ($B) ÷ Customers with Debt; YoY % change",
+        "hlf_interpretation": "HLF market context: Overdue IRD tax debt is a critical credit indicator for self-employed and contractor mortgage applicants—mainstream banks inspect IRD tax statements and generally require overdue tax arrears to be cleared or under a formal arrangement before approving a home loan.",
+        "questions": [
+            "How many New Zealanders and businesses have overdue tax debt with Inland Revenue?",
+            "Can I get a mortgage in New Zealand if I have overdue IRD tax debt?",
         ],
         "article_title": FHB_2026_ARTICLE_TITLE,
         "article_url": FHB_2026_ARTICLE_URL,
@@ -5975,20 +6213,418 @@ def write_legacy_redirect_page(root: pathlib.Path, alias_key: str, target_key: s
     (a_dir / "index.html").write_text(redirect_html, encoding="utf-8")
 # === END OF PART 5B ===
 # === PART 5C OF 5 ===
+def _extract_int_from_rec(rec: dict | None, lo: int, hi: int) -> int | None:
+    if not isinstance(rec, dict):
+        return None
+    v = rec.get("value")
+    if isinstance(v, (int, float)) and lo <= float(v) <= hi:
+        return int(round(float(v)))
+    blob = f"{rec.get('latest_value', '')} {re.sub(r'<[^>]+>', ' ', rec.get('html', ''))} {rec.get('summary_text', '')}"
+    for m in re.finditer(r"\$([\d,]{5,7})", blob):
+        n = int(m.group(1).replace(",", ""))
+        if lo <= n <= hi:
+            return n
+    return None
+
+
+def _extract_pct_from_rec(rec: dict | None, lo: float = 0.1, hi: float = 50.0) -> float | None:
+    if not isinstance(rec, dict):
+        return None
+    v = rec.get("value")
+    if isinstance(v, (int, float)) and lo <= float(v) <= hi:
+        return round(float(v), 1)
+    blob = f"{rec.get('latest_value', '')} {re.sub(r'<[^>]+>', ' ', rec.get('html', ''))} {rec.get('summary_text', '')}"
+    for m in re.finditer(r"(\d{1,2}\.\d)\s*%", blob):
+        fv = float(m.group(1))
+        if lo <= fv <= hi:
+            return fv
+    return None
+
+
+def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pathlib.Path]) -> dict:
+    """
+    100% live-pulled Household Loans, Credit Cards, Consumer Lending & Borrower Stress datasets
+    across RBNZ Tables C12, C5 & S50, Stats NZ HLPI, and Inland Revenue Tax Debt statistics.
+    Zero hardcoded fallbacks.
+    """
+    out: dict = {}
+    today = datetime.datetime.now(datetime.timezone.utc).date()
+
+    # 1 & 2. RBNZ Table C12 — Credit Card Balances, Interest-Bearing Share, Interest Rate & Credit Limits
+    c12_path = rbnz_files.get("c12")
+    if c12_path and c12_path.exists():
+        try:
+            c12_pub = extract_rbnz_published_date(c12_path)
+            c12_tabs = load_rbnz_sheets(c12_path)
+            c12_url = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances"
+
+            dt_adv, s_adv, _ = find_rbnz_series(
+                c12_tabs,
+                include_kw=("advances",),
+                exclude_kw=("interest", "limit", "change", "yoy", "percentage"),
+                val_bounds=(3500, 15000),
+            )
+            _, s_ib, _ = find_rbnz_series(
+                c12_tabs,
+                include_kw=("interest",),
+                exclude_kw=("rate", "weighted", "limit", "non-interest", "without"),
+                val_bounds=(1500, 12000),
+            )
+            _, s_rate, _ = find_rbnz_series(
+                c12_tabs,
+                include_kw=("rate",),
+                exclude_kw=("exchange", "utilisation", "utilization"),
+                val_bounds=(12.0, 28.0),
+            )
+            _, s_lim, _ = find_rbnz_series(
+                c12_tabs,
+                include_kw=("limit",),
+                exclude_kw=("utilisation", "utilization", "ratio", "percentage"),
+                val_bounds=(12000, 45000),
+            )
+
+            df_c12 = pd.DataFrame({
+                "date": dt_adv, "adv": s_adv, "ib": s_ib, "rate": s_rate, "lim": s_lim
+            }).dropna(subset=["date", "adv"]).sort_values("date").reset_index(drop=True)
+
+            if len(df_c12) >= 2:
+                last = df_c12.iloc[-1]
+                prev_yr = df_c12.iloc[-13] if len(df_c12) >= 13 else df_c12.iloc[0]
+                dt_now = pd.Timestamp(last["date"])
+                per_s = dt_now.strftime("%B %Y")
+                as_of_s = month_end_iso(dt_now)
+
+                adv_m = float(last["adv"])
+                adv_prev_m = float(prev_yr["adv"])
+                ib_m = float(last["ib"]) if pd.notna(last["ib"]) else None
+                rate_pct = float(last["rate"]) if pd.notna(last["rate"]) else None
+                lim_m = float(last["lim"]) if pd.notna(last["lim"]) else None
+
+                if ib_m and rate_pct:
+                    ib_share = (ib_m / max(1.0, adv_m)) * 100.0
+                    c12_calc = (
+                        f"Total Card Advances = ${adv_m:,.0f}m (${adv_m/1000:.2f}B) | "
+                        f"Interest-Bearing Share: ${ib_m:,.0f}m ÷ ${adv_m:,.0f}m = {ib_share:.1f}% at {rate_pct:.1f}% p.a. weighted avg rate"
+                    )
+                    c12_hist = make_history_list(df_c12["date"], df_c12["adv"], lambda v: f"${v:,.0f}m (${v/1000:.2f}B)")
+                    out["credit-card-balances-interest-share"] = make_pulse_item(
+                        "RBNZ C12", as_of_s, MAX_AGE_MONTHLY,
+                        f"In {per_s}, New Zealanders owed <strong>${adv_m/1000:.2f}B (${adv_m:,.0f}m)</strong> in credit card balances ({plain_yoy_growth(adv_m, adv_prev_m)} from ${adv_prev_m:,.0f}m a year earlier), with <strong>{ib_share:.1f}% (${ib_m:,.0f}m)</strong> accruing interest at a weighted average rate of <strong>{rate_pct:.1f}% p.a.</strong>",
+                        f"RBNZ Table C12 ({per_s}): Total credit card advances outstanding = ${adv_m:,.0f}m; interest-bearing advances = ${ib_m:,.0f}m ({ib_share:.1f}%); weighted average interest rate = {rate_pct:.1f}% p.a.",
+                        format_provenance_source_html(c12_calc, "RBNZ Table C12 (Reserve Bank of New Zealand)", c12_url, True),
+                        per_s, round(adv_m, 1),
+                        f"${adv_m/1000:.2f}B (${adv_m:,.0f}m) card debt | {ib_share:.1f}% paying {rate_pct:.1f}% p.a.",
+                        f"12 months prior: ${adv_prev_m:,.0f}m",
+                        f"{((adv_m - adv_prev_m)/max(1.0, adv_prev_m))*100:+.1f}% YoY | {rate_pct:.1f}% avg interest rate",
+                        c12_calc, "RBNZ Table C12 monthly series", c12_hist,
+                        {"source_published": c12_pub, "source_url": c12_url},
+                    )
+
+                if lim_m and lim_m > adv_m:
+                    unused_m = lim_m - adv_m
+                    util_pct = (adv_m / lim_m) * 100.0
+                    lim_calc = (
+                        f"Total Credit Limits = ${lim_m:,.0f}m (${lim_m/1000:.2f}B) | "
+                        f"Utilisation: ${adv_m:,.0f}m ÷ ${lim_m:,.0f}m = {util_pct:.1f}% | Unused Limits = ${unused_m:,.0f}m (${unused_m/1000:.2f}B)"
+                    )
+                    lim_hist = make_history_list(df_c12["date"], df_c12["lim"], lambda v: f"${v/1000:.2f}B (${v:,.0f}m) limits")
+                    out["credit-card-limits-servicing-impact"] = make_pulse_item(
+                        "RBNZ C12", as_of_s, MAX_AGE_MONTHLY,
+                        f"In {per_s}, total approved New Zealand credit card limits stood at <strong>${lim_m/1000:.2f}B (${lim_m:,.0f}m)</strong> with a <strong>{util_pct:.1f}% utilisation rate</strong>—leaving <strong>${unused_m/1000:.2f}B (${unused_m:,.0f}m) in unused credit card limits</strong> that banks still stress-test at 3% per month on mortgage applications.",
+                        f"RBNZ Table C12 ({per_s}): Total credit card limits = ${lim_m:,.0f}m; advances outstanding = ${adv_m:,.0f}m ({util_pct:.1f}% utilisation); unused limits = ${unused_m:,.0f}m.",
+                        format_provenance_source_html(lim_calc, "RBNZ Table C12 (Reserve Bank of New Zealand)", c12_url, True),
+                        per_s, round(lim_m, 1),
+                        f"${lim_m/1000:.2f}B total limits ({util_pct:.1f}% used | ${unused_m/1000:.2f}B unused)",
+                        f"Active balances: ${adv_m/1000:.2f}B (${adv_m:,.0f}m)",
+                        f"${unused_m/1000:.2f}B unused limits (~$45k borrowing power impact per $10k limit)",
+                        lim_calc, "RBNZ Table C12 monthly series", lim_hist,
+                        {"source_published": c12_pub, "source_url": c12_url},
+                    )
+        except Exception as exc_c12:
+            print(f"[RBNZ C12] Parse note: {exc_c12}")
+
+    # 3 & 4. RBNZ Table C5 — Total Housing Debt Stock ($B) & Personal/Consumer Lending Stock ($B)
+    c5_path = rbnz_files.get("c5")
+    if c5_path and c5_path.exists():
+        try:
+            c5_pub = extract_rbnz_published_date(c5_path)
+            c5_tabs = load_rbnz_sheets(c5_path)
+            c5_url = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/registered-banks-and-non-bank-lending-institutions-sector-lending"
+
+            dt_h, s_hous, _ = find_rbnz_series(
+                c5_tabs,
+                include_kw=("housing",),
+                exclude_kw=("change", "yoy", "growth", "percentage", "non-bank", "nbli"),
+                val_bounds=(250000, 600000),
+            )
+            _, s_cons, _ = find_rbnz_series(
+                c5_tabs,
+                include_kw=("consumer",),
+                exclude_kw=("change", "yoy", "growth", "percentage", "non-bank", "nbli"),
+                val_bounds=(8000, 35000),
+            )
+            try:
+                _, s_tot_sec, _ = find_rbnz_series(
+                    c5_tabs,
+                    include_kw=("total",),
+                    exclude_kw=("change", "yoy", "growth", "percentage", "housing", "consumer"),
+                    val_bounds=(450000, 980000),
+                )
+            except Exception:
+                s_tot_sec = pd.Series([None] * len(dt_h))
+
+            try:
+                _, s_nb_cons, _ = find_rbnz_series(
+                    c5_tabs,
+                    include_kw=("consumer", "non-bank"),
+                    exclude_kw=("change", "yoy", "growth", "percentage"),
+                    val_bounds=(500, 10000),
+                )
+            except Exception:
+                s_nb_cons = pd.Series([None] * len(dt_h))
+
+            df_c5 = pd.DataFrame({
+                "date": dt_h, "hous": s_hous, "cons": s_cons, "tot": s_tot_sec, "nb_cons": s_nb_cons
+            }).dropna(subset=["date", "hous"]).sort_values("date").reset_index(drop=True)
+
+            if len(df_c5) >= 2:
+                last5 = df_c5.iloc[-1]
+                prev5 = df_c5.iloc[-13] if len(df_c5) >= 13 else df_c5.iloc[0]
+                dt5 = pd.Timestamp(last5["date"])
+                per5 = dt5.strftime("%B %Y")
+                as_of5 = month_end_iso(dt5)
+
+                hous_m = float(last5["hous"])
+                hous_prev_m = float(prev5["hous"])
+                hous_b = round(hous_m / 1000.0, 2)
+                hous_yoy_pct = ((hous_m - hous_prev_m) / max(1.0, hous_prev_m)) * 100.0
+                tot_m = float(last5["tot"]) if pd.notna(last5["tot"]) else None
+                sec_share_str = f", representing <strong>{(hous_m/tot_m)*100:.1f}%</strong> of all New Zealand private sector credit" if tot_m else ""
+                c5_h_calc = (
+                    f"Total NZ Housing Debt = ${hous_m:,.0f}m (${hous_b:.2f}B; YoY: {hous_yoy_pct:+.1f}%)"
+                    + (f" | Share of Total Credit: ${hous_m:,.0f}m ÷ ${tot_m:,.0f}m = {(hous_m/tot_m)*100:.1f}%" if tot_m else "")
+                )
+                h_hist = make_history_list(df_c5["date"], df_c5["hous"], lambda v: f"${v/1000:.2f}B (${v:,.0f}m)")
+                out["total-housing-debt-stock"] = make_pulse_item(
+                    "RBNZ C5", as_of5, MAX_AGE_MONTHLY,
+                    f"As at {per5}, total New Zealand residential mortgage debt across registered banks and non-bank lenders reached <strong>${hous_b:.2f}B (${hous_m:,.0f}m)</strong> ({plain_yoy_growth(hous_m, hous_prev_m)} from ${hous_prev_m/1000:.2f}B a year earlier){sec_share_str}.",
+                    f"RBNZ Table C5 ({per5}): Total housing lending stock = ${hous_m:,.0f}m (${hous_b:.2f}B).",
+                    format_provenance_source_html(c5_h_calc, "RBNZ Table C5 (Reserve Bank of New Zealand)", c5_url, True),
+                    per5, hous_b,
+                    f"${hous_b:.2f}B (${hous_m:,.0f}m) total NZ mortgage debt",
+                    f"12 months prior: ${hous_prev_m/1000:.2f}B (${hous_prev_m:,.0f}m)",
+                    f"+${(hous_m - hous_prev_m)/1000:.2f}B ({hous_yoy_pct:+.1f}% YoY)" if hous_m >= hous_prev_m else f"-${abs(hous_m - hous_prev_m)/1000:.2f}B ({hous_yoy_pct:+.1f}% YoY)",
+                    c5_h_calc, "RBNZ Table C5 monthly series", h_hist,
+                    {"source_published": c5_pub, "source_url": c5_url},
+                )
+
+                if pd.notna(last5["cons"]):
+                    cons_m = float(last5["cons"])
+                    cons_prev_m = float(prev5["cons"]) if pd.notna(prev5["cons"]) else cons_m
+                    cons_b = round(cons_m / 1000.0, 2)
+                    cons_yoy_pct = ((cons_m - cons_prev_m) / max(1.0, cons_prev_m)) * 100.0
+                    nb_m = float(last5["nb_cons"]) if pd.notna(last5["nb_cons"]) else None
+                    nb_clause = f", including <strong>${nb_m/1000:.2f}B ({(nb_m/cons_m)*100:.1f}%)</strong> from non-bank lenders" if nb_m else ""
+                    c5_c_calc = (
+                        f"Total NZ Consumer Lending = ${cons_m:,.0f}m (${cons_b:.2f}B; YoY: {cons_yoy_pct:+.1f}%)"
+                        + (f" | Non-Bank Share: ${nb_m:,.0f}m ÷ ${cons_m:,.0f}m = {(nb_m/cons_m)*100:.1f}%" if nb_m else "")
+                    )
+                    c_hist = make_history_list(df_c5["date"], df_c5["cons"], lambda v: f"${v/1000:.2f}B (${v:,.0f}m)")
+                    out["consumer-personal-lending-stock"] = make_pulse_item(
+                        "RBNZ C5", as_of5, MAX_AGE_MONTHLY,
+                        f"As at {per5}, total New Zealand personal and consumer lending (personal loans, vehicle finance, hire purchase, overdrafts, and cards) stood at <strong>${cons_b:.2f}B (${cons_m:,.0f}m)</strong> ({plain_yoy_growth(cons_m, cons_prev_m)} from ${cons_prev_m/1000:.2f}B a year earlier){nb_clause}.",
+                        f"RBNZ Table C5 ({per5}): Total consumer sector lending stock = ${cons_m:,.0f}m (${cons_b:.2f}B).",
+                        format_provenance_source_html(c5_c_calc, "RBNZ Table C5 (Reserve Bank of New Zealand)", c5_url, True),
+                        per5, cons_b,
+                        f"${cons_b:.2f}B (${cons_m:,.0f}m) consumer & personal debt",
+                        f"12 months prior: ${cons_prev_m/1000:.2f}B (${cons_prev_m:,.0f}m)",
+                        f"{cons_yoy_pct:+.1f}% YoY (${cons_m - cons_prev_m:+,.0f}m)",
+                        c5_c_calc, "RBNZ Table C5 monthly series", c_hist,
+                        {"source_published": c5_pub, "source_url": c5_url},
+                    )
+        except Exception as exc_c5:
+            print(f"[RBNZ C5] Parse note: {exc_c5}")
+
+    # 5 & 6. RBNZ Table S50 — Mortgage Arrears / Non-Performing Housing & Consumer Loans
+    s50_path = rbnz_files.get("s50")
+    if s50_path and s50_path.exists():
+        try:
+            s50_pub = extract_rbnz_published_date(s50_path)
+            s50_tabs = load_rbnz_sheets(s50_path)
+            s50_url = "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-by-asset-quality"
+
+            dt_s50, s_npl_h_m, _ = find_rbnz_series(
+                s50_tabs,
+                include_kw=("housing", "non-performing"),
+                exclude_kw=("ratio", "percent", "%", "share"),
+                val_bounds=(400, 15000),
+            )
+            try:
+                _, s_npl_h_pct, _ = find_rbnz_series(
+                    s50_tabs,
+                    include_kw=("housing", "non-performing"),
+                    val_bounds=(0.1, 4.5),
+                )
+            except Exception:
+                _, s_tot_bk_h, _ = find_rbnz_series(s50_tabs, include_kw=("housing",), val_bounds=(200000, 550000))
+                s_npl_h_pct = (s_npl_h_m / s_tot_bk_h) * 100.0
+
+            df_s50 = pd.DataFrame({"date": dt_s50, "h_m": s_npl_h_m, "h_pct": s_npl_h_pct}).dropna().sort_values("date").reset_index(drop=True)
+            if len(df_s50) >= 2:
+                last_s = df_s50.iloc[-1]
+                prev_s = df_s50.iloc[-13] if len(df_s50) >= 13 else df_s50.iloc[0]
+                dt_s = pd.Timestamp(last_s["date"])
+                per_s50 = dt_s.strftime("%B %Y")
+                as_of_s50 = month_end_iso(dt_s)
+                hm_now, hp_now = float(last_s["h_m"]), float(last_s["h_pct"])
+                hm_prev, hp_prev = float(prev_s["h_m"]), float(prev_s["h_pct"])
+
+                s50_h_calc = f"Non-Performing Bank Housing Loans = ${hm_now:,.0f}m ({hp_now:.2f}% of housing loan book; vs {hp_prev:.2f}% / ${hm_prev:,.0f}m a year earlier)"
+                s50_h_hist = make_history_list(df_s50["date"], df_s50["h_pct"], lambda v: f"{v:.2f}% NPL ratio")
+                out["mortgage-non-performing-arrears"] = make_pulse_item(
+                    "RBNZ S50", as_of_s50, MAX_AGE_MONTHLY,
+                    f"In {per_s50}, New Zealand bank non-performing residential mortgages (loans 90+ days past due or impaired) stood at <strong>{hp_now:.2f}%</strong> of total housing loans (<strong>${hm_now/1000:.2f}B / ${hm_now:,.0f}m</strong>, {plain_prior_year_pct(hp_now, hp_prev)}).",
+                    f"RBNZ Table S50 ({per_s50}): Bank non-performing housing loans = ${hm_now:,.0f}m ({hp_now:.2f}% of housing lending).",
+                    format_provenance_source_html(s50_h_calc, "RBNZ Table S50 (Reserve Bank of New Zealand)", s50_url, True),
+                    per_s50, round(hp_now, 2),
+                    f"{hp_now:.2f}% housing NPL ratio (${hm_now:,.0f}m non-performing)",
+                    f"12 months prior: {hp_prev:.2f}% (${hm_prev:,.0f}m)",
+                    f"{hp_now - hp_prev:+.2f} percentage points ({hm_now - hm_prev:+,.0f}m) YoY",
+                    s50_h_calc, "RBNZ Table S50 monthly series", s50_h_hist,
+                    {"source_published": s50_pub, "source_url": s50_url},
+                )
+
+            try:
+                dt_c50, s_npl_c_m, _ = find_rbnz_series(
+                    s50_tabs,
+                    include_kw=("consumer", "non-performing"),
+                    exclude_kw=("ratio", "percent", "%"),
+                    val_bounds=(30, 3000),
+                )
+                try:
+                    _, s_npl_c_pct, _ = find_rbnz_series(
+                        s50_tabs,
+                        include_kw=("consumer", "non-performing"),
+                        val_bounds=(0.3, 12.0),
+                    )
+                except Exception:
+                    _, s_tot_bk_c, _ = find_rbnz_series(s50_tabs, include_kw=("consumer",), val_bounds=(5000, 25000))
+                    s_npl_c_pct = (s_npl_c_m / s_tot_bk_c) * 100.0
+
+                df_c50 = pd.DataFrame({"date": dt_c50, "c_m": s_npl_c_m, "c_pct": s_npl_c_pct}).dropna().sort_values("date").reset_index(drop=True)
+                if len(df_c50) >= 2:
+                    lc = df_c50.iloc[-1]
+                    pc = df_c50.iloc[-13] if len(df_c50) >= 13 else df_c50.iloc[0]
+                    dt_c = pd.Timestamp(lc["date"])
+                    per_c50, as_of_c50 = dt_c.strftime("%B %Y"), month_end_iso(dt_c)
+                    cm_now, cp_now = float(lc["c_m"]), float(lc["c_pct"])
+                    cm_prev, cp_prev = float(pc["c_m"]), float(pc["c_pct"])
+                    s50_c_calc = f"Non-Performing Bank Consumer Loans = ${cm_now:,.0f}m ({cp_now:.2f}% of consumer loan book; vs {cp_prev:.2f}% a year earlier)"
+                    c50_hist = make_history_list(df_c50["date"], df_c50["c_pct"], lambda v: f"{v:.2f}% consumer NPL ratio")
+                    out["consumer-loan-stress-npl"] = make_pulse_item(
+                        "RBNZ S50", as_of_c50, MAX_AGE_MONTHLY,
+                        f"In {per_c50}, New Zealand bank non-performing personal and consumer loans (90+ days past due or impaired) stood at <strong>{cp_now:.2f}% (${cm_now:,.0f}m)</strong> ({plain_prior_year_pct(cp_now, cp_prev)}).",
+                        f"RBNZ Table S50 ({per_c50}): Bank non-performing consumer loans = ${cm_now:,.0f}m ({cp_now:.2f}% of consumer lending).",
+                        format_provenance_source_html(s50_c_calc, "RBNZ Table S50 (Reserve Bank of New Zealand)", s50_url, True),
+                        per_c50, round(cp_now, 2),
+                        f"{cp_now:.2f}% consumer NPL ratio (${cm_now:,.0f}m non-performing)",
+                        f"12 months prior: {cp_prev:.2f}% (${cm_prev:,.0f}m)",
+                        f"{cp_now - cp_prev:+.2f} percentage points ({cm_now - cm_prev:+,.0f}m) YoY",
+                        s50_c_calc, "RBNZ Table S50 monthly series", c50_hist,
+                        {"source_published": s50_pub, "source_url": s50_url},
+                    )
+            except Exception as exc_s50c:
+                print(f"[RBNZ S50 Consumer] Parse note: {exc_s50c}")
+        except Exception as exc_s50:
+            print(f"[RBNZ S50] Parse note: {exc_s50}")
+
+    # 7 & 8. Stats NZ HLPI (Household Living-Costs & Interest) & IRD Overdue Tax Debt Stress
+    web_pages = fetch_html_with_browser_fallback(
+        session, [STATS_HLPI_PAGE, STATS_HLPI_NEWS_PAGE, IRD_TAX_DEBT_PAGE], "HLPI / IRD Debt"
+    )
+
+    hlpi_html = web_pages.get(STATS_HLPI_PAGE, "") or web_pages.get(STATS_HLPI_NEWS_PAGE, "")
+    if hlpi_html:
+        hlpi_pub = extract_html_release_date(hlpi_html, "Quarterly Stats NZ Household Living-Costs Price Indexes (HLPI) release")
+        h_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", hlpi_html))
+        m_all = re.search(
+            r"(?:all-households|all\s+households|household\s+living\s+costs)[^.]{0,90}?(?:increased|rose|up)\s+([\d.]+)\s*(?:percent|%)\s+in\s+the\s+12\s+months\s+to\s+([A-Za-z]+\s+20\d{2})",
+            h_txt, flags=re.I,
+        )
+        if m_all:
+            hlpi_pct = float(m_all.group(1))
+            hlpi_per = m_all.group(2).strip()
+            dt_hlpi = pd.to_datetime("1 " + hlpi_per, errors="coerce")
+            as_of_hlpi = month_end_iso(dt_hlpi) if pd.notna(dt_hlpi) else today.strftime("%Y-%m-%d")
+            m_int = re.search(r"interest\s+payments\s*\(\s*(?:down|up|fell|rose|\+|-)?\s*([\d.]+)\s*(?:percent|%)", h_txt, flags=re.I)
+            int_clause = f", with household interest payments changing by <strong>{m_int.group(1)}%</strong> annually" if m_int else ""
+            hlpi_calc = f"Official Stats NZ HLPI All-Households 12-month change ({hlpi_per}) = {hlpi_pct:.1f}%"
+            out["hlpi-household-living-costs-interest"] = make_pulse_item(
+                "Stats NZ HLPI", as_of_hlpi, MAX_AGE_QUARTERLY,
+                f"In the 12 months to {hlpi_per}, Stats NZ's Household Living-Costs Price Index (HLPI) for all households rose <strong>{hlpi_pct:.1f}%</strong>{int_clause}.",
+                f"Stats NZ Household Living-Costs Price Indexes ({hlpi_per}): All-households annual change = +{hlpi_pct:.1f}%.",
+                format_provenance_source_html(hlpi_calc, f"Stats NZ — Household Living-Costs Price Indexes ({hlpi_per})", STATS_HLPI_PAGE, False),
+                f"Year ended {hlpi_per}", hlpi_pct,
+                f"+{hlpi_pct:.1f}% annual household living-cost change",
+                "Stats NZ quarterly HLPI series (includes mortgage interest)",
+                f"Tracked quarterly across NZ household groups ({hlpi_per})",
+                hlpi_calc, f"Stats NZ HLPI release ({hlpi_per})", None,
+                {"source_published": hlpi_pub, "source_url": STATS_HLPI_PAGE},
+            )
+
+    tax_html = web_pages.get(IRD_TAX_DEBT_PAGE, "")
+    if tax_html:
+        tax_pub = extract_html_release_date(tax_html, "Inland Revenue Tax and Entitlements Debt Statistics release")
+        t_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", tax_html))
+        m_cust = re.search(r"([\d,]{5,7})\s+customers\s+have\s+overdue\s+debt", t_txt, flags=re.I)
+        m_tot_d = re.search(r"total\s+overdue\s+debt\s+is\s+\$([\d.]+)\s*(?:billion|b)", t_txt, flags=re.I)
+        m_ind_d = re.search(r"\$([\d.]+)\s*(?:billion|b)\s+is\s+owed\s+by\s+individuals", t_txt, flags=re.I)
+        if m_cust and m_tot_d:
+            cust_cnt = int(m_cust.group(1).replace(",", ""))
+            tot_debt_b = float(m_tot_d.group(1))
+            ind_debt_b = float(m_ind_d.group(1)) if m_ind_d else None
+            avg_debt_cust = int(round((tot_debt_b * 1e9) / max(1, cust_cnt)))
+            m_as_at = re.search(r"(?:at\s+the\s+end\s+of|as\s+at)\s+([A-Za-z]+\s+20\d{2}|30\s+June\s+20\d{2}|31\s+March\s+20\d{2})", t_txt, flags=re.I)
+            per_tax = m_as_at.group(1) if m_as_at else f"June {today.year if today.month >= 7 else today.year - 1}"
+            dt_tax = pd.to_datetime(per_tax, errors="coerce")
+            as_of_tax = month_end_iso(dt_tax) if pd.notna(dt_tax) else f"{today.year if today.month >= 7 else today.year - 1}-06-30"
+            ind_clause = f", including <strong>${ind_debt_b:.1f}B owed by individuals</strong>" if ind_debt_b else ""
+            tax_calc = (
+                f"Total Overdue IRD Debt = ${tot_debt_b:.1f}B across {cust_cnt:,} customers "
+                f"(Mean = ${avg_debt_cust:,}/customer" + (f" | Individuals = ${ind_debt_b:.1f}B)" if ind_debt_b else ")")
+            )
+            out["ird-overdue-tax-debt-stress"] = make_pulse_item(
+                "Inland Revenue", as_of_tax, MAX_AGE_ANNUAL,
+                f"In Inland Revenue's latest Tax and Entitlements Debt release ({per_tax}), <strong>{cust_cnt:,} customers</strong> held overdue tax debt totalling <strong>${tot_debt_b:.1f}B</strong> (~${avg_debt_cust:,} per customer in debt){ind_clause}.",
+                f"Inland Revenue Tax and Entitlements Debt Statistics ({per_tax}): {cust_cnt:,} customers with overdue debt totalling ${tot_debt_b:.1f}B.",
+                format_provenance_source_html(tax_calc, "Inland Revenue — Tax and Entitlements Debt Statistics", IRD_TAX_DEBT_PAGE, True),
+                per_tax, tot_debt_b,
+                f"${tot_debt_b:.1f}B overdue IRD debt across {cust_cnt:,} customers",
+                f"Individual overdue debt: ${ind_debt_b:.1f}B" if ind_debt_b else "Inland Revenue debt series",
+                f"Average overdue balance: ${avg_debt_cust:,} per customer in debt",
+                tax_calc, f"Inland Revenue debt statistics ({per_tax})", None,
+                {"source_published": tax_pub, "source_url": IRD_TAX_DEBT_PAGE},
+            )
+
+    return out
+
+
 def cross_derive_fhb_benchmark_tickers(candidates: dict) -> None:
     """
     Populate the 4 standalone FHB benchmark tickers (fhb-typical-income, fhb-average-loan-size,
     fhb-typical-dti, fhb-monthly-lending-volume) from live RBNZ records in `candidates`
-    (borrower-income, fhb-share, dti-headroom) if not already set on this run. Zero hardcoded numbers.
+    (fhb-income-by-dti-band / borrower-income, fhb-share, dti-headroom). Zero hardcoded numbers.
     """
     c31_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type"
     c40_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-lending-by-debt-to-income-dti-purpose-use"
     c41_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi"
 
-    bi = candidates.get("borrower-income")
-    if "fhb-typical-income" not in candidates and isinstance(bi, dict) and bi.get("value"):
-        inc_v = int(round(float(bi["value"])))
-        per_s, as_of_s, pub_s = bi.get("latest_period", ""), bi.get("as_of", ""), bi.get("source_published", "Monthly RBNZ statistical release")
+    bi = candidates.get("fhb-income-by-dti-band") or candidates.get("borrower-income") or candidates.get("fhb-income-akl-vs-nz")
+    inc_v = _extract_int_from_rec(bi, 40000, 350000)
+    if "fhb-typical-income" not in candidates and isinstance(bi, dict) and inc_v:
+        per_s = bi.get("latest_period") or bi.get("observation_period") or ""
+        as_of_s = bi.get("as_of") or bi.get("period_end") or ""
+        pub_s = bi.get("source_published", "Monthly RBNZ statistical release")
         calc_s = bi.get("calculation_live") or bi.get("calculation") or f"RBNZ Table C41 FHB band-weighted mean gross income = ${inc_v:,}"
         candidates["fhb-typical-income"] = make_pulse_item(
             "RBNZ C41", as_of_s, MAX_AGE_MONTHLY,
@@ -6003,7 +6639,9 @@ def cross_derive_fhb_benchmark_tickers(candidates: dict) -> None:
 
     fs = candidates.get("fhb-share")
     if isinstance(fs, dict) and fs.get("html"):
-        per_s, as_of_s, pub_s = fs.get("latest_period", ""), fs.get("as_of", ""), fs.get("source_published", "Monthly RBNZ statistical release")
+        per_s = fs.get("latest_period") or fs.get("observation_period") or ""
+        as_of_s = fs.get("as_of") or fs.get("period_end") or ""
+        pub_s = fs.get("source_published", "Monthly RBNZ statistical release")
         fs_txt = re.sub(r"<[^>]+>", " ", fs.get("html", ""))
         m_avg = re.search(r"averaging\s+\$([\d,]+)\s+per\s+loan", fs_txt, flags=re.I)
         m_cnt = re.search(r"across\s+([\d,]+)\s+loans", fs_txt, flags=re.I)
@@ -6036,31 +6674,34 @@ def cross_derive_fhb_benchmark_tickers(candidates: dict) -> None:
                 vol_calc, fs.get("historical_data_from", "RBNZ Table C31 series"), [], {"source_published": pub_s, "source_url": c31_u},
             )
 
-    inc_rec = candidates.get("fhb-typical-income") or candidates.get("borrower-income")
-    loan_rec, dti_rec = candidates.get("fhb-average-loan-size"), candidates.get("dti-headroom")
-    if "fhb-typical-dti" not in candidates and isinstance(inc_rec, dict) and isinstance(loan_rec, dict) and isinstance(dti_rec, dict):
-        inc_v, loan_v, gt6_v = float(inc_rec.get("value") or 0), float(loan_rec.get("value") or 0), float(dti_rec.get("value") or 0)
-        if inc_v > 20000 and loan_v > 100000 and 0.1 <= gt6_v <= 50.0:
-            imp_dti, le6_v = round(loan_v / inc_v, 2), round(100.0 - gt6_v, 1)
-            per_s, as_of_s, pub_s = dti_rec.get("latest_period", ""), dti_rec.get("as_of", ""), dti_rec.get("source_published", "Monthly RBNZ statistical release")
-            td_calc = f"Implied FHB Mortgage DTI: ${int(loan_v):,} (C31 avg FHB loan) ÷ ${int(inc_v):,} (C41 avg FHB gross income) = {imp_dti:.2f}x (~{imp_dti:.1f}x–{imp_dti + 0.4:.1f}x total DTI) | C40 Share <= 6x DTI: 100.0% − {gt6_v:.1f}% = {le6_v:.1f}%"
-            candidates["fhb-typical-dti"] = make_pulse_item(
-                "RBNZ C40 & C41", as_of_s, MAX_AGE_MONTHLY,
-                f"In {per_s}, the typical New Zealand first-home buyer borrowed at an implied Debt-to-Income ratio of <strong>{imp_dti:.1f}x–{imp_dti + 0.4:.1f}x gross income</strong> (${int(loan_v):,} average loan on ${int(inc_v):,} average gross income), with <strong>{le6_v:.1f}% of all first-home buyer lending</strong> written at or below <strong>6x DTI</strong>.",
-                f"RBNZ Tables C31, C40 & C41 ({per_s}): Average FHB loan = ${int(loan_v):,}; Average FHB gross income = ${int(inc_v):,}; FHB lending <= 6x TDTI = {le6_v:.1f}% (> 6x TDTI = {gt6_v:.1f}%).",
-                format_provenance_source_html(td_calc, "RBNZ Tables C31, C40 & C41 (Reserve Bank of New Zealand)", c40_u, True),
-                per_s, imp_dti, f"{imp_dti:.2f}x implied mortgage DTI (~{imp_dti:.1f}x–{imp_dti + 0.4:.1f}x total DTI) | {le6_v:.1f}% <= 6x DTI",
-                f"Share <= 6x DTI: {le6_v:.1f}%", f"{gt6_v:.1f}% above 6x DTI (vs 20.0% RBNZ speed limit)",
-                td_calc, dti_rec.get("historical_data_from", "RBNZ Tables C40 & C41"),
-                [
-                    {"period": "Implied Mortgage DTI", "label": "Implied FHB Loan-to-Income Ratio (C31 ÷ C41)", "value": imp_dti, "formatted": f"{imp_dti:.2f}x (${int(loan_v):,} ÷ ${int(inc_v):,})"},
-                    {"period": "TDTI <= 6x Share", "label": "FHB Lending at or below 6x DTI (C40)", "value": le6_v, "formatted": f"{le6_v:.1f}% of FHB lending"},
-                    {"period": "TDTI > 6x Share", "label": "FHB Lending above 6x DTI (C40 Speed Limit Band)", "value": round(gt6_v, 1), "formatted": f"{gt6_v:.1f}% (vs 20.0% RBNZ cap)"},
-                ],
-                {"source_published": pub_s, "source_url": c40_u},
-            )
-
-
+    inc_rec = candidates.get("fhb-typical-income") or bi
+    loan_rec = candidates.get("fhb-average-loan-size")
+    dti_rec = candidates.get("dti-headroom")
+    inc_final = _extract_int_from_rec(inc_rec, 40000, 350000)
+    loan_final = _extract_int_from_rec(loan_rec, 100000, 2000000)
+    gt6_final = _extract_pct_from_rec(dti_rec, 0.1, 50.0)
+    if "fhb-typical-dti" not in candidates and inc_final and loan_final and gt6_final and isinstance(dti_rec, dict):
+        imp_dti, le6_v = round(loan_final / inc_final, 2), round(100.0 - gt6_final, 1)
+        per_s = dti_rec.get("latest_period") or dti_rec.get("observation_period") or ""
+        as_of_s = dti_rec.get("as_of") or dti_rec.get("period_end") or ""
+        pub_s = dti_rec.get("source_published", "Monthly RBNZ statistical release")
+        td_calc = f"Implied FHB Mortgage DTI: ${loan_final:,} (C31 avg FHB loan) ÷ ${inc_final:,} (C41 avg FHB gross income) = {imp_dti:.2f}x (~{imp_dti:.1f}x–{imp_dti + 0.4:.1f}x total DTI) | C40 Share <= 6x DTI: 100.0% − {gt6_final:.1f}% = {le6_v:.1f}%"
+        candidates["fhb-typical-dti"] = make_pulse_item(
+            "RBNZ C40 & C41", as_of_s, MAX_AGE_MONTHLY,
+            f"In {per_s}, the typical New Zealand first-home buyer borrowed at an implied Debt-to-Income ratio of <strong>{imp_dti:.1f}x–{imp_dti + 0.4:.1f}x gross income</strong> (${loan_final:,} average loan on ${inc_final:,} average gross income), with <strong>{le6_v:.1f}% of all first-home buyer lending</strong> written at or below <strong>6x DTI</strong>.",
+            f"RBNZ Tables C31, C40 & C41 ({per_s}): Average FHB loan = ${loan_final:,}; Average FHB gross income = ${inc_final:,}; FHB lending <= 6x TDTI = {le6_v:.1f}% (> 6x TDTI = {gt6_final:.1f}%).",
+            format_provenance_source_html(td_calc, "RBNZ Tables C31, C40 & C41 (Reserve Bank of New Zealand)", c40_u, True),
+            per_s, imp_dti, f"{imp_dti:.2f}x implied mortgage DTI (~{imp_dti:.1f}x–{imp_dti + 0.4:.1f}x total DTI) | {le6_v:.1f}% <= 6x DTI",
+            f"Share <= 6x DTI: {le6_v:.1f}%", f"{gt6_final:.1f}% above 6x DTI (vs 20.0% RBNZ speed limit)",
+            td_calc, dti_rec.get("historical_data_from", "RBNZ Tables C40 & C41"),
+            [
+                {"period": "Implied Mortgage DTI", "label": "Implied FHB Loan-to-Income Ratio (C31 ÷ C41)", "value": imp_dti, "formatted": f"{imp_dti:.2f}x (${loan_final:,} ÷ ${inc_final:,})"},
+                {"period": "TDTI <= 6x Share", "label": "FHB Lending at or below 6x DTI (C40)", "value": le6_v, "formatted": f"{le6_v:.1f}% of FHB lending"},
+                {"period": "TDTI > 6x Share", "label": "FHB Lending above 6x DTI (C40 Speed Limit Band)", "value": round(gt6_final, 1), "formatted": f"{gt6_final:.1f}% (vs 20.0% RBNZ cap)"},
+            ],
+            {"source_published": pub_s, "source_url": c40_u},
+        )
+# === PART 5C-2 OF 5 ===
 def main() -> None:
     root = pathlib.Path(__file__).resolve().parent
     json_path, structured_json_path, html_path = root / "nz-mortgage-pulse.json", root / "pulse.json", root / "index.html"
@@ -6149,6 +6790,13 @@ def main() -> None:
     except Exception as exc:
         print(f"[IRD / FMA / T43 / Kāinga Ora] Error: {exc}")
 
+    try:
+        debt_out = build_household_debt_stress_credit_tickers(session, rbnz_files)
+        fresh_candidates.update(debt_out)
+        live_parsed_count += len(debt_out)
+    except Exception as exc:
+        print(f"[Household Debt / Credit Cards / Stress] Error: {exc}")
+
     cross_derive_fhb_benchmark_tickers(fresh_candidates)
 
     for p in rbnz_files.values():
@@ -6226,7 +6874,7 @@ def main() -> None:
         "dataset_generated_utc": now_utc, "latest_underlying_data": latest_rbnz_period, "data_status": "verified", "source_status": "current",
         "active_datasets_count": len(structured_records),
         "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, source_published reflects when the publisher released it, and observation_period / period_end reflect the period the data covers.",
-        "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / IRD Student Loans / Kāinga Ora / FSC Spotlights) & Semi-Annual (FMA / RBNZ FSR / NHC / ACC)",
+        "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / HLPI / IRD / Kāinga Ora / FSC Spotlights) & Semi-Annual (FMA / RBNZ FSR / NHC / ACC)",
         "fhb_snapshot": fhb_snap_obj, "records": structured_records,
     }
     structured_json_path.write_text(json.dumps(pulse_json_obj, indent=2), encoding="utf-8")
@@ -6397,7 +7045,7 @@ def main() -> None:
 <body>
   <main>
     <h1>NZ Mortgage, Housing, KiwiSaver &amp; Insurance Pulse — Verified NZ Data</h1>
-    <p>Public reference dataset and data dictionary built 100% live from official New Zealand Crown, statutory, and industry releases, with clearly labelled HLF-derived calculations and interpretation (<a href="#browse-datasets">Browse all {len(verified_tickers)} datasets</a> &bull; <a href="#cat-first-home-buyers">First-Home Buyers</a> &bull; <a href="#cat-kiwisaver">KiwiSaver</a> &bull; <a href="#cat-new-builds-construction">Build Costs</a> &bull; <a href="#cat-property-natural-hazard-insurance">Property Insurance</a> &bull; <a href="#cat-personal-risk-income-protection">Personal &amp; ACC Protection</a> &bull; <a href="{GLOSSARY_BASE_URL}" target="_blank" rel="noopener">HLF Glossary</a> &bull; <a href="{MEDIA_KIT_URL}" target="_blank" rel="noopener">Media Kit &amp; Citation Guide</a> &bull; <a href="#date-definitions">4-Field Date Standard</a> &bull; <a href="#data-quality-limitations">Data Quality &amp; Limitations</a> &bull; <a href="#reuse-licensing">Reuse &amp; Citation ({HLF_LICENSE_SHORT})</a> &bull; <a href="#about-hlf-pulse">About &amp; Methodology</a>). Machine-readable endpoints: <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>, <a href="{PULSE_BASE_URL}/nz-mortgage-pulse.json"><code>nz-mortgage-pulse.json</code></a>, <a href="{PULSE_BASE_URL}/llms.txt"><code>llms.txt</code></a>, and <a href="{PULSE_BASE_URL}/robots.txt"><code>robots.txt</code></a>.</p>
+    <p>Public reference dataset and data dictionary built 100% live from official New Zealand Crown, statutory, and industry releases, with clearly labelled HLF-derived calculations and interpretation (<a href="#browse-datasets">Browse all {len(verified_tickers)} datasets</a> &bull; <a href="#cat-first-home-buyers">First-Home Buyers</a> &bull; <a href="#cat-household-debt-credit-cards-borrower-stress">Household Debt &amp; Stress</a> &bull; <a href="#cat-kiwisaver">KiwiSaver</a> &bull; <a href="#cat-new-builds-construction">Build Costs</a> &bull; <a href="#cat-property-natural-hazard-insurance">Property Insurance</a> &bull; <a href="#cat-personal-risk-income-protection">Personal &amp; ACC Protection</a> &bull; <a href="{GLOSSARY_BASE_URL}" target="_blank" rel="noopener">HLF Glossary</a> &bull; <a href="{MEDIA_KIT_URL}" target="_blank" rel="noopener">Media Kit &amp; Citation Guide</a> &bull; <a href="#date-definitions">4-Field Date Standard</a> &bull; <a href="#data-quality-limitations">Data Quality &amp; Limitations</a> &bull; <a href="#reuse-licensing">Reuse &amp; Citation ({HLF_LICENSE_SHORT})</a> &bull; <a href="#about-hlf-pulse">About &amp; Methodology</a>). Machine-readable endpoints: <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>, <a href="{PULSE_BASE_URL}/nz-mortgage-pulse.json"><code>nz-mortgage-pulse.json</code></a>, <a href="{PULSE_BASE_URL}/llms.txt"><code>llms.txt</code></a>, and <a href="{PULSE_BASE_URL}/robots.txt"><code>robots.txt</code></a>.</p>
 
     <div class="lag-banner" aria-label="4-Field Date Architecture: Observation Period, Period End, Source Published &amp; Last Checked">
       <div class="lag-item">
@@ -6437,6 +7085,15 @@ def main() -> None:
           <li><a href="#fixed-vs-floating-rate-mix">What share of mortgages are fixed vs floating?</a></li>
           <li><a href="#refinance">How much are homeowners refinancing?</a></li>
           <li><a href="#top-ups">How common are mortgage top-ups?</a></li>
+        </ul>
+      </div>
+      <div class="use-card">
+        <strong>For Household Debt &amp; Stress</strong>
+        <ul>
+          <li><a href="#credit-card-limits-servicing-impact">How do unused credit card limits impact borrowing power?</a></li>
+          <li><a href="#credit-card-balances-interest-share">How much NZ credit card debt pays ~20% interest?</a></li>
+          <li><a href="#mortgage-non-performing-arrears">What % of NZ mortgages are non-performing (90+ days)?</a></li>
+          <li><a href="#ird-overdue-tax-debt-stress">How many customers have overdue IRD tax debt?</a></li>
         </ul>
       </div>
       <div class="use-card">
@@ -6491,3 +7148,4 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 # === END OF PART 5C ===
+    
