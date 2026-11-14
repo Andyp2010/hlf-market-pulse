@@ -1,17 +1,7 @@
 #!/usr/bin/env python3
 """
 HLF Pulse — Reference-Grade New Zealand Mortgage, Housing, KiwiSaver & Protection Dataset
-=========================================================================================
-100% Live-Pulled Architecture (Zero Hardcoded Fallbacks):
-  - Every dataset is dynamically fetched and parsed from official New Zealand Crown,
-    statutory, and industry releases (.xlsx, .csv, .pdf, and release tables) via
-    Playwright + HTTP on GitHub Actions.
-  - Main prose (`html` & `summary_text`) is written as clean, authoritative editorial
-    reference prose — free of methodology clutter.
-  - All HLF derivations, formulas, rounding disclosures, licensing (CC BY 4.0), and
-    verification dates live in the structured provenance layer (`source_html` dropdown,
-    `pulse.json`, `llms.txt`, and Data Dictionary tables).
-  - Strict 4-field date standard: Observation Period, Period End, Source Published, Last Checked.
+100% Live-Pulled Architecture (Zero Hardcoded Fallbacks) via Camoufox + Playwright + HTTP.
 """
 
 import base64
@@ -30,9 +20,6 @@ import pandas as pd
 PULSE_BASE_URL = "https://pulse-data.homeloanfactory.co.nz"
 PULSE_DATE_CREATED = "2026-02-01"
 
-# ---------------------------------------------------------------------------
-# Creator, Publisher & Open Licensing Constants (CC BY 4.0)
-# ---------------------------------------------------------------------------
 CREATOR_NAME = "Andy Palliser"
 CREATOR_ALT_NAME = "Andrew Jonathan Palliser"
 CREATOR_FSP = "FSP1004725"
@@ -49,6 +36,9 @@ CONTACT_URL = "https://www.homeloanfactory.co.nz/contact"
 DISCLOSURES_URL = "https://www.homeloanfactory.co.nz/public-disclosures"
 HOW_PAID_URL = "https://www.homeloanfactory.co.nz/how-we-get-paid"
 MEDIA_KIT_URL = "https://www.homeloanfactory.co.nz/media-and-citations"
+GLOSSARY_BASE_URL = "https://www.homeloanfactory.co.nz/tools/glossary"
+FHB_2026_ARTICLE_URL = "https://www.homeloanfactory.co.nz/news-insights/what-it-actually-takes-to-buy-your-first-home-nz"
+FHB_2026_ARTICLE_TITLE = "What It Actually Takes to Buy Your First Home in NZ"
 
 HLF_LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
 HLF_LICENSE_SHORT = "CC BY 4.0"
@@ -58,10 +48,59 @@ HLF_LICENSE_NOTE = (
     "under Creative Commons Attribution 4.0 International (CC BY 4.0) with attribution to "
     "HLF Pulse (https://pulse-data.homeloanfactory.co.nz/). Underlying official Crown, statutory, "
     "and industry statistics remain subject to the terms of their respective publishers "
-    "(RBNZ Terms of Use; Stats NZ, Inland Revenue, MBIE, and FMA under CC BY 4.0; "
+    "(RBNZ Terms of Use; Stats NZ, Inland Revenue, MBIE, FMA, and Kāinga Ora under CC BY 4.0; "
     "Natural Hazards Insurance Act 2023 and Accident Compensation Act 2001 under public-domain NZ legislation; "
     "Financial Services Council [FSC] Spotlight reports credited to FSC under fair-dealing citation)."
 )
+
+GLOSSARY_LINKS_BY_CATEGORY = {
+    "First-home buyers": [
+        ("Loan-to-Value Ratio (LVR)", f"{GLOSSARY_BASE_URL}#lvr"),
+        ("Kāinga Ora First Home Loan", f"{GLOSSARY_BASE_URL}#first-home-loan"),
+        ("Lenders Mortgage Insurance (LMI)", f"{GLOSSARY_BASE_URL}#lmi"),
+    ],
+    "Homeowners & refinancing": [
+        ("Refinancing", f"{GLOSSARY_BASE_URL}#refinancing"),
+        ("Revolving Credit", f"{GLOSSARY_BASE_URL}#revolving-credit"),
+        ("Usable Equity", f"{GLOSSARY_BASE_URL}#usable-equity"),
+    ],
+    "Property investors": [
+        ("Interest-Only Mortgage", f"{GLOSSARY_BASE_URL}#interest-only"),
+        ("Debt-to-Income (DTI)", f"{GLOSSARY_BASE_URL}#dti"),
+        ("Gross Rental Yield", f"{GLOSSARY_BASE_URL}#rental-yield"),
+    ],
+    "LVR, DTI & credit policy": [
+        ("Debt-to-Income (DTI) Ratio", f"{GLOSSARY_BASE_URL}#dti"),
+        ("Loan-to-Value Ratio (LVR)", f"{GLOSSARY_BASE_URL}#lvr"),
+        ("Servicing Test Rate", f"{GLOSSARY_BASE_URL}#test-rate"),
+    ],
+    "New builds & construction": [
+        ("Turnkey New Build", f"{GLOSSARY_BASE_URL}#turnkey"),
+        ("Progressive Drawdown Construction Loan", f"{GLOSSARY_BASE_URL}#construction-loan"),
+        ("Code Compliance Certificate (CCC)", f"{GLOSSARY_BASE_URL}#ccc"),
+    ],
+    "Rents & tenancy": [
+        ("Rental Bond", f"{GLOSSARY_BASE_URL}#rental-bond"),
+        ("Gross vs Net Rental Yield", f"{GLOSSARY_BASE_URL}#rental-yield"),
+    ],
+    "KiwiSaver": [
+        ("KiwiSaver First-Home Withdrawal", f"{GLOSSARY_BASE_URL}#kiwisaver-first-home-withdrawal"),
+        ("KiwiSaver Second-Chance Withdrawal", f"{GLOSSARY_BASE_URL}#second-chance-withdrawal"),
+        ("Default vs Active KiwiSaver Scheme", f"{GLOSSARY_BASE_URL}#kiwisaver"),
+    ],
+    "Property & Natural Hazard Insurance": [
+        ("Sum Insured Replacement Cover", f"{GLOSSARY_BASE_URL}#sum-insured"),
+        ("Natural Hazards Commission (NHC / EQC)", f"{GLOSSARY_BASE_URL}#nhc"),
+    ],
+    "Personal Risk & Income Protection": [
+        ("Income & Mortgage Repayment Protection", f"{GLOSSARY_BASE_URL}#income-protection"),
+        ("Critical Illness / Trauma Cover", f"{GLOSSARY_BASE_URL}#trauma-cover"),
+    ],
+    "Insurance Market & Claims": [
+        ("Sum Insured Replacement Cover", f"{GLOSSARY_BASE_URL}#sum-insured"),
+        ("NZ Mortgage & Property Glossary (All 86 Terms)", GLOSSARY_BASE_URL),
+    ],
+}
 
 CREATOR_SCHEMA_OBJ = {
     "@type": "Person",
@@ -88,7 +127,6 @@ PUBLISHER_SCHEMA_OBJ = {
     "url": PUBLISHER_URL,
 }
 
-# Freshness windows (in days)
 MAX_AGE_MONTHLY = 100
 MAX_AGE_TENANCY = 140
 MAX_AGE_QUARTERLY = 160
@@ -99,23 +137,17 @@ RBNZ_WARMUP_URL = "https://www.rbnz.govt.nz/statistics/series/lending-and-moneta
 
 RBNZ_SOURCES = {
     "c31": {
-        "pages": [
-            "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
-        ],
+        "pages": ["https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type"],
         "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/c31-new-residential-mortgage-lending-by-borrower-type.xlsx",
         "match": "c31",
     },
     "c33": {
-        "pages": [
-            "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
-        ],
+        "pages": ["https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose"],
         "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/c33-new-residential-mortgage-lending-by-purpose.xlsx",
         "match": "c33",
     },
     "c32": {
-        "pages": [
-            "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-and-existing-residential-mortgage-lending-by-payment-type",
-        ],
+        "pages": ["https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-and-existing-residential-mortgage-lending-by-payment-type"],
         "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/c32-new-and-existing-residential-mortgage-lending-by-payment-type.xlsx",
         "match": "c32",
     },
@@ -136,9 +168,7 @@ RBNZ_SOURCES = {
         "match": "c41",
     },
     "b30": {
-        "pages": [
-            "https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/new-residential-mortgage-weighted-average-interest-rates",
-        ],
+        "pages": ["https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/new-residential-mortgage-weighted-average-interest-rates"],
         "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/b30-new-residential-mortgage-weighted-average-interest-rates.xlsx",
         "match": "b30",
     },
@@ -171,6 +201,8 @@ IRD_KS_PAY_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/con
 IRD_KS_SUSP_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/contributions/savings-suspensions"
 IRD_KS_DATA_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets"
 FMA_KS_REPORT_PAGE = "https://www.fma.govt.nz/library/reports-and-papers/kiwisaver-annual-report/"
+KAINGA_ORA_QTR_REPORT_PAGE = "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/"
+KAINGA_ORA_ANN_REPORT_PAGE = "https://kaingaora.govt.nz/en_NZ/publications/core-publications/annual-report/"
 STATS_CPI_PAGE = "https://www.stats.govt.nz/information-releases/consumers-price-index-september-2026-quarter/"
 STATS_HES_PAGE = "https://www.stats.govt.nz/information-releases/household-expenditure-statistics-year-ended-june-2025/"
 RBNZ_FSR_PAGE = "https://www.rbnz.govt.nz/financial-stability/financial-stability-report"
@@ -197,9 +229,6 @@ CATEGORY_ORDER = [
     "Insurance Market & Claims",
 ]
 
-# ---------------------------------------------------------------------------
-# Reference-Grade Data Dictionary & Provenance Metadata (63 Canonical Tickers)
-# ---------------------------------------------------------------------------
 TICKER_CATALOG = {
     "fhb-low-deposit": {
         "name": "First-home buyers using under 20% deposit (>80% LVR)",
@@ -242,16 +271,16 @@ TICKER_CATALOG = {
         "unit": "percent",
         "frequency": "Monthly",
         "definition": "The share of total new residential mortgage lending value committed to first-home buyers across New Zealand, alongside the monthly number of first-home buyer loans and mean loan size.",
-        "methodology": "Derived from RBNZ Table C31 by dividing first-home buyer new lending value (LVRN.MMB1.AC1) by total new lending across all borrower types (LVRN.MMB1.AA, including first-home buyers, other owner-occupiers, investors, and business purpose). Mean loan size is LVRN.MMB1.AC1 (in $m, published by RBNZ rounded to $1m) divided by LVRN.MMB2.AC1.",
-        "hlf_calculation": "(FHB Lending Value [LVRN.MMB1.AC1] ÷ All-Borrower Total Lending [LVRN.MMB1.AA]) × 100; Mean Loan = LVRN.MMB1.AC1 ÷ LVRN.MMB2.AC1 (subject to RBNZ $1m rounding)",
+        "methodology": "Derived from RBNZ Table C31 by dividing first-home buyer new lending value (LVRN.MMB1.AC1) by total new lending across all borrower types (LVRN.MMB1.AA). Mean loan size is LVRN.MMB1.AC1 (published by RBNZ rounded to $1m) divided by LVRN.MMB2.AC1.",
+        "hlf_calculation": "(FHB Lending Value [LVRN.MMB1.AC1] ÷ All-Borrower Total Lending [LVRN.MMB1.AA]) × 100; Mean Loan = LVRN.MMB1.AC1 ÷ LVRN.MMB2.AC1",
         "hlf_interpretation": "HLF market context: Tracks first-home buyer market participation relative to existing owner-occupiers and residential property investors.",
         "questions": [
             "What share of New Zealand mortgages go to first-home buyers?",
             "What is the average first-home buyer mortgage size in New Zealand?",
             "How many first-home buyers get approved for a mortgage each month in NZ?",
         ],
-        "article_title": "Buying Your First Home with a 5%–10% Deposit in NZ",
-        "article_url": "https://www.homeloanfactory.co.nz/news-insights/buying-your-first-home-with-a-5-10-deposit-in-nz-your-2026-options-explained",
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
         "tool_title": "HLF Borrowing Power Calculator",
         "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
     },
@@ -276,8 +305,8 @@ TICKER_CATALOG = {
             "What is the typical household income of a first-home buyer in New Zealand?",
             "How much do you need to earn to buy a first home in NZ?",
         ],
-        "article_title": "DTI Rules in NZ: How Debt-to-Income Limits Work",
-        "article_url": "https://www.homeloanfactory.co.nz/news-insights/dti-rules-in-nz-how-debt-to-income-limits-actually-work-for-home-buyers-and-investors",
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
         "tool_title": "HLF Borrowing Power Calculator",
         "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
     },
@@ -297,13 +326,13 @@ TICKER_CATALOG = {
         "definition": "The average residential mortgage size approved for first-home buyers across New Zealand.",
         "methodology": "Derived from RBNZ Table C31 by dividing monthly first-home buyer new lending value (LVRN.MMB1.AC1, published rounded to $1m) by monthly first-home buyer loan count (LVRN.MMB2.AC1).",
         "hlf_calculation": "(Total FHB Lending Value [LVRN.MMB1.AC1] × $1,000,000) ÷ Total FHB Borrower Count [LVRN.MMB2.AC1]",
-        "hlf_interpretation": "HLF market context: Provides a direct national benchmark for what first-home buyers are borrowing today across New Zealand before regional price differences.",
+        "hlf_interpretation": "HLF market context: Provides a direct national benchmark for what first-home buyers are borrowing across New Zealand before regional price differences.",
         "questions": [
             "What is the average first-home buyer mortgage in New Zealand?",
             "How much does a typical first-home buyer borrow in NZ?",
         ],
-        "article_title": "Buying Your First Home with a 5%–10% Deposit in NZ",
-        "article_url": "https://www.homeloanfactory.co.nz/news-insights/buying-your-first-home-with-a-5-10-deposit-in-nz-your-2026-options-explained",
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
         "tool_title": "HLF Home Loan Repayments Calculator",
         "tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
     },
@@ -328,8 +357,8 @@ TICKER_CATALOG = {
             "What is the average Debt-to-Income (DTI) ratio for a first-home buyer in New Zealand?",
             "What percentage of first-home buyers borrow less than 5x or 6x their income?",
         ],
-        "article_title": "DTI Rules in NZ: How Debt-to-Income Limits Work",
-        "article_url": "https://www.homeloanfactory.co.nz/news-insights/dti-rules-in-nz-how-debt-to-income-limits-actually-work-for-home-buyers-and-investors",
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
         "tool_title": "HLF Borrowing Power Calculator",
         "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
     },
@@ -354,10 +383,88 @@ TICKER_CATALOG = {
             "How much do New Zealand banks lend to first-home buyers each month?",
             "How many first-home buyer mortgages are approved per month in New Zealand?",
         ],
-        "article_title": "Buying Your First Home with a 5%–10% Deposit in NZ",
-        "article_url": "https://www.homeloanfactory.co.nz/news-insights/buying-your-first-home-with-a-5-10-deposit-in-nz-your-2026-options-explained",
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
         "tool_title": "HLF Borrowing Power Calculator",
         "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "kainga-ora-first-home-loan-approvals": {
+        "name": "Kāinga Ora First Home Loan (5% deposit) quarterly approvals, settlements & regional breakdown",
+        "also_known_as": "Kāinga Ora Home Ownership Products Report — First Home Loan approvals & settlements by city/district",
+        "category": "First-home buyers",
+        "topic": "Kāinga Ora 5% deposit First Home Loan approvals & settlements",
+        "source": "Kāinga Ora Quarterly Report",
+        "source_full": "Kāinga Ora – Homes and Communities — Home Ownership Products Quarterly Report (CC BY 4.0)",
+        "series_ids": "Kāinga Ora Home Ownership Products Report — First Home Loan Approvals & Settlements by Territorial Local Authority",
+        "source_url": KAINGA_ORA_QTR_REPORT_PAGE,
+        "data_type": "Officially reported Kāinga Ora quarterly PDF series & HLF-derived monthly averages",
+        "derived_by_hlf": True,
+        "unit": "loans",
+        "frequency": "Quarterly",
+        "definition": "The quarterly and monthly number of Kāinga Ora-underwritten First Home Loan (5% deposit) approvals and settlements across New Zealand and major Territorial Local Authorities.",
+        "methodology": "Automatically fetched and parsed from the latest Kāinga Ora Home Ownership Products Quarterly Report PDF on kaingaora.govt.nz (licensed under CC BY 4.0). Extracts monthly and quarterly First Home Loan approval and settlement totals alongside city/district breakdowns.",
+        "hlf_calculation": "Monthly Mean Approvals = Quarterly Approvals ÷ 3; Settlement Conversion Rate = (Quarterly Settlements ÷ Quarterly Approvals) × 100",
+        "hlf_interpretation": "HLF market context: Because Kāinga Ora First Home Loans require only a 5% deposit and are exempt from RBNZ's 20% bank low-deposit speed limit, they provide a major pathway for income-eligible buyers ($95k solo / $150k joint or with dependants) who have strong servicing income but a smaller deposit.",
+        "questions": [
+            "How many Kāinga Ora First Home Loans are approved and settled each quarter in New Zealand?",
+            "Which New Zealand cities have the most Kāinga Ora 5% deposit First Home Loan approvals?",
+        ],
+        "article_title": "Buying Your First Home with a 5%–10% Deposit in NZ",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights/buying-your-first-home-with-a-5-10-deposit-in-nz-your-2026-options-explained",
+        "tool_title": "Kāinga Ora Lenders Mortgage Insurance (LMI) Fee Estimator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/lenders-mortgage-insurance-fee-estimator",
+    },
+    "kainga-ora-second-chance-kiwisaver-approvals": {
+        "name": "Kāinga Ora 'Second Chance' (Previous Homeowner) KiwiSaver first-home withdrawal approvals",
+        "also_known_as": "Previous Owner Savings Withdrawal Applications Approved by Kāinga Ora",
+        "category": "KiwiSaver",
+        "topic": "Second-chance KiwiSaver first-home withdrawal approvals for previous homeowners",
+        "source": "Kāinga Ora Quarterly Report",
+        "source_full": "Kāinga Ora – Homes and Communities — Home Ownership Products Quarterly Report: Previous Owner Savings Withdrawal Applications",
+        "series_ids": "Kāinga Ora Home Ownership Products Report — Previous Owner Savings Withdrawal Applications Approved (5-Quarter Series)",
+        "source_url": KAINGA_ORA_QTR_REPORT_PAGE,
+        "data_type": "Officially reported Kāinga Ora quarterly PDF series & HLF-derived 12-month rolling total",
+        "derived_by_hlf": True,
+        "unit": "approvals",
+        "frequency": "Quarterly",
+        "definition": "The number of previous New Zealand homeowners approved by Kāinga Ora each quarter (and over the rolling 12-month period) to make a 'second-chance' KiwiSaver savings withdrawal to buy a home.",
+        "methodology": "Automatically fetched and parsed from the 'Previous Owner Savings Withdrawal Applications' chart/table in Kāinga Ora's Home Ownership Products Quarterly Report PDF on kaingaora.govt.nz. Focuses on Applications Approved across the 5 published quarters and sums the 4 most recent quarters for the rolling 12-month approval total.",
+        "hlf_calculation": "12-Month Rolling Approvals = Sum of Applications Approved across the 4 most recent quarters; Monthly Mean = Quarterly Approvals ÷ 3",
+        "hlf_interpretation": "HLF market context: Previous homeowners who no longer own property and are in a similar financial position to a first-home buyer (typically after a relationship separation or career relocation) can apply to Kāinga Ora for a determination letter to unlock their KiwiSaver balance for another home purchase—with over 4,100 approvals granted annually.",
+        "questions": [
+            "How many previous homeowners get approved for a second-chance KiwiSaver withdrawal in New Zealand?",
+            "Can I use my KiwiSaver to buy a house if I have owned a property before in NZ?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "kainga-ora-underwritten-loan-book": {
+        "name": "Kāinga Ora First Home Loan annual mortgages underwritten & Mortgage Insurance Scheme (SPE 4.1)",
+        "also_known_as": "Kāinga Ora Annual Report — Number of First Home Loan mortgages underwritten (SPE 4.1)",
+        "category": "First-home buyers",
+        "topic": "Annual Kāinga Ora First Home Loans underwritten & Mortgage Insurance Scheme",
+        "source": "Kāinga Ora Annual Report",
+        "source_full": "Kāinga Ora – Homes and Communities — Annual Report (SPE 4.1: Number of First Home Loan Mortgages Underwritten)",
+        "series_ids": "Kāinga Ora Annual Report — SPE 4.1 First Home Loan Mortgages Underwritten & Mortgage Insurance Scheme Note",
+        "source_url": KAINGA_ORA_ANN_REPORT_PAGE,
+        "data_type": "Officially reported Kāinga Ora Annual Report series & HLF-derived monthly average",
+        "derived_by_hlf": True,
+        "unit": "loans",
+        "frequency": "Annual (30 June Financial Year)",
+        "definition": "The total annual number of First Home Loan mortgages underwritten by Kāinga Ora under the Crown Mortgage Insurance Scheme across the 30 June financial year.",
+        "methodology": "Automatically fetched and parsed from Kāinga Ora's latest Annual Report PDF on kaingaora.govt.nz (SPE 4.1 performance measure and Mortgage Insurance Scheme financial note).",
+        "hlf_calculation": "Monthly Mean Underwritten Loans = Annual First Home Loans Underwritten ÷ 12",
+        "hlf_interpretation": "HLF market context: Under the user-pays Mortgage Insurance Scheme (funded via the 1.2% Lenders Mortgage Insurance fee), Kāinga Ora underwrites over 4,000 5%-deposit mortgages per year for participating banks and lenders.",
+        "questions": [
+            "How many First Home Loans does Kāinga Ora underwrite each year in New Zealand?",
+            "How does Kāinga Ora's Mortgage Insurance Scheme work for 5% deposit home buyers?",
+        ],
+        "article_title": "Buying Your First Home with a 5%–10% Deposit in NZ",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights/buying-your-first-home-with-a-5-10-deposit-in-nz-your-2026-options-explained",
+        "tool_title": "Kāinga Ora Lenders Mortgage Insurance (LMI) Fee Estimator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/lenders-mortgage-insurance-fee-estimator",
     },
 # === END OF PART 1 ===
     # === PART 2A OF 5 ===
@@ -2044,12 +2151,64 @@ def fetch_url_bytes(session, url: str, referer: str = "", timeout: int = 35, use
     return b""
 
 
+def _browser_fetch_binary(ctx, page, url: str, referer: str, min_bytes: int) -> bytes:
+    """Helper to fetch binary bytes (.xlsx, .csv, .pdf) inside an active Camoufox or Playwright context."""
+    if referer:
+        try:
+            page.goto(referer, wait_until="domcontentloaded", timeout=30000)
+            page.wait_for_timeout(1800)
+        except Exception:
+            pass
+    try:
+        api_resp = ctx.request.get(url, timeout=45000, headers={"Referer": referer or url})
+        if api_resp.ok:
+            body = api_resp.body()
+            if body and len(body) >= min_bytes and b"Just a moment" not in body[:600]:
+                return body
+    except Exception:
+        pass
+    # Secondary fallback: base64 fetch inside page context so browser cookies/TLS fingerprint are used directly
+    try:
+        b64_data = page.evaluate(
+            """async (u) => {
+                const r = await fetch(u, {credentials: 'include'});
+                if (!r.ok) return '';
+                const buf = await r.arrayBuffer();
+                let binary = '';
+                const bytes = new Uint8Array(buf);
+                for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+                return btoa(binary);
+            }""",
+            url,
+        )
+        if b64_data:
+            raw_b = base64.b64decode(b64_data)
+            if len(raw_b) >= min_bytes and b"Just a moment" not in raw_b[:600]:
+                return raw_b
+    except Exception:
+        pass
+    return b""
+
+
 def fetch_bytes_with_browser_fallback(session, url: str, referer: str = "", min_bytes: int = 1000) -> bytes:
-    """Fetch binary files (.xlsx, .csv, .pdf) via HTTP first, then Playwright browser context if Cloudflare blocks."""
+    """Fetch binary files (.xlsx, .csv, .pdf) via HTTP -> Camoufox -> Playwright Chromium."""
     raw = fetch_url_bytes(session, url, referer=referer, timeout=40, use_cb=False)
     if raw and len(raw) >= min_bytes and b"Just a moment" not in raw[:600] and b"Access Denied" not in raw[:600]:
         return raw
 
+    # Tier 2: Camoufox anti-bot browser (installed in GitHub Actions workflow)
+    try:
+        from camoufox.sync_api import Camoufox
+        with Camoufox(headless=True) as browser:
+            ctx = browser.new_context(locale="en-NZ", accept_downloads=True)
+            page = ctx.new_page()
+            b_out = _browser_fetch_binary(ctx, page, url, referer, min_bytes)
+            if b_out:
+                return b_out
+    except Exception as exc_cf:
+        print(f"[Camoufox Binary] {url}: {exc_cf}")
+
+    # Tier 3: Playwright Chromium fallback
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
@@ -2064,29 +2223,17 @@ def fetch_bytes_with_browser_fallback(session, url: str, referer: str = "", min_
                 accept_downloads=True,
             )
             page = ctx.new_page()
-            if referer:
-                try:
-                    page.goto(referer, wait_until="domcontentloaded", timeout=30000)
-                    page.wait_for_timeout(1500)
-                except Exception:
-                    pass
-            try:
-                api_resp = ctx.request.get(url, timeout=40000, headers={"Referer": referer or url})
-                if api_resp.ok:
-                    body = api_resp.body()
-                    if body and len(body) >= min_bytes and b"Just a moment" not in body[:600]:
-                        browser.close()
-                        return body
-            except Exception as exc_req:
-                print(f"[Playwright Binary Request] {url}: {exc_req}")
+            b_out = _browser_fetch_binary(ctx, page, url, referer, min_bytes)
             browser.close()
+            if b_out:
+                return b_out
     except Exception as exc_pw:
-        print(f"[Playwright Binary Fallback] {url}: {exc_pw}")
+        print(f"[Playwright Binary] {url}: {exc_pw}")
     return b""
 
 
 def extract_pdf_text(pdf_bytes: bytes) -> str:
-    """Extract plain text from a live-downloaded PDF (FSC Spotlight, FMA Report, RBNZ FSR, ACC Report)."""
+    """Extract plain text from a live-downloaded PDF (Kāinga Ora, FSC Spotlight, FMA Report, RBNZ FSR, ACC)."""
     if not pdf_bytes or not pdf_bytes.startswith(b"%PDF"):
         return ""
     try:
@@ -2117,6 +2264,31 @@ def fetch_html_with_browser_fallback(session, urls: list[str], label: str = "Web
     if not missing:
         return results
 
+    # Tier 2: Camoufox for Cloudflare-protected pages
+    still_missing: list[str] = []
+    try:
+        from camoufox.sync_api import Camoufox
+        with Camoufox(headless=True) as browser:
+            ctx = browser.new_context(locale="en-NZ")
+            page = ctx.new_page()
+            for u in missing:
+                try:
+                    page.goto(u, wait_until="domcontentloaded", timeout=35000)
+                    page.wait_for_timeout(2000)
+                    content = page.content()
+                    if len(content) > 1200 and "Just a moment" not in content[:600]:
+                        results[u] = content
+                    else:
+                        still_missing.append(u)
+                except Exception:
+                    still_missing.append(u)
+    except Exception:
+        still_missing = list(missing)
+
+    if not still_missing:
+        return results
+
+    # Tier 3: Playwright Chromium
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
@@ -2130,7 +2302,7 @@ def fetch_html_with_browser_fallback(session, urls: list[str], label: str = "Web
                 locale="en-NZ",
             )
             page = ctx.new_page()
-            for u in missing:
+            for u in still_missing:
                 try:
                     page.goto(u, wait_until="domcontentloaded", timeout=35000)
                     page.wait_for_timeout(1800)
@@ -2145,10 +2317,49 @@ def fetch_html_with_browser_fallback(session, urls: list[str], label: str = "Web
     return results
 
 
+def _download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: list[str], found: dict, tag: str) -> None:
+    """Download RBNZ .xlsx workbooks inside an active Camoufox or Playwright browser session."""
+    try:
+        page.goto(RBNZ_WARMUP_URL, wait_until="domcontentloaded", timeout=30000)
+        page.wait_for_timeout(2200)
+    except Exception:
+        pass
+
+    for key in list(keys_to_get):
+        cfg = RBNZ_SOURCES[key]
+        b_data = _browser_fetch_binary(ctx, page, cfg["xlsx"], RBNZ_WARMUP_URL, 15_000)
+        if b_data and b_data[:2] == b"PK":
+            tmp_p = root / f"tmp_{key}.xlsx"
+            tmp_p.write_bytes(b_data)
+            found[key] = tmp_p
+            print(f"[RBNZ {tag}] Downloaded live {key.upper()} workbook ({len(b_data):,} bytes)")
+            continue
+
+        for pg_url in cfg["pages"]:
+            try:
+                page.goto(pg_url, wait_until="domcontentloaded", timeout=35000)
+                page.wait_for_timeout(1800)
+                pg_html = page.content()
+                for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', pg_html, flags=re.I):
+                    if cfg["match"] in href.lower():
+                        full_u = "https://www.rbnz.govt.nz" + href if href.startswith("/") else href
+                        b2 = _browser_fetch_binary(ctx, page, full_u, pg_url, 15_000)
+                        if b2 and b2[:2] == b"PK":
+                            tmp_p = root / f"tmp_{key}.xlsx"
+                            tmp_p.write_bytes(b2)
+                            found[key] = tmp_p
+                            print(f"[RBNZ {tag}] Discovered & downloaded {key.upper()} ({len(b2):,} bytes)")
+                            break
+                if key in found and found[key].name.startswith("tmp_"):
+                    break
+            except Exception as exc_pg:
+                print(f"[RBNZ {tag}] Page {pg_url}: {exc_pg}")
+
+
 def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Path]:
-    """Download live RBNZ .xlsx workbooks using HTTP + Playwright browser fallback."""
+    """Download live RBNZ .xlsx workbooks using HTTP -> Camoufox -> Playwright browser fallback."""
     found: dict[str, pathlib.Path] = {}
-    needs_pw: list[str] = []
+    needs_browser: list[str] = []
 
     for key, cfg in RBNZ_SOURCES.items():
         local_candidates = sorted(root.glob(f"*{cfg['match']}*.xlsx"))
@@ -2162,12 +2373,23 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
             tmp_p = root / f"tmp_{key}.xlsx"
             tmp_p.write_bytes(raw)
             found[key] = tmp_p
-            print(f"[RBNZ] Downloaded live {key.upper()} workbook via HTTP ({len(raw):,} bytes)")
+            print(f"[RBNZ HTTP] Downloaded live {key.upper()} workbook ({len(raw):,} bytes)")
             continue
 
-        needs_pw.append(key)
+        needs_browser.append(key)
 
-    if needs_pw:
+    if needs_browser:
+        try:
+            from camoufox.sync_api import Camoufox
+            with Camoufox(headless=True) as browser:
+                ctx = browser.new_context(locale="en-NZ", accept_downloads=True)
+                page = ctx.new_page()
+                _download_rbnz_in_context(ctx, page, root, needs_browser, found, "Camoufox")
+        except Exception as exc_cf:
+            print(f"[RBNZ Camoufox] Note: {exc_cf}")
+
+    still_needed = [k for k in needs_browser if k not in found or not found[k].name.startswith("tmp_")]
+    if still_needed:
         try:
             from playwright.sync_api import sync_playwright
             with sync_playwright() as p:
@@ -2182,53 +2404,10 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
                     accept_downloads=True,
                 )
                 page = ctx.new_page()
-                try:
-                    page.goto(RBNZ_WARMUP_URL, wait_until="domcontentloaded", timeout=30000)
-                    page.wait_for_timeout(1800)
-                except Exception:
-                    pass
-
-                for key in needs_pw:
-                    cfg = RBNZ_SOURCES[key]
-                    # 1. Try direct .xlsx URL inside authenticated Playwright context
-                    try:
-                        resp = ctx.request.get(cfg["xlsx"], timeout=40000, headers={"Referer": RBNZ_WARMUP_URL})
-                        if resp.ok:
-                            b_data = resp.body()
-                            if b_data and b_data[:2] == b"PK" and len(b_data) > 15_000:
-                                tmp_p = root / f"tmp_{key}.xlsx"
-                                tmp_p.write_bytes(b_data)
-                                found[key] = tmp_p
-                                print(f"[RBNZ Playwright] Downloaded live {key.upper()} workbook ({len(b_data):,} bytes)")
-                                continue
-                    except Exception:
-                        pass
-
-                    # 2. Visit series landing pages to discover current .xlsx href and download
-                    for pg_url in cfg["pages"]:
-                        try:
-                            page.goto(pg_url, wait_until="domcontentloaded", timeout=35000)
-                            page.wait_for_timeout(1500)
-                            pg_html = page.content()
-                            for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', pg_html, flags=re.I):
-                                if cfg["match"] in href.lower():
-                                    full_u = "https://www.rbnz.govt.nz" + href if href.startswith("/") else href
-                                    r2 = ctx.request.get(full_u, timeout=40000, headers={"Referer": pg_url})
-                                    if r2.ok:
-                                        b2 = r2.body()
-                                        if b2 and b2[:2] == b"PK" and len(b2) > 15_000:
-                                            tmp_p = root / f"tmp_{key}.xlsx"
-                                            tmp_p.write_bytes(b2)
-                                            found[key] = tmp_p
-                                            print(f"[RBNZ Playwright] Discovered & downloaded {key.upper()} ({len(b2):,} bytes)")
-                                            break
-                            if key in found and found[key].name.startswith("tmp_"):
-                                break
-                        except Exception as exc_pg:
-                            print(f"[RBNZ Playwright] Page {pg_url}: {exc_pg}")
+                _download_rbnz_in_context(ctx, page, root, still_needed, found, "Playwright")
                 browser.close()
         except Exception as exc_pw:
-            print(f"[RBNZ Playwright Fallback] Note: {exc_pw}")
+            print(f"[RBNZ Playwright] Note: {exc_pw}")
 
     return found
 
@@ -2244,8 +2423,7 @@ def extract_rbnz_published_date(filepath: pathlib.Path) -> str:
                 joined = " ".join(row_vals)
                 m = re.search(
                     r"(?:published|release date|last updated|updated on)[:\s]+(\d{1,2}\s+[A-Za-z]+\s+20\d{2}|20\d{2}-\d{2}-\d{2})",
-                    joined,
-                    flags=re.I,
+                    joined, flags=re.I,
                 )
                 if m:
                     dt_p = pd.to_datetime(m.group(1), errors="coerce")
@@ -2257,14 +2435,13 @@ def extract_rbnz_published_date(filepath: pathlib.Path) -> str:
 
 
 def extract_html_release_date(html_str: str, fallback_schedule: str) -> str:
-    """Extract official release date from Stats NZ / IRD / MBIE HTML without copying period_end."""
+    """Extract official release date from Stats NZ / IRD / MBIE / Kāinga Ora HTML without copying period_end."""
     if html_str:
         txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html_str[:18000]))
-        patterns = [
+        for pat in (
             r"(?:released|published|last updated|date published)[:\s]+(\d{1,2}\s+[A-Za-z]+\s+20\d{2})",
             r"(\d{1,2}\s+[A-Za-z]+\s+20\d{2})\s+(?:information release|release)",
-        ]
-        for pat in patterns:
+        ):
             m = re.search(pat, txt, flags=re.I)
             if m:
                 dt_p = pd.to_datetime(m.group(1), errors="coerce")
@@ -2285,8 +2462,7 @@ def load_rbnz_sheets(filepath: pathlib.Path) -> list[tuple[str, pd.DataFrame, li
 
         date_row_start = None
         for r_idx in range(min(30, len(raw))):
-            v0 = raw.iloc[r_idx, 0]
-            dt = pd.to_datetime(v0, errors="coerce")
+            dt = pd.to_datetime(raw.iloc[r_idx, 0], errors="coerce")
             if pd.notna(dt) and 1990 <= dt.year <= 2035:
                 date_row_start = r_idx
                 break
@@ -2308,8 +2484,7 @@ def load_rbnz_sheets(filepath: pathlib.Path) -> list[tuple[str, pd.DataFrame, li
                     code_found = cell_s.upper()
                     break
             series_codes.append(code_found)
-            clean_lbl = re.sub(r"\s+", " ", " | ".join(col_cells)).lower()
-            col_labels.append(clean_lbl)
+            col_labels.append(re.sub(r"\s+", " ", " | ".join(col_cells)).lower())
 
         data_df = raw.iloc[date_row_start:, :].copy()
         data_df["date"] = pd.to_datetime(data_df.iloc[:, 0], errors="coerce")
@@ -2356,8 +2531,7 @@ def find_rbnz_series(
 
 def month_end_iso(dt: pd.Timestamp) -> str:
     ts = pd.Timestamp(dt)
-    end_dt = ts + pd.offsets.MonthEnd(0)
-    return end_dt.strftime("%Y-%m-%d")
+    return (ts + pd.offsets.MonthEnd(0)).strftime("%Y-%m-%d")
 
 
 def is_fresh(as_of_iso: str, max_age_days: int) -> bool:
@@ -2381,8 +2555,7 @@ def plain_prior_year_pct(curr_pct: float, prev_pct: float) -> str:
     diff = curr_pct - prev_pct
     if abs(diff) < 0.05:
         return f"unchanged from {prev_pct:.1f}% a year earlier"
-    direction = "up from" if diff > 0 else "down from"
-    return f"{direction} {prev_pct:.1f}% a year earlier"
+    return f"{'up from' if diff > 0 else 'down from'} {prev_pct:.1f}% a year earlier"
 
 
 def plain_yoy_growth(curr_val: float, prev_val: float) -> str:
@@ -2409,6 +2582,58 @@ def make_history_list(dates: pd.Series, values: pd.Series, fmt_fn, limit: int = 
     return list(reversed(rows[-limit:]))
 
 
+def resolve_raw_file_and_glossary_html(source_label: str, source_url: str, calc_live: str) -> str:
+    """Build direct raw-file download link (.xlsx/.csv/.pdf) and verified HLF Glossary anchor links."""
+    s_low = f"{source_label} {source_url} {calc_live}".lower()
+    raw_link_html = ""
+    for r_key, r_cfg in RBNZ_SOURCES.items():
+        if f"table {r_key}" in s_low or f"rbnz {r_key}" in s_low or f"/{r_key}/" in s_low:
+            raw_link_html = f' &bull; <a href="{r_cfg["xlsx"]}" target="_blank" rel="noopener">Direct RBNZ {r_key.upper()} .xlsx</a>'
+            break
+    if not raw_link_html and any(source_url.lower().endswith(ext) for ext in (".xlsx", ".csv", ".pdf")):
+        ext_lbl = source_url.rsplit(".", 1)[-1].upper()
+        raw_link_html = f' &bull; <a href="{source_url}" target="_blank" rel="noopener">Direct {ext_lbl} source file</a>'
+
+    g_links: list[tuple[str, str]] = []
+    if any(k in s_low for k in ("dti", "debt-to-income", "c40", "c41", "gross income")):
+        g_links.append(("Debt-to-Income (DTI)", f"{GLOSSARY_BASE_URL}#dti"))
+    if any(k in s_low for k in ("lvr", "low-deposit", "c31", "80%", "deposit")):
+        g_links.append(("Loan-to-Value Ratio (LVR)", f"{GLOSSARY_BASE_URL}#lvr"))
+    if any(k in s_low for k in ("kāinga ora", "kainga ora", "first home loan", "lmi")):
+        g_links.append(("Kāinga Ora First Home Loan", f"{GLOSSARY_BASE_URL}#first-home-loan"))
+        g_links.append(("Lenders Mortgage Insurance (LMI)", f"{GLOSSARY_BASE_URL}#lmi"))
+    if any(k in s_low for k in ("interest-only", "c32")):
+        g_links.append(("Interest-Only Mortgage", f"{GLOSSARY_BASE_URL}#interest-only"))
+    if any(k in s_low for k in ("refinanc", "top-up", "equity", "c33")):
+        g_links.append(("Refinancing", f"{GLOSSARY_BASE_URL}#refinancing"))
+        g_links.append(("Usable Equity", f"{GLOSSARY_BASE_URL}#usable-equity"))
+    if any(k in s_low for k in ("kiwisaver", "t43", "fma")):
+        g_links.append(("KiwiSaver First-Home Withdrawal", f"{GLOSSARY_BASE_URL}#kiwisaver-first-home-withdrawal"))
+    if any(k in s_low for k in ("second-chance", "previous owner", "previous homeowner")):
+        g_links.append(("Second-Chance KiwiSaver Withdrawal", f"{GLOSSARY_BASE_URL}#second-chance-withdrawal"))
+    if any(k in s_low for k in ("settled", "b30", "s33", "fixed", "floating")):
+        g_links.append(("Fixed vs Floating Interest Rate", f"{GLOSSARY_BASE_URL}#fixed-rate"))
+    if any(k in s_low for k in ("consent", "new build", "turnkey", "dwelling")):
+        g_links.append(("Turnkey vs Construction Loan", f"{GLOSSARY_BASE_URL}#turnkey"))
+    if any(k in s_low for k in ("rent", "bond", "tenancy")):
+        g_links.append(("Gross Rental Yield", f"{GLOSSARY_BASE_URL}#rental-yield"))
+    if any(k in s_low for k in ("insurance", "nhc", "acc", "trauma", "claim", "j10")):
+        g_links.append(("Sum Insured & Income Protection", f"{GLOSSARY_BASE_URL}#income-protection"))
+    if not g_links:
+        g_links.append(("HLF Financial & Mortgage Glossary", GLOSSARY_BASE_URL))
+
+    seen = set()
+    dedup_g = []
+    for lbl, u in g_links:
+        if u not in seen:
+            seen.add(u)
+            dedup_g.append(f'<a href="{u}" target="_blank" rel="noopener">{lbl}</a>')
+        if len(dedup_g) == 2:
+            break
+    glossary_part = f" &bull; <strong>Glossary:</strong> {' &middot; '.join(dedup_g)}" if dedup_g else ""
+    return raw_link_html + glossary_part
+
+
 def format_provenance_source_html(
     calc_live: str,
     source_label: str,
@@ -2416,17 +2641,18 @@ def format_provenance_source_html(
     is_derived: bool = True,
     checked_human: str = "",
 ) -> str:
-    """Build the structured provenance dropdown HTML shown when a user expands the source chip."""
+    """Build the structured provenance dropdown HTML with direct source file links & HLF Glossary anchors."""
     deriv_tag = (
         f"Derived by HLF Pulse ({HLF_LICENSE_SHORT})"
         if is_derived
         else f"Official figure curated by HLF Pulse ({HLF_LICENSE_SHORT})"
     )
     chk_part = f" &bull; Checked: {checked_human}" if checked_human else ""
+    extra_links = resolve_raw_file_and_glossary_html(source_label, source_url, calc_live)
     return (
         f"<strong>HLF calculation:</strong> <code>{calc_live}</code><br>"
-        f'<strong>Source:</strong> <a href="{source_url}" target="_blank" rel="noopener">{source_label}</a> '
-        f"&bull; {deriv_tag}{chk_part}."
+        f'<strong>Source:</strong> <a href="{source_url}" target="_blank" rel="noopener">{source_label}</a>'
+        f"{extra_links} &bull; {deriv_tag}{chk_part}."
     )
 # === END OF PART 3A ===
 # === PART 3B OF 5 ===
@@ -4467,8 +4693,129 @@ def build_tenancy_tickers(session) -> dict:
     return out
 # === END OF PART 4C ===
 # === PART 4D OF 5 ===
+def build_kainga_ora_tickers(session) -> dict:
+    """100% live-pulled Kāinga Ora Quarterly & Annual Report PDFs (CC BY 4.0; zero hardcoded fallbacks)."""
+    out: dict = {}
+    today = datetime.datetime.now(datetime.timezone.utc).date()
+    ko_pages = fetch_html_with_browser_fallback(session, [KAINGA_ORA_QTR_REPORT_PAGE, KAINGA_ORA_ANN_REPORT_PAGE], "Kāinga Ora")
+
+    qtr_html = ko_pages.get(KAINGA_ORA_QTR_REPORT_PAGE, "")
+    if qtr_html:
+        qtr_pub = extract_html_release_date(qtr_html, "Quarterly Kāinga Ora Home Ownership Products Report release (CC BY 4.0)")
+        pdf_urls = list(dict.fromkeys(
+            "https://kaingaora.govt.nz" + h if h.startswith("/") else h
+            for h in re.findall(r'href=["\']([^"\']+\.pdf[^"\']*)["\']', qtr_html, flags=re.I)
+        ))
+        q_pat = r"((?:Apr|April|Jul|July|Oct|October|Jan|January)\s*[-–—to]+\s*(?:Jun|June|Sep|Sept|September|Dec|December|Mar|March)\s*20\d{2})"
+
+        for pdf_u in pdf_urls[:3]:
+            pdf_txt = extract_pdf_text(fetch_bytes_with_browser_fallback(session, pdf_u, referer=KAINGA_ORA_QTR_REPORT_PAGE, min_bytes=10_000))
+            if len(pdf_txt) < 400:
+                continue
+            q_labels_all = re.findall(q_pat, pdf_txt, flags=re.I)
+            latest_q_str = q_labels_all[-1] if q_labels_all else "Latest quarter"
+            q_end_iso = today.strftime("%Y-%m-%d")
+            m_q_yr = re.search(r"(Jun|June|Sep|Sept|September|Dec|December|Mar|March)\s*(20\d{2})", latest_q_str, flags=re.I)
+            if m_q_yr:
+                mon_num = {"mar": 3, "jun": 6, "sep": 9, "dec": 12}.get(m_q_yr.group(1).lower()[:3], 6)
+                q_end_iso = month_end_iso(pd.Timestamp(datetime.date(int(m_q_yr.group(2)), mon_num, 1)))
+
+            # A. Parse 'Previous Owner Savings Withdrawal Applications' (Second-Chance KiwiSaver Approvals)
+            m_sc = re.search(r"Previous\s+Owner\s+Savings\s+Withdrawal\s+Applications(.{100,1800})", pdf_txt, flags=re.I)
+            if m_sc:
+                sc_win = m_sc.group(1)
+                q_list = re.findall(q_pat, sc_win, flags=re.I)
+                cln = re.sub(r"(?:1,?[468]00\s+)?(?:1,?400\s+)?1,?200\s+1,?000\s+800\s+600\s+400\s+200(?:\s+0)?|0\s+200\s+400\s+600\s+800\s+1,?000\s+1,?200(?:\s+1,?400)?", " ", sc_win)
+                for qm in q_list:
+                    cln = cln.replace(qm, " ")
+                cln = re.sub(r"\b(?:1\s+October|30\s+September|1\s+July|30\s+June|31\s+March|31\s+December)\s+20\d{2}\b|\b20[12]\d\b", " ", cln, flags=re.I)
+                sc_nums = [int(n.replace(",", "")) for n in re.findall(r"\b\d{1,2},\d{3}\b|\b\d{3,4}\b", cln) if 250 <= int(n.replace(",", "")) <= 4000]
+                n_q = len(q_list)
+                if n_q >= 4 and len(sc_nums) >= 2 * n_q:
+                    cand = sc_nums[: 2 * n_q]
+                    ilv = [(cand[2 * i], cand[2 * i + 1]) for i in range(n_q)]
+                    grp = [(cand[i], cand[i + n_q]) for i in range(n_q)]
+                    app_s = [a for _, a in ilv] if all(r >= a for r, a in ilv) else ([a for _, a in grp] if all(r >= a for r, a in grp) else [min(cand[2 * i], cand[2 * i + 1]) for i in range(n_q)])
+                    curr_q, curr_a = re.sub(r"\s+", " ", q_list[-1]).strip(), app_s[-1]
+                    prev_q, prev_a = re.sub(r"\s+", " ", q_list[-2]).strip(), app_s[-2]
+                    roll_12m, mth_a = sum(app_s[-4:]), int(round(curr_a / 3.0))
+                    yoy_cl, yoy_chg = "", f"{curr_a - prev_a:+,d} vs prior quarter ({prev_q}: {prev_a:,})"
+                    if n_q >= 5:
+                        yq, ya = re.sub(r"\s+", " ", q_list[-5]).strip(), app_s[-5]
+                        ypct = ((curr_a - ya) / max(1, ya)) * 100.0
+                        yoy_cl = f" ({plain_yoy_growth(curr_a, ya)} from {ya:,} in {yq})"
+                        yoy_chg = f"{curr_a - ya:+,d} ({ypct:+.1f}%) YoY vs {yq} ({ya:,})"
+                    sc_calc = f"12-Month Rolling Approvals: {' + '.join(f'{x:,}' for x in app_s[-4:])} = {roll_12m:,} approvals/yr | Latest Quarter ({curr_q}): {curr_a:,} approvals (÷ 3 = {mth_a:,}/mth)"
+                    sc_hist = [{"period": re.sub(r"\s+", " ", ql).strip(), "label": re.sub(r"\s+", " ", ql).strip(), "value": av, "formatted": f"{av:,} approvals"} for ql, av in reversed(list(zip(q_list, app_s)))]
+                    out["kainga-ora-second-chance-kiwisaver-approvals"] = make_pulse_item(
+                        "Kāinga Ora Report", q_end_iso, MAX_AGE_QUARTERLY,
+                        f"In the {curr_q} quarter, Kāinga Ora approved <strong>{curr_a:,} 'second-chance' (Previous Homeowner) KiwiSaver savings withdrawal applications</strong>{yoy_cl} (~{mth_a:,}/month), bringing the rolling 12-month total to <strong>{roll_12m:,} approved previous homeowners</strong>.",
+                        f"Kāinga Ora Home Ownership Products Report ({curr_q}): Previous Owner Savings Withdrawal Applications Approved = {curr_a:,} in {curr_q} ({roll_12m:,} over rolling 4 quarters).",
+                        format_provenance_source_html(sc_calc, f"Kāinga Ora — Home Ownership Products Quarterly Report ({curr_q})", pdf_u, True),
+                        curr_q, curr_a, f"{curr_a:,} approvals in {curr_q} ({roll_12m:,} over 12 months)",
+                        f"Prior quarter ({prev_q}): {prev_a:,} approvals", yoy_chg, sc_calc,
+                        f"Kāinga Ora 5-quarter published series ({q_list[0]} to {curr_q})", sc_hist,
+                        {"source_published": qtr_pub, "source_url": pdf_u},
+                    )
+
+            # B. Parse First Home Loan Quarterly Approvals, Settlements & City Breakdown
+            p8 = r"([\d,]+)\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)"
+            m_tot = re.search(r"Total\s+" + p8, pdf_txt, flags=re.I)
+            if m_tot:
+                v8 = [int(m_tot.group(i).replace(",", "")) for i in range(1, 9)]
+                if v8[0] + v8[1] + v8[2] == v8[3] and v8[4] + v8[5] + v8[6] == v8[7] and v8[3] > 200:
+                    m1a, m2a, m3a, q_app, m1s, m2s, m3s, q_set = v8
+                    ma_app, ma_set, conv = int(round(q_app / 3.0)), int(round(q_set / 3.0)), (q_set / max(1, q_app)) * 100.0
+                    c_rows = []
+                    for c_lbl, c_p in (("Auckland", r"Auckland(?:\s+City)?"), ("Christchurch City", r"Christchurch\s+City"), ("Hamilton City", r"Hamilton\s+City"), ("Wellington City", r"Wellington\s+City"), ("Tauranga City", r"Tauranga\s+City"), ("Lower Hutt City", r"Lower\s+Hutt\s+City"), ("Dunedin City", r"Dunedin\s+City")):
+                        mc = re.search(c_p + r"\s+" + p8, pdf_txt, flags=re.I)
+                        if mc:
+                            cv = [int(mc.group(i).replace(",", "")) for i in range(1, 9)]
+                            if cv[0] + cv[1] + cv[2] == cv[3] and cv[4] + cv[5] + cv[6] == cv[7]:
+                                c_rows.append({"period": c_lbl, "label": c_lbl, "value": cv[3], "formatted": f"{cv[3]:,} approvals ({(cv[3]/max(1,q_app))*100:.1f}% of NZ) | {cv[7]:,} settlements"})
+                    c_cl = f", led by <strong>{c_rows[0]['label']} ({c_rows[0]['value']:,} approvals)</strong> and <strong>{c_rows[1]['label']} ({c_rows[1]['value']:,} approvals)</strong>" if len(c_rows) >= 2 else ""
+                    fhl_calc = f"Quarterly Approvals: {m1a:,} + {m2a:,} + {m3a:,} = {q_app:,} ({ma_app:,}/mth) | Quarterly Settlements: {m1s:,} + {m2s:,} + {m3s:,} = {q_set:,} ({ma_set:,}/mth; {conv:.1f}% settlement ratio)"
+                    out["kainga-ora-first-home-loan-approvals"] = make_pulse_item(
+                        "Kāinga Ora Report", q_end_iso, MAX_AGE_QUARTERLY,
+                        f"In the {latest_q_str} quarter, Kāinga Ora recorded <strong>{q_app:,} First Home Loan (5% deposit) approvals</strong> (~{ma_app:,}/month) and <strong>{q_set:,} loan settlements</strong> (~{ma_set:,}/month, a <strong>{conv:.1f}%</strong> settlement-to-approval rate) across New Zealand{c_cl}.",
+                        f"Kāinga Ora Home Ownership Products Report ({latest_q_str}): First Home Loan approvals = {q_app:,} ({m1a:,}, {m2a:,}, {m3a:,}); settlements = {q_set:,} ({m1s:,}, {m2s:,}, {m3s:,}).",
+                        format_provenance_source_html(fhl_calc, f"Kāinga Ora — Home Ownership Products Quarterly Report ({latest_q_str})", pdf_u, True),
+                        latest_q_str, q_app, f"{q_app:,} approvals ({ma_app:,}/mth) | {q_set:,} settlements ({conv:.1f}%)",
+                        f"Monthly approvals in quarter: {m1a:,}, {m2a:,}, {m3a:,}", f"{q_set:,} First Home Loans settled in {latest_q_str}",
+                        fhl_calc, f"Kāinga Ora Territorial Local Authority series ({latest_q_str})", c_rows if c_rows else None,
+                        {"source_published": qtr_pub, "source_url": pdf_u},
+                    )
+            if out:
+                break
+
+    ann_html = ko_pages.get(KAINGA_ORA_ANN_REPORT_PAGE, "")
+    if ann_html:
+        ann_pub = extract_html_release_date(ann_html, "Annual Kāinga Ora Corporate Report release (CC BY 4.0)")
+        ann_pdfs = ["https://kaingaora.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.pdf[^"\']*)["\']', ann_html, flags=re.I) if "annual" in h.lower() or "report" in h.lower()]
+        for apdf_u in ann_pdfs[:2]:
+            apdf_txt = extract_pdf_text(fetch_bytes_with_browser_fallback(session, apdf_u, referer=KAINGA_ORA_ANN_REPORT_PAGE, min_bytes=30_000))
+            m_uw = re.search(r"Number\s+of\s+First\s+Home\s+Loan\s+mortgages\s+underwritten[^\d]{0,80}(?:\d[\d,]*\s+)?([345],\d{3})", apdf_txt, flags=re.I)
+            if m_uw:
+                uw_cnt = int(m_uw.group(1).replace(",", ""))
+                mth_uw = int(round(uw_cnt / 12.0))
+                m_fy = re.search(r"30\s+June\s+(202[567])", apdf_txt)
+                fy_yr = int(m_fy.group(1)) if m_fy else (today.year if today.month >= 7 else today.year - 1)
+                uw_calc = f"Official Kāinga Ora SPE 4.1 First Home Loans underwritten = {uw_cnt:,}/yr (÷ 12 = {mth_uw:,}/mth)"
+                out["kainga-ora-underwritten-loan-book"] = make_pulse_item(
+                    "Kāinga Ora Annual Report", f"{fy_yr}-06-30", MAX_AGE_ANNUAL,
+                    f"Over the financial year ended 30 June {fy_yr}, Kāinga Ora underwrote <strong>{uw_cnt:,} First Home Loan (5% deposit) mortgages</strong> across New Zealand (~{mth_uw:,} mortgages per month) under the Crown Mortgage Insurance Scheme.",
+                    f"Kāinga Ora Annual Report (Year ended 30 June {fy_yr}, SPE 4.1): First Home Loan mortgages underwritten = {uw_cnt:,}.",
+                    format_provenance_source_html(uw_calc, f"Kāinga Ora — Annual Report {fy_yr - 1}/{str(fy_yr)[-2:]} (SPE 4.1)", apdf_u, True),
+                    f"Year ended 30 June {fy_yr}", uw_cnt, f"{uw_cnt:,} First Home Loans underwritten/yr (~{mth_uw:,}/mth)",
+                    "Crown Mortgage Insurance Scheme (5% deposit First Home Loan)", f"Averaged {mth_uw:,} underwritten 5%-deposit mortgages per month",
+                    uw_calc, f"Kāinga Ora Annual Report (FY{fy_yr})", None, {"source_published": ann_pub, "source_url": apdf_u},
+                )
+                break
+    return out
+
+
 def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
-    """100% live-pulled Inland Revenue (IRD), FMA & RBNZ Table T43 KiwiSaver & Student Loan datasets (zero hardcoded fallbacks)."""
+    """100% live-pulled Inland Revenue (IRD), FMA, RBNZ Table T43 & Kāinga Ora datasets (zero hardcoded fallbacks)."""
     out = {}
     today = datetime.datetime.now(datetime.timezone.utc).date()
     ird_urls = [
@@ -4477,15 +4824,11 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
     ]
     pages = fetch_html_with_browser_fallback(session, ird_urls, "IRD / FMA")
 
-    # 1. Student Loan Servicing
     sl_html = pages.get(IRD_SL_BAL_PAGE, "")
     if sl_html:
         sl_pub = extract_html_release_date(sl_html, "Quarterly Inland Revenue Student Loan statistics release")
         sl_text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", sl_html))
-        m_med = re.search(
-            r"Median student loan balance\s+(?:increased|decreased)\s+by\s+[\d.]+%\s+from\s+\$([\d,]+)\s+in\s+([A-Za-z]+\s+\d{4})\s+to\s+\$([\d,]+)\s+in\s+([A-Za-z]+\s+\d{4})",
-            sl_text, flags=re.I,
-        )
+        m_med = re.search(r"Median student loan balance\s+(?:increased|decreased)\s+by\s+[\d.]+%\s+from\s+\$([\d,]+)\s+in\s+([A-Za-z]+\s+\d{4})\s+to\s+\$([\d,]+)\s+in\s+([A-Za-z]+\s+\d{4})", sl_text, flags=re.I)
         if m_med:
             prev_bal, prev_lbl, curr_bal = int(m_med.group(1).replace(",", "")), m_med.group(2), int(m_med.group(3).replace(",", ""))
             dt_sl = pd.to_datetime("1 " + m_med.group(4), errors="coerce")
@@ -4501,10 +4844,9 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                     f"${curr_bal - prev_bal:+,d} ({pct_sl:+.1f}%)", sl_calc, f"Inland Revenue release ({m_full})", None, {"source_published": sl_pub},
                 )
 
-    # 2 & 3. KiwiSaver First-Home & Financial Hardship Withdrawals
     num_html, amt_html = pages.get(IRD_KS_NUM_PAGE, ""), pages.get(IRD_KS_AMT_PAGE, "")
     if num_html and amt_html:
-        wd_pub_date = extract_html_release_date(amt_html, "Monthly Inland Revenue KiwiSaver withdrawal statistics release")
+        wd_pub = extract_html_release_date(amt_html, "Monthly Inland Revenue KiwiSaver withdrawal statistics release")
         num_txt, amt_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", num_html)), re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", amt_html))
         mn = re.search(r"In\s+([A-Za-z]+\s+\d{4}):.*?([\d,]+)\s+members have withdrawn their savings for the purpose of first home purchase", num_txt, flags=re.I)
         ma = re.search(r"In\s+([A-Za-z]+\s+\d{4}):.*?\$([\d,.]+)\s+million was attributable to first home purchase(?:,\s+(?:up|down)\s+from\s+\$([\d,.]+)\s+million)?", amt_txt, flags=re.I)
@@ -4513,98 +4855,79 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
             if pd.notna(dt_ks):
                 ks_m_full, ks_m_as_of = dt_ks.strftime("%B %Y"), month_end_iso(dt_ks)
                 fh_cnt, fh_amt_m = int(mn.group(2).replace(",", "")), float(ma.group(2).replace(",", ""))
-                fh_prev_amt_m = float(ma.group(3).replace(",", "")) if ma.group(3) else None
-                avg_mem_nzd = int(round((fh_amt_m * 1_000_000.0) / max(1, fh_cnt)))
-                fh_calc = f"Monthly mean: ${fh_amt_m:,.1f}m × $1,000,000 ÷ {fh_cnt:,} members = ${avg_mem_nzd:,}/member"
+                fh_prev_m = float(ma.group(3).replace(",", "")) if ma.group(3) else None
+                avg_mem = int(round((fh_amt_m * 1e6) / max(1, fh_cnt)))
+                fh_calc = f"Monthly mean: ${fh_amt_m:,.1f}m × $1,000,000 ÷ {fh_cnt:,} members = ${avg_mem:,}/member"
                 out["kiwisaver-first-home"] = make_pulse_item(
                     "Inland Revenue", ks_m_as_of, MAX_AGE_MONTHLY,
-                    f"In {ks_m_full}, <strong>{fh_cnt:,}</strong> KiwiSaver members withdrew a combined <strong>${fh_amt_m:,.1f}m</strong> toward a first home—an average of <strong>${avg_mem_nzd:,}</strong> per withdrawing member.",
+                    f"In {ks_m_full}, <strong>{fh_cnt:,}</strong> KiwiSaver members withdrew a combined <strong>${fh_amt_m:,.1f}m</strong> toward a first home—an average of <strong>${avg_mem:,}</strong> per withdrawing member.",
                     f"Inland Revenue KiwiSaver Withdrawals ({ks_m_full}): First-home withdrawals = {fh_cnt:,} members and ${fh_amt_m:,.1f}m.",
                     format_provenance_source_html(fh_calc, "Inland Revenue — KiwiSaver Withdrawal Statistics", IRD_KS_DATA_PAGE, True),
-                    ks_m_full, round(fh_amt_m, 1), f"${fh_amt_m:,.1f}m across {fh_cnt:,} members (avg ${avg_mem_nzd:,}/member)",
-                    f"Prior month: ${fh_prev_amt_m:,.1f}m" if fh_prev_amt_m is not None else "Monthly IRD withdrawal series",
-                    f"{fh_amt_m - fh_prev_amt_m:+.1f}m vs prior month" if fh_prev_amt_m is not None else f"${avg_mem_nzd:,} average per withdrawing member",
-                    fh_calc, f"Inland Revenue monthly series ({ks_m_full})", None, {"source_published": wd_pub_date},
+                    ks_m_full, round(fh_amt_m, 1), f"${fh_amt_m:,.1f}m across {fh_cnt:,} members (avg ${avg_mem:,}/member)",
+                    f"Prior month: ${fh_prev_m:,.1f}m" if fh_prev_m is not None else "Monthly IRD withdrawal series",
+                    f"{fh_amt_m - fh_prev_m:+.1f}m vs prior month" if fh_prev_m is not None else f"${avg_mem:,} average per withdrawing member",
+                    fh_calc, f"Inland Revenue monthly series ({ks_m_full})", None, {"source_published": wd_pub},
                 )
-
                 mn_h = re.search(r"([\d,]+)\s+members have withdrawn their savings for the purpose of financial hardship", num_txt, flags=re.I)
                 ma_h = re.search(r"\$([\d,.]+)\s+million was attributable to financial hardship(?:,\s+(?:up|down)\s+from\s+\$([\d,.]+)\s+million)?", amt_txt, flags=re.I)
                 if mn_h and ma_h:
                     hs_cnt, hs_amt_m = int(mn_h.group(1).replace(",", "")), float(ma_h.group(1).replace(",", ""))
                     hs_prev_m = float(ma_h.group(2).replace(",", "")) if ma_h.group(2) else None
-                    hs_avg_nzd = int(round((hs_amt_m * 1_000_000.0) / max(1, hs_cnt)))
-                    hs_calc = f"${hs_amt_m:,.1f}m × $1,000,000 ÷ {hs_cnt:,} members = ${hs_avg_nzd:,}/member"
+                    hs_avg = int(round((hs_amt_m * 1e6) / max(1, hs_cnt)))
+                    hs_calc = f"${hs_amt_m:,.1f}m × $1,000,000 ÷ {hs_cnt:,} members = ${hs_avg:,}/member"
                     out["kiwisaver-hardship-withdrawals"] = make_pulse_item(
                         "Inland Revenue", ks_m_as_of, MAX_AGE_MONTHLY,
-                        f"In {ks_m_full}, <strong>{hs_cnt:,}</strong> KiwiSaver members made a financial hardship withdrawal totalling <strong>${hs_amt_m:,.1f}m</strong>—an average of <strong>${hs_avg_nzd:,}</strong> per member.",
+                        f"In {ks_m_full}, <strong>{hs_cnt:,}</strong> KiwiSaver members made a financial hardship withdrawal totalling <strong>${hs_amt_m:,.1f}m</strong>—an average of <strong>${hs_avg:,}</strong> per member.",
                         f"Inland Revenue KiwiSaver Withdrawals ({ks_m_full}): Financial hardship withdrawals = {hs_cnt:,} members and ${hs_amt_m:,.1f}m.",
                         format_provenance_source_html(hs_calc, "Inland Revenue — KiwiSaver Withdrawal Statistics", IRD_KS_DATA_PAGE, True),
-                        ks_m_full, round(hs_amt_m, 1), f"${hs_amt_m:,.1f}m across {hs_cnt:,} members (avg ${hs_avg_nzd:,}/member)",
+                        ks_m_full, round(hs_amt_m, 1), f"${hs_amt_m:,.1f}m across {hs_cnt:,} members (avg ${hs_avg:,}/member)",
                         f"Prior month: ${hs_prev_m:,.1f}m" if hs_prev_m is not None else "Monthly IRD withdrawal series",
-                        f"{hs_amt_m - hs_prev_m:+.1f}m vs prior month" if hs_prev_m is not None else f"${hs_avg_nzd:,} average hardship withdrawal",
-                        hs_calc, f"Inland Revenue monthly series ({ks_m_full})", None, {"source_published": wd_pub_date},
+                        f"{hs_amt_m - hs_prev_m:+.1f}m vs prior month" if hs_prev_m is not None else f"${hs_avg:,} average hardship withdrawal",
+                        hs_calc, f"Inland Revenue monthly series ({ks_m_full})", None, {"source_published": wd_pub},
                     )
 
-    # 4. Regional KiwiSaver First-Home Withdrawals (16 Regions, Live HTML Table Parse)
     reg_html = pages.get(IRD_KS_REG_PAGE, "")
     if reg_html:
         try:
-            reg_pub_date = extract_html_release_date(reg_html, "Annual Inland Revenue regional KiwiSaver withdrawal release")
+            reg_pub = extract_html_release_date(reg_html, "Annual Inland Revenue regional KiwiSaver withdrawal release")
             m_yr = re.search(r"year ended 30 June (\d{4})", reg_html, flags=re.I)
-            fy_yr_reg = int(m_yr.group(1)) if m_yr else (today.year if today.month >= 7 else today.year - 1)
+            fy_reg = int(m_yr.group(1)) if m_yr else (today.year if today.month >= 7 else today.year - 1)
             ext = SimpleTableExtractor()
             ext.feed(reg_html)
             if len(ext.tables) >= 2:
-                amt_map, cnt_map = {}, {}
-                for row in ext.tables[0][1:]:
-                    if len(row) >= 3:
-                        r_name, v_str = row[0].strip(), re.sub(r"[^\d.]", "", row[-1])
-                        if r_name and v_str and r_name.lower() not in ("other", "total", "region"):
-                            amt_map[r_name.lower()] = (r_name, float(v_str))
-                for row in ext.tables[1][1:]:
-                    if len(row) >= 3:
-                        r_name, c_str = row[0].strip(), re.sub(r"[^\d.]", "", row[-1])
-                        if r_name and c_str and r_name.lower() in amt_map:
-                            cnt_map[r_name.lower()] = int(round(float(c_str)))
+                amt_map = {r[0].strip().lower(): (r[0].strip(), float(re.sub(r"[^\d.]", "", r[-1]))) for r in ext.tables[0][1:] if len(r) >= 3 and r[0].strip() and re.sub(r"[^\d.]", "", r[-1]) and r[0].strip().lower() not in ("other", "total", "region")}
+                cnt_map = {r[0].strip().lower(): int(round(float(re.sub(r"[^\d.]", "", r[-1])))) for r in ext.tables[1][1:] if len(r) >= 3 and r[0].strip().lower() in amt_map and re.sub(r"[^\d.]", "", r[-1])}
                 reg_list, tot_nzd, tot_mem = [], 0.0, 0
-                for k_low, (disp, nzd_val) in amt_map.items():
-                    c_val = cnt_map.get(k_low, 0)
-                    if c_val > 0:
-                        tot_nzd += nzd_val
-                        tot_mem += c_val
-                        clean_disp = disp.replace("Bay Of Plenty", "Bay of Plenty").replace("Hawkes Bay", "Hawke's Bay")
-                        reg_list.append((clean_disp, int(round(nzd_val / c_val)), c_val, round(nzd_val / 1e6, 2)))
+                for k_low, (disp, nzd_v) in amt_map.items():
+                    c_v = cnt_map.get(k_low, 0)
+                    if c_v > 0:
+                        tot_nzd += nzd_v
+                        tot_mem += c_v
+                        reg_list.append((disp.replace("Bay Of Plenty", "Bay of Plenty").replace("Hawkes Bay", "Hawke's Bay"), int(round(nzd_v / c_v)), c_v, round(nzd_v / 1e6, 2)))
                 if tot_mem > 0 and len(reg_list) >= 10:
                     reg_list.sort(key=lambda x: x[1], reverse=True)
-                    nz_avg_p = int(round(tot_nzd / tot_mem))
-                    high_reg_name, high_reg_avg, low_reg_name, low_reg_avg = reg_list[0][0], reg_list[0][1], reg_list[-1][0], reg_list[-1][1]
-                    akl_avg = dict((r[0], r[1]) for r in reg_list).get("Auckland", reg_list[1][1])
-                    ks_reg_calc = f"${tot_nzd:,.0f} ÷ {tot_mem:,} members = ${nz_avg_p:,}/member (Regional range: ${low_reg_avg:,}–${high_reg_avg:,})"
+                    nz_avg_p, h_n, h_a, l_n, l_a = int(round(tot_nzd / tot_mem)), reg_list[0][0], reg_list[0][1], reg_list[-1][0], reg_list[-1][1]
+                    akl_a = dict((r[0], r[1]) for r in reg_list).get("Auckland", reg_list[1][1])
+                    ks_reg_calc = f"${tot_nzd:,.0f} ÷ {tot_mem:,} members = ${nz_avg_p:,}/member (Regional range: ${l_a:,}–${h_a:,})"
                     out["fhb-regional-kiwisaver"] = make_pulse_item(
-                        "Inland Revenue", f"{fy_yr_reg}-06-30", MAX_AGE_ANNUAL,
-                        f"Over the year ended 30 June {fy_yr_reg}, <strong>{tot_mem:,} KiwiSaver members</strong> withdrew <strong>${tot_nzd/1e9:.2f}B</strong> toward a first home across New Zealand's 16 regions—averaging <strong>${nz_avg_p:,} per withdrawing member nationwide</strong>, from <strong>${high_reg_avg:,} in {high_reg_name}</strong> and <strong>${akl_avg:,} in Auckland</strong> to <strong>${low_reg_avg:,} in {low_reg_name}</strong>.",
-                        f"Inland Revenue Regional KiwiSaver Withdrawals (Year ended 30 June {fy_yr_reg}): {tot_mem:,} members withdrew ${tot_nzd:,.0f} across 16 NZ regions.",
-                        format_provenance_source_html(ks_reg_calc, f"Inland Revenue — KiwiSaver Fund Withdrawals by Region (Year ended Jun {fy_yr_reg})", IRD_KS_REG_PAGE, True),
-                        f"Year ended June {fy_yr_reg}", nz_avg_p,
-                        f"${nz_avg_p:,}/member NZ ({tot_mem:,} members / ${tot_nzd/1e9:.2f}B total)",
-                        f"Regional range: ${low_reg_avg:,}–${high_reg_avg:,} per member",
-                        f"Highest: {high_reg_name} ${high_reg_avg:,} | Lowest: {low_reg_name} ${low_reg_avg:,}",
-                        ks_reg_calc, f"16 NZ Regions (Year ended 30 June {fy_yr_reg})",
+                        "Inland Revenue", f"{fy_reg}-06-30", MAX_AGE_ANNUAL,
+                        f"Over the year ended 30 June {fy_reg}, <strong>{tot_mem:,} KiwiSaver members</strong> withdrew <strong>${tot_nzd/1e9:.2f}B</strong> toward a first home across New Zealand's 16 regions—averaging <strong>${nz_avg_p:,} per withdrawing member nationwide</strong>, from <strong>${h_a:,} in {h_n}</strong> and <strong>${akl_a:,} in Auckland</strong> to <strong>${l_a:,} in {l_n}</strong>.",
+                        f"Inland Revenue Regional KiwiSaver Withdrawals (Year ended 30 June {fy_reg}): {tot_mem:,} members withdrew ${tot_nzd:,.0f} across 16 NZ regions.",
+                        format_provenance_source_html(ks_reg_calc, f"Inland Revenue — KiwiSaver Fund Withdrawals by Region (Year ended Jun {fy_reg})", IRD_KS_REG_PAGE, True),
+                        f"Year ended June {fy_reg}", nz_avg_p, f"${nz_avg_p:,}/member NZ ({tot_mem:,} members / ${tot_nzd/1e9:.2f}B total)",
+                        f"Regional range: ${l_a:,}–${h_a:,} per member", f"Highest: {h_n} ${h_a:,} | Lowest: {l_n} ${l_a:,}",
+                        ks_reg_calc, f"16 NZ Regions (Year ended 30 June {fy_reg})",
                         [{"period": r[0], "label": r[0], "value": r[1], "formatted": f"${r[1]:,}/member ({r[2]:,} members, ${r[3]:.2f}m)"} for r in reg_list],
-                        {"source_published": reg_pub_date},
+                        {"source_published": reg_pub},
                     )
         except Exception as exc:
             print(f"[IRD Regional KiwiSaver] Parse note: {exc}")
 
-    # 5. KiwiSaver Scheme Transfers
     tr_html = pages.get(IRD_KS_TR_PAGE, "")
     if tr_html:
-        tr_pub_date = extract_html_release_date(tr_html, "Annual Inland Revenue KiwiSaver scheme transfer release")
+        tr_pub = extract_html_release_date(tr_html, "Annual Inland Revenue KiwiSaver scheme transfer release")
         tr_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", tr_html))
-        mt = re.search(
-            r"year ended\s+30\s+June\s+(\d{4}).*?scheme transfers\s+(?:increased|decreased),?\s+from\s+([\d,]+)\s+in the\s+(\d{4})\s+financial year to\s+([\d,]+)\s+in the\s+(\d{4})\s+financial year",
-            tr_txt, flags=re.I,
-        )
+        mt = re.search(r"year ended\s+30\s+June\s+(\d{4}).*?scheme transfers\s+(?:increased|decreased),?\s+from\s+([\d,]+)\s+in the\s+(\d{4})\s+financial year to\s+([\d,]+)\s+in the\s+(\d{4})\s+financial year", tr_txt, flags=re.I)
         if mt:
             prev_tr, prev_fy, tr_tot, fy_yr = int(mt.group(2).replace(",", "")), int(mt.group(3)), int(mt.group(4).replace(",", "")), int(mt.group(5))
             mth_avg, tr_yoy_pct = int(round(tr_tot / 12.0)), ((tr_tot - prev_tr) / max(1, prev_tr)) * 100.0
@@ -4616,45 +4939,37 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                 format_provenance_source_html(tr_calc, "Inland Revenue — KiwiSaver Scheme Transfer Statistics", IRD_KS_TR_PAGE, True),
                 f"Year ended June {fy_yr}", tr_tot, f"{tr_tot:,} transfers/yr ({mth_avg:,}/month)",
                 f"FY{prev_fy}: {prev_tr:,} transfers", f"{tr_tot - prev_tr:+,d} ({tr_yoy_pct:+.1f}%) YoY",
-                tr_calc, f"Inland Revenue June FY series (FY{fy_yr})", None, {"source_published": tr_pub_date},
+                tr_calc, f"Inland Revenue June FY series (FY{fy_yr})", None, {"source_published": tr_pub},
             )
 
-    # 6. KiwiSaver Entry Methods
     entry_html = pages.get(IRD_KS_ENTRY_PAGE, "")
     if entry_html:
-        entry_pub_date = extract_html_release_date(entry_html, "Annual Inland Revenue KiwiSaver scheme entry method release")
+        entry_pub = extract_html_release_date(entry_html, "Annual Inland Revenue KiwiSaver scheme entry method release")
         e_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", entry_html))
-        m_d = re.search(r"default allocated[^\d]{0,40}([\d,]{6,7})", e_txt, flags=re.I)
-        m_e = re.search(r"employer nominated[^\d]{0,40}([\d,]{6,7})", e_txt, flags=re.I)
-        m_a = re.search(r"actively chosen[^\d]{0,40}([\d,]{6,8})", e_txt, flags=re.I)
+        m_d, m_e, m_a = re.search(r"default allocated[^\d]{0,40}([\d,]{6,7})", e_txt, flags=re.I), re.search(r"employer nominated[^\d]{0,40}([\d,]{6,7})", e_txt, flags=re.I), re.search(r"actively chosen[^\d]{0,40}([\d,]{6,8})", e_txt, flags=re.I)
         if m_d and m_e and m_a:
-            def_alloc, emp_alloc, act_alloc = int(m_d.group(1).replace(",", "")), int(m_e.group(1).replace(",", "")), int(m_a.group(1).replace(",", ""))
-            non_act_tot, tot_entry_mem = def_alloc + emp_alloc, def_alloc + emp_alloc + act_alloc
-            non_act_pct = (non_act_tot / max(1, tot_entry_mem)) * 100.0
-            def_pct, emp_pct, act_pct = (def_alloc / max(1, tot_entry_mem)) * 100.0, (emp_alloc / max(1, tot_entry_mem)) * 100.0, (act_alloc / max(1, tot_entry_mem)) * 100.0
+            def_a, emp_a, act_a = int(m_d.group(1).replace(",", "")), int(m_e.group(1).replace(",", "")), int(m_a.group(1).replace(",", ""))
+            non_act, tot_m = def_a + emp_a, def_a + emp_a + act_a
+            non_pct, def_p, emp_p, act_p = (non_act / max(1, tot_m)) * 100.0, (def_a / max(1, tot_m)) * 100.0, (emp_a / max(1, tot_m)) * 100.0, (act_a / max(1, tot_m)) * 100.0
             fy_e = today.year if today.month >= 7 else today.year - 1
-            ent_calc = f"Passive: ({def_alloc:,} + {emp_alloc:,}) ÷ {tot_entry_mem:,} = {non_act_pct:.1f}% | Active: {act_alloc:,} ÷ {tot_entry_mem:,} = {act_pct:.1f}%"
+            ent_calc = f"Passive: ({def_a:,} + {emp_a:,}) ÷ {tot_m:,} = {non_pct:.1f}% | Active: {act_a:,} ÷ {tot_m:,} = {act_p:.1f}%"
             out["kiwisaver-default-vs-active"] = make_pulse_item(
                 "Inland Revenue", f"{fy_e}-06-30", MAX_AGE_ANNUAL,
-                f"In Inland Revenue's latest KiwiSaver entry-method release, <strong>{non_act_pct:.1f}% ({non_act_tot:,} members)</strong> were in schemes assigned via <strong>default allocation ({def_alloc:,}, or {def_pct:.1f}%)</strong> or <strong>employer nomination ({emp_alloc:,}, or {emp_pct:.1f}%)</strong>, while <strong>{act_pct:.1f}% ({act_alloc:,} members)</strong> had actively chosen their provider.",
-                f"Inland Revenue KiwiSaver Entry Method: Default allocated = {def_alloc:,}; Employer nominated = {emp_alloc:,}; Actively chosen = {act_alloc:,}.",
+                f"In Inland Revenue's latest KiwiSaver entry-method release, <strong>{non_pct:.1f}% ({non_act:,} members)</strong> were in schemes assigned via <strong>default allocation ({def_a:,}, or {def_p:.1f}%)</strong> or <strong>employer nomination ({emp_a:,}, or {emp_p:.1f}%)</strong>, while <strong>{act_p:.1f}% ({act_a:,} members)</strong> had actively chosen their provider.",
+                f"Inland Revenue KiwiSaver Entry Method: Default allocated = {def_a:,}; Employer nominated = {emp_a:,}; Actively chosen = {act_a:,}.",
                 format_provenance_source_html(ent_calc, "Inland Revenue — KiwiSaver Scheme Entry Method Statistics", IRD_KS_ENTRY_PAGE, True),
-                f"Year ended June {fy_e}", round(non_act_pct, 1),
-                f"{non_act_pct:.1f}% default/employer-allocated ({non_act_tot:,}) vs {act_pct:.1f}% active choice",
-                f"Default allocated: {def_alloc:,} ({def_pct:.1f}%) | Employer nominated: {emp_alloc:,} ({emp_pct:.1f}%)",
-                f"Total members across entry methods: {tot_entry_mem:,}",
-                ent_calc, "Inland Revenue June FY entry method series", None, {"source_published": entry_pub_date},
+                f"Year ended June {fy_e}", round(non_pct, 1), f"{non_pct:.1f}% default/employer-allocated ({non_act:,}) vs {act_p:.1f}% active choice",
+                f"Default allocated: {def_a:,} ({def_p:.1f}%) | Employer nominated: {emp_a:,} ({emp_p:.1f}%)", f"Total members across entry methods: {tot_m:,}",
+                ent_calc, "Inland Revenue June FY entry method series", None, {"source_published": entry_pub},
             )
 
-    # 7. KiwiSaver Provider Contributions
     pay_html = pages.get(IRD_KS_PAY_PAGE, "")
     if pay_html:
-        pay_pub_date = extract_html_release_date(pay_html, "Annual Inland Revenue KiwiSaver provider payments release")
+        pay_pub = extract_html_release_date(pay_html, "Annual Inland Revenue KiwiSaver provider payments release")
         p_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", pay_html))
         m_tot_p = re.search(r"\$([\d,.]+)\s*(billion|b)\s+(?:was\s+)?(?:passed|transferred|paid)\s+to\s+(?:scheme\s+)?providers", p_txt, flags=re.I)
         if m_tot_p:
-            tot_pay_b = float(m_tot_p.group(1).replace(",", ""))
-            fy_p = today.year if today.month >= 7 else today.year - 1
+            tot_pay_b, fy_p = float(m_tot_p.group(1).replace(",", "")), today.year if today.month >= 7 else today.year - 1
             pay_calc = f"Reported Inland Revenue annual KiwiSaver transfers to scheme providers = ${tot_pay_b:.2f}B"
             out["kiwisaver-contributions-10yr"] = make_pulse_item(
                 "Inland Revenue", f"{fy_p}-06-30", MAX_AGE_ANNUAL,
@@ -4663,13 +4978,12 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                 format_provenance_source_html(pay_calc, "Inland Revenue — KiwiSaver Scheme Provider Payments", IRD_KS_PAY_PAGE, False),
                 f"Year ended June {fy_p}", tot_pay_b, f"${tot_pay_b:.2f}B annual contributions transferred",
                 "Employee + Employer + Crown contributions", "Live-parsed from Inland Revenue contributions release",
-                pay_calc, "Inland Revenue June FY contributions series", None, {"source_published": pay_pub_date},
+                pay_calc, "Inland Revenue June FY contributions series", None, {"source_published": pay_pub},
             )
 
-    # 8. KiwiSaver Active Savings Suspensions
     susp_html = pages.get(IRD_KS_SUSP_PAGE, "")
     if susp_html:
-        susp_pub_date = extract_html_release_date(susp_html, "Monthly Inland Revenue KiwiSaver savings suspension release")
+        susp_pub = extract_html_release_date(susp_html, "Monthly Inland Revenue KiwiSaver savings suspension release")
         s_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", susp_html))
         m_s = re.search(r"([\d,]{5,6})\s+members were on a savings suspension", s_txt, flags=re.I)
         if m_s:
@@ -4685,17 +4999,15 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                 format_provenance_source_html(susp_calc, "Inland Revenue — KiwiSaver Savings Suspension Statistics", IRD_KS_SUSP_PAGE, False),
                 s_per, susp_tot, f"{susp_tot:,} members on savings suspension",
                 "Monthly Inland Revenue savings suspension series", "Live-parsed from Inland Revenue",
-                susp_calc, f"Inland Revenue savings suspension series ({s_per})", None, {"source_published": susp_pub_date},
+                susp_calc, f"Inland Revenue savings suspension series ({s_per})", None, {"source_published": susp_pub},
             )
 
-    # 9 & 10. KiwiSaver Total FUM, Average Balance & Asset Allocation (Live from FMA Report PDF/Page & RBNZ Table T43)
     fma_html = pages.get(FMA_KS_REPORT_PAGE, "")
     fma_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", fma_html)) if fma_html else ""
     if fma_html:
         for pdf_h in re.findall(r'href=["\']([^"\']+\.pdf[^"\']*)["\']', fma_html, flags=re.I)[:2]:
             full_fma_pdf = "https://www.fma.govt.nz" + pdf_h if pdf_h.startswith("/") else pdf_h
-            pdf_b = fetch_bytes_with_browser_fallback(session, full_fma_pdf, referer=FMA_KS_REPORT_PAGE, min_bytes=20_000)
-            fma_txt += " " + extract_pdf_text(pdf_b)
+            fma_txt += " " + extract_pdf_text(fetch_bytes_with_browser_fallback(session, full_fma_pdf, referer=FMA_KS_REPORT_PAGE, min_bytes=20_000))
 
     t43_fum_b, t43_dt, t43_pub = None, None, "Quarterly RBNZ Table T43 KiwiSaver Managed Funds release"
     if t43_path is not None and t43_path.exists():
@@ -4716,14 +5028,9 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
     m_fma_fum = re.search(r"\$(1[123456]\d\.?\d*)\s*(?:billion|b)", fma_txt, flags=re.I)
     m_fma_mem = re.search(r"(3\.[23456]\d?)\s*million\s*(?:members|people|kiwisaver)", fma_txt, flags=re.I)
     m_fma_avg = re.search(r"average\s+(?:member\s+|kiwisaver\s+)?balance[^$]{0,35}\$([345]\d,\d{3})", fma_txt, flags=re.I)
-
     fum_b_live = float(m_fma_fum.group(1)) if m_fma_fum else t43_fum_b
     mem_m_live = float(m_fma_mem.group(1)) if m_fma_mem else None
-    avg_bal_live = (
-        int(m_fma_avg.group(1).replace(",", ""))
-        if m_fma_avg
-        else (int(round((fum_b_live * 1e9) / (mem_m_live * 1e6))) if (fum_b_live and mem_m_live) else None)
-    )
+    avg_bal_live = int(m_fma_avg.group(1).replace(",", "")) if m_fma_avg else (int(round((fum_b_live * 1e9) / (mem_m_live * 1e6))) if (fum_b_live and mem_m_live) else None)
 
     if fum_b_live is not None:
         as_of_ks_fum = month_end_iso(t43_dt) if t43_dt is not None else f"{today.year if today.month >= 4 else today.year - 1}-03-31"
@@ -4736,16 +5043,19 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
             fum_calc = f"Directly reported RBNZ Table T43 / FMA total KiwiSaver funds under management = ${fum_b_live:.1f}B"
             fum_html = f"As at {per_ks_fum}, total New Zealand KiwiSaver funds under management reached <strong>${fum_b_live:.1f}B</strong>."
             fum_val, fum_latest_v = round(fum_b_live, 1), f"${fum_b_live:.1f}B total KiwiSaver FUM"
-
         out["kiwisaver-total-fum-balance"] = make_pulse_item(
             "FMA & RBNZ T43", as_of_ks_fum, MAX_AGE_INSURANCE, fum_html,
             f"FMA KiwiSaver Annual Report & RBNZ Table T43 ({per_ks_fum}): Total KiwiSaver FUM = ${fum_b_live:.1f}B.",
             format_provenance_source_html(fum_calc, "FMA KiwiSaver Annual Report & RBNZ Table T43", FMA_KS_REPORT_PAGE, True),
-            per_ks_fum, fum_val, fum_latest_v,
-            "FMA KiwiSaver Annual Report & RBNZ Managed Funds Survey",
-            "Live-parsed from official FMA & RBNZ KiwiSaver releases",
-            fum_calc, "FMA & RBNZ Table T43 KiwiSaver series", None, {"source_published": t43_pub},
+            per_ks_fum, fum_val, fum_latest_v, "FMA KiwiSaver Annual Report & RBNZ Managed Funds Survey",
+            "Live-parsed from official FMA & RBNZ KiwiSaver releases", fum_calc, "FMA & RBNZ Table T43 KiwiSaver series",
+            None, {"source_published": t43_pub},
         )
+
+    try:
+        out.update(build_kainga_ora_tickers(session))
+    except Exception as exc_ko:
+        print(f"[Kāinga Ora] Parse note: {exc_ko}")
 
     return out
 # === END OF PART 4D ===
@@ -5394,14 +5704,95 @@ def write_legacy_redirect_page(root: pathlib.Path, alias_key: str, target_key: s
     (a_dir / "index.html").write_text(redirect_html, encoding="utf-8")
 # === END OF PART 5B ===
 # === PART 5C OF 5 ===
-# ---------------------------------------------------------------------------
-# Main Orchestrator & Strict 100% Live-Pulled Canonical Gate
-# ---------------------------------------------------------------------------
+def cross_derive_fhb_benchmark_tickers(candidates: dict) -> None:
+    """
+    Populate the 4 standalone FHB benchmark tickers (fhb-typical-income, fhb-average-loan-size,
+    fhb-typical-dti, fhb-monthly-lending-volume) from live RBNZ records in `candidates`
+    (borrower-income, fhb-share, dti-headroom) if not already set on this run. Zero hardcoded numbers.
+    """
+    c31_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type"
+    c40_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-lending-by-debt-to-income-dti-purpose-use"
+    c41_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi"
+
+    bi = candidates.get("borrower-income")
+    if "fhb-typical-income" not in candidates and isinstance(bi, dict) and bi.get("value"):
+        inc_v = int(round(float(bi["value"])))
+        per_s, as_of_s, pub_s = bi.get("latest_period", ""), bi.get("as_of", ""), bi.get("source_published", "Monthly RBNZ statistical release")
+        calc_s = bi.get("calculation_live") or bi.get("calculation") or f"RBNZ Table C41 FHB band-weighted mean gross income = ${inc_v:,}"
+        candidates["fhb-typical-income"] = make_pulse_item(
+            "RBNZ C41", as_of_s, MAX_AGE_MONTHLY,
+            f"In {per_s}, the typical (borrower-weighted average) gross household income across approved New Zealand first-home buyer mortgage applications was <strong>${inc_v:,}</strong>.",
+            bi.get("official_data_summary", f"RBNZ Table C41 ({per_s}): FHB borrower-weighted mean gross application income = ${inc_v:,}."),
+            format_provenance_source_html(calc_s, "RBNZ Table C41 (Reserve Bank of New Zealand)", c41_u, True),
+            per_s, inc_v, f"${inc_v:,} typical FHB gross application income",
+            bi.get("previous_period", "Prior 12-month period"), bi.get("change", "Tracked monthly in RBNZ Table C41"),
+            calc_s, bi.get("historical_data_from", "RBNZ Table C41 series"), bi.get("history", []),
+            {"source_published": pub_s, "source_url": c41_u},
+        )
+
+    fs = candidates.get("fhb-share")
+    if isinstance(fs, dict) and fs.get("html"):
+        per_s, as_of_s, pub_s = fs.get("latest_period", ""), fs.get("as_of", ""), fs.get("source_published", "Monthly RBNZ statistical release")
+        fs_txt = re.sub(r"<[^>]+>", " ", fs.get("html", ""))
+        m_avg = re.search(r"averaging\s+\$([\d,]+)\s+per\s+loan", fs_txt, flags=re.I)
+        m_cnt = re.search(r"across\s+([\d,]+)\s+loans", fs_txt, flags=re.I)
+        m_val = re.search(r"\$([\d,]+)\s*m\)", fs_txt, flags=re.I)
+        val_m = float(m_val.group(1).replace(",", "")) if m_val else (float(re.search(r"\$([\d.]+)B", fs_txt).group(1)) * 1000.0 if re.search(r"\$([\d.]+)B", fs_txt) else None)
+        cnt_n = int(m_cnt.group(1).replace(",", "")) if m_cnt else None
+        avg_l = int(m_avg.group(1).replace(",", "")) if m_avg else (int(round((val_m * 1e6) / cnt_n)) if (val_m and cnt_n) else None)
+
+        if "fhb-average-loan-size" not in candidates and avg_l:
+            al_calc = f"${val_m:,.0f}m × $1,000,000 ÷ {cnt_n:,} FHB loans = ${avg_l:,}" if (val_m and cnt_n) else f"RBNZ Table C31 FHB mean loan size = ${avg_l:,}"
+            candidates["fhb-average-loan-size"] = make_pulse_item(
+                "RBNZ C31", as_of_s, MAX_AGE_MONTHLY,
+                f"In {per_s}, the average new first-home buyer mortgage approved across New Zealand was <strong>${avg_l:,}</strong>" + (f" (${val_m:,.0f}m across {cnt_n:,} loans)." if (val_m and cnt_n) else "."),
+                f"RBNZ Table C31 ({per_s}): Average first-home buyer loan size = ${avg_l:,}.",
+                format_provenance_source_html(al_calc, "RBNZ Table C31 (Reserve Bank of New Zealand)", c31_u, True),
+                per_s, avg_l, f"${avg_l:,} average FHB mortgage size",
+                "RBNZ Table C31 monthly FHB series", "Derived from RBNZ Table C31 (LVRN.MMB1.AC1 ÷ LVRN.MMB2.AC1)",
+                al_calc, fs.get("historical_data_from", "RBNZ Table C31 series"), [], {"source_published": pub_s, "source_url": c31_u},
+            )
+
+        if "fhb-monthly-lending-volume" not in candidates and val_m and cnt_n:
+            vol_calc = f"Official RBNZ Table C31 LVRN.MMB1.AC1 = ${val_m:,.0f}m across LVRN.MMB2.AC1 = {cnt_n:,} FHB loans"
+            candidates["fhb-monthly-lending-volume"] = make_pulse_item(
+                "RBNZ C31", as_of_s, MAX_AGE_MONTHLY,
+                f"In {per_s}, New Zealand banks committed <strong>{fmt_nzd_millions(val_m)}</strong> in new residential mortgages to <strong>{cnt_n:,} first-home buyers</strong>.",
+                f"RBNZ Table C31 ({per_s}): First-home buyer new mortgage commitments = ${val_m:,.0f}m across {cnt_n:,} loans.",
+                format_provenance_source_html(vol_calc, "RBNZ Table C31 (Reserve Bank of New Zealand)", c31_u, False),
+                per_s, round(val_m, 1), f"{fmt_nzd_millions(val_m)} across {cnt_n:,} FHB loans",
+                "RBNZ Table C31 monthly FHB series", f"Average loan size: ${avg_l:,}" if avg_l else "Reported in RBNZ C31",
+                vol_calc, fs.get("historical_data_from", "RBNZ Table C31 series"), [], {"source_published": pub_s, "source_url": c31_u},
+            )
+
+    inc_rec = candidates.get("fhb-typical-income") or candidates.get("borrower-income")
+    loan_rec, dti_rec = candidates.get("fhb-average-loan-size"), candidates.get("dti-headroom")
+    if "fhb-typical-dti" not in candidates and isinstance(inc_rec, dict) and isinstance(loan_rec, dict) and isinstance(dti_rec, dict):
+        inc_v, loan_v, gt6_v = float(inc_rec.get("value") or 0), float(loan_rec.get("value") or 0), float(dti_rec.get("value") or 0)
+        if inc_v > 20000 and loan_v > 100000 and 0.1 <= gt6_v <= 50.0:
+            imp_dti, le6_v = round(loan_v / inc_v, 2), round(100.0 - gt6_v, 1)
+            per_s, as_of_s, pub_s = dti_rec.get("latest_period", ""), dti_rec.get("as_of", ""), dti_rec.get("source_published", "Monthly RBNZ statistical release")
+            td_calc = f"Implied FHB Mortgage DTI: ${int(loan_v):,} (C31 avg FHB loan) ÷ ${int(inc_v):,} (C41 avg FHB gross income) = {imp_dti:.2f}x (~{imp_dti:.1f}x–{imp_dti + 0.4:.1f}x total DTI) | C40 Share <= 6x DTI: 100.0% − {gt6_v:.1f}% = {le6_v:.1f}%"
+            candidates["fhb-typical-dti"] = make_pulse_item(
+                "RBNZ C40 & C41", as_of_s, MAX_AGE_MONTHLY,
+                f"In {per_s}, the typical New Zealand first-home buyer borrowed at an implied Debt-to-Income ratio of <strong>{imp_dti:.1f}x–{imp_dti + 0.4:.1f}x gross income</strong> (${int(loan_v):,} average loan on ${int(inc_v):,} average gross income), with <strong>{le6_v:.1f}% of all first-home buyer lending</strong> written at or below <strong>6x DTI</strong>.",
+                f"RBNZ Tables C31, C40 & C41 ({per_s}): Average FHB loan = ${int(loan_v):,}; Average FHB gross income = ${int(inc_v):,}; FHB lending <= 6x TDTI = {le6_v:.1f}% (> 6x TDTI = {gt6_v:.1f}%).",
+                format_provenance_source_html(td_calc, "RBNZ Tables C31, C40 & C41 (Reserve Bank of New Zealand)", c40_u, True),
+                per_s, imp_dti, f"{imp_dti:.2f}x implied mortgage DTI (~{imp_dti:.1f}x–{imp_dti + 0.4:.1f}x total DTI) | {le6_v:.1f}% <= 6x DTI",
+                f"Share <= 6x DTI: {le6_v:.1f}%", f"{gt6_v:.1f}% above 6x DTI (vs 20.0% RBNZ speed limit)",
+                td_calc, dti_rec.get("historical_data_from", "RBNZ Tables C40 & C41"),
+                [
+                    {"period": "Implied Mortgage DTI", "label": "Implied FHB Loan-to-Income Ratio (C31 ÷ C41)", "value": imp_dti, "formatted": f"{imp_dti:.2f}x (${int(loan_v):,} ÷ ${int(inc_v):,})"},
+                    {"period": "TDTI <= 6x Share", "label": "FHB Lending at or below 6x DTI (C40)", "value": le6_v, "formatted": f"{le6_v:.1f}% of FHB lending"},
+                    {"period": "TDTI > 6x Share", "label": "FHB Lending above 6x DTI (C40 Speed Limit Band)", "value": round(gt6_v, 1), "formatted": f"{gt6_v:.1f}% (vs 20.0% RBNZ cap)"},
+                ],
+                {"source_published": pub_s, "source_url": c40_u},
+            )
+
+
 def main() -> None:
     root = pathlib.Path(__file__).resolve().parent
-    json_path = root / "nz-mortgage-pulse.json"
-    structured_json_path = root / "pulse.json"
-    html_path = root / "index.html"
+    json_path, structured_json_path, html_path = root / "nz-mortgage-pulse.json", root / "pulse.json", root / "index.html"
 
     prev_tickers = {}
     if json_path.exists():
@@ -5485,23 +5876,22 @@ def main() -> None:
         fresh_candidates.update(ird_out)
         live_parsed_count += len(ird_out)
     except Exception as exc:
-        print(f"[IRD / FMA / T43] Error: {exc}")
+        print(f"[IRD / FMA / T43 / Kāinga Ora] Error: {exc}")
+
+    cross_derive_fhb_benchmark_tickers(fresh_candidates)
 
     for p in rbnz_files.values():
         if p.name.startswith("tmp_") and p.exists():
             os.remove(p)
 
     now_dt = datetime.datetime.now(datetime.timezone.utc)
-    now_utc = now_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
-    today_iso = now_dt.strftime("%Y-%m-%d")
-    now_human = f"{now_dt.day} {now_dt.strftime('%B %Y')}"
+    now_utc, today_iso, now_human = now_dt.strftime("%Y-%m-%dT%H:%M:%SZ"), now_dt.strftime("%Y-%m-%d"), f"{now_dt.day} {now_dt.strftime('%B %Y')}"
 
     verified_tickers = {}
     for k, item in fresh_candidates.items():
         if k not in TICKER_CATALOG or not isinstance(item, dict):
             continue
-        as_of = item.get("as_of", "")
-        max_age = int(item.get("max_age_days", MAX_AGE_MONTHLY))
+        as_of, max_age = item.get("as_of", ""), int(item.get("max_age_days", MAX_AGE_MONTHLY))
         if item.get("html") and is_fresh(as_of, max_age):
             verified_tickers[k] = enrich_ticker_record(k, item, today_iso, now_human)
         else:
@@ -5519,75 +5909,40 @@ def main() -> None:
 
     latest_rbnz_period = verified_tickers.get("fhb-low-deposit", {}).get("latest_period", "Latest Official Release")
     payload = {
-        "publisher": PUBLISHER_NAME,
-        "publisher_legal_name": PUBLISHER_LEGAL,
-        "publisher_url": PUBLISHER_URL,
-        "media_kit_url": MEDIA_KIT_URL,
-        "creator_name": CREATOR_NAME,
-        "creator_alternate_name": CREATOR_ALT_NAME,
-        "creator_fsp": CREATOR_FSP,
-        "creator_url": CREATOR_URL,
-        "license": HLF_LICENSE_URL,
-        "license_label": HLF_LICENSE_SHORT,
-        "license_note": HLF_LICENSE_NOTE,
+        "publisher": PUBLISHER_NAME, "publisher_legal_name": PUBLISHER_LEGAL, "publisher_url": PUBLISHER_URL, "media_kit_url": MEDIA_KIT_URL,
+        "creator_name": CREATOR_NAME, "creator_alternate_name": CREATOR_ALT_NAME, "creator_fsp": CREATOR_FSP, "creator_url": CREATOR_URL,
+        "license": HLF_LICENSE_URL, "license_label": HLF_LICENSE_SHORT, "license_note": HLF_LICENSE_NOTE,
         "dataset_name": "NZ Mortgage, Housing, KiwiSaver & Protection Pulse — Verified NZ Data",
-        "date_created": PULSE_DATE_CREATED,
-        "date_modified": today_iso,
-        "generated_utc": now_utc,
-        "last_checked": today_iso,
-        "latest_underlying_data": latest_rbnz_period,
-        "data_status": "verified",
-        "source_status": "current",
-        "active_datasets_count": len(verified_tickers),
-        "count": len(verified_tickers),
-        "fhb_snapshot": fhb_snap_obj,
-        "tickers": bubble_feed_tickers,
+        "date_created": PULSE_DATE_CREATED, "date_modified": today_iso, "generated_utc": now_utc, "last_checked": today_iso,
+        "latest_underlying_data": latest_rbnz_period, "data_status": "verified", "source_status": "current",
+        "active_datasets_count": len(verified_tickers), "count": len(verified_tickers), "fhb_snapshot": fhb_snap_obj, "tickers": bubble_feed_tickers,
     }
     json_path.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
 
     structured_records = []
     for k in sorted(verified_tickers.keys()):
         r = verified_tickers[k]
-        rec_out = {
-            "ticker": k, "name": r["name"], "also_known_as": r.get("also_known_as", ""),
-            "category": r["category"], "topic": r["topic"], "value": r.get("value"),
-            "latest_value": r["latest_value"], "unit": r["unit"],
-            "observation_period": r["observation_period"], "observed_period": r["observed_period"],
-            "period_end": r["period_end"], "latest_underlying_data": r["latest_period"],
-            "source_published": r["source_published"], "last_checked": r["last_checked"],
-            "date_created": r["date_created"], "date_modified": r["date_modified"],
-            "data_status": r["data_status"], "source_status": r["source_status"],
-            "previous_period": r["previous_period"], "change": r["change"],
-            "source": r["source"], "source_full": r["source_full"],
-            "source_series_ids": r["source_series_ids"], "source_url": r["source_url"],
-            "derived_by_hlf": r["derived_by_hlf"], "data_type": r["data_type"],
-            "definition": r["definition"], "official_data": r["official_data_summary"],
-            "hlf_calculation": r["calculation"], "formula": r["formula"],
-            "hlf_interpretation": r["hlf_interpretation"], "methodology": r["methodology"],
-            "frequency": r["update_frequency"], "historical_data_from": r["historical_data_from"],
-            "creator_name": CREATOR_NAME, "creator_alternate_name": CREATOR_ALT_NAME,
-            "creator_fsp": CREATOR_FSP, "creator_url": CREATOR_URL,
-            "publisher": PUBLISHER_NAME, "publisher_legal_name": PUBLISHER_LEGAL,
-            "publisher_url": PUBLISHER_URL, "media_kit_url": MEDIA_KIT_URL,
-            "license": r["license"], "license_label": r["license_label"],
-            "citation": r["citation"], "canonical_url": r["canonical_url"],
-            "summary_text": r["summary_text"], "related_questions": r["related_questions"],
-            "citation_chain": r["citation_chain"], "history": r["history"],
-        }
+        rec_out = {f: r.get(f) for f in (
+            "ticker", "name", "also_known_as", "category", "topic", "value", "latest_value", "unit",
+            "observation_period", "observed_period", "period_end", "source_published", "last_checked",
+            "date_created", "date_modified", "data_status", "source_status", "previous_period", "change",
+            "source", "source_full", "source_series_ids", "source_url", "derived_by_hlf", "data_type",
+            "definition", "formula", "hlf_interpretation", "methodology", "historical_data_from",
+            "creator_name", "creator_alternate_name", "creator_fsp", "creator_url", "publisher",
+            "publisher_legal_name", "publisher_url", "media_kit_url", "license", "license_label",
+            "citation", "canonical_url", "summary_text", "related_questions", "citation_chain", "history",
+        )}
+        rec_out.update({"latest_underlying_data": r["latest_period"], "official_data": r["official_data_summary"], "hlf_calculation": r["calculation"], "frequency": r["update_frequency"]})
         if r.get("tdti_bands"):
-            rec_out["tdti_bands"] = r["tdti_bands"]
-            rec_out["tdti_total_pool_m"] = r.get("tdti_total_pool_m")
-            rec_out["tdti_total_implied_apps"] = r.get("tdti_total_implied_apps")
+            rec_out["tdti_bands"], rec_out["tdti_total_pool_m"], rec_out["tdti_total_implied_apps"] = r["tdti_bands"], r.get("tdti_total_pool_m"), r.get("tdti_total_implied_apps")
         if r.get("townhouse_flat_unit_share_pct") is not None:
             rec_out["townhouse_flat_unit_share_pct"] = r["townhouse_flat_unit_share_pct"]
         structured_records.append(rec_out)
 
     pulse_json_obj = {
         "dataset": "HLF Pulse — Verified New Zealand Mortgage, Housing, KiwiSaver & Protection Reference Dataset",
-        "publisher": PUBLISHER_NAME, "publisher_legal_name": PUBLISHER_LEGAL,
-        "publisher_url": PUBLISHER_URL, "media_kit_url": MEDIA_KIT_URL,
-        "creator_name": CREATOR_NAME, "creator_alternate_name": CREATOR_ALT_NAME,
-        "creator_fsp": CREATOR_FSP, "creator_role": CREATOR_ROLE, "creator_url": CREATOR_URL,
+        "publisher": PUBLISHER_NAME, "publisher_legal_name": PUBLISHER_LEGAL, "publisher_url": PUBLISHER_URL, "media_kit_url": MEDIA_KIT_URL,
+        "creator_name": CREATOR_NAME, "creator_alternate_name": CREATOR_ALT_NAME, "creator_fsp": CREATOR_FSP, "creator_role": CREATOR_ROLE, "creator_url": CREATOR_URL,
         "license": HLF_LICENSE_URL, "license_label": HLF_LICENSE_SHORT, "license_note": HLF_LICENSE_NOTE,
         "how_to_cite": f"HLF Pulse, Home Loan Factory ({PULSE_BASE_URL}/), created by {CREATOR_NAME} (checked {now_human}). {HLF_LICENSE_SHORT}.",
         "date_field_definitions": {
@@ -5596,67 +5951,50 @@ def main() -> None:
             "source_published": "When the original organisation released the dataset (never auto-populated from period_end)",
             "last_checked": "When HLF last verified the official source (YYYY-MM-DD)",
         },
-        "date_created": PULSE_DATE_CREATED, "date_modified": today_iso,
-        "pulse_url": f"{PULSE_BASE_URL}/", "last_checked": today_iso,
-        "dataset_generated_utc": now_utc, "latest_underlying_data": latest_rbnz_period,
-        "data_status": "verified", "source_status": "current",
+        "date_created": PULSE_DATE_CREATED, "date_modified": today_iso, "pulse_url": f"{PULSE_BASE_URL}/", "last_checked": today_iso,
+        "dataset_generated_utc": now_utc, "latest_underlying_data": latest_rbnz_period, "data_status": "verified", "source_status": "current",
         "active_datasets_count": len(structured_records),
         "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, source_published reflects when the publisher released it, and observation_period / period_end reflect the period the data covers.",
-        "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / IRD Student Loans / FSC Spotlights) & Semi-Annual (FMA / RBNZ FSR / NHC / ACC)",
-        "fhb_snapshot": fhb_snap_obj,
-        "records": structured_records,
+        "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / IRD Student Loans / Kāinga Ora / FSC Spotlights) & Semi-Annual (FMA / RBNZ FSR / NHC / ACC)",
+        "fhb_snapshot": fhb_snap_obj, "records": structured_records,
     }
     structured_json_path.write_text(json.dumps(pulse_json_obj, indent=2), encoding="utf-8")
 
     write_robots_txt(root)
-
     for k, rec in verified_tickers.items():
         write_canonical_ticker_page(root, k, rec, len(verified_tickers))
-
     for alias_k, target_k in LEGACY_BUBBLE_ALIASES.items():
         if target_k in verified_tickers and alias_k not in verified_tickers:
             write_legacy_redirect_page(root, alias_k, target_k)
 
     sitemap_urls = [f"  <url><loc>{PULSE_BASE_URL}/</loc><lastmod>{today_iso}</lastmod></url>"] + [
-        f"  <url><loc>{PULSE_BASE_URL}/{k}/</loc><lastmod>{today_iso}</lastmod></url>"
-        for k in sorted(verified_tickers.keys())
+        f"  <url><loc>{PULSE_BASE_URL}/{k}/</loc><lastmod>{today_iso}</lastmod></url>" for k in sorted(verified_tickers.keys())
     ]
-    (root / "sitemap.xml").write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + "\n".join(sitemap_urls) + "\n</urlset>\n",
-        encoding="utf-8",
-    )
+    (root / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(sitemap_urls) + "\n</urlset>\n", encoding="utf-8")
 
-    llms_lines = (
-        [
-            "# HLF Pulse — Verified New Zealand Mortgage, Housing, KiwiSaver & Protection Reference Dataset",
-            "",
-            "> Public reference dataset and data dictionary built 100% live from official New Zealand Crown, statutory, and industry releases, with clearly labelled HLF-derived calculations and interpretation.",
-            f"> Created by: {CREATOR_NAME} ({CREATOR_ALT_NAME}, {CREATOR_FSP}), {CREATOR_ROLE} ({CREATOR_URL}) | Published by: {PUBLISHER_NAME} ({PUBLISHER_URL}).",
-            f"> Media Kit & Citation Guide: {MEDIA_KIT_URL}",
-            f"> Reuse Licence: {HLF_LICENSE_SHORT} ({HLF_LICENSE_URL}) for HLF-derived figures & commentary; official statistics credited to their respective publishers.",
-            f"> Date Standard: Observation Period (latest monthly: {latest_rbnz_period}) | Period End | Source Publication Date | Last Checked ({now_human} / {today_iso}).",
-            f"> Active datasets: {len(verified_tickers)}.",
-            "",
-            "## Machine-Readable Endpoints",
-            f"- Structured Data Dictionary & Records (JSON): {PULSE_BASE_URL}/pulse.json",
-            f"- Webflow Chat Bubble Feed (JSON): {PULSE_BASE_URL}/nz-mortgage-pulse.json",
-            f"- Main Reference Dataset Hub (HTML): {PULSE_BASE_URL}/",
-            f"- Media Kit & Citation Guide (HTML): {MEDIA_KIT_URL}",
-            "",
-            f"## Canonical Data Dictionary Records ({len(verified_tickers)} Active Datasets)",
-        ]
-        + [
-            f"- [{rec['name']} (Obs: {rec['observation_period']} | End: {rec['period_end']} | Published: {rec['source_published']})]({rec['canonical_url']}): {rec['summary_text']} [Official Data: {rec['official_data_summary']} | HLF Calculation: {rec['calculation']} | Derived by HLF Pulse: {rec['hlf_derived_label']} | Cite as: {rec['citation']}]"
-            for k, rec in sorted(verified_tickers.items())
-        ]
-    )
+    llms_lines = [
+        "# HLF Pulse — Verified New Zealand Mortgage, Housing, KiwiSaver & Protection Reference Dataset", "",
+        "> Public reference dataset and data dictionary built 100% live from official New Zealand Crown, statutory, and industry releases, with clearly labelled HLF-derived calculations and interpretation.",
+        f"> Created by: {CREATOR_NAME} ({CREATOR_ALT_NAME}, {CREATOR_FSP}), {CREATOR_ROLE} ({CREATOR_URL}) | Published by: {PUBLISHER_NAME} ({PUBLISHER_URL}).",
+        f"> Media Kit & Citation Guide: {MEDIA_KIT_URL} | HLF Glossary: {GLOSSARY_BASE_URL}",
+        f"> Reuse Licence: {HLF_LICENSE_SHORT} ({HLF_LICENSE_URL}) for HLF-derived figures & commentary; official statistics credited to their respective publishers.",
+        f"> Date Standard: Observation Period (latest monthly: {latest_rbnz_period}) | Period End | Source Publication Date | Last Checked ({now_human} / {today_iso}).",
+        f"> Active datasets: {len(verified_tickers)}.", "",
+        "## Machine-Readable Endpoints",
+        f"- Structured Data Dictionary & Records (JSON): {PULSE_BASE_URL}/pulse.json",
+        f"- Webflow Chat Bubble Feed (JSON): {PULSE_BASE_URL}/nz-mortgage-pulse.json",
+        f"- Main Reference Dataset Hub (HTML): {PULSE_BASE_URL}/",
+        f"- Media Kit & Citation Guide (HTML): {MEDIA_KIT_URL}", "",
+        f"## Canonical Data Dictionary Records ({len(verified_tickers)} Active Datasets)",
+    ] + [
+        f"- [{rec['name']} (Obs: {rec['observation_period']} | End: {rec['period_end']} | Published: {rec['source_published']})]({rec['canonical_url']}): {rec['summary_text']} [Official Data: {rec['official_data_summary']} | HLF Calculation: {rec['calculation']} | Derived by HLF Pulse: {rec['hlf_derived_label']} | Cite as: {rec['citation']}]"
+        for k, rec in sorted(verified_tickers.items())
+    ]
     (root / "llms.txt").write_text("\n".join(llms_lines) + "\n", encoding="utf-8")
 
     by_cat = {c: [] for c in CATEGORY_ORDER}
     for k, rec in sorted(verified_tickers.items()):
-        cat = rec.get("category", "Mortgage lending & rates")
-        by_cat.setdefault(cat, []).append((k, rec))
+        by_cat.setdefault(rec.get("category", "Mortgage lending & rates"), []).append((k, rec))
 
     cat_cards_html = ""
     for cat in CATEGORY_ORDER:
@@ -5664,56 +6002,34 @@ def main() -> None:
         if not items:
             continue
         cat_slug = re.sub(r"[^a-z0-9]+", "-", cat.lower()).strip("-")
-        links = "".join(
-            f"<li><a href='#{k}'><code>{k}</code></a> — {html_lib.escape(r['name'])} (<strong>{html_lib.escape(str(r['latest_value']).split('(')[0].strip())}</strong>)</li>"
-            for k, r in items
-        )
-        cat_cards_html += (
-            f"<div class='cat-card' id='cat-{cat_slug}'>"
-            f"<div class='cat-hdr'><strong>{html_lib.escape(cat)}</strong><span>{len(items)} datasets</span></div>"
-            f"<ul>{links}</ul></div>"
-        )
+        links = "".join(f"<li><a href='#{k}'><code>{k}</code></a> — {html_lib.escape(r['name'])} (<strong>{html_lib.escape(str(r['latest_value']).split('(')[0].strip())}</strong>)</li>" for k, r in items)
+        cat_cards_html += f"<div class='cat-card' id='cat-{cat_slug}'><div class='cat-hdr'><strong>{html_lib.escape(cat)}</strong><span>{len(items)} datasets</span></div><ul>{links}</ul></div>"
 
     rows_html_list = []
     for k, v in sorted(verified_tickers.items()):
         aka_sub = f"<div class='aka'>Also: {html_lib.escape(v['also_known_as'])}</div>" if v.get("also_known_as") else ""
-        c41_tbl = render_c41_band_table_html(v)
-        three_layers = render_three_layer_badges_html(v, include_interp=True)
-        cite_line_html = render_cite_line_html(v)
         rows_html_list.append(
             f"<tr id='{k}'>"
-            f"<td><a href='{v['canonical_url']}'><code>{k}</code></a>"
-            f"<div class='rname'>{html_lib.escape(v['name'])}</div>{aka_sub}"
+            f"<td><a href='{v['canonical_url']}'><code>{k}</code></a><div class='rname'>{html_lib.escape(v['name'])}</div>{aka_sub}"
             f"<span class='dtype-badge'>{'Derived by HLF' if v['derived_by_hlf'] else 'Officially Reported'}</span></td>"
-            f"<td><strong>{html_lib.escape(v['source'])}</strong>"
-            f"<div class='rper'>Obs: {html_lib.escape(v['observation_period'])}</div>"
-            f"<div class='rchk'>End: <code>{v['period_end']}</code></div>"
-            f"<div class='rchk'>Published: {html_lib.escape(v['source_published'][:36])}</div>"
+            f"<td><strong>{html_lib.escape(v['source'])}</strong><div class='rper'>Obs: {html_lib.escape(v['observation_period'])}</div>"
+            f"<div class='rchk'>End: <code>{v['period_end']}</code></div><div class='rchk'>Published: {html_lib.escape(v['source_published'][:36])}</div>"
             f"<div class='rchk'>Checked: {html_lib.escape(v['last_verified_human'])}</div></td>"
-            f"<td><div class='rsum'>{v['html']}</div>"
-            f"{c41_tbl}{three_layers}{cite_line_html}"
-            f"<div class='rsrc'>{v['source_html']} &bull; <a href='{v['canonical_url']}'>Full Data Dictionary &amp; historical series (/{k}/) &rarr;</a></div>"
-            f"</td></tr>"
+            f"<td><div class='rsum'>{v['html']}</div>{render_c41_band_table_html(v)}{render_three_layer_badges_html(v, True)}{render_cite_line_html(v)}"
+            f"<div class='rsrc'>{v['source_html']} &bull; <a href='{v['canonical_url']}'>Full Data Dictionary &amp; historical series (/{k}/) &rarr;</a></div></td></tr>"
         )
     rows_html = "".join(rows_html_list)
     robots_tag = "index, follow" if verified_tickers else "noindex, nofollow"
-    creator_main_html = render_creator_card_html(compact=False)
-    about_footer_html = render_about_and_quality_footer_html()
+    creator_main_html, about_footer_html = render_creator_card_html(compact=False), render_about_and_quality_footer_html()
 
     hub_schema_obj = {
-        "@context": "https://schema.org",
-        "@type": "Dataset",
+        "@context": "https://schema.org", "@type": "Dataset",
         "name": "HLF Pulse — Verified New Zealand Mortgage, Housing, KiwiSaver & Protection Reference Dataset",
         "description": "Public reference dataset and data dictionary built from official New Zealand Crown and statutory releases, with clearly labelled HLF-derived calculations and interpretation.",
-        "url": f"{PULSE_BASE_URL}/",
-        "inLanguage": "en-NZ",
-        "license": HLF_LICENSE_URL,
+        "url": f"{PULSE_BASE_URL}/", "inLanguage": "en-NZ", "license": HLF_LICENSE_URL,
         "citation": f"HLF Pulse, Home Loan Factory ({PULSE_BASE_URL}/), created by {CREATOR_NAME} (checked {now_human}). {HLF_LICENSE_SHORT}.",
-        "dateCreated": PULSE_DATE_CREATED,
-        "dateModified": today_iso,
-        "spatialCoverage": "New Zealand",
-        "creator": CREATOR_SCHEMA_OBJ,
-        "publisher": PUBLISHER_SCHEMA_OBJ,
+        "dateCreated": PULSE_DATE_CREATED, "dateModified": today_iso, "spatialCoverage": "New Zealand",
+        "creator": CREATOR_SCHEMA_OBJ, "publisher": PUBLISHER_SCHEMA_OBJ,
         "distribution": [
             {"@type": "DataDownload", "name": f"HLF Pulse Structured Data Dictionary JSON (All {len(verified_tickers)} Datasets)", "encodingFormat": "application/json", "contentUrl": f"{PULSE_BASE_URL}/pulse.json"},
             {"@type": "DataDownload", "name": "HLF Pulse Webflow Feed JSON", "encodingFormat": "application/json", "contentUrl": f"{PULSE_BASE_URL}/nz-mortgage-pulse.json"},
@@ -5810,7 +6126,7 @@ def main() -> None:
 <body>
   <main>
     <h1>NZ Mortgage, Housing, KiwiSaver &amp; Insurance Pulse — Verified NZ Data</h1>
-    <p>Public reference dataset and data dictionary built 100% live from official New Zealand Crown, statutory, and industry releases, with clearly labelled HLF-derived calculations and interpretation (<a href="#browse-datasets">Browse all {len(verified_tickers)} datasets</a> &bull; <a href="#cat-first-home-buyers">First-Home Buyers</a> &bull; <a href="#cat-kiwisaver">KiwiSaver</a> &bull; <a href="#cat-new-builds-construction">Build Costs</a> &bull; <a href="#cat-property-natural-hazard-insurance">Property Insurance</a> &bull; <a href="#cat-personal-risk-income-protection">Personal &amp; ACC Protection</a> &bull; <a href="{MEDIA_KIT_URL}" target="_blank" rel="noopener">Media Kit &amp; Citation Guide</a> &bull; <a href="#date-definitions">4-Field Date Standard</a> &bull; <a href="#data-quality-limitations">Data Quality &amp; Limitations</a> &bull; <a href="#reuse-licensing">Reuse &amp; Citation ({HLF_LICENSE_SHORT})</a> &bull; <a href="#about-hlf-pulse">About &amp; Methodology</a>). Machine-readable endpoints: <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>, <a href="{PULSE_BASE_URL}/nz-mortgage-pulse.json"><code>nz-mortgage-pulse.json</code></a>, <a href="{PULSE_BASE_URL}/llms.txt"><code>llms.txt</code></a>, and <a href="{PULSE_BASE_URL}/robots.txt"><code>robots.txt</code></a>.</p>
+    <p>Public reference dataset and data dictionary built 100% live from official New Zealand Crown, statutory, and industry releases, with clearly labelled HLF-derived calculations and interpretation (<a href="#browse-datasets">Browse all {len(verified_tickers)} datasets</a> &bull; <a href="#cat-first-home-buyers">First-Home Buyers</a> &bull; <a href="#cat-kiwisaver">KiwiSaver</a> &bull; <a href="#cat-new-builds-construction">Build Costs</a> &bull; <a href="#cat-property-natural-hazard-insurance">Property Insurance</a> &bull; <a href="#cat-personal-risk-income-protection">Personal &amp; ACC Protection</a> &bull; <a href="{GLOSSARY_BASE_URL}" target="_blank" rel="noopener">HLF Glossary</a> &bull; <a href="{MEDIA_KIT_URL}" target="_blank" rel="noopener">Media Kit &amp; Citation Guide</a> &bull; <a href="#date-definitions">4-Field Date Standard</a> &bull; <a href="#data-quality-limitations">Data Quality &amp; Limitations</a> &bull; <a href="#reuse-licensing">Reuse &amp; Citation ({HLF_LICENSE_SHORT})</a> &bull; <a href="#about-hlf-pulse">About &amp; Methodology</a>). Machine-readable endpoints: <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>, <a href="{PULSE_BASE_URL}/nz-mortgage-pulse.json"><code>nz-mortgage-pulse.json</code></a>, <a href="{PULSE_BASE_URL}/llms.txt"><code>llms.txt</code></a>, and <a href="{PULSE_BASE_URL}/robots.txt"><code>robots.txt</code></a>.</p>
 
     <div class="lag-banner" aria-label="4-Field Date Architecture: Observation Period, Period End, Source Published &amp; Last Checked">
       <div class="lag-item">
@@ -5821,7 +6137,7 @@ def main() -> None:
       <div class="lag-item">
         <span>2. Source Publication Date</span>
         <strong>Recorded per agency release</strong>
-        <small>Tracked separately from Period End across RBNZ, Stats NZ, IRD, MBIE, FMA, NHC, ACC &amp; FSC.</small>
+        <small>Tracked separately from Period End across RBNZ, Stats NZ, IRD, MBIE, FMA, Kāinga Ora, NHC, ACC &amp; FSC.</small>
       </div>
       <div class="lag-item">
         <span>3. Last Checked &amp; Reuse ({HLF_LICENSE_SHORT})</span>
@@ -5840,7 +6156,7 @@ def main() -> None:
           <li><a href="#fhb-typical-income">What is the typical FHB household income?</a></li>
           <li><a href="#fhb-average-loan-size">What is the average FHB mortgage size?</a></li>
           <li><a href="#fhb-typical-dti">What is the typical FHB Debt-to-Income (DTI) ratio?</a></li>
-          <li><a href="#fhb-low-deposit">How common is a deposit under 20%?</a></li>
+          <li><a href="#kainga-ora-first-home-loan-approvals">How many Kāinga Ora 5% deposit loans are approved?</a></li>
         </ul>
       </div>
       <div class="use-card">
@@ -5865,9 +6181,9 @@ def main() -> None:
         <strong>For KiwiSaver Members</strong>
         <ul>
           <li><a href="#kiwisaver-total-fum-balance">What is the official FMA average KiwiSaver balance &amp; FUM?</a></li>
-          <li><a href="#kiwisaver-default-vs-active">How many Kiwis are still in default schemes?</a></li>
+          <li><a href="#kainga-ora-second-chance-kiwisaver-approvals">How many 'second-chance' KiwiSaver withdrawals are approved?</a></li>
           <li><a href="#kiwisaver-first-home">How much are Kiwis withdrawing for a first home?</a></li>
-          <li><a href="#kiwisaver-contributions-10yr">How much is contributed to KiwiSaver each year?</a></li>
+          <li><a href="#kiwisaver-default-vs-active">How many Kiwis are still in default schemes?</a></li>
         </ul>
       </div>
       <div class="use-card">
