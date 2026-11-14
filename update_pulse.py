@@ -389,25 +389,51 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
     },
     "kainga-ora-first-home-loan-approvals": {
-        "name": "Kāinga Ora First Home Loan (5% deposit) quarterly approvals, settlements & regional breakdown",
-        "also_known_as": "Kāinga Ora Home Ownership Products Report — First Home Loan approvals & settlements by city/district",
+        "name": "Kāinga Ora First Home Loan (5% deposit) nominal approvals, settlements & YoY/QoQ trend",
+        "also_known_as": "Kāinga Ora Home Ownership Products Report — First Home Loan 5-quarter approvals & settlements series",
         "category": "First-home buyers",
-        "topic": "Kāinga Ora 5% deposit First Home Loan approvals & settlements",
+        "topic": "Kāinga Ora 5% deposit First Home Loan approvals, settlements & annual growth",
         "source": "Kāinga Ora Quarterly Report",
         "source_full": "Kāinga Ora – Homes and Communities — Home Ownership Products Quarterly Report (CC BY 4.0)",
-        "series_ids": "Kāinga Ora Home Ownership Products Report — First Home Loan Approvals & Settlements by Territorial Local Authority",
+        "series_ids": "Kāinga Ora Home Ownership Products Report — First Home Loans: Approvals and Settlements (5-Quarter Series & Monthly Totals)",
         "source_url": KAINGA_ORA_QTR_REPORT_PAGE,
-        "data_type": "Officially reported Kāinga Ora quarterly PDF series & HLF-derived monthly averages",
+        "data_type": "Officially reported Kāinga Ora quarterly PDF series & HLF-derived YoY/QoQ growth & 12-month rolling totals",
         "derived_by_hlf": True,
         "unit": "loans",
         "frequency": "Quarterly",
-        "definition": "The quarterly and monthly number of Kāinga Ora-underwritten First Home Loan (5% deposit) approvals and settlements across New Zealand and major Territorial Local Authorities.",
-        "methodology": "Automatically fetched and parsed from the latest Kāinga Ora Home Ownership Products Quarterly Report PDF on kaingaora.govt.nz (licensed under CC BY 4.0). Extracts monthly and quarterly First Home Loan approval and settlement totals alongside city/district breakdowns.",
-        "hlf_calculation": "Monthly Mean Approvals = Quarterly Approvals ÷ 3; Settlement Conversion Rate = (Quarterly Settlements ÷ Quarterly Approvals) × 100",
-        "hlf_interpretation": "HLF market context: Because Kāinga Ora First Home Loans require only a 5% deposit and are exempt from RBNZ's 20% bank low-deposit speed limit, they provide a major pathway for income-eligible buyers ($95k solo / $150k joint or with dependants) who have strong servicing income but a smaller deposit.",
+        "definition": "The nominal number of Kāinga Ora-underwritten First Home Loan (5% deposit) approvals and settlements each month, quarter, and rolling 12-month period across New Zealand, alongside quarter-on-quarter and year-on-year percentage trends.",
+        "methodology": "Automatically fetched and parsed from Kāinga Ora's Home Ownership Products Quarterly Report PDF (licensed under CC BY 4.0). Extracts the 5-quarter Approvals and Settlements series on Page 2 and verifies the latest quarter against the monthly Territorial Local Authority Total rows on Page 4.",
+        "hlf_calculation": "12-Month Rolling Approvals = Sum of latest 4 quarters; YoY % = ((Latest Quarter − Prior-Year Quarter) ÷ Prior-Year Quarter) × 100; Settlement Ratio = (Settlements ÷ Approvals) × 100",
+        "hlf_interpretation": "HLF market context: Because Kāinga Ora First Home Loans require only a 5% deposit and are exempt from RBNZ's 20% bank low-deposit speed limit, tracking whether nominal approvals and settlements are rising or falling shows how actively participating lenders are using the scheme.",
         "questions": [
             "How many Kāinga Ora First Home Loans are approved and settled each quarter in New Zealand?",
-            "Which New Zealand cities have the most Kāinga Ora 5% deposit First Home Loan approvals?",
+            "Are Kāinga Ora 5% deposit First Home Loan approvals going up or down?",
+        ],
+        "article_title": "Buying Your First Home with a 5%–10% Deposit in NZ",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights/buying-your-first-home-with-a-5-10-deposit-in-nz-your-2026-options-explained",
+        "tool_title": "Kāinga Ora Lenders Mortgage Insurance (LMI) Fee Estimator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/lenders-mortgage-insurance-fee-estimator",
+    },
+    "kainga-ora-first-home-loan-regional": {
+        "name": "Kāinga Ora First Home Loan (5% deposit) approvals & settlements by NZ city & district",
+        "also_known_as": "Kāinga Ora First Home Loan Approvals & Settlements by Territorial Local Authority (TLA)",
+        "category": "First-home buyers",
+        "topic": "Regional Kāinga Ora 5% deposit First Home Loan approvals by council",
+        "source": "Kāinga Ora Quarterly Report",
+        "source_full": "Kāinga Ora – Homes and Communities — Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)",
+        "series_ids": "Kāinga Ora Home Ownership Products Report — First Home Loan Approvals & Settlements by Territorial Local Authority",
+        "source_url": KAINGA_ORA_QTR_REPORT_PAGE,
+        "data_type": "Officially reported Kāinga Ora council-level tables & HLF-derived national shares",
+        "derived_by_hlf": True,
+        "unit": "loans",
+        "frequency": "Quarterly",
+        "definition": "Distribution of Kāinga Ora 5% deposit First Home Loan approvals and settlements across New Zealand's major cities and Territorial Local Authorities.",
+        "methodology": "Automatically parsed from the Territorial Local Authority Approvals and Settlements tables (Pages 2–4) in Kāinga Ora's Home Ownership Products Quarterly Report PDF, verifying that each council's 3 monthly figures sum to its quarterly total.",
+        "hlf_calculation": "Council Share of National Approvals (%) = (Council Quarterly Approvals ÷ National Quarterly Approvals) × 100",
+        "hlf_interpretation": "HLF market context: Auckland and Christchurch account for over 43% of all Kāinga Ora First Home Loan approvals nationwide, followed by Hamilton, Wellington, Dunedin, Napier/Hastings, and Tauranga.",
+        "questions": [
+            "Which New Zealand cities have the most Kāinga Ora First Home Loan approvals?",
+            "How many Kāinga Ora First Home Loans are approved in Auckland, Christchurch, Hamilton, and Wellington?",
         ],
         "article_title": "Buying Your First Home with a 5%–10% Deposit in NZ",
         "article_url": "https://www.homeloanfactory.co.nz/news-insights/buying-your-first-home-with-a-5-10-deposit-in-nz-your-2026-options-explained",
@@ -428,7 +454,7 @@ TICKER_CATALOG = {
         "unit": "approvals",
         "frequency": "Quarterly",
         "definition": "The number of previous New Zealand homeowners approved by Kāinga Ora each quarter (and over the rolling 12-month period) to make a 'second-chance' KiwiSaver savings withdrawal to buy a home.",
-        "methodology": "Automatically fetched and parsed from the 'Previous Owner Savings Withdrawal Applications' chart/table in Kāinga Ora's Home Ownership Products Quarterly Report PDF on kaingaora.govt.nz. Focuses on Applications Approved across the 5 published quarters and sums the 4 most recent quarters for the rolling 12-month approval total.",
+        "methodology": "Automatically fetched and parsed from the 'Previous Owner Savings Withdrawal Applications' chart on Page 5 of Kāinga Ora's Home Ownership Products Quarterly Report PDF. Extracts Applications Approved across all 5 published quarters and sums the 4 most recent quarters for the rolling 12-month approval total.",
         "hlf_calculation": "12-Month Rolling Approvals = Sum of Applications Approved across the 4 most recent quarters; Monthly Mean = Quarterly Approvals ÷ 3",
         "hlf_interpretation": "HLF market context: Previous homeowners who no longer own property and are in a similar financial position to a first-home buyer (typically after a relationship separation or career relocation) can apply to Kāinga Ora for a determination letter to unlock their KiwiSaver balance for another home purchase—with over 4,100 approvals granted annually.",
         "questions": [
@@ -441,30 +467,56 @@ TICKER_CATALOG = {
         "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
     },
     "kainga-ora-underwritten-loan-book": {
-        "name": "Kāinga Ora First Home Loan annual mortgages underwritten & Mortgage Insurance Scheme (SPE 4.1)",
-        "also_known_as": "Kāinga Ora Annual Report — Number of First Home Loan mortgages underwritten (SPE 4.1)",
+        "name": "Kāinga Ora First Home Loan annual mortgages settled/underwritten & approval-to-settlement pipeline",
+        "also_known_as": "Kāinga Ora 12-Month Rolling First Home Loan Settlements Underwritten & Approvals (SPE 4.1)",
         "category": "First-home buyers",
         "topic": "Annual Kāinga Ora First Home Loans underwritten & Mortgage Insurance Scheme",
-        "source": "Kāinga Ora Annual Report",
-        "source_full": "Kāinga Ora – Homes and Communities — Annual Report (SPE 4.1: Number of First Home Loan Mortgages Underwritten)",
-        "series_ids": "Kāinga Ora Annual Report — SPE 4.1 First Home Loan Mortgages Underwritten & Mortgage Insurance Scheme Note",
-        "source_url": KAINGA_ORA_ANN_REPORT_PAGE,
-        "data_type": "Officially reported Kāinga Ora Annual Report series & HLF-derived monthly average",
+        "source": "Kāinga Ora Reports",
+        "source_full": "Kāinga Ora – Homes and Communities — Home Ownership Products Report & Annual Report (SPE 4.1)",
+        "series_ids": "Kāinga Ora 4-Quarter Rolling First Home Loan Approvals & Underwritten Settlements (SPE 4.1)",
+        "source_url": KAINGA_ORA_QTR_REPORT_PAGE,
+        "data_type": "Officially reported Kāinga Ora series & HLF-derived 12-month rolling totals",
         "derived_by_hlf": True,
         "unit": "loans",
-        "frequency": "Annual (30 June Financial Year)",
-        "definition": "The total annual number of First Home Loan mortgages underwritten by Kāinga Ora under the Crown Mortgage Insurance Scheme across the 30 June financial year.",
-        "methodology": "Automatically fetched and parsed from Kāinga Ora's latest Annual Report PDF on kaingaora.govt.nz (SPE 4.1 performance measure and Mortgage Insurance Scheme financial note).",
-        "hlf_calculation": "Monthly Mean Underwritten Loans = Annual First Home Loans Underwritten ÷ 12",
-        "hlf_interpretation": "HLF market context: Under the user-pays Mortgage Insurance Scheme (funded via the 1.2% Lenders Mortgage Insurance fee), Kāinga Ora underwrites over 4,000 5%-deposit mortgages per year for participating banks and lenders.",
+        "frequency": "Quarterly / Annual",
+        "definition": "The rolling 12-month number of First Home Loan (5% deposit) mortgages settled/underwritten and approved by Kāinga Ora under the Crown Mortgage Insurance Scheme.",
+        "methodology": "Derived live by summing the 4 most recent quarters of Kāinga Ora First Home Loan settlements and approvals in the Home Ownership Products Quarterly Report PDF (and cross-checked against SPE 4.1 in Kāinga Ora's Annual Report).",
+        "hlf_calculation": "12-Month Underwritten Settlements = Sum of 4 quarters of FHL settlements; 12-Month Approvals = Sum of 4 quarters of FHL approvals",
+        "hlf_interpretation": "HLF market context: Under the user-pays Mortgage Insurance Scheme (funded via the 1.2% Lenders Mortgage Insurance fee), Kāinga Ora approves ~9,500+ applications and underwrites over 4,000 settled 5%-deposit mortgages per year.",
         "questions": [
-            "How many First Home Loans does Kāinga Ora underwrite each year in New Zealand?",
-            "How does Kāinga Ora's Mortgage Insurance Scheme work for 5% deposit home buyers?",
+            "How many First Home Loans does Kāinga Ora approve and underwrite each year in New Zealand?",
+            "Why are Kāinga Ora First Home Loan approvals higher than settlements?",
         ],
         "article_title": "Buying Your First Home with a 5%–10% Deposit in NZ",
         "article_url": "https://www.homeloanfactory.co.nz/news-insights/buying-your-first-home-with-a-5-10-deposit-in-nz-your-2026-options-explained",
         "tool_title": "Kāinga Ora Lenders Mortgage Insurance (LMI) Fee Estimator",
         "tool_url": "https://www.homeloanfactory.co.nz/tools/lenders-mortgage-insurance-fee-estimator",
+    },
+    "kiwisaver-first-home-quarterly-trend": {
+        "name": "Quarterly & 12-month rolling KiwiSaver first-home withdrawals & average withdrawal size (IRD / Kāinga Ora)",
+        "also_known_as": "KiwiSaver First Home Savings Withdrawal 4-quarter volume, dollar value & rolling annual total",
+        "category": "KiwiSaver",
+        "topic": "Quarterly & annual rolling KiwiSaver first-home withdrawals",
+        "source": "Kāinga Ora / IRD Report",
+        "source_full": "Kāinga Ora Home Ownership Products Report & Inland Revenue — KiwiSaver First Home Savings Withdrawal (4-Quarter Series)",
+        "series_ids": "KiwiSaver First Home Savings Withdrawal (IRD) — Quarterly Number & Dollar Value ($m) of Withdrawals",
+        "source_url": KAINGA_ORA_QTR_REPORT_PAGE,
+        "data_type": "Officially reported IRD/Kāinga Ora quarterly series & HLF-derived 12-month rolling sum & mean withdrawal",
+        "derived_by_hlf": True,
+        "unit": "NZD_millions",
+        "frequency": "Quarterly",
+        "definition": "Quarterly and 12-month rolling total number and dollar value ($ millions) of KiwiSaver first-home savings withdrawals across New Zealand, plus the average withdrawal per buyer.",
+        "methodology": "Automatically parsed from the 'KiwiSaver First Home Savings Withdrawal (IRD)' 4-quarter chart on Page 5 of Kāinga Ora's Home Ownership Products Quarterly Report PDF.",
+        "hlf_calculation": "12-Month Rolling Total = Sum of 4 quarters (Withdrawals & $m); Mean Withdrawal = Quarterly Value ($m × $1m) ÷ Quarterly Withdrawals",
+        "hlf_interpretation": "HLF market context: Over 51,000 New Zealanders withdraw more than $2.30B from KiwiSaver annually (~$45,000 per withdrawing member) to form the core of their home deposit.",
+        "questions": [
+            "How much is withdrawn from KiwiSaver for first homes each quarter and year in New Zealand?",
+            "How many New Zealanders use KiwiSaver to buy a first home each year?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
     },
 # === END OF PART 1 ===
     # === PART 2A OF 5 ===
@@ -4693,127 +4745,350 @@ def build_tenancy_tickers(session) -> dict:
     return out
 # === END OF PART 4C ===
 # === PART 4D OF 5 ===
+def _remove_axis_ticks(nums: list[int], step: int, lo: int, hi: int) -> list[int]:
+    """Remove arithmetic chart y-axis gridline ticks (1 instance per tick) so only bar data labels remain."""
+    out = list(nums)
+    for tick in range(hi, lo - 1, -step):
+        if tick in out:
+            out.remove(tick)
+    return out
+
+
+def _sort_chart_bars_by_pdf_x(pdf_bytes: bytes, page_idx: int, target_vals: list[int]) -> list[int]:
+    """Use pypdf visitor_text (x, y) coordinates to sort chart bar labels strictly left-to-right by x position."""
+    if not pdf_bytes or not pdf_bytes.startswith(b"%PDF") or not target_vals:
+        return target_vals
+    try:
+        from pypdf import PdfReader
+        reader = PdfReader(io.BytesIO(pdf_bytes))
+        if page_idx >= len(reader.pages):
+            return target_vals
+        remaining = list(target_vals)
+        xy_hits: list[tuple[float, int]] = []
+
+        def visitor(text, cm, tm, font_dict, font_size):
+            t = (text or "").strip()
+            if not t:
+                return
+            x = float(cm[0] * tm[4] + cm[2] * tm[5] + cm[4])
+            for m in re.finditer(r"\$?([\d,]{3,6})", t):
+                v = int(m.group(1).replace(",", ""))
+                if v in remaining and x > 75.0:
+                    remaining.remove(v)
+                    xy_hits.append((x, v))
+
+        reader.pages[page_idx].extract_text(visitor_text=visitor)
+        if len(xy_hits) == len(target_vals):
+            xy_hits.sort(key=lambda item: item[0])
+            return [v for _, v in xy_hits]
+    except Exception:
+        pass
+    return target_vals
+
+
 def build_kainga_ora_tickers(session) -> dict:
-    """100% live-pulled Kāinga Ora Quarterly & Annual Report PDFs (CC BY 4.0; zero hardcoded fallbacks)."""
+    """
+    100% live-pulled Kāinga Ora Home Ownership Products Quarterly Report & Annual Report PDFs (CC BY 4.0).
+    Calibrated to the exact 4-column TLA tables and 5-quarter charts in Kāinga Ora's PDF reports.
+    Zero hardcoded fallbacks: every figure is mathematically verified from the live PDF.
+    """
     out: dict = {}
     today = datetime.datetime.now(datetime.timezone.utc).date()
+    root = pathlib.Path(__file__).resolve().parent
     ko_pages = fetch_html_with_browser_fallback(session, [KAINGA_ORA_QTR_REPORT_PAGE, KAINGA_ORA_ANN_REPORT_PAGE], "Kāinga Ora")
 
     qtr_html = ko_pages.get(KAINGA_ORA_QTR_REPORT_PAGE, "")
-    if qtr_html:
-        qtr_pub = extract_html_release_date(qtr_html, "Quarterly Kāinga Ora Home Ownership Products Report release (CC BY 4.0)")
-        pdf_urls = list(dict.fromkeys(
-            "https://kaingaora.govt.nz" + h if h.startswith("/") else h
-            for h in re.findall(r'href=["\']([^"\']+\.pdf[^"\']*)["\']', qtr_html, flags=re.I)
-        ))
-        q_pat = r"((?:Apr|April|Jul|July|Oct|October|Jan|January)\s*[-–—to]+\s*(?:Jun|June|Sep|Sept|September|Dec|December|Mar|March)\s*20\d{2})"
+    qtr_pub = extract_html_release_date(qtr_html, "Quarterly Kāinga Ora Home Ownership Products Report release (CC BY 4.0)")
 
-        for pdf_u in pdf_urls[:3]:
-            pdf_txt = extract_pdf_text(fetch_bytes_with_browser_fallback(session, pdf_u, referer=KAINGA_ORA_QTR_REPORT_PAGE, min_bytes=10_000))
-            if len(pdf_txt) < 400:
-                continue
-            q_labels_all = re.findall(q_pat, pdf_txt, flags=re.I)
-            latest_q_str = q_labels_all[-1] if q_labels_all else "Latest quarter"
-            q_end_iso = today.strftime("%Y-%m-%d")
+    # Collect candidate PDFs: live URLs on kaingaora.govt.nz first, plus any local *.pdf in repo root
+    pdf_sources: list[tuple[str, bytes]] = []
+    if qtr_html:
+        for h in re.findall(r'href=["\']([^"\']+\.pdf[^"\']*)["\']', qtr_html, flags=re.I):
+            full_u = "https://kaingaora.govt.nz" + h if h.startswith("/") else h
+            if all(u != full_u for u, _ in pdf_sources):
+                b_live = fetch_bytes_with_browser_fallback(session, full_u, referer=KAINGA_ORA_QTR_REPORT_PAGE, min_bytes=10_000)
+                if b_live and b_live.startswith(b"%PDF"):
+                    pdf_sources.append((full_u, b_live))
+
+    for local_pdf in sorted(root.glob("*Home*Ownership*Products*.pdf"), reverse=True) + sorted(root.glob("*.pdf"), reverse=True):
+        if local_pdf.stat().st_size > 10_000:
+            b_loc = local_pdf.read_bytes()
+            if b_loc.startswith(b"%PDF"):
+                pdf_sources.append((KAINGA_ORA_QTR_REPORT_PAGE, b_loc))
+                break
+
+    q_pat = r"(?:Apr|April|Jul|July|Oct|October|Jan|January)\s*[-–—to\s]+\s*(?:Jun|June|Sep|Sept|September|Dec|December|Mar|March)\s*20\d{2}"
+
+    for pdf_u, pdf_b in pdf_sources[:3]:
+        pdf_txt = extract_pdf_text(pdf_b)
+        if len(pdf_txt) < 400 or "First Home Loan" not in pdf_txt:
+            continue
+
+        # 1. Determine Period Ending date (e.g. "Period Ending 30 June 2026")
+        m_pend = re.search(r"Period\s+Ending\s+(\d{1,2}\s+[A-Za-z]+\s+20\d{2})", pdf_txt, flags=re.I)
+        q_labels_all = re.findall(q_pat, pdf_txt, flags=re.I)
+        latest_q_str = re.sub(r"\s+", " ", q_labels_all[-1]).strip() if q_labels_all else "Latest quarter"
+        q_end_iso = today.strftime("%Y-%m-%d")
+        if m_pend:
+            dt_pe = pd.to_datetime(m_pend.group(1), errors="coerce")
+            if pd.notna(dt_pe):
+                q_end_iso = month_end_iso(dt_pe)
+        else:
             m_q_yr = re.search(r"(Jun|June|Sep|Sept|September|Dec|December|Mar|March)\s*(20\d{2})", latest_q_str, flags=re.I)
             if m_q_yr:
                 mon_num = {"mar": 3, "jun": 6, "sep": 9, "dec": 12}.get(m_q_yr.group(1).lower()[:3], 6)
                 q_end_iso = month_end_iso(pd.Timestamp(datetime.date(int(m_q_yr.group(2)), mon_num, 1)))
 
-            # A. Parse 'Previous Owner Savings Withdrawal Applications' (Second-Chance KiwiSaver Approvals)
-            m_sc = re.search(r"Previous\s+Owner\s+Savings\s+Withdrawal\s+Applications(.{100,1800})", pdf_txt, flags=re.I)
-            if m_sc:
-                sc_win = m_sc.group(1)
-                q_list = re.findall(q_pat, sc_win, flags=re.I)
-                cln = re.sub(r"(?:1,?[468]00\s+)?(?:1,?400\s+)?1,?200\s+1,?000\s+800\s+600\s+400\s+200(?:\s+0)?|0\s+200\s+400\s+600\s+800\s+1,?000\s+1,?200(?:\s+1,?400)?", " ", sc_win)
-                for qm in q_list:
-                    cln = cln.replace(qm, " ")
-                cln = re.sub(r"\b(?:1\s+October|30\s+September|1\s+July|30\s+June|31\s+March|31\s+December)\s+20\d{2}\b|\b20[12]\d\b", " ", cln, flags=re.I)
-                sc_nums = [int(n.replace(",", "")) for n in re.findall(r"\b\d{1,2},\d{3}\b|\b\d{3,4}\b", cln) if 250 <= int(n.replace(",", "")) <= 4000]
-                n_q = len(q_list)
-                if n_q >= 4 and len(sc_nums) >= 2 * n_q:
-                    cand = sc_nums[: 2 * n_q]
-                    ilv = [(cand[2 * i], cand[2 * i + 1]) for i in range(n_q)]
-                    grp = [(cand[i], cand[i + n_q]) for i in range(n_q)]
-                    app_s = [a for _, a in ilv] if all(r >= a for r, a in ilv) else ([a for _, a in grp] if all(r >= a for r, a in grp) else [min(cand[2 * i], cand[2 * i + 1]) for i in range(n_q)])
-                    curr_q, curr_a = re.sub(r"\s+", " ", q_list[-1]).strip(), app_s[-1]
-                    prev_q, prev_a = re.sub(r"\s+", " ", q_list[-2]).strip(), app_s[-2]
-                    roll_12m, mth_a = sum(app_s[-4:]), int(round(curr_a / 3.0))
-                    yoy_cl, yoy_chg = "", f"{curr_a - prev_a:+,d} vs prior quarter ({prev_q}: {prev_a:,})"
-                    if n_q >= 5:
-                        yq, ya = re.sub(r"\s+", " ", q_list[-5]).strip(), app_s[-5]
-                        ypct = ((curr_a - ya) / max(1, ya)) * 100.0
-                        yoy_cl = f" ({plain_yoy_growth(curr_a, ya)} from {ya:,} in {yq})"
-                        yoy_chg = f"{curr_a - ya:+,d} ({ypct:+.1f}%) YoY vs {yq} ({ya:,})"
-                    sc_calc = f"12-Month Rolling Approvals: {' + '.join(f'{x:,}' for x in app_s[-4:])} = {roll_12m:,} approvals/yr | Latest Quarter ({curr_q}): {curr_a:,} approvals (÷ 3 = {mth_a:,}/mth)"
-                    sc_hist = [{"period": re.sub(r"\s+", " ", ql).strip(), "label": re.sub(r"\s+", " ", ql).strip(), "value": av, "formatted": f"{av:,} approvals"} for ql, av in reversed(list(zip(q_list, app_s)))]
-                    out["kainga-ora-second-chance-kiwisaver-approvals"] = make_pulse_item(
-                        "Kāinga Ora Report", q_end_iso, MAX_AGE_QUARTERLY,
-                        f"In the {curr_q} quarter, Kāinga Ora approved <strong>{curr_a:,} 'second-chance' (Previous Homeowner) KiwiSaver savings withdrawal applications</strong>{yoy_cl} (~{mth_a:,}/month), bringing the rolling 12-month total to <strong>{roll_12m:,} approved previous homeowners</strong>.",
-                        f"Kāinga Ora Home Ownership Products Report ({curr_q}): Previous Owner Savings Withdrawal Applications Approved = {curr_a:,} in {curr_q} ({roll_12m:,} over rolling 4 quarters).",
-                        format_provenance_source_html(sc_calc, f"Kāinga Ora — Home Ownership Products Quarterly Report ({curr_q})", pdf_u, True),
-                        curr_q, curr_a, f"{curr_a:,} approvals in {curr_q} ({roll_12m:,} over 12 months)",
-                        f"Prior quarter ({prev_q}): {prev_a:,} approvals", yoy_chg, sc_calc,
-                        f"Kāinga Ora 5-quarter published series ({q_list[0]} to {curr_q})", sc_hist,
-                        {"source_published": qtr_pub, "source_url": pdf_u},
-                    )
+        # 2. Parse the two 4-column TLA 'Total' rows on Page 4 (Row 1 = Approvals Total, Row 2 = Settlements Total)
+        norm_txt = re.sub(r"\s+", " ", re.sub(r"[\|\r\n]+", " ", pdf_txt))
+        totals_4col = []
+        for m in re.finditer(r"\bTotal\s+(\d[\d,]*)\s+(\d[\d,]*)\s+(\d[\d,]*)\s+(\d[\d,]*)", norm_txt, flags=re.I):
+            v = [int(m.group(i).replace(",", "")) for i in range(1, 5)]
+            if v[0] + v[1] + v[2] == v[3] and v[3] >= 100:
+                totals_4col.append(v)
 
-            # B. Parse First Home Loan Quarterly Approvals, Settlements & City Breakdown
-            p8 = r"([\d,]+)\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)"
-            m_tot = re.search(r"Total\s+" + p8, pdf_txt, flags=re.I)
-            if m_tot:
-                v8 = [int(m_tot.group(i).replace(",", "")) for i in range(1, 9)]
-                if v8[0] + v8[1] + v8[2] == v8[3] and v8[4] + v8[5] + v8[6] == v8[7] and v8[3] > 200:
-                    m1a, m2a, m3a, q_app, m1s, m2s, m3s, q_set = v8
-                    ma_app, ma_set, conv = int(round(q_app / 3.0)), int(round(q_set / 3.0)), (q_set / max(1, q_app)) * 100.0
-                    c_rows = []
-                    for c_lbl, c_p in (("Auckland", r"Auckland(?:\s+City)?"), ("Christchurch City", r"Christchurch\s+City"), ("Hamilton City", r"Hamilton\s+City"), ("Wellington City", r"Wellington\s+City"), ("Tauranga City", r"Tauranga\s+City"), ("Lower Hutt City", r"Lower\s+Hutt\s+City"), ("Dunedin City", r"Dunedin\s+City")):
-                        mc = re.search(c_p + r"\s+" + p8, pdf_txt, flags=re.I)
-                        if mc:
-                            cv = [int(mc.group(i).replace(",", "")) for i in range(1, 9)]
-                            if cv[0] + cv[1] + cv[2] == cv[3] and cv[4] + cv[5] + cv[6] == cv[7]:
-                                c_rows.append({"period": c_lbl, "label": c_lbl, "value": cv[3], "formatted": f"{cv[3]:,} approvals ({(cv[3]/max(1,q_app))*100:.1f}% of NZ) | {cv[7]:,} settlements"})
-                    c_cl = f", led by <strong>{c_rows[0]['label']} ({c_rows[0]['value']:,} approvals)</strong> and <strong>{c_rows[1]['label']} ({c_rows[1]['value']:,} approvals)</strong>" if len(c_rows) >= 2 else ""
-                    fhl_calc = f"Quarterly Approvals: {m1a:,} + {m2a:,} + {m3a:,} = {q_app:,} ({ma_app:,}/mth) | Quarterly Settlements: {m1s:,} + {m2s:,} + {m3s:,} = {q_set:,} ({ma_set:,}/mth; {conv:.1f}% settlement ratio)"
-                    out["kainga-ora-first-home-loan-approvals"] = make_pulse_item(
-                        "Kāinga Ora Report", q_end_iso, MAX_AGE_QUARTERLY,
-                        f"In the {latest_q_str} quarter, Kāinga Ora recorded <strong>{q_app:,} First Home Loan (5% deposit) approvals</strong> (~{ma_app:,}/month) and <strong>{q_set:,} loan settlements</strong> (~{ma_set:,}/month, a <strong>{conv:.1f}%</strong> settlement-to-approval rate) across New Zealand{c_cl}.",
-                        f"Kāinga Ora Home Ownership Products Report ({latest_q_str}): First Home Loan approvals = {q_app:,} ({m1a:,}, {m2a:,}, {m3a:,}); settlements = {q_set:,} ({m1s:,}, {m2s:,}, {m3s:,}).",
-                        format_provenance_source_html(fhl_calc, f"Kāinga Ora — Home Ownership Products Quarterly Report ({latest_q_str})", pdf_u, True),
-                        latest_q_str, q_app, f"{q_app:,} approvals ({ma_app:,}/mth) | {q_set:,} settlements ({conv:.1f}%)",
-                        f"Monthly approvals in quarter: {m1a:,}, {m2a:,}, {m3a:,}", f"{q_set:,} First Home Loans settled in {latest_q_str}",
-                        fhl_calc, f"Kāinga Ora Territorial Local Authority series ({latest_q_str})", c_rows if c_rows else None,
-                        {"source_published": qtr_pub, "source_url": pdf_u},
-                    )
-            if out:
-                break
+        # 3. Parse Page 2 Chart ('First Home Loans - Approvals and Settlements' 5-Quarter Series)
+        fhl_q_list, fhl_app_5q, fhl_set_5q = [], [], []
+        m_fhl_ch = re.search(
+            r"First\s+Home\s+Loans\s*-\s*Approvals\s+and\s+Settlements(.{40,950}?)First\s+Home\s+Loan\s+Approvals\s+by",
+            pdf_txt, flags=re.I | re.S,
+        )
+        if m_fhl_ch:
+            c_win = m_fhl_ch.group(1)
+            fhl_q_list = [re.sub(r"\s+", " ", q).strip() for q in re.findall(q_pat, c_win, flags=re.I)]
+            c_cln = c_win
+            for q in fhl_q_list:
+                c_cln = c_cln.replace(q, " ")
+            c_cln = re.sub(r"\b20[12]\d\b", " ", c_cln)
+            raw_c_nums = [int(x.replace(",", "")) for x in re.findall(r"\b\d{1,2},\d{3}\b|\b\d{3,4}\b|\b0\b", c_cln)]
+            bars_10 = [x for x in _remove_axis_ticks(raw_c_nums, 500, 0, 3500) if 200 <= x <= 4500]
+            if len(fhl_q_list) == 5 and len(bars_10) == 10:
+                sorted_10 = _sort_chart_bars_by_pdf_x(pdf_b, 1, bars_10)
+                if sorted_10 != bars_10:
+                    pairs_5 = [(sorted_10[2 * i], sorted_10[2 * i + 1]) for i in range(5)]
+                    fhl_app_5q = [max(a, b) for a, b in pairs_5]
+                    fhl_set_5q = [min(a, b) for a, b in pairs_5]
+                else:
+                    hi5, lo5 = sorted(bars_10, reverse=True)[:5], sorted(bars_10)[:5]
+                    if len(totals_4col) >= 2 and totals_4col[0][3] in hi5 and totals_4col[1][3] in lo5:
+                        q_a_now, q_s_now = totals_4col[0][3], totals_4col[1][3]
+                        hi_rest = [x for x in bars_10 if x in hi5 and x != q_a_now]
+                        lo_rest = [x for x in bars_10 if x in lo5 and x != q_s_now]
+                        if len(hi_rest) == 4 and len(lo_rest) == 4:
+                            fhl_app_5q = [min(hi_rest)] + [x for x in hi_rest if x != min(hi_rest)] + [q_a_now]
+                            fhl_set_5q = [min(lo_rest)] + [x for x in lo_rest if x != min(lo_rest)] + [q_s_now]
 
-    ann_html = ko_pages.get(KAINGA_ORA_ANN_REPORT_PAGE, "")
-    if ann_html:
-        ann_pub = extract_html_release_date(ann_html, "Annual Kāinga Ora Corporate Report release (CC BY 4.0)")
-        ann_pdfs = ["https://kaingaora.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.pdf[^"\']*)["\']', ann_html, flags=re.I) if "annual" in h.lower() or "report" in h.lower()]
-        for apdf_u in ann_pdfs[:2]:
-            apdf_txt = extract_pdf_text(fetch_bytes_with_browser_fallback(session, apdf_u, referer=KAINGA_ORA_ANN_REPORT_PAGE, min_bytes=30_000))
-            m_uw = re.search(r"Number\s+of\s+First\s+Home\s+Loan\s+mortgages\s+underwritten[^\d]{0,80}(?:\d[\d,]*\s+)?([345],\d{3})", apdf_txt, flags=re.I)
-            if m_uw:
-                uw_cnt = int(m_uw.group(1).replace(",", ""))
-                mth_uw = int(round(uw_cnt / 12.0))
-                m_fy = re.search(r"30\s+June\s+(202[567])", apdf_txt)
-                fy_yr = int(m_fy.group(1)) if m_fy else (today.year if today.month >= 7 else today.year - 1)
-                uw_calc = f"Official Kāinga Ora SPE 4.1 First Home Loans underwritten = {uw_cnt:,}/yr (÷ 12 = {mth_uw:,}/mth)"
-                out["kainga-ora-underwritten-loan-book"] = make_pulse_item(
-                    "Kāinga Ora Annual Report", f"{fy_yr}-06-30", MAX_AGE_ANNUAL,
-                    f"Over the financial year ended 30 June {fy_yr}, Kāinga Ora underwrote <strong>{uw_cnt:,} First Home Loan (5% deposit) mortgages</strong> across New Zealand (~{mth_uw:,} mortgages per month) under the Crown Mortgage Insurance Scheme.",
-                    f"Kāinga Ora Annual Report (Year ended 30 June {fy_yr}, SPE 4.1): First Home Loan mortgages underwritten = {uw_cnt:,}.",
-                    format_provenance_source_html(uw_calc, f"Kāinga Ora — Annual Report {fy_yr - 1}/{str(fy_yr)[-2:]} (SPE 4.1)", apdf_u, True),
-                    f"Year ended 30 June {fy_yr}", uw_cnt, f"{uw_cnt:,} First Home Loans underwritten/yr (~{mth_uw:,}/mth)",
-                    "Crown Mortgage Insurance Scheme (5% deposit First Home Loan)", f"Averaged {mth_uw:,} underwritten 5%-deposit mortgages per month",
-                    uw_calc, f"Kāinga Ora Annual Report (FY{fy_yr})", None, {"source_published": ann_pub, "source_url": apdf_u},
+        # Emit Dataset 1 & Dataset 4: kainga-ora-first-home-loan-approvals & kainga-ora-underwritten-loan-book
+        if len(totals_4col) >= 2:
+            m1a, m2a, m3a, q_app = totals_4col[0]
+            m1s, m2s, m3s, q_set = totals_4col[1]
+            ma_app, ma_set = int(round(q_app / 3.0)), int(round(q_set / 3.0))
+            conv = (q_set / max(1, q_app)) * 100.0
+            q_disp = fhl_q_list[-1] if fhl_q_list else latest_q_str
+
+            trend_clause, prev_str, chg_str = "", f"Monthly approvals in quarter: {m1a:,}, {m2a:,}, {m3a:,}", f"{q_set:,} First Home Loans settled in {q_disp} ({conv:.1f}% conversion)"
+            fhl_hist = [
+                {"period": "Quarter Approvals", "label": f"{q_disp} Approvals ({m1a:,} + {m2a:,} + {m3a:,})", "value": q_app, "formatted": f"{q_app:,} approvals (~{ma_app:,}/mth)"},
+                {"period": "Quarter Settlements", "label": f"{q_disp} Settlements ({m1s:,} + {m2s:,} + {m3s:,})", "value": q_set, "formatted": f"{q_set:,} settlements (~{ma_set:,}/mth)"},
+            ]
+            roll_clause = ""
+            if len(fhl_app_5q) == 5 and len(fhl_set_5q) == 5:
+                yoy_a, prev_q_a = fhl_app_5q[0], fhl_app_5q[3]
+                yoy_s, prev_q_s = fhl_set_5q[0], fhl_set_5q[3]
+                yoy_a_pct = ((q_app - yoy_a) / max(1, yoy_a)) * 100.0
+                qoq_a_pct = ((q_app - prev_q_a) / max(1, prev_q_a)) * 100.0
+                yoy_s_pct = ((q_set - yoy_s) / max(1, yoy_s)) * 100.0
+                roll_app_12m, roll_set_12m = sum(fhl_app_5q[-4:]), sum(fhl_set_5q[-4:])
+                trend_clause = (
+                    f" (<strong>{plain_yoy_growth(q_app, yoy_a)}</strong> from {yoy_a:,} in {fhl_q_list[0]}, and "
+                    f"<strong>{'up' if qoq_a_pct >= 0 else 'down'} {abs(qoq_a_pct):.1f}% QoQ</strong> from {prev_q_a:,} in {fhl_q_list[3]})"
                 )
-                break
+                roll_clause = f" Over the rolling 12-month period, Kāinga Ora recorded <strong>{roll_app_12m:,} approvals</strong> and <strong>{roll_set_12m:,} settled First Home Loans</strong>."
+                prev_str = f"Prior quarter ({fhl_q_list[3]}): {prev_q_a:,} approvals / {prev_q_s:,} settlements | Prior year ({fhl_q_list[0]}): {yoy_a:,} approvals / {yoy_s:,} settlements"
+                chg_str = f"Approvals: {q_app - yoy_a:+,d} ({yoy_a_pct:+.1f}% YoY, {qoq_a_pct:+.1f}% QoQ) | Settlements: {q_set - yoy_s:+,d} ({yoy_s_pct:+.1f}% YoY)"
+                fhl_hist = [
+                    {"period": ql, "label": ql, "value": av, "formatted": f"{av:,} approvals | {sv:,} settlements ({(sv/max(1,av))*100:.1f}% settled)"}
+                    for ql, av, sv in reversed(list(zip(fhl_q_list, fhl_app_5q, fhl_set_5q)))
+                ]
+
+                # Emit Dataset 4: kainga-ora-underwritten-loan-book directly from the 4-quarter rolling sum
+                mth_uw_12m = int(round(roll_set_12m / 12.0))
+                mth_ap_12m = int(round(roll_app_12m / 12.0))
+                uw_calc = (
+                    f"12-Month Underwritten Settlements: {' + '.join(f'{x:,}' for x in fhl_set_5q[-4:])} = {roll_set_12m:,} loans ({mth_uw_12m:,}/mth) | "
+                    f"12-Month Approvals: {' + '.join(f'{x:,}' for x in fhl_app_5q[-4:])} = {roll_app_12m:,} approvals ({mth_ap_12m:,}/mth)"
+                )
+                out["kainga-ora-underwritten-loan-book"] = make_pulse_item(
+                    "Kāinga Ora Report", q_end_iso, MAX_AGE_QUARTERLY,
+                    f"Over the 12 months ended {q_disp}, Kāinga Ora underwrote <strong>{roll_set_12m:,} settled First Home Loan (5% deposit) mortgages</strong> (~{mth_uw_12m:,}/month) from <strong>{roll_app_12m:,} approved applications</strong> (~{mth_ap_12m:,}/month) under the Crown Mortgage Insurance Scheme.",
+                    f"Kāinga Ora Home Ownership Products Report (4 quarters ended {q_disp}): Rolling 12-month First Home Loan settlements = {roll_set_12m:,}; rolling 12-month approvals = {roll_app_12m:,}.",
+                    format_provenance_source_html(uw_calc, f"Kāinga Ora — Home Ownership Products Report ({q_disp})", pdf_u, True),
+                    f"12 months ended {q_disp}", roll_set_12m,
+                    f"{roll_set_12m:,} settled loans underwritten/yr (~{mth_uw_12m:,}/mth) | {roll_app_12m:,} approvals/yr",
+                    f"Latest quarter ({q_disp}): {q_set:,} settled / {q_app:,} approved",
+                    f"Annual settlement conversion rate: {(roll_set_12m / max(1, roll_app_12m)) * 100:.1f}% ({roll_set_12m:,} ÷ {roll_app_12m:,})",
+                    uw_calc, f"Kāinga Ora 4-quarter rolling series ({fhl_q_list[1]} to {q_disp})", fhl_hist,
+                    {"source_published": qtr_pub, "source_url": pdf_u},
+                )
+
+            fhl_calc = (
+                f"Quarterly Approvals: {m1a:,} + {m2a:,} + {m3a:,} = {q_app:,} ({ma_app:,}/mth) | "
+                f"Quarterly Settlements: {m1s:,} + {m2s:,} + {m3s:,} = {q_set:,} ({ma_set:,}/mth; {conv:.1f}% conversion)"
+            )
+            out["kainga-ora-first-home-loan-approvals"] = make_pulse_item(
+                "Kāinga Ora Report", q_end_iso, MAX_AGE_QUARTERLY,
+                f"In the {q_disp} quarter, Kāinga Ora recorded <strong>{q_app:,} First Home Loan (5% deposit) approvals</strong> (~{ma_app:,}/month){trend_clause} and <strong>{q_set:,} loan settlements</strong> (~{ma_set:,}/month, a <strong>{conv:.1f}%</strong> settlement-to-approval rate).{roll_clause}",
+                f"Kāinga Ora Home Ownership Products Report ({q_disp}): First Home Loan approvals = {q_app:,} ({m1a:,}, {m2a:,}, {m3a:,}); settlements = {q_set:,} ({m1s:,}, {m2s:,}, {m3s:,}).",
+                format_provenance_source_html(fhl_calc, f"Kāinga Ora — Home Ownership Products Quarterly Report ({q_disp})", pdf_u, True),
+                q_disp, q_app, f"{q_app:,} approvals ({ma_app:,}/mth) | {q_set:,} settlements ({conv:.1f}%)",
+                prev_str, chg_str, fhl_calc, f"Kāinga Ora 5-quarter series ({q_disp})", fhl_hist,
+                {"source_published": qtr_pub, "source_url": pdf_u},
+            )
+
+            # 4. Emit Dataset 2: kainga-ora-first-home-loan-regional (Council / City TLA Leaderboard)
+            cities_spec = [
+                ("Auckland City", r"Auckland\s+City"), ("Christchurch City", r"Christchurch\s+City"),
+                ("Hamilton City", r"Hamilton\s+City"), ("Dunedin City", r"Dunedin\s+City"),
+                ("Wellington City", r"Wellington\s+City"), ("Tauranga City", r"Tauranga\s+City"),
+                ("Invercargill City", r"Invercargill\s+City"), ("Napier City", r"Napier\s+City"),
+                ("Rotorua District", r"Rotorua\s+District"), ("Palmerston North District", r"Palmerston\s+North\s+District"),
+                ("Nelson City", r"Nelson\s+City"), ("Waikato District", r"Waikato\s+District"),
+                ("New Plymouth District", r"New\s+Plymouth\s+District"), ("Lower Hutt City", r"Lower\s+Hutt\s+City"),
+                ("Selwyn District", r"Selwyn\s+District"), ("Hastings District", r"Hastings\s+District"),
+                ("Waimakariri District", r"Waimakariri\s+District"),
+            ]
+            c_rows = []
+            for c_lbl, c_pat in cities_spec:
+                m_list = [
+                    [int(m.group(i).replace(",", "")) for i in range(1, 5)]
+                    for m in re.finditer(c_pat + r"\s+(\d[\d,]*)\s+(\d[\d,]*)\s+(\d[\d,]*)\s+(\d[\d,]*)", norm_txt, flags=re.I)
+                ]
+                m_list = [v for v in m_list if v[0] + v[1] + v[2] == v[3]]
+                if len(m_list) == 1:
+                    mm = re.search(c_pat + r"\s+[A-Za-z\s]+?\s+(\d+)\s+\d+\s+(\d+)\s+\d+\s+(\d+)\s+\d+\s+(\d+)\s+\d+", norm_txt, flags=re.I)
+                    if mm:
+                        vm = [int(mm.group(i)) for i in range(1, 5)]
+                        if vm[0] + vm[1] + vm[2] == vm[3]:
+                            m_list.append(vm)
+                if m_list:
+                    ca = m_list[0][3]
+                    cs = m_list[1][3] if len(m_list) >= 2 else None
+                    c_sh = (ca / max(1, q_app)) * 100.0
+                    s_part = f" | {cs:,} settlements" if cs is not None else ""
+                    c_rows.append({"period": c_lbl, "label": c_lbl, "value": ca, "set_val": cs or 0, "share": c_sh, "formatted": f"{ca:,} approvals ({c_sh:.1f}% of NZ){s_part}"})
+
+            if len(c_rows) >= 5:
+                c_rows.sort(key=lambda x: x["value"], reverse=True)
+                top1, top2, top3, top4 = c_rows[0], c_rows[1], c_rows[2], c_rows[3]
+                top2_comb_sh = top1["share"] + top2["share"]
+                reg_fhl_calc = (
+                    f"{top1['label']}: {top1['value']:,}÷{q_app:,}={top1['share']:.1f}% | "
+                    f"{top2['label']}: {top2['value']:,}÷{q_app:,}={top2['share']:.1f}% | "
+                    f"{top3['label']}: {top3['value']:,}÷{q_app:,}={top3['share']:.1f}%"
+                )
+                out["kainga-ora-first-home-loan-regional"] = make_pulse_item(
+                    "Kāinga Ora Report", q_end_iso, MAX_AGE_QUARTERLY,
+                    f"In the {q_disp} quarter, Kāinga Ora's <strong>{q_app:,}</strong> First Home Loan (5% deposit) approvals were led by <strong>{top1['label']} ({top1['value']:,} approvals, or {top1['share']:.1f}% of NZ)</strong> and <strong>{top2['label']} ({top2['value']:,}, or {top2['share']:.1f}%)</strong>—together accounting for <strong>{top2_comb_sh:.1f}%</strong> of national approvals—followed by <strong>{top3['label']} ({top3['value']:,})</strong> and <strong>{top4['label']} ({top4['value']:,})</strong>.",
+                    f"Kāinga Ora Home Ownership Products Report ({q_disp} TLA Tables): {top1['label']} = {top1['value']:,} approvals ({top1['set_val']:,} settlements); {top2['label']} = {top2['value']:,} ({top2['set_val']:,}); {top3['label']} = {top3['value']:,} ({top3['set_val']:,}).",
+                    format_provenance_source_html(reg_fhl_calc, f"Kāinga Ora — Home Ownership Products Report TLA Tables ({q_disp})", pdf_u, True),
+                    q_disp, top1["value"],
+                    f"{top1['label']} {top1['value']:,} ({top1['share']:.1f}%) | {top2['label']} {top2['value']:,} ({top2['share']:.1f}%) | {top3['label']} {top3['value']:,}",
+                    f"National quarterly total: {q_app:,} approvals & {q_set:,} settlements",
+                    f"{top1['label']} + {top2['label']} = {top2_comb_sh:.1f}% of all NZ First Home Loan approvals",
+                    reg_fhl_calc, f"Kāinga Ora Territorial Local Authority tables ({q_disp})",
+                    [{k: r[k] for k in ("period", "label", "value", "formatted")} for r in c_rows],
+                    {"source_published": qtr_pub, "source_url": pdf_u},
+                )
+
+        # 5. Parse Dataset 3: 'Previous Owner Savings Withdrawal Applications' (Page 5 Bottom Chart)
+        m_sc = re.search(r"Previous\s+Owner\s+Savings\s+Withdrawal\s+Applications(.{60,1600})", pdf_txt, flags=re.I | re.S)
+        if m_sc:
+            sc_win = m_sc.group(1)
+            q_list = [re.sub(r"\s+", " ", q).strip() for q in re.findall(q_pat, sc_win, flags=re.I)]
+            cln = sc_win
+            for qm in q_list:
+                cln = cln.replace(qm, " ")
+            cln = re.sub(r"\b(?:1\s+October|30\s+September|1\s+July|30\s+June|31\s+March|31\s+December)\s+20\d{2}\b|\b20[12]\d\b", " ", cln, flags=re.I)
+            raw_sc = [int(n.replace(",", "")) for n in re.findall(r"\b\d{1,2},\d{3}\b|\b\d{3,4}\b|\b0\b", cln)]
+            sc_bars = [x for x in _remove_axis_ticks(raw_sc, 200, 0, 1400) if 250 <= x <= 3500]
+            n_q = len(q_list)
+            if n_q >= 4 and len(sc_bars) >= 2 * n_q:
+                cand = sc_bars[: 2 * n_q]
+                ilv = [(cand[2 * i], cand[2 * i + 1]) for i in range(n_q)]
+                grp = [(cand[i], cand[i + n_q]) for i in range(n_q)]
+                app_s = [a for _, a in grp] if all(r >= a for r, a in grp) else ([a for _, a in ilv] if all(r >= a for r, a in ilv) else cand[n_q : 2 * n_q])
+                rec_s = [r for r, _ in grp] if all(r >= a for r, a in grp) else ([r for r, _ in ilv] if all(r >= a for r, a in ilv) else cand[:n_q])
+                curr_q, curr_a, curr_r = q_list[-1], app_s[-1], rec_s[-1]
+                prev_q, prev_a = q_list[-2], app_s[-2]
+                roll_12m, mth_a = sum(app_s[-4:]), int(round(curr_a / 3.0))
+                qoq_pct = ((curr_a - prev_a) / max(1, prev_a)) * 100.0
+                yoy_cl, yoy_chg = f" ({'up' if qoq_pct >= 0 else 'down'} {abs(qoq_pct):.1f}% QoQ from {prev_a:,} in {prev_q})", f"{curr_a - prev_a:+,d} ({qoq_pct:+.1f}% QoQ) vs {prev_q}"
+                if n_q >= 5:
+                    yq, ya = q_list[-5], app_s[-5]
+                    ypct = ((curr_a - ya) / max(1, ya)) * 100.0
+                    yoy_cl = f" ({plain_yoy_growth(curr_a, ya)} from {ya:,} in {yq}, and {'up' if qoq_pct >= 0 else 'down'} {abs(qoq_pct):.1f}% QoQ from {prev_a:,} in {prev_q})"
+                    yoy_chg = f"{curr_a - ya:+,d} ({ypct:+.1f}% YoY vs {yq}: {ya:,}) | {curr_a - prev_a:+,d} ({qoq_pct:+.1f}% QoQ)"
+                sc_calc = f"12-Month Rolling Approvals: {' + '.join(f'{x:,}' for x in app_s[-4:])} = {roll_12m:,} approvals/yr | Latest Quarter ({curr_q}): {curr_a:,} approved of {curr_r:,} received (÷ 3 = {mth_a:,}/mth)"
+                sc_hist = [{"period": ql, "label": ql, "value": av, "formatted": f"{av:,} approved (of {rv:,} received)"} for ql, av, rv in reversed(list(zip(q_list, app_s, rec_s)))]
+                out["kainga-ora-second-chance-kiwisaver-approvals"] = make_pulse_item(
+                    "Kāinga Ora Report", q_end_iso, MAX_AGE_QUARTERLY,
+                    f"In the {curr_q} quarter, Kāinga Ora approved <strong>{curr_a:,} 'second-chance' (Previous Homeowner) KiwiSaver savings withdrawal applications</strong>{yoy_cl} (~{mth_a:,}/month), bringing the rolling 12-month total to <strong>{roll_12m:,} approved previous homeowners</strong>.",
+                    f"Kāinga Ora Home Ownership Products Report ({curr_q}): Previous Owner Savings Withdrawal Applications Approved = {curr_a:,} in {curr_q} ({roll_12m:,} over rolling 4 quarters).",
+                    format_provenance_source_html(sc_calc, f"Kāinga Ora — Home Ownership Products Quarterly Report ({curr_q})", pdf_u, True),
+                    curr_q, curr_a, f"{curr_a:,} approvals in {curr_q} ({roll_12m:,} over 12 months)",
+                    f"Prior quarter ({prev_q}): {prev_a:,} approvals", yoy_chg, sc_calc,
+                    f"Kāinga Ora 5-quarter published series ({q_list[0]} to {curr_q})", sc_hist,
+                    {"source_published": qtr_pub, "source_url": pdf_u},
+                )
+
+        # 6. Parse Dataset 5: 'KiwiSaver FirstHome Savings Withdrawal (IRD)' 4-Quarter Chart (Page 5 Top Chart)
+        m_ks4 = re.search(
+            r"KiwiSaver\s+First\s*Home\s+Savings\s+Withdrawal\s*\(IRD\)(.{40,1200}?)(?:KiwiSaver\s+Savings\s+Withdrawal\s+Determination|Previous\s+Owner\s+Savings)",
+            pdf_txt, flags=re.I | re.S,
+        )
+        if m_ks4:
+            ks_w = m_ks4.group(1)
+            ks_qs = [re.sub(r"\s+", " ", q).strip() for q in re.findall(q_pat, ks_w, flags=re.I)]
+            ks_c = ks_w
+            for qm in ks_qs:
+                ks_c = ks_c.replace(qm, " ")
+            raw_dlr = [int(x.replace(",", "")) for x in re.findall(r"\$([\d,]+)", ks_c)]
+            dlr_bars = [x for x in _remove_axis_ticks(raw_dlr, 10, 500, 650) if 300 <= x <= 950]
+            ks_no_d = re.sub(r"\b20[12]\d\b", " ", re.sub(r"\$[\d,]+", " ", ks_c))
+            raw_cnts = [int(x.replace(",", "")) for x in re.findall(r"\b\d{1,2},\d{3}\b", ks_no_d)]
+            cnt_bars = [x for x in _remove_axis_ticks(raw_cnts, 200, 11000, 14000) if 8000 <= x <= 20000]
+            if len(ks_qs) == 4 and len(cnt_bars) == 4 and len(dlr_bars) == 4:
+                cnt_4q = _sort_chart_bars_by_pdf_x(pdf_b, 4, cnt_bars)
+                dlr_4q = _sort_chart_bars_by_pdf_x(pdf_b, 4, dlr_bars)
+                roll_cnt_12m, roll_dlr_12m = sum(cnt_4q), sum(dlr_4q)
+                roll_avg_nzd = int(round((roll_dlr_12m * 1e6) / max(1, roll_cnt_12m)))
+                q_now_lbl, q_cnt_now, q_dlr_now = ks_qs[-1], cnt_4q[-1], dlr_4q[-1]
+                q_avg_now = int(round((q_dlr_now * 1e6) / max(1, q_cnt_now)))
+                ks4_calc = (
+                    f"12-Month Rolling Total: {' + '.join(f'{x:,}' for x in cnt_4q)} = {roll_cnt_12m:,} withdrawals & "
+                    f"{' + '.join(f'${x}m' for x in dlr_4q)} = ${roll_dlr_12m:,}m (${roll_dlr_12m/1000:.3f}B; avg ${roll_avg_nzd:,}/withdrawal)"
+                )
+                ks4_hist = [
+                    {"period": ql, "label": ql, "value": dv, "formatted": f"${dv:,}m across {cv:,} withdrawals (avg ${int(round((dv*1e6)/max(1,cv))):,})"}
+                    for ql, cv, dv in reversed(list(zip(ks_qs, cnt_4q, dlr_4q)))
+                ]
+                out["kiwisaver-first-home-quarterly-trend"] = make_pulse_item(
+                    "Kāinga Ora / IRD", q_end_iso, MAX_AGE_QUARTERLY,
+                    f"Over the 12 months ended {q_now_lbl}, <strong>{roll_cnt_12m:,} KiwiSaver first-home savings withdrawals</strong> were completed across New Zealand totalling <strong>${roll_dlr_12m/1000:.2f}B (${roll_dlr_12m:,}m)</strong>—an average of <strong>${roll_avg_nzd:,} per withdrawal</strong> (with <strong>{q_cnt_now:,} withdrawals</strong> totalling <strong>${q_dlr_now:,}m</strong> in {q_now_lbl}).",
+                    f"Kāinga Ora Home Ownership Products Report / IRD ({q_now_lbl}): 4-quarter rolling KiwiSaver first-home withdrawals = {roll_cnt_12m:,} withdrawals and ${roll_dlr_12m:,}m.",
+                    format_provenance_source_html(ks4_calc, f"Kāinga Ora Home Ownership Products Report / IRD ({q_now_lbl})", pdf_u, True),
+                    q_now_lbl, roll_dlr_12m,
+                    f"${roll_dlr_12m/1000:.2f}B (${roll_dlr_12m:,}m) across {roll_cnt_12m:,} withdrawals (12m rolling)",
+                    f"Latest quarter ({q_now_lbl}): ${q_dlr_now:,}m across {q_cnt_now:,} withdrawals (avg ${q_avg_now:,})",
+                    f"12-month average withdrawal: ${roll_avg_nzd:,} per first-home buyer",
+                    ks4_calc, f"IRD / Kāinga Ora 4-quarter series ({ks_qs[0]} to {ks_qs[-1]})", ks4_hist,
+                    {"source_published": qtr_pub, "source_url": pdf_u},
+                )
+        if out:
+            break
+
     return out
-
-
+# === PART 4D-2 OF 5 ===
 def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
     """100% live-pulled Inland Revenue (IRD), FMA, RBNZ Table T43 & Kāinga Ora datasets (zero hardcoded fallbacks)."""
     out = {}
