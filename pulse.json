@@ -23,11 +23,11 @@
   "date_modified": "2026-11-14",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-14",
-  "dataset_generated_utc": "2026-11-14T05:24:28Z",
+  "dataset_generated_utc": "2026-11-14T06:30:17Z",
   "latest_underlying_data": "September 2026",
   "data_status": "verified",
   "source_status": "current",
-  "active_datasets_count": 63,
+  "active_datasets_count": 67,
   "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, source_published reflects when the publisher released it, and observation_period / period_end reflect the period the data covers.",
   "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / HLPI / IRD / K\u0101inga Ora / FSC Spotlights) & Semi-Annual (FMA / RBNZ FSR / NHC / ACC)",
   "fhb_snapshot": {
@@ -513,6 +513,151 @@
       "frequency": "Quarterly"
     },
     {
+      "ticker": "consumer-personal-lending-stock",
+      "name": "Total New Zealand personal & consumer lending stock across banks & non-bank lenders (RBNZ Table C5)",
+      "also_known_as": "RBNZ Table C5 Consumer Sector Lending \u2014 Personal loans, car finance, cards & non-bank share",
+      "category": "Household debt, credit cards & borrower stress",
+      "topic": "Personal & consumer lending stock (banks & non-bank lenders)",
+      "value": 14.64,
+      "latest_value": "$14.64B ($14,636m) consumer & personal debt",
+      "unit": "NZD_billions",
+      "observation_period": "September 2026",
+      "observed_period": "2026-09",
+      "period_end": "2026-09-30",
+      "source_published": "Monthly RBNZ statistical release (~4 weeks after reference month-end)",
+      "last_checked": "2026-11-14",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-14",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "12 months prior: $14.32B ($14,325m)",
+      "change": "+2.2% YoY ($+311m)",
+      "source": "RBNZ Table C5",
+      "source_full": "Reserve Bank of New Zealand \u2014 Sector lending (Table C5)",
+      "source_series_ids": "RBNZ Table C5 \u2014 Total Consumer Lending ($m), Bank Consumer Lending & Non-Bank Consumer Lending",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/sector-lending",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ series & HLF-derived non-bank share & YoY change",
+      "definition": "Total personal and consumer debt owed by New Zealand households (personal loans, vehicle finance, hire purchase, overdrafts, and credit cards) across registered banks and non-bank lenders.",
+      "formula": "Non-Bank Share (%) = (Non-Bank Consumer Lending \u00f7 Total Consumer Lending) \u00d7 100; YoY % change",
+      "hlf_interpretation": "HLF market context: Short loan terms (3\u20135 years) and high interest rates (12%\u201325%) on consumer debt create heavy monthly repayments that sharply reduce mortgage servicing capacity.",
+      "methodology": "Extracted live from RBNZ Table C5 (Sector lending \u2014 Consumer).",
+      "historical_data_from": "RBNZ Table C5 monthly series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Total New Zealand personal & consumer lending stock across banks & non-bank lenders (RBNZ Table C5),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Sector lending (Table C5). https://pulse-data.homeloanfactory.co.nz/consumer-personal-lending-stock/ (checked 14 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/consumer-personal-lending-stock/",
+      "summary_text": "As at September 2026, total New Zealand personal and consumer lending (personal loans, vehicle finance, hire purchase, overdrafts, and cards) stood at $14.64B ($14,636m) (up 2.2% year-on-year from $14.32B a year earlier), including $7.33B (50.1%) from non-bank lenders.",
+      "related_questions": [
+        "How much personal and consumer debt do New Zealanders owe?",
+        "What share of New Zealand consumer loans comes from non-bank lenders?"
+      ],
+      "citation_chain": {
+        "official_source": "Reserve Bank of New Zealand \u2014 Sector lending (Table C5)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/sector-lending",
+        "source_series_ids": "RBNZ Table C5 \u2014 Total Consumer Lending ($m), Bank Consumer Lending & Non-Bank Consumer Lending",
+        "hlf_transformation": "Total NZ Consumer Lending = $14,636m ($14.64B; YoY: +2.2%) | Non-Bank Share: $7,332m \u00f7 $14,636m = 50.1%",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/consumer-personal-lending-stock/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
+        "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights/what-it-actually-takes-to-buy-your-first-home-nz",
+        "hlf_tool_title": "HLF Borrowing Power Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
+      },
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 14636.0,
+          "formatted": "$14.64B ($14,636m)"
+        },
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 14561.0,
+          "formatted": "$14.56B ($14,561m)"
+        },
+        {
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 14425.0,
+          "formatted": "$14.43B ($14,425m)"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 14487.0,
+          "formatted": "$14.49B ($14,487m)"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 14460.0,
+          "formatted": "$14.46B ($14,460m)"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 14455.0,
+          "formatted": "$14.46B ($14,455m)"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 14535.0,
+          "formatted": "$14.54B ($14,535m)"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 14664.0,
+          "formatted": "$14.66B ($14,664m)"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 14634.0,
+          "formatted": "$14.63B ($14,634m)"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 14645.0,
+          "formatted": "$14.64B ($14,645m)"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 14663.0,
+          "formatted": "$14.66B ($14,663m)"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 14364.0,
+          "formatted": "$14.36B ($14,364m)"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 14325.0,
+          "formatted": "$14.32B ($14,325m)"
+        }
+      ],
+      "latest_underlying_data": "September 2026",
+      "official_data": "RBNZ Table C5 (September 2026): Total consumer sector lending stock = $14,636m ($14.64B).",
+      "hlf_calculation": "Total NZ Consumer Lending = $14,636m ($14.64B; YoY: +2.2%) | Non-Bank Share: $7,332m \u00f7 $14,636m = 50.1%",
+      "frequency": "Monthly"
+    },
+    {
       "ticker": "contents-insurance-inflation",
       "name": "Annual household contents insurance price index inflation (Stats NZ CPI)",
       "also_known_as": "New Zealand contents insurance CPI price index annual percentage change",
@@ -606,6 +751,151 @@
       "official_data": "Stats NZ CPI (September 2026 quarter): Contents insurance price index = +9.4% YoY; All-groups CPI = +3.2% YoY.",
       "hlf_calculation": "Contents insurance CPI (+9.4%) minus All-groups CPI (+3.2%) = +6.2 percentage points",
       "frequency": "Quarterly"
+    },
+    {
+      "ticker": "credit-card-balances-interest-share",
+      "name": "New Zealand credit card debt, share accruing interest & weighted average interest rate (RBNZ Table C12)",
+      "also_known_as": "RBNZ Table C12 Credit Card Balances \u2014 Total advances outstanding, interest-bearing share & interest rate",
+      "category": "Household debt, credit cards & borrower stress",
+      "topic": "Credit card debt, interest-bearing share & interest rates",
+      "value": 5378.0,
+      "latest_value": "$5.38B ($5,378m) card debt | 51.3% paying 20.0% p.a.",
+      "unit": "NZD_millions",
+      "observation_period": "August 2026",
+      "observed_period": "2026-08",
+      "period_end": "2026-08-31",
+      "source_published": "Monthly RBNZ statistical release (~4 weeks after reference month-end)",
+      "last_checked": "2026-11-14",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-14",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "12 months prior: $5,481m",
+      "change": "-1.9% YoY | 20.0% avg interest rate",
+      "source": "RBNZ Table C12",
+      "source_full": "Reserve Bank of New Zealand \u2014 Credit card balances (Table C12)",
+      "source_series_ids": "RBNZ Table C12 \u2014 Total Advances Outstanding ($m), Interest-Bearing Advances ($m) & Weighted Average Interest Rate (%)",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ series & HLF-derived interest-bearing share",
+      "definition": "Total outstanding balances on New Zealand credit cards, the percentage of balances accruing interest, and the weighted average interest rate charged on interest-bearing balances.",
+      "formula": "Interest-Bearing Share (%) = (Interest-Bearing Advances [$m] \u00f7 Total Advances Outstanding [$m]) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Slightly over half of New Zealand credit card balances accrue interest at ~19.7%\u201320.0% p.a.\u2014more than triple typical mortgage interest rates.",
+      "methodology": "Extracted live from RBNZ Table C12 (Credit card balances). Divides interest-bearing advances by total advances outstanding.",
+      "historical_data_from": "RBNZ Table C12 monthly series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand credit card debt, share accruing interest & weighted average interest rate (RBNZ Table C12),\" August 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Credit card balances (Table C12). https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/ (checked 14 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
+      "summary_text": "In August 2026, New Zealanders owed $5.38B ($5,378m) in credit card balances (down 1.9% year-on-year from $5,481m a year earlier), with 51.3% ($2,758m) accruing interest at a weighted average rate of 20.0% p.a..",
+      "related_questions": [
+        "How much credit card debt do New Zealanders owe?",
+        "What is the average credit card interest rate in New Zealand?"
+      ],
+      "citation_chain": {
+        "official_source": "Reserve Bank of New Zealand \u2014 Credit card balances (Table C12)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances",
+        "source_series_ids": "RBNZ Table C12 \u2014 Total Advances Outstanding ($m), Interest-Bearing Advances ($m) & Weighted Average Interest Rate (%)",
+        "hlf_transformation": "Total Card Advances = $5,378m ($5.38B) | Interest-Bearing: $2,758m \u00f7 $5,378m = 51.3% at 20.0% p.a.",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
+        "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights/what-it-actually-takes-to-buy-your-first-home-nz",
+        "hlf_tool_title": "HLF Borrowing Power Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
+      },
+      "history": [
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 5378.0,
+          "formatted": "$5,378m ($5.38B)"
+        },
+        {
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 5372.0,
+          "formatted": "$5,372m ($5.37B)"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 5414.0,
+          "formatted": "$5,414m ($5.41B)"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 5428.0,
+          "formatted": "$5,428m ($5.43B)"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 5481.0,
+          "formatted": "$5,481m ($5.48B)"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 5584.0,
+          "formatted": "$5,584m ($5.58B)"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 5651.0,
+          "formatted": "$5,651m ($5.65B)"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 5699.0,
+          "formatted": "$5,699m ($5.70B)"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 5794.0,
+          "formatted": "$5,794m ($5.79B)"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 5656.0,
+          "formatted": "$5,656m ($5.66B)"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 5521.0,
+          "formatted": "$5,521m ($5.52B)"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 5552.0,
+          "formatted": "$5,552m ($5.55B)"
+        },
+        {
+          "period": "2025-08",
+          "label": "Aug 2025",
+          "value": 5481.0,
+          "formatted": "$5,481m ($5.48B)"
+        }
+      ],
+      "latest_underlying_data": "August 2026",
+      "official_data": "RBNZ Table C12 (August 2026): Total credit card advances outstanding = $5,378m ($5.38B).",
+      "hlf_calculation": "Total Card Advances = $5,378m ($5.38B) | Interest-Bearing: $2,758m \u00f7 $5,378m = 51.3% at 20.0% p.a.",
+      "frequency": "Monthly"
     },
     {
       "ticker": "dti-headroom",
@@ -3401,6 +3691,72 @@
       "official_data": "RBNZ Table C31 (September 2026): 2,668 investor borrowers and $1,335m investor lending out of $7,533m total lending (LVRN.MMB1.AA).",
       "hlf_calculation": "$1,335m \u00f7 $7,533m = 17.7%",
       "frequency": "Monthly"
+    },
+    {
+      "ticker": "ird-overdue-tax-debt-stress",
+      "name": "Inland Revenue overdue tax, entitlement & student loan debt stress (IRD)",
+      "also_known_as": "IRD Tax and Entitlements Debt Statistics \u2014 Overdue tax arrears across individuals & businesses",
+      "category": "Household debt, credit cards & borrower stress",
+      "topic": "Overdue IRD tax debt & self-employed borrower stress",
+      "value": 9.7,
+      "latest_value": "$9.7B overdue IRD debt across 524,000 customers (avg $18,511)",
+      "unit": "NZD_billions",
+      "observation_period": "June 2026",
+      "observed_period": "2026-06",
+      "period_end": "2026-06-30",
+      "source_published": "Inland Revenue Tax and Entitlements Debt Statistics release",
+      "last_checked": "2026-11-14",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-14",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "June 2025: $9.3B across 527,000 customers",
+      "change": "+$0.4B (+4.3% YoY) | -3,000 customers",
+      "source": "Inland Revenue",
+      "source_full": "Inland Revenue \u2014 Tax and entitlements debt statistics (CC BY 4.0)",
+      "source_series_ids": "IRD Tax and Entitlements Debt \u2014 Customers in Debt, Total Overdue Debt ($B) & Individual Overdue Debt ($B)",
+      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/tax-and-entitlement-debt-statistics",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported Inland Revenue release & HLF-derived mean debt",
+      "definition": "The total dollar value of overdue tax and entitlements debt owed to Inland Revenue across New Zealand ($ billions), the number of customers with overdue tax debt, and the amount owed by individuals.",
+      "formula": "Average Overdue Debt per Customer = Total Overdue Debt ($B) \u00f7 Customers with Debt",
+      "hlf_interpretation": "HLF market context: Overdue IRD tax debt is a key credit indicator for self-employed mortgage applicants\u2014banks inspect IRD tax statements and generally require overdue tax arrears to be cleared before approving a home loan.",
+      "methodology": "Automatically fetched and parsed from Inland Revenue's Tax and Entitlements Debt Statistics release page on ird.govt.nz.",
+      "historical_data_from": "Inland Revenue debt statistics (June 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Inland Revenue overdue tax, entitlement & student loan debt stress (IRD),\" June 2026. Derived by HLF from Inland Revenue \u2014 Tax and entitlements debt statistics (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/ird-overdue-tax-debt-stress/ (checked 14 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-overdue-tax-debt-stress/",
+      "summary_text": "As at June 2026, 524,000 customers held overdue tax and entitlements debt with Inland Revenue totalling $9.7B (up 4.3% year-on-year from $9.3B across 527,000 customers in June 2025\u2014averaging $18,511 per customer in debt), including $3.2B owed by individuals (up from $3.1B).",
+      "related_questions": [
+        "How many New Zealanders and businesses have overdue tax debt with Inland Revenue?",
+        "Can I get a mortgage in New Zealand if I have overdue IRD tax debt?"
+      ],
+      "citation_chain": {
+        "official_source": "Inland Revenue \u2014 Tax and entitlements debt statistics (CC BY 4.0)",
+        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/tax-and-entitlement-debt-statistics",
+        "source_series_ids": "IRD Tax and Entitlements Debt \u2014 Customers in Debt, Total Overdue Debt ($B) & Individual Overdue Debt ($B)",
+        "hlf_transformation": "Total Overdue IRD Debt (June 2026) = $9.7B across 524,000 customers (Mean = $18,511/customer | Individuals = $3.2B)",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/ird-overdue-tax-debt-stress/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
+        "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights/what-it-actually-takes-to-buy-your-first-home-nz",
+        "hlf_tool_title": "HLF Borrowing Power Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
+      },
+      "history": [],
+      "latest_underlying_data": "June 2026",
+      "official_data": "Inland Revenue Tax and Entitlements Debt Statistics (June 2026): 524,000 customers in debt; total overdue debt = $9.7B; owed by individuals = $3.2B.",
+      "hlf_calculation": "Total Overdue IRD Debt (June 2026) = $9.7B across 524,000 customers (Mean = $18,511/customer | Individuals = $3.2B)",
+      "frequency": "Quarterly / Annual"
     },
     {
       "ticker": "kainga-ora-first-home-loan-approvals",
@@ -6939,6 +7295,151 @@
       "latest_underlying_data": "September 2026",
       "official_data": "RBNZ Table C33 (September 2026): Top-up approvals = 9,639 borrowers ($962m) out of 20,763 total approvals.",
       "hlf_calculation": "9,639 \u00f7 20,763 = 46.4% (Mean top-up: $962m \u00d7 $1m \u00f7 9,639 = $99,803)",
+      "frequency": "Monthly"
+    },
+    {
+      "ticker": "total-housing-debt-stock",
+      "name": "Total New Zealand residential mortgage debt outstanding & share of private sector credit (RBNZ Table C5)",
+      "also_known_as": "RBNZ Table C5 Sector Lending \u2014 Total Housing Lending Stock ($B) across Banks & Non-Bank Lenders",
+      "category": "Household debt, credit cards & borrower stress",
+      "topic": "Total New Zealand housing mortgage debt stock",
+      "value": 404.76,
+      "latest_value": "$404.76B ($404,758m) total NZ mortgage debt",
+      "unit": "NZD_billions",
+      "observation_period": "September 2026",
+      "observed_period": "2026-09",
+      "period_end": "2026-09-30",
+      "source_published": "Monthly RBNZ statistical release (~4 weeks after reference month-end)",
+      "last_checked": "2026-11-14",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-14",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "12 months prior: $384.30B ($384,298m)",
+      "change": "+5.3% YoY ($+20.46B)",
+      "source": "RBNZ Table C5",
+      "source_full": "Reserve Bank of New Zealand \u2014 Sector lending (Table C5)",
+      "source_series_ids": "RBNZ Table C5 \u2014 Total Housing Lending ($m) & Total Private Sector Lending ($m)",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/sector-lending",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ series & HLF-derived sector share & YoY change",
+      "definition": "The total stock of residential mortgage debt owed by New Zealand households across registered banks and non-bank lending institutions.",
+      "formula": "Housing Share of Total Credit (%) = (Total Housing Lending \u00f7 Total Sector Lending) \u00d7 100; YoY Growth (%)",
+      "hlf_interpretation": "HLF market context: Housing mortgages account for ~64% of all private debt in New Zealand (~$390B+).",
+      "methodology": "Extracted live from RBNZ Table C5 (Sector lending).",
+      "historical_data_from": "RBNZ Table C5 monthly series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Total New Zealand residential mortgage debt outstanding & share of private sector credit (RBNZ Table C5),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Sector lending (Table C5). https://pulse-data.homeloanfactory.co.nz/total-housing-debt-stock/ (checked 14 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/total-housing-debt-stock/",
+      "summary_text": "As at September 2026, total New Zealand residential mortgage debt across registered banks and non-bank lenders reached $404.76B ($404,758m) (up 5.3% year-on-year from $384.30B a year earlier).",
+      "related_questions": [
+        "What is the total amount of mortgage debt in New Zealand?",
+        "What percentage of New Zealand debt is housing debt?"
+      ],
+      "citation_chain": {
+        "official_source": "Reserve Bank of New Zealand \u2014 Sector lending (Table C5)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/sector-lending",
+        "source_series_ids": "RBNZ Table C5 \u2014 Total Housing Lending ($m) & Total Private Sector Lending ($m)",
+        "hlf_transformation": "Total NZ Housing Debt = $404,758m ($404.76B; YoY: +5.3%)",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/total-housing-debt-stock/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
+        "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights/what-it-actually-takes-to-buy-your-first-home-nz",
+        "hlf_tool_title": "HLF Home Loan Repayments Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator"
+      },
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 404758.0,
+          "formatted": "$404.76B ($404,758m)"
+        },
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 403342.0,
+          "formatted": "$403.34B ($403,342m)"
+        },
+        {
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 401944.0,
+          "formatted": "$401.94B ($401,944m)"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 400512.0,
+          "formatted": "$400.51B ($400,512m)"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 399034.0,
+          "formatted": "$399.03B ($399,034m)"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 397016.0,
+          "formatted": "$397.02B ($397,016m)"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 395637.0,
+          "formatted": "$395.64B ($395,637m)"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 393606.0,
+          "formatted": "$393.61B ($393,606m)"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 392315.0,
+          "formatted": "$392.31B ($392,315m)"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 390591.0,
+          "formatted": "$390.59B ($390,591m)"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 388500.0,
+          "formatted": "$388.50B ($388,500m)"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 386335.0,
+          "formatted": "$386.33B ($386,335m)"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 384298.0,
+          "formatted": "$384.30B ($384,298m)"
+        }
+      ],
+      "latest_underlying_data": "September 2026",
+      "official_data": "RBNZ Table C5 (September 2026): Total housing lending stock = $404,758m ($404.76B).",
+      "hlf_calculation": "Total NZ Housing Debt = $404,758m ($404.76B; YoY: +5.3%)",
       "frequency": "Monthly"
     },
     {
