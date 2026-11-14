@@ -7,6 +7,7 @@ on:
     paths:
       - '*.xlsx'
       - '*.csv'
+      - '*.pdf'
       - 'update_pulse.py'
       - 'update_fhb_benchmark.py'
       - '.github/workflows/update-pulse.yml'
