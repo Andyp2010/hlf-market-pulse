@@ -23,11 +23,11 @@
   "date_modified": "2026-11-14",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-14",
-  "dataset_generated_utc": "2026-11-14T07:25:26Z",
+  "dataset_generated_utc": "2026-11-14T08:46:11Z",
   "latest_underlying_data": "September 2026",
   "data_status": "verified",
   "source_status": "current",
-  "active_datasets_count": 69,
+  "active_datasets_count": 72,
   "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, source_published reflects when the publisher released it, and observation_period / period_end reflect the period the data covers.",
   "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / HLPI / IRD / K\u0101inga Ora / FSC Spotlights) & Semi-Annual (FMA / RBNZ FSR / NHC / ACC)",
   "fhb_snapshot": {
@@ -541,6 +541,150 @@
       "frequency": "Quarterly"
     },
     {
+      "ticker": "consumer-loan-stress-npl",
+      "name": "Personal & consumer loan borrower stress: non-performing consumer loans & NPL ratio (RBNZ Table S50)",
+      "also_known_as": "RBNZ Table S50 Bank Asset Quality \u2014 Non-performing personal/consumer lending ratio (%)",
+      "category": "Household debt, credit cards & borrower stress",
+      "topic": "Consumer & personal loan arrears & non-performing ratio",
+      "value": 0.9,
+      "latest_value": "0.90% consumer NPL ratio ($66m non-performing)",
+      "unit": "percent",
+      "observation_period": "September 2026",
+      "observed_period": "2026-09",
+      "period_end": "2026-09-30",
+      "source_published": "Monthly RBNZ statistical release (~4 weeks after reference month-end)",
+      "last_checked": "2026-11-14",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-14",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "12 months prior: 1.10% ($82m)",
+      "change": "-0.20 percentage points (-16m) YoY",
+      "source": "RBNZ Table S50",
+      "source_full": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans by asset quality (Table S50)",
+      "source_series_ids": "RBNZ Table S50 \u2014 Non-Performing Consumer Loans ($m) & Consumer NPL Ratio (%)",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-by-asset-quality",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ series & HLF-derived comparison vs housing NPLs",
+      "definition": "The non-performing loan (NPL) ratio and dollar value for New Zealand bank personal and consumer loans (90+ days past due or impaired).",
+      "formula": "Consumer NPL Ratio (%) = (Non-Performing Consumer Loans [$m] \u00f7 Total Bank Consumer Loans [$m]) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Unsecured personal and credit card lending typically experiences a non-performing loan rate 2x to 3x higher than residential mortgages.",
+      "methodology": "Extracted live from RBNZ Table S50 (Banks: Assets \u2013 Loans by asset quality \u2014 Consumer/Personal lending).",
+      "historical_data_from": "RBNZ Table S50 monthly series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Personal & consumer loan borrower stress: non-performing consumer loans & NPL ratio (RBNZ Table S50),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans by asset quality (Table S50). https://pulse-data.homeloanfactory.co.nz/consumer-loan-stress-npl/ (checked 14 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/consumer-loan-stress-npl/",
+      "summary_text": "In September 2026, New Zealand bank non-performing personal and consumer loans (90+ days past due or impaired) stood at 0.90% ($66m) (down from 1.1% a year earlier).",
+      "related_questions": [
+        "What is the default and non-performing rate on personal loans in New Zealand?"
+      ],
+      "citation_chain": {
+        "official_source": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans by asset quality (Table S50)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-by-asset-quality",
+        "source_series_ids": "RBNZ Table S50 \u2014 Non-Performing Consumer Loans ($m) & Consumer NPL Ratio (%)",
+        "hlf_transformation": "Non-Performing Bank Consumer Loans = $66m (0.90% of consumer loan book; vs 1.10% a year earlier)",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/consumer-loan-stress-npl/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
+        "hlf_article_title": "Mortgage Refinance & Restructure Guide",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/services/mortgages/mortgage-refinance/",
+        "hlf_tool_title": "HLF Borrowing Power Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
+      },
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 0.9,
+          "formatted": "0.90% consumer NPL ratio"
+        },
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 0.9,
+          "formatted": "0.90% consumer NPL ratio"
+        },
+        {
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 0.9,
+          "formatted": "0.90% consumer NPL ratio"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 0.9,
+          "formatted": "0.90% consumer NPL ratio"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 1.0,
+          "formatted": "1.00% consumer NPL ratio"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 1.1,
+          "formatted": "1.10% consumer NPL ratio"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 1.1,
+          "formatted": "1.10% consumer NPL ratio"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 1.1,
+          "formatted": "1.10% consumer NPL ratio"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 1.1,
+          "formatted": "1.10% consumer NPL ratio"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 1.1,
+          "formatted": "1.10% consumer NPL ratio"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 1.0,
+          "formatted": "1.00% consumer NPL ratio"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 1.1,
+          "formatted": "1.10% consumer NPL ratio"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 1.1,
+          "formatted": "1.10% consumer NPL ratio"
+        }
+      ],
+      "latest_underlying_data": "September 2026",
+      "official_data": "RBNZ Table S50 (September 2026): Bank non-performing consumer loans = $66m (0.90% of consumer lending).",
+      "hlf_calculation": "Non-Performing Bank Consumer Loans = $66m (0.90% of consumer loan book; vs 1.10% a year earlier)",
+      "frequency": "Monthly"
+    },
+    {
       "ticker": "consumer-personal-lending-stock",
       "name": "Total New Zealand personal & consumer lending stock across banks & non-bank lenders (RBNZ Table C5)",
       "also_known_as": "RBNZ Table C5 Consumer Sector Lending \u2014 Personal loans, car finance, cards & non-bank share",
@@ -585,8 +729,7 @@
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/consumer-personal-lending-stock/",
       "summary_text": "As at September 2026, total New Zealand personal and consumer lending (personal loans, vehicle finance, hire purchase, overdrafts, and cards) stood at $14.64B ($14,636m) (up 2.2% year-on-year from $14.32B a year earlier), including $7.33B (50.1%) from non-bank lenders.",
       "related_questions": [
-        "How much personal and consumer debt do New Zealanders owe?",
-        "What share of New Zealand consumer loans comes from non-bank lenders?"
+        "How much personal and consumer debt do New Zealanders owe?"
       ],
       "citation_chain": {
         "official_source": "Reserve Bank of New Zealand \u2014 Sector lending (Table C5)",
@@ -807,9 +950,9 @@
       "derived_by_hlf": true,
       "data_type": "Officially reported RBNZ series & HLF-derived interest-bearing share",
       "definition": "Total outstanding balances on New Zealand credit cards, the percentage of balances accruing interest, and the weighted average interest rate charged on interest-bearing balances.",
-      "formula": "Interest-Bearing Share (%) = (Interest-Bearing Advances [$m] \u00f7 Total Advances Outstanding [$m]) \u00d7 100",
-      "hlf_interpretation": "HLF market context: Slightly over half of New Zealand credit card balances accrue interest at ~19.7%\u201320.0% p.a.\u2014more than triple typical mortgage interest rates.",
-      "methodology": "Extracted live from RBNZ Table C12 (Credit card balances). Divides interest-bearing advances by total advances outstanding.",
+      "formula": "Interest-Bearing Share (%) = (Interest-Bearing Advances [$m] \u00f7 Daily Average Advances [$m]) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Over half of New Zealand credit card balances accrue interest at ~19.7%\u201320.0% p.a.\u2014more than triple typical mortgage interest rates.",
+      "methodology": "Extracted live from RBNZ Table C12 (Credit card balances).",
       "historical_data_from": "RBNZ Table C12 monthly series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -2956,6 +3099,150 @@
       "frequency": "Quarterly"
     },
     {
+      "ticker": "household-debt-servicing-burden",
+      "name": "Quarterly mortgage interest charged & scheduled principal-and-interest repayments (RBNZ Table C35)",
+      "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation \u2014 Quarterly interest charged ($B) & scheduled repayments ($B)",
+      "category": "Household debt, credit cards & borrower stress",
+      "topic": "Quarterly mortgage interest charged & scheduled repayments",
+      "value": 4.84,
+      "latest_value": "$4.84B/qtr mortgage interest charged | $7.36B/qtr scheduled P&I",
+      "unit": "NZD_billions",
+      "observation_period": "September 2026 quarter",
+      "observed_period": "2026-09",
+      "period_end": "2026-09-30",
+      "source_published": "Monthly RBNZ statistical release (~4 weeks after reference month-end)",
+      "last_checked": "2026-11-14",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-14",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Same quarter prior year: $5.22B",
+      "change": "-7.2% YoY ($-0.38B/qtr)",
+      "source": "RBNZ Table C35",
+      "source_full": "Reserve Bank of New Zealand \u2014 Residential mortgage loan reconciliation (Table C35)",
+      "source_series_ids": "RBNZ Table C35 \u2014 Quarterly Interest Charged ($m) & Scheduled Principal-and-Interest Repayments ($m)",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-loan-reconciliation",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ quarterly mortgage reconciliation series",
+      "definition": "Total residential mortgage interest charged across New Zealand each quarter ($ billions) alongside scheduled principal-and-interest repayments contractually due.",
+      "formula": "Quarterly Interest Charged ($B) & Rolling 4-Quarter Scheduled Repayments ($B)",
+      "hlf_interpretation": "HLF market context: Tracks the actual dollar interest burden charged to New Zealand homeowners each quarter as fixed-rate mortgages reprice.",
+      "methodology": "Extracted live from RBNZ Table C35 (Residential mortgage loan reconciliation).",
+      "historical_data_from": "RBNZ Table C35 quarterly series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Quarterly mortgage interest charged & scheduled principal-and-interest repayments (RBNZ Table C35),\" September 2026 quarter. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage loan reconciliation (Table C35). https://pulse-data.homeloanfactory.co.nz/household-debt-servicing-burden/ (checked 14 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/household-debt-servicing-burden/",
+      "summary_text": "In the September 2026 quarter, New Zealand homeowners were charged $4.84B ($4,842m) in residential mortgage interest (down 7.2% year-on-year from $5.22B a year earlier), alongside $7.36B in scheduled principal-and-interest repayments ($29.11B over the rolling 12 months).",
+      "related_questions": [
+        "How much mortgage interest do New Zealand homeowners pay each quarter?"
+      ],
+      "citation_chain": {
+        "official_source": "Reserve Bank of New Zealand \u2014 Residential mortgage loan reconciliation (Table C35)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-loan-reconciliation",
+        "source_series_ids": "RBNZ Table C35 \u2014 Quarterly Interest Charged ($m) & Scheduled Principal-and-Interest Repayments ($m)",
+        "hlf_transformation": "Quarterly Interest Charged (September 2026 quarter) = $4.84B ($4,842m; YoY: -7.2%) | Scheduled P&I Repayments = $7.36B/qtr ($29.11B/yr)",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/household-debt-servicing-burden/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
+        "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights/what-it-actually-takes-to-buy-your-first-home-nz",
+        "hlf_tool_title": "HLF Home Loan Repayments Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator"
+      },
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 4842.0,
+          "formatted": "$4.84B ($4,842m) interest charged"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 4783.0,
+          "formatted": "$4.78B ($4,783m) interest charged"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 4750.0,
+          "formatted": "$4.75B ($4,750m) interest charged"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 5014.0,
+          "formatted": "$5.01B ($5,014m) interest charged"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 5218.0,
+          "formatted": "$5.22B ($5,218m) interest charged"
+        },
+        {
+          "period": "2025-06",
+          "label": "Jun 2025",
+          "value": 5429.0,
+          "formatted": "$5.43B ($5,429m) interest charged"
+        },
+        {
+          "period": "2025-03",
+          "label": "Mar 2025",
+          "value": 5593.0,
+          "formatted": "$5.59B ($5,593m) interest charged"
+        },
+        {
+          "period": "2024-12",
+          "label": "Dec 2024",
+          "value": 5804.0,
+          "formatted": "$5.80B ($5,804m) interest charged"
+        },
+        {
+          "period": "2024-09",
+          "label": "Sep 2024",
+          "value": 5746.0,
+          "formatted": "$5.75B ($5,746m) interest charged"
+        },
+        {
+          "period": "2024-06",
+          "label": "Jun 2024",
+          "value": 5495.0,
+          "formatted": "$5.50B ($5,495m) interest charged"
+        },
+        {
+          "period": "2024-03",
+          "label": "Mar 2024",
+          "value": 5254.0,
+          "formatted": "$5.25B ($5,254m) interest charged"
+        },
+        {
+          "period": "2023-12",
+          "label": "Dec 2023",
+          "value": 5013.0,
+          "formatted": "$5.01B ($5,013m) interest charged"
+        },
+        {
+          "period": "2023-09",
+          "label": "Sep 2023",
+          "value": 4627.0,
+          "formatted": "$4.63B ($4,627m) interest charged"
+        }
+      ],
+      "latest_underlying_data": "September 2026 quarter",
+      "official_data": "RBNZ Table C35 (September 2026 quarter): Quarterly residential mortgage interest charged = $4,842m ($4.84B).",
+      "hlf_calculation": "Quarterly Interest Charged (September 2026 quarter) = $4.84B ($4,842m; YoY: -7.2%) | Scheduled P&I Repayments = $7.36B/qtr ($29.11B/yr)",
+      "frequency": "Quarterly"
+    },
+    {
       "ticker": "household-insurance-expenditure",
       "name": "Average insured homeowner building premium vs all-household dwelling insurance spend",
       "also_known_as": "RBNZ insured homeowner building insurance benchmark & Stats NZ HES dwelling insurance spend",
@@ -3914,8 +4201,7 @@
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-overdue-tax-debt-stress/",
       "summary_text": "As at June 2026, 524,000 customers held overdue tax and entitlements debt with Inland Revenue totalling $9.7B (up 4.3% year-on-year from $9.3B across 527,000 customers in June 2025\u2014averaging $18,511 per customer in debt), including $3.2B owed by individuals (up from $3.1B).",
       "related_questions": [
-        "How many New Zealanders and businesses have overdue tax debt with Inland Revenue?",
-        "Can I get a mortgage in New Zealand if I have overdue IRD tax debt?"
+        "How many New Zealanders and businesses have overdue tax debt with Inland Revenue?"
       ],
       "citation_chain": {
         "official_source": "Inland Revenue \u2014 Tax and entitlements debt statistics (CC BY 4.0)",
@@ -5258,6 +5544,150 @@
       "official_data": "FSC NZ Life Insurance Claims Benchmarks & RBNZ Life Insurer Returns: Total annual life/risk claims paid = ~$1.42B/yr; Benchmark mean payouts: Term Life = ~$295,000; Trauma / Critical Illness = ~$122,000; Income / Mortgage Protection = ~$5,150/month.",
       "hlf_calculation": "Term Life mean: ~$295,000 | Trauma mean: ~$122,000 | Income Protection: ~$5,150/mth \u00d7 21 mths avg duration = ~$108,150",
       "frequency": "Quarterly / Annual"
+    },
+    {
+      "ticker": "mortgage-non-performing-arrears",
+      "name": "Residential mortgage borrower stress: non-performing housing loans & NPL ratio (RBNZ Table S50)",
+      "also_known_as": "RBNZ Table S50 Bank Asset Quality \u2014 Non-performing housing loans (90+ days past due & impaired)",
+      "category": "Household debt, credit cards & borrower stress",
+      "topic": "Mortgage arrears & non-performing housing loans",
+      "value": 0.5,
+      "latest_value": "0.50% housing NPL ratio ($2,115m non-performing)",
+      "unit": "percent",
+      "observation_period": "September 2026",
+      "observed_period": "2026-09",
+      "period_end": "2026-09-30",
+      "source_published": "Monthly RBNZ statistical release (~4 weeks after reference month-end)",
+      "last_checked": "2026-11-14",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-14",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "12 months prior: 0.60% ($2,272m)",
+      "change": "-0.10 percentage points (-157m) YoY",
+      "source": "RBNZ Table S50",
+      "source_full": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans by asset quality (Table S50)",
+      "source_series_ids": "RBNZ Table S50 \u2014 Non-Performing Housing Loans ($m) & Housing NPL Ratio (%)",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-by-asset-quality",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ series & HLF-derived YoY comparison",
+      "definition": "The percentage and dollar value of New Zealand bank residential mortgage loans classified as non-performing (90+ days past due or individually impaired).",
+      "formula": "Housing Non-Performing Loan Ratio (%) = (Non-Performing Housing Loans [$m] \u00f7 Total Bank Housing Loans [$m]) \u00d7 100",
+      "hlf_interpretation": "HLF market context: RBNZ Table S50 is the Reserve Bank's primary gauge of severe mortgage stress\u2014tracking borrowers who have fallen 90+ days behind on repayments or entered formal loan impairment.",
+      "methodology": "Extracted live from RBNZ Table S50 (Banks: Assets \u2013 Loans by asset quality).",
+      "historical_data_from": "RBNZ Table S50 monthly series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Residential mortgage borrower stress: non-performing housing loans & NPL ratio (RBNZ Table S50),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans by asset quality (Table S50). https://pulse-data.homeloanfactory.co.nz/mortgage-non-performing-arrears/ (checked 14 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mortgage-non-performing-arrears/",
+      "summary_text": "In September 2026, New Zealand bank non-performing residential mortgages (loans 90+ days past due or impaired) stood at 0.50% of total housing loans ($2.12B / $2,115m, down from 0.6% a year earlier).",
+      "related_questions": [
+        "What percentage of New Zealand mortgages are non-performing or 90+ days in arrears?"
+      ],
+      "citation_chain": {
+        "official_source": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans by asset quality (Table S50)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-by-asset-quality",
+        "source_series_ids": "RBNZ Table S50 \u2014 Non-Performing Housing Loans ($m) & Housing NPL Ratio (%)",
+        "hlf_transformation": "Non-Performing Bank Housing Loans = $2,115m (0.50% of housing loan book; vs 0.60% / $2,272m a year earlier)",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/mortgage-non-performing-arrears/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
+        "hlf_article_title": "Mortgage Refinance & Restructure Guide",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/services/mortgages/mortgage-refinance/",
+        "hlf_tool_title": "HLF Mortgage Refinance Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/refinance-calculator"
+      },
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 0.5,
+          "formatted": "0.50% NPL ratio"
+        },
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 0.5,
+          "formatted": "0.50% NPL ratio"
+        },
+        {
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 0.5,
+          "formatted": "0.50% NPL ratio"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 0.6,
+          "formatted": "0.60% NPL ratio"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 0.6,
+          "formatted": "0.60% NPL ratio"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 0.6,
+          "formatted": "0.60% NPL ratio"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 0.6,
+          "formatted": "0.60% NPL ratio"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 0.6,
+          "formatted": "0.60% NPL ratio"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 0.6,
+          "formatted": "0.60% NPL ratio"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 0.6,
+          "formatted": "0.60% NPL ratio"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 0.6,
+          "formatted": "0.60% NPL ratio"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 0.6,
+          "formatted": "0.60% NPL ratio"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 0.6,
+          "formatted": "0.60% NPL ratio"
+        }
+      ],
+      "latest_underlying_data": "September 2026",
+      "official_data": "RBNZ Table S50 (September 2026): Bank non-performing housing loans = $2,115m (0.50% of housing lending).",
+      "hlf_calculation": "Non-Performing Bank Housing Loans = $2,115m (0.50% of housing loan book; vs 0.60% / $2,272m a year earlier)",
+      "frequency": "Monthly"
     },
     {
       "ticker": "mover-low-equity",
@@ -7502,7 +7932,7 @@
       "data_type": "Officially reported RBNZ series & HLF-derived sector share & YoY change",
       "definition": "The total stock of residential mortgage debt owed by New Zealand households across registered banks and non-bank lending institutions.",
       "formula": "Housing Share of Total Credit (%) = (Total Housing Lending \u00f7 Total Sector Lending) \u00d7 100; YoY Growth (%)",
-      "hlf_interpretation": "HLF market context: Housing mortgages account for ~64% of all private debt in New Zealand (~$390B+).",
+      "hlf_interpretation": "HLF market context: Housing mortgages account for ~64% of all private debt in New Zealand (~$405B).",
       "methodology": "Extracted live from RBNZ Table C5 (Sector lending).",
       "historical_data_from": "RBNZ Table C5 monthly series",
       "creator_name": "Andy Palliser",
@@ -7519,8 +7949,7 @@
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/total-housing-debt-stock/",
       "summary_text": "As at September 2026, total New Zealand residential mortgage debt across registered banks and non-bank lenders reached $404.76B ($404,758m) (up 5.3% year-on-year from $384.30B a year earlier).",
       "related_questions": [
-        "What is the total amount of mortgage debt in New Zealand?",
-        "What percentage of New Zealand debt is housing debt?"
+        "What is the total amount of mortgage debt in New Zealand?"
       ],
       "citation_chain": {
         "official_source": "Reserve Bank of New Zealand \u2014 Sector lending (Table C5)",
