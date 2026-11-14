@@ -6510,6 +6510,17 @@ TICKER_CATALOG.update({
 # === PART 5C-2A OF 5 ===
 import openpyxl
 
+RBNZ_SOURCES["c21"] = {
+    "pages": [
+        "https://www.rbnz.govt.nz/statistics/series/households/household-debt",
+        "https://www.rbnz.govt.nz/statistics/series/households/household-balance-sheet",
+        "https://www.rbnz.govt.nz/statistics/series/households",
+    ],
+    "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c21/hc21.xlsx",
+    "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c22/hc22.xlsx",
+    "match": "c2",
+}
+
 TICKER_CATALOG.update({
     "fhb-average-loan-size": {
         "name": "Typical first-home buyer mortgage size (RBNZ Table C31)",
@@ -6636,9 +6647,8 @@ def _extract_pct_from_rec(rec: dict | None, lo: float = 0.1, hi: float = 50.0) -
 
 def load_rbnz_sheets_merged(xlsx_path: pathlib.Path) -> list[tuple[str, pd.DataFrame, pd.DataFrame, list[str]]]:
     """
-    Load an RBNZ Excel workbook and unmerge/forward-fill horizontal group header cells
-    (so sub-columns under 'Housing', 'Consumer', 'Credit limits', 'Non-performing', etc. inherit their group name),
-    while ignoring Row 0/1 sheet-wide title rows.
+    Load an RBNZ Excel workbook, unmerge all group header cells in rows 1..38,
+    include ALL header rows (0..date_row_start) AND prepend the sheet tab name (`sh`) to each column label.
     """
     sheets_out = []
     try:
@@ -6651,9 +6661,9 @@ def load_rbnz_sheets_merged(xlsx_path: pathlib.Path) -> list[tuple[str, pd.DataF
             continue
         ws = wb[sh]
         for m_range in list(ws.merged_cells.ranges):
-            if m_range.max_row <= 38:
+            if m_range.max_row <= 40:
                 span_cols = m_range.max_col - m_range.min_col + 1
-                if m_range.min_col == 1 and span_cols > 4:
+                if m_range.min_row == 1 and m_range.min_col == 1 and span_cols > 6:
                     continue
                 top_val = ws.cell(m_range.min_row, m_range.min_col).value
                 ws.unmerge_cells(str(m_range))
@@ -6662,11 +6672,11 @@ def load_rbnz_sheets_merged(xlsx_path: pathlib.Path) -> list[tuple[str, pd.DataF
                         ws.cell(r, c).value = top_val
 
         raw = pd.DataFrame(list(ws.values))
-        if raw.empty or len(raw) < 8:
+        if raw.empty or len(raw) < 6:
             continue
 
         date_row_start, date_col_idx = None, 0
-        for r_idx in range(min(55, len(raw))):
+        for r_idx in range(min(60, len(raw))):
             for c_try in (0, 1):
                 if c_try >= raw.shape[1]:
                     continue
@@ -6687,19 +6697,19 @@ def load_rbnz_sheets_merged(xlsx_path: pathlib.Path) -> list[tuple[str, pd.DataF
             continue
 
         hdr_block = raw.iloc[:date_row_start, :].copy()
-        for r_h in range(2, max(2, date_row_start - 2)):
+        for r_h in range(0, max(0, date_row_start - 1)):
             non_empty = [
                 c for c in range(date_col_idx + 1, hdr_block.shape[1])
                 if pd.notna(hdr_block.iloc[r_h, c]) and str(hdr_block.iloc[r_h, c]).strip()
             ]
-            if len(non_empty) >= 2:
-                hdr_block.iloc[r_h, date_col_idx + 1 :] = hdr_block.iloc[r_h, date_col_idx + 1 :].ffill(limit=6)
+            if 2 <= len(non_empty) <= max(6, hdr_block.shape[1] // 2):
+                hdr_block.iloc[r_h, date_col_idx + 1 :] = hdr_block.iloc[r_h, date_col_idx + 1 :].ffill(limit=8)
 
         labels = []
-        start_r = 2 if date_row_start >= 4 else 0
+        sh_clean = re.sub(r"\s+", " ", sh).strip().lower()
         for c_idx in range(raw.shape[1]):
-            parts = []
-            for r_h in range(start_r, date_row_start):
+            parts = [sh_clean] if sh_clean not in ("data", "sheet1", "table") else []
+            for r_h in range(0, date_row_start):
                 cell_v = hdr_block.iloc[r_h, c_idx]
                 if pd.notna(cell_v):
                     s_c = re.sub(r"\s+", " ", str(cell_v)).strip()
@@ -6724,9 +6734,18 @@ def _find_rbnz_multi(tabs, kw_list: list[tuple[str, ...]], exclude_kw: tuple[str
                 return dt_s, val_s, col_lbl
         except Exception:
             pass
-    # Fallback: scan all columns across all sheets for any column matching val_bounds and at least 1 keyword
     if val_bounds:
         lo, hi = val_bounds
+        for kw in kw_list:
+            for _, df, _, labels in tabs:
+                for c_idx, lbl in enumerate(labels):
+                    if any(ex.lower() in lbl for ex in exclude_kw):
+                        continue
+                    if not all(k.lower() in lbl for k in kw):
+                        continue
+                    s_num = pd.to_numeric(df.iloc[:, c_idx], errors="coerce").dropna()
+                    if len(s_num) >= 2 and lo <= float(s_num.iloc[-1]) <= hi:
+                        return df["date"], pd.to_numeric(df.iloc[:, c_idx], errors="coerce"), lbl
         flat_kws = [w.lower() for tup in kw_list for w in tup]
         for _, df, _, labels in tabs:
             for c_idx, lbl in enumerate(labels):
@@ -6952,6 +6971,54 @@ def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pa
             print(f"[RBNZ C5] Parse note: {exc_c5}")
 # === END OF PART 5C-2B ===
 # === PART 5C-3A-1 OF 5 ===
+    # Ensure C12 credit-card-limits-servicing-impact & interest-bearing rate are populated even if merged headers varied
+    if c12_path and c12_path.exists() and "credit-card-limits-servicing-impact" not in out:
+        try:
+            c12_pub = extract_rbnz_published_date(c12_path)
+            c12_tabs = load_rbnz_sheets_merged(c12_path)
+            c12_url = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances"
+            dt_col, adv_s, lim_s, ib_s, rate_s = None, None, None, None, None
+            for _, df_t, _, lbls in c12_tabs:
+                for c_i in range(1, df_t.shape[1]):
+                    s_num = pd.to_numeric(df_t.iloc[:, c_i], errors="coerce").dropna()
+                    if len(s_num) < 6:
+                        continue
+                    v_last = float(s_num.iloc[-1])
+                    lbl = lbls[c_i] if c_i < len(lbls) else ""
+                    if 4500 <= v_last <= 9500 and ("total" in lbl or "advance" in lbl or "balance" in lbl or adv_s is None):
+                        dt_col, adv_s = df_t["date"], pd.to_numeric(df_t.iloc[:, c_i], errors="coerce")
+                    elif 15000 <= v_last <= 35000 and ("limit" in lbl or lim_s is None):
+                        lim_s = pd.to_numeric(df_t.iloc[:, c_i], errors="coerce")
+                    elif 2000 <= v_last <= 4400 and ("interest" in lbl or "bearing" in lbl):
+                        ib_s = pd.to_numeric(df_t.iloc[:, c_i], errors="coerce")
+                    elif 16.5 <= v_last <= 24.5 and ("rate" in lbl or "interest" in lbl or "weighted" in lbl or rate_s is None):
+                        rate_s = pd.to_numeric(df_t.iloc[:, c_i], errors="coerce")
+            if dt_col is not None and adv_s is not None and lim_s is not None:
+                df_l = pd.DataFrame({"date": dt_col, "adv": adv_s, "lim": lim_s}).dropna().sort_values("date").reset_index(drop=True)
+                if len(df_l) >= 2:
+                    last_l = df_l.iloc[-1]
+                    dt_now = pd.Timestamp(last_l["date"])
+                    per_s, as_of_s = dt_now.strftime("%B %Y"), month_end_iso(dt_now)
+                    adv_m, lim_m = float(last_l["adv"]), float(last_l["lim"])
+                    unused_m = lim_m - adv_m
+                    util_pct = (adv_m / lim_m) * 100.0
+                    lim_calc = f"Total Credit Limits = ${lim_m:,.0f}m (${lim_m/1000:.2f}B) | Utilisation: ${adv_m:,.0f}m ÷ ${lim_m:,.0f}m = {util_pct:.1f}% | Unused Limits = ${unused_m:,.0f}m (${unused_m/1000:.2f}B)"
+                    lim_hist = make_history_list(df_l["date"], df_l["lim"], lambda v: f"${v/1000:.2f}B (${v:,.0f}m) limits")
+                    out["credit-card-limits-servicing-impact"] = make_pulse_item(
+                        "RBNZ C12", as_of_s, MAX_AGE_MONTHLY,
+                        f"In {per_s}, total approved New Zealand credit card limits stood at <strong>${lim_m/1000:.2f}B (${lim_m:,.0f}m)</strong> with a <strong>{util_pct:.1f}% utilisation rate</strong>—leaving <strong>${unused_m/1000:.2f}B (${unused_m:,.0f}m) in unused credit card limits</strong> that banks still stress-test at 3% per month on mortgage applications.",
+                        f"RBNZ Table C12 ({per_s}): Total credit card limits = ${lim_m:,.0f}m; advances outstanding = ${adv_m:,.0f}m ({util_pct:.1f}% utilisation); unused limits = ${unused_m:,.0f}m.",
+                        format_provenance_source_html(lim_calc, "RBNZ Table C12 (Reserve Bank of New Zealand)", c12_url, True),
+                        per_s, round(lim_m, 1),
+                        f"${lim_m/1000:.2f}B total limits ({util_pct:.1f}% used | ${unused_m/1000:.2f}B unused)",
+                        f"Active balances: ${adv_m/1000:.2f}B (${adv_m:,.0f}m)",
+                        f"${unused_m/1000:.2f}B unused limits (~$45k borrowing power impact per $10k limit)",
+                        lim_calc, "RBNZ Table C12 monthly series", lim_hist,
+                        {"source_published": c12_pub, "source_url": c12_url},
+                    )
+        except Exception as exc_c12_fb:
+            print(f"[RBNZ C12 Fallback] {exc_c12_fb}")
+
     # 5 & 6. RBNZ Table S50 — Mortgage Arrears / Non-Performing Housing & Consumer Loans
     s50_path = _ensure_rbnz_file("s50", root, session, rbnz_files)
     if s50_path and s50_path.exists():
@@ -6964,11 +7031,11 @@ def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pa
                 s50_tabs,
                 [("housing", "non-performing"), ("housing", "90 days"), ("housing", "impaired"), ("non-performing", "housing"), ("housing", "past due")],
                 exclude_kw=("ratio", "percent", "%", "share"),
-                val_bounds=(250, 15000),
+                val_bounds=(150, 15000),
             )
             _, s_npl_h_pct, _ = _find_rbnz_multi(
                 s50_tabs,
-                [("housing", "non-performing"), ("housing", "npl"), ("housing", "ratio"), ("housing", "%")],
+                [("housing", "non-performing"), ("housing", "npl"), ("housing", "ratio"), ("housing", "%"), ("housing", "90 days")],
                 val_bounds=(0.1, 4.5),
             )
             if s_npl_h_pct is None and s_npl_h_m is not None:
@@ -7006,21 +7073,21 @@ def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pa
 
             dt_c50, s_npl_c_m, _ = _find_rbnz_multi(
                 s50_tabs,
-                [("consumer", "non-performing"), ("personal", "non-performing"), ("consumer", "90 days"), ("personal", "90 days"), ("consumer", "impaired")],
+                [("consumer", "non-performing"), ("personal", "non-performing"), ("consumer", "90 days"), ("personal", "90 days"), ("consumer", "impaired"), ("personal", "impaired")],
                 exclude_kw=("ratio", "percent", "%"),
-                val_bounds=(20, 3000),
+                val_bounds=(15, 3000),
             )
             _, s_npl_c_pct, _ = _find_rbnz_multi(
                 s50_tabs,
-                [("consumer", "non-performing"), ("personal", "non-performing"), ("consumer", "ratio"), ("personal", "ratio"), ("consumer", "%")],
-                val_bounds=(0.3, 12.0),
+                [("consumer", "non-performing"), ("personal", "non-performing"), ("consumer", "ratio"), ("personal", "ratio"), ("consumer", "%"), ("personal", "%")],
+                val_bounds=(0.25, 12.0),
             )
             if s_npl_c_pct is None and s_npl_c_m is not None:
-                _, s_tot_bk_c, _ = _find_rbnz_multi(s50_tabs, [("consumer",), ("personal",)], val_bounds=(4000, 25000))
+                _, s_tot_bk_c, _ = _find_rbnz_multi(s50_tabs, [("consumer",), ("personal",)], val_bounds=(3000, 25000))
                 if s_tot_bk_c is not None:
                     s_npl_c_pct = (s_npl_c_m / s_tot_bk_c) * 100.0
             if s_npl_c_m is None and s_npl_c_pct is not None:
-                _, s_tot_bk_c, _ = _find_rbnz_multi(s50_tabs, [("consumer",), ("personal",)], val_bounds=(4000, 25000))
+                _, s_tot_bk_c, _ = _find_rbnz_multi(s50_tabs, [("consumer",), ("personal",)], val_bounds=(3000, 25000))
                 if s_tot_bk_c is not None:
                     s_npl_c_m = (s_npl_c_pct / 100.0) * s_tot_bk_c
 
@@ -7048,74 +7115,92 @@ def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pa
         except Exception as exc_s50:
             print(f"[RBNZ S50] Parse note: {exc_s50}")
 
-    # 7. RBNZ Table C21 — Household Debt Servicing Burden (% of Disposable Income)
-    c21_path = _ensure_rbnz_file("c21", root, session, rbnz_files)
-    if c21_path and c21_path.exists():
+    # 7. RBNZ Table C35 (Residential Mortgage Loan Reconciliation — Quarterly Mortgage Interest & Scheduled Repayments)
+    RBNZ_SOURCES["c35"] = {
+        "pages": ["https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-loan-reconciliation"],
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c35/hc35.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c35/c35-residential-mortgage-loan-reconciliation.xlsx",
+        "match": "c35",
+    }
+    TICKER_CATALOG["household-debt-servicing-burden"].update({
+        "name": "Quarterly mortgage interest charged & scheduled principal-and-interest repayments (RBNZ Table C35)",
+        "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation — Quarterly interest charged ($B) & scheduled repayments ($B)",
+        "source": "RBNZ Table C35",
+        "source_full": "Reserve Bank of New Zealand — Residential mortgage loan reconciliation (Table C35)",
+        "series_ids": "RBNZ Table C35 — Quarterly Interest Charged ($m) & Scheduled Principal-and-Interest Repayments ($m)",
+        "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-loan-reconciliation",
+        "unit": "NZD_billions",
+    })
+    c35_path = _ensure_rbnz_file("c35", root, session, rbnz_files)
+    if c35_path and c35_path.exists():
         try:
-            c21_pub = extract_rbnz_published_date(c21_path)
-            c21_tabs = load_rbnz_sheets_merged(c21_path)
-            c21_url = "https://www.rbnz.govt.nz/statistics/series/households/household-financial-statistics"
+            c35_pub = extract_rbnz_published_date(c35_path)
+            c35_tabs = load_rbnz_sheets_merged(c35_path)
+            c35_url = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-loan-reconciliation"
 
-            dt_c21, s_dsr, _ = _find_rbnz_multi(
-                c21_tabs, [("servicing",), ("interest", "income"), ("debt", "servicing")],
-                val_bounds=(3.0, 22.0),
+            dt_35, s_int_m, _ = _find_rbnz_multi(
+                c35_tabs, [("interest", "charged"), ("interest",)],
+                exclude_kw=("rate", "%", "percent"), val_bounds=(2000, 9000),
             )
-            _, s_dti_hh, _ = _find_rbnz_multi(
-                c21_tabs, [("debt", "disposable", "income"), ("total", "debt", "income"), ("housing", "debt", "income"), ("debt", "income")],
-                exclude_kw=("servicing", "interest"), val_bounds=(90.0, 220.0),
+            _, s_sched_m, _ = _find_rbnz_multi(
+                c35_tabs, [("scheduled",), ("repayment",)],
+                exclude_kw=("excess", "full", "unscheduled"), val_bounds=(4000, 14000),
             )
-            if dt_c21 is not None and s_dsr is not None:
-                df_c21 = pd.DataFrame({"date": dt_c21, "dsr": s_dsr, "dti": s_dti_hh}).dropna(subset=["date", "dsr"]).sort_values("date").reset_index(drop=True)
-                if len(df_c21) >= 2:
-                    l21 = df_c21.iloc[-1]
-                    p21 = df_c21.iloc[-5] if len(df_c21) >= 5 else df_c21.iloc[0]
-                    dt21 = pd.Timestamp(l21["date"])
-                    per21, as_of21 = dt21.strftime("%B %Y"), month_end_iso(dt21)
-                    dsr_now, dsr_prev = float(l21["dsr"]), float(p21["dsr"])
-                    dti_clean = df_c21["dti"].dropna() if "dti" in df_c21 else pd.Series(dtype=float)
-                    dti_now = float(dti_clean.iloc[-1]) if len(dti_clean) else None
-                    dti_clause = f", with total household debt sitting at <strong>{dti_now:.1f}% of annual disposable income</strong>" if dti_now else ""
-                    c21_calc = f"Official RBNZ Table C21 Household Debt Servicing Ratio = {dsr_now:.1f}% of disposable income" + (f" | Household Debt to Disposable Income = {dti_now:.1f}%" if dti_now else "")
-                    c21_hist = make_history_list(df_c21["date"], df_c21["dsr"], lambda v: f"{v:.1f}% of disposable income")
+            if dt_35 is not None and s_int_m is not None:
+                df_35 = pd.DataFrame({"date": dt_35, "int_m": s_int_m, "sched_m": s_sched_m}).dropna(subset=["date", "int_m"]).sort_values("date").reset_index(drop=True)
+                if len(df_35) >= 2:
+                    l35 = df_35.iloc[-1]
+                    p35 = df_35.iloc[-5] if len(df_35) >= 5 else df_35.iloc[0]
+                    dt35 = pd.Timestamp(l35["date"])
+                    per35, as_of35 = f"{dt35.strftime('%B %Y')} quarter", month_end_iso(dt35)
+                    int_b, int_prev_b = float(l35["int_m"]) / 1000.0, float(p35["int_m"]) / 1000.0
+                    int_yoy = ((int_b - int_prev_b) / max(0.1, int_prev_b)) * 100.0
+                    sched_clean = df_35["sched_m"].dropna() if "sched_m" in df_35 else pd.Series(dtype=float)
+                    sched_b = float(sched_clean.iloc[-1]) / 1000.0 if len(sched_clean) else None
+                    sched_4q_b = float(sched_clean.iloc[-4:].sum()) / 1000.0 if len(sched_clean) >= 4 else None
+                    sched_clause = f", alongside <strong>${sched_b:.2f}B in scheduled principal-and-interest repayments</strong> (${sched_4q_b:.2f}B over the rolling 12 months)" if (sched_b and sched_4q_b) else ""
+                    c35_calc = f"Quarterly Interest Charged ({per35}) = ${int_b:.2f}B (${float(l35['int_m']):,.0f}m; YoY: {int_yoy:+.1f}%)" + (f" | Scheduled P&I Repayments = ${sched_b:.2f}B/qtr (${sched_4q_b:.2f}B/yr)" if (sched_b and sched_4q_b) else "")
+                    c35_hist = make_history_list(df_35["date"], df_35["int_m"], lambda v: f"${v/1000:.2f}B (${v:,.0f}m) interest charged")
                     out["household-debt-servicing-burden"] = make_pulse_item(
-                        "RBNZ C21", as_of21, MAX_AGE_ANNUAL,
-                        f"As at {per21}, New Zealand households spent <strong>{dsr_now:.1f}% of their disposable income</strong> servicing debt ({plain_prior_year_pct(dsr_now, dsr_prev)}){dti_clause}.",
-                        f"RBNZ Table C21 ({per21}): Household debt servicing ratio = {dsr_now:.1f}% of disposable income.",
-                        format_provenance_source_html(c21_calc, "RBNZ Table C21 (Reserve Bank of New Zealand)", c21_url, False),
-                        per21, round(dsr_now, 1),
-                        f"{dsr_now:.1f}% of disposable income" + (f" ({dti_now:.1f}% debt-to-income)" if dti_now else ""),
-                        f"Prior year: {dsr_prev:.1f}%",
-                        f"{dsr_now - dsr_prev:+.1f} percentage points YoY",
-                        c21_calc, "RBNZ Table C21 quarterly series", c21_hist,
-                        {"source_published": c21_pub, "source_url": c21_url},
+                        "RBNZ C35", as_of35, MAX_AGE_QUARTERLY,
+                        f"In the {per35}, New Zealand homeowners were charged <strong>${int_b:.2f}B (${float(l35['int_m']):,.0f}m) in residential mortgage interest</strong> ({plain_yoy_growth(int_b, int_prev_b)} from ${int_prev_b:.2f}B a year earlier){sched_clause}.",
+                        f"RBNZ Table C35 ({per35}): Quarterly residential mortgage interest charged = ${float(l35['int_m']):,.0f}m (${int_b:.2f}B).",
+                        format_provenance_source_html(c35_calc, "RBNZ Table C35 (Reserve Bank of New Zealand)", c35_url, True),
+                        per35, round(int_b, 2),
+                        f"${int_b:.2f}B/qtr mortgage interest charged" + (f" | ${sched_b:.2f}B/qtr scheduled P&I" if sched_b else ""),
+                        f"Same quarter prior year: ${int_prev_b:.2f}B",
+                        f"{int_yoy:+.1f}% YoY (${int_b - int_prev_b:+.2f}B/qtr)",
+                        c35_calc, "RBNZ Table C35 quarterly series", c35_hist,
+                        {"source_published": c35_pub, "source_url": c35_url},
                     )
-        except Exception as exc_c21:
-            print(f"[RBNZ C21] Parse note: {exc_c21}")
+        except Exception as exc_c35:
+            print(f"[RBNZ C35] Parse note: {exc_c35}")
 
-    # 8 & 9. Stats NZ HLPI (Household Living-Costs) & IRD Overdue Tax Debt Stress
-    web_pages = fetch_html_with_browser_fallback(session, STATS_HLPI_URLS + IRD_TAX_DEBT_URLS, "HLPI / IRD Debt")
-
-    for hlpi_u in STATS_HLPI_URLS:
-        hlpi_html = web_pages.get(hlpi_u, "")
+    # 8 & 9. Stats NZ HLPI & IRD Overdue Tax Debt (Fetched separately so Stats NZ always triggers Camoufox fallback!)
+    hlpi_pages = fetch_html_with_browser_fallback(
+        session,
+        STATS_HLPI_URLS + ["https://www.stats.govt.nz/topics/price-indexes/"],
+        "Stats NZ HLPI",
+    )
+    for hlpi_u, hlpi_html in hlpi_pages.items():
         if not hlpi_html:
             continue
         hlpi_pub = extract_html_release_date(hlpi_html, "Quarterly Stats NZ Household Living-Costs Price Indexes (HLPI) release")
         h_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", hlpi_html))
         m_12m = re.search(
-            r"12\s+months\s+to\s+the\s+([A-Za-z]+\s+20\d{2})\s+quarter[^0-9]{0,80}?all[- ]households\s+was\s+([\d.]+)\s*(?:percent|%)",
+            r"12\s+months\s+to\s+the\s+([A-Za-z]+\s+20\d{2})\s+quarter[^0-9]{0,90}?all[- ]households\s+was\s+([\d.]+)\s*(?:percent|%)",
             h_txt, flags=re.I,
         )
-        if not m_12m:
-            m_12m = re.search(
-                r"household\s+living\s+costs[^0-9]{0,50}?(?:increased|rose)\s+([\d.]+)\s*(?:percent|%)[^0-9]{0,40}?(?:to\s+the\s+)?([A-Za-z]+\s+20\d{2})\s+quarter",
+        if m_12m:
+            hlpi_per, hlpi_pct = m_12m.group(1).strip(), float(m_12m.group(2))
+        else:
+            m_alt = re.search(
+                r"(?:average\s+New\s+Zealand\s+household|household\s+living\s+costs)[^0-9]{0,60}?(?:increased|rose)\s+([\d.]+)\s*(?:percent|%)\s+in\s+the\s+12\s+months\s+to\s+the\s+([A-Za-z]+\s+20\d{2})\s+quarter",
                 h_txt, flags=re.I,
             )
-            if m_12m:
-                hlpi_pct, hlpi_per = float(m_12m.group(1)), m_12m.group(2).strip()
-            else:
+            if not m_alt:
                 continue
-        else:
-            hlpi_per, hlpi_pct = m_12m.group(1).strip(), float(m_12m.group(2))
+            hlpi_pct, hlpi_per = float(m_alt.group(1)), m_alt.group(2).strip()
 
         dt_hlpi = pd.to_datetime("1 " + hlpi_per, errors="coerce")
         as_of_hlpi = month_end_iso(dt_hlpi) if pd.notna(dt_hlpi) else today.strftime("%Y-%m-%d")
@@ -7130,17 +7215,18 @@ def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pa
             "Stats NZ HLPI", as_of_hlpi, MAX_AGE_QUARTERLY,
             f"In the 12 months to the {hlpi_per} quarter, Stats NZ's Household Living-Costs Price Index (HLPI) for all New Zealand households rose <strong>{hlpi_pct:.1f}%</strong>{grp_clause}.",
             f"Stats NZ Household Living-Costs Price Indexes ({hlpi_per} quarter): All-households annual change = +{hlpi_pct:.1f}%.",
-            format_provenance_source_html(hlpi_calc, f"Stats NZ — Household Living-Costs Price Indexes ({hlpi_per} quarter)", hlpi_u, False),
+            format_provenance_source_html(hlpi_calc, f"Stats NZ — Household Living-Costs Price Indexes ({hlpi_per} quarter)", STATS_HLPI_URLS[0], False),
             f"{hlpi_per} quarter", hlpi_pct,
             f"+{hlpi_pct:.1f}% annual household living-cost inflation",
             f"Highest-expenditure households: +{m_high.group(1)}% | Lowest-expenditure: +{m_low.group(1)}%" if (m_low and m_high) else "Stats NZ quarterly HLPI series",
             "Includes household mortgage interest & council rates",
             hlpi_calc, f"Stats NZ HLPI release ({hlpi_per} quarter)", None,
-            {"source_published": hlpi_pub, "source_url": hlpi_u},
+            {"source_published": hlpi_pub, "source_url": STATS_HLPI_URLS[0]},
         )
         break
 
-    tax_html = web_pages.get(IRD_TAX_DEBT_URLS[0], "")
+    ird_pages = fetch_html_with_browser_fallback(session, IRD_TAX_DEBT_URLS, "IRD Tax Debt")
+    tax_html = ird_pages.get(IRD_TAX_DEBT_URLS[0], "")
     if tax_html:
         tax_pub = extract_html_release_date(tax_html, "Inland Revenue Tax and Entitlements Debt Statistics release")
         t_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", tax_html))
