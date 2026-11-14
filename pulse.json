@@ -23,11 +23,11 @@
   "date_modified": "2026-11-14",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-14",
-  "dataset_generated_utc": "2026-11-14T04:03:22Z",
+  "dataset_generated_utc": "2026-11-14T04:54:15Z",
   "latest_underlying_data": "September 2026",
   "data_status": "verified",
   "source_status": "current",
-  "active_datasets_count": 62,
+  "active_datasets_count": 63,
   "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, source_published reflects when the publisher released it, and observation_period / period_end reflect the period the data covers.",
   "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / IRD Student Loans / K\u0101inga Ora / FSC Spotlights) & Semi-Annual (FMA / RBNZ FSR / NHC / ACC)",
   "fhb_snapshot": {
@@ -3420,19 +3420,19 @@
       "date_modified": "2026-11-14",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Monthly approvals in quarter: 686, 884, 874",
-      "change": "1,016 First Home Loans settled in Apr - Jun 2026 (41.6% conversion)",
+      "previous_period": "Prior quarter (Jan - Mar 2026): 2,249 approvals / 874 settlements",
+      "change": "Approvals: +195 (+8.7% QoQ) | Settlements: 1,016 (41.6% conversion)",
       "source": "K\u0101inga Ora Quarterly Report",
       "source_full": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report (CC BY 4.0)",
       "source_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 First Home Loans: Approvals and Settlements (5-Quarter Series & Monthly Totals)",
-      "source_url": "https://kaingaora.govt.nz/assets/Publications/Home-Ownership-Products-Quarterly-Report/Home-Ownership-Products-as-at-31-June-2026.pdf?v=b7372dd525095613eebdb76690f1fd4eb57c6c67",
+      "source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
       "derived_by_hlf": true,
       "data_type": "Officially reported K\u0101inga Ora quarterly PDF series & HLF-derived YoY/QoQ growth & 12-month rolling totals",
       "definition": "The nominal number of K\u0101inga Ora-underwritten First Home Loan (5% deposit) approvals and settlements each month, quarter, and rolling 12-month period across New Zealand, alongside quarter-on-quarter and year-on-year percentage trends.",
       "formula": "12-Month Rolling Approvals = Sum of latest 4 quarters; YoY % = ((Latest Quarter \u2212 Prior-Year Quarter) \u00f7 Prior-Year Quarter) \u00d7 100; Settlement Ratio = (Settlements \u00f7 Approvals) \u00d7 100",
       "hlf_interpretation": "HLF market context: Because K\u0101inga Ora First Home Loans require only a 5% deposit and are exempt from RBNZ's 20% bank low-deposit speed limit, tracking whether nominal approvals and settlements are rising or falling shows how actively participating lenders are using the scheme.",
       "methodology": "Automatically fetched and parsed from K\u0101inga Ora's Home Ownership Products Quarterly Report PDF (licensed under CC BY 4.0). Extracts the 5-quarter Approvals and Settlements series on Page 2 and verifies the latest quarter against the monthly Territorial Local Authority Total rows on Page 4.",
-      "historical_data_from": "K\u0101inga Ora 5-quarter series (Apr - Jun 2026)",
+      "historical_data_from": "K\u0101inga Ora quarterly series (Apr - Jun 2026)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -3445,14 +3445,14 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"K\u0101inga Ora First Home Loan (5% deposit) nominal approvals, settlements & YoY/QoQ trend,\" Apr - Jun 2026. Derived by HLF from K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-approvals/ (checked 14 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-approvals/",
-      "summary_text": "In the Apr - Jun 2026 quarter, K\u0101inga Ora recorded 2,444 First Home Loan (5% deposit) approvals (~815/month) and 1,016 loan settlements (~339/month, a 41.6% settlement-to-approval rate).",
+      "summary_text": "In the Apr - Jun 2026 quarter, K\u0101inga Ora recorded 2,444 First Home Loan (5% deposit) approvals (~815/month) (up 8.7% QoQ from 2,249 in Jan - Mar 2026) and 1,016 loan settlements (~339/month, a 41.6% settlement-to-approval rate). Over the rolling 12-month period, K\u0101inga Ora recorded 9,556 approvals and 4,049 settled First Home Loans.",
       "related_questions": [
         "How many K\u0101inga Ora First Home Loans are approved and settled each quarter in New Zealand?",
         "Are K\u0101inga Ora 5% deposit First Home Loan approvals going up or down?"
       ],
       "citation_chain": {
         "official_source": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report (CC BY 4.0)",
-        "official_source_url": "https://kaingaora.govt.nz/assets/Publications/Home-Ownership-Products-Quarterly-Report/Home-Ownership-Products-as-at-31-June-2026.pdf?v=b7372dd525095613eebdb76690f1fd4eb57c6c67",
+        "official_source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
         "source_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 First Home Loans: Approvals and Settlements (5-Quarter Series & Monthly Totals)",
         "hlf_transformation": "Quarterly Approvals: 686 + 884 + 874 = 2,444 (815/mth) | Quarterly Settlements: 322 + 245 + 449 = 1,016 (339/mth; 41.6% conversion)",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-approvals/",
@@ -3464,16 +3464,28 @@
       },
       "history": [
         {
-          "period": "Quarter Approvals",
-          "label": "Apr - Jun 2026 Approvals (686 + 884 + 874)",
+          "period": "Apr - Jun 2026",
+          "label": "Apr - Jun 2026",
           "value": 2444,
-          "formatted": "2,444 approvals (~815/mth)"
+          "formatted": "2,444 approvals | 1,016 settlements (41.6% settled)"
         },
         {
-          "period": "Quarter Settlements",
-          "label": "Apr - Jun 2026 Settlements (322 + 245 + 449)",
-          "value": 1016,
-          "formatted": "1,016 settlements (~339/mth)"
+          "period": "Jan - Mar 2026",
+          "label": "Jan - Mar 2026",
+          "value": 2249,
+          "formatted": "2,249 approvals | 874 settlements (38.9% settled)"
+        },
+        {
+          "period": "Oct - Dec 2025",
+          "label": "Oct - Dec 2025",
+          "value": 2302,
+          "formatted": "2,302 approvals | 1,163 settlements (50.5% settled)"
+        },
+        {
+          "period": "Jul - Sep 2025",
+          "label": "Jul - Sep 2025",
+          "value": 2561,
+          "formatted": "2,561 approvals | 996 settlements (38.9% settled)"
         }
       ],
       "latest_underlying_data": "Apr - Jun 2026",
@@ -3504,7 +3516,7 @@
       "source": "K\u0101inga Ora Quarterly Report",
       "source_full": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)",
       "source_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 First Home Loan Approvals & Settlements by Territorial Local Authority",
-      "source_url": "https://kaingaora.govt.nz/assets/Publications/Home-Ownership-Products-Quarterly-Report/Home-Ownership-Products-as-at-31-June-2026.pdf?v=b7372dd525095613eebdb76690f1fd4eb57c6c67",
+      "source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
       "derived_by_hlf": true,
       "data_type": "Officially reported K\u0101inga Ora council-level tables & HLF-derived national shares",
       "definition": "Distribution of K\u0101inga Ora 5% deposit First Home Loan approvals and settlements across New Zealand's major cities and Territorial Local Authorities.",
@@ -3531,7 +3543,7 @@
       ],
       "citation_chain": {
         "official_source": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)",
-        "official_source_url": "https://kaingaora.govt.nz/assets/Publications/Home-Ownership-Products-Quarterly-Report/Home-Ownership-Products-as-at-31-June-2026.pdf?v=b7372dd525095613eebdb76690f1fd4eb57c6c67",
+        "official_source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
         "source_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 First Home Loan Approvals & Settlements by Territorial Local Authority",
         "hlf_transformation": "Auckland City: 657\u00f72,444=26.9% | Christchurch City: 399\u00f72,444=16.3% | Hamilton City: 170\u00f72,444=7.0%",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/",
@@ -3651,36 +3663,36 @@
       "frequency": "Quarterly"
     },
     {
-      "ticker": "kainga-ora-underwritten-loan-book",
-      "name": "K\u0101inga Ora First Home Loan annual mortgages settled/underwritten & approval-to-settlement pipeline",
-      "also_known_as": "K\u0101inga Ora 12-Month Rolling First Home Loan Settlements Underwritten & Approvals (SPE 4.1)",
-      "category": "First-home buyers",
-      "topic": "Annual K\u0101inga Ora First Home Loans underwritten & Mortgage Insurance Scheme",
-      "value": 4049,
-      "latest_value": "4,049 First Home Loans underwritten/yr (~337/mth)",
-      "unit": "loans",
-      "observation_period": "Year ended 30 June 2026",
+      "ticker": "kainga-ora-second-chance-kiwisaver-approvals",
+      "name": "K\u0101inga Ora 'Second Chance' (Previous Homeowner) KiwiSaver first-home withdrawal approvals",
+      "also_known_as": "Previous Owner Savings Withdrawal Applications Approved by K\u0101inga Ora",
+      "category": "KiwiSaver",
+      "topic": "Second-chance KiwiSaver first-home withdrawal approvals for previous homeowners",
+      "value": 1053,
+      "latest_value": "1,053 approvals in Apr - Jun 2026 (4,596 over 12 months)",
+      "unit": "approvals",
+      "observation_period": "Apr - Jun 2026",
       "observed_period": "2026-06",
       "period_end": "2026-06-30",
-      "source_published": "Annual K\u0101inga Ora Corporate Report release (CC BY 4.0)",
+      "source_published": "Quarterly K\u0101inga Ora Home Ownership Products Report release (CC BY 4.0)",
       "last_checked": "2026-11-14",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-14",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Crown Mortgage Insurance Scheme (5% deposit First Home Loan)",
-      "change": "Averaged 337 underwritten 5%-deposit mortgages per month",
-      "source": "K\u0101inga Ora Reports",
-      "source_full": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Report & Annual Report (SPE 4.1)",
-      "source_series_ids": "K\u0101inga Ora 4-Quarter Rolling First Home Loan Approvals & Underwritten Settlements (SPE 4.1)",
-      "source_url": "https://kaingaora.govt.nz/assets/Publications/Annual-report/Kainga-Ora-Annual-Report-2025-2026.pdf?v=21f5d4c867a835a119e801a557ed51d2c5f652e5",
+      "previous_period": "Prior quarter (Jan - Mar 2026): 1,023 approvals",
+      "change": "+24 (+2.3% YoY vs Apr-Jun 2025: 1,029) | +30 (+2.9% QoQ)",
+      "source": "K\u0101inga Ora Quarterly Report",
+      "source_full": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: Previous Owner Savings Withdrawal Applications",
+      "source_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 Previous Owner Savings Withdrawal Applications Approved (5-Quarter Series)",
+      "source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
       "derived_by_hlf": true,
-      "data_type": "Officially reported K\u0101inga Ora series & HLF-derived 12-month rolling totals",
-      "definition": "The rolling 12-month number of First Home Loan (5% deposit) mortgages settled/underwritten and approved by K\u0101inga Ora under the Crown Mortgage Insurance Scheme.",
-      "formula": "12-Month Underwritten Settlements = Sum of 4 quarters of FHL settlements; 12-Month Approvals = Sum of 4 quarters of FHL approvals",
-      "hlf_interpretation": "HLF market context: Under the user-pays Mortgage Insurance Scheme (funded via the 1.2% Lenders Mortgage Insurance fee), K\u0101inga Ora approves ~9,500+ applications and underwrites over 4,000 settled 5%-deposit mortgages per year.",
-      "methodology": "Derived live by summing the 4 most recent quarters of K\u0101inga Ora First Home Loan settlements and approvals in the Home Ownership Products Quarterly Report PDF (and cross-checked against SPE 4.1 in K\u0101inga Ora's Annual Report).",
-      "historical_data_from": "K\u0101inga Ora Annual Report (FY2026)",
+      "data_type": "Officially reported K\u0101inga Ora quarterly PDF series & HLF-derived 12-month rolling total",
+      "definition": "The number of previous New Zealand homeowners approved by K\u0101inga Ora each quarter (and over the rolling 12-month period) to make a 'second-chance' KiwiSaver savings withdrawal to buy a home.",
+      "formula": "12-Month Rolling Approvals = Sum of Applications Approved across the 4 most recent quarters; Monthly Mean = Quarterly Approvals \u00f7 3",
+      "hlf_interpretation": "HLF market context: Previous homeowners who no longer own property and are in a similar financial position to a first-home buyer (typically after a relationship separation or career relocation) can apply to K\u0101inga Ora for a determination letter to unlock their KiwiSaver balance for another home purchase\u2014with over 4,100 approvals granted annually.",
+      "methodology": "Automatically fetched and parsed from the 'Previous Owner Savings Withdrawal Applications' chart on Page 5 of K\u0101inga Ora's Home Ownership Products Quarterly Report PDF. Extracts Applications Approved across all 5 published quarters and sums the 4 most recent quarters for the rolling 12-month approval total.",
+      "historical_data_from": "K\u0101inga Ora 5-quarter published series (July \u2013 September 2019 to Apr - Jun 2026)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -3691,18 +3703,145 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"K\u0101inga Ora First Home Loan annual mortgages settled/underwritten & approval-to-settlement pipeline,\" Year ended 30 June 2026. Derived by HLF from K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Report & Annual Report (SPE 4.1). https://pulse-data.homeloanfactory.co.nz/kainga-ora-underwritten-loan-book/ (checked 14 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"K\u0101inga Ora 'Second Chance' (Previous Homeowner) KiwiSaver first-home withdrawal approvals,\" Apr - Jun 2026. Derived by HLF from K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: Previous Owner Savings Withdrawal Applications. https://pulse-data.homeloanfactory.co.nz/kainga-ora-second-chance-kiwisaver-approvals/ (checked 14 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-second-chance-kiwisaver-approvals/",
+      "summary_text": "In the Apr - Jun 2026 quarter, K\u0101inga Ora approved 1,053 'second-chance' (Previous Homeowner) KiwiSaver savings withdrawal applications (up 2.3% year-on-year from 1,029 in Apr-Jun 2025, and up 2.9% QoQ from 1,023 in Jan - Mar 2026) (~351/month), bringing the rolling 12-month total to 4,596 approved previous homeowners.",
+      "related_questions": [
+        "How many previous homeowners get approved for a second-chance KiwiSaver withdrawal in New Zealand?",
+        "Can I use my KiwiSaver to buy a house if I have owned a property before in NZ?"
+      ],
+      "citation_chain": {
+        "official_source": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: Previous Owner Savings Withdrawal Applications",
+        "official_source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
+        "source_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 Previous Owner Savings Withdrawal Applications Approved (5-Quarter Series)",
+        "hlf_transformation": "12-Month Rolling Approvals: 1,290 + 1,230 + 1,023 + 1,053 = 4,596 approvals/yr | Latest Quarter (Apr - Jun 2026): 1,053 approved of 570 received (\u00f7 3 = 351/mth)",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-second-chance-kiwisaver-approvals/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
+        "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights/what-it-actually-takes-to-buy-your-first-home-nz",
+        "hlf_tool_title": "HLF Borrowing Power Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
+      },
+      "history": [
+        {
+          "period": "Apr - Jun 2026",
+          "label": "Apr - Jun 2026",
+          "value": 1053,
+          "formatted": "1,053 approved (of 570 received)"
+        },
+        {
+          "period": "Jan - Mar 2026",
+          "label": "Jan - Mar 2026",
+          "value": 1023,
+          "formatted": "1,023 approved (of 560 received)"
+        },
+        {
+          "period": "Oct - Dec 2025",
+          "label": "Oct - Dec 2025",
+          "value": 1230,
+          "formatted": "1,230 approved (of 550 received)"
+        },
+        {
+          "period": "July - Sept 2025",
+          "label": "July - Sept 2025",
+          "value": 1290,
+          "formatted": "1,290 approved (of 540 received)"
+        },
+        {
+          "period": "Apr-Jun 2025",
+          "label": "Apr-Jun 2025",
+          "value": 1029,
+          "formatted": "1,029 approved (of 530 received)"
+        },
+        {
+          "period": "Apr - Jun 2026",
+          "label": "Apr - Jun 2026",
+          "value": 1272,
+          "formatted": "1,272 approved (of 520 received)"
+        },
+        {
+          "period": "Jan - Mar 2026",
+          "label": "Jan - Mar 2026",
+          "value": 1296,
+          "formatted": "1,296 approved (of 591 received)"
+        },
+        {
+          "period": "Oct - Dec 2025",
+          "label": "Oct - Dec 2025",
+          "value": 610,
+          "formatted": "610 approved (of 559 received)"
+        },
+        {
+          "period": "July - Sept 2025",
+          "label": "July - Sept 2025",
+          "value": 590,
+          "formatted": "590 approved (of 603 received)"
+        },
+        {
+          "period": "July \u2013 September 2019",
+          "label": "July \u2013 September 2019",
+          "value": 580,
+          "formatted": "580 approved (of 549 received)"
+        }
+      ],
+      "latest_underlying_data": "Apr - Jun 2026",
+      "official_data": "K\u0101inga Ora Home Ownership Products Report (Apr - Jun 2026): Previous Owner Savings Withdrawal Applications Approved = 1,053 in Apr - Jun 2026 (4,596 over rolling 4 quarters).",
+      "hlf_calculation": "12-Month Rolling Approvals: 1,290 + 1,230 + 1,023 + 1,053 = 4,596 approvals/yr | Latest Quarter (Apr - Jun 2026): 1,053 approved of 570 received (\u00f7 3 = 351/mth)",
+      "frequency": "Quarterly"
+    },
+    {
+      "ticker": "kainga-ora-underwritten-loan-book",
+      "name": "K\u0101inga Ora First Home Loan annual mortgages settled/underwritten & approval-to-settlement pipeline",
+      "also_known_as": "K\u0101inga Ora 12-Month Rolling First Home Loan Settlements Underwritten & Approvals (SPE 4.1)",
+      "category": "First-home buyers",
+      "topic": "Annual K\u0101inga Ora First Home Loans underwritten & Mortgage Insurance Scheme",
+      "value": 4049,
+      "latest_value": "4,049 settled loans underwritten/yr (~337/mth) | 9,556 approvals/yr",
+      "unit": "loans",
+      "observation_period": "12 months ended Apr - Jun 2026",
+      "observed_period": "2026-06",
+      "period_end": "2026-06-30",
+      "source_published": "Quarterly K\u0101inga Ora Home Ownership Products Report release (CC BY 4.0)",
+      "last_checked": "2026-11-14",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-14",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Latest quarter (Apr - Jun 2026): 1,016 settled / 2,444 approved",
+      "change": "Annual settlement conversion rate: 42.4% (4,049 \u00f7 9,556)",
+      "source": "K\u0101inga Ora Reports",
+      "source_full": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Report & Annual Report (SPE 4.1)",
+      "source_series_ids": "K\u0101inga Ora 4-Quarter Rolling First Home Loan Approvals & Underwritten Settlements (SPE 4.1)",
+      "source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported K\u0101inga Ora series & HLF-derived 12-month rolling totals",
+      "definition": "The rolling 12-month number of First Home Loan (5% deposit) mortgages settled/underwritten and approved by K\u0101inga Ora under the Crown Mortgage Insurance Scheme.",
+      "formula": "12-Month Underwritten Settlements = Sum of 4 quarters of FHL settlements; 12-Month Approvals = Sum of 4 quarters of FHL approvals",
+      "hlf_interpretation": "HLF market context: Under the user-pays Mortgage Insurance Scheme (funded via the 1.2% Lenders Mortgage Insurance fee), K\u0101inga Ora approves ~9,500+ applications and underwrites over 4,000 settled 5%-deposit mortgages per year.",
+      "methodology": "Derived live by summing the 4 most recent quarters of K\u0101inga Ora First Home Loan settlements and approvals in the Home Ownership Products Quarterly Report PDF (and cross-checked against SPE 4.1 in K\u0101inga Ora's Annual Report).",
+      "historical_data_from": "K\u0101inga Ora 4-quarter rolling series (ended Apr - Jun 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"K\u0101inga Ora First Home Loan annual mortgages settled/underwritten & approval-to-settlement pipeline,\" 12 months ended Apr - Jun 2026. Derived by HLF from K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Report & Annual Report (SPE 4.1). https://pulse-data.homeloanfactory.co.nz/kainga-ora-underwritten-loan-book/ (checked 14 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-underwritten-loan-book/",
-      "summary_text": "Over the financial year ended 30 June 2026, K\u0101inga Ora underwrote 4,049 First Home Loan (5% deposit) mortgages across New Zealand (~337 mortgages per month) under the Crown Mortgage Insurance Scheme.",
+      "summary_text": "Over the 12 months ended Apr - Jun 2026, K\u0101inga Ora underwrote 4,049 settled First Home Loan (5% deposit) mortgages (~337/month) from 9,556 approved applications (~796/month) under the Crown Mortgage Insurance Scheme.",
       "related_questions": [
         "How many First Home Loans does K\u0101inga Ora approve and underwrite each year in New Zealand?",
         "Why are K\u0101inga Ora First Home Loan approvals higher than settlements?"
       ],
       "citation_chain": {
         "official_source": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Report & Annual Report (SPE 4.1)",
-        "official_source_url": "https://kaingaora.govt.nz/assets/Publications/Annual-report/Kainga-Ora-Annual-Report-2025-2026.pdf?v=21f5d4c867a835a119e801a557ed51d2c5f652e5",
+        "official_source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
         "source_series_ids": "K\u0101inga Ora 4-Quarter Rolling First Home Loan Approvals & Underwritten Settlements (SPE 4.1)",
-        "hlf_transformation": "Official K\u0101inga Ora SPE 4.1 First Home Loans underwritten = 4,049/yr (\u00f7 12 = 337/mth)",
+        "hlf_transformation": "12-Month Underwritten Settlements: 996 + 1,163 + 874 + 1,016 = 4,049 loans (337/mth) | 12-Month Approvals: 2,561 + 2,302 + 2,249 + 2,444 = 9,556 approvals (796/mth)",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-underwritten-loan-book/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "Buying Your First Home with a 5%\u201310% Deposit in NZ",
@@ -3710,10 +3849,35 @@
         "hlf_tool_title": "K\u0101inga Ora Lenders Mortgage Insurance (LMI) Fee Estimator",
         "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/lenders-mortgage-insurance-fee-estimator"
       },
-      "history": [],
-      "latest_underlying_data": "Year ended 30 June 2026",
-      "official_data": "K\u0101inga Ora Annual Report (Year ended 30 June 2026, SPE 4.1): First Home Loan mortgages underwritten = 4,049.",
-      "hlf_calculation": "Official K\u0101inga Ora SPE 4.1 First Home Loans underwritten = 4,049/yr (\u00f7 12 = 337/mth)",
+      "history": [
+        {
+          "period": "Apr - Jun 2026",
+          "label": "Apr - Jun 2026",
+          "value": 2444,
+          "formatted": "2,444 approvals | 1,016 settlements (41.6% settled)"
+        },
+        {
+          "period": "Jan - Mar 2026",
+          "label": "Jan - Mar 2026",
+          "value": 2249,
+          "formatted": "2,249 approvals | 874 settlements (38.9% settled)"
+        },
+        {
+          "period": "Oct - Dec 2025",
+          "label": "Oct - Dec 2025",
+          "value": 2302,
+          "formatted": "2,302 approvals | 1,163 settlements (50.5% settled)"
+        },
+        {
+          "period": "Jul - Sep 2025",
+          "label": "Jul - Sep 2025",
+          "value": 2561,
+          "formatted": "2,561 approvals | 996 settlements (38.9% settled)"
+        }
+      ],
+      "latest_underlying_data": "12 months ended Apr - Jun 2026",
+      "official_data": "K\u0101inga Ora Home Ownership Products Report (4 quarters ended Apr - Jun 2026): Rolling 12-month First Home Loan settlements = 4,049; rolling 12-month approvals = 9,556.",
+      "hlf_calculation": "12-Month Underwritten Settlements: 996 + 1,163 + 874 + 1,016 = 4,049 loans (337/mth) | 12-Month Approvals: 2,561 + 2,302 + 2,249 + 2,444 = 9,556 approvals (796/mth)",
       "frequency": "Quarterly / Annual"
     },
     {
