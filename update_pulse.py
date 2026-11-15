@@ -6255,6 +6255,12 @@ RBNZ_SOURCES.update({
         "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/s/s50/s50-banks-assets-loans-by-asset-quality.xlsx",
         "match": "s50",
     },
+    "s32": {
+        "pages": ["https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-by-product"],
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/s/s32/hs32.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/s/s32/s32-banks-assets-loans-by-product.xlsx",
+        "match": "s32",
+    },
 })
 
 IRD_TAX_DEBT_URLS = [
@@ -6519,6 +6525,58 @@ TICKER_CATALOG.update({
         "questions": ["How much mortgage interest do New Zealand homeowners pay each quarter?"],
         "article_title": FHB_2026_ARTICLE_TITLE,
         "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Home Loan Repayments Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
+    },
+    "mortgage-excess-repayments": {
+        "name": "Quarterly voluntary excess mortgage repayments vs scheduled repayments (RBNZ Table C35)",
+        "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation — Voluntary excess principal repayments ($B/qtr & $B/yr)",
+        "category": "Homeowners & refinancing",
+        "topic": "Voluntary extra mortgage repayments & principal reduction",
+        "source": "RBNZ Table C35",
+        "source_full": "Reserve Bank of New Zealand — Residential mortgage loan reconciliation (Table C35)",
+        "series_ids": "RBNZ Table C35 — Excess Repayments ($m) vs Scheduled Repayments ($m)",
+        "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-loan-reconciliation",
+        "data_type": "Officially reported RBNZ quarterly series & HLF-derived ratio to scheduled repayments",
+        "derived_by_hlf": True,
+        "unit": "NZD_billions",
+        "frequency": "Quarterly",
+        "definition": "Total voluntary excess mortgage repayments ($ billions per quarter and rolling 12-month total) paid by New Zealand borrowers above their contracted minimum scheduled repayments, excluding full loan discharges on property sale or refinance.",
+        "methodology": "Extracted live from RBNZ Table C35 (Residential mortgage loan reconciliation). Compares quarterly voluntary excess repayments against contracted scheduled principal-and-interest repayments.",
+        "hlf_calculation": "Ratio to Scheduled P&I (%) = (Excess Repayments [$m] ÷ Scheduled Repayments [$m]) × 100; Rolling 12M Excess = Sum of 4 quarters",
+        "hlf_interpretation": "HLF market context: While simply switching repayment frequency from monthly to weekly saves very little on its own, voluntary excess repayments—regular overpayments above the bank minimum and lump-sum reductions—go 100% toward cutting loan principal and shortening the mortgage term.",
+        "questions": [
+            "How much extra do New Zealand homeowners pay off their mortgages above the minimum?",
+            "How do voluntary excess mortgage repayments compare with scheduled repayments in NZ?",
+        ],
+        "article_title": "The Great Mortgage Myth: Weekly vs Monthly Repayments",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights/the-great-mortgage-myth-why-switching-to-weekly-repayments-might-not-save-as-much-as-you-think",
+        "tool_title": "HLF Home Loan Repayments Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
+    },
+    "mortgage-revolving-credit-balances": {
+        "name": "Residential revolving credit drawn mortgage balances & share of housing lending (RBNZ Table S32)",
+        "also_known_as": "RBNZ Table S32 Banks: Assets – Loans by Product — Owner-occupied & investor revolving credit balances ($B)",
+        "category": "Homeowners & refinancing",
+        "topic": "Residential revolving credit mortgage balances & share",
+        "source": "RBNZ Table S32",
+        "source_full": "Reserve Bank of New Zealand — Banks: Assets – Loans by product (Table S32)",
+        "series_ids": "RBNZ Table S32 — Owner-Occupied & Residential Property Investor Revolving Credit Drawn Balances ($m)",
+        "source_url": "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-by-product",
+        "data_type": "Officially reported RBNZ monthly product series & HLF-derived sector shares",
+        "derived_by_hlf": True,
+        "unit": "NZD_billions",
+        "frequency": "Monthly",
+        "definition": "Total drawn residential mortgage balances held in revolving credit facilities across New Zealand registered banks ($ billions), broken down between owner-occupiers and residential property investors along with their share of total bank housing loans.",
+        "methodology": "Extracted live from RBNZ Table S32 (Banks: Assets – Loans by product). Unlike Table C32 (which groups revolving credit inside interest-only loans), Table S32 isolates drawn revolving credit balances as a standalone product category. Measures drawn debt at month-end, not undrawn credit limits.",
+        "hlf_calculation": "Total Residential Revolving Credit = Owner-Occupied Revolving ($m) + Investor Revolving ($m); Share (%) = Revolving Credit ÷ Total Bank Housing Loans × 100",
+        "hlf_interpretation": "HLF market context: Revolving credit facilities act as an all-in-one transactional mortgage slice where incoming salary and cash buffers reduce the daily balance on which interest is calculated.",
+        "questions": [
+            "How much money do New Zealanders have in revolving credit mortgages?",
+            "What percentage of New Zealand mortgages are in revolving credit facilities?",
+        ],
+        "article_title": "Revolving Credit vs. Offset Mortgages: Which is Right for You?",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights/revolving-credit-vs-offset-mortgages-which-is-right-for-you",
         "tool_title": "HLF Home Loan Repayments Calculator",
         "tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
     },
@@ -6847,8 +6905,8 @@ def _ensure_rbnz_file(key: str, root: pathlib.Path, session, rbnz_files: dict[st
 # === PART 5C-2B & 5C-3A OF 5 ===
 def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pathlib.Path]) -> dict:
     """
-    100% live-pulled Household Loans, Credit Cards, Consumer Lending & Borrower Stress datasets
-    across RBNZ Tables C12, C5, S50 & C35, Stats NZ HLPI, and Inland Revenue Tax Debt statistics.
+    100% live-pulled Household Loans, Credit Cards, Consumer Lending, Revolving Credit & Borrower Stress datasets
+    across RBNZ Tables C12, C5, S50, C35 & S32, Stats NZ HLPI, and Inland Revenue Tax Debt statistics.
     Uses _series_df() per series so multi-tab RBNZ workbooks with different row counts never collide.
     """
     out: dict = {}
@@ -7156,7 +7214,7 @@ def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pa
         except Exception as exc_s50:
             print(f"[RBNZ S50] Parse note: {exc_s50}")
 
-    # 7. RBNZ Table C35 — Quarterly Mortgage Interest Charged ($B) & Scheduled P&I Repayments ($B)
+    # 7. RBNZ Table C35 — Quarterly Mortgage Interest Charged ($B), Scheduled P&I ($B) & Voluntary Excess Repayments ($B)
     c35_path = _ensure_rbnz_file("c35", root, session, rbnz_files)
     if c35_path and c35_path.exists():
         try:
@@ -7172,8 +7230,15 @@ def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pa
                 c35_tabs, [("scheduled",), ("repayment",)],
                 exclude_kw=("excess", "full", "unscheduled"), val_bounds=(4000, 14000),
             )
+            dt_ex, s_ex_m, _ = _find_rbnz_multi(
+                c35_tabs,
+                [("excess", "repayment"), ("excess", "repayments"), ("excess",)],
+                exclude_kw=("rate", "%", "percent", "full", "scheduled"),
+                val_bounds=(300, 9000),
+            )
             df_int35 = _series_df(dt_35, s_int_m)
             df_sch35 = _series_df(dt_sc, s_sched_m)
+            df_ex35 = _series_df(dt_ex, s_ex_m)
 
             if len(df_int35) >= 2:
                 l35 = df_int35.iloc[-1]
@@ -7200,8 +7265,171 @@ def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pa
                     c35_calc, "RBNZ Table C35 quarterly series", c35_hist,
                     {"source_published": c35_pub, "source_url": c35_url},
                 )
+
+            if len(df_ex35) >= 2:
+                lex = df_ex35.iloc[-1]
+                pex = df_ex35.iloc[-5] if len(df_ex35) >= 5 else df_ex35.iloc[0]
+                dtex = pd.Timestamp(lex["date"])
+                per_ex, as_of_ex = f"{dtex.strftime('%B %Y')} quarter", month_end_iso(dtex)
+                ex_m_now, ex_prev_m = float(lex["val"]), float(pex["val"])
+                ex_b, ex_prev_b = ex_m_now / 1000.0, ex_prev_m / 1000.0
+                ex_yoy = ((ex_b - ex_prev_b) / max(0.05, ex_prev_b)) * 100.0
+                ex_4q_m = float(df_ex35["val"].iloc[-4:].sum()) if len(df_ex35) >= 4 else ex_m_now * 4.0
+                ex_4q_b = ex_4q_m / 1000.0
+
+                sched_m_now = float(df_sch35["val"].iloc[-1]) if not df_sch35.empty else None
+                if sched_m_now and sched_m_now > 0:
+                    sched_b_now = sched_m_now / 1000.0
+                    ex_vs_sched_pct = (ex_m_now / sched_m_now) * 100.0
+                    ex_share_tot_pct = (ex_m_now / (sched_m_now + ex_m_now)) * 100.0
+                    ex_clause = (
+                        f"—equivalent to <strong>{ex_vs_sched_pct:.1f}% on top of the ${sched_b_now:.2f}B (${sched_m_now:,.0f}m)</strong> "
+                        f"paid in scheduled minimum principal-and-interest repayments (and bringing rolling 12-month voluntary excess repayments to <strong>${ex_4q_b:.2f}B</strong>)"
+                    )
+                    ex_calc = (
+                        f"Quarterly Excess Repayments ({per_ex}) = ${ex_b:.2f}B (${ex_m_now:,.0f}m; 12M rolling = ${ex_4q_b:.2f}B) | "
+                        f"Ratio to Scheduled P&I: ${ex_m_now:,.0f}m ÷ ${sched_m_now:,.0f}m = {ex_vs_sched_pct:.1f}% "
+                        f"({ex_share_tot_pct:.1f}% of combined scheduled + excess repayments)"
+                    )
+                    ex_latest = f"${ex_b:.2f}B/qtr excess repayments (+{ex_vs_sched_pct:.1f}% above scheduled P&I | ${ex_4q_b:.2f}B/yr)"
+                else:
+                    ex_clause = f" (bringing rolling 12-month voluntary excess repayments to <strong>${ex_4q_b:.2f}B</strong>)"
+                    ex_calc = f"Quarterly Excess Repayments ({per_ex}) = ${ex_b:.2f}B (${ex_m_now:,.0f}m; 12M rolling = ${ex_4q_b:.2f}B; YoY: {ex_yoy:+.1f}%)"
+                    ex_latest = f"${ex_b:.2f}B/qtr excess repayments (${ex_4q_b:.2f}B/yr)"
+
+                ex_hist = make_history_list(df_ex35["date"], df_ex35["val"], lambda v: f"${v/1000:.2f}B (${v:,.0f}m) excess repayments")
+                out["mortgage-excess-repayments"] = make_pulse_item(
+                    "RBNZ C35", as_of_ex, MAX_AGE_QUARTERLY,
+                    f"In the {per_ex}, New Zealand mortgage borrowers made <strong>${ex_b:.2f}B (${ex_m_now:,.0f}m) in voluntary excess mortgage repayments</strong> above their contracted minimum schedules ({plain_yoy_growth(ex_b, ex_prev_b)} from ${ex_prev_b:.2f}B a year earlier){ex_clause}.",
+                    f"RBNZ Table C35 ({per_ex}): Quarterly voluntary excess mortgage repayments (excluding full loan discharges) = ${ex_m_now:,.0f}m (${ex_b:.2f}B; rolling 4 quarters = ${ex_4q_b:.2f}B).",
+                    format_provenance_source_html(ex_calc, "RBNZ Table C35 (Reserve Bank of New Zealand)", c35_url, True),
+                    per_ex, round(ex_b, 2),
+                    ex_latest,
+                    f"Same quarter prior year: ${ex_prev_b:.2f}B (${ex_prev_m:,.0f}m)",
+                    f"{ex_yoy:+.1f}% YoY (${ex_b - ex_prev_b:+.2f}B/qtr)",
+                    ex_calc, "RBNZ Table C35 quarterly series", ex_hist,
+                    {"source_published": c35_pub, "source_url": c35_url},
+                )
         except Exception as exc_c35:
             print(f"[RBNZ C35] Parse note: {exc_c35}")
+
+    # 7B. RBNZ Table S32 — Residential Revolving Credit Drawn Balances ($B) & Share of Housing Lending
+    s32_path = _ensure_rbnz_file("s32", root, session, rbnz_files)
+    if s32_path and s32_path.exists():
+        try:
+            s32_pub = extract_rbnz_published_date(s32_path)
+            s32_tabs = load_rbnz_sheets_merged(s32_path)
+            s32_url = "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-by-product"
+
+            dt_oo_r, s_oo_rev, _ = _find_rbnz_multi(
+                s32_tabs,
+                [("owner", "revolving"), ("owner-occupied", "revolving"), ("owner occupied", "revolving")],
+                exclude_kw=("%", "share", "ratio", "business", "agri", "personal"),
+                val_bounds=(2000, 45000),
+            )
+            dt_in_r, s_inv_rev, _ = _find_rbnz_multi(
+                s32_tabs,
+                [("investor", "revolving"), ("investment", "revolving"), ("property investment", "revolving")],
+                exclude_kw=("%", "share", "ratio", "business", "agri", "personal"),
+                val_bounds=(500, 25000),
+            )
+            dt_oo_t, s_oo_tot, _ = _find_rbnz_multi(
+                s32_tabs,
+                [("owner", "total"), ("owner-occupied", "housing"), ("owner occupied", "total")],
+                exclude_kw=("revolving", "interest only", "interest-only", "principal", "%", "share"),
+                val_bounds=(120000, 450000),
+            )
+            dt_in_t, s_inv_tot, _ = _find_rbnz_multi(
+                s32_tabs,
+                [("investor", "total"), ("investment", "total"), ("property investment", "total")],
+                exclude_kw=("revolving", "interest only", "interest-only", "principal", "%", "share"),
+                val_bounds=(40000, 200000),
+            )
+
+            df_oo_rev = _series_df(dt_oo_r, s_oo_rev)
+            df_inv_rev = _series_df(dt_in_r, s_inv_rev)
+            df_oo_tot = _series_df(dt_oo_t, s_oo_tot)
+            df_inv_tot = _series_df(dt_in_t, s_inv_tot)
+
+            # Fallback if S32 reports a single combined residential housing revolving credit column
+            if df_oo_rev.empty:
+                dt_h_r, s_h_rev, _ = _find_rbnz_multi(
+                    s32_tabs,
+                    [("housing", "revolving"), ("residential", "revolving"), ("revolving", "credit")],
+                    exclude_kw=("%", "share", "ratio", "business", "agri", "personal"),
+                    val_bounds=(3000, 65000),
+                )
+                df_oo_rev = _series_df(dt_h_r, s_h_rev)
+
+            if len(df_oo_rev) >= 2:
+                if not df_inv_rev.empty:
+                    m_rev = pd.merge(df_oo_rev, df_inv_rev, on="date", suffixes=("_oo", "_inv"))
+                    m_rev["val_tot"] = m_rev["val_oo"] + m_rev["val_inv"]
+                else:
+                    m_rev = df_oo_rev.rename(columns={"val": "val_oo"}).copy()
+                    m_rev["val_inv"] = 0.0
+                    m_rev["val_tot"] = m_rev["val_oo"]
+
+                if len(m_rev) >= 2:
+                    last32 = m_rev.iloc[-1]
+                    prev32 = m_rev.iloc[-13] if len(m_rev) >= 13 else m_rev.iloc[0]
+                    dt32 = pd.Timestamp(last32["date"])
+                    per32, as_of32 = dt32.strftime("%B %Y"), month_end_iso(dt32)
+
+                    oo_rev_m = float(last32["val_oo"])
+                    inv_rev_m = float(last32["val_inv"])
+                    tot_rev_m = float(last32["val_tot"])
+                    tot_rev_prev_m = float(prev32["val_tot"])
+
+                    tot_rev_b = tot_rev_m / 1000.0
+                    tot_rev_prev_b = tot_rev_prev_m / 1000.0
+                    oo_rev_b = oo_rev_m / 1000.0
+                    inv_rev_b = inv_rev_m / 1000.0
+                    rev_yoy = ((tot_rev_m - tot_rev_prev_m) / max(1.0, tot_rev_prev_m)) * 100.0
+
+                    oo_tot_m = float(df_oo_tot["val"].iloc[-1]) if not df_oo_tot.empty else 0.0
+                    inv_tot_m = float(df_inv_tot["val"].iloc[-1]) if not df_inv_tot.empty else 0.0
+                    tot_hous_m = oo_tot_m + inv_tot_m
+
+                    if tot_hous_m > 0 and inv_rev_m > 0:
+                        tot_rev_sh = (tot_rev_m / tot_hous_m) * 100.0
+                        oo_rev_sh = (oo_rev_m / oo_tot_m) * 100.0 if oo_tot_m > 0 else 0.0
+                        inv_rev_sh = (inv_rev_m / inv_tot_m) * 100.0 if inv_tot_m > 0 else 0.0
+                        s32_clause = (
+                            f" (representing <strong>{tot_rev_sh:.1f}% of all bank residential mortgage lending</strong>—comprising "
+                            f"<strong>${oo_rev_b:.2f}B</strong> [{oo_rev_sh:.1f}%] across owner-occupiers and "
+                            f"<strong>${inv_rev_b:.2f}B</strong> [{inv_rev_sh:.1f}%] across residential property investors)"
+                        )
+                        s32_calc = (
+                            f"Total Residential Revolving Credit ({per32}): ${oo_rev_m:,.0f}m (Owner-Occupier) + ${inv_rev_m:,.0f}m (Investor) = "
+                            f"${tot_rev_m:,.0f}m (${tot_rev_b:.2f}B) | Share of Housing Loans: ${tot_rev_m:,.0f}m ÷ ${tot_hous_m:,.0f}m = "
+                            f"{tot_rev_sh:.1f}% (OO: {oo_rev_sh:.1f}%, Investor: {inv_rev_sh:.1f}%)"
+                        )
+                        s32_latest = f"${tot_rev_b:.2f}B drawn revolving credit ({tot_rev_sh:.1f}% of mortgages | OO ${oo_rev_b:.2f}B vs Inv ${inv_rev_b:.2f}B)"
+                    elif inv_rev_m > 0:
+                        s32_clause = f"—comprising <strong>${oo_rev_b:.2f}B (${oo_rev_m:,.0f}m)</strong> for owner-occupiers and <strong>${inv_rev_b:.2f}B (${inv_rev_m:,.0f}m)</strong> for residential property investors"
+                        s32_calc = f"Total Residential Revolving Credit ({per32}): ${oo_rev_m:,.0f}m (Owner-Occupier) + ${inv_rev_m:,.0f}m (Investor) = ${tot_rev_m:,.0f}m (${tot_rev_b:.2f}B)"
+                        s32_latest = f"${tot_rev_b:.2f}B drawn revolving credit (OO ${oo_rev_b:.2f}B | Investor ${inv_rev_b:.2f}B)"
+                    else:
+                        s32_clause = ""
+                        s32_calc = f"Total Residential Revolving Credit ({per32}) = ${tot_rev_m:,.0f}m (${tot_rev_b:.2f}B; YoY: {rev_yoy:+.1f}%)"
+                        s32_latest = f"${tot_rev_b:.2f}B (${tot_rev_m:,.0f}m) drawn revolving credit"
+
+                    s32_hist = make_history_list(m_rev["date"], m_rev["val_tot"], lambda v: f"${v/1000:.2f}B (${v:,.0f}m) revolving credit")
+                    out["mortgage-revolving-credit-balances"] = make_pulse_item(
+                        "RBNZ S32", as_of32, MAX_AGE_MONTHLY,
+                        f"As at {per32}, New Zealand borrowers held <strong>${tot_rev_b:.2f}B (${tot_rev_m:,.0f}m) in drawn residential revolving credit mortgage balances</strong>{s32_clause} ({plain_yoy_growth(tot_rev_m, tot_rev_prev_m)} from ${tot_rev_prev_b:.2f}B a year earlier).",
+                        f"RBNZ Table S32 ({per32}): Registered bank residential revolving credit drawn balances = ${tot_rev_m:,.0f}m (${tot_rev_b:.2f}B).",
+                        format_provenance_source_html(s32_calc, "RBNZ Table S32 (Reserve Bank of New Zealand)", s32_url, True),
+                        per32, round(tot_rev_b, 2),
+                        s32_latest,
+                        f"12 months prior: ${tot_rev_prev_b:.2f}B (${tot_rev_prev_m:,.0f}m)",
+                        f"{rev_yoy:+.1f}% YoY (${(tot_rev_m - tot_rev_prev_m)/1000:+.2f}B)",
+                        s32_calc, "RBNZ Table S32 monthly series", s32_hist,
+                        {"source_published": s32_pub, "source_url": s32_url},
+                    )
+        except Exception as exc_s32:
+            print(f"[RBNZ S32] Parse note: {exc_s32}")
 
     # 8 & 9. Stats NZ HLPI (with Camoufox bypass if HTTP returned challenge page) & IRD Overdue Tax Debt
     hlpi_pages = fetch_html_with_browser_fallback(session, STATS_HLPI_URLS, "Stats NZ HLPI")
@@ -7829,6 +8057,8 @@ def main() -> None:
         <ul>
           <li><a href="#new-build-consent-cost-by-type">What is the average consent build cost by dwelling type?</a></li>
           <li><a href="#fixed-vs-floating-rate-mix">What share of mortgages are fixed vs floating?</a></li>
+          <li><a href="#mortgage-revolving-credit-balances">How much is held in revolving credit mortgages?</a></li>
+          <li><a href="#mortgage-excess-repayments">How much extra principal are Kiwis paying off?</a></li>
           <li><a href="#refinance">How much are homeowners refinancing?</a></li>
           <li><a href="#top-ups">How common are mortgage top-ups?</a></li>
         </ul>
