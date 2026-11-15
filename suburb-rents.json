@@ -1,0 +1,539 @@
+{
+  "dataset": "HLF Pulse \u2014 New Zealand Suburb & SA2 Weekly Rent Benchmarks",
+  "observation_period": "September 2026",
+  "period_end": "2026-09-30",
+  "national_median_wk": 599,
+  "auckland_median_wk": 640,
+  "wellington_median_wk": 580,
+  "canterbury_median_wk": 560,
+  "suburbs": [
+    {
+      "suburb": "Auckland",
+      "median_rent_wk": 640,
+      "lower_quartile_wk": 530,
+      "upper_quartile_wk": 750,
+      "annual_rent_nzd": 33280,
+      "active_bonds": 172140
+    },
+    {
+      "suburb": "nan",
+      "median_rent_wk": 590,
+      "lower_quartile_wk": 465,
+      "upper_quartile_wk": 690,
+      "annual_rent_nzd": 30680,
+      "active_bonds": 85290
+    },
+    {
+      "suburb": "Christchurch City",
+      "median_rent_wk": 550,
+      "lower_quartile_wk": 485,
+      "upper_quartile_wk": 650,
+      "annual_rent_nzd": 28600,
+      "active_bonds": 43137
+    },
+    {
+      "suburb": "Wellington City",
+      "median_rent_wk": 550,
+      "lower_quartile_wk": 420,
+      "upper_quartile_wk": 680,
+      "annual_rent_nzd": 28600,
+      "active_bonds": 28995
+    },
+    {
+      "suburb": "Hamilton City",
+      "median_rent_wk": 570,
+      "lower_quartile_wk": 450,
+      "upper_quartile_wk": 650,
+      "annual_rent_nzd": 29640,
+      "active_bonds": 22806
+    },
+    {
+      "suburb": "Dunedin City",
+      "median_rent_wk": 540,
+      "lower_quartile_wk": 421,
+      "upper_quartile_wk": 614,
+      "annual_rent_nzd": 28080,
+      "active_bonds": 14007
+    },
+    {
+      "suburb": "Tauranga City",
+      "median_rent_wk": 700,
+      "lower_quartile_wk": 620,
+      "upper_quartile_wk": 778,
+      "annual_rent_nzd": 36400,
+      "active_bonds": 12471
+    },
+    {
+      "suburb": "Lower Hutt City",
+      "median_rent_wk": 600,
+      "lower_quartile_wk": 500,
+      "upper_quartile_wk": 680,
+      "annual_rent_nzd": 31200,
+      "active_bonds": 9465
+    },
+    {
+      "suburb": "Palmerston North City",
+      "median_rent_wk": 550,
+      "lower_quartile_wk": 420,
+      "upper_quartile_wk": 600,
+      "annual_rent_nzd": 28600,
+      "active_bonds": 8934
+    },
+    {
+      "suburb": "Whangarei District",
+      "median_rent_wk": 585,
+      "lower_quartile_wk": 483,
+      "upper_quartile_wk": 650,
+      "annual_rent_nzd": 30420,
+      "active_bonds": 7077
+    },
+    {
+      "suburb": "Rotorua District",
+      "median_rent_wk": 575,
+      "lower_quartile_wk": 500,
+      "upper_quartile_wk": 640,
+      "annual_rent_nzd": 29900,
+      "active_bonds": 6486
+    },
+    {
+      "suburb": "New Plymouth District",
+      "median_rent_wk": 580,
+      "lower_quartile_wk": 500,
+      "upper_quartile_wk": 650,
+      "annual_rent_nzd": 30160,
+      "active_bonds": 6012
+    },
+    {
+      "suburb": "Queenstown-Lakes District",
+      "median_rent_wk": 780,
+      "lower_quartile_wk": 573,
+      "upper_quartile_wk": 1050,
+      "annual_rent_nzd": 40560,
+      "active_bonds": 5406
+    },
+    {
+      "suburb": "Hastings District",
+      "median_rent_wk": 595,
+      "lower_quartile_wk": 535,
+      "upper_quartile_wk": 680,
+      "annual_rent_nzd": 30940,
+      "active_bonds": 5022
+    },
+    {
+      "suburb": "Invercargill City",
+      "median_rent_wk": 520,
+      "lower_quartile_wk": 450,
+      "upper_quartile_wk": 580,
+      "annual_rent_nzd": 27040,
+      "active_bonds": 4800
+    },
+    {
+      "suburb": "Napier City",
+      "median_rent_wk": 650,
+      "lower_quartile_wk": 573,
+      "upper_quartile_wk": 710,
+      "annual_rent_nzd": 33800,
+      "active_bonds": 4578
+    },
+    {
+      "suburb": "Nelson City",
+      "median_rent_wk": 550,
+      "lower_quartile_wk": 450,
+      "upper_quartile_wk": 640,
+      "annual_rent_nzd": 28600,
+      "active_bonds": 4353
+    },
+    {
+      "suburb": "Waikato District",
+      "median_rent_wk": 620,
+      "lower_quartile_wk": 550,
+      "upper_quartile_wk": 686,
+      "annual_rent_nzd": 32240,
+      "active_bonds": 3990
+    },
+    {
+      "suburb": "Porirua City",
+      "median_rent_wk": 645,
+      "lower_quartile_wk": 525,
+      "upper_quartile_wk": 750,
+      "annual_rent_nzd": 33540,
+      "active_bonds": 3903
+    },
+    {
+      "suburb": "Whanganui District",
+      "median_rent_wk": 520,
+      "lower_quartile_wk": 450,
+      "upper_quartile_wk": 550,
+      "annual_rent_nzd": 27040,
+      "active_bonds": 3810
+    },
+    {
+      "suburb": "Selwyn District",
+      "median_rent_wk": 620,
+      "lower_quartile_wk": 578,
+      "upper_quartile_wk": 660,
+      "annual_rent_nzd": 32240,
+      "active_bonds": 3555
+    },
+    {
+      "suburb": "Kapiti Coast District",
+      "median_rent_wk": 600,
+      "lower_quartile_wk": 520,
+      "upper_quartile_wk": 710,
+      "annual_rent_nzd": 31200,
+      "active_bonds": 3474
+    },
+    {
+      "suburb": "Waipa District",
+      "median_rent_wk": 600,
+      "lower_quartile_wk": 550,
+      "upper_quartile_wk": 708,
+      "annual_rent_nzd": 31200,
+      "active_bonds": 3462
+    },
+    {
+      "suburb": "Upper Hutt City",
+      "median_rent_wk": 590,
+      "lower_quartile_wk": 520,
+      "upper_quartile_wk": 675,
+      "annual_rent_nzd": 30680,
+      "active_bonds": 3285
+    },
+    {
+      "suburb": "Far North District",
+      "median_rent_wk": 550,
+      "lower_quartile_wk": 465,
+      "upper_quartile_wk": 645,
+      "annual_rent_nzd": 28600,
+      "active_bonds": 3222
+    },
+    {
+      "suburb": "Gisborne District",
+      "median_rent_wk": 600,
+      "lower_quartile_wk": 500,
+      "upper_quartile_wk": 680,
+      "annual_rent_nzd": 31200,
+      "active_bonds": 3147
+    },
+    {
+      "suburb": "Taupo District",
+      "median_rent_wk": 640,
+      "lower_quartile_wk": 540,
+      "upper_quartile_wk": 696,
+      "annual_rent_nzd": 33280,
+      "active_bonds": 2955
+    },
+    {
+      "suburb": "Horowhenua District",
+      "median_rent_wk": 530,
+      "lower_quartile_wk": 475,
+      "upper_quartile_wk": 590,
+      "annual_rent_nzd": 27560,
+      "active_bonds": 2901
+    },
+    {
+      "suburb": "Timaru District",
+      "median_rent_wk": 498,
+      "lower_quartile_wk": 440,
+      "upper_quartile_wk": 550,
+      "annual_rent_nzd": 25896,
+      "active_bonds": 2706
+    },
+    {
+      "suburb": "Tasman District",
+      "median_rent_wk": 580,
+      "lower_quartile_wk": 500,
+      "upper_quartile_wk": 640,
+      "annual_rent_nzd": 30160,
+      "active_bonds": 2625
+    },
+    {
+      "suburb": "Marlborough District",
+      "median_rent_wk": 595,
+      "lower_quartile_wk": 530,
+      "upper_quartile_wk": 650,
+      "annual_rent_nzd": 30940,
+      "active_bonds": 2616
+    },
+    {
+      "suburb": "Western Bay of Plenty District",
+      "median_rent_wk": 650,
+      "lower_quartile_wk": 570,
+      "upper_quartile_wk": 730,
+      "annual_rent_nzd": 33800,
+      "active_bonds": 2571
+    },
+    {
+      "suburb": "Waimakariri District",
+      "median_rent_wk": 618,
+      "lower_quartile_wk": 565,
+      "upper_quartile_wk": 650,
+      "annual_rent_nzd": 32136,
+      "active_bonds": 2472
+    },
+    {
+      "suburb": "South Waikato District",
+      "median_rent_wk": 500,
+      "lower_quartile_wk": 428,
+      "upper_quartile_wk": 575,
+      "annual_rent_nzd": 26000,
+      "active_bonds": 2115
+    },
+    {
+      "suburb": "Masterton District",
+      "median_rent_wk": 550,
+      "lower_quartile_wk": 498,
+      "upper_quartile_wk": 590,
+      "annual_rent_nzd": 28600,
+      "active_bonds": 2067
+    },
+    {
+      "suburb": "Whakatane District",
+      "median_rent_wk": 575,
+      "lower_quartile_wk": 520,
+      "upper_quartile_wk": 630,
+      "annual_rent_nzd": 29900,
+      "active_bonds": 1962
+    },
+    {
+      "suburb": "Matamata-Piako District",
+      "median_rent_wk": 580,
+      "lower_quartile_wk": 510,
+      "upper_quartile_wk": 683,
+      "annual_rent_nzd": 30160,
+      "active_bonds": 1959
+    },
+    {
+      "suburb": "Ashburton District",
+      "median_rent_wk": 510,
+      "lower_quartile_wk": 465,
+      "upper_quartile_wk": 568,
+      "annual_rent_nzd": 26520,
+      "active_bonds": 1935
+    },
+    {
+      "suburb": "South Taranaki District",
+      "median_rent_wk": 530,
+      "lower_quartile_wk": 471,
+      "upper_quartile_wk": 575,
+      "annual_rent_nzd": 27560,
+      "active_bonds": 1605
+    },
+    {
+      "suburb": "Manawatu District",
+      "median_rent_wk": 550,
+      "lower_quartile_wk": 500,
+      "upper_quartile_wk": 610,
+      "annual_rent_nzd": 28600,
+      "active_bonds": 1578
+    },
+    {
+      "suburb": "Thames-Coromandel District",
+      "median_rent_wk": 600,
+      "lower_quartile_wk": 464,
+      "upper_quartile_wk": 600,
+      "annual_rent_nzd": 31200,
+      "active_bonds": 1467
+    },
+    {
+      "suburb": "Central Otago District",
+      "median_rent_wk": 700,
+      "lower_quartile_wk": 595,
+      "upper_quartile_wk": 750,
+      "annual_rent_nzd": 36400,
+      "active_bonds": 1392
+    },
+    {
+      "suburb": "Kaipara District",
+      "median_rent_wk": 600,
+      "lower_quartile_wk": 550,
+      "upper_quartile_wk": 670,
+      "annual_rent_nzd": 31200,
+      "active_bonds": 1254
+    },
+    {
+      "suburb": "Hauraki District",
+      "median_rent_wk": 595,
+      "lower_quartile_wk": 565,
+      "upper_quartile_wk": 655,
+      "annual_rent_nzd": 30940,
+      "active_bonds": 1065
+    },
+    {
+      "suburb": "Ruapehu District",
+      "median_rent_wk": 415,
+      "lower_quartile_wk": 390,
+      "upper_quartile_wk": 450,
+      "annual_rent_nzd": 21580,
+      "active_bonds": 1014
+    },
+    {
+      "suburb": "Gore District",
+      "median_rent_wk": 475,
+      "lower_quartile_wk": 400,
+      "upper_quartile_wk": 500,
+      "annual_rent_nzd": 24700,
+      "active_bonds": 933
+    },
+    {
+      "suburb": "Southland District",
+      "median_rent_wk": 450,
+      "lower_quartile_wk": 410,
+      "upper_quartile_wk": 530,
+      "annual_rent_nzd": 23400,
+      "active_bonds": 927
+    },
+    {
+      "suburb": "Tararua District",
+      "median_rent_wk": 480,
+      "lower_quartile_wk": 435,
+      "upper_quartile_wk": 500,
+      "annual_rent_nzd": 24960,
+      "active_bonds": 888
+    },
+    {
+      "suburb": "Rangitikei District",
+      "median_rent_wk": 480,
+      "lower_quartile_wk": 375,
+      "upper_quartile_wk": 555,
+      "annual_rent_nzd": 24960,
+      "active_bonds": 831
+    },
+    {
+      "suburb": "Waitaki District",
+      "median_rent_wk": 510,
+      "lower_quartile_wk": 470,
+      "upper_quartile_wk": 550,
+      "annual_rent_nzd": 26520,
+      "active_bonds": 807
+    },
+    {
+      "suburb": "Clutha District",
+      "median_rent_wk": 425,
+      "lower_quartile_wk": 360,
+      "upper_quartile_wk": 490,
+      "annual_rent_nzd": 22100,
+      "active_bonds": 723
+    },
+    {
+      "suburb": "Central Hawke's Bay District",
+      "median_rent_wk": 540,
+      "lower_quartile_wk": 495,
+      "upper_quartile_wk": 590,
+      "annual_rent_nzd": 28080,
+      "active_bonds": 621
+    },
+    {
+      "suburb": "Grey District",
+      "median_rent_wk": 550,
+      "lower_quartile_wk": 550,
+      "upper_quartile_wk": 565,
+      "annual_rent_nzd": 28600,
+      "active_bonds": 615
+    },
+    {
+      "suburb": "Kawerau District",
+      "median_rent_wk": 550,
+      "lower_quartile_wk": 520,
+      "upper_quartile_wk": 605,
+      "annual_rent_nzd": 28600,
+      "active_bonds": 591
+    },
+    {
+      "suburb": "South Wairarapa District",
+      "median_rent_wk": 540,
+      "lower_quartile_wk": 500,
+      "upper_quartile_wk": 554,
+      "annual_rent_nzd": 28080,
+      "active_bonds": 561
+    },
+    {
+      "suburb": "Buller District",
+      "median_rent_wk": 300,
+      "lower_quartile_wk": 258,
+      "upper_quartile_wk": 390,
+      "annual_rent_nzd": 15600,
+      "active_bonds": 555
+    },
+    {
+      "suburb": "Stratford District",
+      "median_rent_wk": 535,
+      "lower_quartile_wk": 475,
+      "upper_quartile_wk": 593,
+      "annual_rent_nzd": 27820,
+      "active_bonds": 534
+    },
+    {
+      "suburb": "Opotiki District",
+      "median_rent_wk": 473,
+      "lower_quartile_wk": 414,
+      "upper_quartile_wk": 515,
+      "annual_rent_nzd": 24596,
+      "active_bonds": 495
+    },
+    {
+      "suburb": "Hurunui District",
+      "median_rent_wk": 475,
+      "lower_quartile_wk": 405,
+      "upper_quartile_wk": 589,
+      "annual_rent_nzd": 24700,
+      "active_bonds": 492
+    },
+    {
+      "suburb": "Waitomo District",
+      "median_rent_wk": 470,
+      "lower_quartile_wk": 400,
+      "upper_quartile_wk": 535,
+      "annual_rent_nzd": 24440,
+      "active_bonds": 489
+    },
+    {
+      "suburb": "Carterton District",
+      "median_rent_wk": 520,
+      "lower_quartile_wk": 484,
+      "upper_quartile_wk": 530,
+      "annual_rent_nzd": 27040,
+      "active_bonds": 483
+    },
+    {
+      "suburb": "Wairoa District",
+      "median_rent_wk": 400,
+      "lower_quartile_wk": 380,
+      "upper_quartile_wk": 420,
+      "annual_rent_nzd": 20800,
+      "active_bonds": 477
+    },
+    {
+      "suburb": "Otorohanga District",
+      "median_rent_wk": 485,
+      "lower_quartile_wk": 374,
+      "upper_quartile_wk": 585,
+      "annual_rent_nzd": 25220,
+      "active_bonds": 450
+    },
+    {
+      "suburb": "Westland District",
+      "median_rent_wk": 430,
+      "lower_quartile_wk": 200,
+      "upper_quartile_wk": 550,
+      "annual_rent_nzd": 22360,
+      "active_bonds": 354
+    },
+    {
+      "suburb": "Mackenzie District",
+      "median_rent_wk": 295,
+      "lower_quartile_wk": 230,
+      "upper_quartile_wk": 468,
+      "annual_rent_nzd": 15340,
+      "active_bonds": 321
+    },
+    {
+      "suburb": "Kaikoura District",
+      "median_rent_wk": 505,
+      "lower_quartile_wk": 460,
+      "upper_quartile_wk": 528,
+      "annual_rent_nzd": 26260,
+      "active_bonds": 240
+    }
+  ]
+}
