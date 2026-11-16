@@ -144,29 +144,29 @@ PUBLISHER_SCHEMA_OBJ = {
 MAX_AGE_MONTHLY = 140
 MAX_AGE_TENANCY = 140
 MAX_AGE_QUARTERLY = 160
-MAX_AGE_ANNUAL = 550
+MAX_AGE_ANNUAL = 650
 MAX_AGE_TRIENNIAL = 1250
-MAX_AGE_INSURANCE = 550
+MAX_AGE_INSURANCE = 650
 
 RBNZ_WARMUP_URL = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary"
 
 RBNZ_SOURCES = {
     "c31": {
         "pages": ["https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type"],
-        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/hc31.xlsx",
-        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/c31-new-residential-mortgage-lending-by-borrower-type.xlsx",
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/c31-new-residential-mortgage-lending-by-borrower-type.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/hc31.xlsx",
         "match": "c31",
     },
     "c33": {
         "pages": ["https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose"],
-        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/hc33.xlsx",
-        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/c33-new-residential-mortgage-lending-by-purpose.xlsx",
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/c33-new-residential-mortgage-lending-by-purpose.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/hc33.xlsx",
         "match": "c33",
     },
     "c32": {
         "pages": ["https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-and-existing-residential-mortgage-lending-by-payment-type"],
-        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/hc32.xlsx",
-        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/c32-new-and-existing-residential-mortgage-lending-by-payment-type.xlsx",
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/c32-new-and-existing-residential-mortgage-lending-by-payment-type.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/hc32.xlsx",
         "match": "c32",
     },
     "c40": {
@@ -174,8 +174,8 @@ RBNZ_SOURCES = {
             "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-lending-by-debt-to-income-dti-purpose-use",
             "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/debt-to-income-dti-statistics",
         ],
-        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/hc40.xlsx",
-        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/c40-residential-mortgage-lending-by-dti-purpose-use.xlsx",
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/c40-residential-mortgage-lending-by-dti-purpose-use.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/hc40.xlsx",
         "match": "c40",
     },
     "c41": {
@@ -183,14 +183,14 @@ RBNZ_SOURCES = {
             "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi",
             "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/debt-to-income-dti-statistics",
         ],
-        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/hc41.xlsx",
-        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/c41-residential-mortgage-borrower-gross-income.xlsx",
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/c41-residential-mortgage-borrower-gross-income.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/hc41.xlsx",
         "match": "c41",
     },
     "b30": {
         "pages": ["https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/new-residential-mortgage-weighted-average-interest-rates"],
-        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/hb30.xlsx",
-        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/b30-new-residential-mortgage-weighted-average-interest-rates.xlsx",
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/b30-new-residential-mortgage-weighted-average-interest-rates.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/hb30.xlsx",
         "match": "b30",
     },
     "b6": {
@@ -255,8 +255,8 @@ RBNZ_SOURCES = {
             "https://www.rbnz.govt.nz/statistics/series/insurance/insurance-income-and-expenditure",
             "https://www.rbnz.govt.nz/statistics/series/insurance",
         ],
-        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/hj10.xlsx",
-        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/j10-insurance-income-and-expenditure.xlsx",
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/j10-insurance-income-and-expenditure.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/hj10.xlsx",
         "match": "j10",
     },
     "t43": {
@@ -264,38 +264,40 @@ RBNZ_SOURCES = {
             "https://www.rbnz.govt.nz/statistics/series/managed-funds/kiwisaver",
             "https://www.rbnz.govt.nz/statistics/series/managed-funds",
         ],
-        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/ht43.xlsx",
-        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/t43-kiwisaver-assets-and-liabilities.xlsx",
+        "xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/t43-kiwisaver-assets-and-liabilities.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/ht43.xlsx",
         "match": "t43",
     },
 }
 
 TENANCY_PAGE = "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/"
 
-IRD_SL_BAL_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/student-loans/scheme-balances"
+IRD_SL_BAL_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/statistics-on-the-student-loan-scheme/statistics-on-student-loan-balances"
 IRD_TAX_DEBT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/tax-and-entitlement-debt-statistics"
 IRD_TAX_DEBT_URLS = [
     "https://www.ird.govt.nz/about-us/tax-statistics/tax-and-entitlement-debt-statistics",
-    "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/student-loans/overdue-repayments",
+    "https://www.ird.govt.nz/about-us/tax-statistics/statistics-on-the-student-loan-scheme/statistics-on-overdue-student-loan-repayments",
 ]
-IRD_INCOME_DIST_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/income-distribution"
+IRD_INCOME_DIST_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/income-distribution/individuals-taxable-income-distribution"
 IRD_INCOME_DATASETS_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/income-distribution/tax-on-taxable-income-datasets"
 IRD_WAGE_SALARY_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions"
 IRD_WAGE_DATASETS_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions/wage-and-salary-statistics-datasets"
 IRD_TRUSTS_NUM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/trusts-and-estates-statistics/number-of-trusts-and-estates"
 IRD_TRUSTS_INC_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/trusts-and-estates-statistics/trusts-ir6"
-IRD_WFF_ENT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/working-for-families-statistics/total-entitlements-paid-for-working-for-families-tax-credits"
-IRD_WFF_FAM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/working-for-families-statistics/number-of-families-claiming-and-entitled-to-working-for-families"
-IRD_KS_NUM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/numbers"
-IRD_KS_AMT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/amounts"
-IRD_KS_TR_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/Joining-and-transfers/scheme-transfers"
-IRD_KS_REG_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/withdrawals-regions"
-IRD_KS_ENTRY_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/Joining-and-transfers/entry-methods"
+IRD_TRUSTS_XLSX = "https://www.ird.govt.nz/-/media/project/ir/home/documents/about-us/tax-statistics---current/revenue-and-refunds/trusts-and-estates-statistics/trusts-and-estates-statistics/trusts-and-estates-statistics-spreadsheet.xlsx"
+IRD_WFF_ENT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/working-for-families-statistics/total-entitlements-paid-for-working-for-families-tax-credits"
+IRD_WFF_FAM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/working-for-families-statistics/number-of-families-claiming-and-entitled-to-working-for-families"
+IRD_KS_NUM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/number"
+IRD_KS_AMT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/amount"
+IRD_KS_TR_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/schemes/transfer"
+IRD_KS_REG_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/kiwisaver-fund-withdrawals-by-region"
+IRD_KS_ENTRY_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/schemes/entry-method"
 IRD_KS_PAY_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/contributions/scheme-providers-payments"
 IRD_KS_SUSP_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/contributions/savings-suspensions"
 IRD_KS_AGE_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/joining/member-demographics/number-and-age-of-kiwisaver-members"
 IRD_KS_INC_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/joining/member-demographics/number-of-kiwisaver-members-by-income"
 IRD_KS_DATA_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets"
+IRD_KS_ANNUAL_XLSX = "https://www.ird.govt.nz/-/media/project/ir/home/documents/about-us/tax-statistics---current/kiwisaver-statistics/annual-kiwisaver-statistics/annual-kiwisaver-stats.xlsx"
 
 FMA_KS_REPORT_PAGE = "https://www.fma.govt.nz/library/reports-and-papers/kiwisaver-annual-report/"
 KAINGA_ORA_QTR_REPORT_PAGE = "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/"
@@ -319,7 +321,8 @@ RBNZ_INS_STATS_PAGE = "https://www.rbnz.govt.nz/statistics/series/insurance"
 RBNZ_C35_PAGE = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-loan-reconciliation"
 NHC_ACT_PAGE = "https://www.legislation.govt.nz/act/public/2023/0004/latest/whole.html"
 NHC_FUND_PAGE = "https://www.naturalhazards.govt.nz/"
-ACC_LEVY_PAGE = "https://www.acc.co.nz/for-business/understanding-your-levies/paying-levies-if-you-work-for-yourself"
+ACC_LEVY_PAGE = "https://www.acc.co.nz/for-business/received-an-invoice/calculate-your-levies"
+ACC_LEVY_RATE_PAGE = "https://www.acc.co.nz/for-business/understanding-levies-if-you-work-or-own-a-business"
 
 CATEGORY_ORDER = [
     "First-home buyers",
@@ -2287,7 +2290,7 @@ TICKER_CATALOG = {
         "tool_url": "",
     },
 # === END OF BLOCK 4 ===
-# === BLOCK 5 OF 12 ===
+# === BLOCK 5 OF 13 ===
     "back-book-vs-new-settled-mortgage-rate": {
         "name": "Existing 'back-book' effective mortgage rate vs newly settled fixed mortgage rates (RBNZ Table B6 vs B30)",
         "also_known_as": "RBNZ Table B6 housing loan yield vs Table B30 new settled owner-occupier mortgage rate spread",
@@ -3472,7 +3475,35 @@ def make_pulse_item(
         d.update(extra)
     return d
 # === END OF BLOCK 6 ===
-# === BLOCK 7 OF 12 ===
+# === BLOCK 7 OF 13 ===
+def _extract_int_from_rec(rec: dict | None, lo: int, hi: int) -> int | None:
+    if not isinstance(rec, dict):
+        return None
+    v = rec.get("value")
+    if isinstance(v, (int, float)) and lo <= float(v) <= hi:
+        return int(round(float(v)))
+    blob = f"{rec.get('latest_value', '')} {re.sub(r'<[^>]+>', ' ', rec.get('html', ''))} {rec.get('summary_text', '')}"
+    for m in re.finditer(r"\$([\d,]{5,7})", blob):
+        n = int(m.group(1).replace(",", ""))
+        if lo <= n <= hi:
+            return n
+    return None
+
+
+def _extract_pct_from_rec(rec: dict | None, lo: float = 0.1, hi: float = 50.0) -> float | None:
+    if not isinstance(rec, dict):
+        return None
+    v = rec.get("value")
+    if isinstance(v, (int, float)) and lo <= float(v) <= hi:
+        return round(float(v), 1)
+    blob = f"{rec.get('latest_value', '')} {re.sub(r'<[^>]+>', ' ', rec.get('html', ''))} {rec.get('summary_text', '')}"
+    for m in re.finditer(r"(\d{1,2}\.\d)\s*%", blob):
+        fv = float(m.group(1))
+        if lo <= fv <= hi:
+            return fv
+    return None
+
+
 # Ensure C31, C32, C33, C40, C41, B30, J10 & T43 try their primary RBNZ .xlsx filenames first
 for _rk, _primary_u in (
     ("c31", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/c31-new-residential-mortgage-lending-by-borrower-type.xlsx"),
@@ -4598,7 +4629,7 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathli
 
     return out
 # === END OF BLOCK 7 ===
-# === BLOCK 8 OF 12 ===
+# === BLOCK 8 OF 13 ===
 def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pathlib.Path]) -> dict:
     """
     100% live-pulled Household Loans, Credit Cards, Consumer Lending, Revolving Credit & Borrower Stress datasets
@@ -5316,7 +5347,7 @@ def build_rbnz_reality_check_expansion_tickers(
 
     return out
 # === END OF BLOCK 8 ===
-# === BLOCK 9 OF 12 ===
+# === BLOCK 9 OF 13 ===
 def build_insurance_pulse_tickers(
     session,
     q_as_of: str,
@@ -6057,7 +6088,7 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
         print(f"[Stats NZ Wealth/Income] Note: {exc_w}")
     return out
 # === END OF BLOCK 9 ===
-# === BLOCK 10 OF 12 ===
+# === BLOCK 10 OF 13 ===
 def build_tenancy_tickers(session) -> dict:
     """
     100% live-parsed MBIE Tenancy Services rental bond datasets:
@@ -6247,7 +6278,7 @@ def build_tenancy_tickers(session) -> dict:
 
     return out
 # === END OF BLOCK 10 ===
-# === BLOCK 11 OF 12 ===
+# === BLOCK 11 OF 13 ===
 def _remove_axis_ticks(nums: list[int], step: int, lo: int, hi: int) -> list[int]:
     """Remove arithmetic chart y-axis gridline ticks (1 instance per tick) so only bar data labels remain."""
     out = list(nums)
@@ -6651,7 +6682,7 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                         f"Inland Revenue KiwiSaver Withdrawals ({ks_m_full}): Financial hardship withdrawals = {hs_cnt:,} members and ${hs_amt_m:,.1f}m.",
                         format_provenance_source_html(hs_calc, "Inland Revenue — KiwiSaver Withdrawal Statistics", IRD_KS_DATA_PAGE, True),
                         ks_m_full, round(hs_amt_m, 1), f"${hs_amt_m:,.1f}m across {hs_cnt:,} members (avg ${hs_avg:,}/member)",
-                        f"Prior month: ${hs_prev_m:,.1f}m" if hs_prev_m is not None else "Monthly IRD withdrawal series",
+                        f"Prior month: ${hs_prev_m:,.1f}m" if fh_prev_m is not None else "Monthly IRD withdrawal series",
                         f"{hs_amt_m - hs_prev_m:+.1f}m vs prior month" if hs_prev_m is not None else f"${hs_avg:,} average hardship withdrawal",
                         hs_calc, f"Inland Revenue monthly series ({ks_m_full})", None, {"source_published": wd_pub},
                     )
@@ -7019,7 +7050,7 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
 
     return out
 # === END OF BLOCK 11 ===
-# === BLOCK 12 OF 12 ===
+# === BLOCK 12 OF 13 ===
 def build_citation_string(
     name: str,
     latest_period: str,
@@ -7755,28 +7786,79 @@ def cross_derive_live_c31_c41_siblings(candidates: dict) -> None:
             td_calc, dti_rec.get("historical_data_from", "RBNZ Tables C40 & C41"), [],
             {"source_published": pub_s, "source_url": c40_u},
         )
+# === END OF BLOCK 12 ===
+# === BLOCK 13 OF 13 ===
+def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dict:
+    """
+    Load previous verified tickers from nz-mortgage-pulse.json.
+    If the working copy was truncated (<50 tickers), automatically check recent git commits
+    so a single rate-limited run never wipes out valid datasets.
+    """
+    import subprocess
+
+    def _clean_ticker_map(raw_map: dict) -> dict:
+        cleaned = {}
+        if "fhb-income-by-dti-band" not in raw_map and "fhb-income-akl-vs-nz" in raw_map:
+            raw_map["fhb-income-by-dti-band"] = dict(raw_map["fhb-income-akl-vs-nz"])
+        for k, v in raw_map.items():
+            if k not in TICKER_CATALOG or not isinstance(v, dict):
+                continue
+            lv = str(v.get("latest_value", "")).lower()
+            if "nan $" in lv or "-99 $" in lv:
+                continue
+            # Filter out the quarterly CPI numbers (-0.6%, +1.2%, +1.6%, -0.8%, +1.9%) if they overwrote annual YoY CPI
+            if k == "building-insurance-inflation" and v.get("value") == 1.2:
+                continue
+            if k == "contents-insurance-inflation" and v.get("value") == -0.6:
+                continue
+            if k == "vehicle-insurance-inflation" and v.get("value") == 1.9:
+                continue
+            if k == "health-insurance-inflation" and v.get("value") == 1.6:
+                continue
+            if k == "life-insurance-inflation" and v.get("value") == -0.8:
+                continue
+            cleaned[k] = v
+        return cleaned
+
+    best_map: dict = {}
+    if json_path.exists():
+        try:
+            curr_raw = json.loads(json_path.read_text(encoding="utf-8")).get("tickers", {})
+            best_map = _clean_ticker_map(curr_raw)
+        except Exception:
+            best_map = {}
+
+    if len(best_map) < 55:
+        try:
+            subprocess.run(["git", "fetch", "--depth=6", "origin"], cwd=root, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except Exception:
+            pass
+        for rev in ("HEAD~1", "HEAD~2", "HEAD~3", "HEAD~4"):
+            try:
+                out_b = subprocess.check_output(
+                    ["git", "show", f"{rev}:nz-mortgage-pulse.json"],
+                    cwd=root,
+                    stderr=subprocess.DEVNULL,
+                )
+                hist_raw = json.loads(out_b.decode("utf-8", errors="ignore")).get("tickers", {})
+                hist_clean = _clean_ticker_map(hist_raw)
+                if len(hist_clean) > len(best_map):
+                    print(f"[Git Recovery] Restored {len(hist_clean)} verified baseline tickers from {rev}")
+                    for hk, hv in hist_clean.items():
+                        best_map.setdefault(hk, hv)
+                if len(best_map) >= 65:
+                    break
+            except Exception:
+                continue
+
+    return best_map
 
 
 def main() -> None:
     root = pathlib.Path(__file__).resolve().parent
     json_path, structured_json_path, html_path = root / "nz-mortgage-pulse.json", root / "pulse.json", root / "index.html"
 
-    prev_tickers = {}
-    if json_path.exists():
-        try:
-            prev_tickers = json.loads(json_path.read_text(encoding="utf-8")).get("tickers", {})
-        except Exception:
-            prev_tickers = {}
-
-    if "fhb-income-by-dti-band" not in prev_tickers and "fhb-income-akl-vs-nz" in prev_tickers:
-        prev_tickers["fhb-income-by-dti-band"] = dict(prev_tickers["fhb-income-akl-vs-nz"])
-
-    fresh_candidates = {
-        k: v for k, v in prev_tickers.items()
-        if k in TICKER_CATALOG and isinstance(v, dict)
-        and "nan $" not in str(v.get("latest_value", "")).lower()
-        and "-99 $" not in str(v.get("latest_value", "")).lower()
-    }
+    fresh_candidates = _load_valid_prev_tickers(root, json_path)
     session = get_http_session()
     live_parsed_count = 0
 
@@ -7877,7 +7959,9 @@ def main() -> None:
             os.remove(p)
 
     now_dt = datetime.datetime.now(datetime.timezone.utc)
-    now_utc, today_iso, now_human = now_dt.strftime("%Y-%m-%dT%H:%M:%SZ"), now_dt.strftime("%Y-%m-%d"), f"{now_dt.day} {now_dt.strftime('%B %Y')}"
+    now_utc = now_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    today_iso = now_dt.strftime("%Y-%m-%d")
+    now_human = f"{now_dt.day} {now_dt.strftime('%B %Y')}"
 
     verified_tickers = {}
     for k, item in fresh_candidates.items():
@@ -7902,42 +7986,77 @@ def main() -> None:
 
     latest_rbnz_period = verified_tickers.get("fhb-low-deposit", {}).get("latest_period", "Latest Official Release")
     payload = {
-        "publisher": PUBLISHER_NAME, "publisher_legal_name": PUBLISHER_LEGAL, "publisher_url": PUBLISHER_URL, "media_kit_url": MEDIA_KIT_URL,
-        "creator_name": CREATOR_NAME, "creator_alternate_name": CREATOR_ALT_NAME, "creator_fsp": CREATOR_FSP, "creator_url": CREATOR_URL,
-        "license": HLF_LICENSE_URL, "license_label": HLF_LICENSE_SHORT, "license_note": HLF_LICENSE_NOTE,
+        "publisher": PUBLISHER_NAME,
+        "publisher_legal_name": PUBLISHER_LEGAL,
+        "publisher_url": PUBLISHER_URL,
+        "media_kit_url": MEDIA_KIT_URL,
+        "creator_name": CREATOR_NAME,
+        "creator_alternate_name": CREATOR_ALT_NAME,
+        "creator_fsp": CREATOR_FSP,
+        "creator_url": CREATOR_URL,
+        "license": HLF_LICENSE_URL,
+        "license_label": HLF_LICENSE_SHORT,
+        "license_note": HLF_LICENSE_NOTE,
         "dataset_name": "NZ Mortgage, Housing, KiwiSaver, Income & Protection Pulse — Verified NZ Data",
-        "date_created": PULSE_DATE_CREATED, "date_modified": today_iso, "generated_utc": now_utc, "last_checked": today_iso,
-        "latest_underlying_data": latest_rbnz_period, "data_status": "verified", "source_status": "current",
-        "active_datasets_count": len(verified_tickers), "count": len(verified_tickers),
-        "fhb_snapshot": fhb_snap_obj, "reality_check_benchmarks": rc_bench_obj, "tickers": bubble_feed_tickers,
+        "date_created": PULSE_DATE_CREATED,
+        "date_modified": today_iso,
+        "generated_utc": now_utc,
+        "last_checked": today_iso,
+        "latest_underlying_data": latest_rbnz_period,
+        "data_status": "verified",
+        "source_status": "current",
+        "active_datasets_count": len(verified_tickers),
+        "count": len(verified_tickers),
+        "fhb_snapshot": fhb_snap_obj,
+        "reality_check_benchmarks": rc_bench_obj,
+        "tickers": bubble_feed_tickers,
     }
     json_path.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
 
     structured_records = []
     for k in sorted(verified_tickers.keys()):
         r = verified_tickers[k]
-        rec_out = {f: r.get(f) for f in (
-            "ticker", "name", "also_known_as", "category", "topic", "value", "latest_value", "unit",
-            "observation_period", "observed_period", "period_end", "source_published", "last_checked",
-            "date_created", "date_modified", "data_status", "source_status", "previous_period", "change",
-            "source", "source_full", "source_series_ids", "source_url", "derived_by_hlf", "data_type",
-            "definition", "formula", "hlf_interpretation", "methodology", "historical_data_from",
-            "creator_name", "creator_alternate_name", "creator_fsp", "creator_url", "publisher",
-            "publisher_legal_name", "publisher_url", "media_kit_url", "license", "license_label",
-            "citation", "canonical_url", "summary_text", "related_questions", "citation_chain", "history",
-        )}
-        rec_out.update({"latest_underlying_data": r["latest_period"], "official_data": r["official_data_summary"], "hlf_calculation": r["calculation"], "frequency": r["update_frequency"]})
+        rec_out = {
+            f: r.get(f)
+            for f in (
+                "ticker", "name", "also_known_as", "category", "topic", "value", "latest_value", "unit",
+                "observation_period", "observed_period", "period_end", "source_published", "last_checked",
+                "date_created", "date_modified", "data_status", "source_status", "previous_period", "change",
+                "source", "source_full", "source_series_ids", "source_url", "derived_by_hlf", "data_type",
+                "definition", "formula", "hlf_interpretation", "methodology", "historical_data_from",
+                "creator_name", "creator_alternate_name", "creator_fsp", "creator_url", "publisher",
+                "publisher_legal_name", "publisher_url", "media_kit_url", "license", "license_label",
+                "citation", "canonical_url", "summary_text", "related_questions", "citation_chain", "history",
+            )
+        }
+        rec_out.update({
+            "latest_underlying_data": r["latest_period"],
+            "official_data": r["official_data_summary"],
+            "hlf_calculation": r["calculation"],
+            "frequency": r["update_frequency"],
+        })
         if r.get("tdti_bands"):
-            rec_out["tdti_bands"], rec_out["tdti_total_pool_m"], rec_out["tdti_total_implied_apps"] = r["tdti_bands"], r.get("tdti_total_pool_m"), r.get("tdti_total_implied_apps")
+            rec_out["tdti_bands"] = r["tdti_bands"]
+            rec_out["tdti_total_pool_m"] = r.get("tdti_total_pool_m")
+            rec_out["tdti_total_implied_apps"] = r.get("tdti_total_implied_apps")
         if r.get("townhouse_flat_unit_share_pct") is not None:
             rec_out["townhouse_flat_unit_share_pct"] = r["townhouse_flat_unit_share_pct"]
         structured_records.append(rec_out)
 
     pulse_json_obj = {
         "dataset": "HLF Pulse — Verified New Zealand Mortgage, Housing, KiwiSaver, Income & Protection Reference Dataset",
-        "publisher": PUBLISHER_NAME, "publisher_legal_name": PUBLISHER_LEGAL, "publisher_url": PUBLISHER_URL, "media_kit_url": MEDIA_KIT_URL,
-        "creator_name": CREATOR_NAME, "creator_alternate_name": CREATOR_ALT_NAME, "creator_fsp": CREATOR_FSP, "creator_role": CREATOR_ROLE, "creator_url": CREATOR_URL,
-        "license": HLF_LICENSE_URL, "license_label": HLF_LICENSE_SHORT, "license_note": HLF_LICENSE_NOTE,
+        "publisher": PUBLISHER_NAME,
+        "publisher_legal_name": PUBLISHER_LEGAL,
+        "publisher_url": PUBLISHER_URL,
+        "media_kit_url": MEDIA_KIT_URL,
+        "creator_name": CREATOR_NAME,
+        "creator_alternate_name": CREATOR_ALT_NAME,
+        "creator_fsp": CREATOR_FSP,
+        "creator_role": CREATOR_ROLE,
+        "creator_url": CREATOR_URL,
+        "license": HLF_LICENSE_URL,
+        "license_label": HLF_LICENSE_SHORT,
+        "license_note": HLF_LICENSE_NOTE,
         "how_to_cite": f"HLF Pulse, Home Loan Factory ({PULSE_BASE_URL}/), created by {CREATOR_NAME} (checked {now_human}). {HLF_LICENSE_SHORT}.",
         "date_field_definitions": {
             "observation_period": "When the underlying statistic relates to (e.g., September 2026 or Year ended 31 March 2026)",
@@ -7945,8 +8064,14 @@ def main() -> None:
             "source_published": "When the original organisation released the dataset (never auto-populated from period_end)",
             "last_checked": "When HLF last verified the official source (YYYY-MM-DD)",
         },
-        "date_created": PULSE_DATE_CREATED, "date_modified": today_iso, "pulse_url": f"{PULSE_BASE_URL}/", "last_checked": today_iso,
-        "dataset_generated_utc": now_utc, "latest_underlying_data": latest_rbnz_period, "data_status": "verified", "source_status": "current",
+        "date_created": PULSE_DATE_CREATED,
+        "date_modified": today_iso,
+        "pulse_url": f"{PULSE_BASE_URL}/",
+        "last_checked": today_iso,
+        "dataset_generated_utc": now_utc,
+        "latest_underlying_data": latest_rbnz_period,
+        "data_status": "verified",
+        "source_status": "current",
         "active_datasets_count": len(structured_records),
         "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, source_published reflects when the publisher released it, and observation_period / period_end reflect the period the data covers.",
         "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / HLPI / IRD / Kāinga Ora) & Annual (FMA / Stats NZ HILS / IRD Tax Distributions / NHC / ACC)",
@@ -7966,27 +8091,36 @@ def main() -> None:
     sitemap_urls = [f"  <url><loc>{PULSE_BASE_URL}/</loc><lastmod>{today_iso}</lastmod></url>"] + [
         f"  <url><loc>{PULSE_BASE_URL}/{k}/</loc><lastmod>{today_iso}</lastmod></url>" for k in sorted(verified_tickers.keys())
     ]
-    (root / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(sitemap_urls) + "\n</urlset>\n", encoding="utf-8")
+    (root / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(sitemap_urls)
+        + "\n</urlset>\n",
+        encoding="utf-8",
+    )
 
-    llms_lines = [
-        "# HLF Pulse — Verified New Zealand Mortgage, Housing, KiwiSaver, Income & Protection Reference Dataset", "",
+    llms_header = [
+        "# HLF Pulse — Verified New Zealand Mortgage, Housing, KiwiSaver, Income & Protection Reference Dataset",
+        "",
         "> Public reference dataset and data dictionary built 100% live from official New Zealand Crown and statutory releases, with clearly labelled HLF-derived calculations and interpretation.",
-        f"> Created by: {CREATOR_NAME} ({CREATOR_ALT_NAME}, {CREATOR_FSP}), {CREATOR_ROLE} ({CREATOR_URL}) | Published by: {PUBLISHER_NAME} ({PUBLISHER_URL}).",
+        "> Created by: " + CREATOR_NAME + " (" + CREATOR_ALT_NAME + ", " + CREATOR_FSP + "), " + CREATOR_ROLE + " (" + CREATOR_URL + ") | Published by: " + PUBLISHER_NAME + " (" + PUBLISHER_URL + ").",
         f"> Media Kit & Citation Guide: {MEDIA_KIT_URL} | HLF Glossary: {GLOSSARY_BASE_URL}",
         f"> Reuse Licence: {HLF_LICENSE_SHORT} ({HLF_LICENSE_URL}) for HLF-derived figures & commentary; official statistics credited to their respective publishers.",
         f"> Date Standard: Observation Period (latest monthly: {latest_rbnz_period}) | Period End | Source Publication Date | Last Checked ({now_human} / {today_iso}).",
-        f"> Active datasets: {len(verified_tickers)}.", "",
+        f"> Active datasets: {len(verified_tickers)}.",
+        "",
         "## Machine-Readable Endpoints",
         f"- Structured Data Dictionary & Reality Check Benchmarks (JSON): {PULSE_BASE_URL}/pulse.json",
         f"- Webflow Chat Bubble Feed (JSON): {PULSE_BASE_URL}/nz-mortgage-pulse.json",
         f"- Main Reference Dataset Hub (HTML): {PULSE_BASE_URL}/",
-        f"- Media Kit & Citation Guide (HTML): {MEDIA_KIT_URL}", "",
+        f"- Media Kit & Citation Guide (HTML): {MEDIA_KIT_URL}",
+        "",
         f"## Canonical Data Dictionary Records ({len(verified_tickers)} Active Datasets)",
-    ] + [
+    ]
+    llms_records = [
         f"- [{rec['name']} (Obs: {rec['observation_period']} | End: {rec['period_end']} | Published: {rec['source_published']})]({rec['canonical_url']}): {rec['summary_text']} [Official Data: {rec['official_data_summary']} | HLF Calculation: {rec['calculation']} | Derived by HLF Pulse: {rec['hlf_derived_label']} | Cite as: {rec['citation']}]"
         for k, rec in sorted(verified_tickers.items())
     ]
-    (root / "llms.txt").write_text("\n".join(llms_lines) + "\n", encoding="utf-8")
+    (root / "llms.txt").write_text("\n".join(llms_header + llms_records) + "\n", encoding="utf-8")
 
     by_cat = {c: [] for c in CATEGORY_ORDER}
     for k, rec in sorted(verified_tickers.items()):
@@ -8024,7 +8158,8 @@ def main() -> None:
         )
     rows_html = "".join(rows_html_list)
     robots_tag = "index, follow" if verified_tickers else "noindex, nofollow"
-    creator_main_html, about_footer_html = render_creator_card_html(compact=False), render_about_and_quality_footer_html()
+    creator_main_html = render_creator_card_html(compact=False)
+    about_footer_html = render_about_and_quality_footer_html()
 
     hub_schema_obj = {
         "@context": "https://schema.org",
@@ -8180,4 +8315,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-# === END OF BLOCK 12 ===
+# === END OF BLOCK 13 ===
