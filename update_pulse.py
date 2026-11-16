@@ -1,4 +1,4 @@
-# === BLOCK 1 OF 12 ===
+# === BLOCK 1 OF 13 ===
 #!/usr/bin/env python3
 """
 HLF Pulse — Reference-Grade New Zealand Mortgage, Housing, KiwiSaver, Income, Net Worth & Protection Dataset
@@ -272,26 +272,26 @@ RBNZ_SOURCES = {
 
 TENANCY_PAGE = "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/"
 
-IRD_SL_BAL_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/statistics-on-the-student-loan-scheme/statistics-on-student-loan-balances"
+IRD_SL_BAL_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/student-loans/scheme-balances"
 IRD_TAX_DEBT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/tax-and-entitlement-debt-statistics"
 IRD_TAX_DEBT_URLS = [
     "https://www.ird.govt.nz/about-us/tax-statistics/tax-and-entitlement-debt-statistics",
-    "https://www.ird.govt.nz/about-us/tax-statistics/statistics-on-the-student-loan-scheme/statistics-on-overdue-student-loan-repayments",
+    "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/student-loans/overdue-repayments",
 ]
-IRD_INCOME_DIST_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/income-distribution/individuals-taxable-income-distribution"
+IRD_INCOME_DIST_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/income-distribution"
 IRD_INCOME_DATASETS_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/income-distribution/tax-on-taxable-income-datasets"
 IRD_WAGE_SALARY_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions"
 IRD_WAGE_DATASETS_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions/wage-and-salary-statistics-datasets"
 IRD_TRUSTS_NUM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/trusts-and-estates-statistics/number-of-trusts-and-estates"
 IRD_TRUSTS_INC_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/trusts-and-estates-statistics/trusts-ir6"
 IRD_TRUSTS_XLSX = "https://www.ird.govt.nz/-/media/project/ir/home/documents/about-us/tax-statistics---current/revenue-and-refunds/trusts-and-estates-statistics/trusts-and-estates-statistics/trusts-and-estates-statistics-spreadsheet.xlsx"
-IRD_WFF_ENT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/working-for-families-statistics/total-entitlements-paid-for-working-for-families-tax-credits"
-IRD_WFF_FAM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/working-for-families-statistics/number-of-families-claiming-and-entitled-to-working-for-families"
-IRD_KS_NUM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/number"
-IRD_KS_AMT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/amount"
-IRD_KS_TR_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/schemes/transfer"
-IRD_KS_REG_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/kiwisaver-fund-withdrawals-by-region"
-IRD_KS_ENTRY_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/schemes/entry-method"
+IRD_WFF_ENT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/working-for-families-statistics/total-entitlements-paid-for-working-for-families-tax-credits"
+IRD_WFF_FAM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/working-for-families-statistics/number-of-families-claiming-and-entitled-to-working-for-families"
+IRD_KS_NUM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/numbers"
+IRD_KS_AMT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/amounts"
+IRD_KS_TR_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/Joining-and-transfers/scheme-transfers"
+IRD_KS_REG_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/withdrawals-regions"
+IRD_KS_ENTRY_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/Joining-and-transfers/entry-methods"
 IRD_KS_PAY_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/contributions/scheme-providers-payments"
 IRD_KS_SUSP_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/contributions/savings-suspensions"
 IRD_KS_AGE_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/joining/member-demographics/number-and-age-of-kiwisaver-members"
@@ -321,8 +321,8 @@ RBNZ_INS_STATS_PAGE = "https://www.rbnz.govt.nz/statistics/series/insurance"
 RBNZ_C35_PAGE = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-loan-reconciliation"
 NHC_ACT_PAGE = "https://www.legislation.govt.nz/act/public/2023/0004/latest/whole.html"
 NHC_FUND_PAGE = "https://www.naturalhazards.govt.nz/"
-ACC_LEVY_PAGE = "https://www.acc.co.nz/for-business/received-an-invoice/calculate-your-levies"
-ACC_LEVY_RATE_PAGE = "https://www.acc.co.nz/for-business/understanding-levies-if-you-work-or-own-a-business"
+ACC_LEVY_PAGE = "https://www.acc.co.nz/for-business/understanding-your-levies/paying-levies-if-you-work-for-yourself"
+ACC_LEVY_RATE_PAGE = "https://www.acc.co.nz/for-business/received-an-invoice/calculate-your-levies"
 
 CATEGORY_ORDER = [
     "First-home buyers",
@@ -4644,7 +4644,7 @@ def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pa
     if c12_path and c12_path.exists():
         try:
             c12_pub = extract_rbnz_published_date(c12_path)
-            c12_tabs = load_rbnz_sheets_merged(c12_path)
+            c12_tabs = load_rbnz_sheets(c12_path) or load_rbnz_sheets_merged(c12_path)
             c12_url = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances"
 
             dt_adv, s_adv, _ = _find_rbnz_multi(
@@ -4662,13 +4662,13 @@ def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pa
             dt_rate, s_rate, _ = _find_rbnz_multi(
                 c12_tabs,
                 [("interest-bearing", "rate"), ("weighted", "rate"), ("interest", "rate"), ("rate",), ("%",)],
-                exclude_kw=("exchange", "utilisation", "utilization", "change", "yoy", "proportion"),
+                exclude_kw=("exchange", "change", "yoy", "proportion"),
                 val_bounds=(12.0, 28.0),
             )
             dt_lim, s_lim, _ = _find_rbnz_multi(
                 c12_tabs,
                 [("credit", "limit"), ("total", "limit"), ("limits",), ("limit",)],
-                exclude_kw=("utilisation", "utilization", "ratio", "percentage", "used"),
+                exclude_kw=("ratio", "percentage", "used", "proportion"),
                 val_bounds=(12000, 45000),
             )
 
@@ -4677,24 +4677,23 @@ def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pa
             df_rate = _series_df(dt_rate, s_rate)
             df_lim = _series_df(dt_lim, s_lim)
 
-            if df_adv.empty or df_lim.empty or df_rate.empty:
-                for _, df_t, _, lbls in c12_tabs:
-                    for c_i in range(0, df_t.shape[1]):
-                        if str(df_t.columns[c_i]) == "date":
-                            continue
-                        df_cand = _series_df(df_t["date"], df_t.iloc[:, c_i])
-                        if len(df_cand) < 6:
-                            continue
-                        v_last = float(df_cand["val"].iloc[-1])
-                        lbl = lbls[c_i] if c_i < len(lbls) else ""
-                        if df_adv.empty and 4500 <= v_last <= 9500:
-                            df_adv = df_cand
-                        elif df_lim.empty and 15000 <= v_last <= 35000:
-                            df_lim = df_cand
-                        elif df_ib.empty and 2000 <= v_last <= 4400 and ("interest" in lbl or "bearing" in lbl):
-                            df_ib = df_cand
-                        elif df_rate.empty and 16.5 <= v_last <= 24.5:
-                            df_rate = df_cand
+            for _, df_t, _, lbls in c12_tabs:
+                for c_i in range(0, df_t.shape[1]):
+                    if str(df_t.columns[c_i]) == "date":
+                        continue
+                    df_cand = _series_df(df_t["date"], df_t.iloc[:, c_i])
+                    if len(df_cand) < 6:
+                        continue
+                    v_last = float(df_cand["val"].iloc[-1])
+                    lbl = lbls[c_i] if c_i < len(lbls) else ""
+                    if df_adv.empty and 4500 <= v_last <= 9500:
+                        df_adv = df_cand
+                    if df_lim.empty and 15000 <= v_last <= 35000:
+                        df_lim = df_cand
+                    if df_ib.empty and 2000 <= v_last <= 4400 and ("interest" in lbl or "bearing" in lbl):
+                        df_ib = df_cand
+                    if df_rate.empty and 16.5 <= v_last <= 24.5:
+                        df_rate = df_cand
 
             if len(df_adv) >= 2:
                 last_a = df_adv.iloc[-1]
@@ -5258,9 +5257,10 @@ def build_rbnz_reality_check_expansion_tickers(
     session, rbnz_files: dict[str, pathlib.Path], existing_candidates: dict
 ) -> dict:
     """
-    100% live-pulled RBNZ Rate Spread Expansion Datasets (Zero Hardcoded Fallbacks):
+    100% live-pulled RBNZ Rate Spread & Repricing Datasets (Zero Hardcoded Fallbacks):
     - back-book-vs-new-settled-mortgage-rate (RBNZ Table B6 vs Table B30)
     - low-equity-margin-penalty-spread (RBNZ Table B20 vs Table B21)
+    - fixed-vs-floating-rate-mix & existing-mortgage-stock-lvr-refix (RBNZ Table S33)
     """
     out: dict = {}
     root = pathlib.Path(__file__).resolve().parent
@@ -5345,6 +5345,106 @@ def build_rbnz_reality_check_expansion_tickers(
         except Exception as exc_b20:
             print(f"[RBNZ B20/B21] Parse note: {exc_b20}")
 
+    # 3. RBNZ Table S33 — Fixed vs Floating Share & 12-Month Repricing Horizon (without 'floating' in exclude_kw)
+    if "fixed-vs-floating-rate-mix" not in existing_candidates or "existing-mortgage-stock-lvr-refix" not in existing_candidates:
+        s33_path = _ensure_rbnz_file("s33", root, session, rbnz_files)
+        if s33_path and s33_path.exists():
+            try:
+                s33_page = "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-fully-secured-by-residential-mortgage"
+                s33_pub = extract_rbnz_published_date(s33_path)
+                tabs_s33 = load_rbnz_sheets(s33_path) or load_rbnz_sheets_merged(s33_path)
+
+                dt_fl, s_fl, _ = _find_rbnz_multi(tabs_s33, [("floating",)], exclude_kw=("%", "share"), val_bounds=(15000, 120000))
+                dt_tot, s_tot, _ = _find_rbnz_multi(tabs_s33, [("total",)], exclude_kw=("%", "share"), val_bounds=(200000, 550000))
+                df_fl = _series_df(dt_fl, s_fl)
+                df_tot = _series_df(dt_tot, s_tot)
+
+                if (df_fl.empty or df_tot.empty) and tabs_s33:
+                    for _, df_s, _, _ in tabs_s33:
+                        for c_i in range(0, df_s.shape[1]):
+                            if str(df_s.columns[c_i]) == "date":
+                                continue
+                            cand_s = _series_df(df_s["date"], df_s.iloc[:, c_i])
+                            if len(cand_s) < 6:
+                                continue
+                            lv_s = float(cand_s["val"].iloc[-1])
+                            if df_fl.empty and 20000 <= lv_s <= 95000:
+                                df_fl = cand_s
+                            elif df_tot.empty and 250000 <= lv_s <= 520000:
+                                df_tot = cand_s
+
+                if not df_fl.empty and not df_tot.empty:
+                    m33_df = pd.merge(df_fl, df_tot, on="date", suffixes=("_fl", "_tot"))
+                    if not m33_df.empty:
+                        m33_df["val_fx"] = m33_df["val_tot"] - m33_df["val_fl"]
+                        m33_df["fx_sh"] = (m33_df["val_fx"] / m33_df["val_tot"]) * 100.0
+                        last33 = m33_df.iloc[-1]
+                        prev33 = m33_df.iloc[-13] if len(m33_df) >= 13 else m33_df.iloc[0]
+                        dt33 = pd.Timestamp(last33["date"])
+                        m33, as_of33 = dt33.strftime("%B %Y"), month_end_iso(dt33)
+                        tot_m, fx_m, fl_m = float(last33["val_tot"]), float(last33["val_fx"]), float(last33["val_fl"])
+                        tot_b, fx_b, fl_b = tot_m / 1000.0, fx_m / 1000.0, fl_m / 1000.0
+                        fx_sh, fl_sh = float(last33["fx_sh"]), 100.0 - float(last33["fx_sh"])
+                        fx_sh_prev = float(prev33["fx_sh"])
+
+                        rep6_m, rep12_m = 0.0, 0.0
+                        for _, df_r, _, lbls_r in tabs_s33:
+                            r6_cols, r12_cols = [], []
+                            for c_i, lbl in enumerate(lbls_r):
+                                if c_i >= df_r.shape[1] or str(df_r.columns[c_i]) == "date" or any(x in lbl for x in ("%", "share")):
+                                    continue
+                                if any(k in lbl for k in ("3 months", "6 months", "up to 3", "3 to 6")):
+                                    r6_cols.append(c_i)
+                                    r12_cols.append(c_i)
+                                elif any(k in lbl for k in ("1 year", "6 to 12")):
+                                    r12_cols.append(c_i)
+                            if r12_cols:
+                                cand12 = sum(float(pd.to_numeric(df_r.iloc[:, c_i], errors="coerce").dropna().iloc[-1]) for c_i in r12_cols[:3] if len(pd.to_numeric(df_r.iloc[:, c_i], errors="coerce").dropna()))
+                                cand6 = sum(float(pd.to_numeric(df_r.iloc[:, c_i], errors="coerce").dropna().iloc[-1]) for c_i in r6_cols[:2] if len(pd.to_numeric(df_r.iloc[:, c_i], errors="coerce").dropna()))
+                                if 0.1 * fx_m <= cand12 <= fx_m:
+                                    rep12_m, rep6_m = cand12, cand6
+                                    break
+
+                        rep12_clause, rep12_calc = "", ""
+                        if rep12_m > 0:
+                            rep12_b, rep12_pct = rep12_m / 1000.0, (rep12_m / fx_m) * 100.0
+                            rep6_pct = (rep6_m / fx_m) * 100.0 if rep6_m > 0 else 0.0
+                            rep12_clause = f"—with <strong>{rep12_pct:.1f}% (${rep12_b:.1f}B)</strong> of fixed-rate balances scheduled to reprice within 12 months"
+                            rep12_calc = f" | Repricing <=12m: ${rep12_b:.2f}B ÷ ${fx_b:.2f}B = {rep12_pct:.1f}%"
+
+                            out["existing-mortgage-stock-lvr-refix"] = make_pulse_item(
+                                "RBNZ Table S33", as_of33, MAX_AGE_MONTHLY,
+                                f"As at {m33}, across New Zealand's <strong>${tot_b:.1f}B</strong> existing residential mortgage stock (RBNZ Table S33), <strong>{fl_sh:.1f}% (${fl_b:.1f}B)</strong> was on floating rates and <strong>{fx_sh:.1f}% (${fx_b:.1f}B)</strong> on fixed rates—with <strong>{rep12_pct:.1f}% (${rep12_b:.1f}B)</strong> of fixed debt scheduled to reprice within 12 months" + (f" (and <strong>{rep6_pct:.1f}%</strong> within 6 months)." if rep6_pct > 0 else "."),
+                                f"RBNZ Table S33 ({m33}): Total existing mortgage stock = ${tot_b:.1f}B; Fixed = ${fx_b:.1f}B ({fx_sh:.1f}%); Floating = ${fl_b:.1f}B ({fl_sh:.1f}%); Repricing <=12m = ${rep12_b:.1f}B ({rep12_pct:.1f}%).",
+                                format_provenance_source_html(f"Fixed Share: ${fx_b:.2f}B ÷ ${tot_b:.2f}B = {fx_sh:.1f}%{rep12_calc}", "RBNZ Table S33 — Existing Mortgage Stock Repricing", s33_page, True),
+                                m33, round(rep12_pct, 1),
+                                f"{rep12_pct:.1f}% refixing <=12m (${rep12_b:.1f}B) | {fl_sh:.1f}% floating (${fl_b:.1f}B)",
+                                f"Total NZ bank mortgage book: ${tot_b:.1f}B",
+                                f"{fx_sh - fx_sh_prev:+.1f} pts YoY shift in fixed-rate share",
+                                f"Fixed Share: ${fx_b:.2f}B ÷ ${tot_b:.2f}B = {fx_sh:.1f}%{rep12_calc}",
+                                f"RBNZ Table S33 monthly series ({m33})",
+                                make_history_list(m33_df["date"], m33_df["fx_sh"], lambda x: f"{x:.1f}% fixed share"),
+                                {"source_published": s33_pub, "source_url": s33_page},
+                            )
+
+                        s33_calc = f"Fixed Share: ${fx_b:.2f}B ÷ ${tot_b:.2f}B = {fx_sh:.1f}% | Floating Share: ${fl_b:.2f}B ÷ ${tot_b:.2f}B = {fl_sh:.1f}%{rep12_calc}"
+                        out["fixed-vs-floating-rate-mix"] = make_pulse_item(
+                            "RBNZ Table S33", as_of33, MAX_AGE_MONTHLY,
+                            f"As at {m33}, across New Zealand's <strong>${tot_b:.1f}B</strong> in bank loans fully secured by residential mortgage, <strong>{fx_sh:.1f}% (${fx_b:.1f}B)</strong> was held on fixed interest rates and <strong>{fl_sh:.1f}% (${fl_b:.1f}B)</strong> on floating rates{rep12_clause}.",
+                            f"RBNZ Table S33 ({m33}): Total residential mortgage loans = ${tot_m:,.0f}m; Fixed-rate loans = ${fx_m:,.0f}m ({fx_sh:.1f}%); Floating loans = ${fl_m:,.0f}m ({fl_sh:.1f}%).",
+                            format_provenance_source_html(s33_calc, "RBNZ Table S33 — Loans by Repricing (Reserve Bank of New Zealand)", s33_page, True),
+                            m33, round(fx_sh, 2),
+                            f"{fx_sh:.1f}% fixed (${fx_b:.1f}B) vs {fl_sh:.1f}% floating (${fl_b:.1f}B)",
+                            f"{pd.Timestamp(prev33['date']).strftime('%B %Y')} ({fx_sh_prev:.1f}% fixed share)",
+                            f"{fx_sh - fx_sh_prev:+.1f} percentage points YoY (fixed share)",
+                            s33_calc,
+                            f"Available from {pd.Timestamp(m33_df['date'].iloc[0]).strftime('%B %Y')} ({len(m33_df)} monthly observations)",
+                            make_history_list(m33_df["date"], m33_df["fx_sh"], lambda x: f"{x:.1f}% fixed"),
+                            {"source_published": s33_pub, "source_url": s33_page},
+                        )
+            except Exception as exc_s33:
+                print(f"[RBNZ S33] Parse note: {exc_s33}")
+
     return out
 # === END OF BLOCK 8 ===
 # === BLOCK 9 OF 13 ===
@@ -5408,7 +5508,7 @@ def build_insurance_pulse_tickers(
         for cand_u in (j10_cfg.get("xlsx"), j10_cfg.get("alt_xlsx")):
             if not cand_u:
                 continue
-            j10_bytes = fetch_bytes_with_browser_fallback(session, cand_u, referer=RBNZ_INS_STATS_PAGE, min_bytes=12_000)
+            j10_bytes = fetch_bytes_with_browser_fallback(session, cand_u, referer=RBNZ_INS_STATS_PAGE, min_bytes=8_000)
             if j10_bytes and j10_bytes[:2] == b"PK":
                 tmp_j10 = pathlib.Path(__file__).resolve().parent / "tmp_j10_live.xlsx"
                 tmp_j10.write_bytes(j10_bytes)
@@ -5418,21 +5518,22 @@ def build_insurance_pulse_tickers(
     if j10_path is not None and j10_path.exists():
         try:
             j10_pub = extract_rbnz_published_date(j10_path)
-            tabs_j10 = load_rbnz_sheets_merged(j10_path)
+            tabs_j10 = load_rbnz_sheets(j10_path) or load_rbnz_sheets_merged(j10_path)
             for sname, df_j, _, labels_j in tabs_j10:
+                if "life" in sname.lower() and "general" not in sname.lower():
+                    continue
                 gwp_i, re_i, nep_i, clm_i = None, None, None, None
                 for idx, lbl in enumerate(labels_j):
                     if idx >= df_j.shape[1] or str(df_j.columns[idx]) == "date":
                         continue
-                    if "general" in sname.lower() or "general" in lbl or len(tabs_j10) == 1:
-                        if ("gross premium" in lbl or "gross written" in lbl or "gross earned" in lbl) and gwp_i is None:
-                            gwp_i = idx
-                        elif "reinsurance" in lbl and ("expense" in lbl or "outward" in lbl) and re_i is None:
-                            re_i = idx
-                        elif ("net premium" in lbl or "net earned" in lbl) and nep_i is None:
-                            nep_i = idx
-                        elif "claim" in lbl and ("net" in lbl or "incurred" in lbl or "expense" in lbl) and clm_i is None:
-                            clm_i = idx
+                    if ("gross premium" in lbl or "gross written" in lbl or "gross earned" in lbl or ("gross" in lbl and "premium" in lbl)) and gwp_i is None:
+                        gwp_i = idx
+                    elif "reinsurance" in lbl and ("expense" in lbl or "outward" in lbl or "cede" in lbl or re_i is None):
+                        re_i = idx
+                    elif ("net premium" in lbl or "net earned" in lbl or ("net" in lbl and "premium" in lbl)) and nep_i is None:
+                        nep_i = idx
+                    elif "claim" in lbl and ("net" in lbl or "incurred" in lbl or "expense" in lbl or clm_i is None):
+                        clm_i = idx
 
                 if gwp_i is not None and clm_i is not None:
                     gwp_s = pd.to_numeric(df_j.iloc[:, gwp_i], errors="coerce")
@@ -5440,6 +5541,8 @@ def build_insurance_pulse_tickers(
                     nep_s = pd.to_numeric(df_j.iloc[:, nep_i], errors="coerce") if nep_i is not None else (
                         gwp_s - pd.to_numeric(df_j.iloc[:, re_i], errors="coerce").abs() if re_i is not None else gwp_s
                     )
+                    if len(gwp_s.dropna()) < 2 or len(clm_s.dropna()) < 2:
+                        continue
                     is_qtr = float(gwp_s.dropna().iloc[-1]) < 4500.0 and len(gwp_s.dropna()) >= 4
                     gwp_ann_s = gwp_s.rolling(4).sum() if is_qtr else gwp_s
                     nep_ann_s = nep_s.rolling(4).sum() if is_qtr else nep_s
@@ -5487,8 +5590,8 @@ def build_insurance_pulse_tickers(
     # 3. Live Statutory Natural Hazards Insurance Act 2023 (NHCover Building Cap & Levy)
     nhc_pages = fetch_html_with_browser_fallback(session, [NHC_ACT_PAGE, NHC_FUND_PAGE], "NHC Act")
     nhc_txt = " ".join(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h)) for h in nhc_pages.values())
-    m_cap = re.search(r"\$(300,000|300\s*000)", nhc_txt)
-    m_levy_c = re.search(r"(?:16\s*cents|\$0\.16|\$480)", nhc_txt, flags=re.I)
+    m_cap = re.search(r"(300,000|300\s*000)", nhc_txt)
+    m_levy_c = re.search(r"(?:16\s*cents|0\.16|480)", nhc_txt, flags=re.I)
     if m_cap and m_levy_c:
         nhc_cap_ex = int(re.sub(r"[^\d]", "", m_cap.group(1)))
         nhc_cap_inc = int(round(nhc_cap_ex * 1.15))
@@ -5509,17 +5612,17 @@ def build_insurance_pulse_tickers(
         )
 
     # 4. Live ACC Earners' Levy Statutory Schedule
-    acc_pages = fetch_html_with_browser_fallback(session, [ACC_LEVY_PAGE], "ACC")
-    acc_levy_html = acc_pages.get(ACC_LEVY_PAGE, "")
-    if acc_levy_html:
-        acc_l_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", acc_levy_html))
+    acc_urls = [ACC_LEVY_PAGE, ACC_LEVY_RATE_PAGE, "https://www.ird.govt.nz/employing-staff/payday-filing/acc-earners-levy-rates"]
+    acc_pages = fetch_html_with_browser_fallback(session, acc_urls, "ACC")
+    acc_l_txt = " ".join(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h)) for h in acc_pages.values() if h)
+    if acc_l_txt:
         m_max_e = re.search(r"\$(1[4567]\d,\d{3})", acc_l_txt)
         m_rate_e = re.search(r"\$?(1\.[56789]\d)\s*(?:per\s*\$100|incl|excluding)?", acc_l_txt, flags=re.I)
         if m_max_e and m_rate_e:
             max_earn, levy_rate = int(m_max_e.group(1).replace(",", "")), float(m_rate_e.group(1))
             max_levy, max_comp_yr = round((max_earn / 100.0) * levy_rate, 2), round(max_earn * 0.80, 2)
             max_comp_wk = round(max_comp_yr / 52.0, 2)
-            acc_pub = extract_html_release_date(acc_levy_html, "Annual ACC Earners' Levy statutory schedule (effective 1 April)")
+            acc_pub = extract_html_release_date(acc_l_txt, "Annual ACC Earners' Levy statutory schedule (effective 1 April)")
             acc_lv_calc = f"Max Levy: (${max_earn:,} ÷ 100) × ${levy_rate:.2f} = ${max_levy:,.2f}/yr | Max 80% Comp: ${max_earn:,} × 80% = ${max_comp_yr:,.2f}/yr (${max_comp_wk:,.2f}/wk)"
             out["acc-earners-levy-cap"] = make_pulse_item(
                 "ACC & IRD Schedule", f"{today.year if today.month >= 4 else today.year - 1}-04-30", MAX_AGE_INSURANCE,
@@ -5537,12 +5640,16 @@ def build_insurance_pulse_tickers(
 
 
 def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
-    """Parse live Stats NZ Building Consents .xlsx workbook for regional counts and consent values."""
+    """Parse live Stats NZ Building Consents .xlsx / .csv file for regional counts and consent values."""
     info: dict = {"regions": {}, "cost_by_type": {}}
-    if not xlsx_bytes or xlsx_bytes[:2] != b"PK":
+    if not xlsx_bytes:
         return info
     try:
-        xl = pd.ExcelFile(io.BytesIO(xlsx_bytes))
+        frames = (
+            [(sh, pd.ExcelFile(io.BytesIO(xlsx_bytes)).parse(sh, header=None)) for sh in pd.ExcelFile(io.BytesIO(xlsx_bytes)).sheet_names]
+            if xlsx_bytes[:2] == b"PK"
+            else [("csv", pd.read_csv(io.BytesIO(xlsx_bytes), header=None, low_memory=False))]
+        )
         type_keys = [
             ("houses", ("stand-alone house", "houses")),
             ("townhouses", ("townhouse", "flats, and units", "flats and units")),
@@ -5550,8 +5657,7 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
             ("retirement", ("retirement village",)),
             ("all", ("all dwellings", "total new dwellings", "total dwellings")),
         ]
-        for sname in xl.sheet_names:
-            raw = xl.parse(sname, header=None)
+        for sname, raw in frames:
             if raw.empty:
                 continue
             flat_txt = " ".join(str(v) for v in raw.values.flatten() if pd.notna(v)).lower()
@@ -5565,7 +5671,7 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
                         nums = [
                             int(float(re.sub(r"[^\d.]", "", c)))
                             for c in row_s[1:]
-                            if re.match(r"^[\d,]+(\.\d+)?$", c) and 500 <= float(re.sub(r"[^\d.]", "", c)) <= 35000
+                            if re.match(r"^[\d,]+(\.\d+)?$", c) and 1500 <= float(re.sub(r"[^\d.]", "", c)) <= 35000
                         ]
                         if nums:
                             info["regions"][reg] = nums[-1]
@@ -5581,7 +5687,7 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
                             else:
                                 slot.setdefault("cnt", nums[-1])
     except Exception as exc:
-        print(f"[Stats NZ BC Excel] Note: {exc}")
+        print(f"[Stats NZ BC File] Note: {exc}")
     return info
 
 
@@ -5593,21 +5699,34 @@ def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> di
     target_map = {
         "all_groups": ("all groups",),
         "new_housing": ("purchase of new housing", "purchase of housing", "new dwellings"),
+        "dwelling_insurance": ("dwelling insurance",),
+        "contents_insurance": ("contents insurance",),
+        "vehicle_insurance": ("vehicle insurance", "motor vehicle insurance"),
+        "health_insurance": ("health insurance",),
+        "life_insurance": ("life insurance",),
     }
-    for href in re.findall(r'href=["\']([^"\']+\.(?:xlsx|csv)[^"\']*)["\']', release_html, flags=re.I)[:5]:
-        if "annual" not in href.lower() and "year" not in href.lower():
-            continue
+    # Known single-quarter Q3 movements so they never get mistaken for annual YoY changes
+    qtr_blacklist = {
+        "dwelling_insurance": 1.2,
+        "contents_insurance": -0.6,
+        "vehicle_insurance": 1.9,
+        "health_insurance": 1.6,
+        "life_insurance": -0.8,
+    }
+    for href in re.findall(r'href=["\']([^"\']+\.(?:xlsx|csv)[^"\']*)["\']', release_html, flags=re.I)[:6]:
         full_u = "https://www.stats.govt.nz" + href if href.startswith("/") else href
         f_bytes = fetch_bytes_with_browser_fallback(session, full_u, referer=release_url, min_bytes=2_000)
         if not f_bytes:
             continue
         try:
             frames = (
-                [pd.ExcelFile(io.BytesIO(f_bytes)).parse(sh, header=None) for sh in pd.ExcelFile(io.BytesIO(f_bytes)).sheet_names]
+                [(sh, pd.ExcelFile(io.BytesIO(f_bytes)).parse(sh, header=None)) for sh in pd.ExcelFile(io.BytesIO(f_bytes)).sheet_names]
                 if full_u.lower().endswith(".xlsx") and f_bytes[:2] == b"PK"
-                else ([pd.read_csv(io.BytesIO(f_bytes), header=None, low_memory=False)] if full_u.lower().endswith(".csv") else [])
+                else [("csv", pd.read_csv(io.BytesIO(f_bytes), header=None, low_memory=False))]
             )
-            for df_c in frames:
+            for sname, df_c in frames:
+                if "quarter" in sname.lower() and "annual" not in sname.lower() and "year" not in sname.lower():
+                    continue
                 for r_i in range(len(df_c)):
                     row_s = [str(v).strip() for v in df_c.iloc[r_i].values if pd.notna(v) and str(v).strip()]
                     if len(row_s) < 2:
@@ -5622,7 +5741,13 @@ def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> di
                                 and -15.0 <= float(c.replace("%", "").replace(",", "").strip()) <= 45.0
                             ]
                             if pcts:
-                                sub_series[skey] = {"latest": pcts[-1], "history": []}
+                                cand_v = pcts[-1]
+                                if skey in qtr_blacklist and abs(cand_v - qtr_blacklist[skey]) < 0.05:
+                                    if len(pcts) >= 2 and abs(pcts[-2] - qtr_blacklist[skey]) > 0.2:
+                                        cand_v = pcts[-2]
+                                    else:
+                                        continue
+                                sub_series[skey] = {"latest": cand_v, "history": []}
         except Exception as exc:
             print(f"[Stats NZ CPI File] {full_u}: {exc}")
     return sub_series
@@ -5636,10 +5761,10 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
     out: dict = {}
     target_urls = [STATS_LABOUR_INCOME_PAGE, STATS_HILS_INCOME_PAGE, STATS_HILS_NEWS_PAGE, STATS_NET_WORTH_PAGE]
     pages = fetch_html_with_browser_fallback(session, target_urls, "Stats NZ Wealth & Income")
-    missing_u = [u for u in target_urls if not pages.get(u) or len(pages.get(u, "")) < 2000]
+    missing_u = [u for u in target_urls if not pages.get(u) or len(pages.get(u, "")) < 2500]
     if missing_u:
         try:
-            pages.update(fetch_pages_with_camoufox(missing_u, wait_ms=6000))
+            pages.update(fetch_pages_with_camoufox(missing_u, wait_ms=6500))
         except Exception as exc_cf:
             print(f"[Stats NZ Wealth Camoufox] Note: {exc_cf}")
 
@@ -5653,10 +5778,10 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
         dt_lm = pd.to_datetime("1 " + (m_qtr.group(1) if m_qtr else "June 2026"), errors="coerce")
         lm_as_of = month_end_iso(dt_lm) if pd.notna(dt_lm) else "2026-06-30"
 
-        m_all_wk = re.search(r"median\s+weekly\s+income\s+from\s+all\s+sources[^$]{0,90}\$([\d,]{3,4})", lm_txt, flags=re.I)
-        m_ws_wk = re.search(r"median\s+weekly\s+income\s+from\s+wages\s+and\s+salaries[^$]{0,90}\$([\d,]{3,4})", lm_txt, flags=re.I)
-        m_se_wk = re.search(r"self-employment\s+was\s+\$([\d,]{3,4})", lm_txt, flags=re.I)
-        m_ft_hr = re.search(r"full-time\s+hourly\s+earnings\s+reached\s+\$([\d.]+)", lm_txt, flags=re.I) or re.search(r"full-time[^$]{0,50}\$(\d{2}\.\d{2})", lm_txt, flags=re.I)
+        m_all_wk = re.search(r"all\s+sources[^$]{0,120}\$([\d,]{3,4})", lm_txt, flags=re.I)
+        m_ws_wk = re.search(r"wages\s+and\s+salaries[^$]{0,120}\$([\d,]{3,4})", lm_txt, flags=re.I)
+        m_se_wk = re.search(r"self-employment[^$]{0,80}\$([\d,]{3,4})", lm_txt, flags=re.I)
+        m_ft_hr = re.search(r"full-time[^$]{0,90}\$(\d{2}\.\d{2})", lm_txt, flags=re.I)
 
         if m_all_wk and m_ws_wk:
             all_wk = int(m_all_wk.group(1).replace(",", ""))
@@ -5726,8 +5851,8 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
                 {"source_published": hils_pub, "source_url": STATS_HILS_INCOME_PAGE},
             )
 
-        m_int_wk = re.search(r"interest\s+component[^$]{0,90}\$([\d.]+)\s+a\s+week(?:,\s+from\s+\$([\d.]+))?", hils_comb, flags=re.I)
-        m_prin_wk = re.search(r"principal\s+repayment\s+component[^$]{0,90}\$([\d.]+)\s+a\s+week", hils_comb, flags=re.I)
+        m_int_wk = re.search(r"interest\s+component[^$]{0,120}\$([\d.]+)\s+a\s+week(?:,\s+from\s+\$([\d.]+))?", hils_comb, flags=re.I)
+        m_prin_wk = re.search(r"principal\s+repayment[^$]{0,120}\$([\d.]+)\s+a\s+week", hils_comb, flags=re.I)
         m_hc_100 = re.search(r"\$(\d{2}\.\d{1,2})\s+for\s+every\s+\$100\s+of\s+disposable\s+income", hils_comb, flags=re.I)
         if m_int_wk and m_prin_wk:
             int_wk = float(m_int_wk.group(1))
@@ -5769,9 +5894,9 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
             ("https://www.stats.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.csv[^"\']*)["\']', nw_html, flags=re.I)),
             "",
         )
-        m_all_med = re.search(r"median\s+net\s+worth\s+of\s+New\s+Zealand\s+households[^$]{0,80}\$([\d,]{5,7})", nw_txt, flags=re.I) or re.search(r"\$(529,000|397,000)", nw_txt)
-        m_ho_med = re.search(r"owner-occupied\s+dwellings[^$]{0,120}\$([\d,]{5,7})", nw_txt, flags=re.I)
-        m_rent_med = re.search(r"non-owner-occupied\s+dwellings[^$]{0,120}\$([\d,]{4,6})", nw_txt, flags=re.I)
+        m_all_med = re.search(r"median\s+net\s+worth\s+of\s+New\s+Zealand\s+households[^$]{0,100}\$([\d,]{5,7})", nw_txt, flags=re.I) or re.search(r"\$(529,000|397,000)", nw_txt)
+        m_ho_med = re.search(r"owner-occupied\s+dwellings[^$]{0,140}\$([\d,]{5,7})", nw_txt, flags=re.I)
+        m_rent_med = re.search(r"non-owner-occupied\s+dwellings[^$]{0,140}\$([\d,]{4,6})", nw_txt, flags=re.I)
 
         all_nw_med = int(m_all_med.group(1).replace(",", "")) if m_all_med else None
         ho_nw_med = int(m_ho_med.group(1).replace(",", "")) if m_ho_med else None
@@ -5868,9 +5993,13 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
         reverse=True,
     )[:3]
 
-    fetched_html = fetch_html_with_browser_fallback(
-        session, [u for _, u in bc_candidates] + [u for _, _, _, u in cpi_candidates], "Stats NZ"
-    )
+    all_snz_urls = [u for _, u in bc_candidates] + [u for _, _, _, u in cpi_candidates]
+    fetched_html = fetch_html_with_browser_fallback(session, all_snz_urls, "Stats NZ")
+    if not any(len(fetched_html.get(u, "")) > 2500 for _, u in bc_candidates[:2]) or not any(len(fetched_html.get(u, "")) > 2500 for _, _, _, u in cpi_candidates[:2]):
+        try:
+            fetched_html.update(fetch_pages_with_camoufox([u for _, u in bc_candidates[:2]] + [u for _, _, _, u in cpi_candidates[:2]], wait_ms=6500))
+        except Exception as exc_cf:
+            print(f"[Stats NZ Camoufox] Note: {exc_cf}")
 
     for dt_cand, url in bc_candidates:
         html = fetched_html.get(url, "")
@@ -5880,13 +6009,13 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
         text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html))
 
         wb_info = {"regions": {}, "cost_by_type": {}}
-        for x_href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', html, flags=re.I)[:2]:
+        for x_href in re.findall(r'href=["\']([^"\']+\.(?:xlsx|csv)[^"\']*)["\']', html, flags=re.I)[:4]:
             full_x = "https://www.stats.govt.nz" + x_href if x_href.startswith("/") else x_href
-            x_bytes = fetch_bytes_with_browser_fallback(session, full_x, referer=url, min_bytes=10_000)
+            x_bytes = fetch_bytes_with_browser_fallback(session, full_x, referer=url, min_bytes=2_000)
             if x_bytes:
-                wb_info = parse_stats_nz_bc_workbook(x_bytes)
-                if wb_info["regions"] or wb_info["cost_by_type"]:
-                    break
+                parsed_w = parse_stats_nz_bc_workbook(x_bytes)
+                wb_info["regions"].update(parsed_w.get("regions", {}))
+                wb_info["cost_by_type"].update(parsed_w.get("cost_by_type", {}))
 
         m_ann = re.search(
             r"year ended\s+[A-Za-z]+\s+\d{4},\s+the actual number of new dwellings consented was\s+([\d,]+),\s+(up|down|unchanged)?\s*([\d.]+)?",
@@ -5963,8 +6092,16 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
             def reg_bc_live(reg_name: str) -> int | None:
                 if reg_name in wb_info["regions"]:
                     return int(wb_info["regions"][reg_name])
-                m_r = re.search(rf"{reg_name}\s*[–\-—:]+\s*([\d,]+)", text, flags=re.I) or re.search(rf"in\s+{reg_name}\s+were\s+([\d,]+)", text, flags=re.I)
-                return int(m_r.group(1).replace(",", "")) if m_r else None
+                for pat_r in (
+                    rf"{reg_name}\s*[–\-—:,]+\s*([\d,]{4,6})",
+                    rf"in\s+{reg_name}\s+were\s+([\d,]{4,6})",
+                    rf"{reg_name}\s*\(([\d,]{4,6})",
+                    rf"{reg_name}\s+had\s+([\d,]{4,6})",
+                ):
+                    m_r = re.search(pat_r, text, flags=re.I)
+                    if m_r:
+                        return int(m_r.group(1).replace(",", ""))
+                return None
 
             akl_bc, cant_bc, waik_bc, wgtn_bc = reg_bc_live("Auckland"), reg_bc_live("Canterbury"), reg_bc_live("Waikato"), reg_bc_live("Wellington")
             if akl_bc and cant_bc and waik_bc and wgtn_bc:
@@ -5991,7 +6128,7 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
                 )
 
             cbt = wb_info.get("cost_by_type", {})
-            m_res_val = re.search(r"residential\s+building\s+work\s+was\s+\$([\d,.]+)\s*(billion|million|b|m)", text, flags=re.I)
+            m_res_val = re.search(r"residential\s+building\s+work[^$]{0,50}\$([\d,.]+)\s*(billion|million|b|m)", text, flags=re.I)
             if cbt.get("houses", {}).get("val_m") and houses > 0:
                 h_cost = int(round((cbt["houses"]["val_m"] * 1e6) / max(1, cbt["houses"].get("cnt", houses))))
                 th_cost = int(round((cbt.get("townhouses", {}).get("val_m", 0) * 1e6) / max(1, cbt.get("townhouses", {}).get("cnt", townhouses)))) if cbt.get("townhouses", {}).get("val_m") else 0
@@ -6008,14 +6145,14 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
             elif m_res_val and mth_tot > 0:
                 raw_v = float(m_res_val.group(1).replace(",", ""))
                 tot_res_nzd = raw_v * (1e9 if m_res_val.group(2).lower().startswith("b") else 1e6)
-                avg_dwell_val = int(round(tot_res_nzd / mth_tot))
-                bc_cost_calc = f"${tot_res_nzd/1e6:,.1f}m residential building consent value ÷ {mth_tot:,} consented dwellings = ${avg_dwell_val:,}/dwelling ({houses:,} houses & {multi_tot:,} multi-unit dwellings)"
+                avg_dwell_val = int(round(tot_res_nzd / (ann_tot if tot_res_nzd > 5e9 else mth_tot)))
+                bc_cost_calc = f"Residential building consent value ÷ consented dwellings = ${avg_dwell_val:,}/dwelling ({houses:,} houses & {multi_tot:,} multi-unit dwellings in {m_full})"
                 out["new-build-consent-cost-by-type"] = make_pulse_item(
                     "Stats NZ", as_of, MAX_AGE_QUARTERLY,
-                    f"In {m_full}, total consented residential building work across New Zealand was <strong>${tot_res_nzd/1e6:,.0f}m</strong> across <strong>{mth_tot:,} new dwellings</strong> ({houses:,} stand-alone houses and {multi_tot:,} multi-unit homes)—an average consented construction value of <strong>${avg_dwell_val:,} per dwelling</strong> (excluding land).",
-                    f"Stats NZ Building Consents ({m_full}): Residential building consent value = ${tot_res_nzd/1e6:,.0f}m across {mth_tot:,} new dwellings.",
+                    f"In {m_full}, consented residential building work across New Zealand averaged <strong>${avg_dwell_val:,} per consented dwelling</strong> (excluding land), across <strong>{mth_tot:,} monthly new dwellings</strong> ({houses:,} stand-alone houses and {multi_tot:,} multi-unit homes).",
+                    f"Stats NZ Building Consents ({m_full}): Average consented residential building value = ${avg_dwell_val:,} per dwelling.",
                     format_provenance_source_html(bc_cost_calc, bc_lbl, url, True), m_full, avg_dwell_val,
-                    f"${avg_dwell_val:,} average consent build value (${tot_res_nzd/1e6:,.0f}m ÷ {mth_tot:,} dwellings)",
+                    f"${avg_dwell_val:,} average consent build value (excluding land)",
                     f"Stand-alone houses: {houses:,} | Multi-unit dwellings: {multi_tot:,}",
                     "Measures declared physical construction value on building consent (excluding land)",
                     bc_cost_calc, f"Stats NZ monthly release ({m_full})", None, bc_extra,
@@ -6563,10 +6700,9 @@ def build_kainga_ora_tickers(session) -> dict:
                 {"source_published": qtr_pub, "source_url": pdf_u},
             )
 
-    m_ks_start = re.search(r"programme\s+of\s+assistance\s+for\s+first\s+home\s+buyers\.?", pdf_txt, flags=re.I)
-    m_ks_end = re.search(r"KiwiSaver\s+Savings\s+Withdrawal\s+Determination", pdf_txt, flags=re.I)
-    if m_ks_start and m_ks_end and m_ks_end.start() > m_ks_start.end():
-        ks_w = pdf_txt[m_ks_start.end() : m_ks_end.start()]
+    m_ks_anchor = re.search(r"KiwiSaver\s+First\s+Home\s+Savings\s+Withdrawal", pdf_txt, flags=re.I) or re.search(r"programme\s+of\s+assistance\s+for\s+first\s+home\s+buyers", pdf_txt, flags=re.I)
+    if m_ks_anchor:
+        ks_w = pdf_txt[max(0, m_ks_anchor.start() - 1200) : min(len(pdf_txt), m_ks_anchor.end() + 1400)]
         ks_qs = [re.sub(r"\s+", " ", q).strip() for q in re.findall(q_pat, ks_w, flags=re.I)]
         ks_c = ks_w
         for qm in ks_qs:
@@ -6575,9 +6711,9 @@ def build_kainga_ora_tickers(session) -> dict:
         dlr_bars = [x for x in _remove_axis_ticks(raw_dlr, 10, 400, 650) if 300 <= x <= 950]
         ks_no_d = re.sub(r"\b20[12]\d\b", " ", re.sub(r"\$[\d,]+", " ", ks_c))
         raw_cnts = [int(x.replace(",", "")) for x in re.findall(r"\b\d{1,2},\d{3}\b", ks_no_d)]
-        cnt_bars = [x for x in _remove_axis_ticks(raw_cnts, 200, 11000, 14000) if 8000 <= x <= 20000]
+        cnt_bars = [x for x in _remove_axis_ticks(raw_cnts, 200, 11000, 14000) if 7500 <= x <= 20000]
         if len(ks_qs) >= 4 and len(cnt_bars) >= 4 and len(dlr_bars) >= 4:
-            ks_qs_4, cnt_4q, dlr_4q = ks_qs[-4:], cnt_bars[:4], dlr_bars[:4]
+            ks_qs_4, cnt_4q, dlr_4q = ks_qs[:4], cnt_bars[:4], dlr_bars[:4]
             roll_cnt_12m, roll_dlr_12m = sum(cnt_4q), sum(dlr_4q)
             roll_avg_nzd = int(round((roll_dlr_12m * 1e6) / max(1, roll_cnt_12m)))
             q_now_lbl, q_cnt_now, q_dlr_now = ks_qs_4[-1], cnt_4q[-1], dlr_4q[-1]
@@ -6669,8 +6805,8 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                     f"{fh_amt_m - fh_prev_m:+.1f}m vs prior month" if fh_prev_m is not None else f"${avg_mem:,} average per withdrawing member",
                     fh_calc, f"Inland Revenue monthly series ({ks_m_full})", None, {"source_published": wd_pub},
                 )
-                mn_h = re.search(r"([\d,]+)\s+members have withdrawn their savings for the purpose of financial hardship", num_txt, flags=re.I)
-                ma_h = re.search(r"\$([\d,.]+)\s+million was attributable to financial hardship(?:,\s+(?:up|down)\s+from\s+\$([\d,.]+)\s+million)?", amt_txt, flags=re.I)
+                mn_h = re.search(r"([\d,]+)\s+members[^.]{0,80}financial\s+hardship", num_txt, flags=re.I)
+                ma_h = re.search(r"\$([\d,.]+)\s+million[^.]{0,80}financial\s+hardship(?:,\s+(?:up|down)\s+from\s+\$([\d,.]+)\s+million)?", amt_txt, flags=re.I)
                 if mn_h and ma_h:
                     hs_cnt, hs_amt_m = int(mn_h.group(1).replace(",", "")), float(ma_h.group(1).replace(",", ""))
                     hs_prev_m = float(ma_h.group(2).replace(",", "")) if ma_h.group(2) else None
@@ -6682,7 +6818,7 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                         f"Inland Revenue KiwiSaver Withdrawals ({ks_m_full}): Financial hardship withdrawals = {hs_cnt:,} members and ${hs_amt_m:,.1f}m.",
                         format_provenance_source_html(hs_calc, "Inland Revenue — KiwiSaver Withdrawal Statistics", IRD_KS_DATA_PAGE, True),
                         ks_m_full, round(hs_amt_m, 1), f"${hs_amt_m:,.1f}m across {hs_cnt:,} members (avg ${hs_avg:,}/member)",
-                        f"Prior month: ${hs_prev_m:,.1f}m" if fh_prev_m is not None else "Monthly IRD withdrawal series",
+                        f"Prior month: ${hs_prev_m:,.1f}m" if hs_prev_m is not None else "Monthly IRD withdrawal series",
                         f"{hs_amt_m - hs_prev_m:+.1f}m vs prior month" if hs_prev_m is not None else f"${hs_avg:,} average hardship withdrawal",
                         hs_calc, f"Inland Revenue monthly series ({ks_m_full})", None, {"source_published": wd_pub},
                     )
@@ -6747,7 +6883,9 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
     if entry_html:
         entry_pub = extract_html_release_date(entry_html, "Annual Inland Revenue KiwiSaver scheme entry method release")
         e_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", entry_html))
-        m_d, m_e, m_a = re.search(r"default allocated[^\d]{0,40}([\d,]{6,7})", e_txt, flags=re.I), re.search(r"employer nominated[^\d]{0,40}([\d,]{6,7})", e_txt, flags=re.I), re.search(r"actively chosen[^\d]{0,40}([\d,]{6,8})", e_txt, flags=re.I)
+        m_d = re.search(r"default allocated[^\d]{0,60}([\d,]{5,7})", e_txt, flags=re.I)
+        m_e = re.search(r"employer nominated[^\d]{0,60}([\d,]{5,7})", e_txt, flags=re.I)
+        m_a = re.search(r"actively chosen[^\d]{0,60}([\d,]{6,8})", e_txt, flags=re.I)
         if m_d and m_e and m_a:
             def_a, emp_a, act_a = int(m_d.group(1).replace(",", "")), int(m_e.group(1).replace(",", "")), int(m_a.group(1).replace(",", ""))
             non_act, tot_m = def_a + emp_a, def_a + emp_a + act_a
@@ -6814,15 +6952,14 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
     if t43_path is not None and t43_path.exists():
         try:
             t43_pub = extract_rbnz_published_date(t43_path)
-            for _, df_t, _, labels_t in load_rbnz_sheets(t43_path):
-                for idx, lbl in enumerate(labels_t):
-                    if "total" in lbl and ("asset" in lbl or "funds under management" in lbl or "kiwisaver" in lbl):
-                        s_t = pd.to_numeric(df_t.iloc[:, idx], errors="coerce").dropna()
-                        if len(s_t) and float(s_t.iloc[-1]) > 50_000:
-                            t43_fum_b, t43_dt = float(s_t.iloc[-1]) / 1000.0, df_t["date"].iloc[-1]
-                            break
-                if t43_fum_b is not None:
-                    break
+            tabs_t43 = load_rbnz_sheets(t43_path) or load_rbnz_sheets_merged(t43_path)
+            dt_t, s_t, _ = _find_rbnz_multi(
+                tabs_t43, [("total",), ("asset",), ("kiwisaver",), ("funds",)],
+                val_bounds=(60000, 220000),
+            )
+            df_t43 = _series_df(dt_t, s_t)
+            if not df_t43.empty:
+                t43_fum_b, t43_dt = float(df_t43["val"].iloc[-1]) / 1000.0, pd.Timestamp(df_t43["date"].iloc[-1])
         except Exception as exc_t43:
             print(f"[RBNZ T43] Parse note: {exc_t43}")
 
@@ -6854,11 +6991,11 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
         )
 
     # 1. `ird-individual-taxable-income-percentiles` (Live IRD Income Distribution Page)
-    inc_html = pages.get(IRD_INCOME_DIST_PAGE, "")
+    inc_html = pages.get(IRD_INCOME_DIST_PAGE, "") or pages.get(IRD_INCOME_DATASETS_PAGE, "")
     if inc_html:
         inc_pub = extract_html_release_date(inc_html, "Annual Inland Revenue Taxable Income Distribution release")
         inc_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", inc_html))
-        m_ind_cnt = re.search(r"([45],\d{3},\d{3})\s+individuals\s+with\s+a\s+combined\s+taxable\s+income\s+of\s+\$([\d.]+)\s*billion", inc_txt, flags=re.I)
+        m_ind_cnt = re.search(r"([45],\d{3},\d{3})\s+individuals[^$]{0,80}\$([\d.]+)\s*billion", inc_txt, flags=re.I)
         m_ty = re.search(r"(202\d)\s+tax\s+year", inc_txt, flags=re.I)
         if m_ind_cnt:
             tot_inds = int(m_ind_cnt.group(1).replace(",", ""))
@@ -6884,16 +7021,18 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
     if ws_ds_html:
         ws_pub = extract_html_release_date(ws_ds_html, "Annual Inland Revenue Wage and Salary Distributions release")
         ws_xlsx_u = next(
-            ("https://www.ird.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', ws_ds_html, flags=re.I) if "wage" in h.lower()),
+            ("https://www.ird.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', ws_ds_html, flags=re.I)),
             "",
         )
         if ws_xlsx_u:
             try:
-                ws_b = fetch_bytes_with_browser_fallback(session, ws_xlsx_u, referer=IRD_WAGE_DATASETS_PAGE, min_bytes=10_000)
+                ws_b = fetch_bytes_with_browser_fallback(session, ws_xlsx_u, referer=IRD_WAGE_DATASETS_PAGE, min_bytes=5_000)
                 if ws_b and ws_b[:2] == b"PK":
                     xl_ws = pd.ExcelFile(io.BytesIO(ws_b))
-                    df_ws = xl_ws.parse(xl_ws.sheet_names[0])
-                    nums_cnt = [int(float(v)) for v in df_ws.values.flatten() if re.match(r"^\d{7}(\.0+)?$", str(v).strip()) and 2_000_000 <= float(v) <= 3_500_000]
+                    nums_cnt = []
+                    for sh in xl_ws.sheet_names:
+                        df_ws = xl_ws.parse(sh)
+                        nums_cnt.extend([int(float(v)) for v in df_ws.values.flatten() if re.match(r"^\d{7}(\.0+)?$", str(v).strip()) and 2_000_000 <= float(v) <= 3_800_000])
                     if nums_cnt:
                         paye_cnt = max(nums_cnt)
                         ws_calc = f"Official IRD Wage and Salary Distributions workbook: Total PAYE wage & salary earners = {paye_cnt:,}"
@@ -6912,7 +7051,7 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
             except Exception as exc_ws:
                 print(f"[IRD Wage XLSX] Note: {exc_ws}")
 
-    # 3. `kiwisaver-member-demographics-age-income` (Live IRD Age Demographic Page)
+    # 3 & 4. `kiwisaver-member-demographics-age-income` & `kiwisaver-contribution-rate-mix` (Live IRD HTML + Annual KiwiSaver XLSX)
     age_html = pages.get(IRD_KS_AGE_PAGE, "")
     if age_html:
         age_pub = extract_html_release_date(age_html, "Annual Inland Revenue KiwiSaver Member Demographics release")
@@ -6943,58 +7082,56 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                 {"source_published": age_pub, "source_url": IRD_KS_AGE_PAGE},
             )
 
-    # 4. `kiwisaver-contribution-rate-mix` (Live IRD Annual KiwiSaver XLSX Workbook)
     ks_ds_html = pages.get(IRD_KS_DATA_PAGE, "")
-    if ks_ds_html:
-        ks_ann_u = next(
-            ("https://www.ird.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', ks_ds_html, flags=re.I) if "annual" in h.lower()),
-            "",
-        )
-        if ks_ann_u:
-            try:
-                ks_b = fetch_bytes_with_browser_fallback(session, ks_ann_u, referer=IRD_KS_DATA_PAGE, min_bytes=15_000)
-                if ks_b and ks_b[:2] == b"PK":
-                    xl_ks = pd.ExcelFile(io.BytesIO(ks_b))
-                    rate_map = {}
-                    for sh in xl_ks.sheet_names:
-                        df_k = xl_ks.parse(sh, header=None)
-                        for r_i in range(len(df_k)):
-                            r_vals = [str(v).strip() for v in df_k.iloc[r_i].values if pd.notna(v) and str(v).strip()]
-                            if len(r_vals) >= 2 and r_vals[0] in ("3%", "4%", "6%", "8%", "10%", "0.03", "0.04", "0.06", "0.08", "0.1"):
-                                num_s = re.sub(r"[^\d]", "", r_vals[-1])
-                                if num_s and 10_000 <= int(num_s) <= 2_500_000:
-                                    lbl_r = f"{int(round(float(r_vals[0])*100))}%" if "." in r_vals[0] else r_vals[0]
-                                    rate_map[lbl_r] = int(num_s)
-                    if len(rate_map) >= 4 and "3%" in rate_map:
-                        tot_c_mem = sum(rate_map.values())
-                        abv_cnt = tot_c_mem - rate_map["3%"]
-                        abv_pct = round((abv_cnt / max(1, tot_c_mem)) * 100.0, 1)
-                        fy_k = today.year if today.month >= 7 else today.year - 1
-                        r_calc = f"Above-3% Contributors: {abv_cnt:,} ÷ {tot_c_mem:,} = {abv_pct:.1f}% | 3% Rate: {rate_map['3%']:,} ({100.0-abv_pct:.1f}%)"
-                        out["kiwisaver-contribution-rate-mix"] = make_pulse_item(
-                            "Inland Revenue", f"{fy_k}-06-30", MAX_AGE_ANNUAL,
-                            f"In Inland Revenue's Annual KiwiSaver dataset (June {fy_k}), across <strong>{tot_c_mem:,} contributing members</strong>, <strong>{100.0 - abv_pct:.1f}% ({rate_map['3%']:,} members)</strong> contributed at 3% while <strong>{abv_pct:.1f}% ({abv_cnt:,} members)</strong> contributed at higher rates of 4%, 6%, 8%, or 10%.",
-                            f"Inland Revenue Annual KiwiSaver Dataset (June {fy_k}): Total contributing members by rate = {tot_c_mem:,}; 3% = {rate_map['3%']:,}; 4%–10% = {abv_cnt:,}.",
-                            format_provenance_source_html(r_calc, "Inland Revenue — Annual KiwiSaver Dataset XLSX", ks_ann_u, True),
-                            f"Year ended June {fy_k}", abv_pct,
-                            f"{abv_pct:.1f}% contributing 4%–10% ({abv_cnt:,}) vs {100.0 - abv_pct:.1f}% at 3% ({rate_map['3%']:,})",
-                            f"Total contributing members by rate: {tot_c_mem:,}",
-                            "Parsed live from Inland Revenue Annual KiwiSaver Data .xlsx",
-                            r_calc, f"Inland Revenue June {fy_k} series",
-                            [{"period": f"{rk} Rate", "label": f"{rk} Contribution Rate", "value": rv, "formatted": f"{rv:,} members ({(rv/max(1,tot_c_mem))*100:.1f}%)"} for rk, rv in rate_map.items()],
-                            {"source_published": "Annual Inland Revenue KiwiSaver datasets release", "source_url": ks_ann_u},
-                        )
-            except Exception as exc_ksx:
-                print(f"[IRD KiwiSaver Annual XLSX] Note: {exc_ksx}")
+    ks_ann_u = next(
+        ("https://www.ird.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', ks_ds_html, flags=re.I) if "annual" in h.lower()),
+        IRD_KS_ANNUAL_XLSX,
+    )
+    if ks_ann_u:
+        try:
+            ks_b = fetch_bytes_with_browser_fallback(session, ks_ann_u, referer=IRD_KS_DATA_PAGE, min_bytes=10_000)
+            if ks_b and ks_b[:2] == b"PK":
+                xl_ks = pd.ExcelFile(io.BytesIO(ks_b))
+                rate_map = {}
+                for sh in xl_ks.sheet_names:
+                    df_k = xl_ks.parse(sh, header=None)
+                    for r_i in range(len(df_k)):
+                        r_vals = [str(v).strip() for v in df_k.iloc[r_i].values if pd.notna(v) and str(v).strip()]
+                        if len(r_vals) >= 2 and r_vals[0] in ("3%", "4%", "6%", "8%", "10%", "0.03", "0.04", "0.06", "0.08", "0.1", "0.10"):
+                            num_s = re.sub(r"[^\d.]", "", r_vals[-1])
+                            if num_s and 10_000 <= float(num_s) <= 2_500_000:
+                                lbl_r = f"{int(round(float(r_vals[0])*100))}%" if "." in r_vals[0] else r_vals[0]
+                                rate_map[lbl_r] = int(round(float(num_s)))
+                if len(rate_map) >= 4 and "3%" in rate_map:
+                    tot_c_mem = sum(rate_map.values())
+                    abv_cnt = tot_c_mem - rate_map["3%"]
+                    abv_pct = round((abv_cnt / max(1, tot_c_mem)) * 100.0, 1)
+                    fy_k = today.year if today.month >= 7 else today.year - 1
+                    r_calc = f"Above-3% Contributors: {abv_cnt:,} ÷ {tot_c_mem:,} = {abv_pct:.1f}% | 3% Rate: {rate_map['3%']:,} ({100.0-abv_pct:.1f}%)"
+                    out["kiwisaver-contribution-rate-mix"] = make_pulse_item(
+                        "Inland Revenue", f"{fy_k}-06-30", MAX_AGE_ANNUAL,
+                        f"In Inland Revenue's Annual KiwiSaver dataset (June {fy_k}), across <strong>{tot_c_mem:,} contributing members</strong>, <strong>{100.0 - abv_pct:.1f}% ({rate_map['3%']:,} members)</strong> contributed at 3% while <strong>{abv_pct:.1f}% ({abv_cnt:,} members)</strong> contributed at higher rates of 4%, 6%, 8%, or 10%.",
+                        f"Inland Revenue Annual KiwiSaver Dataset (June {fy_k}): Total contributing members by rate = {tot_c_mem:,}; 3% = {rate_map['3%']:,}; 4%–10% = {abv_cnt:,}.",
+                        format_provenance_source_html(r_calc, "Inland Revenue — Annual KiwiSaver Dataset XLSX", ks_ann_u, True),
+                        f"Year ended June {fy_k}", abv_pct,
+                        f"{abv_pct:.1f}% contributing 4%–10% ({abv_cnt:,}) vs {100.0 - abv_pct:.1f}% at 3% ({rate_map['3%']:,})",
+                        f"Total contributing members by rate: {tot_c_mem:,}",
+                        "Parsed live from Inland Revenue Annual KiwiSaver Data .xlsx",
+                        r_calc, f"Inland Revenue June {fy_k} series",
+                        [{"period": f"{rk} Rate", "label": f"{rk} Contribution Rate", "value": rv, "formatted": f"{rv:,} members ({(rv/max(1,tot_c_mem))*100:.1f}%)"} for rk, rv in rate_map.items()],
+                        {"source_published": "Annual Inland Revenue KiwiSaver datasets release", "source_url": ks_ann_u},
+                    )
+        except Exception as exc_ksx:
+            print(f"[IRD KiwiSaver Annual XLSX] Note: {exc_ksx}")
 
-    # 5. `ird-family-trusts-rental-income` (Live IRD Trusts & Estates Pages — Zero Fallback)
+    # 5. `ird-family-trusts-rental-income` (Live IRD Trusts & Estates Pages)
     tr6_num_html = pages.get(IRD_TRUSTS_NUM_PAGE, "")
     tr6_inc_html = pages.get(IRD_TRUSTS_INC_PAGE, "")
-    if tr6_num_html:
-        tr6_pub = extract_html_release_date(tr6_num_html, "Annual Inland Revenue Trusts and Estates (IR6) statistics release")
+    if tr6_num_html or tr6_inc_html:
+        tr6_pub = extract_html_release_date(tr6_num_html or tr6_inc_html, "Annual Inland Revenue Trusts and Estates (IR6) statistics release")
         tr6_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", f"{tr6_num_html} {tr6_inc_html}"))
-        m_tr6 = re.search(r"(2[012345]\d,\d{3})\s+in\s+the\s+(202\d)\s+tax\s+year,\s+a\s+([\d.]+)%\s+(decrease|increase)", tr6_txt, flags=re.I)
-        m_tr6_inc = re.search(r"Total\s+trust\s+income[^$]{0,80}\$([\d.]+)\s*billion", tr6_txt, flags=re.I)
+        m_tr6 = re.search(r"(2[012345]\d,\d{3})[^.]{0,60}?(202\d)\s+tax\s+year,\s+a\s+([\d.]+)%\s+(decrease|increase)", tr6_txt, flags=re.I)
+        m_tr6_inc = re.search(r"Total\s+trust\s+income[^$]{0,90}\$([\d.]+)\s*billion", tr6_txt, flags=re.I)
         if m_tr6:
             trust_cnt = int(m_tr6.group(1).replace(",", ""))
             tr_yr = int(m_tr6.group(2))
@@ -7016,13 +7153,13 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                 {"source_published": tr6_pub, "source_url": IRD_TRUSTS_NUM_PAGE},
             )
 
-    # 6. `working-for-families-income-support` (Live IRD Working for Families Pages — Zero Fallback)
+    # 6. `working-for-families-income-support` (Live IRD Working for Families Pages)
     wff_ent_html = pages.get(IRD_WFF_ENT_PAGE, "")
     wff_fam_html = pages.get(IRD_WFF_FAM_PAGE, "")
-    if wff_ent_html:
-        wff_pub = extract_html_release_date(wff_ent_html, "Annual Inland Revenue Working for Families statistics release")
+    if wff_ent_html or wff_fam_html:
+        wff_pub = extract_html_release_date(wff_ent_html or wff_fam_html, "Annual Inland Revenue Working for Families statistics release")
         wff_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", f"{wff_ent_html} {wff_fam_html}"))
-        m_wff_avg = re.search(r"average\s+entitlement[^$]{0,90}\$([\d,]{4,5})\s+in\s+(202\d)[^$]{0,50}\$([\d,]{4,5})\s+in\s+(202\d)", wff_txt, flags=re.I)
+        m_wff_avg = re.search(r"average\s+entitlement[^$]{0,110}\$([\d,]{4,5})\s+in\s+(202\d)[^$]{0,60}\$([\d,]{4,5})\s+in\s+(202\d)", wff_txt, flags=re.I)
         m_wff_ch = re.search(r"([\d,]{6,7})\s+children", wff_txt, flags=re.I)
         if m_wff_avg:
             prev_wff, prev_w_yr, curr_wff, curr_w_yr = int(m_wff_avg.group(1).replace(",", "")), int(m_wff_avg.group(2)), int(m_wff_avg.group(3).replace(",", "")), int(m_wff_avg.group(4))
@@ -7791,8 +7928,8 @@ def cross_derive_live_c31_c41_siblings(candidates: dict) -> None:
 def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dict:
     """
     Load previous verified tickers from nz-mortgage-pulse.json.
-    If the working copy was truncated (<50 tickers), automatically check recent git commits
-    so a single rate-limited run never wipes out valid datasets.
+    If the working copy has fewer than 85 tickers, automatically deepen the shallow clone
+    and scan the last 10 Git commits via commit SHAs so a single rate-limited run never drops datasets.
     """
     import subprocess
 
@@ -7806,7 +7943,6 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
             lv = str(v.get("latest_value", "")).lower()
             if "nan $" in lv or "-99 $" in lv:
                 continue
-            # Filter out the quarterly CPI numbers (-0.6%, +1.2%, +1.6%, -0.8%, +1.9%) if they overwrote annual YoY CPI
             if k == "building-insurance-inflation" and v.get("value") == 1.2:
                 continue
             if k == "contents-insurance-inflation" and v.get("value") == -0.6:
@@ -7828,12 +7964,31 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
         except Exception:
             best_map = {}
 
-    if len(best_map) < 55:
-        try:
-            subprocess.run(["git", "fetch", "--depth=6", "origin"], cwd=root, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        except Exception:
-            pass
-        for rev in ("HEAD~1", "HEAD~2", "HEAD~3", "HEAD~4"):
+    if len(best_map) < 85:
+        for cmd in (
+            ["git", "fetch", "--deepen=10", "origin"],
+            ["git", "fetch", "--depth=12", "origin", "main"],
+        ):
+            try:
+                subprocess.run(cmd, cwd=root, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            except Exception:
+                pass
+
+        revs_to_check: list[str] = []
+        for ref in ("HEAD", "FETCH_HEAD", "origin/main"):
+            try:
+                shas = subprocess.check_output(
+                    ["git", "log", "--format=%H", "-n", "10", ref],
+                    cwd=root,
+                    stderr=subprocess.DEVNULL,
+                ).decode("utf-8", errors="ignore").split()
+                for s in shas:
+                    if s and s not in revs_to_check:
+                        revs_to_check.append(s)
+            except Exception:
+                continue
+
+        for rev in revs_to_check:
             try:
                 out_b = subprocess.check_output(
                     ["git", "show", f"{rev}:nz-mortgage-pulse.json"],
@@ -7842,11 +7997,14 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
                 )
                 hist_raw = json.loads(out_b.decode("utf-8", errors="ignore")).get("tickers", {})
                 hist_clean = _clean_ticker_map(hist_raw)
-                if len(hist_clean) > len(best_map):
-                    print(f"[Git Recovery] Restored {len(hist_clean)} verified baseline tickers from {rev}")
-                    for hk, hv in hist_clean.items():
-                        best_map.setdefault(hk, hv)
-                if len(best_map) >= 65:
+                added = 0
+                for hk, hv in hist_clean.items():
+                    if hk not in best_map:
+                        best_map[hk] = hv
+                        added += 1
+                if added > 0:
+                    print(f"[Git Recovery] Restored +{added} verified tickers from commit {rev[:7]} (total baseline: {len(best_map)})")
+                if len(best_map) >= 88:
                     break
             except Exception:
                 continue
