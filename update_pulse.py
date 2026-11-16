@@ -7977,7 +7977,7 @@ def main() -> None:
     llms_lines = [
         "# HLF Pulse — Verified New Zealand Mortgage, Housing, KiwiSaver, Income & Protection Reference Dataset", "",
         "> Public reference dataset and data dictionary built 100% live from official New Zealand Crown and statutory releases, with clearly labelled HLF-derived calculations and interpretation.",
-        f"> Created by: {CREATOR_NAME} ({CREATOR_ALT_NAME}, {CREATOR_FSP}), {CREATOR\_ROLE} ({CREATOR\_URL}) | Published by: {PUBLISHER\_NAME} ({PUBLISHER\_URL}).",
+        f"> Created by: {CREATOR_NAME} ({CREATOR_ALT_NAME}, {CREATOR_FSP}), {CREATOR_ROLE} ({CREATOR_URL}) | Published by: {PUBLISHER_NAME} ({PUBLISHER_URL}).",
         f"> Media Kit & Citation Guide: {MEDIA_KIT_URL} | HLF Glossary: {GLOSSARY_BASE_URL}",
         f"> Reuse Licence: {HLF_LICENSE_SHORT} ({HLF_LICENSE_URL}) for HLF-derived figures & commentary; official statistics credited to their respective publishers.",
         f"> Date Standard: Observation Period (latest monthly: {latest_rbnz_period}) | Period End | Source Publication Date | Last Checked ({now_human} / {today_iso}).",
