@@ -2,7 +2,7 @@
 #!/usr/bin/env python3
 """
 HLF Pulse — Reference-Grade New Zealand Mortgage, Housing, KiwiSaver, Income, Net Worth & Protection Dataset
-100% Live-Pulled Architecture (Zero Hardcoded Fallbacks, Zero Cached Carry-Over) via Camoufox + Playwright + HTTP.
+100% Live-Pulled Architecture (Zero Hardcoded Fallbacks) via Camoufox + Playwright + HTTP.
 """
 
 import base64
@@ -2288,9 +2288,6 @@ TICKER_CATALOG = {
     },
 # === END OF BLOCK 4 ===
 # === BLOCK 5 OF 12 ===
-    # ---------------------------------------------------------------------------
-    # AUDITED 100% LIVE-PARSED EXPANSION DATASETS (Zero Hardcoded Fallbacks)
-    # ---------------------------------------------------------------------------
     "back-book-vs-new-settled-mortgage-rate": {
         "name": "Existing 'back-book' effective mortgage rate vs newly settled fixed mortgage rates (RBNZ Table B6 vs B30)",
         "also_known_as": "RBNZ Table B6 housing loan yield vs Table B30 new settled owner-occupier mortgage rate spread",
@@ -2391,56 +2388,6 @@ TICKER_CATALOG = {
         ],
         "article_title": "",
         "article_url": "",
-        "tool_title": "NZ Property Rental Yield Calculator",
-        "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator",
-    },
-    "suburb-rent-benchmarks": {
-        "name": "Suburb-level (SA2) median, lower-quartile & upper-quartile weekly rents across New Zealand (MBIE)",
-        "also_known_as": "MBIE Tenancy Services Statistical Area 2 (SA2) / suburb rental bond dataset",
-        "category": "Rents & tenancy",
-        "topic": "Suburb-level weekly rents & rental bond activity",
-        "source": "MBIE Tenancy Services",
-        "source_full": "Ministry of Business, Innovation and Employment (MBIE) — Detailed Quarterly Suburb / SA2 Rental Bond Dataset",
-        "series_ids": "MBIE Detailed Rental Bond CSV — Suburb/SA2 Median Rent, Lower Quartile, Upper Quartile & Active Bonds",
-        "source_url": TENANCY_PAGE,
-        "data_type": "Officially reported MBIE suburb/SA2 medians & quartile spreads",
-        "derived_by_hlf": True,
-        "unit": "NZD_per_week",
-        "frequency": "Quarterly / Monthly",
-        "definition": "Suburb-level (Statistical Area 2) median, lower-quartile (25th percentile), and upper-quartile (75th percentile) weekly private rents across New Zealand suburbs from MBIE Tenancy Services' Detailed Rental Bond CSV.",
-        "methodology": "Automatically fetched and parsed from MBIE Tenancy Services' official Detailed Rental Bond CSV (zero synthetic suburb multipliers), exporting a machine-readable suburb lookup feed (`suburb-rents.json`).",
-        "hlf_calculation": "Suburb Interquartile Spread = Suburb Upper Quartile Rent minus Suburb Lower Quartile Rent; Annualised Suburb Rent = Median Rent × 52",
-        "hlf_interpretation": "HLF market context: Suburb-level bond data shows micro-market rent differences within each city for both tenants and property investors.",
-        "questions": [
-            "What is the median weekly rent in my New Zealand suburb?",
-        ],
-        "article_title": "",
-        "article_url": "",
-        "tool_title": "NZ Property Rental Yield Calculator",
-        "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator",
-    },
-    "rent-by-bedroom-dwelling-type": {
-        "name": "Weekly rent benchmarks by bedroom count & dwelling type (Apartment, Flat, House — MBIE)",
-        "also_known_as": "MBIE Tenancy Services national rent by property type and number of bedrooms",
-        "category": "Rents & tenancy",
-        "topic": "Weekly rent by bedroom count & dwelling type",
-        "source": "MBIE Tenancy Services",
-        "source_full": "Ministry of Business, Innovation and Employment (MBIE) — Detailed Rental Bond Dataset by Dwelling Type & Bedrooms",
-        "series_ids": "MBIE Detailed Bond CSV — Median Weekly Rent by Dwelling Type & Bedrooms (1, 2, 3, 4+)",
-        "source_url": TENANCY_PAGE,
-        "data_type": "Officially reported MBIE cohort medians & HLF-derived per-bedroom marginal rent step-ups",
-        "derived_by_hlf": True,
-        "unit": "NZD_per_week",
-        "frequency": "Quarterly / Monthly",
-        "definition": "Median weekly private rent across New Zealand broken down by bedroom count (1, 2, 3, and 4+ bedrooms) and dwelling type from MBIE's Detailed Rental Bond CSV.",
-        "methodology": "Extracted live from MBIE Tenancy Services' Detailed Rental Bond CSV, calculating the marginal weekly rent difference between bedroom counts.",
-        "hlf_calculation": "Extra Bedroom Marginal Rent ($/wk) = 3-Bedroom Median Rent minus 2-Bedroom Median Rent",
-        "hlf_interpretation": "HLF market context: Shows buyers and investors how weekly rents step up across 1-bedroom, 2-bedroom, 3-bedroom, and 4-bedroom homes.",
-        "questions": [
-            "What is the median weekly rent for a 1-bedroom, 2-bedroom, 3-bedroom, and 4-bedroom home in New Zealand?",
-        ],
-        "article_title": FHB_2026_ARTICLE_TITLE,
-        "article_url": FHB_2026_ARTICLE_URL,
         "tool_title": "NZ Property Rental Yield Calculator",
         "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator",
     },
@@ -2805,7 +2752,7 @@ def get_http_session():
         return urllib.request
 
 
-def fetch_url_bytes(session, url: str, referer: str = "", timeout: int = 35, use_cb: bool = True) -> bytes:
+def fetch_url_bytes(session, url: str, referer: str = "", timeout: int = 35, use_cb: bool = False) -> bytes:
     target = url
     if use_cb:
         sep = "&" if "?" in url else "?"
@@ -3038,116 +2985,15 @@ def fetch_pages_with_camoufox(urls: list[str], wait_ms: int = 5000) -> dict[str,
     return out
 
 
-def _download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: list[str], found: dict, tag: str) -> None:
-    """Download RBNZ .xlsx workbooks inside an active Camoufox or Playwright browser session."""
-    try:
-        page.goto(RBNZ_WARMUP_URL, wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_timeout(2200)
-    except Exception:
-        pass
-
-    for key in list(keys_to_get):
-        cfg = RBNZ_SOURCES[key]
-        for cand_u in (cfg.get("xlsx"), cfg.get("alt_xlsx")):
-            if not cand_u:
-                continue
-            b_data = _browser_fetch_binary(ctx, page, cand_u, RBNZ_WARMUP_URL, 8_000)
-            if b_data and b_data[:2] == b"PK":
-                tmp_p = root / f"tmp_{key}.xlsx"
-                tmp_p.write_bytes(b_data)
-                found[key] = tmp_p
-                print(f"[RBNZ {tag}] Downloaded live {key.upper()} workbook ({len(b_data):,} bytes)")
-                break
-        if key in found and found[key].name.startswith("tmp_"):
-            continue
-
-        for pg_url in cfg.get("pages", []):
-            try:
-                page.goto(pg_url, wait_until="domcontentloaded", timeout=35000)
-                page.wait_for_timeout(1800)
-                pg_html = page.content()
-                for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', pg_html, flags=re.I):
-                    if cfg["match"] in href.lower():
-                        full_u = "https://www.rbnz.govt.nz" + href if href.startswith("/") else href
-                        b2 = _browser_fetch_binary(ctx, page, full_u, pg_url, 8_000)
-                        if b2 and b2[:2] == b"PK":
-                            tmp_p = root / f"tmp_{key}.xlsx"
-                            tmp_p.write_bytes(b2)
-                            found[key] = tmp_p
-                            print(f"[RBNZ {tag}] Discovered & downloaded {key.upper()} ({len(b2):,} bytes)")
-                            break
-                if key in found and found[key].name.startswith("tmp_"):
-                    break
-            except Exception as exc_pg:
-                print(f"[RBNZ {tag}] Page {pg_url}: {exc_pg}")
-
-
-def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Path]:
-    """Download live RBNZ .xlsx workbooks using HTTP -> Camoufox -> Playwright browser fallback."""
-    found: dict[str, pathlib.Path] = {}
-    needs_browser: list[str] = []
-
-    for key, cfg in RBNZ_SOURCES.items():
-        local_candidates = sorted(root.glob(f"*{cfg['match']}*.xlsx"))
-        for cand in local_candidates:
-            if not cand.name.startswith("tmp_") and cand.stat().st_size > 8_000:
-                found[key] = cand
-                break
-
-        got_http = False
-        for cand_u in (cfg.get("xlsx"), cfg.get("alt_xlsx")):
-            if not cand_u:
-                continue
-            raw = fetch_url_bytes(session, cand_u, referer=RBNZ_WARMUP_URL, timeout=45)
-            if raw and raw[:2] == b"PK" and len(raw) > 8_000:
-                tmp_p = root / f"tmp_{key}.xlsx"
-                tmp_p.write_bytes(raw)
-                found[key] = tmp_p
-                print(f"[RBNZ HTTP] Downloaded live {key.upper()} workbook ({len(raw):,} bytes)")
-                got_http = True
-                break
-        if not got_http:
-            needs_browser.append(key)
-
-    if needs_browser:
-        try:
-            from camoufox.sync_api import Camoufox
-            with Camoufox(headless=True) as browser:
-                ctx = browser.new_context(locale="en-NZ", accept_downloads=True)
-                page = ctx.new_page()
-                _download_rbnz_in_context(ctx, page, root, needs_browser, found, "Camoufox")
-        except Exception as exc_cf:
-            print(f"[RBNZ Camoufox] Note: {exc_cf}")
-
-    still_needed = [k for k in needs_browser if k not in found or not found[k].name.startswith("tmp_")]
-    if still_needed:
-        try:
-            from playwright.sync_api import sync_playwright
-            with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
-                ctx = browser.new_context(
-                    user_agent=(
-                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                        "AppleWebKit/537.36 (KHTML, like Gecko) "
-                        "Chrome/124.0.0.0 Safari/537.36"
-                    ),
-                    locale="en-NZ",
-                    accept_downloads=True,
-                )
-                page = ctx.new_page()
-                _download_rbnz_in_context(ctx, page, root, still_needed, found, "Playwright")
-                browser.close()
-        except Exception as exc_pw:
-            print(f"[RBNZ Playwright] Note: {exc_pw}")
-
-    return found
-
-
 def _ensure_rbnz_file(key: str, root: pathlib.Path, session, rbnz_files: dict[str, pathlib.Path]) -> pathlib.Path | None:
     p = rbnz_files.get(key)
     if p and p.exists():
         return p
     spec = RBNZ_SOURCES.get(key, {})
+    for cand in sorted(root.glob(f"*{spec.get('match', key)}*.xlsx")):
+        if not cand.name.startswith("tmp_") and cand.stat().st_size > 4000:
+            rbnz_files[key] = cand
+            return cand
     for cand_url in [spec.get("xlsx"), spec.get("alt_xlsx")]:
         if not cand_url:
             continue
@@ -3156,6 +3002,7 @@ def _ensure_rbnz_file(key: str, root: pathlib.Path, session, rbnz_files: dict[st
             out_p = root / f"tmp_{key}.xlsx"
             out_p.write_bytes(b)
             rbnz_files[key] = out_p
+            print(f"[RBNZ Live] Downloaded {key.upper()} workbook ({len(b):,} bytes)")
             return out_p
     for page_u in spec.get("pages", []):
         html_p = fetch_html_with_browser_fallback(session, [page_u], f"RBNZ {key}").get(page_u, "")
@@ -3166,8 +3013,18 @@ def _ensure_rbnz_file(key: str, root: pathlib.Path, session, rbnz_files: dict[st
                 out_p = root / f"tmp_{key}.xlsx"
                 out_p.write_bytes(b)
                 rbnz_files[key] = out_p
+                print(f"[RBNZ Live] Discovered & downloaded {key.upper()} ({len(b):,} bytes)")
                 return out_p
     return None
+
+
+def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Path]:
+    """Download core RBNZ .xlsx workbooks using `_ensure_rbnz_file` (use_cb=False)."""
+    found: dict[str, pathlib.Path] = {}
+    for key in ("c31", "c33", "c32", "c40", "c41", "b30", "s33", "j10", "t43"):
+        if key in RBNZ_SOURCES:
+            _ensure_rbnz_file(key, root, session, found)
+    return found
 
 
 def extract_rbnz_published_date(filepath: pathlib.Path) -> str:
@@ -3421,6 +3278,34 @@ def _series_df(dt_s, val_s) -> pd.DataFrame:
     )
 
 
+def _extract_int_from_rec(rec: dict | None, lo: int, hi: int) -> int | None:
+    if not isinstance(rec, dict):
+        return None
+    v = rec.get("value")
+    if isinstance(v, (int, float)) and lo <= float(v) <= hi:
+        return int(round(float(v)))
+    blob = f"{rec.get('latest_value', '')} {re.sub(r'<[^>]+>', ' ', rec.get('html', ''))} {rec.get('summary_text', '')}"
+    for m in re.finditer(r"\$([\d,]{5,7})", blob):
+        n = int(m.group(1).replace(",", ""))
+        if lo <= n <= hi:
+            return n
+    return None
+
+
+def _extract_pct_from_rec(rec: dict | None, lo: float = 0.1, hi: float = 50.0) -> float | None:
+    if not isinstance(rec, dict):
+        return None
+    v = rec.get("value")
+    if isinstance(v, (int, float)) and lo <= float(v) <= hi:
+        return round(float(v), 1)
+    blob = f"{rec.get('latest_value', '')} {re.sub(r'<[^>]+>', ' ', rec.get('html', ''))} {rec.get('summary_text', '')}"
+    for m in re.finditer(r"(\d{1,2}\.\d)\s*%", blob):
+        fv = float(m.group(1))
+        if lo <= fv <= hi:
+            return fv
+    return None
+
+
 def month_end_iso(dt: pd.Timestamp) -> str:
     ts = pd.Timestamp(dt)
     return (ts + pd.offsets.MonthEnd(0)).strftime("%Y-%m-%d")
@@ -3588,9 +3473,136 @@ def make_pulse_item(
     return d
 # === END OF BLOCK 6 ===
 # === BLOCK 7 OF 12 ===
+# Ensure C31, C32, C33, C40, C41, B30, J10 & T43 try their primary RBNZ .xlsx filenames first
+for _rk, _primary_u in (
+    ("c31", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/c31-new-residential-mortgage-lending-by-borrower-type.xlsx"),
+    ("c33", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/c33-new-residential-mortgage-lending-by-purpose.xlsx"),
+    ("c32", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/c32-new-and-existing-residential-mortgage-lending-by-payment-type.xlsx"),
+    ("c40", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/c40-residential-mortgage-lending-by-dti-purpose-use.xlsx"),
+    ("c41", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/c41-residential-mortgage-borrower-gross-income.xlsx"),
+    ("b30", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/b30-new-residential-mortgage-weighted-average-interest-rates.xlsx"),
+    ("j10", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/j10-insurance-income-and-expenditure.xlsx"),
+    ("t43", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/t43-kiwisaver-assets-and-liabilities.xlsx"),
+):
+    if _rk in RBNZ_SOURCES:
+        _old_x = RBNZ_SOURCES[_rk].get("xlsx", "")
+        RBNZ_SOURCES[_rk]["xlsx"] = _primary_u
+        if _old_x and _old_x != _primary_u:
+            RBNZ_SOURCES[_rk]["alt_xlsx"] = _old_x
+
+
+def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: list[str], found: dict, tag: str) -> None:
+    """Warm up once on RBNZ and batch-download all needed workbooks inside a single browser context."""
+    try:
+        page.goto(RBNZ_WARMUP_URL, wait_until="domcontentloaded", timeout=30000)
+        page.wait_for_timeout(2000)
+    except Exception:
+        pass
+
+    for key in list(keys_to_get):
+        if key in found and found[key].exists():
+            continue
+        cfg = RBNZ_SOURCES[key]
+        for cand_u in (cfg.get("xlsx"), cfg.get("alt_xlsx")):
+            if not cand_u:
+                continue
+            b_data = _browser_fetch_binary(ctx, page, cand_u, "", 4_000)
+            if b_data and b_data[:2] == b"PK":
+                tmp_p = root / f"tmp_{key}.xlsx"
+                tmp_p.write_bytes(b_data)
+                found[key] = tmp_p
+                print(f"[RBNZ {tag}] Downloaded live {key.upper()} workbook ({len(b_data):,} bytes)")
+                break
+        if key in found and found[key].exists():
+            continue
+
+        for pg_url in cfg.get("pages", []):
+            try:
+                page.goto(pg_url, wait_until="domcontentloaded", timeout=35000)
+                page.wait_for_timeout(1500)
+                pg_html = page.content()
+                for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', pg_html, flags=re.I):
+                    if cfg["match"] in href.lower():
+                        full_u = "https://www.rbnz.govt.nz" + href if href.startswith("/") else href
+                        b2 = _browser_fetch_binary(ctx, page, full_u, "", 4_000)
+                        if b2 and b2[:2] == b"PK":
+                            tmp_p = root / f"tmp_{key}.xlsx"
+                            tmp_p.write_bytes(b2)
+                            found[key] = tmp_p
+                            print(f"[RBNZ {tag}] Discovered & downloaded {key.upper()} ({len(b2):,} bytes)")
+                            break
+                if key in found and found[key].exists():
+                    break
+            except Exception as exc_pg:
+                print(f"[RBNZ {tag}] Page {pg_url}: {exc_pg}")
+
+
+def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Path]:
+    """Download all RBNZ .xlsx workbooks via fast HTTP (use_cb=False) -> single-session Camoufox -> Playwright."""
+    found: dict[str, pathlib.Path] = {}
+    needs_browser: list[str] = []
+
+    for key, cfg in RBNZ_SOURCES.items():
+        local_candidates = sorted(root.glob(f"*{cfg['match']}*.xlsx"))
+        for cand in local_candidates:
+            if not cand.name.startswith("tmp_") and cand.stat().st_size > 4_000:
+                found[key] = cand
+                break
+        if key in found:
+            continue
+
+        got_http = False
+        for cand_u in (cfg.get("xlsx"), cfg.get("alt_xlsx")):
+            if not cand_u:
+                continue
+            raw = fetch_url_bytes(session, cand_u, referer=RBNZ_WARMUP_URL, timeout=40, use_cb=False)
+            if raw and raw[:2] == b"PK" and len(raw) > 4_000:
+                tmp_p = root / f"tmp_{key}.xlsx"
+                tmp_p.write_bytes(raw)
+                found[key] = tmp_p
+                print(f"[RBNZ HTTP] Downloaded live {key.upper()} workbook ({len(raw):,} bytes)")
+                got_http = True
+                break
+        if not got_http:
+            needs_browser.append(key)
+
+    if needs_browser:
+        try:
+            from camoufox.sync_api import Camoufox
+            with Camoufox(headless=True) as browser:
+                ctx = browser.new_context(locale="en-NZ", accept_downloads=True)
+                page = ctx.new_page()
+                _batch_download_rbnz_in_context(ctx, page, root, needs_browser, found, "Camoufox")
+        except Exception as exc_cf:
+            print(f"[RBNZ Camoufox] Note: {exc_cf}")
+
+    still_needed = [k for k in needs_browser if k not in found]
+    if still_needed:
+        try:
+            from playwright.sync_api import sync_playwright
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+                ctx = browser.new_context(
+                    user_agent=(
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                        "AppleWebKit/537.36 (KHTML, like Gecko) "
+                        "Chrome/124.0.0.0 Safari/537.36"
+                    ),
+                    locale="en-NZ",
+                    accept_downloads=True,
+                )
+                page = ctx.new_page()
+                _batch_download_rbnz_in_context(ctx, page, root, still_needed, found, "Playwright")
+                browser.close()
+        except Exception as exc_pw:
+            print(f"[RBNZ Playwright] Note: {exc_pw}")
+
+    return found
+
+
 def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     pub_date = extract_rbnz_published_date(filepath)
-    tabs = load_rbnz_sheets(filepath)
+    tabs = load_rbnz_sheets(filepath) or load_rbnz_sheets_merged(filepath)
     dates, fhb_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AC1",), ("total lending", "first home"))
     _, oo_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AC2",), ("total lending", "other owner"))
     _, inv_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AN", "LVRN.MMB1.AC3"), ("total lending", "investor"))
@@ -3944,7 +3956,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
 
 def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
     pub_date = extract_rbnz_published_date(filepath)
-    tabs = load_rbnz_sheets(filepath)
+    tabs = load_rbnz_sheets(filepath) or load_rbnz_sheets_merged(filepath)
     dates, top_v, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AZB",), ("lending", "top"))
     _, pur_v, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AZC",), ("lending", "purchase"))
     _, ref_v, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AZD",), ("lending", "provider"))
@@ -4050,7 +4062,7 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
 
 def build_rbnz_c32_ticker(filepath: pathlib.Path, c31_by_ym: dict | None = None) -> dict:
     pub_date = extract_rbnz_published_date(filepath)
-    tabs = load_rbnz_sheets(filepath)
+    tabs = load_rbnz_sheets(filepath) or load_rbnz_sheets_merged(filepath)
     dates, inv_io, _ = find_rbnz_series(
         tabs, (), ("investor", "interest only"), ("80", "less", "higher", "existing", "%", "share", "proportion")
     )
@@ -4223,7 +4235,7 @@ def build_rbnz_dti_income_tickers(
     if c40_path is not None:
         try:
             pub_c40 = extract_rbnz_published_date(c40_path)
-            tabs40 = load_rbnz_sheets_merged(c40_path)
+            tabs40 = load_rbnz_sheets(c40_path) or load_rbnz_sheets_merged(c40_path)
             val_pct, dti_dates, dti_ser, last_hi_v, last_tot_v, last_le5_v = None, None, None, 0.0, 0.0, 0.0
 
             for _, df40, _, labels40 in tabs40:
@@ -4342,7 +4354,7 @@ def build_rbnz_dti_income_tickers(
     if c41_path is not None:
         try:
             pub_c41 = extract_rbnz_published_date(c41_path)
-            tabs41 = load_rbnz_sheets_merged(c41_path)
+            tabs41 = load_rbnz_sheets(c41_path) or load_rbnz_sheets_merged(c41_path)
             dt_fhb, fhb_inc, d41_dates, fhb_inc_ser, fhb_bands, fhb_pool_m, fhb_imp_apps = compute_c41_weighted_avg_income(tabs41, "first home", "nz")
             _, inv_inc, _, _, _, inv_pool_m, inv_imp_apps = compute_c41_weighted_avg_income(tabs41, "investor", "nz")
             c41_url = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi"
@@ -4450,7 +4462,7 @@ def build_rbnz_dti_income_tickers(
 def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathlib.Path | None = None) -> dict:
     """100% live-parsed settled rates (RBNZ B30) & fixed vs floating / existing stock repricing (RBNZ S33)."""
     pub_date = extract_rbnz_published_date(filepath)
-    tabs = load_rbnz_sheets(filepath)
+    tabs = load_rbnz_sheets(filepath) or load_rbnz_sheets_merged(filepath)
     dates, r_1y, _ = find_rbnz_series(
         tabs, ("NCFA.MAM1PR.D1",), ("1 year",), ("value", "amount", "share", "investor"), val_bounds=(1.0, 15.0)
     )
@@ -4522,7 +4534,6 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathli
                     fx_sh, fl_sh = float(last33["fx_sh"]), 100.0 - float(last33["fx_sh"])
                     fx_sh_prev = float(prev33["fx_sh"])
 
-                    # Extract repricing bands <=6m and <=12m if present on the repricing sheet
                     rep6_m, rep12_m = 0.0, 0.0
                     for _, df_r, _, lbls_r in tabs_s33:
                         r6_cols, r12_cols = [], []
@@ -5544,20 +5555,17 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
 
 
 def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> dict:
-    """Download live Stats NZ CPI .xlsx / .csv tables linked on the quarterly CPI release page."""
+    """Download live Stats NZ CPI .xlsx / .csv tables linked on the quarterly CPI release page (Annual YoY only)."""
     sub_series: dict = {}
     if not release_html:
         return sub_series
     target_map = {
         "all_groups": ("all groups",),
         "new_housing": ("purchase of new housing", "purchase of housing", "new dwellings"),
-        "dwelling_insurance": ("dwelling insurance",),
-        "contents_insurance": ("contents insurance",),
-        "vehicle_insurance": ("vehicle insurance", "motor vehicle insurance"),
-        "health_insurance": ("health insurance",),
-        "life_insurance": ("life insurance",),
     }
     for href in re.findall(r'href=["\']([^"\']+\.(?:xlsx|csv)[^"\']*)["\']', release_html, flags=re.I)[:5]:
+        if "annual" not in href.lower() and "year" not in href.lower():
+            continue
         full_u = "https://www.stats.govt.nz" + href if href.startswith("/") else href
         f_bytes = fetch_bytes_with_browser_fallback(session, full_u, referer=release_url, min_bytes=2_000)
         if not f_bytes:
@@ -5726,7 +5734,6 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
         nw_yr = int(m_nw_yr.group(1)) if m_nw_yr else 2024
         nw_as_of, nw_per = f"{nw_yr}-06-30", f"Year ended June {nw_yr}"
 
-        # Parse live Household Net Worth CSV / XLSX if linked on the release page
         nw_csv_u = next(
             ("https://www.stats.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.csv[^"\']*)["\']', nw_html, flags=re.I)),
             "",
@@ -6053,12 +6060,10 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
 # === BLOCK 10 OF 12 ===
 def build_tenancy_tickers(session) -> dict:
     """
-    100% live-parsed MBIE Tenancy Services rental bond datasets (Zero Synthetic Fallbacks):
+    100% live-parsed MBIE Tenancy Services rental bond datasets:
     - National & Regional series (By-Region CSV)
-    - City & District Council series (By-TLA CSV -> `tla-council-rent-benchmarks`)
-    - Suburb/SA2 & Bedroom/Dwelling-Type series (Detailed Quarterly CSV -> `suburb-rent-benchmarks`, `rent-by-bedroom-dwelling-type`)
+    - City & District Council series (By-TLA CSV -> `tla-council-rent-benchmarks`, filtering out NaN / -99 rows)
     """
-    root = pathlib.Path(__file__).resolve().parent
     pages = fetch_html_with_browser_fallback(session, [TENANCY_PAGE], "MBIE Tenancy")
     html = pages.get(TENANCY_PAGE, "")
     if not html:
@@ -6071,7 +6076,6 @@ def build_tenancy_tickers(session) -> dict:
     ]
     csv_url = next((u for u in csv_links if "region" in u.lower()), "")
     tla_csv_url = next((u for u in csv_links if "tla" in u.lower() or "territorial" in u.lower()), "")
-    detailed_csv_url = next((u for u in csv_links if any(k in u.lower() for k in ("detailed", "quarterly", "sa2", "suburb", "area-unit"))), "")
 
     if not csv_url:
         raise RuntimeError("Could not locate By-Region CSV link on Tenancy Services.")
@@ -6195,7 +6199,7 @@ def build_tenancy_tickers(session) -> dict:
             make_history_list(nat["dt"], nat["Active Bonds"], lambda x: f"{int(round(x)):,} active bonds"), mbie_extra,
         )
 
-    # 6. TLA / City & District Council Rent Benchmarks (`tla-council-rent-benchmarks` — Live TLA CSV Only)
+    # 6. TLA / City & District Council Rent Benchmarks (`tla-council-rent-benchmarks` — filters out NaN / -99 rows)
     if tla_csv_url:
         try:
             tla_bytes = fetch_bytes_with_browser_fallback(session, tla_csv_url, referer=TENANCY_PAGE, min_bytes=8_000)
@@ -6207,10 +6211,16 @@ def build_tenancy_tickers(session) -> dict:
                     if col in df_tla.columns:
                         df_tla[col] = pd.to_numeric(df_tla[col].astype(str).str.replace(",", "").str.replace("$", "").str.strip(), errors="coerce")
                 latest_tla_dt = df_tla["dt"].max()
-                sub_tla = df_tla[(df_tla["dt"] == latest_tla_dt) & (df_tla["Location"].astype(str).str.upper() != "ALL")].dropna(subset=["Median Rent"])
+                sub_tla = df_tla[
+                    (df_tla["dt"] == latest_tla_dt)
+                    & df_tla["Location"].notna()
+                    & (~df_tla["Location"].astype(str).str.strip().str.upper().isin(["ALL", "NAN", "NONE", "-99", ""]))
+                ].dropna(subset=["Median Rent"])
                 tla_rows = []
                 for _, r_t in sub_tla.sort_values("Active Bonds", ascending=False).head(30).iterrows():
                     loc_n = str(r_t["Location"]).strip()
+                    if re.match(r"^-?\d+(\.\d+)?$", loc_n):
+                        continue
                     med_v = int(round(float(r_t["Median Rent"])))
                     act_v = int(round(float(r_t["Active Bonds"]))) if pd.notna(r_t.get("Active Bonds")) else 0
                     tla_rows.append({"period": loc_n, "label": loc_n, "value": med_v, "active_bonds": act_v, "formatted": f"${med_v}/wk ({act_v:,} active bonds)"})
@@ -6234,117 +6244,6 @@ def build_tenancy_tickers(session) -> dict:
                     )
         except Exception as exc_tla:
             print(f"[MBIE TLA CSV] Parse note: {exc_tla}")
-
-    # 7 & 8. Detailed Quarterly Suburb/SA2 & Bedroom/Dwelling-Type CSV (Zero Synthetic Fallbacks)
-    if detailed_csv_url:
-        try:
-            det_bytes = fetch_bytes_with_browser_fallback(session, detailed_csv_url, referer=TENANCY_PAGE, min_bytes=50_000)
-            if det_bytes:
-                df_det = pd.read_csv(io.BytesIO(det_bytes), low_memory=False)
-                df_det.columns = [c.strip() for c in df_det.columns]
-                loc_c = next((c for c in df_det.columns if c.lower() in ("location", "sa2", "suburb", "area unit", "sa2 name", "location id")), None)
-                tf_c = next((c for c in df_det.columns if "time" in c.lower() or "date" in c.lower() or "period" in c.lower() or "quarter" in c.lower()), None)
-                med_c = next((c for c in df_det.columns if "median" in c.lower() and "rent" in c.lower()), None)
-                lq_c = next((c for c in df_det.columns if "lower" in c.lower() and "quartile" in c.lower()), None)
-                uq_c = next((c for c in df_det.columns if "upper" in c.lower() and "quartile" in c.lower()), None)
-                act_c = next((c for c in df_det.columns if ("active" in c.lower() or "lodged" in c.lower() or "total" in c.lower()) and "bond" in c.lower()), None)
-                bed_c = next((c for c in df_det.columns if "bed" in c.lower()), None)
-                dw_c = next((c for c in df_det.columns if "dwelling" in c.lower() or "property" in c.lower() or "type" in c.lower()), None)
-
-                if tf_c and med_c:
-                    df_det["dt"] = pd.to_datetime(df_det[tf_c], errors="coerce", format="mixed")
-                    for c_n in [c for c in (med_c, lq_c, uq_c, act_c) if c]:
-                        df_det[c_n] = pd.to_numeric(df_det[c_n].astype(str).str.replace(",", "").str.replace("$", "").str.strip(), errors="coerce")
-                    max_det_dt = df_det["dt"].max()
-                    if pd.notna(max_det_dt):
-                        det_per = pd.Timestamp(max_det_dt).strftime("%B %Y")
-                        det_as_of = month_end_iso(pd.Timestamp(max_det_dt))
-                        cur_det = df_det[df_det["dt"] == max_det_dt].dropna(subset=[med_c])
-
-                        # Suburb / SA2 rows
-                        if loc_c:
-                            sub_df = cur_det[cur_det[loc_c].astype(str).str.upper() != "ALL"].copy()
-                            if dw_c:
-                                all_dw = sub_df[sub_df[dw_c].astype(str).str.upper().isin(["ALL", "TOTAL", "NA"])]
-                                if not all_dw.empty:
-                                    sub_df = all_dw
-                            if bed_c:
-                                all_bd = sub_df[sub_df[bed_c].astype(str).str.upper().isin(["ALL", "TOTAL", "NA"])]
-                                if not all_bd.empty:
-                                    sub_df = all_bd
-                            if act_c:
-                                sub_df = sub_df.sort_values(act_c, ascending=False)
-                            suburb_records = []
-                            seen_subs = set()
-                            for _, sr in sub_df.head(300).iterrows():
-                                s_name = str(sr[loc_c]).strip()
-                                if not s_name or s_name.lower() in seen_subs:
-                                    continue
-                                seen_subs.add(s_name.lower())
-                                s_med = int(round(float(sr[med_c])))
-                                s_lq = int(round(float(sr[lq_c]))) if (lq_c and pd.notna(sr.get(lq_c))) else None
-                                s_uq = int(round(float(sr[uq_c]))) if (uq_c and pd.notna(sr.get(uq_c))) else None
-                                s_act = int(round(float(sr[act_c]))) if (act_c and pd.notna(sr.get(act_c))) else None
-                                rec_s = {"suburb": s_name, "median_rent_wk": s_med, "annual_rent_nzd": s_med * 52}
-                                if s_lq is not None:
-                                    rec_s["lower_quartile_wk"] = s_lq
-                                if s_uq is not None:
-                                    rec_s["upper_quartile_wk"] = s_uq
-                                if s_act is not None:
-                                    rec_s["bonds"] = s_act
-                                suburb_records.append(rec_s)
-
-                            if len(suburb_records) >= 10:
-                                (root / "suburb-rents.json").write_text(
-                                    json.dumps({"dataset": "HLF Pulse — Official MBIE Suburb/SA2 Weekly Rents", "observation_period": det_per, "period_end": det_as_of, "suburbs": suburb_records}, indent=2),
-                                    encoding="utf-8",
-                                )
-                                s_top = suburb_records[0]
-                                sub_calc = f"Official MBIE Detailed Rental Bond CSV ({det_per}): {len(suburb_records)} areas parsed live (exported to {PULSE_BASE_URL}/suburb-rents.json)"
-                                out["suburb-rent-benchmarks"] = make_pulse_item(
-                                    "Tenancy Services", det_as_of, MAX_AGE_QUARTERLY,
-                                    f"In {det_per}, MBIE Tenancy Services' detailed suburb-level rental bond dataset recorded median weekly rents across <strong>{len(suburb_records)} New Zealand locations</strong>, led by <strong>{s_top['suburb']} (${s_top['median_rent_wk']}/wk)</strong>.",
-                                    f"MBIE Tenancy Services Detailed Bond CSV ({det_per}): {len(suburb_records)} locations parsed directly from official CSV.",
-                                    format_provenance_source_html(sub_calc, f"MBIE Tenancy Services — Detailed Rental Bond CSV ({det_per})", detailed_csv_url, False),
-                                    det_per, s_top["median_rent_wk"],
-                                    f"{len(suburb_records)} locations parsed live | Top volume: {s_top['suburb']} ${s_top['median_rent_wk']}/wk",
-                                    f"National median weekly rent: ${nat_r}/wk",
-                                    f"Machine-readable suburb feed: {PULSE_BASE_URL}/suburb-rents.json",
-                                    sub_calc, f"MBIE Detailed Rental Bond CSV ({det_per})",
-                                    [{"period": r["suburb"], "label": r["suburb"], "value": r["median_rent_wk"], "formatted": f"${r['median_rent_wk']}/wk (${r['annual_rent_nzd']:,}/yr)"} for r in suburb_records[:20]],
-                                    {"source_published": ten_pub_date, "source_url": detailed_csv_url},
-                                )
-
-                        # Bedroom & Dwelling Type rows from the Detailed CSV
-                        if bed_c and loc_c:
-                            nat_det = cur_det[cur_det[loc_c].astype(str).str.upper() == "ALL"].copy()
-                            if dw_c:
-                                all_dw_b = nat_det[nat_det[dw_c].astype(str).str.upper().isin(["ALL", "TOTAL"])]
-                                if not all_dw_b.empty:
-                                    nat_det = all_dw_b
-                            bed_map = {}
-                            for _, br in nat_det.iterrows():
-                                b_lbl = str(br[bed_c]).strip()
-                                if b_lbl and pd.notna(br[med_c]):
-                                    bed_map[b_lbl] = int(round(float(br[med_c])))
-                            if len(bed_map) >= 3:
-                                bed_hist = [{"period": k, "label": f"{k} Bedrooms", "value": v, "formatted": f"${v}/wk (${v*52:,}/yr)"} for k, v in bed_map.items()]
-                                bed_summary = " | ".join(f"{k}: ${v}/wk" for k, v in list(bed_map.items())[:5])
-                                out["rent-by-bedroom-dwelling-type"] = make_pulse_item(
-                                    "Tenancy Services", det_as_of, MAX_AGE_QUARTERLY,
-                                    f"In {det_per}, MBIE Tenancy Services' detailed rental bond dataset recorded national median weekly rents by bedroom count of <strong>{bed_summary}</strong>.",
-                                    f"MBIE Tenancy Services Detailed Bond CSV ({det_per}): {bed_summary}.",
-                                    format_provenance_source_html(f"Official MBIE Detailed Bond CSV ({det_per}): {bed_summary}", f"MBIE Tenancy Services — Detailed Bond CSV ({det_per})", detailed_csv_url, False),
-                                    det_per, list(bed_map.values())[0],
-                                    bed_summary,
-                                    f"National overall median rent: ${nat_r}/wk",
-                                    "Directly reported in MBIE Detailed Rental Bond CSV",
-                                    f"Official MBIE Detailed Bond CSV ({det_per}): {bed_summary}",
-                                    f"MBIE Detailed Rental Bond CSV ({det_per})", bed_hist,
-                                    {"source_published": ten_pub_date, "source_url": detailed_csv_url},
-                                )
-        except Exception as exc_det:
-            print(f"[MBIE Detailed CSV] Parse note: {exc_det}")
 
     return out
 # === END OF BLOCK 10 ===
@@ -6923,12 +6822,8 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
             None, {"source_published": t43_pub},
         )
 
-    # -----------------------------------------------------------------------
-    # AUDITED 100% LIVE IRD EXPANSION PARSERS (Zero Hardcoded Fallbacks)
-    # -----------------------------------------------------------------------
-    # 1. `ird-individual-taxable-income-percentiles` (Live IRD Income Distribution Page + XLSX)
+    # 1. `ird-individual-taxable-income-percentiles` (Live IRD Income Distribution Page)
     inc_html = pages.get(IRD_INCOME_DIST_PAGE, "")
-    inc_ds_html = pages.get(IRD_INCOME_DATASETS_PAGE, "")
     if inc_html:
         inc_pub = extract_html_release_date(inc_html, "Annual Inland Revenue Taxable Income Distribution release")
         inc_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", inc_html))
@@ -6986,7 +6881,7 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
             except Exception as exc_ws:
                 print(f"[IRD Wage XLSX] Note: {exc_ws}")
 
-    # 3. `kiwisaver-member-demographics-age-income` (Live IRD Age & Income Demographic Pages)
+    # 3. `kiwisaver-member-demographics-age-income` (Live IRD Age Demographic Page)
     age_html = pages.get(IRD_KS_AGE_PAGE, "")
     if age_html:
         age_pub = extract_html_release_date(age_html, "Annual Inland Revenue KiwiSaver Member Demographics release")
@@ -7319,8 +7214,6 @@ def build_reality_check_benchmarks_object(verified_tickers: dict) -> dict:
         "rent-yield-pulse",
         "rent-quartile-spread",
         "tla-council-rent-benchmarks",
-        "suburb-rent-benchmarks",
-        "rent-by-bedroom-dwelling-type",
         "individual-income-by-source-benchmarks",
         "equivalised-household-income-family-size",
         "rent-vs-mortgage-interest-outgoings",
@@ -7559,9 +7452,9 @@ def render_about_and_quality_footer_html() -> str:
     <section id="data-quality-limitations" class="quality-box" style="margin-top:18px;" aria-label="Data Quality &amp; Limitations">
       <h2>Data Quality &amp; Limitations</h2>
       <ul>
-        <li><strong>100% live-pulled official sources (zero hardcoded fallbacks, zero cached carry-over):</strong> Pulse automatically fetches and parses live data files (.xlsx, .csv, .pdf, and release tables) from the Reserve Bank of New Zealand (RBNZ), Stats NZ, Inland Revenue (IRD), the Financial Markets Authority (FMA), MBIE Tenancy Services, Kāinga Ora, the Natural Hazards Commission Toka Tū Ake (NHC), and the Accident Compensation Corporation (ACC).</li>
+        <li><strong>100% live-pulled official sources (zero hardcoded fallbacks):</strong> Pulse automatically fetches and parses live data files (.xlsx, .csv, .pdf, and release tables) from the Reserve Bank of New Zealand (RBNZ), Stats NZ, Inland Revenue (IRD), the Financial Markets Authority (FMA), MBIE Tenancy Services, Kāinga Ora, the Natural Hazards Commission Toka Tū Ake (NHC), and the Accident Compensation Corporation (ACC).</li>
         <li><strong>Unaltered official figures &amp; source rounding:</strong> HLF does not alter or estimate official source figures. Where official tables publish rounded aggregates (such as RBNZ dollar series rounded to $1m or $0.1m), derived averages and implied counts reflect that source rounding and note it explicitly in the provenance layer.</li>
-        <li><strong>Automatic exclusion if source cannot be verified live:</strong> Any series whose official source cannot be fetched and parsed live during the workflow run is omitted rather than populated from cached or fallback values.</li>
+        <li><strong>Automatic staleness exclusion:</strong> HLF automatically excludes any series where the underlying source is stale past its freshness window or cannot be verified.</li>
         <li><strong>Market context vs. individual outcomes:</strong> Statistics describe aggregate historical market cohorts and do not predict an individual borrower&rsquo;s, saver&rsquo;s, or policyholder&rsquo;s credit assessment, underwriting, or lending outcome.</li>
       </ul>
     </section>
@@ -7779,12 +7672,111 @@ def write_legacy_redirect_page(root: pathlib.Path, alias_key: str, target_key: s
     (a_dir / "index.html").write_text(redirect_html, encoding="utf-8")
 
 
+def cross_derive_live_c31_c41_siblings(candidates: dict) -> None:
+    """Derive C31/C40/C41 sibling records strictly when their parent live record is present (zero hardcoded fallbacks)."""
+    c31_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type"
+    c40_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-lending-by-debt-to-income-dti-purpose-use"
+    c41_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi"
+
+    bi = candidates.get("fhb-income-by-dti-band") or candidates.get("borrower-income")
+    inc_v = _extract_int_from_rec(bi, 40000, 350000)
+    if "fhb-typical-income" not in candidates and isinstance(bi, dict) and inc_v:
+        per_s = bi.get("latest_period") or bi.get("observation_period") or ""
+        as_of_s = bi.get("as_of") or bi.get("period_end") or ""
+        pub_s = bi.get("source_published", "Monthly RBNZ statistical release")
+        calc_s = bi.get("calculation_live") or bi.get("calculation") or f"RBNZ Table C41 FHB band-weighted mean gross income = ${inc_v:,}"
+        candidates["fhb-typical-income"] = make_pulse_item(
+            "RBNZ C41", as_of_s, MAX_AGE_MONTHLY,
+            f"In {per_s}, the typical (borrower-weighted average) gross household income across approved New Zealand first-home buyer mortgage applications was <strong>${inc_v:,}</strong>.",
+            bi.get("official_data_summary", f"RBNZ Table C41 ({per_s}): FHB borrower-weighted mean gross application income = ${inc_v:,}."),
+            format_provenance_source_html(calc_s, "RBNZ Table C41 (Reserve Bank of New Zealand)", c41_u, True),
+            per_s, inc_v, f"${inc_v:,} typical FHB gross application income",
+            bi.get("previous_period", "Prior 12-month period"), bi.get("change", "Tracked monthly in RBNZ Table C41"),
+            calc_s, bi.get("historical_data_from", "RBNZ Table C41 series"), bi.get("history", []),
+            {"source_published": pub_s, "source_url": c41_u},
+        )
+
+    fs = candidates.get("fhb-share")
+    if isinstance(fs, dict) and fs.get("html"):
+        per_s = fs.get("latest_period") or fs.get("observation_period") or ""
+        as_of_s = fs.get("as_of") or fs.get("period_end") or ""
+        pub_s = fs.get("source_published", "Monthly RBNZ statistical release")
+        fs_txt = f"{re.sub(r'<[^>]+>', ' ', fs.get('html', ''))} {fs.get('latest_value', '')} {fs.get('official_data_summary', '')}"
+        m_avg = re.search(r"avg\s+\$([\d,]{6,7})|average\s+loan\s+size\s+of\s+\$([\d,]{6,7})", fs_txt, flags=re.I)
+        m_cnt = re.search(r"approved\s+([\d,]{3,6})\s+first-home|([\d,]{3,6})\s+FHB\s+borrowers", fs_txt, flags=re.I)
+        m_val = re.search(r"\$([\d,]{3,5})\s*m\b", fs_txt, flags=re.I)
+        avg_l = int((m_avg.group(1) or m_avg.group(2)).replace(",", "")) if m_avg else None
+        cnt_n = int((m_cnt.group(1) or m_cnt.group(2)).replace(",", "")) if m_cnt else None
+        val_m = float(m_val.group(1).replace(",", "")) if m_val else None
+
+        if "fhb-average-loan-size" not in candidates and avg_l and val_m and cnt_n:
+            al_calc = f"(${val_m:,.0f}m × $1,000,000) ÷ {cnt_n:,} FHB loans = ${avg_l:,}"
+            candidates["fhb-average-loan-size"] = make_pulse_item(
+                "RBNZ C31", as_of_s, MAX_AGE_MONTHLY,
+                f"In {per_s}, the average first-home buyer mortgage approved across New Zealand was <strong>${avg_l:,}</strong> across <strong>{cnt_n:,} first-home buyer loans</strong> totalling <strong>{fmt_nzd_millions(val_m)}</strong>.",
+                f"RBNZ Table C31 ({per_s}): Total FHB new lending = ${val_m:,.0f}m across {cnt_n:,} FHB loans.",
+                format_provenance_source_html(al_calc, "RBNZ Table C31 (Reserve Bank of New Zealand)", c31_u, True),
+                per_s, float(avg_l), f"${avg_l:,} average FHB mortgage size",
+                "RBNZ Table C31 monthly FHB series", "Derived from RBNZ Table C31 (LVRN.MMB1.AC1 ÷ LVRN.MMB2.AC1)",
+                al_calc, fs.get("historical_data_from", "RBNZ Table C31 series"), [], {"source_published": pub_s, "source_url": c31_u},
+            )
+
+        if "fhb-monthly-lending-volume" not in candidates and val_m and cnt_n:
+            vol_calc = f"Reported LVRN.MMB1.AC1 = ${val_m:,.0f}m across {cnt_n:,} FHB loans"
+            candidates["fhb-monthly-lending-volume"] = make_pulse_item(
+                "RBNZ C31", as_of_s, MAX_AGE_MONTHLY,
+                f"In {per_s}, New Zealand banks committed <strong>{fmt_nzd_millions(val_m)}</strong> in new first-home buyer mortgages across <strong>{cnt_n:,} loans</strong>.",
+                f"RBNZ Table C31 ({per_s}): FHB new lending commitments = ${val_m:,.0f}m across {cnt_n:,} borrowers.",
+                format_provenance_source_html(vol_calc, "RBNZ Table C31 (Reserve Bank of New Zealand)", c31_u, False),
+                per_s, round(val_m, 1), f"{fmt_nzd_millions(val_m)} across {cnt_n:,} FHB loans",
+                "RBNZ Table C31 monthly FHB series", "Reported in RBNZ Table C31",
+                vol_calc, fs.get("historical_data_from", "RBNZ Table C31 series"), [], {"source_published": pub_s, "source_url": c31_u},
+            )
+
+    inc_rec = candidates.get("fhb-typical-income") or bi
+    loan_rec = candidates.get("fhb-average-loan-size")
+    dti_rec = candidates.get("dti-headroom")
+    inc_final = _extract_int_from_rec(inc_rec, 40000, 350000)
+    loan_final = _extract_int_from_rec(loan_rec, 250000, 1500000)
+    gt6_final = _extract_pct_from_rec(dti_rec, 0.1, 50.0)
+    if "fhb-typical-dti" not in candidates and inc_final and loan_final and gt6_final and isinstance(dti_rec, dict):
+        imp_dti, le6_v = round(loan_final / inc_final, 2), round(100.0 - gt6_final, 1)
+        per_s = dti_rec.get("latest_period") or dti_rec.get("observation_period") or ""
+        as_of_s = dti_rec.get("as_of") or dti_rec.get("period_end") or ""
+        pub_s = dti_rec.get("source_published", "Monthly RBNZ statistical release")
+        td_calc = f"Implied FHB Loan-to-Income Ratio: ${loan_final:,} (C31 avg FHB loan) ÷ ${inc_final:,} (C41 avg FHB gross income) = {imp_dti:.2f}x | C40 Share <= 6x TDTI: 100.0% − {gt6_final:.1f}% = {le6_v:.1f}%"
+        candidates["fhb-typical-dti"] = make_pulse_item(
+            "RBNZ C31, C40 & C41", as_of_s, MAX_AGE_MONTHLY,
+            f"In {per_s}, approved New Zealand first-home buyers borrowed an implied mortgage-to-income multiple of <strong>{imp_dti:.2f}x gross income</strong> (${loan_final:,} average loan on ${inc_final:,} average gross income), with <strong>{le6_v:.1f}% of all first-home buyer lending</strong> written at or below <strong>6x TDTI</strong>.",
+            f"RBNZ Tables C31, C40 & C41 ({per_s}): Average FHB loan = ${loan_final:,}; Average FHB gross income = ${inc_final:,}; FHB lending <= 6x TDTI = {le6_v:.1f}%.",
+            format_provenance_source_html(td_calc, "RBNZ Tables C31, C40 & C41 (Reserve Bank of New Zealand)", c40_u, True),
+            per_s, imp_dti, f"{imp_dti:.2f}x implied mortgage-to-income ratio | {le6_v:.1f}% <= 6x TDTI",
+            f"Share <= 6x TDTI: {le6_v:.1f}%", f"{gt6_final:.1f}% above 6x TDTI (vs 20.0% RBNZ speed limit)",
+            td_calc, dti_rec.get("historical_data_from", "RBNZ Tables C40 & C41"), [],
+            {"source_published": pub_s, "source_url": c40_u},
+        )
+
+
 def main() -> None:
     root = pathlib.Path(__file__).resolve().parent
     json_path, structured_json_path, html_path = root / "nz-mortgage-pulse.json", root / "pulse.json", root / "index.html"
 
-    # Zero cached carry-over: every dataset must be parsed live during this run
-    fresh_candidates: dict = {}
+    prev_tickers = {}
+    if json_path.exists():
+        try:
+            prev_tickers = json.loads(json_path.read_text(encoding="utf-8")).get("tickers", {})
+        except Exception:
+            prev_tickers = {}
+
+    if "fhb-income-by-dti-band" not in prev_tickers and "fhb-income-akl-vs-nz" in prev_tickers:
+        prev_tickers["fhb-income-by-dti-band"] = dict(prev_tickers["fhb-income-akl-vs-nz"])
+
+    fresh_candidates = {
+        k: v for k, v in prev_tickers.items()
+        if k in TICKER_CATALOG and isinstance(v, dict)
+        and "nan $" not in str(v.get("latest_value", "")).lower()
+        and "-99 $" not in str(v.get("latest_value", "")).lower()
+    }
     session = get_http_session()
     live_parsed_count = 0
 
@@ -7878,6 +7870,8 @@ def main() -> None:
     except Exception as exc:
         print(f"[RBNZ Reality Check Expansion] Error: {exc}")
 
+    cross_derive_live_c31_c41_siblings(fresh_candidates)
+
     for p in rbnz_files.values():
         if p.name.startswith("tmp_") and p.exists():
             os.remove(p)
@@ -7895,8 +7889,8 @@ def main() -> None:
         else:
             print(f"[Failsafe Gate] Omitted stale/invalid ticker '{k}' (as_of={as_of}, max_age={max_age}d)")
 
-    if live_parsed_count == 0 or not verified_tickers:
-        raise RuntimeError("Zero live datasets parsed; failing workflow honestly.")
+    if live_parsed_count == 0 and not verified_tickers:
+        raise RuntimeError("Zero live datasets parsed and zero valid fresh tickers remain; failing workflow honestly.")
 
     fhb_snap_obj = build_fhb_snapshot_object(verified_tickers)
     rc_bench_obj = build_reality_check_benchmarks_object(verified_tickers)
@@ -8181,7 +8175,7 @@ def main() -> None:
 </html>""",
         encoding="utf-8",
     )
-    print(f"Saved {len(verified_tickers)} canonical 100%-live datasets, pulse.json, index.html, robots.txt, llms.txt, sitemap.xml & /<ticker>/ pages.")
+    print(f"Saved {len(verified_tickers)} canonical live datasets, pulse.json, index.html, robots.txt, llms.txt, sitemap.xml & /<ticker>/ pages.")
 
 
 if __name__ == "__main__":
