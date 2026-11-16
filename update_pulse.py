@@ -280,13 +280,22 @@ IRD_TAX_DEBT_URLS = [
 ]
 IRD_INCOME_DIST_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/income-distribution"
 IRD_INCOME_DATASETS_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/income-distribution/tax-on-taxable-income-datasets"
+IRD_INCOME_TOT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/income-distribution/individuals-total-taxable-income"
+IRD_INCOME_XLSX = "https://www.ird.govt.nz/-/media/project/ir/home/documents/about-us/tax-statistics---current/revenue-and-refunds/tax-on-taxable-income/tax-on-taxable-income/taxable-income-distribution-of-individuals-2026.xlsx"
+
 IRD_WAGE_SALARY_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions"
 IRD_WAGE_DATASETS_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions/wage-and-salary-statistics-datasets"
+IRD_WAGE_NUM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions/number-of-wage-and-salary-earners"
+IRD_WAGE_BAND_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions/number-of-wage-and-salary-earners-by-income-band"
+
 IRD_TRUSTS_NUM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/trusts-and-estates-statistics/number-of-trusts-and-estates"
 IRD_TRUSTS_INC_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/trusts-and-estates-statistics/trusts-ir6"
 IRD_TRUSTS_XLSX = "https://www.ird.govt.nz/-/media/project/ir/home/documents/about-us/tax-statistics---current/revenue-and-refunds/trusts-and-estates-statistics/trusts-and-estates-statistics/trusts-and-estates-statistics-spreadsheet.xlsx"
-IRD_WFF_ENT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/working-for-families-statistics/total-entitlements-paid-for-working-for-families-tax-credits"
-IRD_WFF_FAM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/working-for-families-statistics/number-of-families-claiming-and-entitled-to-working-for-families"
+
+IRD_WFF_ENT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/working-for-families-statistics/total-entitlements-paid-for-working-for-families-tax-credits"
+IRD_WFF_FAM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/working-for-families-statistics/number-of-families-claiming-and-entitled-to-working-for-families"
+IRD_WFF_MAIN_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/working-for-families-statistics"
+
 IRD_KS_NUM_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/numbers"
 IRD_KS_AMT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/withdrawals/amounts"
 IRD_KS_TR_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/Joining-and-transfers/scheme-transfers"
@@ -298,6 +307,7 @@ IRD_KS_AGE_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/joi
 IRD_KS_INC_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/joining/member-demographics/number-of-kiwisaver-members-by-income"
 IRD_KS_DATA_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets"
 IRD_KS_ANNUAL_XLSX = "https://www.ird.govt.nz/-/media/project/ir/home/documents/about-us/tax-statistics---current/kiwisaver-statistics/annual-kiwisaver-statistics/annual-kiwisaver-stats.xlsx"
+IRD_KS_MONTHLY_XLSX = "https://www.ird.govt.nz/-/media/project/ir/home/documents/about-us/tax-statistics---current/kiwisaver-statistics/monthly-kiwisaver-data/monthly-kiwisaver-data.xlsx"
 
 FMA_KS_REPORT_PAGE = "https://www.fma.govt.nz/library/reports-and-papers/kiwisaver-annual-report/"
 KAINGA_ORA_QTR_REPORT_PAGE = "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/"
@@ -5640,7 +5650,7 @@ def build_insurance_pulse_tickers(
 
 
 def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
-    """Parse live Stats NZ Building Consents .xlsx / .csv file for regional counts and consent values."""
+    """Parse live Stats NZ Building Consents .xlsx / .csv file for regional counts and residential consent values."""
     info: dict = {"regions": {}, "cost_by_type": {}}
     if not xlsx_bytes:
         return info
@@ -5658,7 +5668,7 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
             ("all", ("all dwellings", "total new dwellings", "total dwellings")),
         ]
         for sname, raw in frames:
-            if raw.empty:
+            if raw.empty or "non-residential" in sname.lower():
                 continue
             flat_txt = " ".join(str(v) for v in raw.values.flatten() if pd.notna(v)).lower()
             for r_i in range(len(raw)):
@@ -5666,6 +5676,8 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
                 if len(row_s) < 2:
                     continue
                 r_lbl = row_s[0].lower()
+                if "non-residential" in r_lbl:
+                    continue
                 for reg in ("Auckland", "Canterbury", "Waikato", "Wellington"):
                     if reg not in info["regions"] and r_lbl.startswith(reg.lower()):
                         nums = [
@@ -5680,11 +5692,11 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
                         nums = [float(re.sub(r"[,$]", "", c)) for c in row_s[1:] if re.match(r"^-?\d+(\.\d+)?$", re.sub(r"[,$]", "", c))]
                         if nums:
                             slot = info["cost_by_type"].setdefault(t_code, {})
-                            if "value" in sname.lower() or "$m" in flat_txt or "million" in r_lbl:
+                            if ("value" in sname.lower() or "$m" in flat_txt or "million" in r_lbl) and 150.0 <= nums[-1] <= 30000.0:
                                 slot.setdefault("val_m", nums[-1])
                             elif "area" in sname.lower() or "sqm" in r_lbl or "m2" in r_lbl or "floor" in sname.lower():
                                 slot.setdefault("sqm_tot", nums[-1])
-                            else:
+                            elif 50 <= nums[-1] <= 50000:
                                 slot.setdefault("cnt", nums[-1])
     except Exception as exc:
         print(f"[Stats NZ BC File] Note: {exc}")
@@ -5692,7 +5704,11 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
 
 
 def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> dict:
-    """Download live Stats NZ CPI .xlsx / .csv tables linked on the quarterly CPI release page (Annual YoY only)."""
+    """
+    Download live Stats NZ CPI .xlsx / .csv tables linked on the quarterly CPI release page.
+    Extracts true Annual YoY % change either from the CPI Index Numbers series ((Idx_t - Idx_{t-4}) / Idx_{t-4} * 100)
+    or from the Annual % Change column (never from the percentage-point contribution column).
+    """
     sub_series: dict = {}
     if not release_html:
         return sub_series
@@ -5705,15 +5721,7 @@ def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> di
         "health_insurance": ("health insurance",),
         "life_insurance": ("life insurance",),
     }
-    # Known single-quarter Q3 movements so they never get mistaken for annual YoY changes
-    qtr_blacklist = {
-        "dwelling_insurance": 1.2,
-        "contents_insurance": -0.6,
-        "vehicle_insurance": 1.9,
-        "health_insurance": 1.6,
-        "life_insurance": -0.8,
-    }
-    for href in re.findall(r'href=["\']([^"\']+\.(?:xlsx|csv)[^"\']*)["\']', release_html, flags=re.I)[:6]:
+    for href in re.findall(r'href=["\']([^"\']+\.(?:xlsx|csv)[^"\']*)["\']', release_html, flags=re.I)[:8]:
         full_u = "https://www.stats.govt.nz" + href if href.startswith("/") else href
         f_bytes = fetch_bytes_with_browser_fallback(session, full_u, referer=release_url, min_bytes=2_000)
         if not f_bytes:
@@ -5725,29 +5733,52 @@ def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> di
                 else [("csv", pd.read_csv(io.BytesIO(f_bytes), header=None, low_memory=False))]
             )
             for sname, df_c in frames:
-                if "quarter" in sname.lower() and "annual" not in sname.lower() and "year" not in sname.lower():
+                if df_c.empty:
                     continue
+                # Method A: If sheet/table contains quarterly CPI Index Numbers (values ~900..3000), compute exact YoY % from t-4 to t
                 for r_i in range(len(df_c)):
                     row_s = [str(v).strip() for v in df_c.iloc[r_i].values if pd.notna(v) and str(v).strip()]
-                    if len(row_s) < 2:
+                    if len(row_s) < 6:
                         continue
-                    joined_low = " ".join(row_s).lower()
+                    joined_low = " ".join(row_s[:3]).lower()
                     for skey, kw_t in target_map.items():
                         if skey not in sub_series and any(k in joined_low for k in kw_t):
-                            pcts = [
-                                float(c.replace("%", "").replace(",", "").strip())
+                            idx_nums = [
+                                float(c.replace(",", ""))
                                 for c in row_s[1:]
-                                if re.match(r"^-?\d{1,2}\.\d{1,2}$", c.replace("%", "").replace(",", "").strip())
-                                and -15.0 <= float(c.replace("%", "").replace(",", "").strip()) <= 45.0
+                                if re.match(r"^\d{3,4}(\.\d+)?$", c.replace(",", ""))
+                                and 850.0 <= float(c.replace(",", "")) <= 3500.0
                             ]
-                            if pcts:
-                                cand_v = pcts[-1]
-                                if skey in qtr_blacklist and abs(cand_v - qtr_blacklist[skey]) < 0.05:
-                                    if len(pcts) >= 2 and abs(pcts[-2] - qtr_blacklist[skey]) > 0.2:
-                                        cand_v = pcts[-2]
-                                    else:
-                                        continue
-                                sub_series[skey] = {"latest": cand_v, "history": []}
+                            if len(idx_nums) >= 5:
+                                idx_now, idx_yoy = idx_nums[-1], idx_nums[-5]
+                                if idx_yoy > 0:
+                                    yoy_calc = round(((idx_now - idx_yoy) / idx_yoy) * 100.0, 1)
+                                    if -20.0 <= yoy_calc <= 45.0:
+                                        sub_series[skey] = {"latest": yoy_calc, "history": []}
+
+                # Method B: If table is an explicit Annual Percentage Change table, locate the 'Annual' column index
+                ann_col_idx = None
+                for h_i in range(min(12, len(df_c))):
+                    for c_i in range(df_c.shape[1]):
+                        cell_s = str(df_c.iloc[h_i, c_i]).strip().lower()
+                        if "annual" in cell_s and "contribution" not in cell_s and "point" not in cell_s:
+                            ann_col_idx = c_i
+                            break
+                    if ann_col_idx is not None:
+                        break
+
+                if ann_col_idx is not None:
+                    for r_i in range(len(df_c)):
+                        row_lbl = " ".join(str(v).strip().lower() for v in df_c.iloc[r_i, :min(3, df_c.shape[1])].values if pd.notna(v))
+                        if not row_lbl:
+                            continue
+                        for skey, kw_t in target_map.items():
+                            if skey not in sub_series and any(k in row_lbl for k in kw_t):
+                                cell_v = str(df_c.iloc[r_i, ann_col_idx]).replace("%", "").replace(",", "").strip()
+                                if re.match(r"^-?\d{1,2}\.\d{1,2}$", cell_v):
+                                    fv = float(cell_v)
+                                    if -20.0 <= fv <= 45.0:
+                                        sub_series[skey] = {"latest": fv, "history": []}
         except Exception as exc:
             print(f"[Stats NZ CPI File] {full_u}: {exc}")
     return sub_series
@@ -5768,7 +5799,7 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
         except Exception as exc_cf:
             print(f"[Stats NZ Wealth Camoufox] Note: {exc_cf}")
 
-    # 1. `individual-income-by-source-benchmarks` (Stats NZ Labour Market Statistics Income)
+    # 1. `individual-income-by-source-benchmarks` (Stats NZ Labour Market Statistics Income — fixed {3,6} digit regex)
     lm_html = pages.get(STATS_LABOUR_INCOME_PAGE, "")
     if lm_html:
         lm_pub = extract_html_release_date(lm_html, "Annual Stats NZ Labour Market Statistics (Income) release")
@@ -5778,44 +5809,45 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
         dt_lm = pd.to_datetime("1 " + (m_qtr.group(1) if m_qtr else "June 2026"), errors="coerce")
         lm_as_of = month_end_iso(dt_lm) if pd.notna(dt_lm) else "2026-06-30"
 
-        m_all_wk = re.search(r"all\s+sources[^$]{0,120}\$([\d,]{3,4})", lm_txt, flags=re.I)
-        m_ws_wk = re.search(r"wages\s+and\s+salaries[^$]{0,120}\$([\d,]{3,4})", lm_txt, flags=re.I)
-        m_se_wk = re.search(r"self-employment[^$]{0,80}\$([\d,]{3,4})", lm_txt, flags=re.I)
-        m_ft_hr = re.search(r"full-time[^$]{0,90}\$(\d{2}\.\d{2})", lm_txt, flags=re.I)
+        m_all_wk = re.search(r"all\s+sources\s+was\s+\$([\d,]{3,6})", lm_txt, flags=re.I) or re.search(r"all\s+sources[^$]{0,90}\$([\d,]{3,6})", lm_txt, flags=re.I)
+        m_ws_wk = re.search(r"wages\s+and\s+salaries\s+(?:was|increased[^$]{0,40}to)\s+\$([\d,]{4,6})", lm_txt, flags=re.I) or re.search(r"wages\s+and\s+salaries[^$]{0,90}\$(1,[\d]{3})", lm_txt, flags=re.I)
+        m_se_wk = re.search(r"self-employment\s+was\s+\$([\d,]{3,6})", lm_txt, flags=re.I)
+        m_ft_hr = re.search(r"Full-time\s+median\s+hourly\s+earnings\s+were\s+\$([\d.]+)", lm_txt, flags=re.I) or re.search(r"full-time[^$]{0,70}\$(\d{2}\.\d{2})", lm_txt, flags=re.I)
 
         if m_all_wk and m_ws_wk:
             all_wk = int(m_all_wk.group(1).replace(",", ""))
             ws_wk = int(m_ws_wk.group(1).replace(",", ""))
             se_wk = int(m_se_wk.group(1).replace(",", "")) if m_se_wk else None
             ft_hr = float(m_ft_hr.group(1)) if m_ft_hr else None
-            all_yr, ws_yr = all_wk * 52, ws_wk * 52
-            se_yr = se_wk * 52 if se_wk else None
+            if 600 <= all_wk <= 2000 and 1000 <= ws_wk <= 2500:
+                all_yr, ws_yr = all_wk * 52, ws_wk * 52
+                se_yr = se_wk * 52 if se_wk else None
 
-            se_clause = f", and <strong>${se_wk:,}/week (${se_yr:,}/year)</strong> for self-employed individuals" if (se_wk and se_yr) else ""
-            hr_clause = f" (with median full-time hourly earnings at <strong>${ft_hr:.2f}/hour</strong>)" if ft_hr else ""
-            lm_calc = (
-                f"Wage & Salary Median: ${ws_wk:,}/wk × 52 = ${ws_yr:,}/yr | All-Source Individual Median: ${all_wk:,}/wk × 52 = ${all_yr:,}/yr"
-                + (f" | Self-Employed Median: ${se_wk:,}/wk × 52 = ${se_yr:,}/yr" if (se_wk and se_yr) else "")
-            )
-            lm_hist = [
-                {"period": "Wage & Salary Earners", "label": "Median Wage & Salary Earner", "value": ws_yr, "formatted": f"${ws_wk:,}/wk (${ws_yr:,}/yr)"},
-                {"period": "All People (All Sources)", "label": "Median Individual Income (All Adults)", "value": all_yr, "formatted": f"${all_wk:,}/wk (${all_yr:,}/yr)"},
-            ]
-            if se_wk and se_yr:
-                lm_hist.append({"period": "Self-Employed", "label": "Median Self-Employed Individual Income", "value": se_yr, "formatted": f"${se_wk:,}/wk (${se_yr:,}/yr)"})
+                se_clause = f", and <strong>${se_wk:,}/week (${se_yr:,}/year)</strong> for self-employed individuals" if (se_wk and se_yr) else ""
+                hr_clause = f" (with median full-time hourly earnings at <strong>${ft_hr:.2f}/hour</strong>)" if ft_hr else ""
+                lm_calc = (
+                    f"Wage & Salary Median: ${ws_wk:,}/wk × 52 = ${ws_yr:,}/yr | All-Source Individual Median: ${all_wk:,}/wk × 52 = ${all_yr:,}/yr"
+                    + (f" | Self-Employed Median: ${se_wk:,}/wk × 52 = ${se_yr:,}/yr" if (se_wk and se_yr) else "")
+                )
+                lm_hist = [
+                    {"period": "Wage & Salary Earners", "label": "Median Wage & Salary Earner", "value": ws_yr, "formatted": f"${ws_wk:,}/wk (${ws_yr:,}/yr)"},
+                    {"period": "All People (All Sources)", "label": "Median Individual Income (All Adults)", "value": all_yr, "formatted": f"${all_wk:,}/wk (${all_yr:,}/yr)"},
+                ]
+                if se_wk and se_yr:
+                    lm_hist.append({"period": "Self-Employed", "label": "Median Self-Employed Individual Income", "value": se_yr, "formatted": f"${se_wk:,}/wk (${se_yr:,}/yr)"})
 
-            out["individual-income-by-source-benchmarks"] = make_pulse_item(
-                "Stats NZ Labour Income", lm_as_of, MAX_AGE_ANNUAL,
-                f"In the {lm_per}, Stats NZ's Labour Market Statistics (Income) recorded median individual earnings of <strong>${ws_wk:,}/week (${ws_yr:,}/year)</strong> across wage and salary earners, <strong>${all_wk:,}/week (${all_yr:,}/year)</strong> across all people from all sources{se_clause}{hr_clause}.",
-                f"Stats NZ Labour Market Statistics Income ({lm_per}): Wage & salary median = ${ws_wk:,}/wk (${ws_yr:,}/yr); All-source median = ${all_wk:,}/wk (${all_yr:,}/yr).",
-                format_provenance_source_html(lm_calc, f"Stats NZ — Labour Market Statistics (Income, {lm_per})", STATS_LABOUR_INCOME_PAGE, True),
-                lm_per, ws_yr,
-                f"Wage & salary ${ws_yr:,}/yr (${ws_wk:,}/wk) | All-adult median ${all_yr:,}/yr (${all_wk:,}/wk)",
-                f"Self-employed median: ${se_yr:,}/yr (${se_wk:,}/wk)" if (se_wk and se_yr) else "Stats NZ annual June quarter income release",
-                f"Full-time median hourly earnings: ${ft_hr:.2f}/hr" if ft_hr else "Annualised at ×52 weeks",
-                lm_calc, f"Stats NZ Labour Market Statistics (Income, {lm_per})", lm_hist,
-                {"source_published": lm_pub, "source_url": STATS_LABOUR_INCOME_PAGE},
-            )
+                out["individual-income-by-source-benchmarks"] = make_pulse_item(
+                    "Stats NZ Labour Income", lm_as_of, MAX_AGE_ANNUAL,
+                    f"In the {lm_per}, Stats NZ's Labour Market Statistics (Income) recorded median individual earnings of <strong>${ws_wk:,}/week (${ws_yr:,}/year)</strong> across wage and salary earners, <strong>${all_wk:,}/week (${all_yr:,}/year)</strong> across all people from all sources{se_clause}{hr_clause}.",
+                    f"Stats NZ Labour Market Statistics Income ({lm_per}): Wage & salary median = ${ws_wk:,}/wk (${ws_yr:,}/yr); All-source median = ${all_wk:,}/wk (${all_yr:,}/yr).",
+                    format_provenance_source_html(lm_calc, f"Stats NZ — Labour Market Statistics (Income, {lm_per})", STATS_LABOUR_INCOME_PAGE, True),
+                    lm_per, ws_yr,
+                    f"Wage & salary ${ws_yr:,}/yr (${ws_wk:,}/wk) | All-adult median ${all_yr:,}/yr (${all_wk:,}/wk)",
+                    f"Self-employed median: ${se_yr:,}/yr (${se_wk:,}/wk)" if (se_wk and se_yr) else "Stats NZ annual June quarter income release",
+                    f"Full-time median hourly earnings: ${ft_hr:.2f}/hr" if ft_hr else "Annualised at ×52 weeks",
+                    lm_calc, f"Stats NZ Labour Market Statistics (Income, {lm_per})", lm_hist,
+                    {"source_published": lm_pub, "source_url": STATS_LABOUR_INCOME_PAGE},
+                )
 
     # 2 & 3. `equivalised-household-income-family-size` & `rent-vs-mortgage-interest-outgoings` (Stats NZ HILS)
     hils_html = pages.get(STATS_HILS_INCOME_PAGE, "")
@@ -5827,56 +5859,59 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
         h_yr = int(m_yr.group(1)) if m_yr else 2025
         h_as_of, h_per = f"{h_yr}-06-30", f"Year ended June {h_yr}"
 
-        m_bhc = re.search(r"before\s+housing\s+costs[^$]{0,90}\$([\d,]{5,6})", hils_comb, flags=re.I) or re.search(r"\$(6[0-9],\d{3})\s*\(up", hils_comb, flags=re.I)
-        m_ahc = re.search(r"after\s+(?:deducting\s+)?housing\s+costs[^$]{0,90}\$([\d,]{5,6})", hils_comb, flags=re.I) or re.search(r"\$(4[5-9],\d{3})\s*\(up", hils_comb, flags=re.I)
+        m_bhc = re.search(r"\$(6\d,\d{3})\s+before\s+housing\s+costs", hils_comb, flags=re.I) or re.search(r"before\s+housing\s+costs[^$]{0,90}\$([\d,]{5,6})", hils_comb, flags=re.I)
+        m_ahc = re.search(r"\$(4\d,\d{3})\s+after\s+housing\s+costs", hils_comb, flags=re.I) or re.search(r"after\s+(?:deducting\s+)?housing\s+costs[^$]{0,90}\$([\d,]{5,6})", hils_comb, flags=re.I)
         if m_bhc and m_ahc:
             bhc_v = int(m_bhc.group(1).replace(",", ""))
             ahc_v = int(m_ahc.group(1).replace(",", ""))
             h_ded_pct = round(((bhc_v - ahc_v) / max(1, bhc_v)) * 100.0, 1)
-            eq_calc = f"Median Equivalised Disposable Income: ${bhc_v:,} Before Housing Costs (BHC) vs ${ahc_v:,} After Housing Costs (AHC; {h_ded_pct:.1f}% housing deduction)"
+            eq_calc = f"Equivalised Disposable Income: ${bhc_v:,} Before Housing Costs (BHC) vs ${ahc_v:,} After Housing Costs (AHC; {h_ded_pct:.1f}% housing deduction)"
             out["equivalised-household-income-family-size"] = make_pulse_item(
                 "Stats NZ HILS", h_as_of, MAX_AGE_ANNUAL,
-                f"In the {h_per.lower()}, New Zealand's median equivalised household disposable income was <strong>${bhc_v:,} before housing costs</strong> and <strong>${ahc_v:,} after deducting housing costs</strong>—meaning housing outgoings absorbed <strong>{h_ded_pct:.1f}% (${bhc_v - ahc_v:,}/year per equivalised adult)</strong> of disposable income.",
-                f"Stats NZ HILS ({h_per}): Median equivalised disposable income BHC = ${bhc_v:,}; AHC = ${ahc_v:,}.",
+                f"In the {h_per.lower()}, New Zealand's equivalised household disposable income was <strong>${bhc_v:,} before housing costs</strong> and <strong>${ahc_v:,} after deducting housing costs</strong>—meaning housing outgoings absorbed <strong>{h_ded_pct:.1f}% (${bhc_v - ahc_v:,}/year per equivalised adult)</strong> of disposable income.",
+                f"Stats NZ HILS ({h_per}): Equivalised disposable income BHC = ${bhc_v:,}; AHC = ${ahc_v:,}.",
                 format_provenance_source_html(eq_calc, f"Stats NZ — Household Income and Housing-Cost Statistics ({h_per})", STATS_HILS_INCOME_PAGE, True),
                 h_per, bhc_v,
-                f"${bhc_v:,} BHC vs ${ahc_v:,} AHC equivalised median ({h_ded_pct:.1f}% housing share)",
+                f"${bhc_v:,} BHC vs ${ahc_v:,} AHC equivalised ({h_ded_pct:.1f}% housing share)",
                 f"Annual housing cost deduction: ${bhc_v - ahc_v:,} per equivalised adult",
                 "Equivalised for household size and composition by Stats NZ",
                 eq_calc, f"Stats NZ HILS series ({h_per})",
                 [
-                    {"period": "Before Housing Costs (BHC)", "label": "Median Equivalised Disposable Income (BHC)", "value": bhc_v, "formatted": f"${bhc_v:,}/yr"},
-                    {"period": "After Housing Costs (AHC)", "label": "Median Equivalised Disposable Income (AHC)", "value": ahc_v, "formatted": f"${ahc_v:,}/yr (-${bhc_v - ahc_v:,})"},
+                    {"period": "Before Housing Costs (BHC)", "label": "Equivalised Disposable Income (BHC)", "value": bhc_v, "formatted": f"${bhc_v:,}/yr"},
+                    {"period": "After Housing Costs (AHC)", "label": "Equivalised Disposable Income (AHC)", "value": ahc_v, "formatted": f"${ahc_v:,}/yr (-${bhc_v - ahc_v:,})"},
                 ],
                 {"source_published": hils_pub, "source_url": STATS_HILS_INCOME_PAGE},
             )
 
-        m_int_wk = re.search(r"interest\s+component[^$]{0,120}\$([\d.]+)\s+a\s+week(?:,\s+from\s+\$([\d.]+))?", hils_comb, flags=re.I)
-        m_prin_wk = re.search(r"principal\s+repayment[^$]{0,120}\$([\d.]+)\s+a\s+week", hils_comb, flags=re.I)
-        m_hc_100 = re.search(r"\$(\d{2}\.\d{1,2})\s+for\s+every\s+\$100\s+of\s+disposable\s+income", hils_comb, flags=re.I)
+        m_int_wk = re.search(r"mortgage\s+interest\s+payments\s+were\s+\$([\d.]+)\s+per\s+week(?:,\s+up\s+from\s+\$([\d.]+))?", hils_comb, flags=re.I) or re.search(r"interest\s+component[^$]{0,120}\$([\d.]+)\s+a\s+week(?:,\s+from\s+\$([\d.]+))?", hils_comb, flags=re.I)
+        m_prin_wk = re.search(r"mortgage\s+principal\s+(?:payments|repayments)\s+were\s+\$([\d.]+)", hils_comb, flags=re.I) or re.search(r"principal\s+repayment[^$]{0,120}\$([\d.]+)\s+a\s+week", hils_comb, flags=re.I)
+        m_rent_wk = re.search(r"total\s+rent\s+payments\s+were\s+\$([\d.]+)\s+per\s+week", hils_comb, flags=re.I)
+        m_hc_100 = re.search(r"\$(\d{2}\.\d{1,2})\s+on\s+housing\s+costs", hils_comb, flags=re.I) or re.search(r"\$(\d{2}\.\d{1,2})\s+for\s+every\s+\$100\s+of\s+disposable\s+income", hils_comb, flags=re.I)
         if m_int_wk and m_prin_wk:
             int_wk = float(m_int_wk.group(1))
             int_prev_wk = float(m_int_wk.group(2)) if m_int_wk.group(2) else None
             prin_wk = float(m_prin_wk.group(1))
+            rent_wk = float(m_rent_wk.group(1)) if m_rent_wk else None
             tot_mtg_wk = round(int_wk + prin_wk, 2)
             int_sh_pct = round((int_wk / tot_mtg_wk) * 100.0, 1)
             hc_100 = float(m_hc_100.group(1)) if m_hc_100 else None
+            rent_clause = f" (compared with <strong>${rent_wk:.2f}/week</strong> in average household rent payments)" if rent_wk else ""
             hc_clause = f", while across all New Zealand households housing costs averaged <strong>${hc_100:.2f} per $100 of disposable income</strong>" if hc_100 else ""
-            rv_calc = f"Weekly Mortgage Interest (${int_wk:.2f}/wk) + Weekly Mortgage Principal (${prin_wk:.2f}/wk) = ${tot_mtg_wk:.2f}/wk total ({int_sh_pct:.1f}% interest vs {100.0 - int_sh_pct:.1f}% principal)"
+            rv_calc = f"Weekly Mortgage Interest (${int_wk:.2f}/wk) + Weekly Mortgage Principal (${prin_wk:.2f}/wk) = ${tot_mtg_wk:.2f}/wk ({int_sh_pct:.1f}% interest vs {100.0 - int_sh_pct:.1f}% principal)" + (f" | HILS Avg Weekly Rent = ${rent_wk:.2f}/wk" if rent_wk else "")
             out["rent-vs-mortgage-interest-outgoings"] = make_pulse_item(
                 "Stats NZ HILS", h_as_of, MAX_AGE_ANNUAL,
-                f"In Stats NZ's {h_per} housing-cost release, mortgaged New Zealand households paid an average of <strong>${tot_mtg_wk:.2f}/week</strong> toward their mortgage—split between <strong>${int_wk:.2f}/week ({int_sh_pct:.1f}%) in mortgage interest</strong> and <strong>${prin_wk:.2f}/week ({100.0 - int_sh_pct:.1f}%) in principal repayments</strong>{hc_clause}.",
-                f"Stats NZ HILS ({h_per}): Average weekly mortgage interest = ${int_wk:.2f}/wk; Average weekly mortgage principal = ${prin_wk:.2f}/wk.",
+                f"In Stats NZ's {h_per} housing-cost release, mortgaged New Zealand households paid an average of <strong>${int_wk:.2f}/week ({int_sh_pct:.1f}%) in mortgage interest</strong> and <strong>${prin_wk:.2f}/week ({100.0 - int_sh_pct:.1f}%) in principal repayments</strong>{rent_clause}{hc_clause}.",
+                f"Stats NZ HILS ({h_per}): Average weekly mortgage interest = ${int_wk:.2f}/wk; Average weekly mortgage principal = ${prin_wk:.2f}/wk" + (f"; Average weekly rent payments = ${rent_wk:.2f}/wk." if rent_wk else "."),
                 format_provenance_source_html(rv_calc, f"Stats NZ — Household Income and Housing-Cost Statistics ({h_per})", STATS_HILS_INCOME_PAGE, True),
                 h_per, round(int_wk, 2),
-                f"${int_wk:.2f}/wk mortgage interest + ${prin_wk:.2f}/wk principal (${tot_mtg_wk:.2f}/wk total)",
+                f"${int_wk:.2f}/wk mortgage interest + ${prin_wk:.2f}/wk principal" + (f" | ${rent_wk:.2f}/wk HILS rent" if rent_wk else ""),
                 f"Prior year weekly mortgage interest: ${int_prev_wk:.2f}/wk" if int_prev_wk else "Stats NZ annual HILS housing-cost series",
                 f"Housing cost ratio: ${hc_100:.2f} per $100 disposable income" if hc_100 else f"{int_sh_pct:.1f}% interest vs {100.0 - int_sh_pct:.1f}% principal",
                 rv_calc, f"Stats NZ HILS housing-cost series ({h_per})",
                 [
                     {"period": "Mortgage Interest", "label": "Average Weekly Mortgage Interest Component", "value": int_wk, "formatted": f"${int_wk:.2f}/wk (${int(round(int_wk*52)):,}/yr)"},
                     {"period": "Mortgage Principal", "label": "Average Weekly Mortgage Principal Repayment", "value": prin_wk, "formatted": f"${prin_wk:.2f}/wk (${int(round(prin_wk*52)):,}/yr)"},
-                    {"period": "Combined Mortgage Outgoing", "label": "Total Weekly Mortgage Payment (Interest + Principal)", "value": tot_mtg_wk, "formatted": f"${tot_mtg_wk:.2f}/wk (${int(round(tot_mtg_wk*52)):,}/yr)"},
+                    {"period": "Combined Mortgage Outgoing", "label": "Combined Weekly Interest + Principal", "value": tot_mtg_wk, "formatted": f"${tot_mtg_wk:.2f}/wk (${int(round(tot_mtg_wk*52)):,}/yr)"},
                 ],
                 {"source_published": hils_pub, "source_url": STATS_HILS_INCOME_PAGE},
             )
@@ -6128,35 +6163,38 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
                 )
 
             cbt = wb_info.get("cost_by_type", {})
-            m_res_val = re.search(r"residential\s+building\s+work[^$]{0,50}\$([\d,.]+)\s*(billion|million|b|m)", text, flags=re.I)
+            # Negative lookbehind (?<!non-) prevents matching "non-residential building work consented was $8.7 billion"
+            m_res_val = re.search(r"(?<!non-)(?<!non\s)residential\s+(?:building\s+)?work[^$]{0,60}\$([\d,.]+)\s*(billion|million|b|m)", text, flags=re.I)
             if cbt.get("houses", {}).get("val_m") and houses > 0:
                 h_cost = int(round((cbt["houses"]["val_m"] * 1e6) / max(1, cbt["houses"].get("cnt", houses))))
                 th_cost = int(round((cbt.get("townhouses", {}).get("val_m", 0) * 1e6) / max(1, cbt.get("townhouses", {}).get("cnt", townhouses)))) if cbt.get("townhouses", {}).get("val_m") else 0
-                bc_cost_calc = f"Live Stats NZ Building Consents workbook ({m_full}): Stand-alone house mean consent value = ${h_cost:,}" + (f" | Townhouse/flat/unit mean = ${th_cost:,}" if th_cost else "")
-                out["new-build-consent-cost-by-type"] = make_pulse_item(
-                    "Stats NZ", as_of, MAX_AGE_QUARTERLY,
-                    f"In {m_full}, average consented residential construction values (excluding land) in Stats NZ's building consents dataset averaged <strong>${h_cost:,}</strong> for a stand-alone house" + (f" and <strong>${th_cost:,}</strong> for a townhouse, flat, or unit." if th_cost else "."),
-                    f"Stats NZ Building Consents Value Series ({m_full}, excluding land): Stand-alone house mean = ${h_cost:,}" + (f"; Townhouse/flat/unit mean = ${th_cost:,}." if th_cost else "."),
-                    format_provenance_source_html(bc_cost_calc, bc_lbl, url, True), m_full, h_cost,
-                    f"Stand-alone houses: ${h_cost:,}" + (f" | Townhouses/flats/units: ${th_cost:,}" if th_cost else ""),
-                    "Consented physical construction value (excluding land)", "Derived live from Stats NZ Building Consents workbook",
-                    bc_cost_calc, f"Stats NZ residential consent value series ({m_full})", None, bc_extra,
-                )
+                if 280_000 <= h_cost <= 950_000:
+                    bc_cost_calc = f"Live Stats NZ Building Consents workbook ({m_full}): Stand-alone house mean consent value = ${h_cost:,}" + (f" | Townhouse/flat/unit mean = ${th_cost:,}" if th_cost else "")
+                    out["new-build-consent-cost-by-type"] = make_pulse_item(
+                        "Stats NZ", as_of, MAX_AGE_QUARTERLY,
+                        f"In {m_full}, average consented residential construction values (excluding land) in Stats NZ's building consents dataset averaged <strong>${h_cost:,}</strong> for a stand-alone house" + (f" and <strong>${th_cost:,}</strong> for a townhouse, flat, or unit." if th_cost else "."),
+                        f"Stats NZ Building Consents Value Series ({m_full}, excluding land): Stand-alone house mean = ${h_cost:,}" + (f"; Townhouse/flat/unit mean = ${th_cost:,}." if th_cost else "."),
+                        format_provenance_source_html(bc_cost_calc, bc_lbl, url, True), m_full, h_cost,
+                        f"Stand-alone houses: ${h_cost:,}" + (f" | Townhouses/flats/units: ${th_cost:,}" if th_cost else ""),
+                        "Consented physical construction value (excluding land)", "Derived live from Stats NZ Building Consents workbook",
+                        bc_cost_calc, f"Stats NZ residential consent value series ({m_full})", None, bc_extra,
+                    )
             elif m_res_val and mth_tot > 0:
                 raw_v = float(m_res_val.group(1).replace(",", ""))
                 tot_res_nzd = raw_v * (1e9 if m_res_val.group(2).lower().startswith("b") else 1e6)
                 avg_dwell_val = int(round(tot_res_nzd / (ann_tot if tot_res_nzd > 5e9 else mth_tot)))
-                bc_cost_calc = f"Residential building consent value ÷ consented dwellings = ${avg_dwell_val:,}/dwelling ({houses:,} houses & {multi_tot:,} multi-unit dwellings in {m_full})"
-                out["new-build-consent-cost-by-type"] = make_pulse_item(
-                    "Stats NZ", as_of, MAX_AGE_QUARTERLY,
-                    f"In {m_full}, consented residential building work across New Zealand averaged <strong>${avg_dwell_val:,} per consented dwelling</strong> (excluding land), across <strong>{mth_tot:,} monthly new dwellings</strong> ({houses:,} stand-alone houses and {multi_tot:,} multi-unit homes).",
-                    f"Stats NZ Building Consents ({m_full}): Average consented residential building value = ${avg_dwell_val:,} per dwelling.",
-                    format_provenance_source_html(bc_cost_calc, bc_lbl, url, True), m_full, avg_dwell_val,
-                    f"${avg_dwell_val:,} average consent build value (excluding land)",
-                    f"Stand-alone houses: {houses:,} | Multi-unit dwellings: {multi_tot:,}",
-                    "Measures declared physical construction value on building consent (excluding land)",
-                    bc_cost_calc, f"Stats NZ monthly release ({m_full})", None, bc_extra,
-                )
+                if 280_000 <= avg_dwell_val <= 950_000:
+                    bc_cost_calc = f"Residential building consent value ÷ consented dwellings = ${avg_dwell_val:,}/dwelling ({houses:,} houses & {multi_tot:,} multi-unit dwellings in {m_full})"
+                    out["new-build-consent-cost-by-type"] = make_pulse_item(
+                        "Stats NZ", as_of, MAX_AGE_QUARTERLY,
+                        f"In {m_full}, consented residential building work across New Zealand averaged <strong>${avg_dwell_val:,} per consented dwelling</strong> (excluding land), across <strong>{mth_tot:,} monthly new dwellings</strong> ({houses:,} stand-alone houses and {multi_tot:,} multi-unit homes).",
+                        f"Stats NZ Building Consents ({m_full}): Average consented residential building value = ${avg_dwell_val:,} per dwelling.",
+                        format_provenance_source_html(bc_cost_calc, bc_lbl, url, True), m_full, avg_dwell_val,
+                        f"${avg_dwell_val:,} average consent build value (excluding land)",
+                        f"Stand-alone houses: {houses:,} | Multi-unit dwellings: {multi_tot:,}",
+                        "Measures declared physical construction value on building consent (excluding land)",
+                        bc_cost_calc, f"Stats NZ monthly release ({m_full})", None, bc_extra,
+                    )
             print(f"[Stats NZ Consents] Parsed {m_full}: {ann_tot:,} annual, {multi_pct:.1f}% multi-unit")
             break
 
@@ -6173,7 +6211,7 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
 
         m_cpi_all = re.search(r"CPI all groups\s+[-+]?[\d.]+\s+([-+]?[\d.]+)", text, flags=re.I) or re.search(
             r"annual\s+inflation\s+(?:rate\s+)?was\s+([\d.]+)\s*(?:percent|%)", text, flags=re.I
-        )
+        ) or re.search(r"([2345]\.\d)\s*percent\s+rise\s+for\s+all\s+groups", text, flags=re.I)
         cpi_all_val = (
             float(m_cpi_all.group(1))
             if m_cpi_all
@@ -6754,8 +6792,10 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
     ird_urls = [
         IRD_SL_BAL_PAGE, IRD_KS_NUM_PAGE, IRD_KS_AMT_PAGE, IRD_KS_REG_PAGE, IRD_KS_TR_PAGE,
         IRD_KS_ENTRY_PAGE, IRD_KS_PAY_PAGE, IRD_KS_SUSP_PAGE, IRD_KS_DATA_PAGE, FMA_KS_REPORT_PAGE,
-        IRD_INCOME_DIST_PAGE, IRD_INCOME_DATASETS_PAGE, IRD_WAGE_SALARY_PAGE, IRD_WAGE_DATASETS_PAGE,
-        IRD_TRUSTS_NUM_PAGE, IRD_TRUSTS_INC_PAGE, IRD_WFF_ENT_PAGE, IRD_WFF_FAM_PAGE,
+        IRD_INCOME_DIST_PAGE, IRD_INCOME_DATASETS_PAGE, IRD_INCOME_TOT_PAGE,
+        IRD_WAGE_SALARY_PAGE, IRD_WAGE_DATASETS_PAGE, IRD_WAGE_NUM_PAGE, IRD_WAGE_BAND_PAGE,
+        IRD_TRUSTS_NUM_PAGE, IRD_TRUSTS_INC_PAGE,
+        IRD_WFF_ENT_PAGE, IRD_WFF_FAM_PAGE, IRD_WFF_MAIN_PAGE,
         IRD_KS_AGE_PAGE, IRD_KS_INC_PAGE,
     ]
     pages = fetch_html_with_browser_fallback(session, ird_urls, "IRD / FMA")
@@ -6990,16 +7030,17 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
             None, {"source_published": t43_pub},
         )
 
-    # 1. `ird-individual-taxable-income-percentiles` (Live IRD Income Distribution Page)
-    inc_html = pages.get(IRD_INCOME_DIST_PAGE, "") or pages.get(IRD_INCOME_DATASETS_PAGE, "")
-    if inc_html:
-        inc_pub = extract_html_release_date(inc_html, "Annual Inland Revenue Taxable Income Distribution release")
-        inc_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", inc_html))
-        m_ind_cnt = re.search(r"([45],\d{3},\d{3})\s+individuals[^$]{0,80}\$([\d.]+)\s*billion", inc_txt, flags=re.I)
+    # 1. `ird-individual-taxable-income-percentiles` (Live IRD Income Distribution Pages + XLSX)
+    inc_comb_html = " ".join(pages.get(u, "") for u in (IRD_INCOME_DIST_PAGE, IRD_INCOME_TOT_PAGE, IRD_INCOME_DATASETS_PAGE))
+    if inc_comb_html.strip():
+        inc_pub = extract_html_release_date(inc_comb_html, "Annual Inland Revenue Taxable Income Distribution release")
+        inc_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", inc_comb_html))
+        m_ind_cnt = re.search(r"([45],\d{3},\d{3})\s+individuals", inc_txt, flags=re.I)
+        m_inc_b = re.search(r"combined\s+taxable\s+income\s+of\s+\$([\d.]+)\s*(?:billion|b)", inc_txt, flags=re.I) or re.search(r"\$([23]\d{2}\.?\d*)\s*(?:billion|b)", inc_txt, flags=re.I)
         m_ty = re.search(r"(202\d)\s+tax\s+year", inc_txt, flags=re.I)
-        if m_ind_cnt:
+        if m_ind_cnt and m_inc_b:
             tot_inds = int(m_ind_cnt.group(1).replace(",", ""))
-            tot_inc_b = float(m_ind_cnt.group(2))
+            tot_inc_b = float(m_inc_b.group(1))
             ty_yr = int(m_ty.group(1)) if m_ty else (today.year - 1)
             mean_tax_inc = int(round((tot_inc_b * 1e9) / max(1, tot_inds)))
             inc_calc = f"Official IRD ({ty_yr} tax year): ${tot_inc_b:.1f}B total taxable income ÷ {tot_inds:,} individuals = ${mean_tax_inc:,} mean taxable income"
@@ -7016,15 +7057,23 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                 {"source_published": inc_pub, "source_url": IRD_INCOME_DIST_PAGE},
             )
 
-    # 2. `ird-paye-wage-vs-self-employed-income` (Live IRD Wage & Salary Distributions XLSX)
-    ws_ds_html = pages.get(IRD_WAGE_DATASETS_PAGE, "") or pages.get(IRD_WAGE_SALARY_PAGE, "")
-    if ws_ds_html:
-        ws_pub = extract_html_release_date(ws_ds_html, "Annual Inland Revenue Wage and Salary Distributions release")
+    # 2. `ird-paye-wage-vs-self-employed-income` (Live IRD Wage & Salary Pages + XLSX)
+    ws_comb_html = " ".join(pages.get(u, "") for u in (IRD_WAGE_SALARY_PAGE, IRD_WAGE_NUM_PAGE, IRD_WAGE_BAND_PAGE, IRD_WAGE_DATASETS_PAGE))
+    if ws_comb_html.strip():
+        ws_pub = extract_html_release_date(ws_comb_html, "Annual Inland Revenue Wage and Salary Distributions release")
+        ws_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", ws_comb_html))
+        paye_cnt = None
+        m_ws_cnt = re.search(r"(2,\d{3},\d{3})\s+(?:individuals|people|wage|earners)", ws_txt, flags=re.I)
+        if m_ws_cnt:
+            paye_cnt = int(m_ws_cnt.group(1).replace(",", ""))
+        m_ws_mod = re.search(r"modal\s+income\s+point[^$]{0,60}\$([\d,]{5,6})", ws_txt, flags=re.I)
+        mod_wage = int(m_ws_mod.group(1).replace(",", "")) if m_ws_mod else None
+
         ws_xlsx_u = next(
-            ("https://www.ird.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', ws_ds_html, flags=re.I)),
+            ("https://www.ird.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', ws_comb_html, flags=re.I)),
             "",
         )
-        if ws_xlsx_u:
+        if ws_xlsx_u and paye_cnt is None:
             try:
                 ws_b = fetch_bytes_with_browser_fallback(session, ws_xlsx_u, referer=IRD_WAGE_DATASETS_PAGE, min_bytes=5_000)
                 if ws_b and ws_b[:2] == b"PK":
@@ -7035,94 +7084,175 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                         nums_cnt.extend([int(float(v)) for v in df_ws.values.flatten() if re.match(r"^\d{7}(\.0+)?$", str(v).strip()) and 2_000_000 <= float(v) <= 3_800_000])
                     if nums_cnt:
                         paye_cnt = max(nums_cnt)
-                        ws_calc = f"Official IRD Wage and Salary Distributions workbook: Total PAYE wage & salary earners = {paye_cnt:,}"
-                        out["ird-paye-wage-vs-self-employed-income"] = make_pulse_item(
-                            "Inland Revenue", f"{today.year if today.month >= 4 else today.year - 1}-03-31", MAX_AGE_ANNUAL,
-                            f"In Inland Revenue's latest Wage and Salary Distributions workbook, <strong>{paye_cnt:,} New Zealand individuals</strong> received PAYE wage and salary earnings.",
-                            f"Inland Revenue Wage and Salary Distributions XLSX: Total PAYE wage and salary earners = {paye_cnt:,}.",
-                            format_provenance_source_html(ws_calc, "Inland Revenue — Wage and Salary Distributions", ws_xlsx_u, False),
-                            "Latest IRD Tax Year", paye_cnt,
-                            f"{paye_cnt:,} PAYE wage & salary earners",
-                            "Inland Revenue administrative PAYE series",
-                            "Parsed live from IRD Wage and Salary Distributions .xlsx",
-                            ws_calc, "Inland Revenue Wage & Salary series", None,
-                            {"source_published": ws_pub, "source_url": ws_xlsx_u},
-                        )
             except Exception as exc_ws:
                 print(f"[IRD Wage XLSX] Note: {exc_ws}")
 
-    # 3 & 4. `kiwisaver-member-demographics-age-income` & `kiwisaver-contribution-rate-mix` (Live IRD HTML + Annual KiwiSaver XLSX)
+        if paye_cnt:
+            mod_clause = f", with the modal PAYE income point at <strong>${mod_wage:,}</strong>" if mod_wage else ""
+            ws_calc = f"Official IRD Wage and Salary Distributions: Total PAYE wage & salary earners = {paye_cnt:,}" + (f" | Modal PAYE wage = ${mod_wage:,}" if mod_wage else "")
+            out["ird-paye-wage-vs-self-employed-income"] = make_pulse_item(
+                "Inland Revenue", f"{today.year if today.month >= 4 else today.year - 1}-03-31", MAX_AGE_ANNUAL,
+                f"In Inland Revenue's Wage and Salary Distributions release, <strong>{paye_cnt:,} New Zealand individuals</strong> received PAYE wage and salary earnings{mod_clause}.",
+                f"Inland Revenue Wage and Salary Distributions: Total PAYE wage and salary earners = {paye_cnt:,}.",
+                format_provenance_source_html(ws_calc, "Inland Revenue — Wage and Salary Distributions", ws_xlsx_u or IRD_WAGE_SALARY_PAGE, False),
+                "Latest IRD Tax Year", paye_cnt,
+                f"{paye_cnt:,} PAYE wage & salary earners" + (f" (${mod_wage:,} modal PAYE wage)" if mod_wage else ""),
+                "Inland Revenue administrative PAYE series",
+                "Parsed live from Inland Revenue Wage and Salary Distributions release",
+                ws_calc, "Inland Revenue Wage & Salary series", None,
+                {"source_published": ws_pub, "source_url": ws_xlsx_u or IRD_WAGE_SALARY_PAGE},
+            )
+
+    # 3 & 4. `kiwisaver-member-demographics-age-income` & `kiwisaver-contribution-rate-mix` (Live IRD HTML + Workbooks)
     age_html = pages.get(IRD_KS_AGE_PAGE, "")
+    inc_ks_html = pages.get(IRD_KS_INC_PAGE, "")
+    ks_ds_html = pages.get(IRD_KS_DATA_PAGE, "")
+    age_pub = extract_html_release_date(age_html or ks_ds_html, "Annual Inland Revenue KiwiSaver Member Demographics release")
+
+    age_rows: list[tuple[str, int]] = []
     if age_html:
-        age_pub = extract_html_release_date(age_html, "Annual Inland Revenue KiwiSaver Member Demographics release")
         ext_a = SimpleTableExtractor()
         ext_a.feed(age_html)
-        age_rows = []
         if ext_a.tables:
             for r in ext_a.tables[0][1:]:
                 if len(r) >= 2 and r[0].strip() and re.sub(r"[^\d]", "", r[-1]):
                     lbl_a = r[0].strip()
                     if lbl_a.lower() not in ("total", "age group", "age"):
                         age_rows.append((lbl_a, int(re.sub(r"[^\d]", "", r[-1]))))
-        if len(age_rows) >= 4:
-            tot_ks_a = sum(v for _, v in age_rows)
+        if len(age_rows) < 4:
+            a_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", age_html))
+            for b_lbl, b_pat in (
+                ("0–17", r"(?:0\s*[-–to]+\s*17|under\s+18)[^\d]{0,35}([\d,]{5,6})"),
+                ("18–24", r"18\s*[-–to]+\s*24[^\d]{0,35}([\d,]{5,6})"),
+                ("25–34", r"25\s*[-–to]+\s*34[^\d]{0,35}([\d,]{5,6})"),
+                ("35–44", r"35\s*[-–to]+\s*44[^\d]{0,35}([\d,]{5,6})"),
+                ("45–54", r"45\s*[-–to]+\s*54[^\d]{0,35}([\d,]{5,6})"),
+                ("55–64", r"55\s*[-–to]+\s*64[^\d]{0,35}([\d,]{5,6})"),
+                ("65+", r"(?:65\+|65\s+and\s+over)[^\d]{0,35}([\d,]{5,6})"),
+            ):
+                m_b = re.search(b_pat, a_txt, flags=re.I)
+                if m_b:
+                    age_rows.append((b_lbl, int(m_b.group(1).replace(",", ""))))
+
+    ks_xlsx_candidates = []
+    if ks_ds_html:
+        for h in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', ks_ds_html, flags=re.I):
+            full_kx = "https://www.ird.govt.nz" + h if h.startswith("/") else h
+            if full_kx not in ks_xlsx_candidates:
+                ks_xlsx_candidates.append(full_kx)
+    for fallback_kx in (IRD_KS_ANNUAL_XLSX, IRD_KS_MONTHLY_XLSX):
+        if fallback_kx not in ks_xlsx_candidates:
+            ks_xlsx_candidates.append(fallback_kx)
+
+    rate_map: dict[str, int] = {}
+    used_ks_xlsx_url = IRD_KS_ANNUAL_XLSX
+
+    for kx_u in ks_xlsx_candidates[:3]:
+        try:
+            ks_b = fetch_bytes_with_browser_fallback(session, kx_u, referer=IRD_KS_DATA_PAGE, min_bytes=8_000)
+            if not ks_b or ks_b[:2] != b"PK":
+                continue
+            xl_ks = pd.ExcelFile(io.BytesIO(ks_b))
+            for sh in xl_ks.sheet_names:
+                df_k = xl_ks.parse(sh, header=None)
+                if df_k.empty:
+                    continue
+                for r_i in range(len(df_k)):
+                    r_vals = [str(v).strip() for v in df_k.iloc[r_i].values if pd.notna(v) and str(v).strip()]
+                    if len(r_vals) < 2:
+                        continue
+                    r0 = r_vals[0]
+                    # Parse contribution rates (3%, 4%, 6%, 8%, 10%)
+                    if r0 in ("3%", "4%", "6%", "8%", "10%", "0.03", "0.04", "0.06", "0.08", "0.1", "0.10"):
+                        nums_r = [
+                            int(round(float(re.sub(r"[,$]", "", c))))
+                            for c in r_vals[1:]
+                            if re.match(r"^[\d,]+(\.0+)?$", c.strip()) and 10_000 <= float(re.sub(r"[,$]", "", c)) <= 2_500_000
+                        ]
+                        if nums_r:
+                            lbl_r = f"{int(round(float(r0)*100))}%" if "." in r0 else r0
+                            if nums_r[-1] > rate_map.get(lbl_r, 0):
+                                rate_map[lbl_r] = nums_r[-1]
+                                used_ks_xlsx_url = kx_u
+                    # Parse age brackets from workbook if HTML didn't yield age_rows
+                    if len(age_rows) < 4:
+                        for b_lbl, b_rx in (
+                            ("0–17", r"^(?:0\s*[-–to]+\s*17|under\s+18)$"),
+                            ("18–24", r"^18\s*[-–to]+\s*24$"),
+                            ("25–34", r"^25\s*[-–to]+\s*34$"),
+                            ("35–44", r"^35\s*[-–to]+\s*44$"),
+                            ("45–54", r"^45\s*[-–to]+\s*54$"),
+                            ("55–64", r"^55\s*[-–to]+\s*64$"),
+                            ("65+", r"^(?:65\+|65\s+and\s+over)$"),
+                        ):
+                            if re.match(b_rx, r0, flags=re.I) and b_lbl not in dict(age_rows):
+                                nums_a = [
+                                    int(round(float(re.sub(r"[,$]", "", c))))
+                                    for c in r_vals[1:]
+                                    if re.match(r"^[\d,]+(\.0+)?$", c.strip()) and 50_000 <= float(re.sub(r"[,$]", "", c)) <= 1_200_000
+                                ]
+                                if nums_a:
+                                    age_rows.append((b_lbl, nums_a[-1]))
+        except Exception as exc_ksx:
+            print(f"[IRD KiwiSaver XLSX] {kx_u}: {exc_ksx}")
+
+    if len(age_rows) >= 4:
+        tot_ks_a = sum(v for _, v in age_rows)
+        fy_a = today.year if today.month >= 7 else today.year - 1
+        age_calc = " | ".join(f"{k}: {v:,} ({(v/max(1,tot_ks_a))*100:.1f}%)" for k, v in age_rows[:5])
+        out["kiwisaver-member-demographics-age-income"] = make_pulse_item(
+            "Inland Revenue", f"{fy_a}-06-30", MAX_AGE_ANNUAL,
+            f"As at June {fy_a}, Inland Revenue's KiwiSaver demographic statistics recorded <strong>{tot_ks_a:,} enrolled members</strong> across New Zealand age brackets—led by the 25–34 and 35–44 age cohorts.",
+            f"Inland Revenue KiwiSaver Member Demographics (June {fy_a}): Total enrolled members across age bands = {tot_ks_a:,}.",
+            format_provenance_source_html(age_calc, "Inland Revenue — KiwiSaver Member Demographics", IRD_KS_AGE_PAGE, True),
+            f"June {fy_a}", tot_ks_a,
+            f"{tot_ks_a:,} enrolled KiwiSaver members across age bands",
+            "Inland Revenue annual June demographic release",
+            "Parsed live from IRD KiwiSaver age demographic series",
+            age_calc, f"Inland Revenue June {fy_a} demographic series",
+            [{"period": k, "label": f"Age {k}", "value": v, "formatted": f"{v:,} members ({(v/max(1,tot_ks_a))*100:.1f}%)"} for k, v in age_rows],
+            {"source_published": age_pub, "source_url": IRD_KS_AGE_PAGE},
+        )
+    elif age_html or inc_ks_html:
+        comb_demo = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", f"{age_html} {inc_ks_html}"))
+        m_tot_m = re.search(r"(3,\d{3},\d{3})\s+(?:members|individuals|people)", comb_demo, flags=re.I)
+        if m_tot_m:
+            tot_ks_a = int(m_tot_m.group(1).replace(",", ""))
             fy_a = today.year if today.month >= 7 else today.year - 1
-            age_calc = " | ".join(f"{k}: {v:,} ({(v/max(1,tot_ks_a))*100:.1f}%)" for k, v in age_rows[:5])
+            age_calc = f"Official Inland Revenue KiwiSaver Member Demographics (June {fy_a}): Total enrolled members = {tot_ks_a:,}"
             out["kiwisaver-member-demographics-age-income"] = make_pulse_item(
                 "Inland Revenue", f"{fy_a}-06-30", MAX_AGE_ANNUAL,
-                f"As at June {fy_a}, Inland Revenue's KiwiSaver demographic tables recorded <strong>{tot_ks_a:,} enrolled members</strong> across New Zealand age brackets.",
+                f"As at June {fy_a}, Inland Revenue's KiwiSaver member demographic statistics recorded <strong>{tot_ks_a:,} enrolled members</strong> across New Zealand age and income brackets.",
                 f"Inland Revenue KiwiSaver Member Demographics (June {fy_a}): Total enrolled members = {tot_ks_a:,}.",
-                format_provenance_source_html(age_calc, "Inland Revenue — KiwiSaver Member Demographics", IRD_KS_AGE_PAGE, True),
+                format_provenance_source_html(age_calc, "Inland Revenue — KiwiSaver Member Demographics", IRD_KS_AGE_PAGE, False),
                 f"June {fy_a}", tot_ks_a,
-                f"{tot_ks_a:,} enrolled KiwiSaver members across age bands",
+                f"{tot_ks_a:,} enrolled KiwiSaver members across age & income bands",
                 "Inland Revenue annual June demographic release",
-                "Parsed live from IRD KiwiSaver age demographic table",
-                age_calc, f"Inland Revenue June {fy_a} demographic series",
-                [{"period": k, "label": f"Age {k}", "value": v, "formatted": f"{v:,} members ({(v/max(1,tot_ks_a))*100:.1f}%)"} for k, v in age_rows],
+                "Parsed live from IRD KiwiSaver member demographics release",
+                age_calc, f"Inland Revenue June {fy_a} demographic series", None,
                 {"source_published": age_pub, "source_url": IRD_KS_AGE_PAGE},
             )
 
-    ks_ds_html = pages.get(IRD_KS_DATA_PAGE, "")
-    ks_ann_u = next(
-        ("https://www.ird.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', ks_ds_html, flags=re.I) if "annual" in h.lower()),
-        IRD_KS_ANNUAL_XLSX,
-    )
-    if ks_ann_u:
-        try:
-            ks_b = fetch_bytes_with_browser_fallback(session, ks_ann_u, referer=IRD_KS_DATA_PAGE, min_bytes=10_000)
-            if ks_b and ks_b[:2] == b"PK":
-                xl_ks = pd.ExcelFile(io.BytesIO(ks_b))
-                rate_map = {}
-                for sh in xl_ks.sheet_names:
-                    df_k = xl_ks.parse(sh, header=None)
-                    for r_i in range(len(df_k)):
-                        r_vals = [str(v).strip() for v in df_k.iloc[r_i].values if pd.notna(v) and str(v).strip()]
-                        if len(r_vals) >= 2 and r_vals[0] in ("3%", "4%", "6%", "8%", "10%", "0.03", "0.04", "0.06", "0.08", "0.1", "0.10"):
-                            num_s = re.sub(r"[^\d.]", "", r_vals[-1])
-                            if num_s and 10_000 <= float(num_s) <= 2_500_000:
-                                lbl_r = f"{int(round(float(r_vals[0])*100))}%" if "." in r_vals[0] else r_vals[0]
-                                rate_map[lbl_r] = int(round(float(num_s)))
-                if len(rate_map) >= 4 and "3%" in rate_map:
-                    tot_c_mem = sum(rate_map.values())
-                    abv_cnt = tot_c_mem - rate_map["3%"]
-                    abv_pct = round((abv_cnt / max(1, tot_c_mem)) * 100.0, 1)
-                    fy_k = today.year if today.month >= 7 else today.year - 1
-                    r_calc = f"Above-3% Contributors: {abv_cnt:,} ÷ {tot_c_mem:,} = {abv_pct:.1f}% | 3% Rate: {rate_map['3%']:,} ({100.0-abv_pct:.1f}%)"
-                    out["kiwisaver-contribution-rate-mix"] = make_pulse_item(
-                        "Inland Revenue", f"{fy_k}-06-30", MAX_AGE_ANNUAL,
-                        f"In Inland Revenue's Annual KiwiSaver dataset (June {fy_k}), across <strong>{tot_c_mem:,} contributing members</strong>, <strong>{100.0 - abv_pct:.1f}% ({rate_map['3%']:,} members)</strong> contributed at 3% while <strong>{abv_pct:.1f}% ({abv_cnt:,} members)</strong> contributed at higher rates of 4%, 6%, 8%, or 10%.",
-                        f"Inland Revenue Annual KiwiSaver Dataset (June {fy_k}): Total contributing members by rate = {tot_c_mem:,}; 3% = {rate_map['3%']:,}; 4%–10% = {abv_cnt:,}.",
-                        format_provenance_source_html(r_calc, "Inland Revenue — Annual KiwiSaver Dataset XLSX", ks_ann_u, True),
-                        f"Year ended June {fy_k}", abv_pct,
-                        f"{abv_pct:.1f}% contributing 4%–10% ({abv_cnt:,}) vs {100.0 - abv_pct:.1f}% at 3% ({rate_map['3%']:,})",
-                        f"Total contributing members by rate: {tot_c_mem:,}",
-                        "Parsed live from Inland Revenue Annual KiwiSaver Data .xlsx",
-                        r_calc, f"Inland Revenue June {fy_k} series",
-                        [{"period": f"{rk} Rate", "label": f"{rk} Contribution Rate", "value": rv, "formatted": f"{rv:,} members ({(rv/max(1,tot_c_mem))*100:.1f}%)"} for rk, rv in rate_map.items()],
-                        {"source_published": "Annual Inland Revenue KiwiSaver datasets release", "source_url": ks_ann_u},
-                    )
-        except Exception as exc_ksx:
-            print(f"[IRD KiwiSaver Annual XLSX] Note: {exc_ksx}")
+    if len(rate_map) >= 4 and rate_map.get("3%", 0) >= 500_000:
+        tot_c_mem = sum(rate_map.values())
+        abv_cnt = tot_c_mem - rate_map["3%"]
+        abv_pct = round((abv_cnt / max(1, tot_c_mem)) * 100.0, 1)
+        if 20.0 <= abv_pct <= 60.0:
+            fy_k = today.year if today.month >= 7 else today.year - 1
+            r_calc = f"Above-3% Contributors: {abv_cnt:,} ÷ {tot_c_mem:,} = {abv_pct:.1f}% | 3% Rate: {rate_map['3%']:,} ({100.0-abv_pct:.1f}%)"
+            out["kiwisaver-contribution-rate-mix"] = make_pulse_item(
+                "Inland Revenue", f"{fy_k}-06-30", MAX_AGE_ANNUAL,
+                f"In Inland Revenue's Annual KiwiSaver dataset (June {fy_k}), across <strong>{tot_c_mem:,} contributing members</strong>, <strong>{100.0 - abv_pct:.1f}% ({rate_map['3%']:,} members)</strong> contributed at 3% while <strong>{abv_pct:.1f}% ({abv_cnt:,} members)</strong> contributed at higher rates of 4%, 6%, 8%, or 10%.",
+                f"Inland Revenue Annual KiwiSaver Dataset (June {fy_k}): Total contributing members by rate = {tot_c_mem:,}; 3% = {rate_map['3%']:,}; 4%–10% = {abv_cnt:,}.",
+                format_provenance_source_html(r_calc, "Inland Revenue — Annual KiwiSaver Dataset XLSX", used_ks_xlsx_url, True),
+                f"Year ended June {fy_k}", abv_pct,
+                f"{abv_pct:.1f}% contributing 4%–10% ({abv_cnt:,}) vs {100.0 - abv_pct:.1f}% at 3% ({rate_map['3%']:,})",
+                f"Total contributing members by rate: {tot_c_mem:,}",
+                "Parsed live from Inland Revenue Annual KiwiSaver Data .xlsx",
+                r_calc, f"Inland Revenue June {fy_k} series",
+                [{"period": f"{rk} Rate", "label": f"{rk} Contribution Rate", "value": rv, "formatted": f"{rv:,} members ({(rv/max(1,tot_c_mem))*100:.1f}%)"} for rk, rv in rate_map.items()],
+                {"source_published": "Annual Inland Revenue KiwiSaver datasets release", "source_url": used_ks_xlsx_url},
+            )
 
     # 5. `ird-family-trusts-rental-income` (Live IRD Trusts & Estates Pages)
     tr6_num_html = pages.get(IRD_TRUSTS_NUM_PAGE, "")
@@ -7153,12 +7283,11 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                 {"source_published": tr6_pub, "source_url": IRD_TRUSTS_NUM_PAGE},
             )
 
-    # 6. `working-for-families-income-support` (Live IRD Working for Families Pages)
-    wff_ent_html = pages.get(IRD_WFF_ENT_PAGE, "")
-    wff_fam_html = pages.get(IRD_WFF_FAM_PAGE, "")
-    if wff_ent_html or wff_fam_html:
-        wff_pub = extract_html_release_date(wff_ent_html or wff_fam_html, "Annual Inland Revenue Working for Families statistics release")
-        wff_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", f"{wff_ent_html} {wff_fam_html}"))
+    # 6. `working-for-families-income-support` (Live IRD Working for Families Pages — Corrected URLs)
+    wff_comb_html = " ".join(pages.get(u, "") for u in (IRD_WFF_ENT_PAGE, IRD_WFF_FAM_PAGE, IRD_WFF_MAIN_PAGE))
+    if wff_comb_html.strip():
+        wff_pub = extract_html_release_date(wff_comb_html, "Annual Inland Revenue Working for Families statistics release")
+        wff_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", wff_comb_html))
         m_wff_avg = re.search(r"average\s+entitlement[^$]{0,110}\$([\d,]{4,5})\s+in\s+(202\d)[^$]{0,60}\$([\d,]{4,5})\s+in\s+(202\d)", wff_txt, flags=re.I)
         m_wff_ch = re.search(r"([\d,]{6,7})\s+children", wff_txt, flags=re.I)
         if m_wff_avg:
@@ -7928,8 +8057,8 @@ def cross_derive_live_c31_c41_siblings(candidates: dict) -> None:
 def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dict:
     """
     Load previous verified tickers from nz-mortgage-pulse.json.
-    If the working copy has fewer than 85 tickers, automatically deepen the shallow clone
-    and scan the last 10 Git commits via commit SHAs so a single rate-limited run never drops datasets.
+    Automatically purges any pre-audit or mis-parsed records (e.g. $7,332 wage, $211,725 non-res consent,
+    80.0% partial KiwiSaver rate, CPI point-contribution values, or ~ tilde estimates).
     """
     import subprocess
 
@@ -7941,17 +8070,25 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
             if k not in TICKER_CATALOG or not isinstance(v, dict):
                 continue
             lv = str(v.get("latest_value", "")).lower()
-            if "nan $" in lv or "-99 $" in lv:
+            val_num = v.get("value")
+            if "nan $" in lv or "-99 $" in lv or "~$" in lv:
                 continue
-            if k == "building-insurance-inflation" and v.get("value") == 1.2:
+            # Filter out known mis-parsed or pre-audit values so they never persist
+            if k == "individual-income-by-source-benchmarks" and isinstance(val_num, (int, float)) and val_num < 30000:
                 continue
-            if k == "contents-insurance-inflation" and v.get("value") == -0.6:
+            if k == "new-build-consent-cost-by-type" and isinstance(val_num, (int, float)) and val_num < 260000:
                 continue
-            if k == "vehicle-insurance-inflation" and v.get("value") == 1.9:
+            if k == "kiwisaver-contribution-rate-mix" and isinstance(val_num, (int, float)) and val_num > 65.0:
                 continue
-            if k == "health-insurance-inflation" and v.get("value") == 1.6:
+            if k == "rent-vs-mortgage-interest-outgoings" and "505.50" in lv:
                 continue
-            if k == "life-insurance-inflation" and v.get("value") == -0.8:
+            if k == "ird-individual-taxable-income-percentiles" and "top 17%" in lv:
+                continue
+            if k == "building-insurance-inflation" and val_num == 1.2:
+                continue
+            if k in ("contents-insurance-inflation", "life-insurance-inflation") and val_num in (-0.6, -0.8, -0.1):
+                continue
+            if k in ("vehicle-insurance-inflation", "health-insurance-inflation") and val_num in (1.9, 1.6, 0.1, 0.2):
                 continue
             cleaned[k] = v
         return cleaned
@@ -7964,7 +8101,7 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
         except Exception:
             best_map = {}
 
-    if len(best_map) < 85:
+    if len(best_map) < 88:
         for cmd in (
             ["git", "fetch", "--deepen=10", "origin"],
             ["git", "fetch", "--depth=12", "origin", "main"],
