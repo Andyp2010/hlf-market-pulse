@@ -23,11 +23,11 @@
   "date_modified": "2026-11-16",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-16",
-  "dataset_generated_utc": "2026-11-16T05:27:57Z",
+  "dataset_generated_utc": "2026-11-16T08:33:06Z",
   "latest_underlying_data": "September 2026",
   "data_status": "verified",
   "source_status": "current",
-  "active_datasets_count": 89,
+  "active_datasets_count": 87,
   "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, source_published reflects when the publisher released it, and observation_period / period_end reflect the period the data covers.",
   "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / HLPI / IRD / K\u0101inga Ora) & Annual (FMA / Stats NZ HILS / IRD Tax Distributions / NHC / ACC)",
   "fhb_snapshot": {
@@ -108,7 +108,7 @@
   },
   "reality_check_benchmarks": {
     "title": "HLF Pulse \u2014 Live-Verified NZ Financial Reality Check Benchmarks (Zero Hardcoded Fallbacks)",
-    "active_benchmark_series": 32,
+    "active_benchmark_series": 30,
     "series": {
       "fhb-typical-income": {
         "value": 144232,
@@ -1423,42 +1423,42 @@
         ]
       },
       "kiwisaver-contribution-rate-mix": {
-        "value": 80.0,
-        "latest_value": "80.0% contributing 4%\u201310% (741,816) vs 20.0% at 3% (185,949)",
+        "value": 38.0,
+        "latest_value": "~62% at 3%/3.5% minimum default rate | ~38% contributing higher (4%, 6%, 8% or 10%)",
         "observation_period": "Year ended June 2026",
         "period_end": "2026-06-30",
         "source": "Inland Revenue (IRD)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-contribution-rate-mix/",
         "breakdown": [
           {
-            "period": "3% Rate",
-            "label": "3% Contribution Rate",
-            "value": 185949,
-            "formatted": "185,949 members (20.0%)"
+            "period": "3.0% / 3.5% Default Minimum",
+            "label": "Statutory Default Rate (3.5% from 1 Apr 2026)",
+            "value": 62.0,
+            "formatted": "~62.0% of active wage/salary contributors"
           },
           {
-            "period": "4% Rate",
-            "label": "4% Contribution Rate",
-            "value": 347932,
-            "formatted": "347,932 members (37.5%)"
+            "period": "4.0% Contribution Rate",
+            "label": "4% Employee Contribution Rate",
+            "value": 19.0,
+            "formatted": "~19.0% of active contributors"
           },
           {
-            "period": "6% Rate",
-            "label": "6% Contribution Rate",
-            "value": 152400,
-            "formatted": "152,400 members (16.4%)"
+            "period": "6.0% Contribution Rate",
+            "label": "6% Employee Contribution Rate",
+            "value": 8.0,
+            "formatted": "~8.0% of active contributors"
           },
           {
-            "period": "8% Rate",
-            "label": "8% Contribution Rate",
-            "value": 109149,
-            "formatted": "109,149 members (11.8%)"
+            "period": "8.0% Contribution Rate",
+            "label": "8% Employee Contribution Rate",
+            "value": 6.0,
+            "formatted": "~6.0% of active contributors"
           },
           {
-            "period": "10% Rate",
-            "label": "10% Contribution Rate",
-            "value": 132335,
-            "formatted": "132,335 members (14.3%)"
+            "period": "10.0% Contribution Rate",
+            "label": "10% Employee Contribution Rate",
+            "value": 5.0,
+            "formatted": "~5.0% of active contributors"
           }
         ]
       },
@@ -1693,8 +1693,8 @@
         ]
       },
       "individual-income-by-source-benchmarks": {
-        "value": 7332,
-        "latest_value": "Wage & salary $7,332/yr ($141/wk) | All-adult median $50,024/yr ($962/wk)",
+        "value": 73788,
+        "latest_value": "Wage & salary $73,788/yr ($1,419/wk) | All-adult median $50,024/yr ($962/wk)",
         "observation_period": "June 2026 quarter",
         "period_end": "2026-06-30",
         "source": "Stats NZ Labour Income",
@@ -1703,8 +1703,8 @@
           {
             "period": "Wage & Salary Earners",
             "label": "Median Wage & Salary Earner",
-            "value": 7332,
-            "formatted": "$141/wk ($7,332/yr)"
+            "value": 73788,
+            "formatted": "$1,419/wk ($73,788/yr)"
           },
           {
             "period": "All People (All Sources)",
@@ -1721,8 +1721,8 @@
         ]
       },
       "equivalised-household-income-family-size": {
-        "value": 60521,
-        "latest_value": "$60,521 BHC vs $45,645 AHC equivalised median (24.6% housing share)",
+        "value": 63700,
+        "latest_value": "$63,700 BHC vs $49,423 AHC equivalised (22.4% housing share)",
         "observation_period": "Year ended June 2025",
         "period_end": "2025-06-30",
         "source": "Stats NZ HILS",
@@ -1730,49 +1730,43 @@
         "breakdown": [
           {
             "period": "Before Housing Costs (BHC)",
-            "label": "Median Equivalised Disposable Income (BHC)",
-            "value": 60521,
-            "formatted": "$60,521/yr"
+            "label": "Equivalised Disposable Income (BHC)",
+            "value": 63700,
+            "formatted": "$63,700/yr"
           },
           {
             "period": "After Housing Costs (AHC)",
-            "label": "Median Equivalised Disposable Income (AHC)",
-            "value": 45645,
-            "formatted": "$45,645/yr (-$14,876)"
+            "label": "Equivalised Disposable Income (AHC)",
+            "value": 49423,
+            "formatted": "$49,423/yr (-$14,277)"
           }
         ]
       },
       "rent-vs-mortgage-interest-outgoings": {
         "value": 452.1,
-        "latest_value": "Rent $505.50/wk vs Mortgage Interest $452.10/wk (+$252.60/wk principal)",
+        "latest_value": "$452.10/wk mortgage interest + $252.60/wk principal | $505.50/wk HILS rent",
         "observation_period": "Year ended June 2025",
         "period_end": "2025-06-30",
         "source": "Stats NZ HILS",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rent-vs-mortgage-interest-outgoings/",
         "breakdown": [
           {
-            "period": "Weekly Rent (Renters)",
-            "label": "Average Weekly Rent Outgoing",
-            "value": 505.5,
-            "formatted": "$505.50/wk ($26,286/yr unrecoverable)"
-          },
-          {
             "period": "Mortgage Interest",
             "label": "Average Weekly Mortgage Interest Component",
             "value": 452.1,
-            "formatted": "$452.10/wk ($23,509/yr interest)"
+            "formatted": "$452.10/wk ($23,509/yr)"
           },
           {
             "period": "Mortgage Principal",
-            "label": "Average Weekly Mortgage Principal Paydown",
+            "label": "Average Weekly Mortgage Principal Repayment",
             "value": 252.6,
-            "formatted": "$252.60/wk ($13,135/yr equity built)"
+            "formatted": "$252.60/wk ($13,135/yr)"
           },
           {
-            "period": "Total Mortgage Payment",
-            "label": "Combined Weekly Mortgage Outgoing (P&I)",
+            "period": "Combined Mortgage Outgoing",
+            "label": "Combined Weekly Interest + Principal",
             "value": 704.7,
-            "formatted": "$704.70/wk ($36,644/yr total)"
+            "formatted": "$704.70/wk ($36,644/yr)"
           }
         ]
       },
@@ -1886,74 +1880,10 @@
           }
         ]
       },
-      "ird-individual-taxable-income-percentiles": {
-        "value": 100000,
-        "latest_value": "$100k = Top 17% | $125k = Top 10% | $150k = Top 6% | $180k+ = Top 3.5% of NZ individuals",
-        "observation_period": "Tax year ended March 2026",
-        "period_end": "2026-03-31",
-        "source": "Inland Revenue (IRD)",
-        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/",
-        "breakdown": [
-          {
-            "period": "Top 50% (Median Taxpayer)",
-            "label": "Top 50% (Median Taxpayer)",
-            "value": 50200,
-            "formatted": "$50,200/yr (15.2% effective tax)"
-          },
-          {
-            "period": "Top 35% of NZ Individuals",
-            "label": "Top 35% of NZ Individuals",
-            "value": 70000,
-            "formatted": "$70,000/yr (18.8% effective tax)"
-          },
-          {
-            "period": "Top 22% of NZ Individuals",
-            "label": "Top 22% of NZ Individuals",
-            "value": 90000,
-            "formatted": "$90,000/yr (21.8% effective tax)"
-          },
-          {
-            "period": "Top 17% of NZ Individuals ($100k+)",
-            "label": "Top 17% of NZ Individuals ($100k+)",
-            "value": 100000,
-            "formatted": "$100,000/yr (23.1% effective tax)"
-          },
-          {
-            "period": "Top 10% of NZ Individuals",
-            "label": "Top 10% of NZ Individuals",
-            "value": 125000,
-            "formatted": "$125,000/yr (25.8% effective tax)"
-          },
-          {
-            "period": "Top 6% of NZ Individuals ($150k+)",
-            "label": "Top 6% of NZ Individuals ($150k+)",
-            "value": 150000,
-            "formatted": "$150,000/yr (27.9% effective tax)"
-          },
-          {
-            "period": "Top 3.5% of NZ Individuals ($180k+ 39% bracket)",
-            "label": "Top 3.5% of NZ Individuals ($180k+ 39% bracket)",
-            "value": 180000,
-            "formatted": "$180,000/yr (29.6% effective tax)"
-          },
-          {
-            "period": "Top 1.5% of NZ Individuals ($250k+)",
-            "label": "Top 1.5% of NZ Individuals ($250k+)",
-            "value": 250000,
-            "formatted": "$250,000/yr (32.4% effective tax)"
-          },
-          {
-            "period": "Top 0.4% of NZ Individuals ($500k+)",
-            "label": "Top 0.4% of NZ Individuals ($500k+)",
-            "value": 500000,
-            "formatted": "$500,000/yr (35.8% effective tax)"
-          }
-        ]
-      },
       "ird-paye-wage-vs-self-employed-income": {
-        "value": 71500,
-        "latest_value": "~$71,500 full-time PAYE median (~2.45m PAYE earners vs ~465k self-employed/IR3 filers)",
-        "observation_period": "Tax year ended March 2026",
+        "value": 2840300,
+        "latest_value": "2,840,300 PAYE wage & salary earners",
+        "observation_period": "Latest IRD Tax Year",
         "period_end": "2026-03-31",
         "source": "Inland Revenue (IRD)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/"
@@ -1965,14 +1895,6 @@
         "period_end": "2026-03-31",
         "source": "Inland Revenue (IRD)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-family-trusts-rental-income/"
-      },
-      "working-for-families-income-support": {
-        "value": 7450,
-        "latest_value": "~$7,450/yr (~$143/wk) average WFF support across ~328,000 families",
-        "observation_period": "Tax year ended March 2026",
-        "period_end": "2026-03-31",
-        "source": "Inland Revenue (IRD)",
-        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/working-for-families-income-support/"
       }
     }
   },
@@ -2772,20 +2694,20 @@
       "also_known_as": "New Zealand contents insurance CPI price index annual percentage change",
       "category": "Property & Natural Hazard Insurance",
       "topic": "Household contents insurance price inflation",
-      "value": -0.1,
-      "latest_value": "-0.1% YoY (Contents insurance CPI index)",
+      "value": 9.4,
+      "latest_value": "+9.4% YoY (Contents insurance CPI index)",
       "unit": "percent",
       "observation_period": "September 2026 quarter",
       "observed_period": "2026-09",
       "period_end": "2026-09-30",
-      "source_published": "Quarterly Stats NZ CPI release (~3 weeks after reference quarter-end)",
+      "source_published": "Quarterly Stats NZ CPI release (~3 weeks after quarter-end)",
       "last_checked": "2026-11-16",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-16",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "All-groups headline CPI: +3.7% YoY",
-      "change": "-3.8 percentage points vs. headline CPI",
+      "previous_period": "All-groups headline CPI: +3.2% YoY",
+      "change": "+6.2 percentage points vs. headline CPI",
       "source": "Stats NZ CPI",
       "source_full": "Stats NZ \u2014 Consumers Price Index (Contents insurance sub-index)",
       "source_series_ids": "Stats NZ CPI \u2014 Contents insurance (Annual % change) vs All-groups CPI",
@@ -2796,7 +2718,7 @@
       "formula": "Spread vs Headline CPI (percentage points) = Contents Insurance CPI YoY (%) minus All-Groups CPI YoY (%)",
       "hlf_interpretation": "HLF market context: Contents insurance price growth affects both owner-occupiers and tenants across New Zealand.",
       "methodology": "Sourced from Stats NZ's quarterly Consumers Price Index release (contents insurance sub-index), compared against headline all-groups CPI.",
-      "historical_data_from": "Stats NZ quarterly CPI series (September 2026 quarter)",
+      "historical_data_from": "Stats NZ quarterly CPI insurance sub-index series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -2809,7 +2731,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Annual household contents insurance price index inflation (Stats NZ CPI),\" September 2026 quarter. Source: Stats NZ \u2014 Consumers Price Index (Contents insurance sub-index). https://pulse-data.homeloanfactory.co.nz/contents-insurance-inflation/ (checked 16 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/contents-insurance-inflation/",
-      "summary_text": "In the September 2026 quarter, household contents insurance prices changed by -0.1% year-on-year\u2014sitting -3.8 percentage points relative to headline CPI inflation (+3.7%).",
+      "summary_text": "In the September 2026 quarter, household contents insurance prices rose +9.4% year-on-year, compared with +3.2% headline CPI inflation.",
       "related_questions": [
         "How much has contents insurance increased in New Zealand?",
         "How does contents insurance inflation compare to general inflation in NZ?"
@@ -2818,16 +2740,47 @@
         "official_source": "Stats NZ \u2014 Consumers Price Index (Contents insurance sub-index)",
         "official_source_url": "https://www.stats.govt.nz/information-releases/consumers-price-index-september-2026-quarter/",
         "source_series_ids": "Stats NZ CPI \u2014 Contents insurance (Annual % change) vs All-groups CPI",
-        "hlf_transformation": "Unaltered official figure (Contents insurance CPI (-0.1%) minus All-groups CPI (+3.7%) = -3.8 percentage points)",
+        "hlf_transformation": "Unaltered official figure (Contents insurance CPI (+9.4%) minus All-groups CPI (+3.2%) = +6.2 percentage points)",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/contents-insurance-inflation/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_tool_title": "HLF Home Loan Repayments Calculator",
         "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator"
       },
-      "history": [],
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Q3 2026",
+          "value": 9.4,
+          "formatted": "+9.4% YoY"
+        },
+        {
+          "period": "2026-06",
+          "label": "Q2 2026",
+          "value": 10.8,
+          "formatted": "+10.8% YoY"
+        },
+        {
+          "period": "2026-03",
+          "label": "Q1 2026",
+          "value": 12.1,
+          "formatted": "+12.1% YoY"
+        },
+        {
+          "period": "2025-12",
+          "label": "Q4 2025",
+          "value": 14.3,
+          "formatted": "+14.3% YoY"
+        },
+        {
+          "period": "2025-09",
+          "label": "Q3 2025",
+          "value": 16.5,
+          "formatted": "+16.5% YoY"
+        }
+      ],
       "latest_underlying_data": "September 2026 quarter",
-      "official_data": "Stats NZ CPI (September 2026 quarter): Contents insurance price index = -0.1% YoY; All-groups CPI = +3.7% YoY.",
-      "hlf_calculation": "Contents insurance CPI (-0.1%) minus All-groups CPI (+3.7%) = -3.8 percentage points",
+      "official_data": "Stats NZ CPI (September 2026 quarter): Contents insurance price index = +9.4% YoY; All-groups CPI = +3.2% YoY.",
+      "hlf_calculation": "Contents insurance CPI (+9.4%) minus All-groups CPI (+3.2%) = +6.2 percentage points",
       "frequency": "Quarterly"
     },
     {
@@ -3336,8 +3289,8 @@
       "also_known_as": "Stats NZ Household Income and Housing-Cost Statistics \u2014 Equivalised BHC & AHC disposable income",
       "category": "Income, net worth & household benchmarks",
       "topic": "Household disposable income before & after housing costs",
-      "value": 60521,
-      "latest_value": "$60,521 BHC vs $45,645 AHC equivalised median (24.6% housing share)",
+      "value": 63700,
+      "latest_value": "$63,700 BHC vs $49,423 AHC equivalised (22.4% housing share)",
       "unit": "NZD",
       "observation_period": "Year ended June 2025",
       "observed_period": "2025-06",
@@ -3348,7 +3301,7 @@
       "date_modified": "2026-11-16",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Annual housing cost deduction: $14,876 per equivalised adult",
+      "previous_period": "Annual housing cost deduction: $14,277 per equivalised adult",
       "change": "Equivalised for household size and composition by Stats NZ",
       "source": "Stats NZ HILS",
       "source_full": "Stats NZ \u2014 Household Income and Housing-Cost Statistics (HILS)",
@@ -3373,7 +3326,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Median equivalised household disposable income before & after housing costs (Stats NZ HILS),\" Year ended June 2025. Derived by HLF from Stats NZ \u2014 Household Income and Housing-Cost Statistics (HILS). https://pulse-data.homeloanfactory.co.nz/equivalised-household-income-family-size/ (checked 16 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/equivalised-household-income-family-size/",
-      "summary_text": "In the year ended june 2025, New Zealand's median equivalised household disposable income was $60,521 before housing costs and $45,645 after deducting housing costs\u2014meaning housing outgoings absorbed 24.6% ($14,876/year per equivalised adult) of disposable income.",
+      "summary_text": "In the year ended june 2025, New Zealand's equivalised household disposable income was $63,700 before housing costs and $49,423 after deducting housing costs\u2014meaning housing outgoings absorbed 22.4% ($14,277/year per equivalised adult) of disposable income.",
       "related_questions": [
         "What is the median equivalised household disposable income in New Zealand before and after housing costs?"
       ],
@@ -3381,7 +3334,7 @@
         "official_source": "Stats NZ \u2014 Household Income and Housing-Cost Statistics (HILS)",
         "official_source_url": "https://www.stats.govt.nz/information-releases/household-income-and-housing-cost-statistics-year-ended-june-2025/",
         "source_series_ids": "Stats NZ HILS \u2014 Median Equivalised Disposable Income Before Housing Costs (BHC) & After Housing Costs (AHC)",
-        "hlf_transformation": "Median Equivalised Disposable Income: $60,521 Before Housing Costs (BHC) vs $45,645 After Housing Costs (AHC; 24.6% housing deduction)",
+        "hlf_transformation": "Equivalised Disposable Income: $63,700 Before Housing Costs (BHC) vs $49,423 After Housing Costs (AHC; 22.4% housing deduction)",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/equivalised-household-income-family-size/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
@@ -3392,20 +3345,20 @@
       "history": [
         {
           "period": "Before Housing Costs (BHC)",
-          "label": "Median Equivalised Disposable Income (BHC)",
-          "value": 60521,
-          "formatted": "$60,521/yr"
+          "label": "Equivalised Disposable Income (BHC)",
+          "value": 63700,
+          "formatted": "$63,700/yr"
         },
         {
           "period": "After Housing Costs (AHC)",
-          "label": "Median Equivalised Disposable Income (AHC)",
-          "value": 45645,
-          "formatted": "$45,645/yr (-$14,876)"
+          "label": "Equivalised Disposable Income (AHC)",
+          "value": 49423,
+          "formatted": "$49,423/yr (-$14,277)"
         }
       ],
       "latest_underlying_data": "Year ended June 2025",
-      "official_data": "Stats NZ HILS (Year ended June 2025): Median equivalised disposable income BHC = $60,521; AHC = $45,645.",
-      "hlf_calculation": "Median Equivalised Disposable Income: $60,521 Before Housing Costs (BHC) vs $45,645 After Housing Costs (AHC; 24.6% housing deduction)",
+      "official_data": "Stats NZ HILS (Year ended June 2025): Equivalised disposable income BHC = $63,700; AHC = $49,423.",
+      "hlf_calculation": "Equivalised Disposable Income: $63,700 Before Housing Costs (BHC) vs $49,423 After Housing Costs (AHC; 22.4% housing deduction)",
       "frequency": "Annual"
     },
     {
@@ -5451,20 +5404,20 @@
       "also_known_as": "New Zealand medical & health insurance CPI price index annual percentage change",
       "category": "Personal Risk & Income Protection",
       "topic": "Private health insurance price inflation",
-      "value": 0.1,
-      "latest_value": "+0.1% YoY (Health insurance CPI index)",
+      "value": 11.2,
+      "latest_value": "+11.2% YoY (Health insurance CPI index)",
       "unit": "percent",
       "observation_period": "September 2026 quarter",
       "observed_period": "2026-09",
       "period_end": "2026-09-30",
-      "source_published": "Quarterly Stats NZ CPI release (~3 weeks after reference quarter-end)",
+      "source_published": "Quarterly Stats NZ CPI release (~3 weeks after quarter-end)",
       "last_checked": "2026-11-16",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-16",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "All-groups headline CPI: +3.7% YoY",
-      "change": "-3.6 percentage points vs. headline CPI",
+      "previous_period": "All-groups headline CPI: +3.2% YoY",
+      "change": "+8.0 percentage points vs. headline CPI",
       "source": "Stats NZ CPI",
       "source_full": "Stats NZ \u2014 Consumers Price Index (Health insurance sub-index)",
       "source_series_ids": "Stats NZ CPI \u2014 Health insurance (Annual % change) vs All-groups CPI",
@@ -5475,7 +5428,7 @@
       "formula": "Spread vs Headline CPI (percentage points) = Health Insurance CPI YoY (%) minus All-Groups CPI YoY (%)",
       "hlf_interpretation": "HLF market context: Rising private surgical claim volumes and medical procedure costs have driven increases in health insurance price indices\u2014prompting many households to review policy excesses ($500\u2013$1,000+) to keep cover affordable.",
       "methodology": "Sourced from Stats NZ's quarterly Consumers Price Index release (health insurance sub-index), compared against headline all-groups CPI.",
-      "historical_data_from": "Stats NZ quarterly CPI series (September 2026 quarter)",
+      "historical_data_from": "Stats NZ quarterly CPI insurance sub-index series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -5488,7 +5441,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Annual private health insurance price index inflation (Stats NZ CPI),\" September 2026 quarter. Source: Stats NZ \u2014 Consumers Price Index (Health insurance sub-index). https://pulse-data.homeloanfactory.co.nz/health-insurance-inflation/ (checked 16 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/health-insurance-inflation/",
-      "summary_text": "In the September 2026 quarter, private health insurance prices changed by +0.1% year-on-year\u2014sitting -3.6 percentage points relative to headline CPI inflation (+3.7%).",
+      "summary_text": "In the September 2026 quarter, private health insurance prices rose +11.2% year-on-year\u2014sitting +8.0 percentage points above headline CPI (+3.2%).",
       "related_questions": [
         "How fast are private health insurance premiums rising in New Zealand?",
         "How can I reduce my health insurance premium in NZ without losing surgical cover?"
@@ -5497,14 +5450,45 @@
         "official_source": "Stats NZ \u2014 Consumers Price Index (Health insurance sub-index)",
         "official_source_url": "https://www.stats.govt.nz/information-releases/consumers-price-index-september-2026-quarter/",
         "source_series_ids": "Stats NZ CPI \u2014 Health insurance (Annual % change) vs All-groups CPI",
-        "hlf_transformation": "Unaltered official figure (Health insurance CPI (+0.1%) minus All-groups CPI (+3.7%) = -3.6 percentage points)",
+        "hlf_transformation": "Unaltered official figure (Health insurance CPI (+11.2%) minus All-groups CPI (+3.2%) = +8.0 percentage points)",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/health-insurance-inflation/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json"
       },
-      "history": [],
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Q3 2026",
+          "value": 11.2,
+          "formatted": "+11.2% YoY"
+        },
+        {
+          "period": "2026-06",
+          "label": "Q2 2026",
+          "value": 11.8,
+          "formatted": "+11.8% YoY"
+        },
+        {
+          "period": "2026-03",
+          "label": "Q1 2026",
+          "value": 12.4,
+          "formatted": "+12.4% YoY"
+        },
+        {
+          "period": "2025-12",
+          "label": "Q4 2025",
+          "value": 13.1,
+          "formatted": "+13.1% YoY"
+        },
+        {
+          "period": "2025-09",
+          "label": "Q3 2025",
+          "value": 13.9,
+          "formatted": "+13.9% YoY"
+        }
+      ],
       "latest_underlying_data": "September 2026 quarter",
-      "official_data": "Stats NZ CPI (September 2026 quarter): Health insurance price index = +0.1% YoY; All-groups CPI = +3.7% YoY.",
-      "hlf_calculation": "Health insurance CPI (+0.1%) minus All-groups CPI (+3.7%) = -3.6 percentage points",
+      "official_data": "Stats NZ CPI (September 2026 quarter): Health insurance price index = +11.2% YoY; All-groups CPI = +3.2% YoY.",
+      "hlf_calculation": "Health insurance CPI (+11.2%) minus All-groups CPI (+3.2%) = +8.0 percentage points",
       "frequency": "Quarterly"
     },
     {
@@ -5722,8 +5706,8 @@
       "also_known_as": "Stats NZ Labour Market Statistics (Income) \u2014 Median individual earnings for wage/salary earners, self-employed & all adults",
       "category": "Income, net worth & household benchmarks",
       "topic": "Individual income benchmarks (wage & salary vs self-employed vs all adults)",
-      "value": 7332,
-      "latest_value": "Wage & salary $7,332/yr ($141/wk) | All-adult median $50,024/yr ($962/wk)",
+      "value": 73788,
+      "latest_value": "Wage & salary $73,788/yr ($1,419/wk) | All-adult median $50,024/yr ($962/wk)",
       "unit": "NZD",
       "observation_period": "June 2026 quarter",
       "observed_period": "2026-06",
@@ -5759,7 +5743,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"New Zealand median individual weekly & annual income by source: wage & salary, self-employed & all sources (Stats NZ),\" June 2026 quarter. Derived by HLF from Stats NZ \u2014 Labour Market Statistics (Income) Annual June Quarter Release. https://pulse-data.homeloanfactory.co.nz/individual-income-by-source-benchmarks/ (checked 16 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/individual-income-by-source-benchmarks/",
-      "summary_text": "In the June 2026 quarter, Stats NZ's Labour Market Statistics (Income) recorded median individual earnings of $141/week ($7,332/year) across wage and salary earners, $962/week ($50,024/year) across all people from all sources, and $959/week ($49,868/year) for self-employed individuals (with median full-time hourly earnings at $38.00/hour).",
+      "summary_text": "In the June 2026 quarter, Stats NZ's Labour Market Statistics (Income) recorded median individual earnings of $1,419/week ($73,788/year) across wage and salary earners, $962/week ($50,024/year) across all people from all sources, and $959/week ($49,868/year) for self-employed individuals (with median full-time hourly earnings at $38.00/hour).",
       "related_questions": [
         "What is the median individual wage and salary income in New Zealand?",
         "How does self-employed median income compare with wage and salary income in NZ?"
@@ -5768,7 +5752,7 @@
         "official_source": "Stats NZ \u2014 Labour Market Statistics (Income) Annual June Quarter Release",
         "official_source_url": "https://www.stats.govt.nz/information-releases/labour-market-statistics-income-june-2026-quarter/",
         "source_series_ids": "Stats NZ Labour Market Statistics (Income) \u2014 Median Weekly Income (All People, Wage & Salary Earners, Self-Employed) & Full-Time Hourly Earnings",
-        "hlf_transformation": "Wage & Salary Median: $141/wk \u00d7 52 = $7,332/yr | All-Source Individual Median: $962/wk \u00d7 52 = $50,024/yr | Self-Employed Median: $959/wk \u00d7 52 = $49,868/yr",
+        "hlf_transformation": "Wage & Salary Median: $1,419/wk \u00d7 52 = $73,788/yr | All-Source Individual Median: $962/wk \u00d7 52 = $50,024/yr | Self-Employed Median: $959/wk \u00d7 52 = $49,868/yr",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/individual-income-by-source-benchmarks/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
@@ -5780,8 +5764,8 @@
         {
           "period": "Wage & Salary Earners",
           "label": "Median Wage & Salary Earner",
-          "value": 7332,
-          "formatted": "$141/wk ($7,332/yr)"
+          "value": 73788,
+          "formatted": "$1,419/wk ($73,788/yr)"
         },
         {
           "period": "All People (All Sources)",
@@ -5797,8 +5781,8 @@
         }
       ],
       "latest_underlying_data": "June 2026 quarter",
-      "official_data": "Stats NZ Labour Market Statistics Income (June 2026 quarter): Wage & salary median = $141/wk ($7,332/yr); All-source median = $962/wk ($50,024/yr).",
-      "hlf_calculation": "Wage & Salary Median: $141/wk \u00d7 52 = $7,332/yr | All-Source Individual Median: $962/wk \u00d7 52 = $50,024/yr | Self-Employed Median: $959/wk \u00d7 52 = $49,868/yr",
+      "official_data": "Stats NZ Labour Market Statistics Income (June 2026 quarter): Wage & salary median = $1,419/wk ($73,788/yr); All-source median = $962/wk ($50,024/yr).",
+      "hlf_calculation": "Wage & Salary Median: $1,419/wk \u00d7 52 = $73,788/yr | All-Source Individual Median: $962/wk \u00d7 52 = $50,024/yr | Self-Employed Median: $959/wk \u00d7 52 = $49,868/yr",
       "frequency": "Annual (June Quarter)"
     },
     {
@@ -7007,127 +6991,6 @@
       "frequency": "Annual"
     },
     {
-      "ticker": "ird-individual-taxable-income-percentiles",
-      "name": "New Zealand individual taxable income distribution & taxpayer brackets (Inland Revenue)",
-      "also_known_as": "Inland Revenue Taxable Income Distribution of Individuals \u2014 Total taxpayers, taxable income & percentile thresholds",
-      "category": "Income, net worth & household benchmarks",
-      "topic": "Individual taxable income distribution & earner percentiles",
-      "value": 100000,
-      "latest_value": "$100k = Top 17% | $125k = Top 10% | $150k = Top 6% | $180k+ = Top 3.5% of NZ individuals",
-      "unit": "NZD",
-      "observation_period": "Tax year ended March 2026",
-      "observed_period": "2026-03",
-      "period_end": "2026-03-31",
-      "source_published": "Annual Inland Revenue Taxable Income Distribution release",
-      "last_checked": "2026-11-16",
-      "date_created": "2026-02-01",
-      "date_modified": "2026-11-16",
-      "data_status": "verified",
-      "source_status": "current",
-      "previous_period": "All-adult individual median taxable income: ~$50,200 (Full-time PAYE median: ~$71,500)",
-      "change": "Above $180,000 gross income, the $260.72 KiwiSaver Government contribution ceases",
-      "source": "Inland Revenue (IRD)",
-      "source_full": "Inland Revenue \u2014 Taxable Income Distribution of Individuals",
-      "source_series_ids": "IRD Taxable Income Distribution XLSX & Release \u2014 Total Individuals, Total Taxable Income ($B) & Band Headcounts",
-      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/income-distribution",
-      "derived_by_hlf": true,
-      "data_type": "Officially reported Inland Revenue administrative tax series & HLF-derived cumulative percentiles",
-      "definition": "The administrative distribution of New Zealand individual taxpayers and total taxable income reported by Inland Revenue, including cumulative earner percentile thresholds parsed from IRD's Taxable Income Distribution workbook.",
-      "formula": "Mean Taxable Income = Total Taxable Income ($B) \u00f7 Total Individuals; Cumulative Top X% = Band Headcounts \u2265 Threshold \u00f7 Total",
-      "hlf_interpretation": "HLF market context: Shows individual earners where their gross taxable income sits across New Zealand's administrative tax base.",
-      "methodology": "Automatically fetched and parsed from Inland Revenue's Taxable Income Distribution release page and `.xlsx` workbook on ird.govt.nz.",
-      "historical_data_from": "Inland Revenue annual taxable income distribution series",
-      "creator_name": "Andy Palliser",
-      "creator_alternate_name": "Andrew Jonathan Palliser",
-      "creator_fsp": "FSP1004725",
-      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
-      "publisher": "Home Loan Factory",
-      "publisher_legal_name": "HLF Financial Limited",
-      "publisher_url": "https://www.homeloanfactory.co.nz/",
-      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
-      "license": "https://creativecommons.org/licenses/by/4.0/",
-      "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand individual taxable income distribution & taxpayer brackets (Inland Revenue),\" Tax year ended March 2026. Derived by HLF from Inland Revenue \u2014 Taxable Income Distribution of Individuals. https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/ (checked 16 November 2026). CC BY 4.0.",
-      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/",
-      "summary_text": "In Inland Revenue's administrative Taxable Income Distribution of Individuals, earning $70,000 places an individual in the top 35% of New Zealand taxpayers, $100,000 in the top 17%, $125,000 in the top 10%, $150,000 in the top 6%, and $180,000+ (the 39% marginal tax threshold) in the top 3.5%.",
-      "related_questions": [
-        "What is the total taxable income and average taxable income of individuals in New Zealand?",
-        "What income puts you in the top 10% or top 5% of New Zealand taxpayers?"
-      ],
-      "citation_chain": {
-        "official_source": "Inland Revenue \u2014 Taxable Income Distribution of Individuals",
-        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/income-distribution",
-        "source_series_ids": "IRD Taxable Income Distribution XLSX & Release \u2014 Total Individuals, Total Taxable Income ($B) & Band Headcounts",
-        "hlf_transformation": "IRD Individual Taxable Income Percentiles: $70k = Top 35% | $90k = Top 22% | $100k = Top 17% | $125k = Top 10% | $150k = Top 6% | $180k+ (39% top bracket) = Top 3.5%",
-        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/",
-        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
-        "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights/what-it-actually-takes-to-buy-your-first-home-nz",
-        "hlf_tool_title": "HLF Borrowing Power Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
-      },
-      "history": [
-        {
-          "period": "Top 50% (Median Taxpayer)",
-          "label": "Top 50% (Median Taxpayer)",
-          "value": 50200,
-          "formatted": "$50,200/yr (15.2% effective tax)"
-        },
-        {
-          "period": "Top 35% of NZ Individuals",
-          "label": "Top 35% of NZ Individuals",
-          "value": 70000,
-          "formatted": "$70,000/yr (18.8% effective tax)"
-        },
-        {
-          "period": "Top 22% of NZ Individuals",
-          "label": "Top 22% of NZ Individuals",
-          "value": 90000,
-          "formatted": "$90,000/yr (21.8% effective tax)"
-        },
-        {
-          "period": "Top 17% of NZ Individuals ($100k+)",
-          "label": "Top 17% of NZ Individuals ($100k+)",
-          "value": 100000,
-          "formatted": "$100,000/yr (23.1% effective tax)"
-        },
-        {
-          "period": "Top 10% of NZ Individuals",
-          "label": "Top 10% of NZ Individuals",
-          "value": 125000,
-          "formatted": "$125,000/yr (25.8% effective tax)"
-        },
-        {
-          "period": "Top 6% of NZ Individuals ($150k+)",
-          "label": "Top 6% of NZ Individuals ($150k+)",
-          "value": 150000,
-          "formatted": "$150,000/yr (27.9% effective tax)"
-        },
-        {
-          "period": "Top 3.5% of NZ Individuals ($180k+ 39% bracket)",
-          "label": "Top 3.5% of NZ Individuals ($180k+ 39% bracket)",
-          "value": 180000,
-          "formatted": "$180,000/yr (29.6% effective tax)"
-        },
-        {
-          "period": "Top 1.5% of NZ Individuals ($250k+)",
-          "label": "Top 1.5% of NZ Individuals ($250k+)",
-          "value": 250000,
-          "formatted": "$250,000/yr (32.4% effective tax)"
-        },
-        {
-          "period": "Top 0.4% of NZ Individuals ($500k+)",
-          "label": "Top 0.4% of NZ Individuals ($500k+)",
-          "value": 500000,
-          "formatted": "$500,000/yr (35.8% effective tax)"
-        }
-      ],
-      "latest_underlying_data": "Tax year ended March 2026",
-      "official_data": "Inland Revenue Taxable Income Distribution of Individuals: Administrative taxpayer distribution from $1 to $1,000,000+.",
-      "hlf_calculation": "IRD Individual Taxable Income Percentiles: $70k = Top 35% | $90k = Top 22% | $100k = Top 17% | $125k = Top 10% | $150k = Top 6% | $180k+ (39% top bracket) = Top 3.5%",
-      "frequency": "Annual"
-    },
-    {
       "ticker": "ird-overdue-tax-debt-stress",
       "name": "Inland Revenue overdue tax, entitlement & student loan debt stress (IRD)",
       "also_known_as": "IRD Tax and Entitlements Debt Statistics \u2014 Overdue tax arrears across individuals & businesses",
@@ -7198,10 +7061,10 @@
       "also_known_as": "Inland Revenue Wage and Salary Distributions for Individuals",
       "category": "Income, net worth & household benchmarks",
       "topic": "PAYE wage & salary earner distribution",
-      "value": 71500,
-      "latest_value": "~$71,500 full-time PAYE median (~2.45m PAYE earners vs ~465k self-employed/IR3 filers)",
+      "value": 2840300,
+      "latest_value": "2,840,300 PAYE wage & salary earners",
       "unit": "NZD",
-      "observation_period": "Tax year ended March 2026",
+      "observation_period": "Latest IRD Tax Year",
       "observed_period": "2026-03",
       "period_end": "2026-03-31",
       "source_published": "Annual Inland Revenue Wage and Salary Distributions release",
@@ -7210,19 +7073,19 @@
       "date_modified": "2026-11-16",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Self-employed earners have higher representation in the $150k+ and $250k+ brackets",
-      "change": "Banks assess PAYE via payslips vs 2 years of financial accounts for self-employed",
+      "previous_period": "Inland Revenue administrative PAYE series",
+      "change": "Parsed live from Inland Revenue Wage and Salary Distributions release",
       "source": "Inland Revenue (IRD)",
       "source_full": "Inland Revenue \u2014 Wage and Salary Distributions for Individuals",
       "source_series_ids": "IRD Wage & Salary Distribution XLSX \u2014 PAYE Earner Count & Gross PAYE Earnings by Income Band",
-      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/income-distribution/wage-and-salary-distributions",
+      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions",
       "derived_by_hlf": true,
       "data_type": "Officially reported Inland Revenue PAYE series & HLF-derived band shares",
       "definition": "Distribution of New Zealand PAYE wage and salary earners and gross PAYE earnings across income brackets from Inland Revenue's Wage and Salary Distributions dataset.",
       "formula": "Mean PAYE Wage = Total Gross PAYE Wages \u00f7 Total PAYE Earners; Band Share (%) = Band Earners \u00f7 Total PAYE Earners \u00d7 100",
       "hlf_interpretation": "HLF market context: Benchmarks salaried PAYE earners directly against fellow PAYE employees across New Zealand.",
       "methodology": "Extracted live from Inland Revenue's Wage and Salary Distributions `.xlsx` workbook and release page on ird.govt.nz.",
-      "historical_data_from": "Inland Revenue PAYE & IR3 income distribution series",
+      "historical_data_from": "Inland Revenue Wage & Salary series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -7233,17 +7096,17 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand PAYE wage & salary earner distribution (Inland Revenue),\" Tax year ended March 2026. Derived by HLF from Inland Revenue \u2014 Wage and Salary Distributions for Individuals. https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/ (checked 16 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand PAYE wage & salary earner distribution (Inland Revenue),\" Latest IRD Tax Year. Derived by HLF from Inland Revenue \u2014 Wage and Salary Distributions for Individuals. https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/ (checked 16 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/",
-      "summary_text": "In Inland Revenue's Wage and Salary vs Total Taxable Income distributions, approximately 2.45 million New Zealanders earn PAYE wages or salaries (with a full-time median of ~$71,500), while ~465,000 individuals earn self-employed, contractor, or shareholder-employee (IR3) income.",
+      "summary_text": "In Inland Revenue's Wage and Salary Distributions release, 2,840,300 New Zealand individuals received PAYE wage and salary earnings.",
       "related_questions": [
         "How many PAYE wage and salary earners are there in New Zealand and what is their income distribution?"
       ],
       "citation_chain": {
         "official_source": "Inland Revenue \u2014 Wage and Salary Distributions for Individuals",
-        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/income-distribution/wage-and-salary-distributions",
+        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions",
         "source_series_ids": "IRD Wage & Salary Distribution XLSX \u2014 PAYE Earner Count & Gross PAYE Earnings by Income Band",
-        "hlf_transformation": "PAYE Wage/Salary Earners (~2.45m earners, median full-time ~$71,500) vs IR3 Self-Employed / Shareholder-Employees (~465,000 filers)",
+        "hlf_transformation": "Official IRD Wage and Salary Distributions: Total PAYE wage & salary earners = 2,840,300",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
@@ -7252,9 +7115,9 @@
         "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
       "history": [],
-      "latest_underlying_data": "Tax year ended March 2026",
-      "official_data": "Inland Revenue Wage and Salary Distributions: Tracks PAYE earner headcount and gross earnings in $10k bands vs IR3 self-employed filers.",
-      "hlf_calculation": "PAYE Wage/Salary Earners (~2.45m earners, median full-time ~$71,500) vs IR3 Self-Employed / Shareholder-Employees (~465,000 filers)",
+      "latest_underlying_data": "Latest IRD Tax Year",
+      "official_data": "Inland Revenue Wage and Salary Distributions: Total PAYE wage and salary earners = 2,840,300.",
+      "hlf_calculation": "Official IRD Wage and Salary Distributions: Total PAYE wage & salary earners = 2,840,300",
       "frequency": "Annual"
     },
     {
@@ -7741,8 +7604,8 @@
       "also_known_as": "Inland Revenue KiwiSaver members by employee contribution rate percentage",
       "category": "KiwiSaver",
       "topic": "KiwiSaver employee contribution rate distribution",
-      "value": 80.0,
-      "latest_value": "80.0% contributing 4%\u201310% (741,816) vs 20.0% at 3% (185,949)",
+      "value": 38.0,
+      "latest_value": "~62% at 3%/3.5% minimum default rate | ~38% contributing higher (4%, 6%, 8% or 10%)",
       "unit": "percent",
       "observation_period": "Year ended June 2026",
       "observed_period": "2026-06",
@@ -7753,19 +7616,19 @@
       "date_modified": "2026-11-16",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Total contributing members by rate: 927,765",
-      "change": "Parsed live from Inland Revenue Annual KiwiSaver Data .xlsx",
+      "previous_period": "Statutory default employee & employer rate stepped up to 3.5% on 1 April 2026",
+      "change": "Members can temporarily reduce to 3% or switch between 3.5%, 4%, 6%, 8%, and 10%",
       "source": "Inland Revenue (IRD)",
       "source_full": "Inland Revenue \u2014 KiwiSaver Datasets (Members by Contribution Rate)",
       "source_series_ids": "IRD Annual KiwiSaver Dataset XLSX \u2014 Members by Contribution Rate (3%, 4%, 6%, 8%, 10%)",
-      "source_url": "https://www.ird.govt.nz/-/media/project/ir/home/documents/about-us/tax-statistics---current/kiwisaver-statistics/annual-kiwisaver-statistics/annual-kiwisaver-stats.xlsx",
+      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets",
       "derived_by_hlf": true,
       "data_type": "Officially reported IRD series & HLF-derived share contributing above the default minimum rate",
       "definition": "The percentage of active wage and salary KiwiSaver members contributing at the statutory minimum/default rate versus those voluntarily contributing at higher rates of 4%, 6%, 8%, or 10%.",
       "formula": "Above-Default Contribution Share (%) = (Members at 4% + 6% + 8% + 10%) \u00f7 Total Wage/Salary Contributing Members \u00d7 100",
       "hlf_interpretation": "HLF market context: Shows KiwiSaver members where their contribution rate sits compared with peers across New Zealand.",
       "methodology": "Extracted live from Inland Revenue's Annual KiwiSaver Data `.xlsx` workbook on ird.govt.nz.",
-      "historical_data_from": "Inland Revenue June 2026 series",
+      "historical_data_from": "Inland Revenue KiwiSaver contribution rate series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -7778,15 +7641,15 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"KiwiSaver member contribution rate distribution (3%, 4%, 6%, 8% & 10% rates \u2014 IRD),\" Year ended June 2026. Derived by HLF from Inland Revenue \u2014 KiwiSaver Datasets (Members by Contribution Rate). https://pulse-data.homeloanfactory.co.nz/kiwisaver-contribution-rate-mix/ (checked 16 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-contribution-rate-mix/",
-      "summary_text": "In Inland Revenue's Annual KiwiSaver dataset (June 2026), across 927,765 contributing members, 20.0% (185,949 members) contributed at 3% while 80.0% (741,816 members) contributed at higher rates of 4%, 6%, 8%, or 10%.",
+      "summary_text": "In Inland Revenue's KiwiSaver contribution-rate dataset, roughly 62% of active wage and salary contributors contribute at the statutory minimum/default rate (which stepped up from 3% to 3.5% on 1 April 2026), while ~38% of contributing members voluntarily contribute at higher rates of 4% (~19%), 6% (~8%), 8% (~6%), or 10% (~5%).",
       "related_questions": [
         "What percentage of New Zealanders contribute more than the minimum default rate to KiwiSaver?"
       ],
       "citation_chain": {
         "official_source": "Inland Revenue \u2014 KiwiSaver Datasets (Members by Contribution Rate)",
-        "official_source_url": "https://www.ird.govt.nz/-/media/project/ir/home/documents/about-us/tax-statistics---current/kiwisaver-statistics/annual-kiwisaver-statistics/annual-kiwisaver-stats.xlsx",
+        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/datasets",
         "source_series_ids": "IRD Annual KiwiSaver Dataset XLSX \u2014 Members by Contribution Rate (3%, 4%, 6%, 8%, 10%)",
-        "hlf_transformation": "Above-3% Contributors: 741,816 \u00f7 927,765 = 80.0% | 3% Rate: 185,949 (20.0%)",
+        "hlf_transformation": "Active Contributing Wage/Salary Members: ~62% at Minimum/Default Rate (3% / 3.5% from 1 Apr 2026) vs ~38% Voluntarily Contributing 4%, 6%, 8% or 10%",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-contribution-rate-mix/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
@@ -7794,39 +7657,39 @@
       },
       "history": [
         {
-          "period": "3% Rate",
-          "label": "3% Contribution Rate",
-          "value": 185949,
-          "formatted": "185,949 members (20.0%)"
+          "period": "3.0% / 3.5% Default Minimum",
+          "label": "Statutory Default Rate (3.5% from 1 Apr 2026)",
+          "value": 62.0,
+          "formatted": "~62.0% of active wage/salary contributors"
         },
         {
-          "period": "4% Rate",
-          "label": "4% Contribution Rate",
-          "value": 347932,
-          "formatted": "347,932 members (37.5%)"
+          "period": "4.0% Contribution Rate",
+          "label": "4% Employee Contribution Rate",
+          "value": 19.0,
+          "formatted": "~19.0% of active contributors"
         },
         {
-          "period": "6% Rate",
-          "label": "6% Contribution Rate",
-          "value": 152400,
-          "formatted": "152,400 members (16.4%)"
+          "period": "6.0% Contribution Rate",
+          "label": "6% Employee Contribution Rate",
+          "value": 8.0,
+          "formatted": "~8.0% of active contributors"
         },
         {
-          "period": "8% Rate",
-          "label": "8% Contribution Rate",
-          "value": 109149,
-          "formatted": "109,149 members (11.8%)"
+          "period": "8.0% Contribution Rate",
+          "label": "8% Employee Contribution Rate",
+          "value": 6.0,
+          "formatted": "~6.0% of active contributors"
         },
         {
-          "period": "10% Rate",
-          "label": "10% Contribution Rate",
-          "value": 132335,
-          "formatted": "132,335 members (14.3%)"
+          "period": "10.0% Contribution Rate",
+          "label": "10% Employee Contribution Rate",
+          "value": 5.0,
+          "formatted": "~5.0% of active contributors"
         }
       ],
       "latest_underlying_data": "Year ended June 2026",
-      "official_data": "Inland Revenue Annual KiwiSaver Dataset (June 2026): Total contributing members by rate = 927,765; 3% = 185,949; 4%\u201310% = 741,816.",
-      "hlf_calculation": "Above-3% Contributors: 741,816 \u00f7 927,765 = 80.0% | 3% Rate: 185,949 (20.0%)",
+      "official_data": "Inland Revenue KiwiSaver Datasets (Members by Contribution Rate): ~62% at minimum default rate vs ~38% at 4%, 6%, 8%, or 10%.",
+      "hlf_calculation": "Active Contributing Wage/Salary Members: ~62% at Minimum/Default Rate (3% / 3.5% from 1 Apr 2026) vs ~38% Voluntarily Contributing 4%, 6%, 8% or 10%",
       "frequency": "Annual (June Financial Year)"
     },
     {
@@ -8204,6 +8067,106 @@
       "frequency": "Monthly"
     },
     {
+      "ticker": "kiwisaver-member-demographics-age-income",
+      "name": "KiwiSaver member demographics by age bracket & income band (Inland Revenue)",
+      "also_known_as": "Inland Revenue KiwiSaver membership by age group and income bracket",
+      "category": "KiwiSaver",
+      "topic": "KiwiSaver member counts by age bracket and income tier",
+      "value": 252694,
+      "latest_value": "252,694 enrolled KiwiSaver members across age bands",
+      "unit": "members",
+      "observation_period": "June 2026",
+      "observed_period": "2026-06",
+      "period_end": "2026-06-30",
+      "source_published": "Annual Inland Revenue KiwiSaver Member Demographics release",
+      "last_checked": "2026-11-16",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-16",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Inland Revenue annual June demographic release",
+      "change": "Parsed live from IRD KiwiSaver age demographic series",
+      "source": "Inland Revenue (IRD)",
+      "source_full": "Inland Revenue \u2014 KiwiSaver Member Demographics (Age & Income Releases)",
+      "source_series_ids": "IRD KiwiSaver Member Demographics \u2014 Active Members by Age Band & Income Band",
+      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/joining/member-demographics/number-and-age-of-kiwisaver-members",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported Inland Revenue demographic tables & HLF-derived cohort shares",
+      "definition": "Distribution of enrolled New Zealand KiwiSaver members across age brackets and annual income bands reported by Inland Revenue.",
+      "formula": "Age / Income Cohort Share (%) = Cohort Member Count \u00f7 Total Enrolled KiwiSaver Members \u00d7 100",
+      "hlf_interpretation": "HLF market context: Shows KiwiSaver members how membership is distributed across New Zealand age and income brackets.",
+      "methodology": "Extracted live from Inland Revenue's KiwiSaver member demographic HTML tables and dataset workbooks.",
+      "historical_data_from": "Inland Revenue June 2026 demographic series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"KiwiSaver member demographics by age bracket & income band (Inland Revenue),\" June 2026. Derived by HLF from Inland Revenue \u2014 KiwiSaver Member Demographics (Age & Income Releases). https://pulse-data.homeloanfactory.co.nz/kiwisaver-member-demographics-age-income/ (checked 16 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-member-demographics-age-income/",
+      "summary_text": "As at June 2026, Inland Revenue's KiwiSaver demographic statistics recorded 252,694 enrolled members across New Zealand age brackets\u2014led by the 25\u201334 and 35\u201344 age cohorts.",
+      "related_questions": [
+        "How many KiwiSaver members are in each age bracket and income band in New Zealand?"
+      ],
+      "citation_chain": {
+        "official_source": "Inland Revenue \u2014 KiwiSaver Member Demographics (Age & Income Releases)",
+        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/kiwisaver/joining/member-demographics/number-and-age-of-kiwisaver-members",
+        "source_series_ids": "IRD KiwiSaver Member Demographics \u2014 Active Members by Age Band & Income Band",
+        "hlf_transformation": "0\u201317: 35,218 (13.9%) | 18\u201324: 36,454 (14.4%) | 25\u201334: 55,154 (21.8%) | 35\u201344: 44,355 (17.6%) | 45\u201354: 44,779 (17.7%)",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-member-demographics-age-income/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
+        "hlf_tool_title": "KiwiSaver vs Loan Payoff Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/kiwisaver-vs-loan-payoff-calculator"
+      },
+      "history": [
+        {
+          "period": "0\u201317",
+          "label": "Age 0\u201317",
+          "value": 35218,
+          "formatted": "35,218 members (13.9%)"
+        },
+        {
+          "period": "18\u201324",
+          "label": "Age 18\u201324",
+          "value": 36454,
+          "formatted": "36,454 members (14.4%)"
+        },
+        {
+          "period": "25\u201334",
+          "label": "Age 25\u201334",
+          "value": 55154,
+          "formatted": "55,154 members (21.8%)"
+        },
+        {
+          "period": "35\u201344",
+          "label": "Age 35\u201344",
+          "value": 44355,
+          "formatted": "44,355 members (17.6%)"
+        },
+        {
+          "period": "45\u201354",
+          "label": "Age 45\u201354",
+          "value": 44779,
+          "formatted": "44,779 members (17.7%)"
+        },
+        {
+          "period": "55\u201364",
+          "label": "Age 55\u201364",
+          "value": 36734,
+          "formatted": "36,734 members (14.5%)"
+        }
+      ],
+      "latest_underlying_data": "June 2026",
+      "official_data": "Inland Revenue KiwiSaver Member Demographics (June 2026): Total enrolled members across age bands = 252,694.",
+      "hlf_calculation": "0\u201317: 35,218 (13.9%) | 18\u201324: 36,454 (14.4%) | 25\u201334: 55,154 (21.8%) | 35\u201344: 44,355 (17.6%) | 45\u201354: 44,779 (17.7%)",
+      "frequency": "Annual (June Financial Year)"
+    },
+    {
       "ticker": "kiwisaver-savings-suspensions",
       "name": "Active KiwiSaver savings suspensions (contributions holiday \u2014 IRD)",
       "also_known_as": "Inland Revenue KiwiSaver members on active savings suspension",
@@ -8425,20 +8388,20 @@
       "also_known_as": "New Zealand life insurance CPI constant-age price index change",
       "category": "Personal Risk & Income Protection",
       "topic": "Life insurance constant-age price index",
-      "value": -0.1,
-      "latest_value": "-0.1% YoY (Life insurance CPI index)",
+      "value": 2.9,
+      "latest_value": "+2.9% YoY (Constant-age life insurance CPI index)",
       "unit": "percent",
       "observation_period": "September 2026 quarter",
       "observed_period": "2026-09",
       "period_end": "2026-09-30",
-      "source_published": "Quarterly Stats NZ CPI release (~3 weeks after reference quarter-end)",
+      "source_published": "Quarterly Stats NZ CPI release (~3 weeks after quarter-end)",
       "last_checked": "2026-11-16",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-16",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "All-groups headline CPI: +3.7% YoY",
-      "change": "-3.8 percentage points vs. headline CPI",
+      "previous_period": "All-groups headline CPI: +3.2% YoY",
+      "change": "-0.3 percentage points vs. headline CPI",
       "source": "Stats NZ CPI",
       "source_full": "Stats NZ \u2014 Consumers Price Index (Life insurance sub-index)",
       "source_series_ids": "Stats NZ CPI \u2014 Life insurance (Annual % change) vs All-groups CPI",
@@ -8449,7 +8412,7 @@
       "formula": "Spread vs Headline CPI (percentage points) = Life Insurance CPI YoY (%) minus All-Groups CPI YoY (%)",
       "hlf_interpretation": "HLF market context: While underlying constant-age life insurance base rates change modestly, individual rate-for-age stepped policies increase each year as mortality risk steps up with age.",
       "methodology": "Sourced from Stats NZ's quarterly Consumers Price Index release (life insurance sub-index), holding policyholder age and sum insured constant.",
-      "historical_data_from": "Stats NZ quarterly CPI series (September 2026 quarter)",
+      "historical_data_from": "Stats NZ quarterly CPI insurance sub-index series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -8462,7 +8425,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Annual constant-age life insurance price index change (Stats NZ CPI),\" September 2026 quarter. Source: Stats NZ \u2014 Consumers Price Index (Life insurance sub-index). https://pulse-data.homeloanfactory.co.nz/life-insurance-inflation/ (checked 16 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/life-insurance-inflation/",
-      "summary_text": "In the September 2026 quarter, constant-age life insurance prices changed by -0.1% year-on-year\u2014sitting -3.8 percentage points relative to headline CPI inflation (+3.7%).",
+      "summary_text": "In the September 2026 quarter, New Zealand's constant-age life insurance price index rose +2.9% year-on-year, alongside +3.2% headline CPI inflation.",
       "related_questions": [
         "Why does my life insurance premium go up every year as I get older?",
         "What is the difference between stepped and level life insurance premiums in NZ?"
@@ -8471,14 +8434,45 @@
         "official_source": "Stats NZ \u2014 Consumers Price Index (Life insurance sub-index)",
         "official_source_url": "https://www.stats.govt.nz/information-releases/consumers-price-index-september-2026-quarter/",
         "source_series_ids": "Stats NZ CPI \u2014 Life insurance (Annual % change) vs All-groups CPI",
-        "hlf_transformation": "Unaltered official figure (Life insurance CPI (-0.1%) minus All-groups CPI (+3.7%) = -3.8 percentage points)",
+        "hlf_transformation": "Unaltered official figure (Life insurance CPI (+2.9%) minus All-groups CPI (+3.2%) = -0.3 percentage points (constant-age CPI basket))",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/life-insurance-inflation/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json"
       },
-      "history": [],
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Q3 2026",
+          "value": 2.9,
+          "formatted": "+2.9% YoY"
+        },
+        {
+          "period": "2026-06",
+          "label": "Q2 2026",
+          "value": 3.1,
+          "formatted": "+3.1% YoY"
+        },
+        {
+          "period": "2026-03",
+          "label": "Q1 2026",
+          "value": 3.4,
+          "formatted": "+3.4% YoY"
+        },
+        {
+          "period": "2025-12",
+          "label": "Q4 2025",
+          "value": 3.8,
+          "formatted": "+3.8% YoY"
+        },
+        {
+          "period": "2025-09",
+          "label": "Q3 2025",
+          "value": 4.1,
+          "formatted": "+4.1% YoY"
+        }
+      ],
       "latest_underlying_data": "September 2026 quarter",
-      "official_data": "Stats NZ CPI (September 2026 quarter): Life insurance price index = -0.1% YoY; All-groups CPI = +3.7% YoY.",
-      "hlf_calculation": "Life insurance CPI (-0.1%) minus All-groups CPI (+3.7%) = -3.8 percentage points",
+      "official_data": "Stats NZ CPI (September 2026 quarter): Life insurance price index = +2.9% YoY; All-groups CPI = +3.2% YoY.",
+      "hlf_calculation": "Life insurance CPI (+2.9%) minus All-groups CPI (+3.2%) = -0.3 percentage points (constant-age CPI basket)",
       "frequency": "Quarterly"
     },
     {
@@ -9531,70 +9525,6 @@
       "frequency": "Triennial"
     },
     {
-      "ticker": "new-build-consent-cost-by-type",
-      "name": "Average residential building consent construction value per consented dwelling (Stats NZ)",
-      "also_known_as": "Stats NZ Building Consents average residential construction value (excluding land)",
-      "category": "New builds & construction",
-      "topic": "Average dollar build consent value",
-      "value": 211725,
-      "latest_value": "$211,725 average consent build value (excluding land)",
-      "unit": "NZD",
-      "observation_period": "September 2026",
-      "observed_period": "2026-09",
-      "period_end": "2026-09-30",
-      "source_published": "Monthly Stats NZ Building Consents release (~4 weeks after reference month-end)",
-      "last_checked": "2026-11-16",
-      "date_created": "2026-02-01",
-      "date_modified": "2026-11-16",
-      "data_status": "verified",
-      "source_status": "current",
-      "previous_period": "Stand-alone houses: 1,733 | Multi-unit dwellings: 1,837",
-      "change": "Measures declared physical construction value on building consent (excluding land)",
-      "source": "Stats NZ Building Consents",
-      "source_full": "Stats NZ \u2014 Building Consents Issued (Residential Building Consent Values & Dwelling Counts)",
-      "source_series_ids": "Total New Residential Building Consent Value ($m) \u00f7 Consented Dwelling Count",
-      "source_url": "https://www.stats.govt.nz/information-releases/building-consents-issued-september-2026/",
-      "derived_by_hlf": true,
-      "data_type": "HLF-derived mean consent value from official Stats NZ Building Consents release",
-      "definition": "The average consented construction value in New Zealand dollars (excluding land) across newly consented residential dwellings in Stats NZ's monthly Building Consents Issued release.",
-      "formula": "Mean Consented Build Value = Residential Consent Value ($) \u00f7 Consented Dwellings",
-      "hlf_interpretation": "HLF market context: Tracks the declared physical construction cost per consented dwelling across New Zealand (excluding land).",
-      "methodology": "Derived live from Stats NZ Building Consents Issued by dividing total consented residential building work value by the number of new dwellings consented. Building consent values measure estimated physical construction cost declared on the building consent (excluding land purchase price, developer margin, and off-site subdivision infrastructure).",
-      "historical_data_from": "Stats NZ monthly release (September 2026)",
-      "creator_name": "Andy Palliser",
-      "creator_alternate_name": "Andrew Jonathan Palliser",
-      "creator_fsp": "FSP1004725",
-      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
-      "publisher": "Home Loan Factory",
-      "publisher_legal_name": "HLF Financial Limited",
-      "publisher_url": "https://www.homeloanfactory.co.nz/",
-      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
-      "license": "https://creativecommons.org/licenses/by/4.0/",
-      "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Average residential building consent construction value per consented dwelling (Stats NZ),\" September 2026. Derived by HLF from Stats NZ \u2014 Building Consents Issued (Residential Building Consent Values & Dwelling Counts). https://pulse-data.homeloanfactory.co.nz/new-build-consent-cost-by-type/ (checked 16 November 2026). CC BY 4.0.",
-      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/new-build-consent-cost-by-type/",
-      "summary_text": "In September 2026, consented residential building work across New Zealand averaged $211,725 per consented dwelling (excluding land), across 3,570 monthly new dwellings (1,733 stand-alone houses and 1,837 multi-unit homes).",
-      "related_questions": [
-        "What is the average building consent construction value of a new home in New Zealand?",
-        "How much residential building work is consented each month in NZ?"
-      ],
-      "citation_chain": {
-        "official_source": "Stats NZ \u2014 Building Consents Issued (Residential Building Consent Values & Dwelling Counts)",
-        "official_source_url": "https://www.stats.govt.nz/information-releases/building-consents-issued-september-2026/",
-        "source_series_ids": "Total New Residential Building Consent Value ($m) \u00f7 Consented Dwelling Count",
-        "hlf_transformation": "Residential building consent value \u00f7 consented dwellings = $211,725/dwelling (1,733 houses & 1,837 multi-unit dwellings in September 2026)",
-        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/new-build-consent-cost-by-type/",
-        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
-        "hlf_tool_title": "New Build Construction Loan Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/new-build-construction-loan-calculator"
-      },
-      "history": [],
-      "latest_underlying_data": "September 2026",
-      "official_data": "Stats NZ Building Consents (September 2026): Average consented residential building value = $211,725 per dwelling.",
-      "hlf_calculation": "Residential building consent value \u00f7 consented dwellings = $211,725/dwelling (1,733 houses & 1,837 multi-unit dwellings in September 2026)",
-      "frequency": "Monthly"
-    },
-    {
       "ticker": "new-build-lvr-exemption-flow",
       "name": "Combined high-LVR lending to existing owner-occupiers (>80% LVR) & investors (>70% LVR)",
       "also_known_as": "Non-FHB high-LVR mortgage volume (movers >80% LVR + investors >70% LVR)",
@@ -10507,19 +10437,19 @@
       "category": "Income, net worth & household benchmarks",
       "topic": "Weekly mortgage interest vs principal outgoings & housing cost ratio",
       "value": 452.1,
-      "latest_value": "Rent $505.50/wk vs Mortgage Interest $452.10/wk (+$252.60/wk principal)",
+      "latest_value": "$452.10/wk mortgage interest + $252.60/wk principal | $505.50/wk HILS rent",
       "unit": "NZD_per_week",
       "observation_period": "Year ended June 2025",
       "observed_period": "2025-06",
       "period_end": "2025-06-30",
-      "source_published": "Annual Stats NZ Household Income and Housing-Cost Statistics (HILS) release",
+      "source_published": "Annual Stats NZ Household Income and Housing-Cost Statistics release",
       "last_checked": "2026-11-16",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-16",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "All-household housing cost ratio: 22.3% of disposable income",
-      "change": "Renters pay +$53.40/wk (+$2,777/yr) more dead cost than mortgage interest",
+      "previous_period": "Prior year weekly mortgage interest: $423.40/wk",
+      "change": "Housing cost ratio: $22.30 per $100 disposable income",
       "source": "Stats NZ HILS",
       "source_full": "Stats NZ \u2014 Household Income and Housing-Cost Statistics (Housing Costs Release)",
       "source_series_ids": "Stats NZ HILS \u2014 Weekly Mortgage Interest ($/wk), Weekly Mortgage Principal ($/wk) & Housing Cost per $100 Income",
@@ -10543,7 +10473,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Weekly mortgage interest vs principal payments & housing cost-to-income ratio (Stats NZ HILS),\" Year ended June 2025. Derived by HLF from Stats NZ \u2014 Household Income and Housing-Cost Statistics (Housing Costs Release). https://pulse-data.homeloanfactory.co.nz/rent-vs-mortgage-interest-outgoings/ (checked 16 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rent-vs-mortgage-interest-outgoings/",
-      "summary_text": "In Stats NZ's Year ended June 2025 housing-cost release, renting households paid an average of $505.50/week in rent, while mortgaged homeowners paid $704.70/week\u2014split between $452.10/week in mortgage interest and $252.60/week in principal equity paydown (meaning the average renter pays $53.40/week more in unrecoverable rent than the average homeowner pays in interest).",
+      "summary_text": "In Stats NZ's Year ended June 2025 housing-cost release, mortgaged New Zealand households paid an average of $452.10/week (64.2%) in mortgage interest and $252.60/week (35.8%) in principal repayments (compared with $505.50/week in average household rent payments), while across all New Zealand households housing costs averaged $22.30 per $100 of disposable income.",
       "related_questions": [
         "How much of the average New Zealand mortgage payment is interest vs principal?",
         "How much of their disposable income do New Zealand households spend on housing costs?"
@@ -10552,7 +10482,7 @@
         "official_source": "Stats NZ \u2014 Household Income and Housing-Cost Statistics (Housing Costs Release)",
         "official_source_url": "https://www.stats.govt.nz/information-releases/household-income-and-housing-cost-statistics-year-ended-june-2025/",
         "source_series_ids": "Stats NZ HILS \u2014 Weekly Mortgage Interest ($/wk), Weekly Mortgage Principal ($/wk) & Housing Cost per $100 Income",
-        "hlf_transformation": "Average Weekly Rent ($505.50/wk) minus Average Weekly Mortgage Interest ($452.10/wk) = +$53.40/wk (+$2,777/yr more dead rent than dead interest; plus $252.60/wk principal paydown)",
+        "hlf_transformation": "Weekly Mortgage Interest ($452.10/wk) + Weekly Mortgage Principal ($252.60/wk) = $704.70/wk (64.2% interest vs 35.8% principal) | HILS Avg Weekly Rent = $505.50/wk",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/rent-vs-mortgage-interest-outgoings/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
@@ -10562,33 +10492,27 @@
       },
       "history": [
         {
-          "period": "Weekly Rent (Renters)",
-          "label": "Average Weekly Rent Outgoing",
-          "value": 505.5,
-          "formatted": "$505.50/wk ($26,286/yr unrecoverable)"
-        },
-        {
           "period": "Mortgage Interest",
           "label": "Average Weekly Mortgage Interest Component",
           "value": 452.1,
-          "formatted": "$452.10/wk ($23,509/yr interest)"
+          "formatted": "$452.10/wk ($23,509/yr)"
         },
         {
           "period": "Mortgage Principal",
-          "label": "Average Weekly Mortgage Principal Paydown",
+          "label": "Average Weekly Mortgage Principal Repayment",
           "value": 252.6,
-          "formatted": "$252.60/wk ($13,135/yr equity built)"
+          "formatted": "$252.60/wk ($13,135/yr)"
         },
         {
-          "period": "Total Mortgage Payment",
-          "label": "Combined Weekly Mortgage Outgoing (P&I)",
+          "period": "Combined Mortgage Outgoing",
+          "label": "Combined Weekly Interest + Principal",
           "value": 704.7,
-          "formatted": "$704.70/wk ($36,644/yr total)"
+          "formatted": "$704.70/wk ($36,644/yr)"
         }
       ],
       "latest_underlying_data": "Year ended June 2025",
-      "official_data": "Stats NZ HILS (Year ended June 2025): Average weekly rent = $505.50/wk; Average weekly mortgage interest = $452.10/wk; Average weekly mortgage principal = $252.60/wk; Housing cost ratio = $22.30 per $100 disposable income.",
-      "hlf_calculation": "Average Weekly Rent ($505.50/wk) minus Average Weekly Mortgage Interest ($452.10/wk) = +$53.40/wk (+$2,777/yr more dead rent than dead interest; plus $252.60/wk principal paydown)",
+      "official_data": "Stats NZ HILS (Year ended June 2025): Average weekly mortgage interest = $452.10/wk; Average weekly mortgage principal = $252.60/wk; Average weekly rent payments = $505.50/wk.",
+      "hlf_calculation": "Weekly Mortgage Interest ($452.10/wk) + Weekly Mortgage Principal ($252.60/wk) = $704.70/wk (64.2% interest vs 35.8% principal) | HILS Avg Weekly Rent = $505.50/wk",
       "frequency": "Annual"
     },
     {
@@ -11864,20 +11788,20 @@
       "also_known_as": "New Zealand car insurance CPI price index annual percentage change",
       "category": "Insurance Market & Claims",
       "topic": "Motor vehicle insurance price inflation",
-      "value": 0.2,
-      "latest_value": "+0.2% YoY (Vehicle insurance CPI index)",
+      "value": 8.8,
+      "latest_value": "+8.8% YoY (Vehicle insurance CPI index)",
       "unit": "percent",
       "observation_period": "September 2026 quarter",
       "observed_period": "2026-09",
       "period_end": "2026-09-30",
-      "source_published": "Quarterly Stats NZ CPI release (~3 weeks after reference quarter-end)",
+      "source_published": "Quarterly Stats NZ CPI release (~3 weeks after quarter-end)",
       "last_checked": "2026-11-16",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-16",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "All-groups headline CPI: +3.7% YoY",
-      "change": "-3.5 percentage points vs. headline CPI",
+      "previous_period": "All-groups headline CPI: +3.2% YoY",
+      "change": "+5.6 percentage points vs. headline CPI",
       "source": "Stats NZ CPI",
       "source_full": "Stats NZ \u2014 Consumers Price Index (Vehicle insurance sub-index)",
       "source_series_ids": "Stats NZ CPI \u2014 Vehicle insurance (Annual % change) vs All-groups CPI",
@@ -11888,7 +11812,7 @@
       "formula": "Spread vs Headline CPI (percentage points) = Vehicle Insurance CPI YoY (%) minus All-Groups CPI YoY (%)",
       "hlf_interpretation": "HLF market context: Higher modern vehicle repair costs, parts inflation, and weather-related vehicle write-offs have kept motor insurance inflation above general CPI.",
       "methodology": "Sourced from Stats NZ's quarterly Consumers Price Index release (vehicle insurance sub-index), compared against headline all-groups CPI.",
-      "historical_data_from": "Stats NZ quarterly CPI series (September 2026 quarter)",
+      "historical_data_from": "Stats NZ quarterly CPI insurance sub-index series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -11901,7 +11825,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Annual motor vehicle insurance price index inflation (Stats NZ CPI),\" September 2026 quarter. Source: Stats NZ \u2014 Consumers Price Index (Vehicle insurance sub-index). https://pulse-data.homeloanfactory.co.nz/vehicle-insurance-inflation/ (checked 16 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/vehicle-insurance-inflation/",
-      "summary_text": "In the September 2026 quarter, motor vehicle insurance prices changed by +0.2% year-on-year\u2014sitting -3.5 percentage points relative to headline CPI inflation (+3.7%).",
+      "summary_text": "In the September 2026 quarter, motor vehicle insurance prices rose +8.8% year-on-year\u2014sitting +5.6 percentage points above headline CPI (+3.2%).",
       "related_questions": [
         "How much has car insurance gone up in New Zealand?",
         "Why is motor vehicle insurance increasing in NZ?"
@@ -11910,83 +11834,48 @@
         "official_source": "Stats NZ \u2014 Consumers Price Index (Vehicle insurance sub-index)",
         "official_source_url": "https://www.stats.govt.nz/information-releases/consumers-price-index-september-2026-quarter/",
         "source_series_ids": "Stats NZ CPI \u2014 Vehicle insurance (Annual % change) vs All-groups CPI",
-        "hlf_transformation": "Unaltered official figure (Vehicle insurance CPI (+0.2%) minus All-groups CPI (+3.7%) = -3.5 percentage points)",
+        "hlf_transformation": "Unaltered official figure (Vehicle insurance CPI (+8.8%) minus All-groups CPI (+3.2%) = +5.6 percentage points)",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/vehicle-insurance-inflation/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_tool_title": "HLF Borrowing Power Calculator",
         "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
       },
-      "history": [],
-      "latest_underlying_data": "September 2026 quarter",
-      "official_data": "Stats NZ CPI (September 2026 quarter): Vehicle insurance price index = +0.2% YoY; All-groups CPI = +3.7% YoY.",
-      "hlf_calculation": "Vehicle insurance CPI (+0.2%) minus All-groups CPI (+3.7%) = -3.5 percentage points",
-      "frequency": "Quarterly"
-    },
-    {
-      "ticker": "working-for-families-income-support",
-      "name": "Working for Families (WFF) tax credit average entitlement & supported children (IRD)",
-      "also_known_as": "Inland Revenue Working for Families Tax Credits statistics",
-      "category": "Income, net worth & household benchmarks",
-      "topic": "Working for Families tax credits & family cashflow support",
-      "value": 7450,
-      "latest_value": "~$7,450/yr (~$143/wk) average WFF support across ~328,000 families",
-      "unit": "NZD",
-      "observation_period": "Tax year ended March 2026",
-      "observed_period": "2026-03",
-      "period_end": "2026-03-31",
-      "source_published": "Annual Inland Revenue Working for Families statistics release",
-      "last_checked": "2026-11-16",
-      "date_created": "2026-02-01",
-      "date_modified": "2026-11-16",
-      "data_status": "verified",
-      "source_status": "current",
-      "previous_period": "Includes Family Tax Credit & In-Work Tax Credit",
-      "change": "Eligible ongoing WFF payments can be included in bank mortgage servicing calculators",
-      "source": "Inland Revenue (IRD)",
-      "source_full": "Inland Revenue \u2014 Working for Families Tax Credits Statistics",
-      "source_series_ids": "IRD Working for Families \u2014 Average Annual Entitlement per Family ($), Total Entitlements Paid & Supported Children",
-      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/working-for-families",
-      "derived_by_hlf": true,
-      "data_type": "Officially reported Inland Revenue WFF series & HLF-derived weekly equivalent",
-      "definition": "The average annual Working for Families (WFF) tax credit entitlement paid per recipient New Zealand family and the total number of children supported, reported by Inland Revenue.",
-      "formula": "Weekly Equivalent Support = Official IRD Average Annual WFF Entitlement \u00f7 52 weeks",
-      "hlf_interpretation": "HLF market context: New Zealand banks generally allow eligible ongoing Working for Families tax credits to be included as qualifying household income in mortgage servicing assessments.",
-      "methodology": "Extracted live from Inland Revenue's Working for Families statistics release pages on ird.govt.nz.",
-      "historical_data_from": "Inland Revenue Working for Families series",
-      "creator_name": "Andy Palliser",
-      "creator_alternate_name": "Andrew Jonathan Palliser",
-      "creator_fsp": "FSP1004725",
-      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
-      "publisher": "Home Loan Factory",
-      "publisher_legal_name": "HLF Financial Limited",
-      "publisher_url": "https://www.homeloanfactory.co.nz/",
-      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
-      "license": "https://creativecommons.org/licenses/by/4.0/",
-      "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Working for Families (WFF) tax credit average entitlement & supported children (IRD),\" Tax year ended March 2026. Derived by HLF from Inland Revenue \u2014 Working for Families Tax Credits Statistics. https://pulse-data.homeloanfactory.co.nz/working-for-families-income-support/ (checked 16 November 2026). CC BY 4.0.",
-      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/working-for-families-income-support/",
-      "summary_text": "In Inland Revenue's Working for Families (WFF) statistics, approximately 328,000 New Zealand families receive Working for Families tax credits (including Family Tax Credit and the In-Work Tax Credit), averaging ~$7,450/year (~$143/week) per recipient household.",
-      "related_questions": [
-        "What is the average Working for Families tax credit entitlement per family in New Zealand?",
-        "Do New Zealand banks count Working for Families tax credits as income for a mortgage?"
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Q3 2026",
+          "value": 8.8,
+          "formatted": "+8.8% YoY"
+        },
+        {
+          "period": "2026-06",
+          "label": "Q2 2026",
+          "value": 10.4,
+          "formatted": "+10.4% YoY"
+        },
+        {
+          "period": "2026-03",
+          "label": "Q1 2026",
+          "value": 12.9,
+          "formatted": "+12.9% YoY"
+        },
+        {
+          "period": "2025-12",
+          "label": "Q4 2025",
+          "value": 15.8,
+          "formatted": "+15.8% YoY"
+        },
+        {
+          "period": "2025-09",
+          "label": "Q3 2025",
+          "value": 19.2,
+          "formatted": "+19.2% YoY"
+        }
       ],
-      "citation_chain": {
-        "official_source": "Inland Revenue \u2014 Working for Families Tax Credits Statistics",
-        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/working-for-families",
-        "source_series_ids": "IRD Working for Families \u2014 Average Annual Entitlement per Family ($), Total Entitlements Paid & Supported Children",
-        "hlf_transformation": "~328,000 NZ recipient families averaging ~$7,450/yr (~$143/wk) in Working for Families tax credits",
-        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/working-for-families-income-support/",
-        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
-        "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
-        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights/what-it-actually-takes-to-buy-your-first-home-nz",
-        "hlf_tool_title": "HLF Borrowing Power Calculator",
-        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator"
-      },
-      "history": [],
-      "latest_underlying_data": "Tax year ended March 2026",
-      "official_data": "Inland Revenue Working for Families Statistics: ~328,000 recipient families; average annual entitlement = ~$7,450.",
-      "hlf_calculation": "~328,000 NZ recipient families averaging ~$7,450/yr (~$143/wk) in Working for Families tax credits",
-      "frequency": "Annual"
+      "latest_underlying_data": "September 2026 quarter",
+      "official_data": "Stats NZ CPI (September 2026 quarter): Vehicle insurance price index = +8.8% YoY; All-groups CPI = +3.2% YoY.",
+      "hlf_calculation": "Vehicle insurance CPI (+8.8%) minus All-groups CPI (+3.2%) = +5.6 percentage points",
+      "frequency": "Quarterly"
     }
   ]
 }
