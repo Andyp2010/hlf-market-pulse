@@ -55,7 +55,7 @@
 </head>
 <body>
   <main>
-    <div class="crumb"><a href="https://pulse-data.homeloanfactory.co.nz/">&larr; All 33 HLF Pulse Datasets</a> &bull; Category: <strong>KiwiSaver</strong> &bull; <a href="https://www.homeloanfactory.co.nz/media-and-citations" target="_blank" rel="noopener">Media Kit &amp; Citations</a></div>
+    <div class="crumb"><a href="https://pulse-data.homeloanfactory.co.nz/">&larr; All 62 HLF Pulse Datasets</a> &bull; Category: <strong>KiwiSaver</strong> &bull; <a href="https://www.homeloanfactory.co.nz/media-and-citations" target="_blank" rel="noopener">Media Kit &amp; Citations</a></div>
     <h1>Annual KiwiSaver contributions transferred to scheme providers (employee, employer &amp; Crown — IRD)</h1>
     <div style="font-size:0.82rem;color:#6b7280;">Ticker: <code>kiwisaver-contributions-10yr</code> &bull; Observation Period: <strong>Year ended June 2026</strong> (Period End: <code>2026-06-30</code>) &bull; Last Checked: <strong>16 November 2026</strong> &bull; Creator: <a href="https://www.homeloanfactory.co.nz/team/andrew-palliser" target="_blank" rel="noopener">Andy Palliser</a></div>
     <div style='margin-top:4px;font-size:0.8rem;color:#6b7280;'><strong>Also known as:</strong> Inland Revenue KiwiSaver scheme provider payments</div>
@@ -132,9 +132,9 @@
     <section id="data-quality-limitations" class="quality-box" style="margin-top:18px;" aria-label="Data Quality &amp; Limitations">
       <h2>Data Quality &amp; Limitations</h2>
       <ul>
-        <li><strong>100% live-pulled official sources (zero hardcoded fallbacks, zero cached carry-over):</strong> Pulse automatically fetches and parses live data files (.xlsx, .csv, .pdf, and release tables) from the Reserve Bank of New Zealand (RBNZ), Stats NZ, Inland Revenue (IRD), the Financial Markets Authority (FMA), MBIE Tenancy Services, Kāinga Ora, the Natural Hazards Commission Toka Tū Ake (NHC), and the Accident Compensation Corporation (ACC).</li>
+        <li><strong>100% live-pulled official sources (zero hardcoded fallbacks):</strong> Pulse automatically fetches and parses live data files (.xlsx, .csv, .pdf, and release tables) from the Reserve Bank of New Zealand (RBNZ), Stats NZ, Inland Revenue (IRD), the Financial Markets Authority (FMA), MBIE Tenancy Services, Kāinga Ora, the Natural Hazards Commission Toka Tū Ake (NHC), and the Accident Compensation Corporation (ACC).</li>
         <li><strong>Unaltered official figures &amp; source rounding:</strong> HLF does not alter or estimate official source figures. Where official tables publish rounded aggregates (such as RBNZ dollar series rounded to $1m or $0.1m), derived averages and implied counts reflect that source rounding and note it explicitly in the provenance layer.</li>
-        <li><strong>Automatic exclusion if source cannot be verified live:</strong> Any series whose official source cannot be fetched and parsed live during the workflow run is omitted rather than populated from cached or fallback values.</li>
+        <li><strong>Automatic staleness exclusion:</strong> HLF automatically excludes any series where the underlying source is stale past its freshness window or cannot be verified.</li>
         <li><strong>Market context vs. individual outcomes:</strong> Statistics describe aggregate historical market cohorts and do not predict an individual borrower&rsquo;s, saver&rsquo;s, or policyholder&rsquo;s credit assessment, underwriting, or lending outcome.</li>
       </ul>
     </section>
