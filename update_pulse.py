@@ -53,7 +53,7 @@ HLF_LICENSE_NOTE = (
     "under Creative Commons Attribution 4.0 International (CC BY 4.0) with attribution to "
     "HLF Pulse (https://pulse-data.homeloanfactory.co.nz/). Underlying official Crown and statutory "
     "statistics remain subject to the terms of their respective publishers "
-    "(RBNZ Terms of Use; Stats NZ, Inland Revenue, MBIE, FMA, and Kāinga Ora under CC BY 4.0; "
+    "(RBNZ Terms of Use; Stats NZ, Inland Revenue, MBIE, HUD / MCERT, FMA, and Kāinga Ora under CC BY 4.0; "
     "Natural Hazards Insurance Act 2023 and Accident Compensation Act 2001 under public-domain NZ legislation)."
 )
 
@@ -62,6 +62,11 @@ GLOSSARY_LINKS_BY_CATEGORY = {
         ("Loan-to-Value Ratio (LVR)", f"{GLOSSARY_BASE_URL}#lvr"),
         ("Kāinga Ora First Home Loan", f"{GLOSSARY_BASE_URL}#first-home-loan"),
         ("Lenders Mortgage Insurance (LMI)", f"{GLOSSARY_BASE_URL}#lmi"),
+    ],
+    "House prices, sales & HPI": [
+        ("Capital Value (CV / RV)", f"{GLOSSARY_BASE_URL}#capital-value"),
+        ("Loan-to-Value Ratio (LVR)", f"{GLOSSARY_BASE_URL}#lvr"),
+        ("Usable Equity", f"{GLOSSARY_BASE_URL}#usable-equity"),
     ],
     "Homeowners & refinancing": [
         ("Refinancing", f"{GLOSSARY_BASE_URL}#refinancing"),
@@ -143,6 +148,7 @@ PUBLISHER_SCHEMA_OBJ = {
 
 MAX_AGE_MONTHLY = 140
 MAX_AGE_TENANCY = 140
+MAX_AGE_HUD = 175
 MAX_AGE_QUARTERLY = 160
 MAX_AGE_ANNUAL = 650
 MAX_AGE_TRIENNIAL = 1250
@@ -272,6 +278,12 @@ RBNZ_SOURCES = {
 
 TENANCY_PAGE = "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/"
 
+HUD_ABOUT_PAGE = "https://www.hud.govt.nz/stats-and-insights/property-and-sales-statistics/about-the-dashboard"
+HUD_SALES_DASH_PAGE = "https://www.hud.govt.nz/stats-and-insights/property-and-sales-statistics/dashboard"
+HUD_COMP_DASH_PAGE = "https://www.hud.govt.nz/stats-and-insights/property-and-sales-statistics/dashboard-2"
+HUD_HPI_DASH_PAGE = "https://www.hud.govt.nz/stats-and-insights/property-and-sales-statistics/housing-price-index-composition"
+HUD_METHODOLOGY_PDF = "https://www.hud.govt.nz/assets/Uploads/MCERT-HPI-Methodology-Paper-August-2026.pdf"
+
 IRD_SL_BAL_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/social-policy/student-loans/scheme-balances"
 IRD_TAX_DEBT_PAGE = "https://www.ird.govt.nz/about-us/tax-statistics/tax-and-entitlement-debt-statistics"
 IRD_TAX_DEBT_URLS = [
@@ -336,6 +348,7 @@ ACC_LEVY_RATE_PAGE = "https://www.acc.co.nz/for-business/received-an-invoice/cal
 
 CATEGORY_ORDER = [
     "First-home buyers",
+    "House prices, sales & HPI",
     "Homeowners & refinancing",
     "Property investors",
     "LVR, DTI & credit policy",
@@ -2665,6 +2678,211 @@ TICKER_CATALOG = {
         "article_url": FHB_2026_ARTICLE_URL,
         "tool_title": "HLF Borrowing Power Calculator",
         "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "nz-median-house-price-quartiles": {
+        "name": "National median, lower-quartile (25%) & upper-quartile (75%) residential sale price (HUD / MCERT)",
+        "also_known_as": "Official Crown District Valuation Roll (DVR) national median, 25th percentile & 75th percentile house sale price",
+        "category": "House prices, sales & HPI",
+        "topic": "National median, lower-quartile & upper-quartile house sale prices",
+        "source": "HUD / MCERT Property Statistics",
+        "source_full": "Te Tūāpapa Kura Kāinga – Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) — Property and Sales Statistics (CC BY 4.0)",
+        "series_ids": "HUD / MCERT Property and Sales Statistics — New Zealand Monthly Median, Lower Quartile & Upper Quartile Sale Price ($ NZD)",
+        "source_url": HUD_ABOUT_PAGE,
+        "data_type": "Officially reported HUD / MCERT District Valuation Roll series & HLF-derived interquartile spread",
+        "derived_by_hlf": True,
+        "unit": "NZD",
+        "frequency": "Monthly (3-Month DVR Settlement Lag)",
+        "definition": "Monthly national median (50th percentile), lower-quartile (25th percentile), and upper-quartile (75th percentile) residential property sale prices across New Zealand from the HUD / MCERT Property and Sales Statistics dataset.",
+        "methodology": "Extracted live from the HUD / MCERT Property and Sales Statistics data download (.xlsx) and release dashboard (licensed under CC BY 4.0). Compiled from District Valuation Roll (DVR) freehold, arm's-length market residential sales supplied by Territorial Authorities through LINZ. Sales are recorded by agreement date (when the contract was signed) rather than settlement date; because DVR sales are transmitted after settlement, the series is published with a three-month lag and prior months are revised as late-settling sales are received.",
+        "hlf_calculation": "Interquartile Sale Price Spread ($) = Upper Quartile Sale Price (75th pct) minus Lower Quartile Sale Price (25th pct); YoY Change (%)",
+        "hlf_interpretation": "HLF market context: Reports the 25th percentile (lower quartile), 50th percentile (median), and 75th percentile (upper quartile) prices of residential properties sold across New Zealand. Raw median and quartile sale prices reflect the mix of properties sold in the period and do not adjust for changes in dwelling size, type, or location composition.",
+        "questions": [
+            "What is the official median and lower-quartile house sale price in New Zealand?",
+            "What is the 25th percentile (lower quartile) and 75th percentile (upper quartile) house price in NZ?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "regional-median-house-prices": {
+        "name": "Regional median & lower-quartile residential property sale prices across New Zealand regions (HUD / MCERT)",
+        "also_known_as": "HUD / MCERT District Valuation Roll regional median and 25th-percentile house sale prices",
+        "category": "House prices, sales & HPI",
+        "topic": "Regional median & lower-quartile house sale prices",
+        "source": "HUD / MCERT Property Statistics",
+        "source_full": "Te Tūāpapa Kura Kāinga – Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) — Property and Sales Statistics (CC BY 4.0)",
+        "series_ids": "HUD / MCERT Property and Sales Statistics — Regional Median & Lower Quartile Sale Prices ($ NZD)",
+        "source_url": HUD_ABOUT_PAGE,
+        "data_type": "Officially reported HUD / MCERT regional sale price series",
+        "derived_by_hlf": False,
+        "unit": "NZD",
+        "frequency": "Monthly (3-Month DVR Settlement Lag)",
+        "definition": "Monthly median and lower-quartile (25th percentile) residential property sale prices across New Zealand regions from the HUD / MCERT Property and Sales Statistics dataset.",
+        "methodology": "Extracted live from the HUD / MCERT Property and Sales Statistics workbook across regional council boundaries. Sales are recorded by agreement date from District Valuation Roll market sales with a three-month reporting lag.",
+        "hlf_calculation": "Officially reported HUD / MCERT regional median & lower-quartile sale prices",
+        "hlf_interpretation": "HLF market context: Compares observed median and lower-quartile residential sale prices across New Zealand regions. Regional medians in smaller regions can fluctuate from month to month when sales counts are low or when the mix of properties sold changes.",
+        "questions": [
+            "How do median and lower-quartile house sale prices compare across New Zealand regions?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "tla-council-house-price-benchmarks": {
+        "name": "Territorial Local Authority (city & district council) median & lower-quartile house sale prices (HUD / MCERT)",
+        "also_known_as": "City and district council median and 25th-percentile residential sale prices (HUD / MCERT DVR series)",
+        "category": "House prices, sales & HPI",
+        "topic": "City & district council median and lower-quartile house sale prices",
+        "source": "HUD / MCERT Property Statistics",
+        "source_full": "Te Tūāpapa Kura Kāinga – Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) — Property and Sales Statistics (CC BY 4.0)",
+        "series_ids": "HUD / MCERT Property and Sales Statistics — Territorial Authority Median Sale Price, Lower Quartile Sale Price & Sales Count",
+        "source_url": HUD_ABOUT_PAGE,
+        "data_type": "Officially reported HUD / MCERT Territorial Authority series",
+        "derived_by_hlf": False,
+        "unit": "NZD",
+        "frequency": "Monthly (3-Month DVR Settlement Lag)",
+        "definition": "Median and lower-quartile (25th percentile) residential property sale prices and sales counts across New Zealand Territorial Local Authorities (city and district councils) from the HUD / MCERT dataset.",
+        "methodology": "Extracted live from the HUD / MCERT Property and Sales Statistics workbook by Territorial Local Authority (TLA). Because single-month medians in smaller districts can be volatile when sales counts are low, the table reports active council sales counts alongside median and lower-quartile prices.",
+        "hlf_calculation": "Officially reported HUD / MCERT Territorial Authority median sale prices, lower-quartile sale prices & sales counts",
+        "hlf_interpretation": "HLF market context: Reports council-level median and 25th-percentile (lower-quartile) residential sale prices recorded on the District Valuation Roll. Council-level medians describe historical sales in each district and are not automated valuations of individual properties.",
+        "questions": [
+            "What is the median and lower-quartile house sale price in Wellington City, Auckland, Christchurch City, and Hamilton City?",
+            "How do house sale prices compare across New Zealand city and district councils?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Home Loan Repayments Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
+    },
+    "nz-monthly-property-sales-volume": {
+        "name": "Monthly & rolling 12-month New Zealand residential property sales volume (HUD / MCERT)",
+        "also_known_as": "District Valuation Roll (DVR) monthly and annual residential property sales count",
+        "category": "House prices, sales & HPI",
+        "topic": "Monthly & annual residential property sales counts",
+        "source": "HUD / MCERT Property Statistics",
+        "source_full": "Te Tūāpapa Kura Kāinga – Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) — Property and Sales Statistics (CC BY 4.0)",
+        "series_ids": "HUD / MCERT Property and Sales Statistics — New Zealand Monthly Residential Sales Count & 12-Month Rolling Sum",
+        "source_url": HUD_ABOUT_PAGE,
+        "data_type": "Officially reported HUD / MCERT monthly sales count & HLF-derived 12-month rolling total",
+        "derived_by_hlf": True,
+        "unit": "sales",
+        "frequency": "Monthly (3-Month DVR Settlement Lag)",
+        "definition": "The monthly and rolling 12-month number of arm's-length freehold residential property sales agreed across New Zealand from the HUD / MCERT Property and Sales Statistics dataset.",
+        "methodology": "Derived live from the HUD / MCERT Property and Sales Statistics workbook by extracting the monthly national sales count and summing the latest 12 monthly observations. Includes single-property, freehold, market residential sales matched to the District Valuation Roll by agreement date (excluding multi-property, leasehold, and non-market transfers).",
+        "hlf_calculation": "Rolling 12-Month Sales Volume = Sum of latest 12 monthly national DVR residential sales counts; YoY Change (%)",
+        "hlf_interpretation": "HLF market context: Measures completed arm's-length freehold residential property sales recorded on the District Valuation Roll by agreement date. Because recent months are revised upward as late-settling sales are lodged with LINZ, the series is published up to three months prior to the latest release.",
+        "questions": [
+            "How many residential properties are sold each month and year in New Zealand?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "mcert-house-price-index-yoy": {
+        "name": "Official Crown House Price Index (MCERT HPI): annual & 3-month quality-adjusted price change",
+        "also_known_as": "HUD / MCERT Sales Price to Appraisal Ratio (SPAR) House Price Index annual percentage change",
+        "category": "House prices, sales & HPI",
+        "topic": "Quality-adjusted House Price Index (MCERT SPAR HPI)",
+        "source": "HUD / MCERT House Price Index",
+        "source_full": "Te Tūāpapa Kura Kāinga – Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) — House Price Index (CC BY 4.0)",
+        "series_ids": "MCERT House Price Index (All Dwellings) — Annual % Change, 3-Month % Change & Index Level",
+        "source_url": HUD_ABOUT_PAGE,
+        "data_type": "Officially reported HUD / MCERT House Price Index series",
+        "derived_by_hlf": False,
+        "unit": "percent",
+        "frequency": "Monthly (3-Month DVR Settlement Lag)",
+        "definition": "The annual (12-month) percentage change in the official MCERT House Price Index (HPI) for New Zealand, calculated using the Sales Price to Appraisal Ratio (SPAR) methodology.",
+        "methodology": "Extracted live from the HUD / MCERT Property and Sales Statistics workbook and HPI dashboard. As detailed in the MCERT HPI Methodology Paper, the index uses a Sales Price to Appraisal Ratio (SPAR) method—comparing each property's sale price to its rating valuation (Capital Value) within each Territorial Authority and weighting by housing stock—to measure price changes while controlling for changes in the quality and mix of properties sold.",
+        "hlf_calculation": "Officially reported MCERT House Price Index (All-Dwellings) annual % change",
+        "hlf_interpretation": "HLF market context: Unlike raw median sale prices (which can shift when a higher or lower share of expensive homes sells in a given month), the SPAR-based MCERT House Price Index adjusts for property valuation quality and compositional mix across New Zealand.",
+        "questions": [
+            "What is the annual change in the official HUD / MCERT House Price Index for New Zealand?",
+            "How does the MCERT House Price Index differ from median house sale prices?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "Usable Equity Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator",
+    },
+    "hpi-low-vs-high-value-tiers": {
+        "name": "MCERT House Price Index by value tier: low-value (Q1) vs high-value (Q4) homes",
+        "also_known_as": "HUD / MCERT House Price Index annual change for Q1 (lowest value quartile) vs Q4 (highest value quartile) homes",
+        "category": "House prices, sales & HPI",
+        "topic": "House Price Index performance by property value tier (Q1 vs Q4)",
+        "source": "HUD / MCERT House Price Index",
+        "source_full": "Te Tūāpapa Kura Kāinga – Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) — House Price Index Composition (CC BY 4.0)",
+        "series_ids": "MCERT HPI — Low-Value (Q1) Annual % Change vs High-Value (Q4) Annual % Change",
+        "source_url": HUD_ABOUT_PAGE,
+        "data_type": "Officially reported HUD / MCERT HPI tier series & HLF-derived percentage-point spread",
+        "derived_by_hlf": True,
+        "unit": "percent",
+        "frequency": "Monthly (3-Month DVR Settlement Lag)",
+        "definition": "Comparison of annual percentage changes in the MCERT House Price Index (HPI) for low-value (Q1 lowest valuation quartile) residential properties versus high-value (Q4 highest valuation quartile) residential properties across New Zealand.",
+        "methodology": "Extracted live from the MCERT HPI composition series in the HUD / MCERT Property and Sales Statistics workbook and HPI composition dashboard. Properties are segmented into four equal value quartiles (Q1 lowest 25% to Q4 highest 25%) based on their relative rating valuation within their Territorial Authority.",
+        "hlf_calculation": "Tier Spread (percentage points) = Low-Value (Q1) Annual HPI Change (%) minus High-Value (Q4) Annual HPI Change (%)",
+        "hlf_interpretation": "HLF market context: Compares quality-adjusted annual price movements in the lowest valuation quartile (Q1) against the highest valuation quartile (Q4) within the MCERT House Price Index.",
+        "questions": [
+            "Are lower-value (Q1) or higher-value (Q4) house prices changing faster in the MCERT House Price Index?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "Usable Equity Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator",
+    },
+    "sales-composition-by-value-quartile": {
+        "name": "Residential sales composition by valuation quartile: Q1 (lowest value) to Q4 (highest value) share (HUD / MCERT)",
+        "also_known_as": "HUD / MCERT proportion of monthly residential sales in Value Quartiles Q1, Q2, Q3 & Q4",
+        "category": "House prices, sales & HPI",
+        "topic": "Residential sales composition by rating-valuation quartile",
+        "source": "HUD / MCERT Property Statistics",
+        "source_full": "Te Tūāpapa Kura Kāinga – Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) — Sales Composition Statistics (CC BY 4.0)",
+        "series_ids": "HUD / MCERT Sales Composition — Share of Sales in Value Quartiles Q1 (Lowest), Q2, Q3 & Q4 (Highest)",
+        "source_url": HUD_ABOUT_PAGE,
+        "data_type": "Officially reported HUD / MCERT sales counts by value quartile & HLF-derived percentage shares",
+        "derived_by_hlf": True,
+        "unit": "percent",
+        "frequency": "Monthly (3-Month DVR Settlement Lag)",
+        "definition": "The percentage of monthly New Zealand residential property sales occurring in each rating-valuation quartile: Q1 (lowest 25% of housing stock by value), Q2, Q3, and Q4 (highest 25% of housing stock by value).",
+        "methodology": "Extracted live from the Sales Composition series in the HUD / MCERT Property and Sales Statistics workbook. Each Territorial Authority's housing stock is divided into four equal 25% quartiles by rateable Capital Value; this series tracks what share of properties sold in a given month belonged to each valuation quartile.",
+        "hlf_calculation": "Quartile Share of Sales (%) = (Sales in Valuation Quartile Q_i ÷ Total Sales across Q1–Q4) × 100",
+        "hlf_interpretation": "HLF market context: As noted by HUD / MCERT, tracking sales composition by valuation quartile helps identify whether a change in the raw median sale price reflects underlying price movement or a shift in the proportion of lower-value (Q1) versus higher-value (Q4) homes transacting.",
+        "questions": [
+            "What share of New Zealand house sales are in the lowest value quartile (Q1) versus the highest value quartile (Q4)?",
+            "How does sales composition affect median house prices in New Zealand?",
+        ],
+        "article_title": FHB_2026_ARTICLE_TITLE,
+        "article_url": FHB_2026_ARTICLE_URL,
+        "tool_title": "HLF Borrowing Power Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+    },
+    "gross-rental-yield-by-council": {
+        "name": "Indicative gross residential rental yield by city & district council (MBIE TLA Rent ÷ HUD / MCERT TLA Sale Price)",
+        "also_known_as": "Council-level ratio of annualised MBIE median weekly rent to HUD / MCERT median house sale price",
+        "category": "Property investors",
+        "topic": "Council-level gross rental yield benchmarks",
+        "source": "MBIE Tenancy & HUD / MCERT",
+        "source_full": "MBIE Tenancy Services (By-TLA Rental Bond Data) & HUD / MCERT (Property and Sales Statistics by Territorial Authority) (CC BY 4.0)",
+        "series_ids": "(MBIE TLA Median Weekly Rent × 52) ÷ HUD / MCERT TLA Median Sale Price",
+        "source_url": HUD_ABOUT_PAGE,
+        "data_type": "HLF-derived council-level ratio from official MBIE & HUD / MCERT series",
+        "derived_by_hlf": True,
+        "unit": "percent",
+        "frequency": "Monthly",
+        "definition": "Indicative gross residential rental yield across major New Zealand Territorial Local Authorities (city and district councils), derived by dividing annualised council median weekly rent on newly lodged bonds (MBIE Tenancy Services) by council median residential sale price (HUD / MCERT).",
+        "methodology": "Derived live by matching Territorial Local Authority (TLA) median weekly rents (MBIE By-TLA dataset) with TLA median residential sale prices (HUD / MCERT Property and Sales Statistics) for major urban councils. Note that MBIE bond rents and HUD DVR sale prices have different reporting lags (~6–8 weeks vs ~12 weeks) and reflect the separate samples of properties rented and sold in each district.",
+        "hlf_calculation": "Indicative Council Gross Yield (%) = ((Council Median Weekly Rent × 52) ÷ Council Median Sale Price) × 100",
+        "hlf_interpretation": "HLF market context: Provides a council-level ratio of annualised median weekly rent to median sale price across major New Zealand Territorial Authorities. Gross yield ratios do not deduct property operating expenses (such as council rates, dwelling insurance, maintenance, property management, vacancy, or mortgage interest) and do not represent net investment returns.",
+        "questions": [
+            "How do indicative gross rental yields compare across Auckland, Christchurch City, Wellington City, Hamilton City, and Dunedin City?",
+            "How is gross rental yield calculated from council median rent and median house price?",
+        ],
+        "article_title": "Using Equity to Buy an Investment Property in NZ",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights/using-equity-to-buy-an-investment-property-in-nz-the-split-banking-guide",
+        "tool_title": "NZ Property Rental Yield Calculator",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-property-rental-yield-calculator",
     },
 }
 
@@ -6419,7 +6637,7 @@ def build_tenancy_tickers(session) -> dict:
     out = {
         "rent-yield-pulse": make_pulse_item(
             "Tenancy Services", as_of, MAX_AGE_TENANCY,
-            f"In {m_full}, New Zealand's national median weekly private rent was <strong>${nat_r}/wk</strong>{yoy_phrase}, with regional medians of <strong>${akl_r}/wk</strong> in Auckland, <strong>${wgtn_r}/wk</strong> in Wellington, and <strong>${cant_r}/wk</strong> in Canterbury.",
+            f"In {m_full}, New Zealand's national median weekly rent across newly lodged private tenancy bonds was <strong>${nat_r}/wk</strong>{yoy_phrase}, with regional medians of <strong>${akl_r}/wk</strong> in Auckland, <strong>${wgtn_r}/wk</strong> in Wellington, and <strong>${cant_r}/wk</strong> in Canterbury.",
             f"MBIE Tenancy Services ({m_full}): National ('ALL') median weekly rent = ${nat_r}/wk; Auckland = ${akl_r}/wk; Wellington = ${wgtn_r}/wk; Canterbury = ${cant_r}/wk.",
             format_provenance_source_html(ry_calc, mbie_lbl, csv_url, True), m_full, nat_r,
             f"${nat_r}/wk NZ (${akl_r} AKL | ${wgtn_r} WGTN | ${cant_r} CANT)", f"12 months earlier (${prev_r}/wk NZ)",
@@ -6428,11 +6646,11 @@ def build_tenancy_tickers(session) -> dict:
         ),
         "rental-bonds-supply": make_pulse_item(
             "Tenancy Services", as_of, MAX_AGE_TENANCY,
-            f"In {m_full}, <strong>{lodged_int:,}</strong> new private rental bonds were lodged across New Zealand, bringing the national pool of active private rental bonds to <strong>{active_int:,}</strong>.",
+            f"In {m_full}, <strong>{lodged_int:,}</strong> new private rental bonds were lodged across New Zealand, bringing the national pool of active private rental bonds held by MBIE to <strong>{active_int:,}</strong>.",
             f"MBIE Tenancy Services ({m_full}): Nationwide ('ALL') Lodged Bonds = {lodged_int:,}; Active Bonds = {active_int:,}.",
             format_provenance_source_html(sup_calc, mbie_lbl, csv_url, False), m_full, active_int,
             f"{lodged_int:,} lodged bonds | {active_int:,} active bonds", "Monthly MBIE bond registry",
-            f"{lodged_int:,} new private tenancies lodged in {m_full}", sup_calc, hist_start_mbie,
+            f"{lodged_int:,} new private tenancy bonds lodged in {m_full}", sup_calc, hist_start_mbie,
             make_history_list(nat["dt"], nat["Lodged Bonds"], lambda x: f"{int(round(x)):,} lodged bonds"), mbie_extra,
         ),
     }
@@ -6451,7 +6669,7 @@ def build_tenancy_tickers(session) -> dict:
         lt_calc = f"10Y Nominal: (${nat_r}−${r10_val})÷${r10_val}=+{pct_10y:.1f}% (+{cagr_10y:.1f}%/yr) | 5Y Nominal: (${nat_r}−${r5_val})÷${r5_val}=+{pct_5y:.1f}% (+{cagr_5y:.1f}%/yr)"
         out["rent-long-term-growth"] = make_pulse_item(
             "Tenancy Services", as_of, MAX_AGE_TENANCY,
-            f"Over the 10 years to {m_full}, New Zealand's national median weekly rent rose <strong>+{pct_10y:.1f}% (+${nat_r - r10_val}/wk, or +{cagr_10y:.1f}%/yr)</strong> from <strong>${r10_val}/wk</strong> to <strong>${nat_r}/wk</strong>. Over the past 5 years (from <strong>${r5_val}/wk</strong>), median rent rose <strong>+{pct_5y:.1f}% (+{cagr_5y:.1f}%/yr)</strong>.",
+            f"Over the 10 years to {m_full}, New Zealand's national median weekly rent on newly lodged bonds rose <strong>+{pct_10y:.1f}% (+${nat_r - r10_val}/wk, or +{cagr_10y:.1f}%/yr compound)</strong> from <strong>${r10_val}/wk</strong> to <strong>${nat_r}/wk</strong>. Over the past 5 years (from <strong>${r5_val}/wk</strong>), median weekly rent rose <strong>+{pct_5y:.1f}% (+{cagr_5y:.1f}%/yr)</strong>.",
             f"MBIE Tenancy Services ({m_full}): National median weekly rent = ${nat_r}/wk (compared with ${r5_val}/wk 5 years earlier and ${r10_val}/wk 10 years earlier).",
             format_provenance_source_html(lt_calc, mbie_lbl, csv_url, True), m_full, round(pct_10y, 1),
             f"10Y: +{pct_10y:.1f}% (+{cagr_10y:.1f}%/yr) | 5Y: +{pct_5y:.1f}% (+{cagr_5y:.1f}%/yr)",
@@ -6465,7 +6683,7 @@ def build_tenancy_tickers(session) -> dict:
         iqr_calc = f"Upper Quartile (${uq_val_nat}/wk) minus Lower Quartile (${lq_val_nat}/wk) = ${iqr_wk}/wk (${iqr_yr:,}/yr)"
         out["rent-quartile-spread"] = make_pulse_item(
             "Tenancy Services", as_of, MAX_AGE_TENANCY,
-            f"In {m_full}, New Zealand private weekly rents ranged from <strong>${lq_val_nat}/wk</strong> at the lower quartile (25th percentile) and <strong>${nat_r}/wk</strong> at the national median to <strong>${uq_val_nat}/wk</strong> at the upper quartile (75th percentile)—a spread of <strong>${iqr_wk}/wk (${iqr_yr:,}/yr)</strong>.",
+            f"In {m_full}, New Zealand private weekly rents on newly lodged bonds ranged from <strong>${lq_val_nat}/wk</strong> at the lower quartile (25th percentile) and <strong>${nat_r}/wk</strong> at the national median to <strong>${uq_val_nat}/wk</strong> at the upper quartile (75th percentile)—an interquartile spread of <strong>${iqr_wk}/wk (${iqr_yr:,}/yr)</strong>.",
             f"MBIE Tenancy Services ({m_full}): Nationwide ('ALL') Lower Quartile Rent = ${lq_val_nat}/wk; Median Rent = ${nat_r}/wk; Upper Quartile Rent = ${uq_val_nat}/wk.",
             format_provenance_source_html(iqr_calc, mbie_lbl, csv_url, True), m_full, iqr_wk,
             f"Lower quartile ${lq_val_nat}/wk | Median ${nat_r}/wk | Upper quartile ${uq_val_nat}/wk",
@@ -6483,10 +6701,10 @@ def build_tenancy_tickers(session) -> dict:
         act_prev = int(round(float(yoy_row["Active Bonds"])))
         act_net_12m, act_net_pct = active_int - act_prev, ((active_int - act_prev) / max(1, act_prev)) * 100.0
         mth_net_flow = lodged_int - closed_int
-        turn_calc = f"12M Net Stock Change: {active_int:,} − {act_prev:,} = {act_net_12m:+,d} ({act_net_pct:+.1f}%) | Monthly Net Flow: {lodged_int:,} − {closed_int:,} = {mth_net_flow:+,d}"
+        turn_calc = f"12M Net Active Bond Change: {active_int:,} − {act_prev:,} = {act_net_12m:+,d} ({act_net_pct:+.1f}%) | Monthly Net Flow: {lodged_int:,} − {closed_int:,} = {mth_net_flow:+,d}"
         out["rental-turnover-net-stock"] = make_pulse_item(
             "Tenancy Services", as_of, MAX_AGE_TENANCY,
-            f"Over the 12 months to {m_full}, New Zealand's active private rental bond stock changed by <strong>{act_net_12m:+,d} tenancies ({act_net_pct:+.1f}%)</strong> to <strong>{active_int:,} active bonds</strong> (with <strong>{lodged_int:,} bonds lodged</strong> and <strong>{closed_int:,} closed</strong> during {m_full}).",
+            f"Over the 12 months to {m_full}, the total number of active private rental bonds held by MBIE Tenancy Services changed by <strong>{act_net_12m:+,d} bonds ({act_net_pct:+.1f}%)</strong> to <strong>{active_int:,} active bonds</strong> (with <strong>{lodged_int:,} bonds lodged</strong> and <strong>{closed_int:,} closed</strong> during {m_full}).",
             f"MBIE Tenancy Services ({m_full}): Active Bonds = {active_int:,} (vs {act_prev:,} a year earlier); Monthly Lodged Bonds = {lodged_int:,}; Monthly Closed Bonds = {closed_int:,}.",
             format_provenance_source_html(turn_calc, mbie_lbl, csv_url, True), m_full, act_net_12m,
             f"{act_net_12m:+,d} active bonds YoY ({act_net_pct:+.1f}%) | {lodged_int:,} lodged vs {closed_int:,} closed in {m_full}",
@@ -6513,7 +6731,7 @@ def build_tenancy_tickers(session) -> dict:
                     & (~df_tla["Location"].astype(str).str.strip().str.upper().isin(["ALL", "NAN", "NONE", "-99", ""]))
                 ].dropna(subset=["Median Rent"])
                 tla_rows = []
-                for _, r_t in sub_tla.sort_values("Active Bonds", ascending=False).head(30).iterrows():
+                for _, r_t in sub_tla.sort_values("Active Bonds", ascending=False).head(35).iterrows():
                     loc_n = str(r_t["Location"]).strip()
                     if re.match(r"^-?\d+(\.\d+)?$", loc_n):
                         continue
@@ -6527,7 +6745,7 @@ def build_tenancy_tickers(session) -> dict:
                     tla_calc = f"Official MBIE By-TLA Rental Bond CSV ({tla_m_full}): {top_c1['label']} = ${top_c1['value']}/wk ({top_c1['active_bonds']:,} active bonds) | {top_c2['label']} = ${top_c2['value']}/wk | {top_c3['label']} = ${top_c3['value']}/wk"
                     out["tla-council-rent-benchmarks"] = make_pulse_item(
                         "Tenancy Services", tla_as_of, MAX_AGE_TENANCY,
-                        f"In {tla_m_full}, across New Zealand's Territorial Local Authorities (MBIE Tenancy Services By-TLA dataset), median weekly rents in the largest rental markets were <strong>${top_c1['value']}/wk in {top_c1['label']}</strong> ({top_c1['active_bonds']:,} active bonds), <strong>${top_c2['value']}/wk in {top_c2['label']}</strong> ({top_c2['active_bonds']:,} active bonds), and <strong>${top_c3['value']}/wk in {top_c3['label']}</strong> ({top_c3['active_bonds']:,} active bonds).",
+                        f"In {tla_m_full}, across New Zealand's Territorial Local Authorities (MBIE Tenancy Services By-TLA dataset), median weekly rents on newly lodged bonds in the largest rental markets were <strong>${top_c1['value']}/wk in {top_c1['label']}</strong> ({top_c1['active_bonds']:,} active bonds), <strong>${top_c2['value']}/wk in {top_c2['label']}</strong> ({top_c2['active_bonds']:,} active bonds), and <strong>${top_c3['value']}/wk in {top_c3['label']}</strong> ({top_c3['active_bonds']:,} active bonds).",
                         f"MBIE Tenancy Services By-TLA Dataset ({tla_m_full}): Council-level median weekly rents and active bond counts.",
                         format_provenance_source_html(tla_calc, f"MBIE Tenancy Services — By-TLA Rental Bond Data ({tla_m_full})", tla_csv_url, False),
                         tla_m_full, top_c1["value"],
@@ -6535,11 +6753,477 @@ def build_tenancy_tickers(session) -> dict:
                         f"National median weekly rent: ${nat_r}/wk",
                         "Directly reported in MBIE Territorial Authority bond CSV",
                         tla_calc, f"MBIE By-TLA monthly series ({tla_m_full})",
-                        [{k: r[k] for k in ("period", "label", "value", "formatted")} for r in tla_rows[:20]],
-                        {"source_published": ten_pub_date, "source_url": tla_csv_url},
+                        [{k: r[k] for k in ("period", "label", "value", "formatted")} for r in tla_rows[:25]],
+                        {"source_published": ten_pub_date, "source_url": tla_csv_url, "_tla_rent_map": {r["label"].lower(): r["value"] for r in tla_rows}},
                     )
         except Exception as exc_tla:
             print(f"[MBIE TLA CSV] Parse note: {exc_tla}")
+
+    return out
+
+
+def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
+    """
+    100% live-pulled HUD / MCERT Property and Sales Statistics & House Price Index (CC BY 4.0):
+    1. `nz-median-house-price-quartiles`
+    2. `regional-median-house-prices`
+    3. `tla-council-house-price-benchmarks`
+    4. `nz-monthly-property-sales-volume`
+    5. `mcert-house-price-index-yoy`
+    6. `hpi-low-vs-high-value-tiers`
+    7. `sales-composition-by-value-quartile`
+    8. `gross-rental-yield-by-council` (cross-derived with MBIE By-TLA median weekly rents)
+    """
+    out: dict = {}
+    root = pathlib.Path(__file__).resolve().parent
+    hud_urls = [HUD_ABOUT_PAGE, HUD_SALES_DASH_PAGE, HUD_COMP_DASH_PAGE, HUD_HPI_DASH_PAGE]
+    pages = fetch_html_with_browser_fallback(session, hud_urls, "HUD / MCERT")
+    about_html = pages.get(HUD_ABOUT_PAGE, "")
+    hud_pub = extract_html_release_date(
+        about_html,
+        "Monthly HUD / MCERT Property and Sales Statistics release (~3-month District Valuation Roll settlement lag, CC BY 4.0)",
+    )
+
+    xlsx_url = ""
+    for h_html in pages.values():
+        if not h_html:
+            continue
+        for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', h_html, flags=re.I):
+            full_u = "https://www.hud.govt.nz" + href if href.startswith("/") else href
+            if "property" in full_u.lower() or "sales" in full_u.lower() or "hpi" in full_u.lower() or "stat" in full_u.lower():
+                xlsx_url = full_u
+                break
+        if xlsx_url:
+            break
+
+    xlsx_bytes = b""
+    for local_x in sorted(root.glob("*Property*sales*.xlsx"), reverse=True) + sorted(root.glob("*HUD*.xlsx"), reverse=True):
+        if local_x.stat().st_size > 50_000:
+            xlsx_bytes = local_x.read_bytes()
+            break
+
+    if not xlsx_bytes and xlsx_url:
+        xlsx_bytes = fetch_bytes_with_browser_fallback(session, xlsx_url, referer=HUD_ABOUT_PAGE, min_bytes=50_000)
+
+    src_file_url = xlsx_url or HUD_ABOUT_PAGE
+    hud_src_lbl = "HUD / MCERT — Property and Sales Statistics (CC BY 4.0)"
+
+    nat_price_df = pd.DataFrame()
+    reg_latest_rows: list[dict] = []
+    tla_latest_rows: list[dict] = []
+    comp_latest: dict = {}
+    hpi_df = pd.DataFrame()
+
+    if xlsx_bytes and xlsx_bytes[:2] == b"PK":
+        try:
+            wb = openpyxl.load_workbook(io.BytesIO(xlsx_bytes), read_only=True, data_only=True)
+            for sname in wb.sheetnames:
+                s_low = sname.strip().lower()
+                if s_low in ("notes", "metadata", "contents", "readme", "definitions", "about"):
+                    continue
+                ws = wb[sname]
+                rows_iter = ws.iter_rows(values_only=True)
+                header_row = None
+                for _ in range(15):
+                    try:
+                        cand_r = next(rows_iter)
+                    except StopIteration:
+                        break
+                    non_null = [str(c).strip() for c in cand_r if c is not None and str(c).strip()]
+                    if len(non_null) >= 3 and any(
+                        k in " ".join(non_null).lower()
+                        for k in ("date", "month", "period", "median", "hpi", "index", "quartile", "sales", "region", "authority", "location")
+                    ):
+                        header_row = [str(c).strip() if c is not None else f"col_{i}" for i, c in enumerate(cand_r)]
+                        break
+                if not header_row:
+                    continue
+
+                data_rows = list(rows_iter)
+                if not data_rows:
+                    continue
+                df_s = pd.DataFrame(data_rows, columns=header_row[: len(data_rows[0])])
+                cols_map = {str(c).strip().lower(): c for c in df_s.columns}
+
+                dt_col = next((c for k, c in cols_map.items() if any(w in k for w in ("date", "month", "period", "time"))), None)
+                loc_col = next((c for k, c in cols_map.items() if any(w in k for w in ("location", "area", "geography", "region", "authority", "ta", "tla", "name"))), None)
+                lvl_col = next((c for k, c in cols_map.items() if any(w in k for w in ("level", "type", "geo_type", "category"))), None)
+                med_col = next((c for k, c in cols_map.items() if "median" in k and ("price" in k or "sale" in k or k == "median")), None)
+                lq_col = next((c for k, c in cols_map.items() if ("lower" in k and "quartile" in k) or k in ("lq", "p25", "25th percentile")), None)
+                uq_col = next((c for k, c in cols_map.items() if ("upper" in k and "quartile" in k) or k in ("uq", "p75", "75th percentile")), None)
+                cnt_col = next((c for k, c in cols_map.items() if any(w in k for w in ("sales", "count", "volume", "number")) and "price" not in k and "share" not in k), None)
+                hpi_yoy_col = next((c for k, c in cols_map.items() if ("annual" in k or "yoy" in k or "year" in k or "12m" in k) and ("hpi" in k or "change" in k or "%" in k or "hpi" in s_low or "index" in s_low)), None)
+                hpi_3m_col = next((c for k, c in cols_map.items() if ("3m" in k or "3-month" in k or "quarter" in k or "qoq" in k) and ("change" in k or "%" in k or "hpi" in s_low)), None)
+                q_tier_col = next((c for k, c in cols_map.items() if "quartile" in k and c not in (lq_col, uq_col)), None)
+
+                if dt_col is None:
+                    continue
+                df_s["_dt"] = pd.to_datetime(df_s[dt_col], errors="coerce", format="mixed")
+                df_s = df_s.dropna(subset=["_dt"]).sort_values("_dt").reset_index(drop=True)
+                if df_s.empty:
+                    continue
+
+                # A. Sales Prices & Volumes (National, Regional, TLA)
+                if med_col is not None:
+                    for c_num in (med_col, lq_col, uq_col, cnt_col):
+                        if c_num is not None and c_num in df_s.columns:
+                            df_s[c_num] = pd.to_numeric(df_s[c_num].astype(str).str.replace(",", "").str.replace("$", "").str.strip(), errors="coerce")
+
+                    if loc_col is not None:
+                        nat_mask = df_s[loc_col].astype(str).str.strip().str.lower().isin(["new zealand", "nz", "national", "all", "total", "all new zealand"])
+                        if nat_mask.any() and nat_price_df.empty:
+                            nat_price_df = df_s[nat_mask].dropna(subset=[med_col]).sort_values("_dt").reset_index(drop=True)
+
+                        latest_dt_s = df_s["_dt"].max()
+                        sub_latest = df_s[df_s["_dt"] == latest_dt_s].dropna(subset=[med_col])
+                        for _, r_loc in sub_latest.iterrows():
+                            loc_str = str(r_loc[loc_col]).strip()
+                            loc_low = loc_str.lower()
+                            if loc_low in ("new zealand", "nz", "national", "all", "total", "nan", ""):
+                                continue
+                            m_v = int(round(float(r_loc[med_col])))
+                            if m_v < 10_000:
+                                m_v *= 1000
+                            lq_v = int(round(float(r_loc[lq_col]))) if (lq_col and pd.notna(r_loc.get(lq_col))) else None
+                            if lq_v and lq_v < 10_000:
+                                lq_v *= 1000
+                            uq_v = int(round(float(r_loc[uq_col]))) if (uq_col and pd.notna(r_loc.get(uq_col))) else None
+                            if uq_v and uq_v < 10_000:
+                                uq_v *= 1000
+                            c_v = int(round(float(r_loc[cnt_col]))) if (cnt_col and pd.notna(r_loc.get(cnt_col))) else 0
+                            lvl_str = str(r_loc[lvl_col]).strip().lower() if (lvl_col and pd.notna(r_loc.get(lvl_col))) else s_low
+
+                            rec_item = {
+                                "loc": loc_str,
+                                "dt": latest_dt_s,
+                                "median": m_v,
+                                "lq": lq_v,
+                                "uq": uq_v,
+                                "sales": c_v,
+                            }
+                            if "region" in lvl_str or "region" in loc_low or loc_low in (
+                                "auckland", "wellington", "canterbury", "waikato", "bay of plenty", "otago",
+                                "manawatū-whanganui", "manawatu-whanganui", "hawke's bay", "northland", "taranaki",
+                                "southland", "nelson", "marlborough", "tasman", "gisborne", "west coast",
+                            ) and "city" not in loc_low and "district" not in loc_low:
+                                if not any(x["loc"].lower() == loc_low for x in reg_latest_rows):
+                                    reg_latest_rows.append(rec_item)
+                            if any(w in loc_low or w in lvl_str for w in ("city", "district", "tla", "territorial", "auckland", "chatham")):
+                                if not any(x["loc"].lower() == loc_low for x in tla_latest_rows):
+                                    tla_latest_rows.append(rec_item)
+                    elif nat_price_df.empty and ("national" in s_low or "nz" in s_low):
+                        nat_price_df = df_s.dropna(subset=[med_col]).sort_values("_dt").reset_index(drop=True)
+
+                # B. House Price Index (MCERT SPAR HPI — All, Q1 Low-Value, Q4 High-Value)
+                if hpi_yoy_col is not None and ("hpi" in s_low or "index" in s_low):
+                    df_s[hpi_yoy_col] = pd.to_numeric(df_s[hpi_yoy_col].astype(str).str.replace("%", "").str.strip(), errors="coerce")
+                    if hpi_3m_col and hpi_3m_col in df_s.columns:
+                        df_s[hpi_3m_col] = pd.to_numeric(df_s[hpi_3m_col].astype(str).str.replace("%", "").str.strip(), errors="coerce")
+                    sub_hpi = df_s
+                    if loc_col is not None:
+                        nat_h = df_s[df_s[loc_col].astype(str).str.strip().str.lower().isin(["new zealand", "nz", "national", "all", "total"])]
+                        if not nat_h.empty:
+                            sub_hpi = nat_h
+                    if not sub_hpi.dropna(subset=[hpi_yoy_col]).empty and hpi_df.empty:
+                        hpi_df = sub_hpi.dropna(subset=[hpi_yoy_col]).copy()
+                        hpi_df["_yoy"] = hpi_df[hpi_yoy_col]
+                        hpi_df["_3m"] = hpi_df[hpi_3m_col] if (hpi_3m_col and hpi_3m_col in hpi_df.columns) else float("nan")
+                        hpi_df["_q_tier"] = hpi_df[q_tier_col].astype(str).str.strip() if q_tier_col else "All"
+
+                # C. Sales Composition by Valuation Quartile (Q1..Q4)
+                if ("composition" in s_low or q_tier_col is not None) and cnt_col is not None and not comp_latest:
+                    df_s[cnt_col] = pd.to_numeric(df_s[cnt_col].astype(str).str.replace(",", "").str.strip(), errors="coerce")
+                    sub_c = df_s
+                    if loc_col is not None:
+                        nat_c = df_s[df_s[loc_col].astype(str).str.strip().str.lower().isin(["new zealand", "nz", "national", "all", "total"])]
+                        if not nat_c.empty:
+                            sub_c = nat_c
+                    latest_c_dt = sub_c["_dt"].max()
+                    sub_c_lat = sub_c[sub_c["_dt"] == latest_c_dt]
+                    if q_tier_col and len(sub_c_lat) >= 4:
+                        q_counts = {}
+                        for _, rc in sub_c_lat.iterrows():
+                            ql = str(rc[q_tier_col]).strip().upper()
+                            for qk in ("Q1", "Q2", "Q3", "Q4"):
+                                if qk in ql or (qk == "Q1" and "1" in ql) or (qk == "Q2" and "2" in ql) or (qk == "Q3" and "3" in ql) or (qk == "Q4" and "4" in ql):
+                                    if pd.notna(rc[cnt_col]) and float(rc[cnt_col]) > 0:
+                                        q_counts[qk] = float(rc[cnt_col])
+                        if len(q_counts) == 4:
+                            comp_latest = {"dt": latest_c_dt, "counts": q_counts}
+            wb.close()
+        except Exception as exc_hud_x:
+            print(f"[HUD / MCERT XLSX] Parse note: {exc_hud_x}")
+
+    # Build Ticker 1 & 4 from `nat_price_df` (`nz-median-house-price-quartiles` & `nz-monthly-property-sales-volume`)
+    if not nat_price_df.empty:
+        cols_np = {str(c).strip().lower(): c for c in nat_price_df.columns}
+        med_c = next((c for k, c in cols_np.items() if "median" in k), None)
+        lq_c = next((c for k, c in cols_np.items() if "lower" in k or k in ("lq", "p25")), None)
+        uq_c = next((c for k, c in cols_np.items() if "upper" in k or k in ("uq", "p75")), None)
+        cnt_c = next((c for k, c in cols_np.items() if any(w in k for w in ("sales", "count", "volume", "number")) and "price" not in k), None)
+
+        last_np = nat_price_df.iloc[-1]
+        prev_np = nat_price_df.iloc[-13] if len(nat_price_df) >= 13 else nat_price_df.iloc[0]
+        dt_np = pd.Timestamp(last_np["_dt"])
+        per_np, as_of_np = dt_np.strftime("%B %Y"), month_end_iso(dt_np)
+        hist_from_np = f"Available from {pd.Timestamp(nat_price_df['_dt'].iloc[0]).strftime('%B %Y')} ({len(nat_price_df)} monthly observations)"
+
+        med_now = int(round(float(last_np[med_c])))
+        if med_now < 10_000:
+            med_now *= 1000
+            nat_price_df[med_c] = nat_price_df[med_c] * 1000.0
+        med_prev = int(round(float(prev_np[med_c])))
+        med_yoy = ((med_now - med_prev) / max(1, med_prev)) * 100.0
+
+        lq_now = int(round(float(last_np[lq_c]))) if (lq_c and pd.notna(last_np.get(lq_c))) else None
+        if lq_now and lq_now < 10_000:
+            lq_now *= 1000
+        uq_now = int(round(float(last_np[uq_c]))) if (uq_c and pd.notna(last_np.get(uq_c))) else None
+        if uq_now and uq_now < 10_000:
+            uq_now *= 1000
+
+        q_clause = (
+            f"—with a lower-quartile (25th percentile) sale price of <strong>${lq_now:,}</strong> and an upper-quartile (75th percentile) sale price of <strong>${uq_now:,}</strong> (an interquartile spread of <strong>${uq_now - lq_now:,}</strong>)"
+            if (lq_now and uq_now)
+            else ""
+        )
+        np_calc = f"National Median Sale Price ({per_np}) = ${med_now:,} (YoY: {med_yoy:+.1f}% vs ${med_prev:,})" + (
+            f" | Lower Quartile (25%) = ${lq_now:,} | Upper Quartile (75%) = ${uq_now:,} (Spread = ${uq_now - lq_now:,})"
+            if (lq_now and uq_now)
+            else ""
+        )
+        out["nz-median-house-price-quartiles"] = make_pulse_item(
+            "HUD / MCERT", as_of_np, MAX_AGE_HUD,
+            f"In {per_np} (by agreement date), New Zealand's national median residential sale price in the HUD / MCERT District Valuation Roll series was <strong>${med_now:,}</strong> ({plain_yoy_growth(med_now, med_prev)} from ${med_prev:,} a year earlier){q_clause}.",
+            f"HUD / MCERT Property and Sales Statistics ({per_np}): National median residential sale price = ${med_now:,}" + (f"; Lower quartile = ${lq_now:,}; Upper quartile = ${uq_now:,}." if (lq_now and uq_now) else "."),
+            format_provenance_source_html(np_calc, hud_src_lbl, src_file_url, True),
+            per_np, med_now,
+            f"Median ${med_now:,}" + (f" | Lower quartile (25%) ${lq_now:,} | Upper quartile (75%) ${uq_now:,}" if (lq_now and uq_now) else ""),
+            f"12 months prior ({pd.Timestamp(prev_np['_dt']).strftime('%B %Y')}): ${med_prev:,} median",
+            f"{med_yoy:+.1f}% YoY (${med_now - med_prev:+,d} national median)",
+            np_calc, hist_from_np,
+            make_history_list(nat_price_df["_dt"], nat_price_df[med_c], lambda v: f"${int(round(v)):,}"),
+            {"source_published": hud_pub, "source_url": src_file_url},
+        )
+
+        if cnt_c and pd.notna(last_np.get(cnt_c)):
+            s_mth_now = int(round(float(last_np[cnt_c])))
+            s_mth_prev = int(round(float(prev_np[cnt_c]))) if pd.notna(prev_np.get(cnt_c)) else s_mth_now
+            s_12m_now = int(round(float(nat_price_df[cnt_c].iloc[-12:].sum()))) if len(nat_price_df) >= 12 else s_mth_now * 12
+            s_12m_prev = int(round(float(nat_price_df[cnt_c].iloc[-24:-12].sum()))) if len(nat_price_df) >= 24 else None
+            s_mth_yoy = ((s_mth_now - s_mth_prev) / max(1, s_mth_prev)) * 100.0
+            vol_calc = f"Monthly DVR Sales ({per_np}) = {s_mth_now:,} sales ({s_mth_yoy:+.1f}% YoY vs {s_mth_prev:,}) | Rolling 12-Month Sales = {s_12m_now:,}"
+            out["nz-monthly-property-sales-volume"] = make_pulse_item(
+                "HUD / MCERT", as_of_np, MAX_AGE_HUD,
+                f"In {per_np} (by agreement date), <strong>{s_mth_now:,} arm's-length residential property sales</strong> were recorded across New Zealand ({plain_yoy_growth(s_mth_now, s_mth_prev)} from {s_mth_prev:,} a year earlier), bringing rolling 12-month national sales volume to <strong>{s_12m_now:,} properties</strong>.",
+                f"HUD / MCERT Property and Sales Statistics ({per_np}): Monthly national residential sales = {s_mth_now:,}; rolling 12-month sales = {s_12m_now:,}.",
+                format_provenance_source_html(vol_calc, hud_src_lbl, src_file_url, True),
+                per_np, s_mth_now,
+                f"{s_mth_now:,} sales in {per_np} | {s_12m_now:,} rolling 12m sales",
+                f"12 months prior: {s_mth_prev:,} monthly sales" + (f" ({s_12m_prev:,} prior 12m total)" if s_12m_prev else ""),
+                f"{s_mth_yoy:+.1f}% YoY ({s_mth_now - s_mth_prev:+,d} monthly sales)",
+                vol_calc, hist_from_np,
+                make_history_list(nat_price_df["_dt"], nat_price_df[cnt_c], lambda v: f"{int(round(v)):,} sales"),
+                {"source_published": hud_pub, "source_url": src_file_url},
+            )
+
+    # Build Ticker 2: `regional-median-house-prices`
+    if len(reg_latest_rows) >= 4:
+        reg_latest_rows.sort(key=lambda r: r["sales"] if r["sales"] > 0 else r["median"], reverse=True)
+        dt_reg = pd.Timestamp(reg_latest_rows[0]["dt"])
+        per_reg, as_of_reg = dt_reg.strftime("%B %Y"), month_end_iso(dt_reg)
+        r1, r2, r3 = reg_latest_rows[0], reg_latest_rows[1], reg_latest_rows[2]
+        reg_calc = " | ".join(
+            f"{r['loc']}: ${r['median']:,} median" + (f" (LQ ${r['lq']:,})" if r.get("lq") else "")
+            for r in reg_latest_rows[:6]
+        )
+        out["regional-median-house-prices"] = make_pulse_item(
+            "HUD / MCERT", as_of_reg, MAX_AGE_HUD,
+            f"In {per_reg} (HUD / MCERT regional DVR series), regional median residential sale prices across New Zealand's largest regional markets were <strong>${r1['median']:,} in {r1['loc']}</strong>" + (f" (lower quartile ${r1['lq']:,})" if r1.get("lq") else "") + f", <strong>${r2['median']:,} in {r2['loc']}</strong>, and <strong>${r3['median']:,} in {r3['loc']}</strong>.",
+            f"HUD / MCERT Property and Sales Statistics ({per_reg} Regional Series): {reg_calc}.",
+            format_provenance_source_html(reg_calc, hud_src_lbl, src_file_url, False),
+            per_reg, r1["median"],
+            " | ".join(f"{r['loc']} ${r['median']:,}" for r in reg_latest_rows[:4]),
+            "Regional District Valuation Roll market sales series",
+            f"Published by agreement date ({per_reg})",
+            reg_calc, f"HUD / MCERT regional monthly series ({per_reg})",
+            [
+                {
+                    "period": r["loc"],
+                    "label": r["loc"],
+                    "value": r["median"],
+                    "formatted": f"${r['median']:,} median" + (f" | ${r['lq']:,} lower quartile (25%)" if r.get("lq") else "") + (f" ({r['sales']:,} sales)" if r.get("sales") else ""),
+                }
+                for r in reg_latest_rows[:16]
+            ],
+            {"source_published": hud_pub, "source_url": src_file_url},
+        )
+
+    # Build Ticker 3 & 8: `tla-council-house-price-benchmarks` & `gross-rental-yield-by-council`
+    if len(tla_latest_rows) >= 5:
+        tla_latest_rows.sort(key=lambda r: r["sales"] if r["sales"] > 0 else r["median"], reverse=True)
+        dt_tla = pd.Timestamp(tla_latest_rows[0]["dt"])
+        per_tla, as_of_tla = dt_tla.strftime("%B %Y"), month_end_iso(dt_tla)
+        t1, t2, t3 = tla_latest_rows[0], tla_latest_rows[1], tla_latest_rows[2]
+        tla_p_calc = " | ".join(
+            f"{r['loc']}: ${r['median']:,} median" + (f" (LQ ${r['lq']:,})" if r.get("lq") else "")
+            for r in tla_latest_rows[:5]
+        )
+        out["tla-council-house-price-benchmarks"] = make_pulse_item(
+            "HUD / MCERT", as_of_tla, MAX_AGE_HUD,
+            f"In {per_tla} (HUD / MCERT Territorial Authority DVR series), council-level median residential sale prices in the largest urban districts were <strong>${t1['median']:,} in {t1['loc']}</strong>" + (f" (lower quartile ${t1['lq']:,})" if t1.get("lq") else "") + f", <strong>${t2['median']:,} in {t2['loc']}</strong>" + (f" (lower quartile ${t2['lq']:,})" if t2.get("lq") else "") + f", and <strong>${t3['median']:,} in {t3['loc']}</strong>.",
+            f"HUD / MCERT Property and Sales Statistics ({per_tla} Territorial Authority Series): {tla_p_calc}.",
+            format_provenance_source_html(tla_p_calc, hud_src_lbl, src_file_url, False),
+            per_tla, t1["median"],
+            " | ".join(f"{r['loc']} ${r['median']:,}" for r in tla_latest_rows[:4]),
+            "Territorial Local Authority District Valuation Roll sales series",
+            f"Published by agreement date ({per_tla})",
+            tla_p_calc, f"HUD / MCERT TLA monthly series ({per_tla})",
+            [
+                {
+                    "period": r["loc"],
+                    "label": r["loc"],
+                    "value": r["median"],
+                    "formatted": f"${r['median']:,} median" + (f" | ${r['lq']:,} lower quartile (25%)" if r.get("lq") else "") + (f" ({r['sales']:,} sales)" if r.get("sales") else ""),
+                }
+                for r in tla_latest_rows[:25]
+            ],
+            {"source_published": hud_pub, "source_url": src_file_url},
+        )
+
+        # Cross-derive Ticker 8 (`gross-rental-yield-by-council`) using MBIE By-TLA Rents
+        rent_rec = existing_candidates.get("tla-council-rent-benchmarks") or {}
+        rent_map = rent_rec.get("_tla_rent_map") or {}
+        if not rent_map and rent_rec.get("history"):
+            for h_r in rent_rec["history"]:
+                m_rv = re.search(r"\$([\d,]+)/wk", str(h_r.get("formatted", "")))
+                if m_rv and h_r.get("label"):
+                    rent_map[str(h_r["label"]).strip().lower()] = int(m_rv.group(1).replace(",", ""))
+
+        if rent_map:
+            yield_rows = []
+            for r_p in tla_latest_rows:
+                if r_p.get("sales", 50) < 20 or r_p["median"] <= 100_000:
+                    continue
+                c_name = r_p["loc"]
+                c_low = c_name.lower()
+                wk_rent = rent_map.get(c_low) or rent_map.get(c_low.replace(" city", "").replace(" district", "").strip())
+                if wk_rent and 250 <= wk_rent <= 1500:
+                    ann_rent = wk_rent * 52
+                    gy_pct = round((ann_rent / float(r_p["median"])) * 100.0, 2)
+                    if 2.0 <= gy_pct <= 10.5:
+                        yield_rows.append({
+                            "loc": c_name,
+                            "yield_pct": gy_pct,
+                            "wk_rent": wk_rent,
+                            "med_price": r_p["median"],
+                            "period": c_name,
+                            "label": c_name,
+                            "value": gy_pct,
+                            "formatted": f"{gy_pct:.2f}% gross yield (${wk_rent}/wk rent ÷ ${r_p['median']:,} median price)",
+                        })
+            if len(yield_rows) >= 3:
+                y1, y2, y3 = yield_rows[0], yield_rows[1], yield_rows[2]
+                rent_per = rent_rec.get("latest_period", per_tla)
+                gy_calc = " | ".join(
+                    f"{y['loc']}: (${y['wk_rent']}×52) ÷ ${y['med_price']:,} = {y['yield_pct']:.2f}%"
+                    for y in yield_rows[:4]
+                )
+                out["gross-rental-yield-by-council"] = make_pulse_item(
+                    "MBIE & HUD / MCERT", as_of_tla, MAX_AGE_HUD,
+                    f"Combining MBIE Tenancy Services council median weekly rents ({rent_per}) with HUD / MCERT council median residential sale prices ({per_tla}), indicative gross residential rental yields across major urban councils were <strong>{y1['yield_pct']:.2f}% in {y1['loc']}</strong> (${y1['wk_rent']}/wk vs ${y1['med_price']:,}), <strong>{y2['yield_pct']:.2f}% in {y2['loc']}</strong> (${y2['wk_rent']}/wk vs ${y2['med_price']:,}), and <strong>{y3['yield_pct']:.2f}% in {y3['loc']}</strong> (${y3['wk_rent']}/wk vs ${y3['med_price']:,}).",
+                    f"MBIE By-TLA Median Rent ({rent_per}) & HUD / MCERT By-TLA Median Sale Price ({per_tla}): {gy_calc}.",
+                    format_provenance_source_html(gy_calc, "MBIE Tenancy Services & HUD / MCERT Property Statistics (CC BY 4.0)", src_file_url, True),
+                    f"{per_tla} (Prices) / {rent_per} (Rents)", y1["yield_pct"],
+                    " | ".join(f"{y['loc']} {y['yield_pct']:.2f}%" for y in yield_rows[:4]),
+                    "Ratio of annualised council median bond rent to council median DVR sale price",
+                    "Gross ratio before rates, insurance, maintenance, management, vacancy & interest",
+                    gy_calc, f"MBIE & HUD / MCERT Territorial Authority series ({per_tla})",
+                    [{k: y[k] for k in ("period", "label", "value", "formatted")} for y in yield_rows[:20]],
+                    {"source_published": hud_pub, "source_url": src_file_url},
+                )
+
+    # Build Ticker 5 & 6: `mcert-house-price-index-yoy` & `hpi-low-vs-high-value-tiers`
+    if not hpi_df.empty:
+        latest_h_dt = hpi_df["_dt"].max()
+        per_h, as_of_h = pd.Timestamp(latest_h_dt).strftime("%B %Y"), month_end_iso(pd.Timestamp(latest_h_dt))
+        all_h_df = hpi_df[hpi_df["_q_tier"].astype(str).str.lower().isin(["all", "total", "all dwellings", "nan", ""])]
+        if all_h_df.empty:
+            all_h_df = hpi_df
+        last_h = all_h_df.iloc[-1]
+        yoy_h = float(last_h["_yoy"])
+        qoq_h = float(last_h["_3m"]) if pd.notna(last_h.get("_3m")) else None
+        qoq_clause = f" (and <strong>{qoq_h:+.1f}%</strong> over the 3 months to {per_h})" if qoq_h is not None else ""
+        hpi_calc = f"Official MCERT SPAR House Price Index ({per_h}): Annual change = {yoy_h:+.1f}% YoY" + (f" | 3-month change = {qoq_h:+.1f}%" if qoq_h is not None else "")
+        out["mcert-house-price-index-yoy"] = make_pulse_item(
+            "HUD / MCERT HPI", as_of_h, MAX_AGE_HUD,
+            f"In {per_h} (by agreement date), the official Crown House Price Index (MCERT HPI, calculated using the Sales Price to Appraisal Ratio methodology) changed by <strong>{yoy_h:+.1f}% year-on-year</strong> across New Zealand{qoq_clause}.",
+            f"HUD / MCERT House Price Index ({per_h}): National All-Dwellings HPI annual change = {yoy_h:+.1f}% YoY.",
+            format_provenance_source_html(hpi_calc, "HUD / MCERT — House Price Index (CC BY 4.0)", src_file_url, False),
+            per_h, round(yoy_h, 2),
+            f"{yoy_h:+.1f}% YoY (MCERT quality-adjusted SPAR HPI)" + (f" | {qoq_h:+.1f}% 3-month" if qoq_h is not None else ""),
+            "SPAR valuation-adjusted index (controls for sales composition)",
+            f"Published with 3-month DVR settlement lag ({per_h})",
+            hpi_calc, f"MCERT monthly HPI series ({per_h})",
+            make_history_list(all_h_df["_dt"], all_h_df["_yoy"], lambda v: f"{v:+.1f}% YoY"),
+            {"source_published": hud_pub, "source_url": src_file_url},
+        )
+
+        lat_tiers = hpi_df[hpi_df["_dt"] == latest_h_dt]
+        q1_r = lat_tiers[lat_tiers["_q_tier"].astype(str).str.upper().str.contains("Q1|LOW|1")]
+        q4_r = lat_tiers[lat_tiers["_q_tier"].astype(str).str.upper().str.contains("Q4|HIGH|4")]
+        if not q1_r.empty and not q4_r.empty:
+            q1_yoy = float(q1_r.iloc[-1]["_yoy"])
+            q4_yoy = float(q4_r.iloc[-1]["_yoy"])
+            tier_diff = round(q1_yoy - q4_yoy, 1)
+            tier_calc = f"Low-Value Tier (Q1) HPI YoY = {q1_yoy:+.1f}% | High-Value Tier (Q4) HPI YoY = {q4_yoy:+.1f}% | Spread (Q1 − Q4) = {tier_diff:+.1f} percentage points"
+            out["hpi-low-vs-high-value-tiers"] = make_pulse_item(
+                "HUD / MCERT HPI", as_of_h, MAX_AGE_HUD,
+                f"In {per_h}, the MCERT House Price Index for New Zealand's lowest valuation quartile (<strong>Q1 low-value homes</strong>) changed by <strong>{q1_yoy:+.1f}% year-on-year</strong>, compared with <strong>{q4_yoy:+.1f}% year-on-year</strong> for the highest valuation quartile (<strong>Q4 high-value homes</strong>)—a difference of <strong>{tier_diff:+.1f} percentage points</strong>.",
+                f"HUD / MCERT House Price Index Composition ({per_h}): Q1 (lowest valuation quartile) = {q1_yoy:+.1f}% YoY; Q4 (highest valuation quartile) = {q4_yoy:+.1f}% YoY.",
+                format_provenance_source_html(tier_calc, "HUD / MCERT — House Price Index Composition (CC BY 4.0)", src_file_url, True),
+                per_h, round(q1_yoy, 2),
+                f"Low-value (Q1): {q1_yoy:+.1f}% YoY vs High-value (Q4): {q4_yoy:+.1f}% YoY ({tier_diff:+.1f} pts)",
+                f"All-dwellings national HPI: {yoy_h:+.1f}% YoY",
+                f"{tier_diff:+.1f} percentage-point spread between Q1 and Q4 tiers",
+                tier_calc, f"MCERT HPI valuation-quartile series ({per_h})",
+                [
+                    {"period": "Q1 (Lowest Value 25%)", "label": "Q1 Lowest Valuation Quartile Homes", "value": round(q1_yoy, 1), "formatted": f"{q1_yoy:+.1f}% YoY"},
+                    {"period": "All Dwellings", "label": "All New Zealand Dwellings (Composite HPI)", "value": round(yoy_h, 1), "formatted": f"{yoy_h:+.1f}% YoY"},
+                    {"period": "Q4 (Highest Value 25%)", "label": "Q4 Highest Valuation Quartile Homes", "value": round(q4_yoy, 1), "formatted": f"{q4_yoy:+.1f}% YoY"},
+                ],
+                {"source_published": hud_pub, "source_url": src_file_url},
+            )
+
+    # Build Ticker 7: `sales-composition-by-value-quartile`
+    if comp_latest and len(comp_latest.get("counts", {})) == 4:
+        dt_c = pd.Timestamp(comp_latest["dt"])
+        per_c, as_of_c = dt_c.strftime("%B %Y"), month_end_iso(dt_c)
+        q_c = comp_latest["counts"]
+        tot_q_s = sum(q_c.values())
+        q1_sh = round((q_c["Q1"] / max(1.0, tot_q_s)) * 100.0, 1)
+        q2_sh = round((q_c["Q2"] / max(1.0, tot_q_s)) * 100.0, 1)
+        q3_sh = round((q_c["Q3"] / max(1.0, tot_q_s)) * 100.0, 1)
+        q4_sh = round((q_c["Q4"] / max(1.0, tot_q_s)) * 100.0, 1)
+        comp_calc = f"Q1: {q1_sh:.1f}% ({int(round(q_c['Q1'])):,}) | Q2: {q2_sh:.1f}% ({int(round(q_c['Q2'])):,}) | Q3: {q3_sh:.1f}% ({int(round(q_c['Q3'])):,}) | Q4: {q4_sh:.1f}% ({int(round(q_c['Q4'])):,})"
+        out["sales-composition-by-value-quartile"] = make_pulse_item(
+            "HUD / MCERT", as_of_c, MAX_AGE_HUD,
+            f"In {per_c}, across New Zealand residential property sales in the HUD / MCERT Sales Composition dataset, <strong>{q1_sh:.1f}%</strong> of sales were in the lowest rating-valuation quartile (<strong>Q1</strong>), <strong>{q2_sh:.1f}%</strong> in <strong>Q2</strong>, <strong>{q3_sh:.1f}%</strong> in <strong>Q3</strong>, and <strong>{q4_sh:.1f}%</strong> in the highest valuation quartile (<strong>Q4</strong>).",
+            f"HUD / MCERT Sales Composition ({per_c}): {comp_calc}.",
+            format_provenance_source_html(comp_calc, "HUD / MCERT — Sales Composition Statistics (CC BY 4.0)", src_file_url, True),
+            per_c, q1_sh,
+            f"Q1 (Lowest): {q1_sh:.1f}% | Q2: {q2_sh:.1f}% | Q3: {q3_sh:.1f}% | Q4 (Highest): {q4_sh:.1f}%",
+            "Equal-stock benchmark: 25.0% of housing stock per valuation quartile",
+            f"Q1 minus Q4 sales share difference: {q1_sh - q4_sh:+.1f} percentage points",
+            comp_calc, f"HUD / MCERT sales composition series ({per_c})",
+            [
+                {"period": "Q1 (Lowest 25% CV Stock)", "label": "Quartile 1 (Lowest Valuation 25% of Stock)", "value": q1_sh, "formatted": f"{q1_sh:.1f}% of sales ({int(round(q_c['Q1'])):,} sales)"},
+                {"period": "Q2 (25%–50% CV Stock)", "label": "Quartile 2 (Lower-Middle Valuation 25% of Stock)", "value": q2_sh, "formatted": f"{q2_sh:.1f}% of sales ({int(round(q_c['Q2'])):,} sales)"},
+                {"period": "Q3 (50%–75% CV Stock)", "label": "Quartile 3 (Upper-Middle Valuation 25% of Stock)", "value": q3_sh, "formatted": f"{q3_sh:.1f}% of sales ({int(round(q_c['Q3'])):,} sales)"},
+                {"period": "Q4 (Highest 25% CV Stock)", "label": "Quartile 4 (Highest Valuation 25% of Stock)", "value": q4_sh, "formatted": f"{q4_sh:.1f}% of sales ({int(round(q_c['Q4'])):,} sales)"},
+            ],
+            {"source_published": hud_pub, "source_url": src_file_url},
+        )
 
     return out
 # === END OF BLOCK 10 ===
@@ -8201,7 +8885,6 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
             val_num = v.get("value")
             if "nan $" in lv or "-99 $" in lv or "~$" in lv:
                 continue
-            # Filter out known mis-parsed or pre-audit values so they never persist
             if k == "individual-income-by-source-benchmarks" and isinstance(val_num, (int, float)) and val_num < 30000:
                 continue
             if k == "new-build-consent-cost-by-type" and isinstance(val_num, (int, float)) and val_num < 260000:
@@ -8218,7 +8901,6 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
                 continue
             if k in ("vehicle-insurance-inflation", "health-insurance-inflation") and val_num in (1.9, 1.6, 0.1, 0.2):
                 continue
-            # Strip legacy blanket policy claims from cached HTML if present
             if v.get("html"):
                 v["html"] = re.sub(
                     r"\s*that\s+banks\s+still\s+stress-test\s+at\s+3%\s+per\s+month\s+on\s+mortgage\s+applications",
@@ -8363,6 +9045,13 @@ def main() -> None:
         print(f"[Tenancy Services] Error: {exc}")
 
     try:
+        hud_out = build_hud_mcert_housing_tickers(session, fresh_candidates)
+        fresh_candidates.update(hud_out)
+        live_parsed_count += len(hud_out)
+    except Exception as exc_hud:
+        print(f"[HUD / MCERT Property Statistics] Error: {exc_hud}")
+
+    try:
         ird_out = build_ird_tickers(session, rbnz_files.get("t43"))
         fresh_candidates.update(ird_out)
         live_parsed_count += len(ird_out)
@@ -8398,9 +9087,10 @@ def main() -> None:
     for k, item in fresh_candidates.items():
         if k not in TICKER_CATALOG or not isinstance(item, dict):
             continue
-        as_of, max_age = item.get("as_of", ""), int(item.get("max_age_days", MAX_AGE_MONTHLY))
-        if item.get("html") and is_fresh(as_of, max_age):
-            verified_tickers[k] = enrich_ticker_record(k, item, today_iso, now_human)
+        item_clean = {ik: iv for ik, iv in item.items() if not str(ik).startswith("_")}
+        as_of, max_age = item_clean.get("as_of", ""), int(item_clean.get("max_age_days", MAX_AGE_MONTHLY))
+        if item_clean.get("html") and is_fresh(as_of, max_age):
+            verified_tickers[k] = enrich_ticker_record(k, item_clean, today_iso, now_human)
         else:
             print(f"[Failsafe Gate] Omitted stale/invalid ticker '{k}' (as_of={as_of}, max_age={max_age}d)")
 
@@ -8409,6 +9099,28 @@ def main() -> None:
 
     fhb_snap_obj = build_fhb_snapshot_object(verified_tickers)
     rc_bench_obj = build_reality_check_benchmarks_object(verified_tickers)
+    for hud_slug in (
+        "nz-median-house-price-quartiles",
+        "regional-median-house-prices",
+        "tla-council-house-price-benchmarks",
+        "nz-monthly-property-sales-volume",
+        "mcert-house-price-index-yoy",
+        "hpi-low-vs-high-value-tiers",
+        "sales-composition-by-value-quartile",
+        "gross-rental-yield-by-council",
+    ):
+        rec_h = verified_tickers.get(hud_slug)
+        if isinstance(rec_h, dict) and rec_h.get("value") is not None:
+            rc_bench_obj["series"][hud_slug] = {
+                "value": rec_h["value"],
+                "latest_value": rec_h.get("latest_value", ""),
+                "observation_period": rec_h.get("observation_period", ""),
+                "period_end": rec_h.get("period_end", ""),
+                "source": rec_h.get("source", ""),
+                "canonical_url": rec_h.get("canonical_url", ""),
+                "breakdown": (rec_h.get("history") or [])[:20],
+            }
+    rc_bench_obj["active_benchmark_series"] = len(rc_bench_obj["series"])
 
     bubble_feed_tickers = dict(verified_tickers)
     for alias_k, target_k in LEGACY_BUBBLE_ALIASES.items():
@@ -8505,7 +9217,7 @@ def main() -> None:
         "source_status": "current",
         "active_datasets_count": len(structured_records),
         "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, source_published reflects when the publisher released it, and observation_period / period_end reflect the period the data covers.",
-        "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy), Quarterly (CPI / HLPI / IRD / Kāinga Ora) & Annual (FMA / Stats NZ HILS / IRD Tax Distributions / NHC / ACC)",
+        "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (CPI / HLPI / IRD / Kāinga Ora) & Annual (FMA / Stats NZ HILS / IRD Tax Distributions / NHC / ACC)",
         "fhb_snapshot": fhb_snap_obj,
         "reality_check_benchmarks": rc_bench_obj,
         "records": structured_records,
@@ -8558,27 +9270,37 @@ def main() -> None:
         by_cat.setdefault(rec.get("category", "Mortgage lending & rates"), []).append((k, rec))
 
     cat_cards_html = ""
+    filter_pills_list = [
+        f"<button type='button' class='cat-pill is-active' data-cat-pill='all' aria-pressed='true'>"
+        f"All Categories <span class='pill-cnt'>{len(verified_tickers)}</span></button>"
+    ]
     for cat in CATEGORY_ORDER:
         items = by_cat.get(cat, [])
         if not items:
             continue
         cat_slug = re.sub(r"[^a-z0-9]+", "-", cat.lower()).strip("-")
+        filter_pills_list.append(
+            f"<button type='button' class='cat-pill' data-cat-pill='{cat_slug}' aria-pressed='false'>"
+            f"{html_lib.escape(cat)} <span class='pill-cnt'>{len(items)}</span></button>"
+        )
         links = "".join(
             f"<li><a href='#{k}'><code>{k}</code></a> — {html_lib.escape(r['name'])} "
             f"(<strong>{html_lib.escape(str(r['latest_value']).split('(')[0].strip())}</strong>)</li>"
             for k, r in items
         )
         cat_cards_html += (
-            f"<div class='cat-card' id='cat-{cat_slug}'>"
+            f"<div class='cat-card' id='cat-{cat_slug}' data-cat-card='{cat_slug}'>"
             f"<div class='cat-hdr'><strong>{html_lib.escape(cat)}</strong><span>{len(items)} datasets</span></div>"
             f"<ul>{links}</ul></div>"
         )
+    filter_pills_html = "".join(filter_pills_list)
 
     rows_html_list = []
     for k, v in sorted(verified_tickers.items()):
+        row_cat_slug = re.sub(r"[^a-z0-9]+", "-", str(v.get("category", "")).lower()).strip("-")
         aka_sub = f"<div class='aka'>Also: {html_lib.escape(v['also_known_as'])}</div>" if v.get("also_known_as") else ""
         rows_html_list.append(
-            f"<tr id='{k}'>"
+            f"<tr id='{k}' data-cat='{row_cat_slug}'>"
             f"<td><a href='{v['canonical_url']}'><code>{k}</code></a><div class='rname'>{html_lib.escape(v['name'])}</div>{aka_sub}"
             f"<span class='dtype-badge'>{'Derived by HLF' if v['derived_by_hlf'] else 'Officially Reported'}</span></td>"
             f"<td><strong>{html_lib.escape(v['source'])}</strong><div class='rper'>Obs: {html_lib.escape(v['observation_period'])}</div>"
@@ -8591,6 +9313,74 @@ def main() -> None:
     robots_tag = "index, follow" if verified_tickers else "noindex, nofollow"
     creator_main_html = render_creator_card_html(compact=False)
     about_footer_html = render_about_and_quality_footer_html()
+
+    pill_filter_js = """<script>
+(function() {
+  const bar = document.getElementById("cat-pill-bar");
+  if (!bar) return;
+  const pills = Array.from(bar.querySelectorAll(".cat-pill[data-cat-pill]"));
+  const allBtn = bar.querySelector('.cat-pill[data-cat-pill="all"]');
+  const clearBtn = document.getElementById("cat-pill-clear");
+  const statusEl = document.getElementById("cat-pill-status");
+  const rows = Array.from(document.querySelectorAll("tr[data-cat]"));
+  const cards = Array.from(document.querySelectorAll(".cat-card[data-cat-card]"));
+  const totalCount = rows.length;
+  const selected = new Set();
+
+  function syncFilter() {
+    const showAll = selected.size === 0;
+    pills.forEach((btn) => {
+      const slug = btn.getAttribute("data-cat-pill");
+      const active = slug === "all" ? showAll : selected.has(slug);
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+    let visibleRows = 0;
+    rows.forEach((tr) => {
+      const c = tr.getAttribute("data-cat");
+      const match = showAll || selected.has(c);
+      tr.classList.toggle("is-filtered-out", !match);
+      if (match) visibleRows++;
+    });
+    cards.forEach((card) => {
+      const c = card.getAttribute("data-cat-card");
+      const match = showAll || selected.has(c);
+      card.classList.toggle("is-filtered-out", !match);
+    });
+    if (statusEl) {
+      statusEl.textContent = showAll
+        ? "Showing all " + totalCount + " verified datasets (select one or more categories to filter)"
+        : "Showing " + visibleRows + " of " + totalCount + " datasets across " + selected.size + " selected " + (selected.size === 1 ? "category" : "categories");
+    }
+    if (clearBtn) {
+      clearBtn.style.display = showAll ? "none" : "inline-block";
+    }
+  }
+
+  bar.addEventListener("click", (e) => {
+    const btn = e.target.closest(".cat-pill[data-cat-pill]");
+    if (!btn) return;
+    const slug = btn.getAttribute("data-cat-pill");
+    if (slug === "all") {
+      selected.clear();
+    } else {
+      if (selected.has(slug)) {
+        selected.delete(slug);
+      } else {
+        selected.add(slug);
+      }
+    }
+    syncFilter();
+  });
+
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      selected.clear();
+      syncFilter();
+    });
+  }
+})();
+</script>"""
 
     hub_schema_obj = {
         "@context": "https://schema.org",
@@ -8653,17 +9443,24 @@ def main() -> None:
     .cta-btn strong {{ display: block; font-size: 0.86rem; color: #186bd6; margin-bottom: 2px; }}
     .cta-btn span {{ display: block; font-size: 0.75rem; color: #4b5563; font-weight: 400; }}
     .context-cta-meta {{ font-size: 0.75rem; color: #6b7280; border-top: 1px solid #f1f5f9; padding-top: 8px; }}
-    .use-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 12px; margin: 12px 0 24px; }}
-    .use-card {{ background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px 16px; font-size: 0.83rem; }}
-    .use-card strong {{ display: block; color: #0b2559; font-size: 0.9rem; margin-bottom: 6px; }}
-    .use-card ul {{ margin: 0; padding-left: 18px; color: #374151; }}
-    .use-card li {{ margin-bottom: 4px; }}
     .cat-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin: 12px 0 26px; }}
     .cat-card {{ background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px 16px; font-size: 0.82rem; }}
     .cat-hdr {{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 6px; margin-bottom: 8px; color: #0b2559; }}
     .cat-hdr span {{ background: #eff6ff; color: #186bd6; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; }}
     .cat-card ul {{ margin: 0; padding-left: 16px; color: #374151; }}
     .cat-card li {{ margin-bottom: 4px; }}
+    .pill-filter-wrap {{ background: #f8fafc; border: 1px solid #dbeafe; border-radius: 12px; padding: 14px 16px; margin: 12px 0 16px; }}
+    .pill-filter-hdr {{ display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 0.8rem; color: #374151; }}
+    .pill-filter-hdr strong {{ color: #0b2559; }}
+    .pill-clear-btn {{ background: #ffffff; border: 1px solid #93c5fd; color: #186bd6; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 6px; cursor: pointer; display: none; }}
+    .pill-clear-btn:hover {{ background: #eff6ff; }}
+    .pill-bar {{ display: flex; flex-wrap: wrap; gap: 7px; }}
+    .cat-pill {{ display: inline-flex; align-items: center; gap: 6px; background: #ffffff; border: 1px solid #cbd5e1; color: #1e293b; font-family: inherit; font-size: 0.78rem; font-weight: 600; padding: 6px 12px; border-radius: 999px; cursor: pointer; transition: all 0.14s ease; }}
+    .cat-pill:hover {{ border-color: #186bd6; color: #0b2559; background: #eff6ff; }}
+    .cat-pill.is-active {{ background: #0b2559; border-color: #0b2559; color: #ffffff; box-shadow: 0 2px 6px rgba(11,37,89,0.18); }}
+    .cat-pill .pill-cnt {{ background: #f1f5f9; color: #475569; font-size: 0.69rem; font-weight: 700; padding: 1px 7px; border-radius: 999px; }}
+    .cat-pill.is-active .pill-cnt {{ background: rgba(255,255,255,0.2); color: #ffffff; }}
+    .is-filtered-out {{ display: none !important; }}
     .rname {{ margin-top: 4px; font-size: 0.76rem; color: #111827; font-weight: 600; }}
     .aka {{ margin-top: 3px; font-size: 0.71rem; color: #6b7280; }}
     .rper {{ margin-top: 3px; font-size: 0.76rem; color: #0b2559; font-weight: 700; }}
@@ -8702,7 +9499,7 @@ def main() -> None:
 <body>
   <main>
     <h1>NZ Mortgage, Housing, KiwiSaver, Income &amp; Insurance Pulse — Verified NZ Data</h1>
-    <p>Public reference dataset and data dictionary built 100% live from official New Zealand Crown and statutory releases, with clearly labelled HLF-derived calculations and interpretation (<a href="#browse-datasets">Browse all {len(verified_tickers)} datasets</a> &bull; <a href="#cat-first-home-buyers">First-Home Buyers</a> &bull; <a href="#cat-income-net-worth-household-benchmarks">Income &amp; Net Worth</a> &bull; <a href="#cat-household-debt-credit-cards-borrower-stress">Household Debt &amp; Stress</a> &bull; <a href="#cat-rents-tenancy">Rents &amp; Tenancy</a> &bull; <a href="#cat-kiwisaver">KiwiSaver</a> &bull; <a href="#cat-new-builds-construction">Build Costs</a> &bull; <a href="#cat-property-natural-hazard-insurance">Property Insurance</a> &bull; <a href="#cat-personal-risk-income-protection">Personal &amp; ACC Protection</a> &bull; <a href="{GLOSSARY_BASE_URL}" target="_blank" rel="noopener">HLF Glossary</a> &bull; <a href="{MEDIA_KIT_URL}" target="_blank" rel="noopener">Media Kit &amp; Citation Guide</a>). Machine-readable endpoints: <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>, <a href="{PULSE_BASE_URL}/nz-mortgage-pulse.json"><code>nz-mortgage-pulse.json</code></a>, <a href="{PULSE_BASE_URL}/llms.txt"><code>llms.txt</code></a>, and <a href="{PULSE_BASE_URL}/robots.txt"><code>robots.txt</code></a>.</p>
+    <p>Public reference dataset and data dictionary built 100% live from official New Zealand Crown and statutory releases, with clearly labelled HLF-derived calculations and interpretation (<a href="#browse-datasets">Browse all {len(verified_tickers)} datasets</a> &bull; <a href="#cat-first-home-buyers">First-Home Buyers</a> &bull; <a href="#cat-house-prices-sales-hpi">House Prices &amp; HPI</a> &bull; <a href="#cat-income-net-worth-household-benchmarks">Income &amp; Net Worth</a> &bull; <a href="#cat-household-debt-credit-cards-borrower-stress">Household Debt &amp; Stress</a> &bull; <a href="#cat-rents-tenancy">Rents &amp; Tenancy</a> &bull; <a href="#cat-kiwisaver">KiwiSaver</a> &bull; <a href="#cat-new-builds-construction">Build Costs</a> &bull; <a href="#cat-property-natural-hazard-insurance">Property Insurance</a> &bull; <a href="#cat-personal-risk-income-protection">Personal &amp; ACC Protection</a> &bull; <a href="{GLOSSARY_BASE_URL}" target="_blank" rel="noopener">HLF Glossary</a> &bull; <a href="{MEDIA_KIT_URL}" target="_blank" rel="noopener">Media Kit &amp; Citation Guide</a>). Machine-readable endpoints: <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>, <a href="{PULSE_BASE_URL}/nz-mortgage-pulse.json"><code>nz-mortgage-pulse.json</code></a>, <a href="{PULSE_BASE_URL}/llms.txt"><code>llms.txt</code></a>, and <a href="{PULSE_BASE_URL}/robots.txt"><code>robots.txt</code></a>.</p>
 
     <div class="lag-banner" aria-label="4-Field Date Architecture: Observation Period, Period End, Source Published &amp; Last Checked">
       <div class="lag-item">
@@ -8713,7 +9510,7 @@ def main() -> None:
       <div class="lag-item">
         <span>2. Source Publication Date</span>
         <strong>Recorded per agency release</strong>
-        <small>Tracked separately from Period End across RBNZ, Stats NZ, IRD, MBIE, FMA, Kāinga Ora, NHC &amp; ACC.</small>
+        <small>Tracked separately from Period End across RBNZ, Stats NZ, IRD, MBIE, HUD/MCERT, FMA, Kāinga Ora, NHC &amp; ACC.</small>
       </div>
       <div class="lag-item">
         <span>3. Last Checked &amp; Reuse ({HLF_LICENSE_SHORT})</span>
@@ -8727,8 +9524,19 @@ def main() -> None:
     <h2 id="browse-datasets">Browse All {len(verified_tickers)} Datasets by Category</h2>
     <div class="cat-grid">{cat_cards_html}</div>
 
-    <h2>Verified NZ Mortgage, Housing, KiwiSaver, Income &amp; Protection Data Dictionary ({len(verified_tickers)} Active Datasets)</h2>
+    <h2 id="data-dictionary-table">Verified NZ Mortgage, Housing, KiwiSaver, Income &amp; Protection Data Dictionary ({len(verified_tickers)} Active Datasets)</h2>
     <p>Every dataset separates <span class="lbadge is-off" style="width:auto;">Official data</span>, <span class="lbadge is-calc" style="width:auto;">HLF calculation</span>, and <span class="lbadge is-interp" style="width:auto;">HLF interpretation</span>, records all 4 date fields (Observation Period, Period End, Source Published, and Last Checked), and provides a ready-to-copy citation string. Click any Ticker Key to open its full standalone Data Dictionary &amp; historical series page (<code>/{{ticker}}/</code>).</p>
+
+    <div class="pill-filter-wrap" aria-label="Filter Data Dictionary by Category (Multi-Select)">
+      <div class="pill-filter-hdr">
+        <div><strong>Filter by category (select one or multiple):</strong> <span id="cat-pill-status">Showing all {len(verified_tickers)} verified datasets (select one or more categories to filter)</span></div>
+        <button type="button" id="cat-pill-clear" class="pill-clear-btn">Reset to All Categories</button>
+      </div>
+      <div class="pill-bar" id="cat-pill-bar" role="group" aria-label="Category filter pills">
+        {filter_pills_html}
+      </div>
+    </div>
+
     <table>
       <thead><tr><th style="width:225px;">Ticker &amp; Derivation</th><th style="width:185px;">Source &amp; 4-Field Dates</th><th>Verified Statistic, 3-Layer Breakdown &amp; Citation</th></tr></thead>
       <tbody>{rows_html}</tbody>
@@ -8737,6 +9545,7 @@ def main() -> None:
     {about_footer_html}
   </main>
   {CITE_COPY_JS}
+  {pill_filter_js}
 </body>
 </html>""",
         encoding="utf-8",
