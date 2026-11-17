@@ -5705,129 +5705,153 @@ def build_insurance_pulse_tickers(
                     calc_s, f"Stats NZ quarterly CPI series ({q_lbl})", hist_inf if hist_inf else None, cpi_extra,
                 )
 
-    # 2. Live RBNZ Table J10 (Insurance Income & Expenditure / Income Statement): General Insurer Premiums & Loss Ratios
-    j10_pages_list = [
-        "https://www.rbnz.govt.nz/statistics/series/insurance-financial-statistics/insurance-income-statement",
-        "https://www.rbnz.govt.nz/statistics/series/insurance-financial-statistics",
-        "https://www.rbnz.govt.nz/statistics/series/insurance/insurance-income-and-expenditure",
-        RBNZ_INS_STATS_PAGE,
-    ]
+    # 2. Live RBNZ Table J10 (Insurance Income & Expenditure): Insurer Premiums & Loss Ratios
+    root = pathlib.Path(__file__).resolve().parent
+    if j10_path is None or not j10_path.exists():
+        for cand_loc in sorted(root.glob("*j10*.xlsx")):
+            if not cand_loc.name.startswith("tmp_") and cand_loc.stat().st_size > 4_000:
+                j10_path = cand_loc
+                break
     if j10_path is None or not j10_path.exists():
         j10_cfg = RBNZ_SOURCES.get("j10", {})
-        j10_cand_urls = [
-            "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/hj10.xlsx",
-            "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/j10-insurance-income-statement.xlsx",
-            j10_cfg.get("xlsx"),
-            j10_cfg.get("alt_xlsx"),
-        ]
-        for cand_u in j10_cand_urls:
+        for cand_u in (j10_cfg.get("xlsx"), j10_cfg.get("alt_xlsx")):
             if not cand_u:
                 continue
-            j10_bytes = fetch_bytes_with_browser_fallback(session, cand_u, referer=j10_pages_list[0], min_bytes=6_000)
+            j10_bytes = fetch_bytes_with_browser_fallback(session, cand_u, referer=RBNZ_INS_STATS_PAGE, min_bytes=5_000)
             if j10_bytes and j10_bytes[:2] == b"PK":
-                tmp_j10 = pathlib.Path(__file__).resolve().parent / "tmp_j10_live.xlsx"
+                tmp_j10 = root / "tmp_j10_live.xlsx"
                 tmp_j10.write_bytes(j10_bytes)
                 j10_path = tmp_j10
                 break
         if j10_path is None or not j10_path.exists():
-            j10_htmls = fetch_html_with_browser_fallback(session, j10_pages_list[:2], "RBNZ J10")
-            for p_u, p_h in j10_htmls.items():
-                for href in re.findall(r'href=["\']([^"\']*j10[^"\']*\.xlsx[^"\']*)["\']', p_h or "", flags=re.I):
-                    full_u = "https://www.rbnz.govt.nz" + href if href.startswith("/") else href
-                    j10_bytes = fetch_bytes_with_browser_fallback(session, full_u, referer=p_u, min_bytes=6_000)
-                    if j10_bytes and j10_bytes[:2] == b"PK":
-                        tmp_j10 = pathlib.Path(__file__).resolve().parent / "tmp_j10_live.xlsx"
-                        tmp_j10.write_bytes(j10_bytes)
-                        j10_path = tmp_j10
-                        break
-                if j10_path and j10_path.exists():
+            for pg_u in j10_cfg.get("pages", []):
+                pg_h = fetch_html_with_browser_fallback(session, [pg_u], "RBNZ J10").get(pg_u, "")
+                for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', pg_h, flags=re.I):
+                    if "j10" in href.lower():
+                        full_u = "https://www.rbnz.govt.nz" + href if href.startswith("/") else href
+                        j10_bytes = fetch_bytes_with_browser_fallback(session, full_u, referer=pg_u, min_bytes=5_000)
+                        if j10_bytes and j10_bytes[:2] == b"PK":
+                            tmp_j10 = root / "tmp_j10_live.xlsx"
+                            tmp_j10.write_bytes(j10_bytes)
+                            j10_path = tmp_j10
+                            break
+                if j10_path is not None and j10_path.exists():
                     break
 
     if j10_path is not None and j10_path.exists():
         try:
             j10_pub = extract_rbnz_published_date(j10_path)
+            # Always unmerge group header cells first so multi-row headers in J10 are preserved
             tabs_j10 = load_rbnz_sheets_merged(j10_path) or load_rbnz_sheets(j10_path)
-            for sname, df_j, _, labels_j in tabs_j10:
-                if "life" in sname.lower() and "general" not in sname.lower() and "total" not in sname.lower():
-                    continue
-                gwp_i, re_i, nep_i, clm_i = None, None, None, None
-                for idx, lbl in enumerate(labels_j):
-                    if idx >= df_j.shape[1] or str(df_j.columns[idx]) == "date":
-                        continue
-                    if any(x in lbl for x in ("ratio", "%", "percent", "change")):
-                        continue
-                    if ("gross premium" in lbl or "gross written" in lbl or "gross earned" in lbl or ("gross" in lbl and "premium" in lbl)) and gwp_i is None:
-                        gwp_i = idx
-                    elif "reinsurance" in lbl and ("expense" in lbl or "outward" in lbl or "cede" in lbl or "reinsurance" in lbl) and re_i is None:
-                        re_i = idx
-                    elif ("net premium" in lbl or "net earned" in lbl or ("net" in lbl and "premium" in lbl)) and nep_i is None:
-                        nep_i = idx
-                    elif "claim" in lbl and ("net" in lbl or "incurred" in lbl or "expense" in lbl or clm_i is None):
-                        clm_i = idx
+            non_life_tabs = [t for t in tabs_j10 if not ("life" in t[0].lower() and "general" not in t[0].lower())] or tabs_j10
 
-                if gwp_i is None or clm_i is None:
-                    # Fallback numeric range scan across columns on the income statement sheet
-                    for idx, lbl in enumerate(labels_j):
-                        if idx >= df_j.shape[1] or str(df_j.columns[idx]) == "date":
-                            continue
-                        s_num = pd.to_numeric(df_j.iloc[:, idx], errors="coerce").dropna()
-                        if len(s_num) < 4:
-                            continue
-                        lv = float(s_num.iloc[-1])
-                        if gwp_i is None and "gross" in lbl and 1500 <= lv <= 25000:
-                            gwp_i = idx
-                        elif nep_i is None and "net" in lbl and "claim" not in lbl and 1000 <= lv <= 20000:
-                            nep_i = idx
-                        elif clm_i is None and ("claim" in lbl or "incurred" in lbl or "benefit" in lbl) and 500 <= lv <= 18000:
-                            clm_i = idx
+            dt_gwp, gwp_s, _ = _find_rbnz_multi(
+                non_life_tabs,
+                [
+                    ("gross", "premium"),
+                    ("gross", "written"),
+                    ("gross", "earned"),
+                    ("premium", "revenue"),
+                    ("underwriting", "income"),
+                    ("total", "premium"),
+                ],
+                exclude_kw=("net", "reinsurance", "ceded", "outward", "claim", "%", "ratio"),
+                val_bounds=(400, 35000),
+            )
+            dt_re, re_s, _ = _find_rbnz_multi(
+                non_life_tabs,
+                [
+                    ("reinsurance", "expense"),
+                    ("outwards", "reinsurance"),
+                    ("outward", "reinsurance"),
+                    ("ceded",),
+                    ("reinsurance",),
+                ],
+                exclude_kw=("income", "recovery", "recoveries", "revenue", "net", "%", "ratio"),
+                val_bounds=(50, 15000),
+            )
+            dt_nep, nep_s, _ = _find_rbnz_multi(
+                non_life_tabs,
+                [
+                    ("net", "premium"),
+                    ("net", "earned"),
+                ],
+                exclude_kw=("claim", "%", "ratio", "profit", "underwriting"),
+                val_bounds=(300, 30000),
+            )
+            dt_clm, clm_s, _ = _find_rbnz_multi(
+                non_life_tabs,
+                [
+                    ("net", "claim"),
+                    ("claim", "expense"),
+                    ("claims", "incurred"),
+                    ("net", "incurred"),
+                    ("claim",),
+                ],
+                exclude_kw=("reinsurance", "recovery", "recoveries", "%", "ratio"),
+                val_bounds=(150, 25000),
+            )
 
-                if gwp_i is not None and clm_i is not None:
-                    gwp_s = pd.to_numeric(df_j.iloc[:, gwp_i], errors="coerce")
-                    clm_s = pd.to_numeric(df_j.iloc[:, clm_i], errors="coerce").abs()
-                    nep_s = pd.to_numeric(df_j.iloc[:, nep_i], errors="coerce") if nep_i is not None else (
-                        gwp_s - pd.to_numeric(df_j.iloc[:, re_i], errors="coerce").abs() if re_i is not None else gwp_s
-                    )
-                    if len(gwp_s.dropna()) < 2 or len(clm_s.dropna()) < 2:
-                        continue
-                    is_qtr = float(gwp_s.dropna().iloc[-1]) < 4500.0 and len(gwp_s.dropna()) >= 4
-                    gwp_ann_s = gwp_s.rolling(4).sum() if is_qtr else gwp_s
-                    nep_ann_s = nep_s.rolling(4).sum() if is_qtr else nep_s
-                    clm_ann_s = clm_s.rolling(4).sum() if is_qtr else clm_s
+            df_gwp = _series_df(dt_gwp, gwp_s)
+            df_clm = _series_df(dt_clm, clm_s)
+            df_nep = _series_df(dt_nep, nep_s)
+            df_re = _series_df(dt_re, re_s)
 
-                    dt_j = pd.Timestamp(df_j["date"].iloc[-1])
+            if len(df_gwp) >= 2 and len(df_clm) >= 2:
+                m_j = pd.merge(df_gwp, df_clm, on="date", suffixes=("_gwp", "_clm")).sort_values("date").reset_index(drop=True)
+                if not df_nep.empty:
+                    m_j = pd.merge(m_j, df_nep.rename(columns={"val": "val_nep"}), on="date", how="left")
+                elif not df_re.empty:
+                    m_j = pd.merge(m_j, df_re.rename(columns={"val": "val_re"}), on="date", how="left")
+                    m_j["val_nep"] = m_j["val_gwp"] - m_j["val_re"].fillna(0.0).abs()
+                else:
+                    m_j["val_nep"] = m_j["val_gwp"]
+
+                m_j["val_nep"] = m_j["val_nep"].fillna(m_j["val_gwp"])
+                m_j["val_clm"] = m_j["val_clm"].abs()
+
+                if len(m_j) >= 2:
+                    is_qtr = float(m_j["val_gwp"].iloc[-1]) < 4500.0 and len(m_j) >= 4
+                    gwp_ann_s = m_j["val_gwp"].rolling(4).sum() if is_qtr else m_j["val_gwp"]
+                    nep_ann_s = m_j["val_nep"].rolling(4).sum() if is_qtr else m_j["val_nep"]
+                    clm_ann_s = m_j["val_clm"].rolling(4).sum() if is_qtr else m_j["val_clm"]
+
+                    dt_j = pd.Timestamp(m_j["date"].iloc[-1])
                     as_of_j, per_j = month_end_iso(dt_j), f"Year ended {dt_j.strftime('%B %Y')}"
-                    gwp_b, nep_b, clm_b = float(gwp_ann_s.iloc[-1]) / 1000.0, float(nep_ann_s.iloc[-1]) / 1000.0, float(clm_ann_s.iloc[-1]) / 1000.0
+                    gwp_b = float(gwp_ann_s.iloc[-1]) / 1000.0
+                    nep_b = float(nep_ann_s.iloc[-1]) / 1000.0
+                    clm_b = float(clm_ann_s.iloc[-1]) / 1000.0
+                    if nep_b <= 0 or nep_b > gwp_b:
+                        nep_b = gwp_b
                     re_b = max(0.0, gwp_b - nep_b)
                     lr_s = (clm_ann_s / nep_ann_s.replace(0, float("nan"))) * 100.0
                     lr_pct = float(lr_s.iloc[-1])
-                    iy_j = max(0, len(df_j) - 5)
+                    iy_j = max(0, len(m_j) - (5 if is_qtr else 2))
                     prev_lr = float(lr_s.iloc[iy_j]) if pd.notna(lr_s.iloc[iy_j]) else lr_pct
-                    j10_ref_url = j10_pages_list[0]
                     clm_calc = f"Gross Premium (${gwp_b:.2f}B) minus Reinsurance (${re_b:.2f}B) = ${nep_b:.2f}B Net Earned Premium vs. ${clm_b:.2f}B Net Claims"
                     lr_calc = f"(${clm_b:.2f}B Net Claims ÷ ${nep_b:.2f}B Net Earned Premium) × 100 = {lr_pct:.1f}%"
-                    hist_from_j = f"Available from {pd.Timestamp(df_j['date'].iloc[0]).strftime('%B %Y')} ({len(df_j)} observations)"
+                    hist_from_j = f"Available from {pd.Timestamp(m_j['date'].iloc[0]).strftime('%B %Y')} ({len(m_j)} observations)"
 
                     out["insurance-claims-trends"] = make_pulse_item(
                         "RBNZ Table J10", as_of_j, MAX_AGE_INSURANCE,
                         f"Over the {per_j.lower()}, New Zealand insurers surveyed in RBNZ Table J10 reported <strong>${gwp_b:.2f}B</strong> in Gross Premium Revenue (<strong>${nep_b:.2f}B</strong> in Net Earned Premiums after <strong>${re_b:.2f}B</strong> in outwards reinsurance expense) and <strong>${clm_b:.2f}B</strong> in Net Incurred Claims.",
                         f"RBNZ Table J10 ({per_j}): Gross Premiums = ${gwp_b:.2f}B; Net Earned Premiums = ${nep_b:.2f}B; Net Claims = ${clm_b:.2f}B.",
-                        format_provenance_source_html(clm_calc, "RBNZ Table J10 — Insurance Income & Expenditure", j10_ref_url, True),
+                        format_provenance_source_html(clm_calc, "RBNZ Table J10 — Insurance Income & Expenditure", RBNZ_INS_STATS_PAGE, True),
                         per_j, round(clm_b, 2), f"${clm_b:.2f}B Net Claims vs. ${gwp_b:.2f}B Gross Premiums",
                         f"Net Earned Premium (after reinsurance): ${nep_b:.2f}B", f"Outwards reinsurance expense: ${re_b:.2f}B/yr",
-                        clm_calc, hist_from_j, make_history_list(df_j["date"], clm_ann_s / 1000.0, lambda x: f"${x:.2f}B net claims"),
-                        {"source_published": j10_pub, "source_url": j10_ref_url},
+                        clm_calc, hist_from_j, make_history_list(m_j["date"], clm_ann_s / 1000.0, lambda x: f"${x:.2f}B net claims"),
+                        {"source_published": j10_pub, "source_url": RBNZ_INS_STATS_PAGE},
                     )
                     out["insurer-loss-ratios"] = make_pulse_item(
                         "RBNZ Table J10", as_of_j, MAX_AGE_INSURANCE,
                         f"Over the {per_j.lower()}, insurers surveyed in RBNZ Table J10 recorded a net claims loss ratio of <strong>{lr_pct:.1f}%</strong>, based on <strong>${clm_b:.2f}B</strong> in net claims divided by <strong>${nep_b:.2f}B</strong> in net earned premiums.",
                         f"RBNZ Table J10 ({per_j}): Net Claims = ${clm_b:.2f}B; Net Earned Premiums = ${nep_b:.2f}B; Net Loss Ratio = {lr_pct:.1f}%.",
-                        format_provenance_source_html(lr_calc, "RBNZ Table J10 — Insurance Income & Expenditure", j10_ref_url, True),
+                        format_provenance_source_html(lr_calc, "RBNZ Table J10 — Insurance Income & Expenditure", RBNZ_INS_STATS_PAGE, True),
                         per_j, round(lr_pct, 1), f"{lr_pct:.1f}% Net Loss Ratio (${clm_b:.2f}B claims ÷ ${nep_b:.2f}B net premium)",
                         f"Prior comparable period: {prev_lr:.1f}%", f"{lr_pct - prev_lr:+.1f} percentage points YoY",
-                        lr_calc, hist_from_j, make_history_list(df_j["date"], lr_s, lambda x: f"{x:.1f}% loss ratio"),
-                        {"source_published": j10_pub, "source_url": j10_ref_url},
+                        lr_calc, hist_from_j, make_history_list(m_j["date"], lr_s, lambda x: f"{x:.1f}% loss ratio"),
+                        {"source_published": j10_pub, "source_url": RBNZ_INS_STATS_PAGE},
                     )
-                    break
         except Exception as exc_j10:
             print(f"[RBNZ J10] Parse note: {exc_j10}")
         finally:
@@ -5887,30 +5911,117 @@ def build_insurance_pulse_tickers(
 
 
 def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
-    """Parse live Stats NZ Building Consents .xlsx / .csv file for regional counts and residential consent values."""
+    """Parse live Stats NZ Building Consents .xlsx or long/wide .csv file for regional counts and residential consent values."""
     info: dict = {"regions": {}, "cost_by_type": {}}
     if not xlsx_bytes:
         return info
+    type_keys = [
+        ("houses", ("stand-alone house", "houses")),
+        ("townhouses", ("townhouse", "flats, and units", "flats and units")),
+        ("apartments", ("apartment",)),
+        ("retirement", ("retirement village",)),
+        ("all", ("new dwellings", "total new dwellings", "all dwellings", "total dwellings", "residential buildings")),
+    ]
     try:
+        # 0. Check if CSV is in Stats NZ long Infoshare format (`Period`, `Data_value`, `Series_title_1..4`)
+        if xlsx_bytes[:2] != b"PK":
+            try:
+                df_long = pd.read_csv(io.BytesIO(xlsx_bytes), encoding="cp1252", encoding_errors="replace", low_memory=False)
+                cols_l = {str(c).strip().lower(): c for c in df_long.columns}
+                if "period" in cols_l and "data_value" in cols_l:
+                    p_col, v_col = cols_l["period"], cols_l["data_value"]
+                    u_col = cols_l.get("units") or cols_l.get("unit")
+                    m_col = cols_l.get("magnitude")
+                    df_long[v_col] = pd.to_numeric(df_long[v_col], errors="coerce")
+                    df_long = df_long.dropna(subset=[v_col]).copy()
+                    df_long["_p_str"] = df_long[p_col].astype(str).str.strip()
+                    t_cols = [c for k, c in cols_l.items() if "title" in k or k in ("group", "subject")]
+                    df_long["_meta"] = [
+                        " | ".join(str(v) for v in row if pd.notna(v)).lower()
+                        for row in df_long[t_cols].to_numpy()
+                    ]
+                    df_long["_unit"] = (
+                        df_long[u_col].astype(str).str.lower() if u_col else ""
+                    ) + " " + (
+                        df_long[m_col].astype(str).str.lower() if m_col else ""
+                    )
+
+                    # Exclude seasonally adjusted / trend rows so we use actual counts & values
+                    df_act = df_long[~df_long["_meta"].str.contains("seasonally|trend|percentage|change|deflated", regex=True)]
+                    if df_act.empty:
+                        df_act = df_long
+
+                    for reg in ("Auckland", "Canterbury", "Waikato", "Wellington"):
+                        if reg not in info["regions"]:
+                            r_mask = (
+                                df_act["_meta"].str.contains(rf"\b{reg.lower()}\b", regex=True)
+                                & df_act["_meta"].str.contains("new dwellings|total dwellings|all dwellings|houses", regex=True)
+                                & ~df_act["_unit"].str.contains("dollar|value|million", regex=True)
+                                & ~df_act["_meta"].str.contains("value|million|floor area", regex=True)
+                            )
+                            sub_r = df_act[r_mask].sort_values("_p_str")
+                            if not sub_r.empty:
+                                ann_r = sub_r[(sub_r[v_col] >= 1500) & (sub_r[v_col] <= 35000)]
+                                if not ann_r.empty:
+                                    info["regions"][reg] = int(round(float(ann_r.iloc[-1][v_col])))
+                                elif len(sub_r) >= 12 and 100 <= float(sub_r.iloc[-1][v_col]) <= 3000:
+                                    info["regions"][reg] = int(round(float(sub_r.iloc[-12:][v_col].sum())))
+
+                    # Extract building consent values ($m) and dwelling counts by type for New Zealand
+                    nz_act = df_act[
+                        ~df_act["_meta"].str.contains(
+                            "auckland|canterbury|waikato|wellington|otago|bay of plenty|northland|manawatu|taranaki|southland|nelson|tasman|marlborough|gisborne|west coast|hawke|city|district|non-residential|alteration",
+                            regex=True,
+                        )
+                    ]
+                    if nz_act.empty:
+                        nz_act = df_act[~df_act["_meta"].str.contains("non-residential|alteration", regex=True)]
+
+                    for t_code, kw_tuple in type_keys:
+                        kw_rx = "|".join(re.escape(k) for k in kw_tuple)
+                        sub_t = nz_act[nz_act["_meta"].str.contains(kw_rx, regex=True)]
+                        if sub_t.empty:
+                            continue
+                        val_rows = sub_t[
+                            (sub_t["_unit"].str.contains("dollar|value", regex=True) | sub_t["_meta"].str.contains("value|\\$m|million", regex=True))
+                            & ~sub_t["_meta"].str.contains("floor area", regex=True)
+                        ].sort_values("_p_str")
+                        cnt_rows = sub_t[
+                            (sub_t["_unit"].str.contains("number", regex=True) | ~sub_t["_unit"].str.contains("dollar|value|area", regex=True))
+                            & ~sub_t["_meta"].str.contains("value|\\$m|million|floor area", regex=True)
+                        ].sort_values("_p_str")
+
+                        slot = info["cost_by_type"].setdefault(t_code, {})
+                        if not val_rows.empty:
+                            last_v = float(val_rows.iloc[-1][v_col])
+                            # Normalise to $ millions if reported in raw dollars or thousands
+                            if last_v > 50_000_000:
+                                last_v = last_v / 1e6
+                            elif 50_000 < last_v <= 50_000_000 and "thousand" in str(val_rows.iloc[-1]["_unit"]):
+                                last_v = last_v / 1e3
+                            if 20.0 <= last_v <= 30000.0:
+                                slot["val_m"] = last_v
+                        if not cnt_rows.empty:
+                            last_c = float(cnt_rows.iloc[-1][v_col])
+                            if 30.0 <= last_c <= 50000.0:
+                                slot["cnt"] = last_c
+                    if info["regions"] or info["cost_by_type"]:
+                        return info
+            except Exception:
+                pass
+
         frames = (
             [(sh, pd.ExcelFile(io.BytesIO(xlsx_bytes)).parse(sh, header=None)) for sh in pd.ExcelFile(io.BytesIO(xlsx_bytes)).sheet_names]
             if xlsx_bytes[:2] == b"PK"
             else [("csv", pd.read_csv(io.BytesIO(xlsx_bytes), header=None, encoding="cp1252", encoding_errors="replace", low_memory=False))]
         )
-        type_keys = [
-            ("houses", ("stand-alone house", "houses")),
-            ("townhouses", ("townhouse", "flats, and units", "flats and units")),
-            ("apartments", ("apartment",)),
-            ("retirement", ("retirement village",)),
-            ("all", ("all dwellings", "total new dwellings", "total dwellings", "new dwellings", "residential buildings", "new residential")),
-        ]
         for sname, raw in frames:
             if raw.empty or "non-residential" in sname.lower():
                 continue
             flat_txt = " ".join(str(v) for v in raw.values.flatten() if pd.notna(v)).lower()
-            sheet_has_val = any(w in sname.lower() or w in flat_txt[:800] for w in ("value", "million", "$m", "$(m"))
+            sheet_has_val = any(w in sname.lower() or w in flat_txt[:600] for w in ("value", "million", "$m", "$(m"))
 
-            # 1. Row-oriented check (filter value/count bounds inside list comprehension so trailing % change columns are ignored)
+            # 1. Row-oriented check
             in_val_block = sheet_has_val
             for r_i in range(len(raw)):
                 row_s = [str(v).strip() for v in raw.iloc[r_i].values if pd.notna(v) and str(v).strip()]
@@ -5935,19 +6046,13 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
                             info["regions"][reg] = nums[-1]
                 for t_code, kw_tuple in type_keys:
                     if any(k in r_lbl for k in kw_tuple):
-                        raw_nums = [
-                            float(re.sub(r"[,$]", "", c))
-                            for c in row_s[1:]
-                            if re.match(r"^-?\d[\d,]*(\.\d+)?$", re.sub(r"[,$]", "", c))
-                        ]
-                        if in_val_block or "million" in joined_r or "value" in joined_r:
-                            val_cands = [x for x in raw_nums if 120.0 <= x <= 30000.0]
-                            if val_cands:
-                                info["cost_by_type"].setdefault(t_code, {})["val_m"] = val_cands[-1]
-                        else:
-                            cnt_cands = [x for x in raw_nums if 80.0 <= x <= 50000.0]
-                            if cnt_cands:
-                                info["cost_by_type"].setdefault(t_code, {}).setdefault("cnt", cnt_cands[-1])
+                        nums = [float(re.sub(r"[,$]", "", c)) for c in row_s[1:] if re.match(r"^-?\d[\d,]*(\.\d+)?$", re.sub(r"[,$]", "", c))]
+                        if nums:
+                            slot = info["cost_by_type"].setdefault(t_code, {})
+                            if (in_val_block or "million" in joined_r or "value" in joined_r) and 50.0 <= nums[-1] <= 30000.0:
+                                slot["val_m"] = nums[-1]
+                            elif 50 <= nums[-1] <= 50000:
+                                slot.setdefault("cnt", nums[-1])
 
             # 2. Column-oriented time-series check (Dates in Column A, Building Types / Value across Columns)
             hdr_rows = min(14, len(raw))
@@ -5957,7 +6062,7 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
                     for r_h in range(hdr_rows)
                     if pd.notna(raw.iloc[r_h, c_i]) and str(raw.iloc[r_h, c_i]).strip().lower() != "nan"
                 )
-                if not col_hdr or "non-residential" in col_hdr or "alteration" in col_hdr or "change" in col_hdr or "percent" in col_hdr:
+                if not col_hdr or "non-residential" in col_hdr or "alteration" in col_hdr:
                     continue
                 col_nums = []
                 for r_d in range(hdr_rows, len(raw)):
@@ -5969,23 +6074,51 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
                 if not col_nums:
                     continue
                 last_v = col_nums[-1]
-                is_val_col = any(w in col_hdr or w in flat_txt[:800] for w in ("value", "million", "$m", "$(m"))
+                is_val_col = any(w in col_hdr or w in flat_txt[:500] for w in ("value", "million", "$m", "$(m"))
                 for t_code, kw_tuple in type_keys:
                     if any(k in col_hdr for k in kw_tuple):
                         slot = info["cost_by_type"].setdefault(t_code, {})
-                        if is_val_col and 120.0 <= last_v <= 30000.0:
+                        if is_val_col and 50.0 <= last_v <= 30000.0:
                             slot["val_m"] = last_v
-                        elif not is_val_col and 80.0 <= last_v <= 50000.0:
+                        elif not is_val_col and 50 <= last_v <= 50000:
                             slot.setdefault("cnt", last_v)
     except Exception as exc:
         print(f"[Stats NZ BC File] Note: {exc}")
     return info
 
 
+def _parse_cpi_period_yq(val) -> tuple[int, int] | None:
+    """Parse Stats NZ CPI period strings like '2026.09', '2026.3' (float for .30?), or '2026Q3' into (year, month)."""
+    s = str(val).strip()
+    m = re.match(r"^(19\d{2}|20\d{2})\.(\d{1,2})$", s)
+    if m:
+        yr = int(m.group(1))
+        q_part = m.group(2)
+        # Note: if pandas read '2026.10' or '2026.12' as float, '2026.03'->'03', '2026.06'->'06', '2026.09'->'09', '2026.12'->'12'
+        if q_part in ("03", "3"):
+            return (yr, 3)
+        if q_part in ("06", "6"):
+            return (yr, 6)
+        if q_part in ("09", "9"):
+            return (yr, 9)
+        if q_part in ("12",):
+            return (yr, 12)
+        if q_part in ("1", "01"):
+            return (yr, 3)
+        if q_part in ("2", "02"):
+            return (yr, 6)
+        if q_part in ("4", "04"):
+            return (yr, 12)
+    m_q = re.match(r"^(19\d{2}|20\d{2})\s*Q([1-4])$", s, flags=re.I)
+    if m_q:
+        return (int(m_q.group(1)), int(m_q.group(2)) * 3)
+    return None
+
+
 def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> dict:
     """
-    Download live Stats NZ CPI CSV and .xlsx files (prioritising the national CPIQ.SE9 index-numbers CSV
-    so percentage-point contribution columns in the .xlsx summary tables are never mistaken for annual % change).
+    Download live Stats NZ CPI .xlsx and .csv files (using cp1252 encoding for Stats NZ CSVs).
+    Extracts true Annual YoY % change by matching exact CPI class titles and comparing (year, quarter) vs (year-1, quarter).
     """
     sub_series: dict = {}
     if not release_html:
@@ -6002,7 +6135,7 @@ def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> di
     links = re.findall(r'href=["\']([^"\']+\.(?:xlsx|csv)[^"\']*)["\']', release_html, flags=re.I)
     links.sort(
         key=lambda h: (
-            0 if ("index-numbers" in h.lower() and h.lower().endswith(".csv"))
+            0 if ("index-numbers" in h.lower() or "percentage-change" in h.lower() or "all-groups" in h.lower()) and h.lower().endswith(".csv")
             else (1 if h.lower().endswith(".csv") else 2)
         )
     )
@@ -6014,57 +6147,115 @@ def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> di
             continue
         try:
             if full_u.lower().endswith(".csv"):
-                df_csv = pd.read_csv(io.BytesIO(f_bytes), encoding="cp1252", encoding_errors="replace", low_memory=False)
+                df_csv = pd.read_csv(io.BytesIO(f_bytes), dtype=str, encoding="cp1252", encoding_errors="replace", low_memory=False)
                 cols_low = {str(c).strip().lower(): c for c in df_csv.columns}
                 if "period" in cols_low and "data_value" in cols_low:
                     p_col, v_col = cols_low["period"], cols_low["data_value"]
                     s_col = cols_low.get("series_reference")
+                    t1_col = cols_low.get("series_title_1")
+                    u_col = cols_low.get("units") or cols_low.get("unit")
                     df_csv[v_col] = pd.to_numeric(df_csv[v_col], errors="coerce")
                     df_csv = df_csv.dropna(subset=[v_col]).reset_index(drop=True)
+                    df_csv["_yq"] = df_csv[p_col].apply(_parse_cpi_period_yq)
+                    df_csv = df_csv[df_csv["_yq"].notna()].reset_index(drop=True)
+                    if df_csv.empty:
+                        continue
+
                     title_cols = [c for k, c in cols_low.items() if "title" in k or k in ("group", "subject", "units")]
                     df_csv["_meta"] = [
-                        " | ".join(str(v) for v in row if pd.notna(v)).lower()
+                        " | ".join(str(v).strip() for v in row if pd.notna(v) and str(v).strip()).lower()
                         for row in df_csv[title_cols].to_numpy()
                     ]
+                    df_csv["_t1"] = df_csv[t1_col].astype(str).str.strip().str.lower() if t1_col else df_csv["_meta"]
+                    df_csv["_u"] = df_csv[u_col].astype(str).str.strip().str.lower() if u_col else ""
 
                     for skey, kw_t in target_map.items():
                         if skey in sub_series:
                             continue
-                        mask = df_csv["_meta"].apply(
-                            lambda m: any(k in m for k in kw_t)
-                            and not any(r in m for r in ("auckland", "wellington", "canterbury", "north island", "south island", "tradable", "non-tradable", "weight", "point"))
-                        )
+
+                        def _item_match(row_t1: str, row_meta: str) -> bool:
+                            if any(r in row_meta for r in ("auckland", "wellington", "canterbury", "rest of", "north island", "south island", "tradable", "non-tradable", "trimmed", "weighted median")):
+                                return False
+                            if t1_col:
+                                return any(row_t1 == k or row_t1.startswith(k) for k in kw_t)
+                            return any(k in row_meta for k in kw_t)
+
+                        mask = [
+                            _item_match(t1_s, m_s)
+                            for t1_s, m_s in zip(df_csv["_t1"], df_csv["_meta"])
+                        ]
                         sub_df = df_csv[mask]
                         if sub_df.empty:
                             continue
 
-                        # Prefer National (CPIQ.SE9...) index-number series (t vs t-4 quarters)
-                        idx_df = sub_df[(sub_df[v_col] >= 800.0) & (sub_df[v_col] <= 4500.0)]
-                        if not idx_df.empty and s_col:
-                            nat_idx = idx_df[idx_df[s_col].astype(str).str.upper().str.startswith("CPIQ.SE9")]
-                            use_idx = nat_idx if not nat_idx.empty else idx_df
-                            for _, grp in use_idx.groupby(s_col):
-                                grp_s = grp.sort_values(p_col)
-                                if len(grp_s) >= 5:
-                                    idx_now = float(grp_s.iloc[-1][v_col])
-                                    idx_yoy = float(grp_s.iloc[-5][v_col])
-                                    if idx_yoy > 0:
-                                        yoy_pct = round(((idx_now - idx_yoy) / idx_yoy) * 100.0, 1)
-                                        if -20.0 <= yoy_pct <= 45.0:
-                                            sub_series[skey] = {"latest": yoy_pct, "history": []}
-                                            break
+                        # Priority 1: Explicit Annual Percentage Change series
+                        ann_df = sub_df[
+                            sub_df["_meta"].str.contains("annual|year", regex=True)
+                            & ~sub_df["_meta"].str.contains("quarter|point|contribution|weight", regex=True)
+                        ]
+                        if not ann_df.empty and s_col:
+                            for _, grp in ann_df.groupby(s_col):
+                                grp_s = grp.sort_values("_yq")
+                                last_v = float(grp_s.iloc[-1][v_col])
+                                if -20.0 <= last_v <= 45.0:
+                                    sub_series[skey] = {"latest": round(last_v, 1), "history": []}
+                                    break
                         if skey in sub_series:
                             continue
 
-                        ann_df = sub_df[
-                            sub_df["_meta"].str.contains("annual|year", regex=True)
-                            & ~sub_df["_meta"].str.contains("point|contribution|weight", regex=True)
+                        # Priority 2: Official CPI Price Index Numbers (compute exact YoY against same quarter 1 year prior)
+                        idx_df = sub_df[
+                            (sub_df["_u"].str.contains("index", regex=True) | sub_df["_meta"].str.contains("index", regex=True))
+                            & ~sub_df["_meta"].str.contains("seasonally|percentage|change|point|contribution|weight", regex=True)
+                            & (sub_df[v_col] >= 500.0)
+                            & (sub_df[v_col] <= 5000.0)
                         ]
-                        if not ann_df.empty:
-                            last_v = float(ann_df.sort_values(p_col).iloc[-1][v_col])
-                            if -20.0 <= last_v <= 45.0:
-                                sub_series[skey] = {"latest": round(last_v, 1), "history": []}
+                        if not idx_df.empty and s_col:
+                            for _, grp in idx_df.groupby(s_col):
+                                yq_map = dict(zip(grp["_yq"], grp[v_col]))
+                                if not yq_map:
+                                    continue
+                                max_yr, max_q = max(yq_map.keys())
+                                prev_yq = (max_yr - 1, max_q)
+                                if prev_yq in yq_map and yq_map[prev_yq] > 0:
+                                    idx_now = float(yq_map[(max_yr, max_q)])
+                                    idx_yoy = float(yq_map[prev_yq])
+                                    yoy_pct = round(((idx_now - idx_yoy) / idx_yoy) * 100.0, 1)
+                                    if -20.0 <= yoy_pct <= 45.0:
+                                        sub_series[skey] = {"latest": yoy_pct, "history": []}
+                                        break
                     continue
+
+            if full_u.lower().endswith(".xlsx") and f_bytes[:2] == b"PK":
+                xl = pd.ExcelFile(io.BytesIO(f_bytes))
+                for sname in xl.sheet_names:
+                    df_c = xl.parse(sname, header=None)
+                    if df_c.empty:
+                        continue
+                    ann_col_idx = None
+                    for h_i in range(min(15, len(df_c))):
+                        row_h_str = " ".join(str(v).strip().lower() for v in df_c.iloc[h_i].values if pd.notna(v))
+                        for c_i in range(df_c.shape[1]):
+                            cell_s = str(df_c.iloc[h_i, c_i]).strip().lower() if pd.notna(df_c.iloc[h_i, c_i]) else ""
+                            if "annual" in cell_s and "contribution" not in cell_s and "point" not in cell_s and ("change" in row_h_str or "annual" in cell_s):
+                                ann_col_idx = c_i
+                                break
+                        if ann_col_idx is not None:
+                            break
+
+                    if ann_col_idx is not None:
+                        for r_i in range(len(df_c)):
+                            row_lbl = " ".join(str(v).strip().lower() for v in df_c.iloc[r_i, :min(3, df_c.shape[1])].values if pd.notna(v))
+                            if not row_lbl:
+                                continue
+                            for skey, kw_t in target_map.items():
+                                if skey not in sub_series and any(k in row_lbl for k in kw_t):
+                                    raw_cell = df_c.iloc[r_i, ann_col_idx]
+                                    cell_v = str(raw_cell).replace("%", "").replace(",", "").strip() if pd.notna(raw_cell) else ""
+                                    if re.match(r"^-?\d{1,2}\.\d{1,2}$", cell_v):
+                                        fv = float(cell_v)
+                                        if -20.0 <= fv <= 45.0:
+                                            sub_series[skey] = {"latest": round(fv, 1), "history": []}
         except Exception as exc:
             print(f"[Stats NZ CPI File] {full_u}: {exc}")
     return sub_series
@@ -6211,8 +6402,8 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
         nw_yr = int(m_nw_yr.group(1)) if m_nw_yr else 2024
         nw_as_of, nw_per = f"{nw_yr}-06-30", f"Year ended June {nw_yr}"
 
-        nw_file_u = next(
-            ("https://www.stats.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.(?:csv|xlsx)[^"\']*)["\']', nw_html, flags=re.I)),
+        nw_csv_u = next(
+            ("https://www.stats.govt.nz" + h if h.startswith("/") else h for h in re.findall(r'href=["\']([^"\']+\.csv[^"\']*)["\']', nw_html, flags=re.I)),
             "",
         )
         m_all_med = re.search(r"median\s+net\s+worth\s+of\s+New\s+Zealand\s+households[^$]{0,100}\$([\d,]{5,7})", nw_txt, flags=re.I) or re.search(r"\$(529,000|397,000)", nw_txt)
@@ -6224,37 +6415,32 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
         rent_nw_med = int(m_rent_med.group(1).replace(",", "")) if m_rent_med else None
 
         reg_nw_list = []
-        if nw_file_u:
+        if nw_csv_u:
             try:
-                nw_b = fetch_bytes_with_browser_fallback(session, nw_file_u, referer=STATS_NET_WORTH_PAGE, min_bytes=5_000)
+                nw_b = fetch_bytes_with_browser_fallback(session, nw_csv_u, referer=STATS_NET_WORTH_PAGE, min_bytes=5_000)
                 if nw_b:
-                    frames_nw = (
-                        [(sh, pd.ExcelFile(io.BytesIO(nw_b)).parse(sh)) for sh in pd.ExcelFile(io.BytesIO(nw_b)).sheet_names]
-                        if nw_b[:2] == b"PK"
-                        else [("csv", pd.read_csv(io.BytesIO(nw_b), encoding="cp1252", encoding_errors="replace", low_memory=False))]
-                    )
-                    for _, df_nw in frames_nw:
-                        for reg_lbl in ("Wellington", "Auckland", "Canterbury", "Rest of North Island", "Rest of South Island"):
-                            if any(r == reg_lbl for r, _ in reg_nw_list):
-                                continue
-                            sub_r = df_nw[
-                                df_nw.apply(
-                                    lambda r: reg_lbl.lower() in " ".join(str(x) for x in r.values if pd.notna(x)).lower(),
-                                    axis=1,
-                                )
+                    df_nw = pd.read_csv(io.BytesIO(nw_b), encoding="cp1252", encoding_errors="replace", low_memory=False)
+                    for reg_lbl in ("Wellington", "Auckland", "Canterbury", "Rest of North Island", "Rest of South Island"):
+                        sub_r = df_nw[
+                            df_nw.apply(
+                                lambda r: reg_lbl.lower() in " ".join(str(x) for x in r.values if pd.notna(x)).lower(),
+                                axis=1,
+                            )
+                        ]
+                        if not sub_r.empty:
+                            nums = [
+                                int(float(str(v).strip()))
+                                for v in sub_r.values.flatten()
+                                if pd.notna(v) and re.match(r"^\d{3,7}(\.0+)?$", str(v).strip()) and 100 <= float(str(v).strip()) <= 2500000
                             ]
-                            if not sub_r.empty:
-                                nums = [
-                                    int(float(str(v).replace(",", "").strip()))
-                                    for v in sub_r.values.flatten()
-                                    if pd.notna(v) and re.match(r"^\d{3,7}(\.0+)?$", str(v).replace(",", "").strip()) and 200 <= float(str(v).replace(",", "").strip()) <= 2500000
-                                ]
-                                if nums:
-                                    v_med = min(x * 1000 if x < 5000 else x for x in nums if (x * 1000 if x < 5000 else x) >= 250000)
-                                    if 250000 <= v_med <= 1500000:
-                                        reg_nw_list.append((reg_lbl, v_med))
+                            if nums:
+                                v_med = max(nums)
+                                if v_med < 5000:
+                                    v_med = v_med * 1000
+                                if 200000 <= v_med <= 1500000:
+                                    reg_nw_list.append((reg_lbl, v_med))
             except Exception as exc_nwc:
-                print(f"[Stats NZ Net Worth File] Note: {exc_nwc}")
+                print(f"[Stats NZ Net Worth CSV] Note: {exc_nwc}")
 
         if all_nw_med and ho_nw_med and rent_nw_med:
             tenure_ratio = round(ho_nw_med / max(1, rent_nw_med), 1)
@@ -6285,14 +6471,14 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
                 "Stats NZ Net Worth", nw_as_of, MAX_AGE_TRIENNIAL,
                 f"In Stats NZ's regional Household Net Worth dataset ({nw_per}), highest regional household net worth was recorded in <strong>{top_r} (${top_v:,})</strong> across New Zealand's surveyed regions.",
                 f"Stats NZ Regional Household Net Worth ({nw_per}): {reg_calc}.",
-                format_provenance_source_html(reg_calc, f"Stats NZ — Regional Household Net Worth ({nw_per})", nw_file_u or STATS_NET_WORTH_PAGE, True),
+                format_provenance_source_html(reg_calc, f"Stats NZ — Regional Household Net Worth ({nw_per})", nw_csv_u or STATS_NET_WORTH_PAGE, True),
                 nw_per, top_v,
                 " | ".join(f"{r} ${v:,}" for r, v in reg_nw_list[:4]),
                 f"All-NZ median household net worth: ${all_nw_med:,}" if all_nw_med else "Stats NZ regional net worth series",
-                f"Live-parsed from Stats NZ Household Net Worth dataset ({nw_per})",
+                f"Live-parsed from Stats NZ Household Net Worth CSV ({nw_per})",
                 reg_calc, f"Stats NZ regional net worth series ({nw_per})",
                 [{"period": r, "label": r, "value": v, "formatted": f"${v:,}"} for r, v in reg_nw_list],
-                {"source_published": nw_pub, "source_url": nw_file_u or STATS_NET_WORTH_PAGE},
+                {"source_published": nw_pub, "source_url": nw_csv_u or STATS_NET_WORTH_PAGE},
             )
 
     return out
@@ -6340,14 +6526,16 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
         text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html))
 
         wb_info = {"regions": {}, "cost_by_type": {}}
-        for x_href in re.findall(r'href=["\']([^"\']+\.(?:xlsx|csv)[^"\']*)["\']', html, flags=re.I)[:4]:
+        bc_file_links = re.findall(r'href=["\']([^"\']+\.(?:xlsx|csv)[^"\']*)["\']', html, flags=re.I)
+        bc_file_links.sort(key=lambda h: 0 if h.lower().endswith(".xlsx") else 1)
+        for x_href in bc_file_links[:8]:
             full_x = "https://www.stats.govt.nz" + x_href if x_href.startswith("/") else x_href
             x_bytes = fetch_bytes_with_browser_fallback(session, full_x, referer=url, min_bytes=2_000)
             if x_bytes:
                 parsed_w = parse_stats_nz_bc_workbook(x_bytes)
                 wb_info["regions"].update(parsed_w.get("regions", {}))
-                for tk_c, tv_c in parsed_w.get("cost_by_type", {}).items():
-                    wb_info["cost_by_type"].setdefault(tk_c, {}).update(tv_c)
+                for tk, tv in parsed_w.get("cost_by_type", {}).items():
+                    wb_info["cost_by_type"].setdefault(tk, {}).update(tv)
 
         m_ann = re.search(
             r"year ended\s+[A-Za-z]+\s+\d{4},\s+the actual number of new dwellings consented was\s+([\d,]+),\s+(up|down|unchanged)?\s*([\d.]+)?",
@@ -6460,7 +6648,10 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
                 )
 
             cbt = wb_info.get("cost_by_type", {})
-            m_res_val = re.search(r"(?<!non-)(?<!non\s)residential\s+(?:building\s+)?work[^$]{0,60}\$([\d,.]+)\s*(billion|million|b|m)", text, flags=re.I)
+            m_res_val = (
+                re.search(r"(?<!non-)(?<!non\s)residential\s+(?:building\s+)?(?:work|consents?|buildings?)[^$]{0,90}\$([\d,.]+)\s*(billion|million|b|m)", text, flags=re.I)
+                or re.search(r"\$([\d,.]+)\s*(billion|million|b|m)[^.]{0,80}(?<!non-)residential\s+(?:building|work|consents?)", text, flags=re.I)
+            )
             if cbt.get("houses", {}).get("val_m") and houses > 0:
                 h_val_m = float(cbt["houses"]["val_m"])
                 h_cnt = float(cbt["houses"].get("cnt") or (ann_tot * (houses / mth_tot) if h_val_m > 3000 else houses))
@@ -6468,23 +6659,23 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
                 th_val_m = float(cbt.get("townhouses", {}).get("val_m", 0.0))
                 th_cnt = float(cbt.get("townhouses", {}).get("cnt") or (ann_tot * (townhouses / mth_tot) if th_val_m > 3000 else townhouses))
                 th_cost = int(round((th_val_m * 1e6) / max(1.0, th_cnt))) if th_val_m > 0 else 0
-                if 260_000 <= h_cost <= 980_000:
-                    bc_cost_calc = f"Live Stats NZ Building Consents workbook ({m_full}): Stand-alone house mean consent value = ${h_cost:,}" + (f" | Townhouse/flat/unit mean = ${th_cost:,}" if th_cost else "")
+                if 280_000 <= h_cost <= 950_000:
+                    bc_cost_calc = f"Live Stats NZ Building Consents dataset ({m_full}): Stand-alone house mean consent value = ${h_cost:,}" + (f" | Townhouse/flat/unit mean = ${th_cost:,}" if th_cost else "")
                     out["new-build-consent-cost-by-type"] = make_pulse_item(
                         "Stats NZ", as_of, MAX_AGE_QUARTERLY,
                         f"In {m_full}, average consented residential building work values (excluding land and GST) in Stats NZ's building consents dataset were <strong>${h_cost:,}</strong> for a stand-alone house" + (f" and <strong>${th_cost:,}</strong> for a townhouse, flat, or unit." if th_cost else "."),
                         f"Stats NZ Building Consents Value Series ({m_full}, excluding land): Stand-alone house mean = ${h_cost:,}" + (f"; Townhouse/flat/unit mean = ${th_cost:,}." if th_cost else "."),
                         format_provenance_source_html(bc_cost_calc, bc_lbl, url, True), m_full, h_cost,
                         f"Stand-alone houses: ${h_cost:,}" + (f" | Townhouses/flats/units: ${th_cost:,}" if th_cost else ""),
-                        "Estimated construction value declared on building consent (excluding land)", "Derived live from Stats NZ Building Consents workbook",
+                        "Estimated construction value declared on building consent (excluding land)", "Derived live from Stats NZ Building Consents dataset",
                         bc_cost_calc, f"Stats NZ residential consent value series ({m_full})", None, bc_extra,
                     )
             elif cbt.get("all", {}).get("val_m") and mth_tot > 0:
                 all_val_m = float(cbt["all"]["val_m"])
-                denom_d = ann_tot if all_val_m > 5000 else mth_tot
-                avg_dwell_val = int(round((all_val_m * 1e6) / max(1, denom_d)))
-                if 260_000 <= avg_dwell_val <= 980_000:
-                    bc_cost_calc = f"Stats NZ Building Consents workbook ({m_full}): ${all_val_m:,.0f}m residential consent value ÷ {denom_d:,} consented dwellings = ${avg_dwell_val:,}/dwelling"
+                denom_d = float(cbt["all"].get("cnt") or (ann_tot if all_val_m > 5000 else mth_tot))
+                avg_dwell_val = int(round((all_val_m * 1e6) / max(1.0, denom_d)))
+                if 280_000 <= avg_dwell_val <= 950_000:
+                    bc_cost_calc = f"Stats NZ Building Consents dataset ({m_full}): ${all_val_m:,.0f}m residential consent value ÷ {int(round(denom_d)):,} consented dwellings = ${avg_dwell_val:,}/dwelling"
                     out["new-build-consent-cost-by-type"] = make_pulse_item(
                         "Stats NZ", as_of, MAX_AGE_QUARTERLY,
                         f"In {m_full}, consented residential building work across New Zealand averaged <strong>${avg_dwell_val:,} per consented dwelling</strong> (excluding land), across <strong>{mth_tot:,} monthly new dwellings</strong> ({houses:,} stand-alone houses and {multi_tot:,} multi-unit homes).",
@@ -6499,7 +6690,7 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
                 raw_v = float(m_res_val.group(1).replace(",", ""))
                 tot_res_nzd = raw_v * (1e9 if m_res_val.group(2).lower().startswith("b") else 1e6)
                 avg_dwell_val = int(round(tot_res_nzd / (ann_tot if tot_res_nzd > 5e9 else mth_tot)))
-                if 260_000 <= avg_dwell_val <= 980_000:
+                if 280_000 <= avg_dwell_val <= 950_000:
                     bc_cost_calc = f"Residential building consent value ÷ consented dwellings = ${avg_dwell_val:,}/dwelling ({houses:,} houses & {multi_tot:,} multi-unit dwellings in {m_full})"
                     out["new-build-consent-cost-by-type"] = make_pulse_item(
                         "Stats NZ", as_of, MAX_AGE_QUARTERLY,
