@@ -23,7 +23,7 @@
   "date_modified": "2026-11-17",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-17",
-  "dataset_generated_utc": "2026-11-17T05:54:51Z",
+  "dataset_generated_utc": "2026-11-17T06:05:46Z",
   "latest_underlying_data": "September 2026",
   "data_status": "verified",
   "source_status": "current",
@@ -46,7 +46,7 @@
         "latest_value": "$144,232 typical FHB gross application income",
         "change": "$-302 (-0.2%) YoY",
         "hlf_calculation": "$383.0m total FHB gross income pool \u00d7 $1m \u00f7 2,655.4 implied FHB applications = $144,232",
-        "summary_text": "In September 2026, the typical (borrower-weighted average) gross household income across approved New Zealand first-home buyer mortgage applications was $144,232 (down 0.2% year-on-year from $144,534 a year earlier)."
+        "summary_text": "In September 2026, the borrower-weighted average combined gross borrower income across approved New Zealand first-home buyer mortgage applications at registered banks was $144,232 (down 0.2% year-on-year from $144,534 a year earlier)."
       },
       {
         "row": 2,
@@ -60,7 +60,7 @@
         "latest_value": "$573,678 average FHB loan (2,667 loans / $1.53B ($1,530m))",
         "change": "$+583 (+0.1%) YoY",
         "hlf_calculation": "($1,530m \u00d7 $1,000,000) \u00f7 2,667 loans = $573,678",
-        "summary_text": "In September 2026, the average first-home buyer mortgage approved across New Zealand was $573,678 (up 0.1% year-on-year from $573,095 a year earlier), across 2,667 first-home buyer loans totalling $1.53B ($1,530m)."
+        "summary_text": "In September 2026, the average first-home buyer mortgage commitment at New Zealand registered banks was $573,678 (up 0.1% year-on-year from $573,095 a year earlier), across 2,667 first-home buyer loans totalling $1.53B ($1,530m)."
       },
       {
         "row": 3,
@@ -74,7 +74,7 @@
         "latest_value": "3.98x implied mortgage-to-income ratio | 91.0% <= 6x TDTI",
         "change": "9.0% above 6x TDTI (vs 20.0% RBNZ speed limit)",
         "hlf_calculation": "Implied FHB Loan-to-Income Ratio: $573,678 (C31 avg FHB loan) \u00f7 $144,232 (C41 avg FHB gross income) = 3.98x | C40 Share <= 6x TDTI: 100.0% \u2212 9.0% = 91.0% (Share <= 5x TDTI: 65.0%)",
-        "summary_text": "In September 2026, approved New Zealand first-home buyers borrowed an implied mortgage-to-income multiple of 3.98x gross income ($573,678 average loan on $144,232 average gross income), with 91.0% of all first-home buyer lending written at or below 6x TDTI (and 65.0% at or below 5x TDTI)."
+        "summary_text": "In September 2026, approved New Zealand first-home buyers had an implied mortgage-to-income ratio of 3.98x gross application income ($573,678 average loan divided by $144,232 average gross borrower income), while in RBNZ Table C40 91.0% of all first-home buyer lending was written at or below 6x TDTI (and 65.0% at or below 5x TDTI)."
       },
       {
         "row": 4,
@@ -88,7 +88,7 @@
         "latest_value": "9.0% at >6x DTI (11.0 pts below 20% benchmark)",
         "change": "+1.2 percentage points YoY",
         "hlf_calculation": "$137.0m \u00f7 $1,525.0m = 9.0% (Benchmark diff: 20.0% - 9.0% = 11.0 pts)",
-        "summary_text": "In September 2026, 9.0% of first-home buyer mortgage lending had a Debt-to-Income (DTI) ratio above 6x ($137.0m of $1,525.0m)\u2014sitting 11.0 percentage points below the 20% RBNZ speed-limit cap."
+        "summary_text": "In September 2026, 9.0% of first-home buyer mortgage commitments at registered banks had a Debt-to-Income (DTI) ratio above 6x ($137.0m of $1,525.0m)\u2014sitting 11.0 percentage points below the 20% RBNZ speed-limit allowance."
       },
       {
         "row": 5,
@@ -102,7 +102,7 @@
         "latest_value": "$1.53B ($1,530m) across 2,667 FHB loans",
         "change": "-42m (-2.7%) YoY",
         "hlf_calculation": "Reported LVRN.MMB1.AC1 = $1,530m across 2,667 FHB loans",
-        "summary_text": "In September 2026, New Zealand banks committed $1.53B ($1,530m) in new first-home buyer mortgages across 2,667 loans (down 2.7% year-on-year from $1.57B ($1,572m) across 2,743 loans a year earlier)."
+        "summary_text": "In September 2026, New Zealand registered banks committed $1.53B ($1,530m) in new first-home buyer mortgages across 2,667 loans (down 2.7% year-on-year from $1.57B ($1,572m) across 2,743 loans a year earlier)."
       }
     ]
   },
@@ -2340,7 +2340,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Average gross borrower income for approved first-home buyers vs property investors,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage borrower gross income (BGI) (Table C41). https://pulse-data.homeloanfactory.co.nz/borrower-income/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/borrower-income/",
-      "summary_text": "In September 2026, approved New Zealand first-home buyer mortgage applications averaged $144,232 in gross borrower income (ranging from $123,000 to $197,000 across DTI bands).",
+      "summary_text": "In September 2026, approved New Zealand first-home buyer mortgage applications at registered banks averaged $144,232 in combined gross borrower income (ranging from $123,000 to $197,000 across DTI bands).",
       "related_questions": [
         "What is the average application gross income of an approved first-home buyer in RBNZ Table C41?",
         "How does application gross income compare between first-home buyers and property investors in RBNZ data?"
@@ -3257,7 +3257,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"First-home buyer high Debt-to-Income (>6x DTI) share vs 20% RBNZ speed limit,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage lending by Debt-to-Income (DTI) purpose use (Table C40). https://pulse-data.homeloanfactory.co.nz/dti-headroom/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/dti-headroom/",
-      "summary_text": "In September 2026, 9.0% of first-home buyer mortgage lending had a Debt-to-Income (DTI) ratio above 6x ($137.0m of $1,525.0m)\u2014sitting 11.0 percentage points below the 20% RBNZ speed-limit cap.",
+      "summary_text": "In September 2026, 9.0% of first-home buyer mortgage commitments at registered banks had a Debt-to-Income (DTI) ratio above 6x ($137.0m of $1,525.0m)\u2014sitting 11.0 percentage points below the 20% RBNZ speed-limit allowance.",
       "related_questions": [
         "What percentage of first-home buyers borrow more than 6 times their income in RBNZ Table C40?",
         "How does current first-home buyer >6x DTI lending compare to the 20% RBNZ speed limit?"
@@ -3402,7 +3402,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Monthly mortgage top-up dollar volume & borrower count,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/equity-topup-demand/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/equity-topup-demand/",
-      "summary_text": "In September 2026, New Zealand homeowners unlocked $962m in mortgage top-ups across 9,639 approvals, at an average of $99,803 per top-up.",
+      "summary_text": "In September 2026, New Zealand registered banks committed $962m in mortgage top-ups across 9,639 commitments, at an average of $99,803 per top-up.",
       "related_questions": [
         "How much money is committed via mortgage top-ups each month in New Zealand?",
         "How many mortgage top-up commitments are approved every month in NZ?"
@@ -3713,7 +3713,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"First-home buyers with a 20%+ deposit (<=80% LVR),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/fhb-20-deposit-club/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-20-deposit-club/",
-      "summary_text": "In September 2026, 49.7% of first-home buyers (1,325 borrowers, or $680m in lending) purchased with a 20% or greater deposit (&le;80% LVR), with an average mortgage size of $513,208.",
+      "summary_text": "In September 2026, 49.7% of first-home buyer commitments (1,325 borrowers, or $680m in lending) were written with a 20% or greater deposit (&le;80% LVR), with an average loan size of $513,208.",
       "related_questions": [
         "How many first-home buyers in New Zealand have a 20% deposit?",
         "What is the average mortgage size for a first-home buyer with a 20% deposit?"
@@ -3856,7 +3856,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Rolling 12-month first-home buyer mortgage approvals & lending total,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/fhb-annual-milestone/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-annual-milestone/",
-      "summary_text": "Over the 12 months to September 2026, 33,485 first-home buyers were approved for mortgages totalling $19.61B ($19,613m) across New Zealand (up from 31,589 loans a year earlier)\u2014including 15,743 borrowers (47.0%) purchasing with under a 20% deposit (&gt;80% LVR).",
+      "summary_text": "Over the 12 months to September 2026, 33,485 first-home buyer mortgage commitments totalling $19.61B ($19,613m) were recorded across New Zealand registered banks (up from 31,589 loans a year earlier)\u2014including 15,743 commitments (47.0%) written with under a 20% deposit (&gt;80% LVR).",
       "related_questions": [
         "How many first-home buyer mortgage commitments are approved in New Zealand each year?",
         "How much money do New Zealand banks commit to first-home buyers annually?"
@@ -3954,7 +3954,7 @@
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C31 (12 months to September 2026): Sum of monthly FHB approvals = 33,485 loans ($19,613m); >80% LVR FHB approvals = 15,743 loans.",
+      "official_data": "RBNZ Table C31 (12 months to September 2026): Sum of monthly FHB commitments = 33,485 loans ($19,613m); >80% LVR FHB commitments = 15,743 loans.",
       "hlf_calculation": "12-month sum = 33,485 loans ($19,613m); >80% LVR share = 15,743 \u00f7 33,485 = 47.0%",
       "frequency": "Monthly (12-Month Rolling)"
     },
@@ -4001,7 +4001,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Average first-home buyer mortgage commitment size (RBNZ Table C31),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/fhb-average-loan-size/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-average-loan-size/",
-      "summary_text": "In September 2026, the average first-home buyer mortgage approved across New Zealand was $573,678 (up 0.1% year-on-year from $573,095 a year earlier), across 2,667 first-home buyer loans totalling $1.53B ($1,530m).",
+      "summary_text": "In September 2026, the average first-home buyer mortgage commitment at New Zealand registered banks was $573,678 (up 0.1% year-on-year from $573,095 a year earlier), across 2,667 first-home buyer loans totalling $1.53B ($1,530m).",
       "related_questions": [
         "What is the average first-home buyer mortgage in New Zealand?",
         "How much does a typical first-home buyer borrow in NZ?"
@@ -4146,7 +4146,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"First-home buyer share of all >80% LVR (low-deposit) bank lending,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/fhb-bank-lvr-priority/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-bank-lvr-priority/",
-      "summary_text": "In September 2026, first-home buyers received 67.2% of all low-deposit (&gt;80% LVR) mortgage lending dollars ($850m of $1.26B ($1,264m)) and 62.0% of low-deposit loans (1,342 of 2,165) nationwide.",
+      "summary_text": "In September 2026, first-home buyers accounted for 67.2% of all &gt;80% LVR mortgage lending dollars ($850m of $1.26B ($1,264m)) and 62.0% of &gt;80% LVR loans (1,342 of 2,165) across New Zealand registered banks.",
       "related_questions": [
         "What share of >80% LVR mortgage lending goes to first-home buyers vs movers?"
       ],
@@ -4290,7 +4290,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"First-home buyer gross borrower income by Debt-to-Income (DTI) band \u2014 New Zealand,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage borrower gross income (BGI) (Table C41). https://pulse-data.homeloanfactory.co.nz/fhb-income-by-dti-band/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-income-by-dti-band/",
-      "summary_text": "In September 2026, average gross borrower incomes across New Zealand first-home buyer Debt-to-Income bands ranged from $123,000 to $197,000, with an overall average of $144,232.",
+      "summary_text": "In September 2026, average combined gross borrower incomes across New Zealand first-home buyer Debt-to-Income bands ranged from $123,000 to $197,000, with an overall band-weighted average of $144,232.",
       "related_questions": [
         "How does first-home buyer application income vary across Debt-to-Income (DTI) bands in RBNZ Table C41?"
       ],
@@ -4468,7 +4468,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"First-home buyer average mortgage size by deposit tier (<20% vs 20%+ deposit),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/fhb-loan-size-gap/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-loan-size-gap/",
-      "summary_text": "In September 2026, first-home buyers purchasing with under a 20% deposit (&gt;80% LVR) borrowed an average of $633,383, compared with $513,208 for those with a 20% or greater deposit (&le;80% LVR)\u2014a difference of $120,175.",
+      "summary_text": "In September 2026, first-home buyers borrowing with under a 20% deposit (&gt;80% LVR) had an average mortgage commitment of $633,383, compared with $513,208 for those borrowing with a 20% or greater deposit (&le;80% LVR)\u2014a difference of $120,175.",
       "related_questions": [
         "How much more do low-deposit first-home buyers borrow compared to buyers with a 20% deposit?",
         "What is the average loan size for a >80% LVR first-home buyer in New Zealand?"
@@ -4613,7 +4613,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"First-home buyers using under 20% deposit (>80% LVR),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/fhb-low-deposit/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-low-deposit/",
-      "summary_text": "In September 2026, 50.3% of first-home mortgages approved across New Zealand (1,342 of 2,667 loans, or $850m in lending) were written with under a 20% deposit (&gt;80% LVR), up from 46.0% a year earlier.",
+      "summary_text": "In September 2026, 50.3% of first-home buyer mortgage commitments at New Zealand registered banks (1,342 of 2,667 loans, or $850m in lending) were written with under a 20% deposit (&gt;80% LVR), up from 46.0% a year earlier.",
       "related_questions": [
         "Can I buy a first home in New Zealand with less than a 20% deposit?",
         "What percentage of NZ first-home buyers get a mortgage with under a 20% deposit?",
@@ -4759,7 +4759,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Monthly first-home buyer total mortgage lending volume & loan count (RBNZ Table C31),\" September 2026. Source: Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/fhb-monthly-lending-volume/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-monthly-lending-volume/",
-      "summary_text": "In September 2026, New Zealand banks committed $1.53B ($1,530m) in new first-home buyer mortgages across 2,667 loans (down 2.7% year-on-year from $1.57B ($1,572m) across 2,743 loans a year earlier).",
+      "summary_text": "In September 2026, New Zealand registered banks committed $1.53B ($1,530m) in new first-home buyer mortgages across 2,667 loans (down 2.7% year-on-year from $1.57B ($1,572m) across 2,743 loans a year earlier).",
       "related_questions": [
         "How much do New Zealand banks commit to first-home buyers each month?",
         "How many first-home buyer mortgage commitments are recorded per month in New Zealand?"
@@ -5067,7 +5067,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"First-home buyer share of new mortgage lending & average loan size,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/fhb-share/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-share/",
-      "summary_text": "In September 2026, New Zealand banks approved 2,667 first-home buyer mortgages totalling $1.53B ($1,530m)\u2014accounting for 20.3% of all new residential mortgage lending (up from 19.2% a year earlier), with an average loan size of $573,678.",
+      "summary_text": "In September 2026, New Zealand registered banks committed 2,667 first-home buyer mortgages totalling $1.53B ($1,530m)\u2014accounting for 20.3% of all new residential mortgage lending (up from 19.2% a year earlier), with an average commitment size of $573,678.",
       "related_questions": [
         "What share of New Zealand mortgages go to first-home buyers?",
         "What is the average first-home buyer mortgage size in New Zealand?",
@@ -5213,7 +5213,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Implied first-home buyer mortgage-to-income ratio & share <= 6x DTI (RBNZ C31/C40/C41),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New Lending (C31), DTI Purpose Use (C40) & Borrower Gross Income (C41). https://pulse-data.homeloanfactory.co.nz/fhb-typical-dti/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-typical-dti/",
-      "summary_text": "In September 2026, approved New Zealand first-home buyers borrowed an implied mortgage-to-income multiple of 3.98x gross income ($573,678 average loan on $144,232 average gross income), with 91.0% of all first-home buyer lending written at or below 6x TDTI (and 65.0% at or below 5x TDTI).",
+      "summary_text": "In September 2026, approved New Zealand first-home buyers had an implied mortgage-to-income ratio of 3.98x gross application income ($573,678 average loan divided by $144,232 average gross borrower income), while in RBNZ Table C40 91.0% of all first-home buyer lending was written at or below 6x TDTI (and 65.0% at or below 5x TDTI).",
       "related_questions": [
         "What is the average Debt-to-Income (DTI) ratio for a first-home buyer in New Zealand?",
         "What percentage of first-home buyers borrow less than 5x or 6x their income?"
@@ -5304,7 +5304,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Typical first-home buyer application gross income (RBNZ Table C41),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage borrower gross income (BGI) (Table C41). https://pulse-data.homeloanfactory.co.nz/fhb-typical-income/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-typical-income/",
-      "summary_text": "In September 2026, the typical (borrower-weighted average) gross household income across approved New Zealand first-home buyer mortgage applications was $144,232 (down 0.2% year-on-year from $144,534 a year earlier).",
+      "summary_text": "In September 2026, the borrower-weighted average combined gross borrower income across approved New Zealand first-home buyer mortgage applications at registered banks was $144,232 (down 0.2% year-on-year from $144,534 a year earlier).",
       "related_questions": [
         "What is the average application income of a first-home buyer in New Zealand?",
         "What does Borrower Gross Income (BGI) measure in RBNZ mortgage statistics?"
@@ -5424,8 +5424,8 @@
       "date_modified": "2026-11-17",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "September 2025 ($-163m FHB minus Investor gap)",
-      "change": "$195m FHB lead in September 2026",
+      "previous_period": "September 2025 ($-163m FHB minus Investor difference)",
+      "change": "$195m FHB minus Investor difference in September 2026",
       "source": "RBNZ Table C31",
       "source_full": "Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31)",
       "source_series_ids": "LVRN.MMB1.AC1 vs LVRN.MMB1.AN",
@@ -5449,7 +5449,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"First-home buyers vs property investors monthly lending comparison,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/fhb-vs-investors/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-vs-investors/",
-      "summary_text": "In September 2026, first-home buyers borrowed $1.53B ($1,530m) (20.3% of new lending) compared with $1.33B ($1,335m) (17.7%) for residential property investors\u2014a lead of +$195m toward first-home buyers.",
+      "summary_text": "In September 2026, first-home buyers committed $1.53B ($1,530m) (20.3% of new lending) compared with $1.33B ($1,335m) (17.7%) for residential property investors\u2014a difference of +$195m.",
       "related_questions": [
         "Do first-home buyers or property investors borrow more in New Zealand?",
         "How does first-home buyer lending compare to investor lending in RBNZ statistics?"
@@ -6097,7 +6097,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Interest-only share of new investor vs owner-occupier mortgage lending,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New and existing residential mortgage lending by payment type (Table C32). https://pulse-data.homeloanfactory.co.nz/interest-only/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/interest-only/",
-      "summary_text": "In September 2026, 31.5% of new residential investor mortgage lending was written on interest-only terms, compared with 13.7% for owner-occupiers.",
+      "summary_text": "In September 2026, 31.5% of new residential investor mortgage lending at registered banks was written on interest-only terms, compared with 13.7% for owner-occupiers.",
       "related_questions": [
         "What percentage of New Zealand property investor mortgage commitments are interest-only?",
         "How does interest-only lending compare between investors and owner-occupiers in RBNZ Table C32?"
@@ -6242,7 +6242,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Property investor monthly lending volume & average loan size (RBNZ Table C31),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/investor-average-loan-size/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-average-loan-size/",
-      "summary_text": "In September 2026, residential property investors borrowed $1.33B ($1,335m) across 2,668 new mortgage commitments\u2014an average investor loan size of $500,375 (down 10.2% year-on-year from $557,161 a year earlier).",
+      "summary_text": "In September 2026, residential property investors committed $1.33B ($1,335m) across 2,668 new mortgage commitments at registered banks\u2014an average investor commitment size of $500,375 (down 10.2% year-on-year from $557,161 a year earlier).",
       "related_questions": [
         "What is the average mortgage commitment size for a property investor in New Zealand?",
         "How many property investor loan commitments are approved each month in NZ?"
@@ -6387,7 +6387,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Property investor LVR & equity distribution (<=60%, 60%\u201370%, >70% LVR),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/investor-equity-tiers/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-equity-tiers/",
-      "summary_text": "In September 2026, 43.8% of property investor mortgages were written with at least 40% equity (&le;60% LVR, 1,169 loans), 36.4% with 30%\u201340% equity (60%\u201370% LVR, 972 loans), and 19.8% with under 30% equity (&gt;70% LVR, 527 loans / $337m).",
+      "summary_text": "In September 2026, 43.8% of property investor mortgage commitments were written with at least 40% equity (&le;60% LVR, 1,169 loans), 36.4% with 30%\u201340% equity (60%\u201370% LVR, 972 loans), and 19.8% with under 30% equity (&gt;70% LVR, 527 loans / $337m).",
       "related_questions": [
         "How are property investor mortgage commitments distributed across LVR bands in New Zealand?",
         "What percentage of NZ property investors borrow at <=60% LVR, 60%\u201370% LVR, and >70% LVR?"
@@ -6532,7 +6532,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Property investor high Debt-to-Income (>7x DTI) share vs 20% RBNZ speed limit,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage lending by Debt-to-Income (DTI) purpose use (Table C40). https://pulse-data.homeloanfactory.co.nz/investor-high-dti-share/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-high-dti-share/",
-      "summary_text": "In September 2026, 12.2% of residential property investor mortgage lending had a Debt-to-Income (DTI) ratio above 7x ($163.0m of $1,335.0m)\u2014sitting 7.8 percentage points below the 20% RBNZ investor speed-limit cap.",
+      "summary_text": "In September 2026, 12.2% of residential property investor mortgage commitments at registered banks had a Debt-to-Income (DTI) ratio above 7x ($163.0m of $1,335.0m)\u2014sitting 7.8 percentage points below the 20% RBNZ investor speed-limit allowance.",
       "related_questions": [
         "What is the Debt-to-Income (DTI) speed limit for property investors in New Zealand?",
         "What percentage of NZ property investors borrow more than 7 times their gross income?"
@@ -6677,7 +6677,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Property investor high-LVR lending (>80% LVR & 70%\u201380% LVR bands),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/investor-low-deposit/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-low-deposit/",
-      "summary_text": "In September 2026, 52 property investor mortgages ($36m) were approved with under a 20% deposit (&gt;80% LVR, or 1.9% of investors, up from 34 loans a year earlier) (508 loans / $328m over the past 12 months), alongside 475 investor loans ($301m, or 17.8%) in the 70%\u201380% LVR band.",
+      "summary_text": "In September 2026, 52 property investor mortgage commitments ($36m) were written with under a 20% deposit (&gt;80% LVR, or 1.9% of investors, up from 34 loans a year earlier) (508 loans / $328m over the past 12 months), alongside 475 investor loans ($301m, or 17.8%) in the 70%\u201380% LVR band.",
       "related_questions": [
         "How many property investors get approved above 80% LVR or between 70% and 80% LVR in RBNZ Table C31?"
       ],
@@ -6821,7 +6821,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Property investor lending above 70% LVR (under 30% deposit),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/investor-new-build-lvr/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-new-build-lvr/",
-      "summary_text": "In September 2026, 19.8% of property investor mortgages (527 loans totalling $337m) were approved above the standard 70% LVR threshold\u2014comprising 475 loans ($301m) at 70%\u201380% LVR and 52 loans ($36m) above 80% LVR.",
+      "summary_text": "In September 2026, 19.8% of property investor mortgage commitments (527 loans totalling $337m) were written above 70% LVR\u2014comprising 475 loans ($301m) at 70%\u201380% LVR and 52 loans ($36m) above 80% LVR.",
       "related_questions": [
         "What percentage of property investors borrow above 70% LVR in New Zealand?"
       ],
@@ -6965,7 +6965,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Property investor share of new residential mortgage lending,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/investors/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investors/",
-      "summary_text": "In September 2026, residential property investors accounted for 17.7% of new mortgage lending across New Zealand ($1.33B across 2,668 loans, down from 21.2% a year earlier), compared with 20.3% for first-home buyers.",
+      "summary_text": "In September 2026, residential property investors accounted for 17.7% of new mortgage lending commitments across New Zealand registered banks ($1.33B across 2,668 loans, down from 21.2% a year earlier), compared with 20.3% for first-home buyers.",
       "related_questions": [
         "What percentage of New Zealand mortgages go to property investors?",
         "How much new mortgage lending is committed to property investors each month?"
@@ -9422,7 +9422,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Existing owner-occupier ('mover') monthly lending volume & average loan size (RBNZ C31),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/mover-average-loan-size/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mover-average-loan-size/",
-      "summary_text": "In September 2026, existing owner-occupiers ('movers' and homeowners refinancing or topping up) borrowed $4.53B ($4,534m) across 15,096 mortgage commitments\u2014an average loan size of $300,344 (down 8.3% year-on-year from $327,517 a year earlier).",
+      "summary_text": "In September 2026, existing ('other') owner-occupiers committed $4.53B ($4,534m) across 15,096 mortgage commitments at registered banks\u2014an average commitment size of $300,344 (down 8.3% year-on-year from $327,517 a year earlier).",
       "related_questions": [
         "What is the average mortgage commitment size for an existing owner-occupier in RBNZ Table C31?",
         "How much do existing owner-occupiers borrow each month in NZ?"
@@ -9565,7 +9565,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Existing owner-occupiers borrowing above 80% LVR (under 20% equity),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/mover-low-equity/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mover-low-equity/",
-      "summary_text": "In September 2026, 5.1% of existing owner-occupier mortgages (769 loans totalling $378m) were approved above 80% LVR (under 20% equity), up from 3.3% a year earlier.",
+      "summary_text": "In September 2026, 5.1% of existing ('other') owner-occupier mortgage commitments (769 loans totalling $378m) were written above 80% LVR (under 20% equity), up from 3.3% a year earlier.",
       "related_questions": [
         "How many existing owner-occupiers get approved above 80% LVR each month in RBNZ Table C31?"
       ],
@@ -9889,7 +9889,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Combined high-LVR lending to existing owner-occupiers (>80% LVR) & investors (>70% LVR),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/new-build-lvr-exemption-flow/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/new-build-lvr-exemption-flow/",
-      "summary_text": "In September 2026, non-first-home-buyer lending above standard LVR thresholds totalled $715m across 1,296 loans\u2014comprising 769 existing owner-occupier loans ($378m) above 80% LVR and 527 investor loans ($337m) above 70% LVR.",
+      "summary_text": "In September 2026, non-first-home-buyer mortgage commitments above standard LVR thresholds totalled $715m across 1,296 loans\u2014comprising 769 existing owner-occupier loans ($378m) above 80% LVR and 527 investor loans ($337m) above 70% LVR.",
       "related_questions": [
         "How much mortgage lending goes to existing owner-occupiers above 80% LVR and investors above 70% LVR?"
       ],
@@ -10095,7 +10095,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Existing owner-occupiers borrowing with 20%+ equity (<=80% LVR),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/owner-equity-buffer/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/owner-equity-buffer/",
-      "summary_text": "In September 2026, 94.9% of existing owner-occupier mortgages (14,327 of 15,096 loans, totalling $4.16B ($4,156m)) were approved with at least 20% equity (&le;80% LVR), at an average loan size of $290,082.",
+      "summary_text": "In September 2026, 94.9% of existing ('other') owner-occupier mortgage commitments (14,327 of 15,096 loans, totalling $4.16B ($4,156m)) were written with at least 20% equity (&le;80% LVR), at an average commitment size of $290,082.",
       "related_questions": [
         "What percentage of existing New Zealand owner-occupiers borrow at <=80% LVR when moving, refinancing, or topping up?"
       ],
@@ -10237,7 +10237,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Mortgage refinancing (switching loan provider) share & volume,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/refinance/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/refinance/",
-      "summary_text": "In September 2026, 2,772 New Zealand mortgage holders switched lenders, refinancing $1.73B ($1,729m) in home loans\u2014representing 23.0% of all new residential mortgage lending, at an average loan size of $623,737.",
+      "summary_text": "In September 2026, 2,772 New Zealand mortgage commitments involved switching loan providers, refinancing $1.73B ($1,729m) in home loans\u2014representing 23.0% of all new residential mortgage lending, at an average commitment size of $623,737.",
       "related_questions": [
         "How many New Zealand homeowners refinance or switch banks each month?",
         "What percentage of NZ new mortgage commitments is refinancing to a new bank?",
@@ -11397,7 +11397,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Weighted-average settled 1-year & 2-year fixed mortgage rates (owner-occupiers),\" September 2026. Source: Reserve Bank of New Zealand \u2014 New residential mortgage weighted average interest rates (Table B30). https://pulse-data.homeloanfactory.co.nz/settled-rates/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/settled-rates/",
-      "summary_text": "In September 2026, the average settled fixed mortgage interest rate across New Zealand owner-occupiers was 4.82% for 1-year terms and 5.09% for 2-year terms.",
+      "summary_text": "In September 2026, the volume-weighted average fixed mortgage interest rate on new owner-occupier commitments at New Zealand registered banks was 4.82% for 1-year terms and 5.09% for 2-year terms.",
       "related_questions": [
         "What is the average 1-year and 2-year fixed mortgage rate in RBNZ Table B30?"
       ],
@@ -11875,7 +11875,7 @@
       "category": "Homeowners & refinancing",
       "topic": "Mortgage top-ups & equity release",
       "value": 46.42,
-      "latest_value": "46.4% of approvals (9,639 top-ups, avg $99,803)",
+      "latest_value": "46.4% of commitments (9,639 top-ups, avg $99,803)",
       "unit": "percent",
       "observation_period": "September 2026",
       "observed_period": "2026-09",
@@ -11911,7 +11911,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Mortgage top-up share of approvals & average top-up amount,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/top-ups/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/top-ups/",
-      "summary_text": "In September 2026, 9,639 homeowners were approved for a mortgage top-up on their existing property\u2014accounting for 46.4% of all mortgage approvals across New Zealand, with an average top-up of $99,803.",
+      "summary_text": "In September 2026, 9,639 mortgage top-up commitments were recorded on existing properties\u2014accounting for 46.4% of all mortgage commitments by purpose across New Zealand registered banks, with an average top-up of $99,803.",
       "related_questions": [
         "What share of monthly mortgage approvals in New Zealand are top-ups?",
         "What is the average mortgage top-up amount in NZ?"
@@ -12007,7 +12007,7 @@
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C33 (September 2026): Top-up approvals = 9,639 borrowers ($962m) out of 20,763 total approvals.",
+      "official_data": "RBNZ Table C33 (September 2026): Top-up commitments = 9,639 borrowers ($962m) out of 20,763 total commitments.",
       "hlf_calculation": "9,639 \u00f7 20,763 = 46.4% (Mean top-up: $962m \u00d7 $1m \u00f7 9,639 = $99,803)",
       "frequency": "Monthly"
     },
