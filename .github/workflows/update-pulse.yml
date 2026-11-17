@@ -35,21 +35,35 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 12
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
+
+      - name: Cache Camoufox browser binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/camoufox
+          key: ${{ runner.os }}-camoufox-v1
 
       - name: Install 3-tier browser & Python dependencies
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          sudo apt-get update && sudo apt-get install -y xvfb libgtk-3-0 libasound2t64 libx11-xcb1 || sudo apt-get install -y xvfb
+          sudo apt-get update && sudo apt-get install -y xvfb libgtk-3-0t64 libasound2t64 libx11-xcb1 || sudo apt-get install -y xvfb
           python -m pip install --upgrade pip
           pip install pandas openpyxl requests curl_cffi "camoufox[geoip]" playwright pypdf
-          python -m camoufox fetch
           python -m playwright install --with-deps chromium
+          python -m camoufox fetch || echo "Camoufox GitHub release API rate-limited; continuing with Playwright Chromium + curl_cffi"
 
-      - name: Fetch RBNZ, Stats NZ, Tenancy & IRD data
+      - name: Fetch RBNZ, Stats NZ, Tenancy, HUD/MCERT & IRD data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" python update_pulse.py
           if [ -f update_fhb_benchmark.py ]; then
