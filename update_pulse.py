@@ -2909,7 +2909,10 @@ LEGACY_BUBBLE_ALIASES = {
     "household-vs-individual-income-benchmarks": "individual-income-by-source-benchmarks",
 }
 # === END OF BLOCK 5 ===
-# === BLOCK 6 OF 12 ===
+# === BLOCK 6 OF 13 ===
+_CAMOUFOX_OK = True
+
+
 class SimpleTableExtractor(HTMLParser):
     """Lightweight HTML table parser for official release tables."""
 
@@ -3033,20 +3036,23 @@ def _browser_fetch_binary(ctx, page, url: str, referer: str, min_bytes: int) -> 
 
 def fetch_bytes_with_browser_fallback(session, url: str, referer: str = "", min_bytes: int = 1000) -> bytes:
     """Fetch binary files (.xlsx, .csv, .pdf) via HTTP -> Camoufox -> Playwright Chromium."""
+    global _CAMOUFOX_OK
     raw = fetch_url_bytes(session, url, referer=referer, timeout=45, use_cb=False)
     if raw and len(raw) >= min_bytes and b"Just a moment" not in raw[:600] and b"Access Denied" not in raw[:600]:
         return raw
 
-    try:
-        from camoufox.sync_api import Camoufox
-        with Camoufox(headless=True) as browser:
-            ctx = browser.new_context(locale="en-NZ", accept_downloads=True)
-            page = ctx.new_page()
-            b_out = _browser_fetch_binary(ctx, page, url, referer, min_bytes)
-            if b_out:
-                return b_out
-    except Exception as exc_cf:
-        print(f"[Camoufox Binary] {url}: {exc_cf}")
+    if _CAMOUFOX_OK:
+        try:
+            from camoufox.sync_api import Camoufox
+            with Camoufox(headless=True) as browser:
+                ctx = browser.new_context(locale="en-NZ", accept_downloads=True)
+                page = ctx.new_page()
+                b_out = _browser_fetch_binary(ctx, page, url, referer, min_bytes)
+                if b_out:
+                    return b_out
+        except Exception as exc_cf:
+            _CAMOUFOX_OK = False
+            print(f"[Camoufox Disabled -> Using Playwright] {exc_cf}")
 
     try:
         from playwright.sync_api import sync_playwright
@@ -3090,6 +3096,7 @@ def extract_pdf_text(pdf_bytes: bytes) -> str:
 
 
 def fetch_html_with_browser_fallback(session, urls: list[str], label: str = "Web") -> dict[str, str]:
+    global _CAMOUFOX_OK
     results: dict[str, str] = {}
     missing: list[str] = []
     for u in urls:
@@ -3104,23 +3111,28 @@ def fetch_html_with_browser_fallback(session, urls: list[str], label: str = "Web
         return results
 
     still_missing: list[str] = []
-    try:
-        from camoufox.sync_api import Camoufox
-        with Camoufox(headless=True) as browser:
-            ctx = browser.new_context(locale="en-NZ")
-            page = ctx.new_page()
-            for u in missing:
-                try:
-                    page.goto(u, wait_until="domcontentloaded", timeout=35000)
-                    page.wait_for_timeout(2500)
-                    content = page.content()
-                    if len(content) > 1200 and "Just a moment" not in content[:600] and "_Incapsula_Resource" not in content[:1200]:
-                        results[u] = content
-                    else:
+    if _CAMOUFOX_OK:
+        try:
+            from camoufox.sync_api import Camoufox
+            with Camoufox(headless=True) as browser:
+                ctx = browser.new_context(locale="en-NZ")
+                page = ctx.new_page()
+                for u in missing:
+                    try:
+                        page.goto(u, wait_until="domcontentloaded", timeout=35000)
+                        page.wait_for_timeout(2500)
+                        content = page.content()
+                        if len(content) > 1200 and "Just a moment" not in content[:600] and "_Incapsula_Resource" not in content[:1200]:
+                            results[u] = content
+                        else:
+                            still_missing.append(u)
+                    except Exception:
                         still_missing.append(u)
-                except Exception:
-                    still_missing.append(u)
-    except Exception:
+        except Exception as exc_cf:
+            _CAMOUFOX_OK = False
+            print(f"[Camoufox Disabled -> Using Playwright] {exc_cf}")
+            still_missing = list(missing)
+    else:
         still_missing = list(missing)
 
     if not still_missing:
@@ -3155,31 +3167,41 @@ def fetch_html_with_browser_fallback(session, urls: list[str], label: str = "Web
 
 
 def fetch_pages_with_camoufox(urls: list[str], wait_ms: int = 5000) -> dict[str, str]:
-    """Render anti-bot protected pages (such as Stats NZ Imperva pages) directly in Camoufox or Playwright."""
+    """Render anti-bot protected pages directly in Camoufox or Playwright Chromium."""
+    global _CAMOUFOX_OK
     out: dict[str, str] = {}
-    try:
-        from camoufox.sync_api import Camoufox
-        with Camoufox(headless=True) as browser:
-            ctx = browser.new_context(locale="en-NZ")
-            page = ctx.new_page()
-            for u in urls:
-                try:
-                    page.goto(u, wait_until="domcontentloaded", timeout=40000)
-                    page.wait_for_timeout(wait_ms)
-                    html_s = page.content()
-                    if html_s and len(html_s) > 1200:
-                        out[u] = html_s
-                except Exception as e_cf:
-                    print(f"[Camoufox Page] {u}: {e_cf}")
-    except Exception:
-        pass
+    if _CAMOUFOX_OK:
+        try:
+            from camoufox.sync_api import Camoufox
+            with Camoufox(headless=True) as browser:
+                ctx = browser.new_context(locale="en-NZ")
+                page = ctx.new_page()
+                for u in urls:
+                    try:
+                        page.goto(u, wait_until="domcontentloaded", timeout=40000)
+                        page.wait_for_timeout(wait_ms)
+                        html_s = page.content()
+                        if html_s and len(html_s) > 1200:
+                            out[u] = html_s
+                    except Exception as e_cf:
+                        print(f"[Camoufox Page] {u}: {e_cf}")
+        except Exception as exc_cf:
+            _CAMOUFOX_OK = False
+            print(f"[Camoufox Disabled -> Using Playwright] {exc_cf}")
     if out:
         return out
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
-            ctx = browser.new_context(locale="en-NZ")
+            ctx = browser.new_context(
+                user_agent=(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/124.0.0.0 Safari/537.36"
+                ),
+                locale="en-NZ",
+            )
             page = ctx.new_page()
             for u in urls:
                 try:
@@ -3593,7 +3615,7 @@ def resolve_raw_file_and_glossary_html(source_label: str, source_url: str, calc_
         g_links.append(("Lenders Mortgage Insurance (LMI)", f"{GLOSSARY_BASE_URL}#lmi"))
     if any(k in s_low for k in ("interest-only", "c32")):
         g_links.append(("Interest-Only Mortgage", f"{GLOSSARY_BASE_URL}#interest-only"))
-    if any(k in s_low for k in ("refinanc", "top-up", "equity", "c33", "net worth")):
+    if any(k in s_low for k in ("refinanc", "top-up", "equity", "c33", "net worth", "hpi", "hud", "mcert")):
         g_links.append(("Refinancing", f"{GLOSSARY_BASE_URL}#refinancing"))
         g_links.append(("Usable Equity", f"{GLOSSARY_BASE_URL}#usable-equity"))
     if any(k in s_low for k in ("kiwisaver", "t43", "fma")):
@@ -3604,7 +3626,7 @@ def resolve_raw_file_and_glossary_html(source_label: str, source_url: str, calc_
         g_links.append(("Fixed vs Floating Interest Rate", f"{GLOSSARY_BASE_URL}#fixed-rate"))
     if any(k in s_low for k in ("consent", "new build", "turnkey", "dwelling")):
         g_links.append(("Turnkey vs Construction Loan", f"{GLOSSARY_BASE_URL}#turnkey"))
-    if any(k in s_low for k in ("rent", "bond", "tenancy", "suburb", "tla")):
+    if any(k in s_low for k in ("rent", "bond", "tenancy", "suburb", "tla", "yield")):
         g_links.append(("Gross Rental Yield", f"{GLOSSARY_BASE_URL}#rental-yield"))
     if any(k in s_low for k in ("insurance", "nhc", "acc", "claim", "j10")):
         g_links.append(("Sum Insured & Income Protection", f"{GLOSSARY_BASE_URL}#income-protection"))
@@ -3684,35 +3706,6 @@ def make_pulse_item(
     return d
 # === END OF BLOCK 6 ===
 # === BLOCK 7 OF 13 ===
-def _extract_int_from_rec(rec: dict | None, lo: int, hi: int) -> int | None:
-    if not isinstance(rec, dict):
-        return None
-    v = rec.get("value")
-    if isinstance(v, (int, float)) and lo <= float(v) <= hi:
-        return int(round(float(v)))
-    blob = f"{rec.get('latest_value', '')} {re.sub(r'<[^>]+>', ' ', rec.get('html', ''))} {rec.get('summary_text', '')}"
-    for m in re.finditer(r"\$([\d,]{5,7})", blob):
-        n = int(m.group(1).replace(",", ""))
-        if lo <= n <= hi:
-            return n
-    return None
-
-
-def _extract_pct_from_rec(rec: dict | None, lo: float = 0.1, hi: float = 50.0) -> float | None:
-    if not isinstance(rec, dict):
-        return None
-    v = rec.get("value")
-    if isinstance(v, (int, float)) and lo <= float(v) <= hi:
-        return round(float(v), 1)
-    blob = f"{rec.get('latest_value', '')} {re.sub(r'<[^>]+>', ' ', rec.get('html', ''))} {rec.get('summary_text', '')}"
-    for m in re.finditer(r"(\d{1,2}\.\d)\s*%", blob):
-        fv = float(m.group(1))
-        if lo <= fv <= hi:
-            return fv
-    return None
-
-
-# Ensure C31, C32, C33, C40, C41, B30, J10 & T43 try their primary RBNZ .xlsx filenames first
 for _rk, _primary_u in (
     ("c31", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/c31-new-residential-mortgage-lending-by-borrower-type.xlsx"),
     ("c33", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/c33-new-residential-mortgage-lending-by-purpose.xlsx"),
@@ -3777,7 +3770,8 @@ def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: 
 
 
 def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Path]:
-    """Download all RBNZ .xlsx workbooks via fast HTTP (use_cb=False) -> single-session Camoufox -> Playwright."""
+    """Download all RBNZ .xlsx workbooks via fast HTTP (use_cb=False) -> Camoufox -> Playwright."""
+    global _CAMOUFOX_OK
     found: dict[str, pathlib.Path] = {}
     needs_browser: list[str] = []
 
@@ -3805,7 +3799,7 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
         if not got_http:
             needs_browser.append(key)
 
-    if needs_browser:
+    if needs_browser and _CAMOUFOX_OK:
         try:
             from camoufox.sync_api import Camoufox
             with Camoufox(headless=True) as browser:
@@ -3813,7 +3807,8 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
                 page = ctx.new_page()
                 _batch_download_rbnz_in_context(ctx, page, root, needs_browser, found, "Camoufox")
         except Exception as exc_cf:
-            print(f"[RBNZ Camoufox] Note: {exc_cf}")
+            _CAMOUFOX_OK = False
+            print(f"[RBNZ Camoufox Disabled -> Using Playwright] {exc_cf}")
 
     still_needed = [k for k in needs_browser if k not in found]
     if still_needed:
@@ -4003,7 +3998,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
 
     out = {
         "fhb-low-deposit": make_c31_item(
-            f"In {m_full}, <strong>{low_cnt_pct:.1f}%</strong> of first-home mortgages approved across New Zealand (<strong>{fhb_hi_loans_int:,} of {fhb_loans_int:,} loans</strong>, or <strong>${hi_dollars_m:,.0f}m</strong> in lending) were written with <strong>under a 20% deposit</strong> (&gt;80% LVR), {plain_prior_year_pct(low_cnt_pct, low_cnt_yoy)}.",
+            f"In {m_full}, <strong>{low_cnt_pct:.1f}%</strong> of first-home buyer mortgage commitments at New Zealand registered banks (<strong>{fhb_hi_loans_int:,} of {fhb_loans_int:,} loans</strong>, or <strong>${hi_dollars_m:,.0f}m</strong> in lending) were written with <strong>under a 20% deposit</strong> (&gt;80% LVR), {plain_prior_year_pct(low_cnt_pct, low_cnt_yoy)}.",
             f"RBNZ Table C31 ({m_full}): {fhb_hi_loans_int:,} high-LVR (>80% LVR) FHB borrowers (${hi_dollars_m:,.0f}m) out of {fhb_loans_int:,} total FHB borrowers (${fhb_v:,.0f}m).",
             low_cnt_pct, f"{low_cnt_pct:.1f}% ({fhb_hi_loans_int:,} of {fhb_loans_int:,} loans)", f"{low_cnt_yoy:.1f}%",
             f"{low_cnt_pct - low_cnt_yoy:+.1f} percentage points YoY",
@@ -4011,7 +4006,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_low_dep_pct, lambda x: f"{x:.1f}%"),
         ),
         "fhb-share": make_c31_item(
-            f"In {m_full}, New Zealand banks approved <strong>{fhb_loans_int:,}</strong> first-home buyer mortgages totalling <strong>{fmt_nzd_millions(fhb_v)}</strong>—accounting for <strong>{fhb_sh:.1f}%</strong> of all new residential mortgage lending ({plain_prior_year_pct(fhb_sh, fhb_sh_yoy)}), with an average loan size of <strong>${fhb_avg_nzd:,}</strong>.",
+            f"In {m_full}, New Zealand registered banks committed <strong>{fhb_loans_int:,}</strong> first-home buyer mortgages totalling <strong>{fmt_nzd_millions(fhb_v)}</strong>—accounting for <strong>{fhb_sh:.1f}%</strong> of all new residential mortgage lending ({plain_prior_year_pct(fhb_sh, fhb_sh_yoy)}), with an average commitment size of <strong>${fhb_avg_nzd:,}</strong>.",
             f"RBNZ Table C31 ({m_full}): {fhb_loans_int:,} FHB borrowers and ${fhb_v:,.0f}m FHB lending out of ${tot_val_m:,.0f}m total new residential lending (LVRN.MMB1.AA).",
             fhb_sh, f"{fhb_sh:.1f}% ({fhb_loans_int:,} loans, avg ${fhb_avg_nzd:,})", f"{fhb_sh_yoy:.1f}%",
             f"{fhb_sh - fhb_sh_yoy:+.1f} percentage points YoY",
@@ -4019,7 +4014,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_fhb_sh_pct, lambda x: f"{x:.1f}%"),
         ),
         "fhb-average-loan-size": make_c31_item(
-            f"In {m_full}, the average first-home buyer mortgage approved across New Zealand was <strong>${fhb_avg_nzd:,}</strong> ({plain_yoy_growth(fhb_avg_nzd, fhb_avg_prev_nzd)} from ${fhb_avg_prev_nzd:,} a year earlier), across <strong>{fhb_loans_int:,} first-home buyer loans</strong> totalling <strong>{fmt_nzd_millions(fhb_v)}</strong>.",
+            f"In {m_full}, the average first-home buyer mortgage commitment at New Zealand registered banks was <strong>${fhb_avg_nzd:,}</strong> ({plain_yoy_growth(fhb_avg_nzd, fhb_avg_prev_nzd)} from ${fhb_avg_prev_nzd:,} a year earlier), across <strong>{fhb_loans_int:,} first-home buyer loans</strong> totalling <strong>{fmt_nzd_millions(fhb_v)}</strong>.",
             f"RBNZ Table C31 ({m_full}): Total FHB new lending = ${fhb_v:,.0f}m (LVRN.MMB1.AC1) across {fhb_loans_int:,} FHB loans (LVRN.MMB2.AC1).",
             float(fhb_avg_nzd), f"${fhb_avg_nzd:,} average FHB loan ({fhb_loans_int:,} loans / {fmt_nzd_millions(fhb_v)})",
             f"${fhb_avg_prev_nzd:,}",
@@ -4028,7 +4023,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_fhb_avg_k, lambda x: f"${int(round(x*1000)):,}"),
         ),
         "fhb-monthly-lending-volume": make_c31_item(
-            f"In {m_full}, New Zealand banks committed <strong>{fmt_nzd_millions(fhb_v)}</strong> in new first-home buyer mortgages across <strong>{fhb_loans_int:,} loans</strong> ({plain_yoy_growth(fhb_v, fhb_v_prev)} from {fmt_nzd_millions(fhb_v_prev)} across {fhb_loans_prev_int:,} loans a year earlier).",
+            f"In {m_full}, New Zealand registered banks committed <strong>{fmt_nzd_millions(fhb_v)}</strong> in new first-home buyer mortgages across <strong>{fhb_loans_int:,} loans</strong> ({plain_yoy_growth(fhb_v, fhb_v_prev)} from {fmt_nzd_millions(fhb_v_prev)} across {fhb_loans_prev_int:,} loans a year earlier).",
             f"RBNZ Table C31 ({m_full}): FHB new lending commitments = ${fhb_v:,.0f}m (LVRN.MMB1.AC1) across {fhb_loans_int:,} borrowers (LVRN.MMB2.AC1).",
             fhb_v, f"{fmt_nzd_millions(fhb_v)} across {fhb_loans_int:,} FHB loans",
             f"{fmt_nzd_millions(fhb_v_prev)} ({fhb_loans_prev_int:,} loans)",
@@ -4038,7 +4033,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             is_derived=False,
         ),
         "investors": make_c31_item(
-            f"In {m_full}, residential property investors accounted for <strong>{inv_sh:.1f}%</strong> of new mortgage lending across New Zealand (<strong>${inv_b:.2f}B</strong> across <strong>{inv_c_tot:,} loans</strong>, {plain_prior_year_pct(inv_sh, inv_sh_yoy)}), compared with <strong>{fhb_sh:.1f}%</strong> for first-home buyers.",
+            f"In {m_full}, residential property investors accounted for <strong>{inv_sh:.1f}%</strong> of new mortgage lending commitments across New Zealand registered banks (<strong>${inv_b:.2f}B</strong> across <strong>{inv_c_tot:,} loans</strong>, {plain_prior_year_pct(inv_sh, inv_sh_yoy)}), compared with <strong>{fhb_sh:.1f}%</strong> for first-home buyers.",
             f"RBNZ Table C31 ({m_full}): {inv_c_tot:,} investor borrowers and ${inv_v:,.0f}m investor lending out of ${tot_val_m:,.0f}m total lending (LVRN.MMB1.AA).",
             inv_sh, f"{inv_sh:.1f}% (${inv_b:.2f}B across {inv_c_tot:,} loans)", f"{inv_sh_yoy:.1f}%",
             f"{inv_sh - inv_sh_yoy:+.1f} percentage points YoY",
@@ -4046,7 +4041,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_inv_sh_pct, lambda x: f"{x:.1f}%"),
         ),
         "investor-average-loan-size": make_c31_item(
-            f"In {m_full}, residential property investors borrowed <strong>{fmt_nzd_millions(inv_v)}</strong> across <strong>{inv_c_tot:,} new mortgage commitments</strong>—an average investor loan size of <strong>${inv_avg_nzd:,}</strong> ({plain_yoy_growth(inv_avg_nzd, inv_avg_prev_nzd)} from ${inv_avg_prev_nzd:,} a year earlier).",
+            f"In {m_full}, residential property investors committed <strong>{fmt_nzd_millions(inv_v)}</strong> across <strong>{inv_c_tot:,} new mortgage commitments</strong> at registered banks—an average investor commitment size of <strong>${inv_avg_nzd:,}</strong> ({plain_yoy_growth(inv_avg_nzd, inv_avg_prev_nzd)} from ${inv_avg_prev_nzd:,} a year earlier).",
             f"RBNZ Table C31 ({m_full}): Investor lending = ${inv_v:,.0f}m (LVRN.MMB1.AN) across {inv_c_tot:,} investor borrowers (LVRN.MMB2.AN).",
             float(inv_avg_nzd), f"${inv_avg_nzd:,} average investor loan ({inv_c_tot:,} loans / {fmt_nzd_millions(inv_v)})",
             f"${inv_avg_prev_nzd:,}",
@@ -4055,7 +4050,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_inv_avg_k, lambda x: f"${int(round(x*1000)):,}"),
         ),
         "mover-average-loan-size": make_c31_item(
-            f"In {m_full}, existing owner-occupiers ('movers' and homeowners refinancing or topping up) borrowed <strong>{fmt_nzd_millions(oo_v)}</strong> across <strong>{oo_tot_c_int:,} mortgage commitments</strong>—an average loan size of <strong>${oo_avg_nzd:,}</strong> ({plain_yoy_growth(oo_avg_nzd, oo_avg_prev_nzd)} from ${oo_avg_prev_nzd:,} a year earlier).",
+            f"In {m_full}, existing ('other') owner-occupiers committed <strong>{fmt_nzd_millions(oo_v)}</strong> across <strong>{oo_tot_c_int:,} mortgage commitments</strong> at registered banks—an average commitment size of <strong>${oo_avg_nzd:,}</strong> ({plain_yoy_growth(oo_avg_nzd, oo_avg_prev_nzd)} from ${oo_avg_prev_nzd:,} a year earlier).",
             f"RBNZ Table C31 ({m_full}): Other owner-occupier lending = ${oo_v:,.0f}m (LVRN.MMB1.AC2) across {oo_tot_c_int:,} borrowers (LVRN.MMB2.AC2).",
             float(oo_avg_nzd), f"${oo_avg_nzd:,} average mover loan ({oo_tot_c_int:,} loans / {fmt_nzd_millions(oo_v)})",
             f"${oo_avg_prev_nzd:,}",
@@ -4064,7 +4059,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_oo_avg_k, lambda x: f"${int(round(x*1000)):,}"),
         ),
         "fhb-loan-size-gap": make_c31_item(
-            f"In {m_full}, first-home buyers purchasing with under a 20% deposit (&gt;80% LVR) borrowed an average of <strong>${avg_hi_loan:,}</strong>, compared with <strong>${avg_lo_loan:,}</strong> for those with a 20% or greater deposit (&le;80% LVR)—a difference of <strong>${abs(loan_gap):,}</strong>.",
+            f"In {m_full}, first-home buyers borrowing with under a 20% deposit (&gt;80% LVR) had an average mortgage commitment of <strong>${avg_hi_loan:,}</strong>, compared with <strong>${avg_lo_loan:,}</strong> for those borrowing with a 20% or greater deposit (&le;80% LVR)—a difference of <strong>${abs(loan_gap):,}</strong>.",
             f"RBNZ Table C31 ({m_full}): >80% LVR FHB = ${hi_dollars_m:,.0f}m across {fhb_hi_loans_int:,} borrowers; <=80% LVR FHB = ${fhb_lo_val_cur:,.0f}m across {fhb_lo_loans_int:,} borrowers.",
             loan_gap / 1000.0, f"${avg_hi_loan:,} at >80% LVR vs ${avg_lo_loan:,} at <=80% LVR (+${abs(loan_gap):,})",
             f"${float(ser_fhb_hi_avg_k.iloc[iy])*1000:,.0f} vs ${float(ser_fhb_lo_avg_k.iloc[iy])*1000:,.0f}",
@@ -4073,7 +4068,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_fhb_hi_avg_k, lambda x: f"${x:,.1f}k (>80% LVR avg)"),
         ),
         "fhb-bank-lvr-priority": make_c31_item(
-            f"In {m_full}, first-home buyers received <strong>{fhb_hi_val_share:.1f}% of all low-deposit (&gt;80% LVR) mortgage lending dollars</strong> (<strong>{fmt_nzd_millions(float(fhb_hi_val.iloc[i]))} of {fmt_nzd_millions(float(all_hi_val.iloc[i]))}</strong>) and <strong>{fhb_hi_cnt_share:.1f}% of low-deposit loans</strong> (<strong>{fhb_hi_loans_int:,} of {all_hi_loans_int:,}</strong>) nationwide.",
+            f"In {m_full}, first-home buyers accounted for <strong>{fhb_hi_val_share:.1f}% of all &gt;80% LVR mortgage lending dollars</strong> (<strong>{fmt_nzd_millions(float(fhb_hi_val.iloc[i]))} of {fmt_nzd_millions(float(all_hi_val.iloc[i]))}</strong>) and <strong>{fhb_hi_cnt_share:.1f}% of &gt;80% LVR loans</strong> (<strong>{fhb_hi_loans_int:,} of {all_hi_loans_int:,}</strong>) across New Zealand registered banks.",
             f"RBNZ Table C31 ({m_full}): FHB >80% LVR = ${hi_dollars_m:,.0f}m ({fhb_hi_loans_int:,} loans); All Borrower >80% LVR = ${float(all_hi_val.iloc[i]):,.0f}m ({all_hi_loans_int:,} loans).",
             fhb_hi_val_share, f"{fhb_hi_val_share:.1f}% of >80% LVR dollars | {fhb_hi_cnt_share:.1f}% of >80% LVR loans",
             f"{float(ser_fhb_prio_pct.iloc[iy]):.1f}%",
@@ -4082,7 +4077,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_fhb_prio_pct, lambda x: f"{x:.1f}%"),
         ),
         "fhb-20-deposit-club": make_c31_item(
-            f"In {m_full}, <strong>{std_dep_pct:.1f}%</strong> of first-home buyers (<strong>{fhb_lo_loans_int:,} borrowers</strong>, or <strong>{fmt_nzd_millions(fhb_lo_val_cur)}</strong> in lending) purchased with a <strong>20% or greater deposit</strong> (&le;80% LVR), with an average mortgage size of <strong>${avg_lo_loan:,}</strong>.",
+            f"In {m_full}, <strong>{std_dep_pct:.1f}%</strong> of first-home buyer commitments (<strong>{fhb_lo_loans_int:,} borrowers</strong>, or <strong>{fmt_nzd_millions(fhb_lo_val_cur)}</strong> in lending) were written with a <strong>20% or greater deposit</strong> (&le;80% LVR), with an average loan size of <strong>${avg_lo_loan:,}</strong>.",
             f"RBNZ Table C31 ({m_full}): {fhb_lo_loans_int:,} <=80% LVR FHB borrowers (${fhb_lo_val_cur:,.0f}m) out of {fhb_loans_int:,} total FHB borrowers.",
             std_dep_pct, f"{std_dep_pct:.1f}% ({fhb_lo_loans_int:,} loans, avg ${avg_lo_loan:,})",
             f"{float(ser_fhb_20club_pct.iloc[iy]):.1f}%",
@@ -4091,16 +4086,16 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_fhb_20club_pct, lambda x: f"{x:.1f}%"),
         ),
         "fhb-vs-investors": make_c31_item(
-            f"In {m_full}, first-home buyers borrowed <strong>{fmt_nzd_millions(fhb_v)} ({fhb_sh:.1f}% of new lending)</strong> compared with <strong>{fmt_nzd_millions(inv_v)} ({inv_sh:.1f}%)</strong> for residential property investors" + (f"—a lead of <strong>+{fmt_nzd_millions(abs(diff_fi))}</strong> toward first-home buyers." if diff_fi >= 0 else "."),
+            f"In {m_full}, first-home buyers committed <strong>{fmt_nzd_millions(fhb_v)} ({fhb_sh:.1f}% of new lending)</strong> compared with <strong>{fmt_nzd_millions(inv_v)} ({inv_sh:.1f}%)</strong> for residential property investors" + (f"—a difference of <strong>+{fmt_nzd_millions(abs(diff_fi))}</strong>." if diff_fi >= 0 else "."),
             f"RBNZ Table C31 ({m_full}): FHB lending = ${fhb_v:,.0f}m ({fhb_loans_int:,} loans); Investor lending = ${inv_v:,.0f}m ({inv_c_tot:,} loans).",
             diff_fi, f"FHB {fmt_nzd_millions(fhb_v)} vs Investors {fmt_nzd_millions(inv_v)}",
-            f"{fmt_nzd_millions(float(ser_fhb_vs_inv_m.iloc[iy]))} FHB minus Investor gap",
-            f"{fmt_nzd_millions(diff_fi)} FHB lead in {m_full}",
+            f"{fmt_nzd_millions(float(ser_fhb_vs_inv_m.iloc[iy]))} FHB minus Investor difference",
+            f"{fmt_nzd_millions(diff_fi)} FHB minus Investor difference in {m_full}",
             f"${fhb_v:,.0f}m (FHB) minus ${inv_v:,.0f}m (Investors) = {diff_fi:+,.0f}m",
             make_history_list(dates, ser_fhb_vs_inv_m, lambda x: f"{x:+.0f}m (FHB vs Inv)"),
         ),
         "owner-equity-buffer": make_c31_item(
-            f"In {m_full}, <strong>{oo_20eq_pct:.1f}%</strong> of existing owner-occupier mortgages (<strong>{int(round(oo_lo_c)):,} of {oo_tot_c_int:,} loans</strong>, totalling <strong>{fmt_nzd_millions(oo_lo_v)}</strong>) were approved with at least <strong>20% equity</strong> (&le;80% LVR), at an average loan size of <strong>${oo_avg_20eq:,}</strong>.",
+            f"In {m_full}, <strong>{oo_20eq_pct:.1f}%</strong> of existing ('other') owner-occupier mortgage commitments (<strong>{int(round(oo_lo_c)):,} of {oo_tot_c_int:,} loans</strong>, totalling <strong>{fmt_nzd_millions(oo_lo_v)}</strong>) were written with at least <strong>20% equity</strong> (&le;80% LVR), at an average commitment size of <strong>${oo_avg_20eq:,}</strong>.",
             f"RBNZ Table C31 ({m_full}): {int(round(oo_lo_c)):,} <=80% LVR other owner-occupier borrowers (${oo_lo_v:,.0f}m) out of {oo_tot_c_int:,} total other owner-occupier borrowers.",
             oo_20eq_pct, f"{oo_20eq_pct:.1f}% at <=80% LVR (avg loan ${oo_avg_20eq:,})",
             f"{float(ser_oo_20eq_pct.iloc[iy]):.1f}%",
@@ -4109,7 +4104,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_oo_20eq_pct, lambda x: f"{x:.1f}%"),
         ),
         "investor-equity-tiers": make_c31_item(
-            f"In {m_full}, <strong>{inv_40plus_pct:.1f}%</strong> of property investor mortgages were written with at least 40% equity (<strong>&le;60% LVR</strong>, {inv_le60_c:,} loans), <strong>{inv_30to40_pct:.1f}%</strong> with 30%–40% equity (<strong>60%–70% LVR</strong>, {inv_30to40_c:,} loans), and <strong>{inv_u30_pct:.1f}%</strong> with under 30% equity (<strong>&gt;70% LVR</strong>, {inv_u30_cnt:,} loans / {fmt_nzd_millions(inv_u30_val)}).",
+            f"In {m_full}, <strong>{inv_40plus_pct:.1f}%</strong> of property investor mortgage commitments were written with at least 40% equity (<strong>&le;60% LVR</strong>, {inv_le60_c:,} loans), <strong>{inv_30to40_pct:.1f}%</strong> with 30%–40% equity (<strong>60%–70% LVR</strong>, {inv_30to40_c:,} loans), and <strong>{inv_u30_pct:.1f}%</strong> with under 30% equity (<strong>&gt;70% LVR</strong>, {inv_u30_cnt:,} loans / {fmt_nzd_millions(inv_u30_val)}).",
             f"RBNZ Table C31 ({m_full}): Total investors = {inv_c_tot:,}; <=60% LVR = {inv_le60_c:,}; >60% LVR = {int(round(float(inv_gt60_cnt.iloc[i]))):,}; >70% LVR = {inv_u30_cnt:,} (${inv_u30_val:,.0f}m).",
             inv_40plus_pct, f"<=60% LVR: {inv_40plus_pct:.1f}% | 60–70% LVR: {inv_30to40_pct:.1f}% | >70% LVR: {inv_u30_pct:.1f}%",
             f"{100.0 - float(ser_inv_u30_pct.iloc[iy]):.1f}% at <=70% LVR",
@@ -4118,7 +4113,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, 100.0 - ser_inv_u30_pct, lambda x: f"{x:.1f}% (<=70% LVR)"),
         ),
         "investor-low-deposit": make_c31_item(
-            f"In {m_full}, <strong>{inv_gt80_c:,} property investor mortgages ({fmt_nzd_millions(inv_gt80_v)})</strong> were approved with under a 20% deposit (<strong>&gt;80% LVR</strong>, or <strong>{inv_gt80_pct:.1f}%</strong> of investors, {inv_dir_prev} {inv_gt80_c_prev:,} loans a year earlier){inv_12m_clause}, alongside <strong>{inv_70to80_c:,} investor loans ({fmt_nzd_millions(inv_70to80_v)}, or {inv_70to80_pct:.1f}%)</strong> in the <strong>70%–80% LVR</strong> band.",
+            f"In {m_full}, <strong>{inv_gt80_c:,} property investor mortgage commitments ({fmt_nzd_millions(inv_gt80_v)})</strong> were written with under a 20% deposit (<strong>&gt;80% LVR</strong>, or <strong>{inv_gt80_pct:.1f}%</strong> of investors, {inv_dir_prev} {inv_gt80_c_prev:,} loans a year earlier){inv_12m_clause}, alongside <strong>{inv_70to80_c:,} investor loans ({fmt_nzd_millions(inv_70to80_v)}, or {inv_70to80_pct:.1f}%)</strong> in the <strong>70%–80% LVR</strong> band.",
             f"RBNZ Table C31 ({m_full}): >80% LVR investors = {inv_gt80_c:,} loans (${inv_gt80_v:,.0f}m); >70% LVR investors = {inv_u30_cnt:,} loans (${inv_u30_val:,.0f}m).",
             float(inv_gt80_c), f">80% LVR: {inv_gt80_c:,} loans (${inv_gt80_v:,.0f}m) | 70–80% LVR: {inv_70to80_c:,} loans (${inv_70to80_v:,.0f}m)",
             f"{inv_gt80_c_prev:,} loans (${inv_gt80_v_prev:,.0f}m) >80% LVR",
@@ -4127,7 +4122,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, inv_gt80_cnt, lambda x: f"{int(round(x)):,} loans (>80% LVR)"),
         ),
         "investor-new-build-lvr": make_c31_item(
-            f"In {m_full}, <strong>{inv_u30_pct:.1f}%</strong> of property investor mortgages (<strong>{inv_u30_cnt:,} loans</strong> totalling <strong>{fmt_nzd_millions(inv_u30_val)}</strong>) were approved above the standard 70% LVR threshold—comprising <strong>{inv_70to80_c:,} loans ({fmt_nzd_millions(inv_70to80_v)})</strong> at 70%–80% LVR and <strong>{inv_gt80_c:,} loans ({fmt_nzd_millions(inv_gt80_v)})</strong> above 80% LVR.",
+            f"In {m_full}, <strong>{inv_u30_pct:.1f}%</strong> of property investor mortgage commitments (<strong>{inv_u30_cnt:,} loans</strong> totalling <strong>{fmt_nzd_millions(inv_u30_val)}</strong>) were written above 70% LVR—comprising <strong>{inv_70to80_c:,} loans ({fmt_nzd_millions(inv_70to80_v)})</strong> at 70%–80% LVR and <strong>{inv_gt80_c:,} loans ({fmt_nzd_millions(inv_gt80_v)})</strong> above 80% LVR.",
             f"RBNZ Table C31 ({m_full}): >70% LVR investors = {inv_u30_cnt:,} loans (${inv_u30_val:,.0f}m) out of {inv_c_tot:,} total investor loans.",
             inv_u30_pct, f"{inv_u30_pct:.1f}% at >70% LVR ({inv_u30_cnt:,} loans / ${inv_u30_val:,.0f}m)",
             f"{float(ser_inv_u30_pct.iloc[iy]):.1f}%",
@@ -4136,7 +4131,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_inv_u30_pct, lambda x: f"{x:.1f}% (>70% LVR)"),
         ),
         "mover-low-equity": make_c31_item(
-            f"In {m_full}, <strong>{oo_low_eq_pct:.1f}%</strong> of existing owner-occupier mortgages (<strong>{int(round(oo_hi_c)):,} loans</strong> totalling <strong>{fmt_nzd_millions(oo_hi_v)}</strong>) were approved above <strong>80% LVR</strong> (under 20% equity), {plain_prior_year_pct(oo_low_eq_pct, oo_low_eq_prev)}.",
+            f"In {m_full}, <strong>{oo_low_eq_pct:.1f}%</strong> of existing ('other') owner-occupier mortgage commitments (<strong>{int(round(oo_hi_c)):,} loans</strong> totalling <strong>{fmt_nzd_millions(oo_hi_v)}</strong>) were written above <strong>80% LVR</strong> (under 20% equity), {plain_prior_year_pct(oo_low_eq_pct, oo_low_eq_prev)}.",
             f"RBNZ Table C31 ({m_full}): {int(round(oo_hi_c)):,} >80% LVR other owner-occupier loans (${oo_hi_v:,.0f}m) out of {oo_tot_c_int:,} total other owner-occupier loans.",
             oo_low_eq_pct, f"{oo_low_eq_pct:.1f}% at >80% LVR ({int(round(oo_hi_c)):,} loans / ${oo_hi_v:,.0f}m)",
             f"{oo_low_eq_prev:.1f}%",
@@ -4145,7 +4140,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
             make_history_list(dates, ser_oo_low_eq_pct, lambda x: f"{x:.1f}%"),
         ),
         "new-build-lvr-exemption-flow": make_c31_item(
-            f"In {m_full}, non-first-home-buyer lending above standard LVR thresholds totalled <strong>{fmt_nzd_millions(comb_ex_v)} across {comb_ex_c:,} loans</strong>—comprising <strong>{int(round(oo_hi_c)):,} existing owner-occupier loans ({fmt_nzd_millions(oo_hi_v)})</strong> above 80% LVR and <strong>{inv_u30_cnt:,} investor loans ({fmt_nzd_millions(inv_u30_val)})</strong> above 70% LVR.",
+            f"In {m_full}, non-first-home-buyer mortgage commitments above standard LVR thresholds totalled <strong>{fmt_nzd_millions(comb_ex_v)} across {comb_ex_c:,} loans</strong>—comprising <strong>{int(round(oo_hi_c)):,} existing owner-occupier loans ({fmt_nzd_millions(oo_hi_v)})</strong> above 80% LVR and <strong>{inv_u30_cnt:,} investor loans ({fmt_nzd_millions(inv_u30_val)})</strong> above 70% LVR.",
             f"RBNZ Table C31 ({m_full}): Other owner-occupiers >80% LVR = {int(round(oo_hi_c)):,} loans (${oo_hi_v:,.0f}m); Investors >70% LVR = {inv_u30_cnt:,} loans (${inv_u30_val:,.0f}m).",
             comb_ex_v, f"{fmt_nzd_millions(comb_ex_v)} across {comb_ex_c:,} high-LVR mover & investor loans",
             f"{fmt_nzd_millions(comb_ex_v_prev)} ({comb_ex_c_prev:,} loans)",
@@ -4164,8 +4159,8 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         r12_hi_pct = (r12_hi_cnt / max(1, r12_cnt)) * 100.0
         dir_r12 = "up from" if r12_cnt > r12_prev_cnt else "compared with"
         out["fhb-annual-milestone"] = make_c31_item(
-            f"Over the 12 months to {m_full}, <strong>{r12_cnt:,} first-home buyers</strong> were approved for mortgages totalling <strong>{fmt_nzd_millions(r12_val)}</strong> across New Zealand ({dir_r12} {r12_prev_cnt:,} loans a year earlier)—including <strong>{r12_hi_cnt:,} borrowers ({r12_hi_pct:.1f}%)</strong> purchasing with under a 20% deposit (&gt;80% LVR).",
-            f"RBNZ Table C31 (12 months to {m_full}): Sum of monthly FHB approvals = {r12_cnt:,} loans (${r12_val:,.0f}m); >80% LVR FHB approvals = {r12_hi_cnt:,} loans.",
+            f"Over the 12 months to {m_full}, <strong>{r12_cnt:,} first-home buyer mortgage commitments</strong> totalling <strong>{fmt_nzd_millions(r12_val)}</strong> were recorded across New Zealand registered banks ({dir_r12} {r12_prev_cnt:,} loans a year earlier)—including <strong>{r12_hi_cnt:,} commitments ({r12_hi_pct:.1f}%)</strong> written with under a 20% deposit (&gt;80% LVR).",
+            f"RBNZ Table C31 (12 months to {m_full}): Sum of monthly FHB commitments = {r12_cnt:,} loans (${r12_val:,.0f}m); >80% LVR FHB commitments = {r12_hi_cnt:,} loans.",
             float(r12_cnt), f"{r12_cnt:,} loans / {fmt_nzd_millions(r12_val)} (12m rolling)", f"{r12_prev_cnt:,} loans",
             f"{r12_cnt - r12_prev_cnt:+,d} annual FHB loans YoY",
             f"12-month sum = {r12_cnt:,} loans (${r12_val:,.0f}m); >80% LVR share = {r12_hi_cnt:,} ÷ {r12_cnt:,} = {r12_hi_pct:.1f}%",
@@ -4240,9 +4235,9 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
-                f"In {m_full}, <strong>{ref_cnt_int:,}</strong> New Zealand mortgage holders switched lenders, refinancing "
+                f"In {m_full}, <strong>{ref_cnt_int:,}</strong> New Zealand mortgage commitments involved switching loan providers, refinancing "
                 f"<strong>${ref_val_m/1000.0:.2f}B (${ref_val_m:,.0f}m)</strong> in home loans—representing <strong>{ref_sh:.1f}%</strong> "
-                f"of all new residential mortgage lending, at an average loan size of <strong>${ref_avg_nzd:,}</strong>."
+                f"of all new residential mortgage lending, at an average commitment size of <strong>${ref_avg_nzd:,}</strong>."
             ),
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Change in loan provider = {ref_cnt_int:,} borrowers and ${ref_val_m:,.0f}m out of ${tot_v:,.0f}m total purpose lending.",
             "source_html": format_provenance_source_html(ref_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
@@ -4261,15 +4256,15 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
-                f"In {m_full}, <strong>{top_cnt_int:,}</strong> homeowners were approved for a mortgage top-up on their existing property—"
-                f"accounting for <strong>{top_sh_c:.1f}%</strong> of all mortgage approvals across New Zealand, with an average top-up of "
+                f"In {m_full}, <strong>{top_cnt_int:,}</strong> mortgage top-up commitments were recorded on existing properties—"
+                f"accounting for <strong>{top_sh_c:.1f}%</strong> of all mortgage commitments by purpose across New Zealand registered banks, with an average top-up of "
                 f"<strong>${top_avg_nzd:,}</strong>."
             ),
-            "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up approvals = {top_cnt_int:,} borrowers (${top_val_m:,.0f}m) out of {tot_c:,} total approvals.",
+            "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up commitments = {top_cnt_int:,} borrowers (${top_val_m:,.0f}m) out of {tot_c:,} total commitments.",
             "source_html": format_provenance_source_html(top_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
             "latest_period": m_full,
             "value": round(top_sh_c, 2),
-            "latest_value": f"{top_sh_c:.1f}% of approvals ({top_cnt_int:,} top-ups, avg ${top_avg_nzd:,})",
+            "latest_value": f"{top_sh_c:.1f}% of commitments ({top_cnt_int:,} top-ups, avg ${top_avg_nzd:,})",
             "previous_period": f"{dates.iloc[jy].strftime('%B %Y')} ({float(top_sh_c_ser.iloc[jy]):.1f}%)",
             "change": f"{top_sh_c - float(top_sh_c_ser.iloc[jy]):+.1f} percentage points YoY",
             "calculation_live": top_calc,
@@ -4282,8 +4277,8 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
-                f"In {m_full}, New Zealand homeowners unlocked <strong>{fmt_nzd_millions(top_val_m)} in mortgage top-ups</strong> across "
-                f"<strong>{top_cnt_int:,} approvals</strong>, at an average of <strong>${top_avg_nzd:,}</strong> per top-up."
+                f"In {m_full}, New Zealand registered banks committed <strong>{fmt_nzd_millions(top_val_m)} in mortgage top-ups</strong> across "
+                f"<strong>{top_cnt_int:,} commitments</strong>, at an average of <strong>${top_avg_nzd:,}</strong> per top-up."
             ),
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up lending value = ${top_val_m:,.0f}m across {top_cnt_int:,} borrowers.",
             "source_html": format_provenance_source_html(eq_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
@@ -4341,7 +4336,7 @@ def build_rbnz_c32_ticker(filepath: pathlib.Path, c31_by_ym: dict | None = None)
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
-                f"In {m_full}, <strong>{inv_io_pct:.1f}%</strong> of new residential investor mortgage lending was written on "
+                f"In {m_full}, <strong>{inv_io_pct:.1f}%</strong> of new residential investor mortgage lending at registered banks was written on "
                 f"<strong>interest-only</strong> terms, compared with <strong>{oo_io_pct:.1f}%</strong> for owner-occupiers."
             ),
             "official_data_summary": f"RBNZ Table C32 ({m_full}): New investor interest-only = ${float(inv_io.iloc[-1]):,.0f}m of ${float(inv_tot.iloc[-1]):,.0f}m; New owner-occupier interest-only = ${float(oo_io.iloc[-1]):,.0f}m of ${float(oo_tot.iloc[-1]):,.0f}m.",
@@ -4526,7 +4521,7 @@ def build_rbnz_dti_income_tickers(
                 c40_calc = f"${last_hi_v:,.1f}m ÷ ${last_tot_v:,.1f}m = {val_pct:.1f}% (Benchmark diff: 20.0% - {val_pct:.1f}% = {diff_cap:.1f} pts)"
                 out["dti-headroom"] = mk_dti_rec(
                     "RBNZ C40", month_end_iso(dt_dti), pub_c40,
-                    f"In {m_full}, <strong>{val_pct:.1f}%</strong> of first-home buyer mortgage lending had a <strong>Debt-to-Income (DTI) ratio above 6x</strong> (${last_hi_v:,.1f}m of ${last_tot_v:,.1f}m)—sitting <strong>{diff_cap:.1f} percentage points</strong> below the 20% RBNZ speed-limit cap.",
+                    f"In {m_full}, <strong>{val_pct:.1f}%</strong> of first-home buyer mortgage commitments at registered banks had a <strong>Debt-to-Income (DTI) ratio above 6x</strong> (${last_hi_v:,.1f}m of ${last_tot_v:,.1f}m)—sitting <strong>{diff_cap:.1f} percentage points</strong> below the 20% RBNZ speed-limit allowance.",
                     f"RBNZ Table C40 ({m_full}): FHB lending with TDTI > 6 = ${last_hi_v:,.1f}m out of ${last_tot_v:,.1f}m total FHB commitments.",
                     "RBNZ Table C40 (Reserve Bank of New Zealand)", c40_url, m_full, round(val_pct, 2),
                     f"{val_pct:.1f}% at >6x DTI ({diff_cap:.1f} pts below 20% benchmark)",
@@ -4578,7 +4573,7 @@ def build_rbnz_dti_income_tickers(
                 inv_c40_calc = f"${inv_hi_v:,.1f}m ÷ ${inv_tot_v:,.1f}m = {inv_pct_v:.1f}% (Headroom below 20% investor speed limit: 20.0% - {inv_pct_v:.1f}% = {inv_headroom:.1f} pts)"
                 out["investor-high-dti-share"] = mk_dti_rec(
                     "RBNZ C40", month_end_iso(inv_dt), pub_c40,
-                    f"In {m_inv}, <strong>{inv_pct_v:.1f}%</strong> of residential property investor mortgage lending had a <strong>Debt-to-Income (DTI) ratio above 7x</strong> (${inv_hi_v:,.1f}m of ${inv_tot_v:,.1f}m)—sitting <strong>{inv_headroom:.1f} percentage points</strong> below the 20% RBNZ investor speed-limit cap.",
+                    f"In {m_inv}, <strong>{inv_pct_v:.1f}%</strong> of residential property investor mortgage commitments at registered banks had a <strong>Debt-to-Income (DTI) ratio above 7x</strong> (${inv_hi_v:,.1f}m of ${inv_tot_v:,.1f}m)—sitting <strong>{inv_headroom:.1f} percentage points</strong> below the 20% RBNZ investor speed-limit allowance.",
                     f"RBNZ Table C40 ({m_inv}): Property investor lending with TDTI > 7 = ${inv_hi_v:,.1f}m out of ${inv_tot_v:,.1f}m total investor commitments.",
                     "RBNZ Table C40 (Reserve Bank of New Zealand)", c40_url, m_inv, round(inv_pct_v, 2),
                     f"{inv_pct_v:.1f}% at >7x DTI ({inv_headroom:.1f} pts below 20% investor cap)",
@@ -4619,9 +4614,9 @@ def build_rbnz_dti_income_tickers(
                     + (f" | Investor: ${inv_pool_m:,.1f}m ÷ {inv_imp_apps:,.1f} = ${inv_inc:,.0f}" if inv_inc else "")
                 )
                 bgi_html = (
-                    f"In {m_c41}, approved New Zealand first-home buyer mortgage applications averaged <strong>${fhb_inc_int:,}</strong> in gross borrower income, compared with <strong>${inv_inc:,.0f}</strong> across approved property investor applications."
+                    f"In {m_c41}, approved New Zealand first-home buyer mortgage applications at registered banks averaged <strong>${fhb_inc_int:,}</strong> in combined gross borrower income, compared with <strong>${inv_inc:,.0f}</strong> across approved property investor applications."
                     if inv_inc and 40000 <= inv_inc <= 900000
-                    else f"In {m_c41}, approved New Zealand first-home buyer mortgage applications averaged <strong>${fhb_inc_int:,}</strong> in gross borrower income (ranging from <strong>${lo_band:,}</strong> to <strong>${hi_band:,}</strong> across DTI bands)."
+                    else f"In {m_c41}, approved New Zealand first-home buyer mortgage applications at registered banks averaged <strong>${fhb_inc_int:,}</strong> in combined gross borrower income (ranging from <strong>${lo_band:,}</strong> to <strong>${hi_band:,}</strong> across DTI bands)."
                 )
                 out["borrower-income"] = mk_dti_rec(
                     "RBNZ C41", as_of_c41, pub_c41, bgi_html,
@@ -4635,7 +4630,7 @@ def build_rbnz_dti_income_tickers(
                 typ_inc_calc = f"${fhb_pool_m:,.1f}m total FHB gross income pool × $1m ÷ {fhb_imp_apps:,.1f} implied FHB applications = ${fhb_inc_int:,}"
                 out["fhb-typical-income"] = mk_dti_rec(
                     "RBNZ C41", as_of_c41, pub_c41,
-                    f"In {m_c41}, the typical (borrower-weighted average) gross household income across approved New Zealand first-home buyer mortgage applications was <strong>${fhb_inc_int:,}</strong> ({plain_yoy_growth(fhb_inc_int, prev_inc_nzd)} from ${prev_inc_nzd:,} a year earlier).",
+                    f"In {m_c41}, the borrower-weighted average combined gross borrower income across approved New Zealand first-home buyer mortgage applications at registered banks was <strong>${fhb_inc_int:,}</strong> ({plain_yoy_growth(fhb_inc_int, prev_inc_nzd)} from ${prev_inc_nzd:,} a year earlier).",
                     f"RBNZ Table C41 ({m_c41}): Total FHB gross income pool = ${fhb_pool_m:,.1f}m across {fhb_imp_apps:,.1f} implied applications (band averages: ${lo_band:,}–${hi_band:,}).",
                     "RBNZ Table C41 (Reserve Bank of New Zealand)", c41_url, m_c41, fhb_inc_int,
                     f"${fhb_inc_int:,} typical FHB gross application income",
@@ -4647,7 +4642,7 @@ def build_rbnz_dti_income_tickers(
                 band_calc = f"${fhb_pool_m:,.1f}m total band income × $1m ÷ {fhb_imp_apps:,.1f} total implied applications = ${fhb_inc_int:,}"
                 out["fhb-income-by-dti-band"] = mk_dti_rec(
                     "RBNZ C41", as_of_c41, pub_c41,
-                    f"In {m_c41}, average gross borrower incomes across New Zealand first-home buyer Debt-to-Income bands ranged from <strong>${lo_band:,}</strong> to <strong>${hi_band:,}</strong>, with an overall average of <strong>${fhb_inc_int:,}</strong>.",
+                    f"In {m_c41}, average combined gross borrower incomes across New Zealand first-home buyer Debt-to-Income bands ranged from <strong>${lo_band:,}</strong> to <strong>${hi_band:,}</strong>, with an overall band-weighted average of <strong>${fhb_inc_int:,}</strong>.",
                     f"RBNZ Table C41 ({m_c41}) Official FHB Band Figures: {band_summary_str}.",
                     "RBNZ Table C41 (Reserve Bank of New Zealand)", c41_url, m_c41, fhb_inc_int,
                     f"${fhb_inc_int:,} HLF mean | Official C41 bands: ${lo_band:,}–${hi_band:,}",
@@ -4679,7 +4674,7 @@ def build_rbnz_dti_income_tickers(
                     )
                     out["fhb-typical-dti"] = mk_dti_rec(
                         "RBNZ C31, C40 & C41", as_of_c41, pub_c40,
-                        f"In {m_c41}, approved New Zealand first-home buyers borrowed an implied mortgage-to-income multiple of <strong>{implied_dti_x:.2f}x gross income</strong> (${avg_loan_for_dti:,} average loan on ${fhb_inc_int:,} average gross income), with <strong>{le6_pct:.1f}% of all first-home buyer lending</strong> written at or below <strong>6x TDTI</strong> (and <strong>{le5_pct:.1f}%</strong> at or below <strong>5x TDTI</strong>).",
+                        f"In {m_c41}, approved New Zealand first-home buyers had an implied mortgage-to-income ratio of <strong>{implied_dti_x:.2f}x gross application income</strong> (${avg_loan_for_dti:,} average loan divided by ${fhb_inc_int:,} average gross borrower income), while in RBNZ Table C40 <strong>{le6_pct:.1f}% of all first-home buyer lending</strong> was written at or below <strong>6x TDTI</strong> (and <strong>{le5_pct:.1f}%</strong> at or below <strong>5x TDTI</strong>).",
                         f"RBNZ Tables C31, C40 & C41 ({m_c41}): Average FHB loan = ${avg_loan_for_dti:,}; Average FHB gross income = ${fhb_inc_int:,}; FHB lending <= 6x TDTI = {le6_pct:.1f}% (<= 5x TDTI = {le5_pct:.1f}%; > 6x TDTI = {gt6_pct:.1f}%).",
                         "RBNZ Tables C31, C40 & C41 (Reserve Bank of New Zealand)", c40_url, m_c41, implied_dti_x,
                         f"{implied_dti_x:.2f}x implied mortgage-to-income ratio | {le6_pct:.1f}% <= 6x TDTI",
@@ -4724,7 +4719,7 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathli
             "as_of": as_of_b30,
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
-            "html": f"In {m_full}, the average settled fixed mortgage interest rate across New Zealand owner-occupiers was <strong>{v1:.2f}%</strong> for 1-year terms and <strong>{v2:.2f}%</strong> for 2-year terms.",
+            "html": f"In {m_full}, the volume-weighted average fixed mortgage interest rate on new owner-occupier commitments at New Zealand registered banks was <strong>{v1:.2f}%</strong> for 1-year terms and <strong>{v2:.2f}%</strong> for 2-year terms.",
             "official_data_summary": f"RBNZ Table B30 ({m_full}): Weighted-average settled owner-occupier rate = {v1:.2f}% (1-year fixed) and {v2:.2f}% (2-year fixed).",
             "source_html": format_provenance_source_html(b30_calc, "RBNZ Table B30 (Reserve Bank of New Zealand)", b30_url, False),
             "latest_period": m_full,
@@ -4800,7 +4795,7 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathli
 
                         out["existing-mortgage-stock-lvr-refix"] = make_pulse_item(
                             "RBNZ Table S33", as_of33, MAX_AGE_MONTHLY,
-                            f"As at {m33}, across New Zealand's <strong>${tot_b:.1f}B</strong> existing residential mortgage stock (RBNZ Table S33), <strong>{fl_sh:.1f}% (${fl_b:.1f}B)</strong> was on floating rates and <strong>{fx_sh:.1f}% (${fx_b:.1f}B)</strong> on fixed rates—with <strong>{rep12_pct:.1f}% (${rep12_b:.1f}B)</strong> of fixed debt scheduled to reprice within 12 months" + (f" (and <strong>{rep6_pct:.1f}%</strong> within 6 months)." if rep6_pct > 0 else "."),
+                            f"As at {m33}, across New Zealand registered banks' <strong>${tot_b:.1f}B</strong> existing residential mortgage stock (RBNZ Table S33), <strong>{fl_sh:.1f}% (${fl_b:.1f}B)</strong> was on floating rates and <strong>{fx_sh:.1f}% (${fx_b:.1f}B)</strong> on fixed rates—with <strong>{rep12_pct:.1f}% (${rep12_b:.1f}B)</strong> of fixed debt scheduled to reprice within 12 months" + (f" (and <strong>{rep6_pct:.1f}%</strong> within 6 months)." if rep6_pct > 0 else "."),
                             f"RBNZ Table S33 ({m33}): Total existing mortgage stock = ${tot_b:.1f}B; Fixed = ${fx_b:.1f}B ({fx_sh:.1f}%); Floating = ${fl_b:.1f}B ({fl_sh:.1f}%); Repricing <=12m = ${rep12_b:.1f}B ({rep12_pct:.1f}%).",
                             format_provenance_source_html(f"Fixed Share: ${fx_b:.2f}B ÷ ${tot_b:.2f}B = {fx_sh:.1f}%{rep12_calc}", "RBNZ Table S33 — Existing Mortgage Stock Repricing", s33_page, True),
                             m33, round(rep12_pct, 1),
@@ -4820,7 +4815,7 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathli
                         "source_published": s33_pub,
                         "source_url": s33_page,
                         "max_age_days": MAX_AGE_MONTHLY,
-                        "html": f"As at {m33}, across New Zealand's <strong>${tot_b:.1f}B</strong> in bank loans fully secured by residential mortgage, <strong>{fx_sh:.1f}% (${fx_b:.1f}B)</strong> was held on fixed interest rates and <strong>{fl_sh:.1f}% (${fl_b:.1f}B)</strong> on floating rates{rep12_clause}.",
+                        "html": f"As at {m33}, across New Zealand registered banks' <strong>${tot_b:.1f}B</strong> in loans fully secured by residential mortgage, <strong>{fx_sh:.1f}% (${fx_b:.1f}B)</strong> was held on fixed interest rates and <strong>{fl_sh:.1f}% (${fl_b:.1f}B)</strong> on floating rates{rep12_clause}.",
                         "official_data_summary": f"RBNZ Table S33 ({m33}): Total residential mortgage loans = ${tot_m:,.0f}m; Fixed-rate loans = ${fx_m:,.0f}m ({fx_sh:.1f}%); Floating loans = ${fl_m:,.0f}m ({fl_sh:.1f}%).",
                         "source_html": format_provenance_source_html(s33_calc, "RBNZ Table S33 — Loans by Repricing (Reserve Bank of New Zealand)", s33_page, True),
                         "latest_period": m33,
