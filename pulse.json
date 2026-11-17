@@ -23,11 +23,11 @@
   "date_modified": "2026-11-17",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-17",
-  "dataset_generated_utc": "2026-11-17T07:45:04Z",
+  "dataset_generated_utc": "2026-11-17T09:31:21Z",
   "latest_underlying_data": "September 2026",
   "data_status": "verified",
   "source_status": "current",
-  "active_datasets_count": 95,
+  "active_datasets_count": 98,
   "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, source_published reflects when the publisher released it, and observation_period / period_end reflect the period the data covers.",
   "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (CPI / HLPI / IRD / K\u0101inga Ora) & Annual (FMA / Stats NZ HILS / IRD Tax Distributions / NHC / ACC)",
   "fhb_snapshot": {
@@ -108,7 +108,7 @@
   },
   "reality_check_benchmarks": {
     "title": "HLF Pulse \u2014 Live-Verified NZ Financial Reality Check Benchmarks (Zero Hardcoded Fallbacks)",
-    "active_benchmark_series": 39,
+    "active_benchmark_series": 40,
     "series": {
       "fhb-typical-income": {
         "value": 144232,
@@ -2027,12 +2027,6 @@
             "formatted": "$759,000 median | $618,000 lower quartile (25%) (412 sales)"
           },
           {
-            "period": "Manawatu-Wanganui",
-            "label": "Manawatu-Wanganui",
-            "value": 527000,
-            "formatted": "$527,000 median | $412,000 lower quartile (25%) (357 sales)"
-          },
-          {
             "period": "Otago",
             "label": "Otago",
             "value": 641000,
@@ -2300,6 +2294,94 @@
           }
         ]
       },
+      "mcert-house-price-index-yoy": {
+        "value": 0.0,
+        "latest_value": "+0.0% YoY (MCERT SPAR HPI)",
+        "observation_period": "March 2026",
+        "period_end": "2026-03-31",
+        "source": "HUD / MCERT House Price Index",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/",
+        "breakdown": [
+          {
+            "period": "2025-09",
+            "label": "Sep 2025",
+            "value": 0.0,
+            "formatted": "+0.0% YoY"
+          },
+          {
+            "period": "2024-08",
+            "label": "Aug 2024",
+            "value": 0.07,
+            "formatted": "+0.1% YoY"
+          },
+          {
+            "period": "2024-07",
+            "label": "Jul 2024",
+            "value": 0.75,
+            "formatted": "+0.7% YoY"
+          },
+          {
+            "period": "2024-06",
+            "label": "Jun 2024",
+            "value": 0.9,
+            "formatted": "+0.9% YoY"
+          },
+          {
+            "period": "2024-06",
+            "label": "Jun 2024",
+            "value": 1.43,
+            "formatted": "+1.4% YoY"
+          },
+          {
+            "period": "2024-05",
+            "label": "May 2024",
+            "value": 1.58,
+            "formatted": "+1.6% YoY"
+          },
+          {
+            "period": "2024-05",
+            "label": "May 2024",
+            "value": 1.57,
+            "formatted": "+1.6% YoY"
+          },
+          {
+            "period": "2024-04",
+            "label": "Apr 2024",
+            "value": 1.43,
+            "formatted": "+1.4% YoY"
+          },
+          {
+            "period": "2024-04",
+            "label": "Apr 2024",
+            "value": 1.42,
+            "formatted": "+1.4% YoY"
+          },
+          {
+            "period": "2024-03",
+            "label": "Mar 2024",
+            "value": 1.19,
+            "formatted": "+1.2% YoY"
+          },
+          {
+            "period": "2024-03",
+            "label": "Mar 2024",
+            "value": 1.49,
+            "formatted": "+1.5% YoY"
+          },
+          {
+            "period": "2024-02",
+            "label": "Feb 2024",
+            "value": 0.52,
+            "formatted": "+0.5% YoY"
+          },
+          {
+            "period": "2024-02",
+            "label": "Feb 2024",
+            "value": 1.11,
+            "formatted": "+1.1% YoY"
+          }
+        ]
+      },
       "hpi-low-vs-high-value-tiers": {
         "value": 0.01,
         "latest_value": "Low-value (Q1): +0.0% YoY vs High-value (Q4): +0.0% YoY (-0.0 pts)",
@@ -2329,8 +2411,8 @@
         ]
       },
       "sales-composition-by-value-quartile": {
-        "value": 89.9,
-        "latest_value": "Q1 (Lowest): 89.9% | Q2: 2.2% | Q3: 3.8% | Q4 (Highest): 4.1%",
+        "value": 10.0,
+        "latest_value": "Q1 Lowest CV 10.0% | Q2 20.0% | Q3 30.0% | Q4 Highest CV 40.0%",
         "observation_period": "July 2026",
         "period_end": "2026-07-31",
         "source": "HUD / MCERT Property Statistics",
@@ -2339,26 +2421,26 @@
           {
             "period": "Q1 (Lowest 25% CV Stock)",
             "label": "Quartile 1 (Lowest Valuation 25% of Stock)",
-            "value": 89.9,
-            "formatted": "89.9% of sales (1,214 sales)"
+            "value": 10.0,
+            "formatted": "10.0% of sales (1 sales)"
           },
           {
             "period": "Q2 (25%\u201350% CV Stock)",
             "label": "Quartile 2 (Lower-Middle Valuation 25% of Stock)",
-            "value": 2.2,
-            "formatted": "2.2% of sales (30 sales)"
+            "value": 20.0,
+            "formatted": "20.0% of sales (2 sales)"
           },
           {
             "period": "Q3 (50%\u201375% CV Stock)",
             "label": "Quartile 3 (Upper-Middle Valuation 25% of Stock)",
-            "value": 3.8,
-            "formatted": "3.8% of sales (51 sales)"
+            "value": 30.0,
+            "formatted": "30.0% of sales (3 sales)"
           },
           {
             "period": "Q4 (Highest 25% CV Stock)",
             "label": "Quartile 4 (Highest Valuation 25% of Stock)",
-            "value": 4.1,
-            "formatted": "4.1% of sales (55 sales)"
+            "value": 40.0,
+            "formatted": "40.0% of sales (4 sales)"
           }
         ]
       },
@@ -6666,6 +6748,129 @@
       "frequency": "Annual (June Quarter)"
     },
     {
+      "ticker": "insurance-claims-trends",
+      "name": "New Zealand insurer Gross Premium Revenue, Net Earned Premiums & Net Claims (RBNZ J10)",
+      "also_known_as": "RBNZ Table J10 insurance sector premium revenue, reinsurance expense & claims",
+      "category": "Insurance Market & Claims",
+      "topic": "Insurer premiums, reinsurance & claims",
+      "value": 4.66,
+      "latest_value": "$4.66B Net Incurred Claims vs. $9.85B Gross Written Premiums",
+      "unit": "NZD_billions",
+      "observation_period": "Annual RBNZ Insurance Series",
+      "observed_period": "2026-06",
+      "period_end": "2026-06-30",
+      "source_published": "RBNZ semi-annual Insurance Statistics & Financial Stability Report release",
+      "last_checked": "2026-11-17",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-17",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Net Earned Premium (after reinsurance): $7.40B",
+      "change": "Reinsurance & catastrophe protection outflow: ~$2.45B/yr",
+      "source": "RBNZ Table J10",
+      "source_full": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
+      "source_series_ids": "RBNZ Table J10 \u2014 Gross Premium Revenue, Outwards Reinsurance Expense & Net Claims Expense",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ Table J10 series & HLF-derived reinsurance difference",
+      "definition": "Annual Gross Premium Revenue, Net Earned Premiums (after outwards reinsurance expense), and Net Incurred Claims across insurers surveyed in RBNZ Table J10.",
+      "formula": "Reinsurance Outflow = Gross Premium Revenue minus Net Earned Premium",
+      "hlf_interpretation": "HLF market context: Summarises aggregate gross premium revenue, outwards reinsurance expense, net earned premium, and net incurred claims reported by insurers in RBNZ Table J10.",
+      "methodology": "Live-parsed from RBNZ Table J10 (Insurance Income and Expenditure workbook), subtracting outwards reinsurance expense from gross premium revenue to show net earned premium and comparing against net claims expense. RBNZ Table J10 is compiled from the Reserve Bank's quarterly insurer survey.",
+      "historical_data_from": "RBNZ licensed general insurer financial series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand insurer Gross Premium Revenue, Net Earned Premiums & Net Claims (RBNZ J10),\" Annual RBNZ Insurance Series. Derived by HLF from Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10). https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/ (checked 17 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/",
+      "summary_text": "Licensed New Zealand general insurers collected approximately $9.85B in annual Gross Written Premiums ($7.40B in Net Earned Premiums after international reinsurance) and paid out $4.66B in Net Incurred Claims.",
+      "related_questions": [
+        "How much do insurers surveyed in RBNZ Table J10 collect in premiums and incur in net claims?",
+        "How much outwards reinsurance expense is reported in RBNZ Table J10?"
+      ],
+      "citation_chain": {
+        "official_source": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
+        "source_series_ids": "RBNZ Table J10 \u2014 Gross Premium Revenue, Outwards Reinsurance Expense & Net Claims Expense",
+        "hlf_transformation": "Gross Written Premiums ($9.85B) minus Reinsurance ($2.45B) = $7.40B Net Earned Premiums vs. $4.66B Net Claims",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json"
+      },
+      "history": [],
+      "latest_underlying_data": "Annual RBNZ Insurance Series",
+      "official_data": "RBNZ Insurance Statistics: Gross Written Premiums = ~$9.85B; Net Earned Premiums = ~$7.40B; Net Incurred Claims = ~$4.66B.",
+      "hlf_calculation": "Gross Written Premiums ($9.85B) minus Reinsurance ($2.45B) = $7.40B Net Earned Premiums vs. $4.66B Net Claims",
+      "frequency": "Quarterly / Annual"
+    },
+    {
+      "ticker": "insurer-loss-ratios",
+      "name": "New Zealand insurer net claims loss ratio (RBNZ Table J10)",
+      "also_known_as": "RBNZ Table J10 net incurred claims to net earned premium ratio",
+      "category": "Insurance Market & Claims",
+      "topic": "Insurer net claims loss ratio",
+      "value": 63.0,
+      "latest_value": "63.0% Net Loss Ratio ($4.66B claims \u00f7 $7.40B net earned premium)",
+      "unit": "percent",
+      "observation_period": "Annual RBNZ Insurance Series",
+      "observed_period": "2026-06",
+      "period_end": "2026-06-30",
+      "source_published": "RBNZ semi-annual Insurance Statistics & Financial Stability Report release",
+      "last_checked": "2026-11-17",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-17",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "2023 Severe Weather Event Peak: >85% net loss ratio",
+      "change": "Normalised from 2023 North Island weather catastrophe peak",
+      "source": "RBNZ Table J10",
+      "source_full": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
+      "source_series_ids": "RBNZ Table J10 \u2014 Net Claims Expense \u00f7 Net Premium Revenue",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
+      "derived_by_hlf": true,
+      "data_type": "HLF-derived percentage ratio from official RBNZ Table J10 series",
+      "definition": "The net claims loss ratio across insurers surveyed in RBNZ Table J10, measuring net incurred claims as a percentage of net earned premiums.",
+      "formula": "Net Loss Ratio (%) = (Net Claims Expense \u00f7 Net Earned Premium Revenue) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Measures net incurred claims as a proportion of net earned premiums (after reinsurance) across insurers surveyed in RBNZ Table J10.",
+      "methodology": "Derived live from RBNZ Table J10 by dividing annual Net Claims Expense by annual Net Earned Premium Revenue, multiplied by 100. Note that the net claims ratio excludes non-claim operating, acquisition, and administration expenses.",
+      "historical_data_from": "RBNZ insurer financial performance series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand insurer net claims loss ratio (RBNZ Table J10),\" Annual RBNZ Insurance Series. Derived by HLF from Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10). https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/ (checked 17 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/",
+      "summary_text": "Licensed New Zealand general insurers recorded a net claims loss ratio of 63.0%, paying out $4.66B in net incurred claims from $7.40B in net earned premiums.",
+      "related_questions": [
+        "What is the net claims loss ratio reported in RBNZ Table J10?"
+      ],
+      "citation_chain": {
+        "official_source": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
+        "source_series_ids": "RBNZ Table J10 \u2014 Net Claims Expense \u00f7 Net Premium Revenue",
+        "hlf_transformation": "($4.66B Net Incurred Claims \u00f7 $7.40B Net Earned Premiums) \u00d7 100 = 63.0%",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json"
+      },
+      "history": [],
+      "latest_underlying_data": "Annual RBNZ Insurance Series",
+      "official_data": "RBNZ General Insurance Series: Net Incurred Claims = $4.66B; Net Earned Premiums = $7.40B.",
+      "hlf_calculation": "($4.66B Net Incurred Claims \u00f7 $7.40B Net Earned Premiums) \u00d7 100 = 63.0%",
+      "frequency": "Quarterly / Annual"
+    },
+    {
       "ticker": "interest-only",
       "name": "Interest-only share of new investor vs owner-occupier mortgage lending",
       "also_known_as": "Investor vs owner-occupier interest-only mortgage proportion (RBNZ C32)",
@@ -9411,6 +9616,151 @@
       "frequency": "Monthly"
     },
     {
+      "ticker": "mcert-house-price-index-yoy",
+      "name": "Official Crown House Price Index (MCERT HPI): annual & 3-month quality-adjusted price change",
+      "also_known_as": "HUD / MCERT Sales Price to Appraisal Ratio (SPAR) House Price Index annual percentage change",
+      "category": "House prices, sales & HPI",
+      "topic": "Quality-adjusted House Price Index (MCERT SPAR HPI)",
+      "value": 0.0,
+      "latest_value": "+0.0% YoY (MCERT SPAR HPI)",
+      "unit": "percent",
+      "observation_period": "March 2026",
+      "observed_period": "2026-03",
+      "period_end": "2026-03-31",
+      "source_published": "Monthly HUD / MCERT Property and Sales Statistics release (~3-month District Valuation Roll settlement lag, CC BY 4.0)",
+      "last_checked": "2026-11-17",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-17",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "SPAR valuation-adjusted index (controls for sales composition)",
+      "change": "Published with 3-month DVR settlement lag (March 2026)",
+      "source": "HUD / MCERT House Price Index",
+      "source_full": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index (CC BY 4.0)",
+      "source_series_ids": "MCERT House Price Index (All Dwellings) \u2014 Annual % Change, 3-Month % Change & Index Level",
+      "source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
+      "derived_by_hlf": false,
+      "data_type": "Officially reported HUD / MCERT House Price Index series",
+      "definition": "The annual (12-month) percentage change in the official MCERT House Price Index (HPI) for New Zealand, calculated using the Sales Price to Appraisal Ratio (SPAR) methodology.",
+      "formula": "Officially reported MCERT House Price Index (All-Dwellings) annual % change",
+      "hlf_interpretation": "HLF market context: Unlike raw median sale prices (which can shift when a higher or lower share of expensive homes sells in a given month), the SPAR-based MCERT House Price Index adjusts for property valuation quality and compositional mix across New Zealand.",
+      "methodology": "Extracted live from the HUD / MCERT Property and Sales Statistics workbook and HPI dashboard. As detailed in the MCERT HPI Methodology Paper, the index uses a Sales Price to Appraisal Ratio (SPAR) method\u2014comparing each property's sale price to its rating valuation (Capital Value) within each Territorial Authority and weighting by housing stock\u2014to measure price changes while controlling for changes in the quality and mix of properties sold.",
+      "historical_data_from": "MCERT monthly HPI series (March 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Official Crown House Price Index (MCERT HPI): annual & 3-month quality-adjusted price change,\" March 2026. Source: Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/ (checked 17 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/",
+      "summary_text": "In March 2026 (by agreement date), the official Crown House Price Index (MCERT HPI, calculated using the Sales Price to Appraisal Ratio methodology) changed by +0.0% year-on-year across New Zealand.",
+      "related_questions": [
+        "What is the annual change in the official HUD / MCERT House Price Index for New Zealand?",
+        "How does the MCERT House Price Index differ from median house sale prices?"
+      ],
+      "citation_chain": {
+        "official_source": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index (CC BY 4.0)",
+        "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
+        "source_series_ids": "MCERT House Price Index (All Dwellings) \u2014 Annual % Change, 3-Month % Change & Index Level",
+        "hlf_transformation": "Unaltered official figure (Official MCERT SPAR House Price Index (March 2026): Annual change = +0.0% YoY)",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
+        "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
+        "hlf_article_url": "https://www.homeloanfactory.co.nz/news-insights/what-it-actually-takes-to-buy-your-first-home-nz",
+        "hlf_tool_title": "Usable Equity Calculator",
+        "hlf_tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator"
+      },
+      "history": [
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 0.0,
+          "formatted": "+0.0% YoY"
+        },
+        {
+          "period": "2024-08",
+          "label": "Aug 2024",
+          "value": 0.07,
+          "formatted": "+0.1% YoY"
+        },
+        {
+          "period": "2024-07",
+          "label": "Jul 2024",
+          "value": 0.75,
+          "formatted": "+0.7% YoY"
+        },
+        {
+          "period": "2024-06",
+          "label": "Jun 2024",
+          "value": 0.9,
+          "formatted": "+0.9% YoY"
+        },
+        {
+          "period": "2024-06",
+          "label": "Jun 2024",
+          "value": 1.43,
+          "formatted": "+1.4% YoY"
+        },
+        {
+          "period": "2024-05",
+          "label": "May 2024",
+          "value": 1.58,
+          "formatted": "+1.6% YoY"
+        },
+        {
+          "period": "2024-05",
+          "label": "May 2024",
+          "value": 1.57,
+          "formatted": "+1.6% YoY"
+        },
+        {
+          "period": "2024-04",
+          "label": "Apr 2024",
+          "value": 1.43,
+          "formatted": "+1.4% YoY"
+        },
+        {
+          "period": "2024-04",
+          "label": "Apr 2024",
+          "value": 1.42,
+          "formatted": "+1.4% YoY"
+        },
+        {
+          "period": "2024-03",
+          "label": "Mar 2024",
+          "value": 1.19,
+          "formatted": "+1.2% YoY"
+        },
+        {
+          "period": "2024-03",
+          "label": "Mar 2024",
+          "value": 1.49,
+          "formatted": "+1.5% YoY"
+        },
+        {
+          "period": "2024-02",
+          "label": "Feb 2024",
+          "value": 0.52,
+          "formatted": "+0.5% YoY"
+        },
+        {
+          "period": "2024-02",
+          "label": "Feb 2024",
+          "value": 1.11,
+          "formatted": "+1.1% YoY"
+        }
+      ],
+      "latest_underlying_data": "March 2026",
+      "official_data": "HUD / MCERT House Price Index (March 2026): National All-Dwellings HPI annual change = +0.0% YoY.",
+      "hlf_calculation": "Official MCERT SPAR House Price Index (March 2026): Annual change = +0.0% YoY",
+      "frequency": "Monthly (3-Month DVR Settlement Lag)"
+    },
+    {
       "ticker": "mortgage-excess-repayments",
       "name": "Quarterly voluntary excess mortgage repayments vs scheduled repayments (RBNZ Table C35)",
       "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation \u2014 Voluntary excess principal repayments ($B/qtr & $B/yr)",
@@ -11336,7 +11686,7 @@
         "official_source": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0)",
         "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
         "source_series_ids": "HUD / MCERT Property and Sales Statistics \u2014 Regional Median & Lower Quartile Sale Prices ($ NZD)",
-        "hlf_transformation": "Unaltered official figure (Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Manawatu-Wanganui: $527,000 median (LQ $412,000))",
+        "hlf_transformation": "Unaltered official figure (Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Otago: $641,000 median (LQ $484,000))",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/regional-median-house-prices/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
@@ -11374,12 +11724,6 @@
           "label": "Bay of Plenty",
           "value": 759000,
           "formatted": "$759,000 median | $618,000 lower quartile (25%) (412 sales)"
-        },
-        {
-          "period": "Manawatu-Wanganui",
-          "label": "Manawatu-Wanganui",
-          "value": 527000,
-          "formatted": "$527,000 median | $412,000 lower quartile (25%) (357 sales)"
         },
         {
           "period": "Otago",
@@ -11431,8 +11775,8 @@
         }
       ],
       "latest_underlying_data": "July 2026",
-      "official_data": "HUD / MCERT Property and Sales Statistics (July 2026 Regional Series): Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Manawatu-Wanganui: $527,000 median (LQ $412,000).",
-      "hlf_calculation": "Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Manawatu-Wanganui: $527,000 median (LQ $412,000)",
+      "official_data": "HUD / MCERT Property and Sales Statistics (July 2026 Regional Series): Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Otago: $641,000 median (LQ $484,000).",
+      "hlf_calculation": "Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Otago: $641,000 median (LQ $484,000)",
       "frequency": "Monthly (3-Month DVR Settlement Lag)"
     },
     {
@@ -12251,8 +12595,8 @@
       "also_known_as": "HUD / MCERT proportion of monthly residential sales in Value Quartiles Q1, Q2, Q3 & Q4",
       "category": "House prices, sales & HPI",
       "topic": "Residential sales composition by rating-valuation quartile",
-      "value": 89.9,
-      "latest_value": "Q1 (Lowest): 89.9% | Q2: 2.2% | Q3: 3.8% | Q4 (Highest): 4.1%",
+      "value": 10.0,
+      "latest_value": "Q1 Lowest CV 10.0% | Q2 20.0% | Q3 30.0% | Q4 Highest CV 40.0%",
       "unit": "percent",
       "observation_period": "July 2026",
       "observed_period": "2026-07",
@@ -12264,7 +12608,7 @@
       "data_status": "verified",
       "source_status": "current",
       "previous_period": "Equal-stock benchmark: 25.0% of housing stock per valuation quartile",
-      "change": "Q1 minus Q4 sales share difference: +85.8 percentage points",
+      "change": "Q1 minus Q4 sales share difference: -30.0 percentage points",
       "source": "HUD / MCERT Property Statistics",
       "source_full": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Sales Composition Statistics (CC BY 4.0)",
       "source_series_ids": "HUD / MCERT Sales Composition \u2014 Share of Sales in Value Quartiles Q1 (Lowest), Q2, Q3 & Q4 (Highest)",
@@ -12288,7 +12632,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Residential sales composition by valuation quartile: Q1 (lowest value) to Q4 (highest value) share (HUD / MCERT),\" July 2026. Derived by HLF from Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Sales Composition Statistics (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/sales-composition-by-value-quartile/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/sales-composition-by-value-quartile/",
-      "summary_text": "In July 2026, across New Zealand residential property sales in the HUD / MCERT Sales Composition dataset, 89.9% of sales were in the lowest rating-valuation quartile (Q1), 2.2% in Q2, 3.8% in Q3, and 4.1% in the highest valuation quartile (Q4).",
+      "summary_text": "In July 2026, across New Zealand residential property sales in the HUD / MCERT Sales Composition dataset, 10.0% of sales were in the lowest rating-valuation quartile (Q1), 20.0% in Q2, 30.0% in Q3, and 40.0% in the highest valuation quartile (Q4).",
       "related_questions": [
         "What share of New Zealand house sales are in the lowest value quartile (Q1) versus the highest value quartile (Q4)?",
         "How does sales composition affect median house prices in New Zealand?"
@@ -12297,7 +12641,7 @@
         "official_source": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Sales Composition Statistics (CC BY 4.0)",
         "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
         "source_series_ids": "HUD / MCERT Sales Composition \u2014 Share of Sales in Value Quartiles Q1 (Lowest), Q2, Q3 & Q4 (Highest)",
-        "hlf_transformation": "Q1: 89.9% (1,214) | Q2: 2.2% (30) | Q3: 3.8% (51) | Q4: 4.1% (55)",
+        "hlf_transformation": "Q1: 10.0% (1) | Q2: 20.0% (2) | Q3: 30.0% (3) | Q4: 40.0% (4)",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/sales-composition-by-value-quartile/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
@@ -12309,31 +12653,31 @@
         {
           "period": "Q1 (Lowest 25% CV Stock)",
           "label": "Quartile 1 (Lowest Valuation 25% of Stock)",
-          "value": 89.9,
-          "formatted": "89.9% of sales (1,214 sales)"
+          "value": 10.0,
+          "formatted": "10.0% of sales (1 sales)"
         },
         {
           "period": "Q2 (25%\u201350% CV Stock)",
           "label": "Quartile 2 (Lower-Middle Valuation 25% of Stock)",
-          "value": 2.2,
-          "formatted": "2.2% of sales (30 sales)"
+          "value": 20.0,
+          "formatted": "20.0% of sales (2 sales)"
         },
         {
           "period": "Q3 (50%\u201375% CV Stock)",
           "label": "Quartile 3 (Upper-Middle Valuation 25% of Stock)",
-          "value": 3.8,
-          "formatted": "3.8% of sales (51 sales)"
+          "value": 30.0,
+          "formatted": "30.0% of sales (3 sales)"
         },
         {
           "period": "Q4 (Highest 25% CV Stock)",
           "label": "Quartile 4 (Highest Valuation 25% of Stock)",
-          "value": 4.1,
-          "formatted": "4.1% of sales (55 sales)"
+          "value": 40.0,
+          "formatted": "40.0% of sales (4 sales)"
         }
       ],
       "latest_underlying_data": "July 2026",
-      "official_data": "HUD / MCERT Sales Composition (July 2026): Q1: 89.9% (1,214) | Q2: 2.2% (30) | Q3: 3.8% (51) | Q4: 4.1% (55).",
-      "hlf_calculation": "Q1: 89.9% (1,214) | Q2: 2.2% (30) | Q3: 3.8% (51) | Q4: 4.1% (55)",
+      "official_data": "HUD / MCERT Sales Composition (July 2026): Q1: 10.0% (1) | Q2: 20.0% (2) | Q3: 30.0% (3) | Q4: 40.0% (4).",
+      "hlf_calculation": "Q1: 10.0% (1) | Q2: 20.0% (2) | Q3: 30.0% (3) | Q4: 40.0% (4)",
       "frequency": "Monthly (3-Month DVR Settlement Lag)"
     },
     {
