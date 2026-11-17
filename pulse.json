@@ -23,11 +23,11 @@
   "date_modified": "2026-11-17",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-17",
-  "dataset_generated_utc": "2026-11-17T06:53:01Z",
+  "dataset_generated_utc": "2026-11-17T07:27:15Z",
   "latest_underlying_data": "September 2026",
   "data_status": "verified",
   "source_status": "current",
-  "active_datasets_count": 93,
+  "active_datasets_count": 95,
   "reporting_lag_note": "RBNZ and Crown statistics are published with a reporting lag; last_checked reflects when HLF verified the source, source_published reflects when the publisher released it, and observation_period / period_end reflect the period the data covers.",
   "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (CPI / HLPI / IRD / K\u0101inga Ora) & Annual (FMA / Stats NZ HILS / IRD Tax Distributions / NHC / ACC)",
   "fhb_snapshot": {
@@ -3291,20 +3291,20 @@
       "also_known_as": "RBNZ Table C12 Credit Card Balances \u2014 Total advances outstanding, interest-bearing share & interest rate",
       "category": "Household debt, credit cards & borrower stress",
       "topic": "Credit card debt, interest-bearing share & interest rates",
-      "value": 5378.0,
-      "latest_value": "$5.38B ($5,378m) card debt | 51.3% paying 20.0% p.a.",
+      "value": 5985.0,
+      "latest_value": "$5.99B ($5,985m) card debt | 19.9% avg rate",
       "unit": "NZD_millions",
-      "observation_period": "August 2026",
-      "observed_period": "2026-08",
-      "period_end": "2026-08-31",
+      "observation_period": "September 2026",
+      "observed_period": "2026-09",
+      "period_end": "2026-09-30",
       "source_published": "Monthly RBNZ statistical release (~4 weeks after reference month-end)",
       "last_checked": "2026-11-17",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-17",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "12 months prior: $5,481m",
-      "change": "-1.9% YoY | 20.0% avg interest rate",
+      "previous_period": "12 months prior: $6,056m",
+      "change": "-1.2% YoY | 19.9% avg interest rate",
       "source": "RBNZ Table C12",
       "source_full": "Reserve Bank of New Zealand \u2014 Credit card balances (Table C12)",
       "source_series_ids": "RBNZ Table C12 \u2014 Total Advances Outstanding ($m), Interest-Bearing Advances ($m) & Weighted Average Interest Rate (%)",
@@ -3326,9 +3326,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand credit card debt, share accruing interest & weighted average interest rate (RBNZ Table C12),\" August 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Credit card balances (Table C12). https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/ (checked 17 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand credit card debt, share accruing interest & weighted average interest rate (RBNZ Table C12),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Credit card balances (Table C12). https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
-      "summary_text": "In August 2026, New Zealanders owed $5.38B ($5,378m) in credit card balances (down 1.9% year-on-year from $5,481m a year earlier), with 51.3% ($2,758m) accruing interest at a weighted average rate of 20.0% p.a..",
+      "summary_text": "In September 2026, New Zealanders owed $5.99B ($5,985m) in credit card balances (down 1.2% year-on-year from $6,056m a year earlier) at a weighted average interest rate of 19.9% p.a..",
       "related_questions": [
         "How much credit card debt is outstanding in New Zealand?",
         "What is the average interest rate on interest-bearing credit card balances in New Zealand?",
@@ -3338,7 +3338,7 @@
         "official_source": "Reserve Bank of New Zealand \u2014 Credit card balances (Table C12)",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances",
         "source_series_ids": "RBNZ Table C12 \u2014 Total Advances Outstanding ($m), Interest-Bearing Advances ($m) & Weighted Average Interest Rate (%)",
-        "hlf_transformation": "Total Card Advances = $5,378m ($5.38B) | Interest-Bearing: $2,758m \u00f7 $5,378m = 51.3% at 20.0% p.a.",
+        "hlf_transformation": "Total Card Advances = $5,985m ($5.99B) | Weighted Average Rate = 19.9% p.a.",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
@@ -3348,87 +3348,87 @@
       },
       "history": [
         {
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 5985.0,
+          "formatted": "$5,985m ($5.99B)"
+        },
+        {
           "period": "2026-08",
           "label": "Aug 2026",
-          "value": 5378.0,
-          "formatted": "$5,378m ($5.38B)"
+          "value": 5935.0,
+          "formatted": "$5,935m ($5.93B)"
         },
         {
           "period": "2026-07",
           "label": "Jul 2026",
-          "value": 5372.0,
-          "formatted": "$5,372m ($5.37B)"
+          "value": 5876.0,
+          "formatted": "$5,876m ($5.88B)"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
-          "value": 5414.0,
-          "formatted": "$5,414m ($5.41B)"
+          "value": 5968.0,
+          "formatted": "$5,968m ($5.97B)"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
-          "value": 5428.0,
-          "formatted": "$5,428m ($5.43B)"
+          "value": 5990.0,
+          "formatted": "$5,990m ($5.99B)"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
-          "value": 5481.0,
-          "formatted": "$5,481m ($5.48B)"
+          "value": 5960.0,
+          "formatted": "$5,960m ($5.96B)"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
-          "value": 5584.0,
-          "formatted": "$5,584m ($5.58B)"
+          "value": 6075.0,
+          "formatted": "$6,075m ($6.08B)"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
-          "value": 5651.0,
-          "formatted": "$5,651m ($5.65B)"
+          "value": 6193.0,
+          "formatted": "$6,193m ($6.19B)"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
-          "value": 5699.0,
-          "formatted": "$5,699m ($5.70B)"
+          "value": 6152.0,
+          "formatted": "$6,152m ($6.15B)"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
-          "value": 5794.0,
-          "formatted": "$5,794m ($5.79B)"
+          "value": 6285.0,
+          "formatted": "$6,285m ($6.29B)"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
-          "value": 5656.0,
-          "formatted": "$5,656m ($5.66B)"
+          "value": 6298.0,
+          "formatted": "$6,298m ($6.30B)"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
-          "value": 5521.0,
-          "formatted": "$5,521m ($5.52B)"
+          "value": 6057.0,
+          "formatted": "$6,057m ($6.06B)"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
-          "value": 5552.0,
-          "formatted": "$5,552m ($5.55B)"
-        },
-        {
-          "period": "2025-08",
-          "label": "Aug 2025",
-          "value": 5481.0,
-          "formatted": "$5,481m ($5.48B)"
+          "value": 6056.0,
+          "formatted": "$6,056m ($6.06B)"
         }
       ],
-      "latest_underlying_data": "August 2026",
-      "official_data": "RBNZ Table C12 (August 2026): Total credit card advances outstanding = $5,378m ($5.38B).",
-      "hlf_calculation": "Total Card Advances = $5,378m ($5.38B) | Interest-Bearing: $2,758m \u00f7 $5,378m = 51.3% at 20.0% p.a.",
+      "latest_underlying_data": "September 2026",
+      "official_data": "RBNZ Table C12 (September 2026): Total credit card advances outstanding = $5,985m ($5.99B).",
+      "hlf_calculation": "Total Card Advances = $5,985m ($5.99B) | Weighted Average Rate = 19.9% p.a.",
       "frequency": "Monthly"
     },
     {
@@ -6518,6 +6518,129 @@
       "official_data": "Stats NZ Labour Market Statistics Income (June 2026 quarter): Wage & salary median = $1,419/wk ($73,788/yr); All-source median = $962/wk ($50,024/yr).",
       "hlf_calculation": "Wage & Salary Median: $1,419/wk \u00d7 52 = $73,788/yr | All-Source Individual Median: $962/wk \u00d7 52 = $50,024/yr | Self-Employed Median: $959/wk \u00d7 52 = $49,868/yr",
       "frequency": "Annual (June Quarter)"
+    },
+    {
+      "ticker": "insurance-claims-trends",
+      "name": "New Zealand insurer Gross Premium Revenue, Net Earned Premiums & Net Claims (RBNZ J10)",
+      "also_known_as": "RBNZ Table J10 insurance sector premium revenue, reinsurance expense & claims",
+      "category": "Insurance Market & Claims",
+      "topic": "Insurer premiums, reinsurance & claims",
+      "value": 4.66,
+      "latest_value": "$4.66B Net Incurred Claims vs. $9.85B Gross Written Premiums",
+      "unit": "NZD_billions",
+      "observation_period": "Annual RBNZ Insurance Series",
+      "observed_period": "2026-06",
+      "period_end": "2026-06-30",
+      "source_published": "RBNZ semi-annual Insurance Statistics & Financial Stability Report release",
+      "last_checked": "2026-11-17",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-17",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Net Earned Premium (after reinsurance): $7.40B",
+      "change": "Reinsurance & catastrophe protection outflow: ~$2.45B/yr",
+      "source": "RBNZ Table J10",
+      "source_full": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
+      "source_series_ids": "RBNZ Table J10 \u2014 Gross Premium Revenue, Outwards Reinsurance Expense & Net Claims Expense",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ Table J10 series & HLF-derived reinsurance difference",
+      "definition": "Annual Gross Premium Revenue, Net Earned Premiums (after outwards reinsurance expense), and Net Incurred Claims across insurers surveyed in RBNZ Table J10.",
+      "formula": "Reinsurance Outflow = Gross Premium Revenue minus Net Earned Premium",
+      "hlf_interpretation": "HLF market context: Summarises aggregate gross premium revenue, outwards reinsurance expense, net earned premium, and net incurred claims reported by insurers in RBNZ Table J10.",
+      "methodology": "Live-parsed from RBNZ Table J10 (Insurance Income and Expenditure workbook), subtracting outwards reinsurance expense from gross premium revenue to show net earned premium and comparing against net claims expense. RBNZ Table J10 is compiled from the Reserve Bank's quarterly insurer survey.",
+      "historical_data_from": "RBNZ licensed general insurer financial series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand insurer Gross Premium Revenue, Net Earned Premiums & Net Claims (RBNZ J10),\" Annual RBNZ Insurance Series. Derived by HLF from Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10). https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/ (checked 17 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/",
+      "summary_text": "Licensed New Zealand general insurers collected approximately $9.85B in annual Gross Written Premiums ($7.40B in Net Earned Premiums after international reinsurance) and paid out $4.66B in Net Incurred Claims.",
+      "related_questions": [
+        "How much do insurers surveyed in RBNZ Table J10 collect in premiums and incur in net claims?",
+        "How much outwards reinsurance expense is reported in RBNZ Table J10?"
+      ],
+      "citation_chain": {
+        "official_source": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
+        "source_series_ids": "RBNZ Table J10 \u2014 Gross Premium Revenue, Outwards Reinsurance Expense & Net Claims Expense",
+        "hlf_transformation": "Gross Written Premiums ($9.85B) minus Reinsurance ($2.45B) = $7.40B Net Earned Premiums vs. $4.66B Net Claims",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json"
+      },
+      "history": [],
+      "latest_underlying_data": "Annual RBNZ Insurance Series",
+      "official_data": "RBNZ Insurance Statistics: Gross Written Premiums = ~$9.85B; Net Earned Premiums = ~$7.40B; Net Incurred Claims = ~$4.66B.",
+      "hlf_calculation": "Gross Written Premiums ($9.85B) minus Reinsurance ($2.45B) = $7.40B Net Earned Premiums vs. $4.66B Net Claims",
+      "frequency": "Quarterly / Annual"
+    },
+    {
+      "ticker": "insurer-loss-ratios",
+      "name": "New Zealand insurer net claims loss ratio (RBNZ Table J10)",
+      "also_known_as": "RBNZ Table J10 net incurred claims to net earned premium ratio",
+      "category": "Insurance Market & Claims",
+      "topic": "Insurer net claims loss ratio",
+      "value": 63.0,
+      "latest_value": "63.0% Net Loss Ratio ($4.66B claims \u00f7 $7.40B net earned premium)",
+      "unit": "percent",
+      "observation_period": "Annual RBNZ Insurance Series",
+      "observed_period": "2026-06",
+      "period_end": "2026-06-30",
+      "source_published": "RBNZ semi-annual Insurance Statistics & Financial Stability Report release",
+      "last_checked": "2026-11-17",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-17",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "2023 Severe Weather Event Peak: >85% net loss ratio",
+      "change": "Normalised from 2023 North Island weather catastrophe peak",
+      "source": "RBNZ Table J10",
+      "source_full": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
+      "source_series_ids": "RBNZ Table J10 \u2014 Net Claims Expense \u00f7 Net Premium Revenue",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
+      "derived_by_hlf": true,
+      "data_type": "HLF-derived percentage ratio from official RBNZ Table J10 series",
+      "definition": "The net claims loss ratio across insurers surveyed in RBNZ Table J10, measuring net incurred claims as a percentage of net earned premiums.",
+      "formula": "Net Loss Ratio (%) = (Net Claims Expense \u00f7 Net Earned Premium Revenue) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Measures net incurred claims as a proportion of net earned premiums (after reinsurance) across insurers surveyed in RBNZ Table J10.",
+      "methodology": "Derived live from RBNZ Table J10 by dividing annual Net Claims Expense by annual Net Earned Premium Revenue, multiplied by 100. Note that the net claims ratio excludes non-claim operating, acquisition, and administration expenses.",
+      "historical_data_from": "RBNZ insurer financial performance series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand insurer net claims loss ratio (RBNZ Table J10),\" Annual RBNZ Insurance Series. Derived by HLF from Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10). https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/ (checked 17 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/",
+      "summary_text": "Licensed New Zealand general insurers recorded a net claims loss ratio of 63.0%, paying out $4.66B in net incurred claims from $7.40B in net earned premiums.",
+      "related_questions": [
+        "What is the net claims loss ratio reported in RBNZ Table J10?"
+      ],
+      "citation_chain": {
+        "official_source": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
+        "source_series_ids": "RBNZ Table J10 \u2014 Net Claims Expense \u00f7 Net Premium Revenue",
+        "hlf_transformation": "($4.66B Net Incurred Claims \u00f7 $7.40B Net Earned Premiums) \u00d7 100 = 63.0%",
+        "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/",
+        "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json"
+      },
+      "history": [],
+      "latest_underlying_data": "Annual RBNZ Insurance Series",
+      "official_data": "RBNZ General Insurance Series: Net Incurred Claims = $4.66B; Net Earned Premiums = $7.40B.",
+      "hlf_calculation": "($4.66B Net Incurred Claims \u00f7 $7.40B Net Earned Premiums) \u00d7 100 = 63.0%",
+      "frequency": "Quarterly / Annual"
     },
     {
       "ticker": "interest-only",
