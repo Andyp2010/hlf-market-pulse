@@ -23,7 +23,7 @@
   "date_modified": "2026-11-17",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-17",
-  "dataset_generated_utc": "2026-11-17T09:31:21Z",
+  "dataset_generated_utc": "2026-11-17T10:58:47Z",
   "latest_underlying_data": "September 2026",
   "data_status": "verified",
   "source_status": "current",
@@ -2027,6 +2027,12 @@
             "formatted": "$759,000 median | $618,000 lower quartile (25%) (412 sales)"
           },
           {
+            "period": "Manawatu-Wanganui",
+            "label": "Manawatu-Wanganui",
+            "value": 527000,
+            "formatted": "$527,000 median | $412,000 lower quartile (25%) (357 sales)"
+          },
+          {
             "period": "Otago",
             "label": "Otago",
             "value": 641000,
@@ -2295,96 +2301,42 @@
         ]
       },
       "mcert-house-price-index-yoy": {
-        "value": 0.0,
-        "latest_value": "+0.0% YoY (MCERT SPAR HPI)",
-        "observation_period": "March 2026",
-        "period_end": "2026-03-31",
+        "value": -0.8,
+        "latest_value": "-0.8% YoY | -0.3% 3-month (MCERT SPAR HPI)",
+        "observation_period": "July 2026",
+        "period_end": "2026-07-31",
         "source": "HUD / MCERT House Price Index",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/",
         "breakdown": [
           {
-            "period": "2025-09",
-            "label": "Sep 2025",
-            "value": 0.0,
-            "formatted": "+0.0% YoY"
+            "period": "All Dwellings (Annual YoY)",
+            "label": "All New Zealand Dwellings (12-Month Change)",
+            "value": -0.8,
+            "formatted": "-0.8% YoY"
           },
           {
-            "period": "2024-08",
-            "label": "Aug 2024",
-            "value": 0.07,
-            "formatted": "+0.1% YoY"
+            "period": "All Dwellings (3-Month)",
+            "label": "All New Zealand Dwellings (3-Month Change)",
+            "value": -0.3,
+            "formatted": "-0.3% (3-month)"
           },
           {
-            "period": "2024-07",
-            "label": "Jul 2024",
-            "value": 0.75,
-            "formatted": "+0.7% YoY"
+            "period": "Q1 (Lowest Value 25%)",
+            "label": "Q1 Lowest Valuation Quartile Homes",
+            "value": -0.4,
+            "formatted": "-0.4% YoY"
           },
           {
-            "period": "2024-06",
-            "label": "Jun 2024",
-            "value": 0.9,
-            "formatted": "+0.9% YoY"
-          },
-          {
-            "period": "2024-06",
-            "label": "Jun 2024",
-            "value": 1.43,
-            "formatted": "+1.4% YoY"
-          },
-          {
-            "period": "2024-05",
-            "label": "May 2024",
-            "value": 1.58,
-            "formatted": "+1.6% YoY"
-          },
-          {
-            "period": "2024-05",
-            "label": "May 2024",
-            "value": 1.57,
-            "formatted": "+1.6% YoY"
-          },
-          {
-            "period": "2024-04",
-            "label": "Apr 2024",
-            "value": 1.43,
-            "formatted": "+1.4% YoY"
-          },
-          {
-            "period": "2024-04",
-            "label": "Apr 2024",
-            "value": 1.42,
-            "formatted": "+1.4% YoY"
-          },
-          {
-            "period": "2024-03",
-            "label": "Mar 2024",
-            "value": 1.19,
-            "formatted": "+1.2% YoY"
-          },
-          {
-            "period": "2024-03",
-            "label": "Mar 2024",
-            "value": 1.49,
-            "formatted": "+1.5% YoY"
-          },
-          {
-            "period": "2024-02",
-            "label": "Feb 2024",
-            "value": 0.52,
-            "formatted": "+0.5% YoY"
-          },
-          {
-            "period": "2024-02",
-            "label": "Feb 2024",
-            "value": 1.11,
-            "formatted": "+1.1% YoY"
+            "period": "Q4 (Highest Value 25%)",
+            "label": "Q4 Highest Valuation Quartile Homes",
+            "value": -0.7,
+            "formatted": "-0.7% YoY"
           }
         ]
       },
       "hpi-low-vs-high-value-tiers": {
-        "value": 0.01,
-        "latest_value": "Low-value (Q1): +0.0% YoY vs High-value (Q4): +0.0% YoY (-0.0 pts)",
+        "value": -0.4,
+        "latest_value": "Q1 Low-value -0.4% YoY vs Q4 High-value -0.7% YoY (+0.3 pts)",
         "observation_period": "July 2026",
         "period_end": "2026-07-31",
         "source": "HUD / MCERT House Price Index",
@@ -2393,20 +2345,20 @@
           {
             "period": "Q1 (Lowest Value 25%)",
             "label": "Q1 Lowest Valuation Quartile Homes",
-            "value": 0.0,
-            "formatted": "+0.0% YoY"
+            "value": -0.4,
+            "formatted": "-0.4% YoY"
           },
           {
             "period": "All Dwellings",
             "label": "All New Zealand Dwellings (Composite HPI)",
-            "value": 0.0,
-            "formatted": "+0.0% YoY"
+            "value": -0.8,
+            "formatted": "-0.8% YoY"
           },
           {
             "period": "Q4 (Highest Value 25%)",
             "label": "Q4 Highest Valuation Quartile Homes",
-            "value": 0.0,
-            "formatted": "+0.0% YoY"
+            "value": -0.7,
+            "formatted": "-0.7% YoY"
           }
         ]
       },
@@ -3435,20 +3387,20 @@
       "also_known_as": "RBNZ Table C12 Credit Card Balances \u2014 Total advances outstanding, interest-bearing share & interest rate",
       "category": "Household debt, credit cards & borrower stress",
       "topic": "Credit card debt, interest-bearing share & interest rates",
-      "value": 5985.0,
-      "latest_value": "$5.99B ($5,985m) card debt | 19.9% avg rate",
+      "value": 5378.0,
+      "latest_value": "$5.38B ($5,378m) card debt | 51.3% paying 20.0% p.a.",
       "unit": "NZD_millions",
-      "observation_period": "September 2026",
-      "observed_period": "2026-09",
-      "period_end": "2026-09-30",
+      "observation_period": "August 2026",
+      "observed_period": "2026-08",
+      "period_end": "2026-08-31",
       "source_published": "Monthly RBNZ statistical release (~4 weeks after reference month-end)",
       "last_checked": "2026-11-17",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-17",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "12 months prior: $6,056m",
-      "change": "-1.2% YoY | 19.9% avg interest rate",
+      "previous_period": "12 months prior: $5,481m",
+      "change": "-1.9% YoY | 20.0% avg interest rate",
       "source": "RBNZ Table C12",
       "source_full": "Reserve Bank of New Zealand \u2014 Credit card balances (Table C12)",
       "source_series_ids": "RBNZ Table C12 \u2014 Total Advances Outstanding ($m), Interest-Bearing Advances ($m) & Weighted Average Interest Rate (%)",
@@ -3470,9 +3422,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand credit card debt, share accruing interest & weighted average interest rate (RBNZ Table C12),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Credit card balances (Table C12). https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/ (checked 17 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand credit card debt, share accruing interest & weighted average interest rate (RBNZ Table C12),\" August 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Credit card balances (Table C12). https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
-      "summary_text": "In September 2026, New Zealanders owed $5.99B ($5,985m) in credit card balances (down 1.2% year-on-year from $6,056m a year earlier) at a weighted average interest rate of 19.9% p.a..",
+      "summary_text": "In August 2026, New Zealanders owed $5.38B ($5,378m) in credit card balances (down 1.9% year-on-year from $5,481m a year earlier), with 51.3% ($2,758m) accruing interest at a weighted average rate of 20.0% p.a..",
       "related_questions": [
         "How much credit card debt is outstanding in New Zealand?",
         "What is the average interest rate on interest-bearing credit card balances in New Zealand?",
@@ -3482,7 +3434,7 @@
         "official_source": "Reserve Bank of New Zealand \u2014 Credit card balances (Table C12)",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances",
         "source_series_ids": "RBNZ Table C12 \u2014 Total Advances Outstanding ($m), Interest-Bearing Advances ($m) & Weighted Average Interest Rate (%)",
-        "hlf_transformation": "Total Card Advances = $5,985m ($5.99B) | Weighted Average Rate = 19.9% p.a.",
+        "hlf_transformation": "Total Card Advances = $5,378m ($5.38B) | Interest-Bearing: $2,758m \u00f7 $5,378m = 51.3% at 20.0% p.a.",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
@@ -3492,87 +3444,87 @@
       },
       "history": [
         {
-          "period": "2026-09",
-          "label": "Sep 2026",
-          "value": 5985.0,
-          "formatted": "$5,985m ($5.99B)"
-        },
-        {
           "period": "2026-08",
           "label": "Aug 2026",
-          "value": 5935.0,
-          "formatted": "$5,935m ($5.93B)"
+          "value": 5378.0,
+          "formatted": "$5,378m ($5.38B)"
         },
         {
           "period": "2026-07",
           "label": "Jul 2026",
-          "value": 5876.0,
-          "formatted": "$5,876m ($5.88B)"
+          "value": 5372.0,
+          "formatted": "$5,372m ($5.37B)"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
-          "value": 5968.0,
-          "formatted": "$5,968m ($5.97B)"
+          "value": 5414.0,
+          "formatted": "$5,414m ($5.41B)"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
-          "value": 5990.0,
-          "formatted": "$5,990m ($5.99B)"
+          "value": 5428.0,
+          "formatted": "$5,428m ($5.43B)"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
-          "value": 5960.0,
-          "formatted": "$5,960m ($5.96B)"
+          "value": 5481.0,
+          "formatted": "$5,481m ($5.48B)"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
-          "value": 6075.0,
-          "formatted": "$6,075m ($6.08B)"
+          "value": 5584.0,
+          "formatted": "$5,584m ($5.58B)"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
-          "value": 6193.0,
-          "formatted": "$6,193m ($6.19B)"
+          "value": 5651.0,
+          "formatted": "$5,651m ($5.65B)"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
-          "value": 6152.0,
-          "formatted": "$6,152m ($6.15B)"
+          "value": 5699.0,
+          "formatted": "$5,699m ($5.70B)"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
-          "value": 6285.0,
-          "formatted": "$6,285m ($6.29B)"
+          "value": 5794.0,
+          "formatted": "$5,794m ($5.79B)"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
-          "value": 6298.0,
-          "formatted": "$6,298m ($6.30B)"
+          "value": 5656.0,
+          "formatted": "$5,656m ($5.66B)"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
-          "value": 6057.0,
-          "formatted": "$6,057m ($6.06B)"
+          "value": 5521.0,
+          "formatted": "$5,521m ($5.52B)"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
-          "value": 6056.0,
-          "formatted": "$6,056m ($6.06B)"
+          "value": 5552.0,
+          "formatted": "$5,552m ($5.55B)"
+        },
+        {
+          "period": "2025-08",
+          "label": "Aug 2025",
+          "value": 5481.0,
+          "formatted": "$5,481m ($5.48B)"
         }
       ],
-      "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C12 (September 2026): Total credit card advances outstanding = $5,985m ($5.99B).",
-      "hlf_calculation": "Total Card Advances = $5,985m ($5.99B) | Weighted Average Rate = 19.9% p.a.",
+      "latest_underlying_data": "August 2026",
+      "official_data": "RBNZ Table C12 (August 2026): Total credit card advances outstanding = $5,378m ($5.38B).",
+      "hlf_calculation": "Total Card Advances = $5,378m ($5.38B) | Interest-Bearing: $2,758m \u00f7 $5,378m = 51.3% at 20.0% p.a.",
       "frequency": "Monthly"
     },
     {
@@ -6584,8 +6536,8 @@
       "also_known_as": "HUD / MCERT House Price Index annual change for Q1 (lowest value quartile) vs Q4 (highest value quartile) homes",
       "category": "House prices, sales & HPI",
       "topic": "House Price Index performance by property value tier (Q1 vs Q4)",
-      "value": 0.01,
-      "latest_value": "Low-value (Q1): +0.0% YoY vs High-value (Q4): +0.0% YoY (-0.0 pts)",
+      "value": -0.4,
+      "latest_value": "Q1 Low-value -0.4% YoY vs Q4 High-value -0.7% YoY (+0.3 pts)",
       "unit": "percent",
       "observation_period": "July 2026",
       "observed_period": "2026-07",
@@ -6596,8 +6548,8 @@
       "date_modified": "2026-11-17",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "All-dwellings national HPI: +0.0% YoY",
-      "change": "-0.0 percentage-point spread between Q1 and Q4 tiers",
+      "previous_period": "All-dwellings national HPI: -0.8% YoY",
+      "change": "+0.3 percentage-point spread between Q1 and Q4 tiers",
       "source": "HUD / MCERT House Price Index",
       "source_full": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index Composition (CC BY 4.0)",
       "source_series_ids": "MCERT HPI \u2014 Low-Value (Q1) Annual % Change vs High-Value (Q4) Annual % Change",
@@ -6621,7 +6573,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"MCERT House Price Index by value tier: low-value (Q1) vs high-value (Q4) homes,\" July 2026. Derived by HLF from Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index Composition (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/hpi-low-vs-high-value-tiers/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/hpi-low-vs-high-value-tiers/",
-      "summary_text": "In July 2026, the MCERT House Price Index for New Zealand's lowest valuation quartile (Q1 low-value homes) changed by +0.0% year-on-year, compared with +0.0% year-on-year for the highest valuation quartile (Q4 high-value homes)\u2014a difference of -0.0 percentage points.",
+      "summary_text": "In July 2026, the MCERT House Price Index for New Zealand's lowest valuation quartile (Q1 low-value homes) changed by -0.4% year-on-year, compared with -0.7% year-on-year for the highest valuation quartile (Q4 high-value homes)\u2014a difference of +0.3 percentage points.",
       "related_questions": [
         "Are lower-value (Q1) or higher-value (Q4) house prices changing faster in the MCERT House Price Index?"
       ],
@@ -6629,7 +6581,7 @@
         "official_source": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index Composition (CC BY 4.0)",
         "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
         "source_series_ids": "MCERT HPI \u2014 Low-Value (Q1) Annual % Change vs High-Value (Q4) Annual % Change",
-        "hlf_transformation": "Low-Value Tier (Q1) HPI YoY = +0.0% | High-Value Tier (Q4) HPI YoY = +0.0% | Spread (Q1 \u2212 Q4) = -0.0 percentage points",
+        "hlf_transformation": "Low-Value Tier (Q1) HPI YoY = -0.4% | High-Value Tier (Q4) HPI YoY = -0.7% | Spread (Q1 \u2212 Q4) = +0.3 percentage points",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/hpi-low-vs-high-value-tiers/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
@@ -6641,25 +6593,25 @@
         {
           "period": "Q1 (Lowest Value 25%)",
           "label": "Q1 Lowest Valuation Quartile Homes",
-          "value": 0.0,
-          "formatted": "+0.0% YoY"
+          "value": -0.4,
+          "formatted": "-0.4% YoY"
         },
         {
           "period": "All Dwellings",
           "label": "All New Zealand Dwellings (Composite HPI)",
-          "value": 0.0,
-          "formatted": "+0.0% YoY"
+          "value": -0.8,
+          "formatted": "-0.8% YoY"
         },
         {
           "period": "Q4 (Highest Value 25%)",
           "label": "Q4 Highest Valuation Quartile Homes",
-          "value": 0.0,
-          "formatted": "+0.0% YoY"
+          "value": -0.7,
+          "formatted": "-0.7% YoY"
         }
       ],
       "latest_underlying_data": "July 2026",
-      "official_data": "HUD / MCERT House Price Index Composition (July 2026): Q1 (lowest valuation quartile) = +0.0% YoY; Q4 (highest valuation quartile) = +0.0% YoY.",
-      "hlf_calculation": "Low-Value Tier (Q1) HPI YoY = +0.0% | High-Value Tier (Q4) HPI YoY = +0.0% | Spread (Q1 \u2212 Q4) = -0.0 percentage points",
+      "official_data": "HUD / MCERT House Price Index Composition (July 2026): Q1 (lowest valuation quartile) = -0.4% YoY; Q4 (highest valuation quartile) = -0.7% YoY.",
+      "hlf_calculation": "Low-Value Tier (Q1) HPI YoY = -0.4% | High-Value Tier (Q4) HPI YoY = -0.7% | Spread (Q1 \u2212 Q4) = +0.3 percentage points",
       "frequency": "Monthly (3-Month DVR Settlement Lag)"
     },
     {
@@ -9621,12 +9573,12 @@
       "also_known_as": "HUD / MCERT Sales Price to Appraisal Ratio (SPAR) House Price Index annual percentage change",
       "category": "House prices, sales & HPI",
       "topic": "Quality-adjusted House Price Index (MCERT SPAR HPI)",
-      "value": 0.0,
-      "latest_value": "+0.0% YoY (MCERT SPAR HPI)",
+      "value": -0.8,
+      "latest_value": "-0.8% YoY | -0.3% 3-month (MCERT SPAR HPI)",
       "unit": "percent",
-      "observation_period": "March 2026",
-      "observed_period": "2026-03",
-      "period_end": "2026-03-31",
+      "observation_period": "July 2026",
+      "observed_period": "2026-07",
+      "period_end": "2026-07-31",
       "source_published": "Monthly HUD / MCERT Property and Sales Statistics release (~3-month District Valuation Roll settlement lag, CC BY 4.0)",
       "last_checked": "2026-11-17",
       "date_created": "2026-02-01",
@@ -9634,7 +9586,7 @@
       "data_status": "verified",
       "source_status": "current",
       "previous_period": "SPAR valuation-adjusted index (controls for sales composition)",
-      "change": "Published with 3-month DVR settlement lag (March 2026)",
+      "change": "Published with 3-month DVR settlement lag (July 2026)",
       "source": "HUD / MCERT House Price Index",
       "source_full": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index (CC BY 4.0)",
       "source_series_ids": "MCERT House Price Index (All Dwellings) \u2014 Annual % Change, 3-Month % Change & Index Level",
@@ -9645,7 +9597,7 @@
       "formula": "Officially reported MCERT House Price Index (All-Dwellings) annual % change",
       "hlf_interpretation": "HLF market context: Unlike raw median sale prices (which can shift when a higher or lower share of expensive homes sells in a given month), the SPAR-based MCERT House Price Index adjusts for property valuation quality and compositional mix across New Zealand.",
       "methodology": "Extracted live from the HUD / MCERT Property and Sales Statistics workbook and HPI dashboard. As detailed in the MCERT HPI Methodology Paper, the index uses a Sales Price to Appraisal Ratio (SPAR) method\u2014comparing each property's sale price to its rating valuation (Capital Value) within each Territorial Authority and weighting by housing stock\u2014to measure price changes while controlling for changes in the quality and mix of properties sold.",
-      "historical_data_from": "MCERT monthly HPI series (March 2026)",
+      "historical_data_from": "MCERT monthly HPI series (July 2026)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -9656,9 +9608,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Official Crown House Price Index (MCERT HPI): annual & 3-month quality-adjusted price change,\" March 2026. Source: Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/ (checked 17 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Official Crown House Price Index (MCERT HPI): annual & 3-month quality-adjusted price change,\" July 2026. Source: Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/ (checked 17 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/",
-      "summary_text": "In March 2026 (by agreement date), the official Crown House Price Index (MCERT HPI, calculated using the Sales Price to Appraisal Ratio methodology) changed by +0.0% year-on-year across New Zealand.",
+      "summary_text": "In July 2026 (by agreement date), the official Crown House Price Index (MCERT HPI, calculated using the Sales Price to Appraisal Ratio methodology) changed by -0.8% year-on-year across New Zealand (and -0.3% over the 3 months to July 2026).",
       "related_questions": [
         "What is the annual change in the official HUD / MCERT House Price Index for New Zealand?",
         "How does the MCERT House Price Index differ from median house sale prices?"
@@ -9667,7 +9619,7 @@
         "official_source": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index (CC BY 4.0)",
         "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
         "source_series_ids": "MCERT House Price Index (All Dwellings) \u2014 Annual % Change, 3-Month % Change & Index Level",
-        "hlf_transformation": "Unaltered official figure (Official MCERT SPAR House Price Index (March 2026): Annual change = +0.0% YoY)",
+        "hlf_transformation": "Unaltered official figure (Official MCERT SPAR House Price Index (July 2026): Annual change = -0.8% YoY | 3-month change = -0.3%)",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
@@ -9677,87 +9629,33 @@
       },
       "history": [
         {
-          "period": "2025-09",
-          "label": "Sep 2025",
-          "value": 0.0,
-          "formatted": "+0.0% YoY"
+          "period": "All Dwellings (Annual YoY)",
+          "label": "All New Zealand Dwellings (12-Month Change)",
+          "value": -0.8,
+          "formatted": "-0.8% YoY"
         },
         {
-          "period": "2024-08",
-          "label": "Aug 2024",
-          "value": 0.07,
-          "formatted": "+0.1% YoY"
+          "period": "All Dwellings (3-Month)",
+          "label": "All New Zealand Dwellings (3-Month Change)",
+          "value": -0.3,
+          "formatted": "-0.3% (3-month)"
         },
         {
-          "period": "2024-07",
-          "label": "Jul 2024",
-          "value": 0.75,
-          "formatted": "+0.7% YoY"
+          "period": "Q1 (Lowest Value 25%)",
+          "label": "Q1 Lowest Valuation Quartile Homes",
+          "value": -0.4,
+          "formatted": "-0.4% YoY"
         },
         {
-          "period": "2024-06",
-          "label": "Jun 2024",
-          "value": 0.9,
-          "formatted": "+0.9% YoY"
-        },
-        {
-          "period": "2024-06",
-          "label": "Jun 2024",
-          "value": 1.43,
-          "formatted": "+1.4% YoY"
-        },
-        {
-          "period": "2024-05",
-          "label": "May 2024",
-          "value": 1.58,
-          "formatted": "+1.6% YoY"
-        },
-        {
-          "period": "2024-05",
-          "label": "May 2024",
-          "value": 1.57,
-          "formatted": "+1.6% YoY"
-        },
-        {
-          "period": "2024-04",
-          "label": "Apr 2024",
-          "value": 1.43,
-          "formatted": "+1.4% YoY"
-        },
-        {
-          "period": "2024-04",
-          "label": "Apr 2024",
-          "value": 1.42,
-          "formatted": "+1.4% YoY"
-        },
-        {
-          "period": "2024-03",
-          "label": "Mar 2024",
-          "value": 1.19,
-          "formatted": "+1.2% YoY"
-        },
-        {
-          "period": "2024-03",
-          "label": "Mar 2024",
-          "value": 1.49,
-          "formatted": "+1.5% YoY"
-        },
-        {
-          "period": "2024-02",
-          "label": "Feb 2024",
-          "value": 0.52,
-          "formatted": "+0.5% YoY"
-        },
-        {
-          "period": "2024-02",
-          "label": "Feb 2024",
-          "value": 1.11,
-          "formatted": "+1.1% YoY"
+          "period": "Q4 (Highest Value 25%)",
+          "label": "Q4 Highest Valuation Quartile Homes",
+          "value": -0.7,
+          "formatted": "-0.7% YoY"
         }
       ],
-      "latest_underlying_data": "March 2026",
-      "official_data": "HUD / MCERT House Price Index (March 2026): National All-Dwellings HPI annual change = +0.0% YoY.",
-      "hlf_calculation": "Official MCERT SPAR House Price Index (March 2026): Annual change = +0.0% YoY",
+      "latest_underlying_data": "July 2026",
+      "official_data": "HUD / MCERT House Price Index (July 2026): National All-Dwellings HPI annual change = -0.8% YoY; 3-month change = -0.3%.",
+      "hlf_calculation": "Official MCERT SPAR House Price Index (July 2026): Annual change = -0.8% YoY | 3-month change = -0.3%",
       "frequency": "Monthly (3-Month DVR Settlement Lag)"
     },
     {
@@ -11686,7 +11584,7 @@
         "official_source": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0)",
         "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
         "source_series_ids": "HUD / MCERT Property and Sales Statistics \u2014 Regional Median & Lower Quartile Sale Prices ($ NZD)",
-        "hlf_transformation": "Unaltered official figure (Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Otago: $641,000 median (LQ $484,000))",
+        "hlf_transformation": "Unaltered official figure (Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Manawatu-Wanganui: $527,000 median (LQ $412,000))",
         "pulse_record_url": "https://pulse-data.homeloanfactory.co.nz/regional-median-house-prices/",
         "pulse_json_url": "https://pulse-data.homeloanfactory.co.nz/pulse.json",
         "hlf_article_title": "What It Actually Takes to Buy Your First Home in NZ",
@@ -11724,6 +11622,12 @@
           "label": "Bay of Plenty",
           "value": 759000,
           "formatted": "$759,000 median | $618,000 lower quartile (25%) (412 sales)"
+        },
+        {
+          "period": "Manawatu-Wanganui",
+          "label": "Manawatu-Wanganui",
+          "value": 527000,
+          "formatted": "$527,000 median | $412,000 lower quartile (25%) (357 sales)"
         },
         {
           "period": "Otago",
@@ -11775,8 +11679,8 @@
         }
       ],
       "latest_underlying_data": "July 2026",
-      "official_data": "HUD / MCERT Property and Sales Statistics (July 2026 Regional Series): Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Otago: $641,000 median (LQ $484,000).",
-      "hlf_calculation": "Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Otago: $641,000 median (LQ $484,000)",
+      "official_data": "HUD / MCERT Property and Sales Statistics (July 2026 Regional Series): Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Manawatu-Wanganui: $527,000 median (LQ $412,000).",
+      "hlf_calculation": "Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Manawatu-Wanganui: $527,000 median (LQ $412,000)",
       "frequency": "Monthly (3-Month DVR Settlement Lag)"
     },
     {
