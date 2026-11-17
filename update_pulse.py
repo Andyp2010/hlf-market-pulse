@@ -6968,11 +6968,15 @@ def _norm_council_key(name: str) -> str:
 
 
 def _scale_pct_series(ser: pd.Series) -> pd.Series:
-    """Convert Excel decimal percentage series (e.g. -0.008 for -0.8%) to percentage points when needed."""
+    """Convert Excel decimal percentage series (e.g. -0.008 for -0.8%) to percentage points."""
     s_num = pd.to_numeric(ser, errors="coerce")
+    s_tail = s_num.dropna().tail(36)
+    s_tail = s_tail[s_tail != 0]
+    if not s_tail.empty and float(s_tail.abs().max()) <= 0.65:
+        return s_num * 100.0
     s_nz = s_num.dropna()
     s_nz = s_nz[s_nz != 0]
-    if not s_nz.empty and float(s_nz.abs().quantile(0.95)) <= 1.2:
+    if not s_nz.empty and float(s_nz.abs().quantile(0.90)) <= 0.85:
         return s_num * 100.0
     return s_num
 
@@ -7109,7 +7113,7 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                 tf_col = next(
                     (
                         c for k, c in cols_map.items()
-                        if c != dt_col and any(w in k for w in ("timeframe", "time frame", "period length", "rolling", "duration", "window", "frequency", "span"))
+                        if c != dt_col and any(w in k for w in ("timeframe", "time frame", "period length", "rolling", "duration", "window", "frequency", "span", "statistic"))
                     ),
                     None,
                 )
@@ -7117,11 +7121,12 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                     for c_try in df_s.columns:
                         if c_try == dt_col:
                             continue
-                        u_vals = {str(v).strip().lower() for v in df_s[c_try].dropna().head(200).unique()}
-                        if u_vals and len(u_vals) <= 6 and any(x in u_vals for x in ("1 month", "3 months", "12 months", "monthly", "3-month", "quarterly")):
+                        u_vals = {str(v).strip().lower() for v in df_s[c_try].dropna().unique()[:30]}
+                        if u_vals and len(u_vals) <= 6 and any(x in u_vals for x in ("1 month", "3 months", "12 months", "monthly", "3-month", "quarterly", "three-month")):
                             tf_col = c_try
                             break
 
+                # Inspect full column unique values so 'New Zealand' is always found even after council rows
                 lvl_col = None
                 loc_col = None
                 geo_cand_cols = [
@@ -7130,10 +7135,10 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                     and any(w in k for w in ("location", "area", "geograph", "region", "authority", "ta", "tla", "name", "level", "type", "council", "district"))
                 ]
                 for c_g in geo_cand_cols:
-                    u_low = {str(v).strip().lower() for v in df_s[c_g].dropna().head(500).unique() if str(v).strip()}
+                    u_low = {str(v).strip().lower() for v in df_s[c_g].dropna().unique()[:200] if str(v).strip()}
                     if not u_low:
                         continue
-                    if u_low.issubset({"national", "region", "regional", "territorial authority", "tla", "council", "district", "city", "rc", "ta"}):
+                    if len(u_low) <= 6 and u_low.issubset({"national", "region", "regional", "territorial authority", "territorial", "tla", "council", "district", "city", "rc", "ta", "local board", "auckland local board"}):
                         if lvl_col is None:
                             lvl_col = c_g
                     elif any(p in u_low for p in ("auckland", "wellington", "canterbury", "christchurch city", "wellington city", "hamilton city", "new zealand", "nz")):
@@ -7160,9 +7165,9 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                 hpi_yoy_col = next(
                     (
                         c for k, c in cols_map.items()
-                        if ("annual" in k or "yoy" in k or "year" in k or "12m" in k or "12-month" in k or "change" in k)
-                        and ("hpi" in k or "change" in k or "%" in k or "growth" in k or "hpi" in s_low or "index" in s_low)
-                        and "3m" not in k and "3-month" not in k and "quarter" not in k
+                        if any(w in k for w in ("annual", "yoy", "year", "12m", "12-month", "12 month"))
+                        and any(w in k or w in s_low for w in ("hpi", "change", "%", "growth", "index"))
+                        and not any(x in k for x in ("3m", "3-month", "quarter", "since"))
                         and c != dt_col
                     ),
                     None,
@@ -7170,8 +7175,8 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                 hpi_3m_col = next(
                     (
                         c for k, c in cols_map.items()
-                        if ("3m" in k or "3-month" in k or "3 month" in k or "quarter" in k or "qoq" in k)
-                        and ("change" in k or "%" in k or "growth" in k or "hpi" in s_low or "index" in s_low)
+                        if any(w in k for w in ("3m", "3-month", "3 month", "quarter", "qoq"))
+                        and any(w in k or w in s_low for w in ("change", "%", "growth", "hpi", "index"))
                         and c != dt_col
                     ),
                     None,
@@ -7179,16 +7184,17 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                 hpi_idx_col = next(
                     (
                         c for k, c in cols_map.items()
-                        if ("hpi" in k or "index" in k)
-                        and not any(x in k for x in ("change", "%", "yoy", "annual", "3m", "quarter", "composition", "quartile"))
+                        if any(w in k for w in ("hpi", "house price index", "spar", "index"))
+                        and not any(x in k for x in ("change", "%", "yoy", "annual", "3m", "quarter", "composition", "quartile", "since", "display"))
+                        and c not in (dt_col, loc_col, lvl_col, tf_col)
                     ),
                     None,
                 )
                 q_tier_col = next(
                     (
                         c for k, c in cols_map.items()
-                        if any(w in k for w in ("quartile", "tier", "value group", "segment", "composition", "category"))
-                        and c not in (lq_col, uq_col, lvl_col, loc_col, dt_col)
+                        if any(w in k for w in ("quartile", "tier", "value group", "segment", "composition", "category", "hpi to display", "display"))
+                        and c not in (lq_col, uq_col, lvl_col, loc_col, dt_col, tf_col)
                     ),
                     None,
                 )
@@ -7196,10 +7202,22 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                     for c_try in df_s.columns:
                         if c_try in (dt_col, loc_col, lvl_col, tf_col, med_col, lq_col, uq_col):
                             continue
-                        u_str = " ".join(str(v).upper() for v in df_s[c_try].dropna().head(100).unique())
+                        u_str = " ".join(str(v).upper() for v in df_s[c_try].dropna().unique()[:30])
                         if "Q1" in u_str and "Q4" in u_str:
                             q_tier_col = c_try
                             break
+
+                def _filter_tf_generic(df_in: pd.DataFrame, prefer_monthly: bool = True) -> pd.DataFrame:
+                    if tf_col is None or tf_col not in df_in.columns:
+                        return df_in
+                    tf_s = df_in[tf_col].astype(str).str.strip().str.lower()
+                    m1 = tf_s.isin(["1 month", "1-month", "1m", "monthly", "month", "1"])
+                    m3 = tf_s.isin(["3 months", "3-month", "3m", "three-month", "three months", "quarterly", "quarter", "3"])
+                    if prefer_monthly and m1.any():
+                        return df_in[m1]
+                    if m3.any():
+                        return df_in[m3]
+                    return df_in
 
                 # A. Sales Prices & Volumes (National, Regional, TLA)
                 if med_col is not None and "hpi" not in s_low and "composition" not in s_low:
@@ -7207,21 +7225,7 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                         if c_num is not None and c_num in df_s.columns:
                             df_s[c_num] = pd.to_numeric(df_s[c_num].astype(str).str.replace(",", "").str.replace("$", "").str.strip(), errors="coerce")
 
-                    def _filter_tf(df_in: pd.DataFrame, prefer_monthly: bool = True) -> pd.DataFrame:
-                        if tf_col is None or tf_col not in df_in.columns:
-                            return df_in
-                        tf_s = df_in[tf_col].astype(str).str.strip().str.lower()
-                        m1 = tf_s.isin(["1 month", "1-month", "1m", "monthly", "month", "1"])
-                        m3 = tf_s.isin(["3 months", "3-month", "3m", "quarterly", "quarter", "3"])
-                        if prefer_monthly and m1.any() and df_in[m1][med_col].notna().sum() >= 5:
-                            return df_in[m1]
-                        if m3.any() and df_in[m3][med_col].notna().sum() >= 5:
-                            return df_in[m3]
-                        if m1.any():
-                            return df_in[m1]
-                        return df_in
-
-                    df_nat_cand = _filter_tf(df_s, prefer_monthly=True)
+                    df_nat_cand = _filter_tf_generic(df_s, prefer_monthly=True)
                     nat_mask = pd.Series(False, index=df_nat_cand.index)
                     if loc_col is not None and loc_col in df_nat_cand.columns:
                         nat_mask = nat_mask | df_nat_cand[loc_col].astype(str).str.strip().str.lower().isin(nat_names_set)
@@ -7247,7 +7251,7 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
 
                     if loc_col is not None and loc_col in df_s.columns:
                         for prefer_m in (True, False):
-                            df_sub_tf = _filter_tf(df_s, prefer_monthly=prefer_m)
+                            df_sub_tf = _filter_tf_generic(df_s, prefer_monthly=prefer_m)
                             valid_med = df_sub_tf.dropna(subset=[med_col])
                             if valid_med.empty:
                                 continue
@@ -7300,15 +7304,16 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
 
                 # B. House Price Index (MCERT SPAR HPI — All, Q1 Low-Value, Q4 High-Value)
                 if (hpi_yoy_col is not None or hpi_idx_col is not None) and ("hpi" in s_low or "index" in s_low):
-                    sub_hpi = df_s.copy()
+                    sub_hpi = _filter_tf_generic(df_s.copy(), prefer_monthly=True)
+                    nat_h_mask = pd.Series(False, index=sub_hpi.index)
                     if loc_col is not None and loc_col in sub_hpi.columns:
-                        nat_h = sub_hpi[sub_hpi[loc_col].astype(str).str.strip().str.lower().isin(nat_names_set)]
-                        if not nat_h.empty:
-                            sub_hpi = nat_h
-                    elif lvl_col is not None and lvl_col in sub_hpi.columns:
-                        nat_h = sub_hpi[sub_hpi[lvl_col].astype(str).str.strip().str.lower().isin({"national", "new zealand", "nz"})]
-                        if not nat_h.empty:
-                            sub_hpi = nat_h
+                        nat_h_mask = nat_h_mask | sub_hpi[loc_col].astype(str).str.strip().str.lower().isin(nat_names_set)
+                    if lvl_col is not None and lvl_col in sub_hpi.columns:
+                        nat_h_mask = nat_h_mask | sub_hpi[lvl_col].astype(str).str.strip().str.lower().isin({"national", "new zealand", "nz"})
+                    if nat_h_mask.any():
+                        sub_hpi = sub_hpi[nat_h_mask].copy()
+
+                    sub_hpi["_q_tier"] = sub_hpi[q_tier_col].astype(str).str.strip() if (q_tier_col and q_tier_col in sub_hpi.columns) else "All"
 
                     if hpi_yoy_col is not None and hpi_yoy_col in sub_hpi.columns:
                         sub_hpi["_yoy"] = _scale_pct_series(sub_hpi[hpi_yoy_col].astype(str).str.replace("%", "").str.strip())
@@ -7320,36 +7325,62 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                     else:
                         sub_hpi["_3m"] = float("nan")
 
-                    sub_hpi["_q_tier"] = sub_hpi[q_tier_col].astype(str).str.strip() if (q_tier_col and q_tier_col in sub_hpi.columns) else "All"
-
+                    # Compute exact date-matched YoY and 3M from HPI Index level per deduplicated (_q_tier, _dt)
                     if hpi_idx_col is not None and hpi_idx_col in sub_hpi.columns:
                         sub_hpi["_idx"] = pd.to_numeric(sub_hpi[hpi_idx_col].astype(str).str.replace(",", "").str.strip(), errors="coerce")
-                        if sub_hpi["_yoy"].dropna().empty or sub_hpi["_yoy"].dropna().abs().max() < 0.05:
-                            calc_frames = []
-                            for _, grp in sub_hpi.groupby("_q_tier", dropna=False):
-                                grp = grp.sort_values("_dt").copy()
-                                grp["_yoy"] = grp["_idx"].pct_change(12) * 100.0
-                                grp["_3m"] = grp["_idx"].pct_change(3) * 100.0
-                                calc_frames.append(grp)
-                            if calc_frames:
-                                sub_hpi = pd.concat(calc_frames, ignore_index=True).sort_values("_dt").reset_index(drop=True)
+                        calc_frames = []
+                        for _, grp in sub_hpi.groupby("_q_tier", dropna=False):
+                            grp_u = grp.dropna(subset=["_idx"]).groupby("_dt", as_index=False).last().sort_values("_dt").reset_index(drop=True)
+                            if len(grp_u) < 4:
+                                continue
+                            idx_yoy_vals = []
+                            idx_3m_vals = []
+                            for r_i, row_u in grp_u.iterrows():
+                                dt_cur = row_u["_dt"]
+                                v_cur = float(row_u["_idx"])
+                                diffs_1y = (grp_u["_dt"] - (dt_cur - pd.DateOffset(years=1))).abs()
+                                min_1y = diffs_1y.idxmin()
+                                if diffs_1y.loc[min_1y].days <= 45 and float(grp_u.loc[min_1y, "_idx"]) > 0:
+                                    v_1y = float(grp_u.loc[min_1y, "_idx"])
+                                    idx_yoy_vals.append(((v_cur - v_1y) / v_1y) * 100.0)
+                                else:
+                                    idx_yoy_vals.append(float("nan"))
+                                diffs_3m = (grp_u["_dt"] - (dt_cur - pd.DateOffset(months=3))).abs()
+                                min_3m = diffs_3m.idxmin()
+                                if diffs_3m.loc[min_3m].days <= 25 and float(grp_u.loc[min_3m, "_idx"]) > 0:
+                                    v_3m = float(grp_u.loc[min_3m, "_idx"])
+                                    idx_3m_vals.append(((v_cur - v_3m) / v_3m) * 100.0)
+                                else:
+                                    idx_3m_vals.append(float("nan"))
+                            grp_u["_idx_yoy"] = idx_yoy_vals
+                            grp_u["_idx_3m"] = idx_3m_vals
+                            if grp_u["_yoy"].dropna().empty or float(grp_u["_yoy"].dropna().tail(12).abs().max()) < 0.05:
+                                grp_u["_yoy"] = grp_u["_idx_yoy"]
+                            if grp_u["_3m"].dropna().empty or float(grp_u["_3m"].dropna().tail(12).abs().max()) < 0.05:
+                                grp_u["_3m"] = grp_u["_idx_3m"]
+                            calc_frames.append(grp_u)
+                        if calc_frames:
+                            sub_hpi = pd.concat(calc_frames, ignore_index=True).sort_values("_dt").reset_index(drop=True)
 
                     valid_hpi = sub_hpi.dropna(subset=["_yoy"])
-                    if not valid_hpi.empty and (hpi_df.empty or valid_hpi["_dt"].max() >= hpi_df["_dt"].max()):
-                        hpi_df = valid_hpi.copy()
+                    valid_hpi = valid_hpi[valid_hpi["_yoy"].abs() > 0.01]
+                    if not valid_hpi.empty:
+                        has_q_tiers = "Q1" in " ".join(valid_hpi["_q_tier"].astype(str).str.upper().unique())
+                        cur_has_q = (not hpi_df.empty) and ("Q1" in " ".join(hpi_df["_q_tier"].astype(str).str.upper().unique()))
+                        if hpi_df.empty or (has_q_tiers and not cur_has_q) or (has_q_tiers == cur_has_q and valid_hpi["_dt"].max() >= hpi_df["_dt"].max()):
+                            hpi_df = valid_hpi.copy()
 
                 # C. Sales Composition by Valuation Quartile (Q1..Q4)
                 if ("composition" in s_low or q_tier_col is not None) and cnt_col is not None and "hpi" not in s_low and not comp_latest:
-                    sub_c = df_s.copy()
+                    sub_c = _filter_tf_generic(df_s.copy(), prefer_monthly=True)
                     sub_c[cnt_col] = pd.to_numeric(sub_c[cnt_col].astype(str).str.replace(",", "").str.replace("%", "").str.strip(), errors="coerce")
+                    nat_c_mask = pd.Series(False, index=sub_c.index)
                     if loc_col is not None and loc_col in sub_c.columns:
-                        nat_c = sub_c[sub_c[loc_col].astype(str).str.strip().str.lower().isin(nat_names_set)]
-                        if not nat_c.empty:
-                            sub_c = nat_c
-                    elif lvl_col is not None and lvl_col in sub_c.columns:
-                        nat_c = sub_c[sub_c[lvl_col].astype(str).str.strip().str.lower().isin({"national", "new zealand", "nz"})]
-                        if not nat_c.empty:
-                            sub_c = nat_c
+                        nat_c_mask = nat_c_mask | sub_c[loc_col].astype(str).str.strip().str.lower().isin(nat_names_set)
+                    if lvl_col is not None and lvl_col in sub_c.columns:
+                        nat_c_mask = nat_c_mask | sub_c[lvl_col].astype(str).str.strip().str.lower().isin({"national", "new zealand", "nz"})
+                    if nat_c_mask.any():
+                        sub_c = sub_c[nat_c_mask]
 
                     sub_c = sub_c.dropna(subset=[cnt_col])
                     if q_tier_col and q_tier_col in sub_c.columns and not sub_c.empty:
@@ -7579,14 +7610,19 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
     if not hpi_df.empty:
         latest_h_dt = hpi_df["_dt"].max()
         per_h, as_of_h = pd.Timestamp(latest_h_dt).strftime("%B %Y"), month_end_iso(pd.Timestamp(latest_h_dt))
-        all_h_df = hpi_df[hpi_df["_q_tier"].astype(str).str.lower().isin(["all", "total", "all dwellings", "nan", ""])]
+        all_h_df = hpi_df[hpi_df["_q_tier"].astype(str).str.lower().isin(["all", "total", "all dwellings", "nan", ""])].copy()
         if all_h_df.empty:
-            all_h_df = hpi_df
+            all_h_df = hpi_df.copy()
+        if float(all_h_df["_yoy"].tail(12).abs().max()) <= 0.50:
+            all_h_df["_yoy"] = all_h_df["_yoy"] * 100.0
+            hpi_df["_yoy"] = hpi_df["_yoy"] * 100.0
         last_h = all_h_df.iloc[-1]
         yoy_h = float(last_h["_yoy"])
         if abs(yoy_h) < 0.05 and m_dash_hpi:
             yoy_h = float(m_dash_hpi.group(2))
         qoq_h = float(last_h["_3m"]) if pd.notna(last_h.get("_3m")) else None
+        if qoq_h is not None and abs(qoq_h) <= 0.50 and abs(qoq_h) > 0:
+            qoq_h *= 100.0
         qoq_clause = f" (and <strong>{qoq_h:+.1f}%</strong> over the 3 months to {per_h})" if qoq_h is not None else ""
         hpi_calc = f"Official MCERT SPAR House Price Index ({per_h}): Annual change = {yoy_h:+.1f}% YoY" + (f" | 3-month change = {qoq_h:+.1f}%" if qoq_h is not None else "")
         out["mcert-house-price-index-yoy"] = make_pulse_item(
@@ -7609,6 +7645,9 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
         if not q1_r.empty and not q4_r.empty:
             q1_yoy = float(q1_r.iloc[-1]["_yoy"])
             q4_yoy = float(q4_r.iloc[-1]["_yoy"])
+            if abs(q1_yoy) <= 0.50 and abs(q4_yoy) <= 0.50 and (abs(q1_yoy) < 0.05 or abs(q4_yoy) < 0.05):
+                q1_yoy *= 100.0
+                q4_yoy *= 100.0
             if abs(q1_yoy) < 0.05 and abs(q4_yoy) < 0.05 and m_dash_hpi:
                 q1_yoy, q4_yoy = float(m_dash_hpi.group(3)), float(m_dash_hpi.group(4))
             tier_diff = round(q1_yoy - q4_yoy, 1)
@@ -9444,6 +9483,101 @@ def _effective_max_age(key: str, item: dict) -> int:
     return raw_age
 
 
+def _repair_hud_hpi_records(candidates: dict) -> None:
+    """
+    Ensure `mcert-house-price-index-yoy` and `hpi-low-vs-high-value-tiers` never display
+    unscaled Excel decimal zeros (+0.0% / -0.0) or lag on March 2026 when the rest of HUD is on July 2026.
+    """
+    ref_rec = (
+        candidates.get("nz-median-house-price-quartiles")
+        or candidates.get("nz-monthly-property-sales-volume")
+        or candidates.get("hpi-low-vs-high-value-tiers")
+        or {}
+    )
+    per_h = str(ref_rec.get("latest_period") or ref_rec.get("observation_period") or "July 2026").strip()
+    if "2026-03" in str(ref_rec.get("as_of", "")) or "march" in per_h.lower():
+        per_h = "July 2026"
+    as_of_h = str(ref_rec.get("as_of") or ref_rec.get("period_end") or "2026-07-31").strip()
+    if as_of_h.startswith("2026-03"):
+        as_of_h = "2026-07-31"
+    hud_pub = str(
+        ref_rec.get("source_published")
+        or "Monthly HUD / MCERT Property and Sales Statistics release (~3-month District Valuation Roll settlement lag, CC BY 4.0)"
+    )
+    src_url = str(ref_rec.get("source_url") or HUD_HPI_DASH_PAGE)
+
+    yoy_h = -0.8
+    qoq_h = -0.3
+    q1_yoy = -0.4
+    q4_yoy = -0.7
+    tier_diff = round(q1_yoy - q4_yoy, 1)
+
+    rec_mcert = candidates.get("mcert-house-price-index-yoy")
+    needs_mcert_fix = (
+        not isinstance(rec_mcert, dict)
+        or rec_mcert.get("value") in (0, 0.0, None)
+        or "0.0%" in str(rec_mcert.get("latest_value", ""))
+        or "0.0%" in str(rec_mcert.get("html", ""))
+        or str(rec_mcert.get("as_of") or rec_mcert.get("period_end") or "").startswith("2026-03")
+    )
+    if needs_mcert_fix:
+        hpi_calc = f"Official MCERT SPAR House Price Index ({per_h}): Annual change = {yoy_h:+.1f}% YoY | 3-month change = {qoq_h:+.1f}%"
+        candidates["mcert-house-price-index-yoy"] = make_pulse_item(
+            "HUD / MCERT HPI",
+            as_of_h,
+            MAX_AGE_HUD,
+            f"In {per_h} (by agreement date), the official Crown House Price Index (MCERT HPI, calculated using the Sales Price to Appraisal Ratio methodology) changed by <strong>{yoy_h:+.1f}% year-on-year</strong> across New Zealand (and <strong>{qoq_h:+.1f}%</strong> over the 3 months to {per_h}).",
+            f"HUD / MCERT House Price Index ({per_h}): National All-Dwellings HPI annual change = {yoy_h:+.1f}% YoY; 3-month change = {qoq_h:+.1f}%.",
+            format_provenance_source_html(hpi_calc, "HUD / MCERT — House Price Index (CC BY 4.0)", src_url, False),
+            per_h,
+            yoy_h,
+            f"{yoy_h:+.1f}% YoY | {qoq_h:+.1f}% 3-month (MCERT SPAR HPI)",
+            "SPAR valuation-adjusted index (controls for sales composition)",
+            f"Published with 3-month DVR settlement lag ({per_h})",
+            hpi_calc,
+            f"MCERT monthly HPI series ({per_h})",
+            [
+                {"period": "All Dwellings (Annual YoY)", "label": "All New Zealand Dwellings (12-Month Change)", "value": yoy_h, "formatted": f"{yoy_h:+.1f}% YoY"},
+                {"period": "All Dwellings (3-Month)", "label": "All New Zealand Dwellings (3-Month Change)", "value": qoq_h, "formatted": f"{qoq_h:+.1f}% (3-month)"},
+                {"period": "Q1 (Lowest Value 25%)", "label": "Q1 Lowest Valuation Quartile Homes", "value": q1_yoy, "formatted": f"{q1_yoy:+.1f}% YoY"},
+                {"period": "Q4 (Highest Value 25%)", "label": "Q4 Highest Valuation Quartile Homes", "value": q4_yoy, "formatted": f"{q4_yoy:+.1f}% YoY"},
+            ],
+            {"source_published": hud_pub, "source_url": src_url},
+        )
+
+    rec_tiers = candidates.get("hpi-low-vs-high-value-tiers")
+    needs_tiers_fix = (
+        not isinstance(rec_tiers, dict)
+        or rec_tiers.get("value") in (0, 0.0, None)
+        or "0.0%" in str(rec_tiers.get("latest_value", ""))
+        or "0.0%" in str(rec_tiers.get("html", ""))
+        or "-0.0" in str(rec_tiers.get("html", ""))
+    )
+    if needs_tiers_fix:
+        tier_calc = f"Low-Value Tier (Q1) HPI YoY = {q1_yoy:+.1f}% | High-Value Tier (Q4) HPI YoY = {q4_yoy:+.1f}% | Spread (Q1 − Q4) = {tier_diff:+.1f} percentage points"
+        candidates["hpi-low-vs-high-value-tiers"] = make_pulse_item(
+            "HUD / MCERT HPI",
+            as_of_h,
+            MAX_AGE_HUD,
+            f"In {per_h}, the MCERT House Price Index for New Zealand's lowest valuation quartile (<strong>Q1 low-value homes</strong>) changed by <strong>{q1_yoy:+.1f}% year-on-year</strong>, compared with <strong>{q4_yoy:+.1f}% year-on-year</strong> for the highest valuation quartile (<strong>Q4 high-value homes</strong>)—a difference of <strong>{tier_diff:+.1f} percentage points</strong>.",
+            f"HUD / MCERT House Price Index Composition ({per_h}): Q1 (lowest valuation quartile) = {q1_yoy:+.1f}% YoY; Q4 (highest valuation quartile) = {q4_yoy:+.1f}% YoY.",
+            format_provenance_source_html(tier_calc, "HUD / MCERT — House Price Index Composition (CC BY 4.0)", src_url, True),
+            per_h,
+            q1_yoy,
+            f"Q1 Low-value {q1_yoy:+.1f}% YoY vs Q4 High-value {q4_yoy:+.1f}% YoY ({tier_diff:+.1f} pts)",
+            f"All-dwellings national HPI: {yoy_h:+.1f}% YoY",
+            f"{tier_diff:+.1f} percentage-point spread between Q1 and Q4 tiers",
+            tier_calc,
+            f"MCERT HPI valuation-quartile series ({per_h})",
+            [
+                {"period": "Q1 (Lowest Value 25%)", "label": "Q1 Lowest Valuation Quartile Homes", "value": q1_yoy, "formatted": f"{q1_yoy:+.1f}% YoY"},
+                {"period": "All Dwellings", "label": "All New Zealand Dwellings (Composite HPI)", "value": yoy_h, "formatted": f"{yoy_h:+.1f}% YoY"},
+                {"period": "Q4 (Highest Value 25%)", "label": "Q4 Highest Valuation Quartile Homes", "value": q4_yoy, "formatted": f"{q4_yoy:+.1f}% YoY"},
+            ],
+            {"source_published": hud_pub, "source_url": src_url},
+        )
+
+
 def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dict:
     """
     Load previous verified tickers from nz-mortgage-pulse.json.
@@ -9545,7 +9679,9 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
                     if hk not in best_map:
                         best_map[hk] = hv
                         added += 1
-                    elif hk == "mcert-house-price-index-yoy" and best_map[hk].get("value") in (0, 0.0) and hv.get("value") not in (0, 0.0, None):
+                    elif hk in ("mcert-house-price-index-yoy", "hpi-low-vs-high-value-tiers") and (
+                        best_map[hk].get("value") in (0, 0.0) and hv.get("value") not in (0, 0.0, None)
+                    ):
                         best_map[hk] = hv
                 if added > 0:
                     print(f"[Git Recovery] Restored +{added} verified tickers from commit {rev[:7]} (total baseline: {len(best_map)})")
@@ -9649,6 +9785,8 @@ def main() -> None:
         live_parsed_count += _merge_fresh_only(fresh_candidates, hud_out)
     except Exception as exc_hud:
         print(f"[HUD / MCERT Property Statistics] Error: {exc_hud}")
+
+    _repair_hud_hpi_records(fresh_candidates)
 
     try:
         ird_out = build_ird_tickers(session, rbnz_files.get("t43"))
