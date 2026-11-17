@@ -9377,10 +9377,11 @@ def _format_cat_card_value(rec: dict) -> str:
     if not raw:
         return "Verified"
     first_seg = raw.split("|")[0].strip()
-    # Only strip a trailing parenthetical note if the text before it already contains a number
-    m_trail = re.match(r"^(.*?\d.*?)\s*\([^()]*\)\s*$", first_seg)
-    if m_trail and len(m_trail.group(1).strip()) >= 3:
-        return m_trail.group(1).strip()
+    idx_paren = first_seg.find("(")
+    if idx_paren > 0 and ":" not in first_seg[idx_paren:]:
+        prefix = first_seg[:idx_paren].strip()
+        if re.search(r"\d", prefix) and len(prefix) >= 3:
+            return prefix
     return first_seg
 
 
@@ -9418,15 +9419,9 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
                 continue
             if k == "kiwisaver-member-demographics-age-income" and isinstance(val_num, (int, float)) and val_num < 2_400_000:
                 continue
-            if k == "mcert-house-price-index-yoy" and (val_num in (0, 0.0) or "+0.0% yoy" in lv):
+            if k == "building-insurance-inflation" and val_num == 1.2:
                 continue
-            if k in ("hpi-low-vs-high-value-tiers", "sales-composition-by-value-quartile") and (
-                lv.startswith("low-value (q1)") or lv.startswith("q1 (lowest)")
-            ):
-                continue
-            if k == "building-insurance-inflation" and val_num in (1.2, 0.1):
-                continue
-            if k in ("contents-insurance-inflation", "life-insurance-inflation") and val_num in (-0.6, -0.8, -0.1, -6.8):
+            if k in ("contents-insurance-inflation", "life-insurance-inflation") and val_num in (-0.6, -0.8, -0.1):
                 continue
             if k in ("vehicle-insurance-inflation", "health-insurance-inflation") and val_num in (1.9, 1.6, 0.1, 0.2):
                 continue
