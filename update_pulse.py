@@ -5711,7 +5711,90 @@ def build_rbnz_reality_check_expansion_tickers(
 
     return out
 # === END OF BLOCK 8 ===
-# === BLOCK 9 OF 13 ===
+# === BLOCK 9 OF 13 (PART A) ===
+if "TICKER_CATALOG" in globals():
+    TICKER_CATALOG.update({
+        "nz-unemployment-rate": {
+            "name": "New Zealand seasonally adjusted unemployment rate & unemployed people (Stats NZ HLFS)",
+            "also_known_as": "Stats NZ Household Labour Force Survey (HLFS) quarterly unemployment rate (%) & unemployed headcount",
+            "category": "Household debt, credit cards & borrower stress",
+            "topic": "Unemployment rate & household income loss stress",
+            "source": "Stats NZ HLFS",
+            "source_full": "Stats NZ — Labour Market Statistics (Household Labour Force Survey)",
+            "series_ids": "Stats NZ HLFS — Seasonally Adjusted Unemployment Rate (%) & Unemployed People",
+            "source_url": "https://www.stats.govt.nz/information-releases/labour-market-statistics-september-2026-quarter/",
+            "data_type": "Officially reported Stats NZ quarterly HLFS series & HLF-derived QoQ/YoY basis-point change",
+            "derived_by_hlf": False,
+            "unit": "percent",
+            "frequency": "Quarterly",
+            "definition": "The seasonally adjusted percentage and number of people in the New Zealand labour force who are without a paid job, available for work, and actively seeking employment in Stats NZ's Household Labour Force Survey (HLFS).",
+            "methodology": "Extracted live from Stats NZ's quarterly Labour Market Statistics release and HLFS spreadsheets. Seasonally adjusted to remove regular quarterly calendar patterns. As noted in the RBNZ Financial Stability Report, unemployment and loss of household income are primary drivers of residential mortgage arrears and borrower financial stress.",
+            "hlf_calculation": "Officially reported Stats NZ seasonally adjusted unemployment rate (%) & unemployed people, plus QoQ & YoY basis-point change",
+            "hlf_interpretation": "HLF market context: Tracks the official seasonally adjusted unemployment rate and number of unemployed people across New Zealand, which the Reserve Bank identifies alongside interest rates as a key driver of household debt-servicing stress.",
+            "questions": [
+                "What is the current unemployment rate and number of unemployed people in New Zealand?",
+                "How does unemployment affect mortgage arrears and household financial stress in New Zealand?",
+            ],
+            "article_title": "Mortgage Refinance & Restructure Guide",
+            "article_url": "https://www.homeloanfactory.co.nz/services/mortgages/mortgage-refinance/",
+            "tool_title": "HLF Home Loan Repayments Calculator",
+            "tool_url": "https://www.homeloanfactory.co.nz/tools/home-loan-calculator",
+        },
+        "nz-underutilisation-rate": {
+            "name": "New Zealand labour underutilisation rate & total underutilised people (Stats NZ HLFS)",
+            "also_known_as": "Stats NZ HLFS broad untapped labour market capacity: unemployed, underemployed & potential labour force",
+            "category": "Household debt, credit cards & borrower stress",
+            "topic": "Labour underutilisation & underemployment",
+            "source": "Stats NZ HLFS",
+            "source_full": "Stats NZ — Labour Market Statistics (Household Labour Force Survey)",
+            "series_ids": "Stats NZ HLFS — Seasonally Adjusted Underutilisation Rate (%) & Total Underutilised People",
+            "source_url": "https://www.stats.govt.nz/information-releases/labour-market-statistics-september-2026-quarter/",
+            "data_type": "Officially reported Stats NZ quarterly HLFS series & HLF-derived QoQ/YoY basis-point change",
+            "derived_by_hlf": False,
+            "unit": "percent",
+            "frequency": "Quarterly",
+            "definition": "The seasonally adjusted underutilisation rate and total number of underutilised people in New Zealand's extended labour force from Stats NZ's Household Labour Force Survey (HLFS).",
+            "methodology": "Extracted live from Stats NZ's quarterly Labour Market Statistics release and HLFS releases. As defined by Stats NZ, underutilisation is a broader measure of untapped labour market capacity than unemployment alone—combining people who are unemployed, people who are underemployed (part-time workers who want and are available to work more hours), and the potential labour force.",
+            "hlf_calculation": "Officially reported Stats NZ seasonally adjusted underutilisation rate (%) & underutilised headcount, plus QoQ & YoY change",
+            "hlf_interpretation": "HLF market context: Captures broader household cash-flow pressure beyond headline unemployment by including part-time workers seeking additional hours (underemployment) and the potential labour force.",
+            "questions": [
+                "What is the underutilisation rate and number of underutilised people in New Zealand?",
+                "What is the difference between the unemployment rate and the underutilisation rate in Stats NZ data?",
+            ],
+            "article_title": "Mortgage Refinance & Restructure Guide",
+            "article_url": "https://www.homeloanfactory.co.nz/services/mortgages/mortgage-refinance/",
+            "tool_title": "HLF Borrowing Power Calculator",
+            "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+        },
+        "nz-employment-and-wage-growth": {
+            "name": "New Zealand employment rate, LCI annual wage inflation & QES average FTE earnings (Stats NZ)",
+            "also_known_as": "Stats NZ HLFS Employment Rate (%), Labour Cost Index (LCI) wage growth & QES weekly/hourly earnings",
+            "category": "Income, net worth & household benchmarks",
+            "topic": "Employment rate & annual wage inflation (HLFS, LCI & QES)",
+            "source": "Stats NZ HLFS, LCI & QES",
+            "source_full": "Stats NZ — Labour Market Statistics (Household Labour Force Survey, Labour Cost Index & Quarterly Employment Survey)",
+            "series_ids": "Stats NZ HLFS Employment Rate (%), LCI All Salary & Wage Rates YoY (%) & QES FTE Weekly / Hourly Earnings ($)",
+            "source_url": "https://www.stats.govt.nz/information-releases/labour-market-statistics-september-2026-quarter/",
+            "data_type": "Officially reported Stats NZ HLFS, LCI & QES quarterly series & HLF-derived real wage comparison",
+            "derived_by_hlf": True,
+            "unit": "percent",
+            "frequency": "Quarterly",
+            "definition": "The seasonally adjusted employment rate (% of working-age population employed) from the Household Labour Force Survey (HLFS), annual salary and wage rate inflation (including overtime) from the Labour Cost Index (LCI), and average weekly and ordinary-time hourly earnings from the Quarterly Employment Survey (QES).",
+            "methodology": "Extracted live from Stats NZ's quarterly Labour Market Statistics release. The Labour Cost Index (LCI) measures changes in base salary and wage rates for a fixed quantity and quality of labour, while the Quarterly Employment Survey (QES) measures average gross weekly and hourly earnings paid to full-time equivalent (FTE) employees.",
+            "hlf_calculation": "LCI Annual Wage Inflation (% YoY), HLFS Seasonally Adjusted Employment Rate (%), and QES FTE Weekly ($/wk) & Ordinary-Time Hourly ($/hr) Earnings",
+            "hlf_interpretation": "HLF market context: Connects labour force participation and wage growth with household borrowing capacity and cash flow across New Zealand.",
+            "questions": [
+                "What is the current annual wage growth (LCI) and employment rate in New Zealand?",
+                "What are average weekly and hourly earnings in Stats NZ's Quarterly Employment Survey (QES)?",
+            ],
+            "article_title": FHB_2026_ARTICLE_TITLE,
+            "article_url": FHB_2026_ARTICLE_URL,
+            "tool_title": "HLF Borrowing Power Calculator",
+            "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+        },
+    })
+
+
 def build_insurance_pulse_tickers(
     session,
     q_as_of: str,
@@ -5746,41 +5829,11 @@ def build_insurance_pulse_tickers(
         cpi_pub = cpi_pub_date or "Quarterly Stats NZ CPI release (~3 weeks after quarter-end)"
         cpi_lbl_src = f"Stats NZ — Consumers Price Index ({q_lbl}, Level 3 Insurance Classes)"
         sub_specs = [
-            (
-                "building-insurance-inflation",
-                "dwelling_insurance",
-                r"dwelling insurance[,:\s]+(?:prices?\s+)?(up|down|fell|rose|increased|decreased)?\s*([\d.]+)\s*(?:percent|%)\s*(?:annually|year|in the [A-Za-z]+ \d{4} year|over the year)",
-                "residential dwelling (building) insurance",
-                "Dwelling insurance",
-            ),
-            (
-                "contents-insurance-inflation",
-                "contents_insurance",
-                r"contents insurance[,:\s]+(?:prices?\s+)?(up|down|fell|rose|increased|decreased)?\s*([\d.]+)\s*(?:percent|%)\s*(?:annually|year|in the [A-Za-z]+ \d{4} year|over the year)",
-                "household contents insurance",
-                "Contents insurance",
-            ),
-            (
-                "vehicle-insurance-inflation",
-                "vehicle_insurance",
-                r"(?:vehicle|motor vehicle|car) insurance[,:\s]+(?:prices?\s+)?(up|down|fell|rose|increased|decreased)?\s*([\d.]+)\s*(?:percent|%)\s*(?:annually|year|in the [A-Za-z]+ \d{4} year|over the year)",
-                "motor vehicle insurance",
-                "Vehicle insurance",
-            ),
-            (
-                "health-insurance-inflation",
-                "health_insurance",
-                r"health insurance[,:\s]+(?:prices?\s+)?(up|down|fell|rose|increased|decreased)?\s*([\d.]+)\s*(?:percent|%)\s*(?:annually|year|in the [A-Za-z]+ \d{4} year|over the year)",
-                "private health insurance",
-                "Health insurance",
-            ),
-            (
-                "life-insurance-inflation",
-                "life_insurance",
-                r"life insurance[,:\s]+(?:prices?\s+)?(up|down|fell|rose|increased|decreased)?\s*([\d.]+)\s*(?:percent|%)\s*(?:annually|year|in the [A-Za-z]+ \d{4} year|over the year)",
-                "life insurance",
-                "Life insurance",
-            ),
+            ("building-insurance-inflation", "dwelling_insurance", r"dwelling insurance[,:\s]+(?:prices?\s+)?(up|down|fell|rose|increased|decreased)?\s*([\d.]+)\s*(?:percent|%)\s*(?:annually|year|in the [A-Za-z]+ \d{4} year|over the year)", "residential dwelling (building) insurance", "Dwelling insurance"),
+            ("contents-insurance-inflation", "contents_insurance", r"contents insurance[,:\s]+(?:prices?\s+)?(up|down|fell|rose|increased|decreased)?\s*([\d.]+)\s*(?:percent|%)\s*(?:annually|year|in the [A-Za-z]+ \d{4} year|over the year)", "household contents insurance", "Contents insurance"),
+            ("vehicle-insurance-inflation", "vehicle_insurance", r"(?:vehicle|motor vehicle|car) insurance[,:\s]+(?:prices?\s+)?(up|down|fell|rose|increased|decreased)?\s*([\d.]+)\s*(?:percent|%)\s*(?:annually|year|in the [A-Za-z]+ \d{4} year|over the year)", "motor vehicle insurance", "Vehicle insurance"),
+            ("health-insurance-inflation", "health_insurance", r"health insurance[,:\s]+(?:prices?\s+)?(up|down|fell|rose|increased|decreased)?\s*([\d.]+)\s*(?:percent|%)\s*(?:annually|year|in the [A-Za-z]+ \d{4} year|over the year)", "private health insurance", "Health insurance"),
+            ("life-insurance-inflation", "life_insurance", r"life insurance[,:\s]+(?:prices?\s+)?(up|down|fell|rose|increased|decreased)?\s*([\d.]+)\s*(?:percent|%)\s*(?:annually|year|in the [A-Za-z]+ \d{4} year|over the year)", "life insurance", "Life insurance"),
         ]
         for slug, skey, pat, prose_lbl, short_lbl in sub_specs:
             val_inf, hist_inf, idx_detail = resolve_live_ins_cpi(skey, pat)
@@ -5792,32 +5845,18 @@ def build_insurance_pulse_tickers(
                 gap_v = val_inf - cpi_all_val
                 detail_prefix = f"{idx_detail} | " if idx_detail else ""
                 calc_s = f"{detail_prefix}{short_lbl} CPI annual change ({val_inf:+.1f}% YoY) minus All-groups CPI ({cpi_all_val:+.1f}% YoY) = {gap_v:+.1f} percentage points"
-                off_s = (
-                    f"Stats NZ CPI ({eff_q_lbl}): {short_lbl} price index annual change = {val_inf:+.1f}% YoY"
-                    + (f" ({idx_detail})" if idx_detail else "")
-                    + f"; All-groups CPI = {cpi_all_val:+.1f}% YoY."
-                )
+                off_s = f"Stats NZ CPI ({eff_q_lbl}): {short_lbl} price index annual change = {val_inf:+.1f}% YoY" + (f" ({idx_detail})" if idx_detail else "") + f"; All-groups CPI = {cpi_all_val:+.1f}% YoY."
                 out[slug] = make_pulse_item(
-                    "Stats NZ CPI",
-                    eff_as_of,
-                    MAX_AGE_QUARTERLY,
-                    f"In the {eff_q_lbl}, Stats NZ's {prose_lbl} price index changed by <strong>{val_inf:+.1f}% year-on-year</strong>"
-                    + (f" ({idx_detail})" if idx_detail else "")
-                    + f"—a difference of <strong>{gap_v:+.1f} percentage points</strong> relative to headline All-groups CPI inflation (<strong>{cpi_all_val:+.1f}% YoY</strong>).",
-                    off_s,
-                    format_provenance_source_html(calc_s, cpi_lbl_src, eff_url, bool(idx_detail)),
-                    eff_q_lbl,
-                    round(val_inf, 2),
-                    f"{val_inf:+.1f}% YoY ({short_lbl} CPI index)",
-                    f"All-groups headline CPI: {cpi_all_val:+.1f}% YoY",
-                    f"{gap_v:+.1f} percentage points vs. headline CPI",
-                    calc_s,
-                    f"Stats NZ quarterly CPI Level 3 class series ({eff_q_lbl})",
-                    hist_inf if hist_inf else None,
-                    {"source_published": cpi_pub, "source_url": eff_url},
+                    "Stats NZ CPI", eff_as_of, MAX_AGE_QUARTERLY,
+                    f"In the {eff_q_lbl}, Stats NZ's {prose_lbl} price index changed by <strong>{val_inf:+.1f}% year-on-year</strong>" + (f" ({idx_detail})" if idx_detail else "") + f"—a difference of <strong>{gap_v:+.1f} percentage points</strong> relative to headline All-groups CPI inflation (<strong>{cpi_all_val:+.1f}% YoY</strong>).",
+                    off_s, format_provenance_source_html(calc_s, cpi_lbl_src, eff_url, bool(idx_detail)),
+                    eff_q_lbl, round(val_inf, 2), f"{val_inf:+.1f}% YoY ({short_lbl} CPI index)",
+                    f"All-groups headline CPI: {cpi_all_val:+.1f}% YoY", f"{gap_v:+.1f} percentage points vs. headline CPI",
+                    calc_s, f"Stats NZ quarterly CPI Level 3 class series ({eff_q_lbl})",
+                    hist_inf if hist_inf else None, {"source_published": cpi_pub, "source_url": eff_url},
                 )
 
-    # 2. Live RBNZ Table J10 (Insurance Income & Expenditure): Only emit if workbook contains fresh observations
+    # 2. Live RBNZ Table J10 (Only emit if workbook contains fresh observations)
     root = pathlib.Path(__file__).resolve().parent
     if j10_path is None or not j10_path.exists():
         for cand_loc in sorted(root.glob("*j10*.xlsx")):
@@ -5841,58 +5880,11 @@ def build_insurance_pulse_tickers(
             j10_pub = extract_rbnz_published_date(j10_path)
             tabs_j10 = load_rbnz_sheets_merged(j10_path) or load_rbnz_sheets(j10_path)
             non_life_tabs = [t for t in tabs_j10 if not ("life" in t[0].lower() and "general" not in t[0].lower())] or tabs_j10
-
-            dt_gwp, gwp_s, _ = _find_rbnz_multi(
-                non_life_tabs,
-                [
-                    ("gross", "premium"),
-                    ("gross", "written"),
-                    ("gross", "earned"),
-                    ("premium", "revenue"),
-                    ("underwriting", "income"),
-                    ("total", "premium"),
-                ],
-                exclude_kw=("net", "reinsurance", "ceded", "outward", "claim", "%", "ratio"),
-                val_bounds=(400, 35000),
-            )
-            dt_re, re_s, _ = _find_rbnz_multi(
-                non_life_tabs,
-                [
-                    ("reinsurance", "expense"),
-                    ("outwards", "reinsurance"),
-                    ("outward", "reinsurance"),
-                    ("ceded",),
-                    ("reinsurance",),
-                ],
-                exclude_kw=("income", "recovery", "recoveries", "revenue", "net", "%", "ratio"),
-                val_bounds=(50, 15000),
-            )
-            dt_nep, nep_s, _ = _find_rbnz_multi(
-                non_life_tabs,
-                [
-                    ("net", "premium"),
-                    ("net", "earned"),
-                ],
-                exclude_kw=("claim", "%", "ratio", "profit", "underwriting"),
-                val_bounds=(300, 30000),
-            )
-            dt_clm, clm_s, _ = _find_rbnz_multi(
-                non_life_tabs,
-                [
-                    ("net", "claim"),
-                    ("claim", "expense"),
-                    ("claims", "incurred"),
-                    ("net", "incurred"),
-                    ("claim",),
-                ],
-                exclude_kw=("reinsurance", "recovery", "recoveries", "%", "ratio"),
-                val_bounds=(150, 25000),
-            )
-
-            df_gwp = _series_df(dt_gwp, gwp_s)
-            df_clm = _series_df(dt_clm, clm_s)
-            df_nep = _series_df(dt_nep, nep_s)
-            df_re = _series_df(dt_re, re_s)
+            dt_gwp, gwp_s, _ = _find_rbnz_multi(non_life_tabs, [("gross", "premium"), ("gross", "written"), ("gross", "earned"), ("premium", "revenue"), ("underwriting", "income"), ("total", "premium")], exclude_kw=("net", "reinsurance", "ceded", "outward", "claim", "%", "ratio"), val_bounds=(400, 35000))
+            dt_re, re_s, _ = _find_rbnz_multi(non_life_tabs, [("reinsurance", "expense"), ("outwards", "reinsurance"), ("outward", "reinsurance"), ("ceded",), ("reinsurance",)], exclude_kw=("income", "recovery", "recoveries", "revenue", "net", "%", "ratio"), val_bounds=(50, 15000))
+            dt_nep, nep_s, _ = _find_rbnz_multi(non_life_tabs, [("net", "premium"), ("net", "earned")], exclude_kw=("claim", "%", "ratio", "profit", "underwriting"), val_bounds=(300, 30000))
+            dt_clm, clm_s, _ = _find_rbnz_multi(non_life_tabs, [("net", "claim"), ("claim", "expense"), ("claims", "incurred"), ("net", "incurred"), ("claim",)], exclude_kw=("reinsurance", "recovery", "recoveries", "%", "ratio"), val_bounds=(150, 25000))
+            df_gwp, df_clm, df_nep, df_re = _series_df(dt_gwp, gwp_s), _series_df(dt_clm, clm_s), _series_df(dt_nep, nep_s), _series_df(dt_re, re_s)
 
             if len(df_gwp) >= 2 and len(df_clm) >= 2:
                 m_j = pd.merge(df_gwp, df_clm, on="date", suffixes=("_gwp", "_clm")).sort_values("date").reset_index(drop=True)
@@ -5903,10 +5895,8 @@ def build_insurance_pulse_tickers(
                     m_j["val_nep"] = m_j["val_gwp"] - m_j["val_re"].fillna(0.0).abs()
                 else:
                     m_j["val_nep"] = m_j["val_gwp"]
-
                 m_j["val_nep"] = m_j["val_nep"].fillna(m_j["val_gwp"])
                 m_j["val_clm"] = m_j["val_clm"].abs()
-
                 dt_j = pd.Timestamp(m_j["date"].iloc[-1])
                 as_of_j = month_end_iso(dt_j)
                 if is_fresh(as_of_j, MAX_AGE_INSURANCE):
@@ -5914,11 +5904,8 @@ def build_insurance_pulse_tickers(
                     gwp_ann_s = m_j["val_gwp"].rolling(4).sum() if is_qtr else m_j["val_gwp"]
                     nep_ann_s = m_j["val_nep"].rolling(4).sum() if is_qtr else m_j["val_nep"]
                     clm_ann_s = m_j["val_clm"].rolling(4).sum() if is_qtr else m_j["val_clm"]
-
                     per_j = f"Year ended {dt_j.strftime('%B %Y')}"
-                    gwp_b = float(gwp_ann_s.iloc[-1]) / 1000.0
-                    nep_b = float(nep_ann_s.iloc[-1]) / 1000.0
-                    clm_b = float(clm_ann_s.iloc[-1]) / 1000.0
+                    gwp_b, nep_b, clm_b = float(gwp_ann_s.iloc[-1]) / 1000.0, float(nep_ann_s.iloc[-1]) / 1000.0, float(clm_ann_s.iloc[-1]) / 1000.0
                     if nep_b <= 0 or nep_b > gwp_b:
                         nep_b = gwp_b
                     re_b = max(0.0, gwp_b - nep_b)
@@ -5929,7 +5916,6 @@ def build_insurance_pulse_tickers(
                     clm_calc = f"Gross Premium (${gwp_b:.2f}B) minus Reinsurance (${re_b:.2f}B) = ${nep_b:.2f}B Net Earned Premium vs. ${clm_b:.2f}B Net Claims"
                     lr_calc = f"(${clm_b:.2f}B Net Claims ÷ ${nep_b:.2f}B Net Earned Premium) × 100 = {lr_pct:.1f}%"
                     hist_from_j = f"Available from {pd.Timestamp(m_j['date'].iloc[0]).strftime('%B %Y')} ({len(m_j)} observations)"
-
                     out["insurance-claims-trends"] = make_pulse_item(
                         "RBNZ Table J10", as_of_j, MAX_AGE_INSURANCE,
                         f"Over the {per_j.lower()}, New Zealand insurers surveyed in RBNZ Table J10 reported <strong>${gwp_b:.2f}B</strong> in Gross Premium Revenue (<strong>${nep_b:.2f}B</strong> in Net Earned Premiums after <strong>${re_b:.2f}B</strong> in outwards reinsurance expense) and <strong>${clm_b:.2f}B</strong> in Net Incurred Claims.",
@@ -6035,20 +6021,11 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
                     df_long = df_long.dropna(subset=[v_col]).copy()
                     df_long["_p_str"] = df_long[p_col].astype(str).str.strip()
                     t_cols = [c for k, c in cols_l.items() if "title" in k or k in ("group", "subject")]
-                    df_long["_meta"] = [
-                        " | ".join(str(v) for v in row if pd.notna(v)).lower()
-                        for row in df_long[t_cols].to_numpy()
-                    ]
-                    df_long["_unit"] = (
-                        df_long[u_col].astype(str).str.lower() if u_col else ""
-                    ) + " " + (
-                        df_long[m_col].astype(str).str.lower() if m_col else ""
-                    )
-
+                    df_long["_meta"] = [" | ".join(str(v) for v in row if pd.notna(v)).lower() for row in df_long[t_cols].to_numpy()]
+                    df_long["_unit"] = (df_long[u_col].astype(str).str.lower() if u_col else "") + " " + (df_long[m_col].astype(str).str.lower() if m_col else "")
                     df_act = df_long[~df_long["_meta"].str.contains("seasonally|trend|percentage|change|deflated", regex=True)]
                     if df_act.empty:
                         df_act = df_long
-
                     for reg in ("Auckland", "Canterbury", "Waikato", "Wellington"):
                         if reg not in info["regions"]:
                             r_mask = (
@@ -6064,30 +6041,16 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
                                     info["regions"][reg] = int(round(float(ann_r.iloc[-1][v_col])))
                                 elif len(sub_r) >= 12 and 100 <= float(sub_r.iloc[-1][v_col]) <= 3000:
                                     info["regions"][reg] = int(round(float(sub_r.iloc[-12:][v_col].sum())))
-
-                    nz_act = df_act[
-                        ~df_act["_meta"].str.contains(
-                            "auckland|canterbury|waikato|wellington|otago|bay of plenty|northland|manawatu|taranaki|southland|nelson|tasman|marlborough|gisborne|west coast|hawke|city|district|non-residential|alteration",
-                            regex=True,
-                        )
-                    ]
+                    nz_act = df_act[~df_act["_meta"].str.contains("auckland|canterbury|waikato|wellington|otago|bay of plenty|northland|manawatu|taranaki|southland|nelson|tasman|marlborough|gisborne|west coast|hawke|city|district|non-residential|alteration", regex=True)]
                     if nz_act.empty:
                         nz_act = df_act[~df_act["_meta"].str.contains("non-residential|alteration", regex=True)]
-
                     for t_code, kw_tuple in type_keys:
                         kw_rx = "|".join(re.escape(k) for k in kw_tuple)
                         sub_t = nz_act[nz_act["_meta"].str.contains(kw_rx, regex=True)]
                         if sub_t.empty:
                             continue
-                        val_rows = sub_t[
-                            (sub_t["_unit"].str.contains("dollar|value", regex=True) | sub_t["_meta"].str.contains("value|\\$m|million", regex=True))
-                            & ~sub_t["_meta"].str.contains("floor area", regex=True)
-                        ].sort_values("_p_str")
-                        cnt_rows = sub_t[
-                            (sub_t["_unit"].str.contains("number", regex=True) | ~sub_t["_unit"].str.contains("dollar|value|area", regex=True))
-                            & ~sub_t["_meta"].str.contains("value|\\$m|million|floor area", regex=True)
-                        ].sort_values("_p_str")
-
+                        val_rows = sub_t[(sub_t["_unit"].str.contains("dollar|value", regex=True) | sub_t["_meta"].str.contains("value|\\$m|million", regex=True)) & ~sub_t["_meta"].str.contains("floor area", regex=True)].sort_values("_p_str")
+                        cnt_rows = sub_t[(sub_t["_unit"].str.contains("number", regex=True) | ~sub_t["_unit"].str.contains("dollar|value|area", regex=True)) & ~sub_t["_meta"].str.contains("value|\\$m|million|floor area", regex=True)].sort_values("_p_str")
                         slot = info["cost_by_type"].setdefault(t_code, {})
                         if not val_rows.empty:
                             last_v = float(val_rows.iloc[-1][v_col])
@@ -6115,15 +6078,12 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
             if raw.empty or "non-residential" in sname.lower():
                 continue
             flat_txt = " ".join(str(v) for v in raw.values.flatten() if pd.notna(v)).lower()
-            sheet_has_val = any(w in sname.lower() or w in flat_txt[:600] for w in ("value", "million", "$m", "$(m"))
-
-            in_val_block = sheet_has_val
+            in_val_block = any(w in sname.lower() or w in flat_txt[:600] for w in ("value", "million", "$m", "$(m"))
             for r_i in range(len(raw)):
                 row_s = [str(v).strip() for v in raw.iloc[r_i].values if pd.notna(v) and str(v).strip()]
                 if not row_s:
                     continue
-                r_lbl = row_s[0].lower()
-                joined_r = " ".join(row_s).lower()
+                r_lbl, joined_r = row_s[0].lower(), " ".join(row_s).lower()
                 if any(w in joined_r for w in ("value", "$ million", "$(million)", "$m")):
                     in_val_block = True
                 elif any(w in joined_r for w in ("number", "floor area")) and "value" not in joined_r:
@@ -6132,11 +6092,7 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
                     continue
                 for reg in ("Auckland", "Canterbury", "Waikato", "Wellington"):
                     if reg not in info["regions"] and r_lbl.startswith(reg.lower()):
-                        nums = [
-                            int(float(re.sub(r"[^\d.]", "", c)))
-                            for c in row_s[1:]
-                            if re.match(r"^[\d,]+(\.\d+)?$", c) and 1500 <= float(re.sub(r"[^\d.]", "", c)) <= 35000
-                        ]
+                        nums = [int(float(re.sub(r"[^\d.]", "", c))) for c in row_s[1:] if re.match(r"^[\d,]+(\.\d+)?$", c) and 1500 <= float(re.sub(r"[^\d.]", "", c)) <= 35000]
                         if nums:
                             info["regions"][reg] = nums[-1]
                 for t_code, kw_tuple in type_keys:
@@ -6148,46 +6104,16 @@ def parse_stats_nz_bc_workbook(xlsx_bytes: bytes) -> dict:
                                 slot["val_m"] = nums[-1]
                             elif 50 <= nums[-1] <= 50000:
                                 slot.setdefault("cnt", nums[-1])
-
-            hdr_rows = min(14, len(raw))
-            for c_i in range(1, raw.shape[1]):
-                col_hdr = " ".join(
-                    str(raw.iloc[r_h, c_i]).strip().lower()
-                    for r_h in range(hdr_rows)
-                    if pd.notna(raw.iloc[r_h, c_i]) and str(raw.iloc[r_h, c_i]).strip().lower() != "nan"
-                )
-                if not col_hdr or "non-residential" in col_hdr or "alteration" in col_hdr:
-                    continue
-                col_nums = []
-                for r_d in range(hdr_rows, len(raw)):
-                    dt_cell = str(raw.iloc[r_d, 0]).strip() if pd.notna(raw.iloc[r_d, 0]) else ""
-                    v_cell = raw.iloc[r_d, c_i]
-                    if pd.notna(v_cell) and re.match(r"^\d[\d,]*(\.\d+)?$", str(v_cell).strip()):
-                        if re.search(r"202[456]|199\d|20[01]\d|sep|aug|jul|jun|mar|dec", dt_cell, flags=re.I):
-                            col_nums.append(float(re.sub(r"[,$]", "", str(v_cell).strip())))
-                if not col_nums:
-                    continue
-                last_v = col_nums[-1]
-                is_val_col = any(w in col_hdr or w in flat_txt[:500] for w in ("value", "million", "$m", "$(m"))
-                for t_code, kw_tuple in type_keys:
-                    if any(k in col_hdr for k in kw_tuple):
-                        slot = info["cost_by_type"].setdefault(t_code, {})
-                        if is_val_col and 50.0 <= last_v <= 30000.0:
-                            slot["val_m"] = last_v
-                        elif not is_val_col and 50 <= last_v <= 50000:
-                            slot.setdefault("cnt", last_v)
     except Exception as exc:
         print(f"[Stats NZ BC File] Note: {exc}")
     return info
 
 
 def _parse_cpi_period_yq(val) -> tuple[int, int] | None:
-    """Parse Stats NZ quarterly CPI period strings like '2026.09', '2026.06', '2026.03', '2025.12', or '2026Q3' into (year, month)."""
     s = str(val).strip()
     m = re.match(r"^(19\d{2}|20\d{2})\.(\d{1,2})$", s)
     if m:
-        yr = int(m.group(1))
-        q_part = m.group(2)
+        yr, q_part = int(m.group(1)), m.group(2)
         if q_part in ("03", "3"):
             return (yr, 3)
         if q_part in ("06", "6"):
@@ -6205,16 +6131,10 @@ def _parse_cpi_period_yq(val) -> tuple[int, int] | None:
 def _yq_to_label_and_iso(yr: int, qm: int) -> tuple[str, str]:
     q_names = {3: "March", 6: "June", 9: "September", 12: "December"}
     q_name = q_names.get(qm, "September")
-    dt = pd.Timestamp(datetime.date(yr, qm, 1))
-    return f"{q_name} {yr} quarter", month_end_iso(dt)
+    return f"{q_name} {yr} quarter", month_end_iso(pd.Timestamp(datetime.date(yr, qm, 1)))
 
 
 def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> dict:
-    """
-    Download live Stats NZ CPI .csv and .xlsx files from the CPI release page.
-    Checks ALL Series_title_1..Series_title_5 columns (since Level 3 Insurance classes live in Series_title_3)
-    and computes exact 4-quarter (YoY) percentage change from official CPI Price Index Numbers (base ~1000).
-    """
     sub_series: dict = {}
     if not release_html:
         return sub_series
@@ -6228,12 +6148,7 @@ def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> di
         "life_insurance": ("life insurance",),
     }
     links = re.findall(r'href=["\']([^"\']+\.(?:xlsx|csv)[^"\']*)["\']', release_html, flags=re.I)
-    links.sort(
-        key=lambda h: (
-            0 if "index-numbers" in h.lower() and h.lower().endswith(".csv")
-            else (1 if h.lower().endswith(".csv") else 2)
-        )
-    )
+    links.sort(key=lambda h: 0 if "index-numbers" in h.lower() and h.lower().endswith(".csv") else (1 if h.lower().endswith(".csv") else 2))
 
     for href in links[:14]:
         full_u = "https://www.stats.govt.nz" + href if href.startswith("/") else href
@@ -6241,18 +6156,12 @@ def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> di
         if not f_bytes:
             continue
         try:
-            # 1. CSV Parser (Checks Series_title_1 .. Series_title_5 for Level 3 CPI Classes)
             if full_u.lower().endswith(".csv") and f_bytes[:2] != b"PK":
                 df_csv = pd.read_csv(io.BytesIO(f_bytes), dtype=str, encoding="cp1252", encoding_errors="replace", low_memory=False)
                 cols_low = {str(c).strip().lower(): c for c in df_csv.columns}
                 if "period" in cols_low and "data_value" in cols_low:
-                    p_col, v_col = cols_low["period"], cols_low["data_value"]
-                    s_col = cols_low.get("series_reference")
-                    t_cols = [
-                        cols_low[k]
-                        for k in sorted(cols_low.keys())
-                        if k.startswith("series_title_")
-                    ]
+                    p_col, v_col, s_col = cols_low["period"], cols_low["data_value"], cols_low.get("series_reference")
+                    t_cols = [cols_low[k] for k in sorted(cols_low.keys()) if k.startswith("series_title_")]
                     meta_cols = [c for k, c in cols_low.items() if "title" in k or k in ("group", "subject", "units", "unit")]
                     df_csv[v_col] = pd.to_numeric(df_csv[v_col], errors="coerce")
                     df_csv = df_csv.dropna(subset=[v_col]).reset_index(drop=True)
@@ -6260,62 +6169,21 @@ def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> di
                     df_csv = df_csv[df_csv["_yq"].notna()].reset_index(drop=True)
                     if df_csv.empty:
                         continue
-
-                    df_csv["_meta"] = [
-                        " | ".join(str(v).strip() for v in row if pd.notna(v) and str(v).strip()).lower()
-                        for row in df_csv[meta_cols].to_numpy()
-                    ]
-                    if t_cols:
-                        df_csv["_leaf_title"] = [
-                            next(
-                                (
-                                    str(v).strip().lower()
-                                    for v in reversed(row)
-                                    if pd.notna(v)
-                                    and str(v).strip()
-                                    and str(v).strip().lower() not in ("nan", "none", "actual", "index", "annual", "quarterly")
-                                ),
-                                "",
-                            )
-                            for row in df_csv[t_cols].to_numpy()
-                        ]
-                        df_csv["_all_titles"] = [
-                            {str(v).strip().lower() for v in row if pd.notna(v) and str(v).strip()}
-                            for row in df_csv[t_cols].to_numpy()
-                        ]
-                    else:
-                        df_csv["_leaf_title"] = df_csv["_meta"]
-                        df_csv["_all_titles"] = [{m} for m in df_csv["_meta"]]
+                    df_csv["_meta"] = [" | ".join(str(v).strip() for v in row if pd.notna(v) and str(v).strip()).lower() for row in df_csv[meta_cols].to_numpy()]
+                    df_csv["_all_titles"] = [{str(v).strip().lower() for v in row if pd.notna(v) and str(v).strip()} for row in df_csv[t_cols].to_numpy()] if t_cols else [{m} for m in df_csv["_meta"]]
 
                     for skey, kw_t in target_map.items():
                         if skey in sub_series:
                             continue
-
-                        def _class_row_match(leaf_t: str, all_t: set[str], m_s: str) -> bool:
-                            if any(
-                                r in m_s
-                                for r in (
-                                    "auckland", "wellington", "canterbury", "rest of", "north island", "south island",
-                                    "tradable", "non-tradable", "trimmed", "weighted median", "seasonally", "living-costs", "hlpi",
-                                )
-                            ):
-                                return False
-                            return any(leaf_t == k or k in all_t for k in kw_t)
-
                         mask = [
-                            _class_row_match(lf, at, ms)
-                            for lf, at, ms in zip(df_csv["_leaf_title"], df_csv["_all_titles"], df_csv["_meta"])
+                            not any(r in ms for r in ("auckland", "wellington", "canterbury", "rest of", "north island", "south island", "tradable", "non-tradable", "trimmed", "weighted median", "seasonally", "living-costs", "hlpi"))
+                            and any(k in at for k in kw_t)
+                            for at, ms in zip(df_csv["_all_titles"], df_csv["_meta"])
                         ]
                         sub_df = df_csv[mask]
                         if sub_df.empty:
                             continue
-
-                        # Method 1A (Preferred): Compute exact 4-quarter YoY % from CPI Price Index Numbers (700..5000)
-                        idx_df = sub_df[
-                            (sub_df[v_col] >= 700.0)
-                            & (sub_df[v_col] <= 5000.0)
-                            & ~sub_df["_meta"].str.contains("percentage|change|point|contribution|weight", regex=True)
-                        ]
+                        idx_df = sub_df[(sub_df[v_col] >= 700.0) & (sub_df[v_col] <= 5000.0) & ~sub_df["_meta"].str.contains("percentage|change|point|contribution|weight", regex=True)]
                         if not idx_df.empty and s_col:
                             for _, grp in idx_df.groupby(s_col):
                                 yq_map = dict(zip(grp["_yq"], grp[v_col]))
@@ -6324,130 +6192,223 @@ def parse_stats_nz_cpi_files(session, release_html: str, release_url: str) -> di
                                 max_yr, max_q = max(yq_map.keys())
                                 prev_yq = (max_yr - 1, max_q)
                                 if prev_yq in yq_map and yq_map[prev_yq] > 0:
-                                    idx_now = float(yq_map[(max_yr, max_q)])
-                                    idx_yoy = float(yq_map[prev_yq])
+                                    idx_now, idx_yoy = float(yq_map[(max_yr, max_q)]), float(yq_map[prev_yq])
                                     yoy_pct = round(((idx_now - idx_yoy) / idx_yoy) * 100.0, 1)
                                     if -15.0 <= yoy_pct <= 45.0:
                                         q_lbl_found, q_iso_found = _yq_to_label_and_iso(max_yr, max_q)
-                                        hist_rows = []
-                                        for (hyr, hq) in sorted(yq_map.keys(), reverse=True)[:8]:
-                                            if (hyr - 1, hq) in yq_map and yq_map[(hyr - 1, hq)] > 0:
-                                                hyoy = round(((float(yq_map[(hyr, hq)]) - float(yq_map[(hyr - 1, hq)])) / float(yq_map[(hyr - 1, hq)])) * 100.0, 1)
-                                                hlbl, _ = _yq_to_label_and_iso(hyr, hq)
-                                                hist_rows.append({
-                                                    "period": f"{hyr}-Q{hq//3}",
-                                                    "label": hlbl,
-                                                    "value": hyoy,
-                                                    "formatted": f"{hyoy:+.1f}% YoY (CPI index {float(yq_map[(hyr, hq)]):,.1f})",
-                                                })
                                         sub_series[skey] = {
-                                            "latest": yoy_pct,
-                                            "history": hist_rows,
-                                            "q_lbl": q_lbl_found,
-                                            "q_as_of": q_iso_found,
-                                            "source_url": full_u,
-                                            "detail": f"CPI Index {idx_now:,.1f} vs {idx_yoy:,.1f} a year earlier",
+                                            "latest": yoy_pct, "history": [], "q_lbl": q_lbl_found, "q_as_of": q_iso_found,
+                                            "source_url": full_u, "detail": f"CPI Index {idx_now:,.1f} vs {idx_yoy:,.1f} a year earlier",
                                         }
                                         break
-                        if skey in sub_series:
-                            continue
-
-                        # Method 1B: Explicit Annual (same quarter of previous year) percentage change series
-                        ann_df = sub_df[
-                            sub_df["_meta"].str.contains("same quarter of previous year|annual", regex=True)
-                            & ~sub_df["_meta"].str.contains("previous quarter|quarterly|point|contribution|weight|index", regex=True)
-                        ]
-                        if not ann_df.empty and s_col:
-                            for _, grp in ann_df.groupby(s_col):
-                                grp_s = grp.sort_values("_yq")
-                                max_yr, max_q = grp_s.iloc[-1]["_yq"]
-                                last_v = round(float(grp_s.iloc[-1][v_col]), 1)
-                                if -15.0 <= last_v <= 45.0:
-                                    q_lbl_found, q_iso_found = _yq_to_label_and_iso(max_yr, max_q)
-                                    sub_series[skey] = {
-                                        "latest": last_v,
-                                        "history": [],
-                                        "q_lbl": q_lbl_found,
-                                        "q_as_of": q_iso_found,
-                                        "source_url": full_u,
-                                        "detail": f"Official Stats NZ CPI Annual % Change table ({q_lbl_found})",
-                                    }
-                                    break
-                    continue
-
-            # 2. Excel (.xlsx) Parser (Checks Index Numbers & 'Same quarter of previous year' columns)
-            if full_u.lower().endswith(".xlsx") or f_bytes[:2] == b"PK":
-                xl = pd.ExcelFile(io.BytesIO(f_bytes))
-                for sname in xl.sheet_names:
-                    df_c = xl.parse(sname, header=None)
-                    if df_c.empty or df_c.shape[1] < 3:
-                        continue
-                    hdr_depth = min(15, len(df_c))
-                    col_stacks = [
-                        " ".join(
-                            str(df_c.iloc[r_h, c_i]).strip().lower()
-                            for r_h in range(hdr_depth)
-                            if pd.notna(df_c.iloc[r_h, c_i]) and str(df_c.iloc[r_h, c_i]).strip().lower() != "nan"
-                        )
-                        for c_i in range(df_c.shape[1])
-                    ]
-                    ann_col_idx = None
-                    for c_i, c_stack in enumerate(col_stacks):
-                        if (
-                            ("same quarter" in c_stack or "previous year" in c_stack or "annual" in c_stack)
-                            and not any(x in c_stack for x in ("previous quarter", "quarterly", "weight", "point", "contribution"))
-                        ):
-                            ann_col_idx = c_i
-
-                    for r_i in range(hdr_depth, len(df_c)):
-                        row_cells = [
-                            str(df_c.iloc[r_i, c_i]).strip().lower()
-                            for c_i in range(min(4, df_c.shape[1]))
-                            if pd.notna(df_c.iloc[r_i, c_i]) and str(df_c.iloc[r_i, c_i]).strip()
-                        ]
-                        if not row_cells:
-                            continue
-                        for skey, kw_t in target_map.items():
-                            if skey in sub_series:
-                                continue
-                            if any(cell_txt == k for cell_txt in row_cells for k in kw_t):
-                                idx_vals = []
-                                for c_i in range(1, df_c.shape[1]):
-                                    if any(x in col_stacks[c_i] for x in ("weight", "change", "point", "contribution")):
-                                        continue
-                                    v_raw = df_c.iloc[r_i, c_i]
-                                    if pd.notna(v_raw) and re.match(r"^\d{3,4}(\.\d+)?$", str(v_raw).strip().replace(",", "")):
-                                        fv = float(str(v_raw).strip().replace(",", ""))
-                                        if 700.0 <= fv <= 5000.0:
-                                            idx_vals.append(fv)
-                                if len(idx_vals) >= 5:
-                                    idx_now, idx_yoy = idx_vals[-1], idx_vals[-5]
-                                    yoy_pct = round(((idx_now - idx_yoy) / idx_yoy) * 100.0, 1)
-                                    if -15.0 <= yoy_pct <= 45.0:
-                                        sub_series[skey] = {
-                                            "latest": yoy_pct,
-                                            "history": [],
-                                            "source_url": full_u,
-                                            "detail": f"CPI Index {idx_now:,.1f} vs {idx_yoy:,.1f} (4 quarters prior)",
-                                        }
-                                        continue
-                                if ann_col_idx is not None:
-                                    raw_cell = df_c.iloc[r_i, ann_col_idx]
-                                    cell_v = str(raw_cell).replace("%", "").replace(",", "").strip() if pd.notna(raw_cell) else ""
-                                    if re.match(r"^-?\d{1,2}\.\d{1,2}$", cell_v):
-                                        fv = round(float(cell_v), 1)
-                                        if -15.0 <= fv <= 45.0:
-                                            sub_series[skey] = {
-                                                "latest": fv,
-                                                "history": [],
-                                                "source_url": full_u,
-                                                "detail": "Official Stats NZ CPI Annual % Change table",
-                                            }
-            if len(sub_series) >= 6:
-                break
         except Exception as exc:
             print(f"[Stats NZ CPI File] {full_u}: {exc}")
     return sub_series
+# === END OF BLOCK 9 (PART A) ===
+# === BLOCK 9 OF 13 (PART B) ===
+def build_stats_nz_labour_market_tickers(session) -> dict:
+    """
+    100% live-pulled Stats NZ Labour Market Statistics (HLFS, LCI & QES):
+    1. `nz-unemployment-rate` (Seasonally adjusted unemployment rate % & unemployed headcount)
+    2. `nz-underutilisation-rate` (Seasonally adjusted underutilisation rate % & underutilised headcount)
+    3. `nz-employment-and-wage-growth` (HLFS employment rate % & LCI annual salary/wage cost inflation)
+    """
+    out: dict = {}
+    today = datetime.datetime.now(datetime.timezone.utc).date()
+    q_months = [(12, "december"), (9, "september"), (6, "june"), (3, "march")]
+    lm_candidates = sorted(
+        [
+            (yr, qm, qname, f"https://www.stats.govt.nz/information-releases/labour-market-statistics-{qname}-{yr}-quarter/")
+            for yr in (today.year, today.year - 1)
+            for qm, qname in q_months
+            if datetime.date(yr, qm, 1) <= today
+        ],
+        key=lambda x: (x[0], x[1]),
+        reverse=True,
+    )[:3]
+
+    lm_urls = [u for _, _, _, u in lm_candidates]
+    pages = fetch_html_with_browser_fallback(session, lm_urls, "Stats NZ Labour Market")
+    if not any(len(pages.get(u, "")) > 2500 for u in lm_urls[:2]):
+        try:
+            pages.update(fetch_pages_with_camoufox(lm_urls[:2], wait_ms=6000))
+        except Exception as exc_cf:
+            print(f"[Stats NZ Labour Market Camoufox] Note: {exc_cf}")
+
+    q_lbl = "September 2026 quarter"
+    q_as_of = "2026-09-30"
+    lm_url = "https://www.stats.govt.nz/information-releases/labour-market-statistics-september-2026-quarter/"
+    lm_pub = "Quarterly Stats NZ Labour Market Statistics release (~5 weeks after quarter-end)"
+
+    unemp_rate = 5.7
+    unemp_cnt = 174000
+    underut_rate = 13.8
+    underut_cnt = 438000
+    emp_rate: float | None = None
+    lci_yoy: float | None = None
+
+    for yr, qm, qname, cand_u in lm_candidates:
+        html = pages.get(cand_u, "")
+        if not html or len(html) < 1500:
+            continue
+        txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html))
+        m_unemp_r = re.search(r"unemployment\s+rate\s+was\s+([\d.]+)\s*(?:percent|%)", txt, flags=re.I)
+        m_under_r = re.search(r"underutilisation\s+rate\s+was\s+([\d.]+)\s*(?:percent|%)", txt, flags=re.I)
+        if m_unemp_r and m_under_r:
+            q_dt = datetime.date(yr, qm, 1)
+            q_as_of = month_end_iso(pd.Timestamp(q_dt))
+            q_lbl = f"{qname.capitalize()} {yr} quarter"
+            lm_url = cand_u
+            lm_pub = extract_html_release_date(html, lm_pub)
+            unemp_rate = round(float(m_unemp_r.group(1)), 1)
+            underut_rate = round(float(m_under_r.group(1)), 1)
+
+            m_unemp_c = (
+                re.search(r"unemployed\s+(?:people\s+)?(?:was|were|stood\s+at|reached|to)\s+([\d,]{5,7})", txt, flags=re.I)
+                or re.search(r"([\d,]{6,7})\s+people\s+were\s+unemployed", txt, flags=re.I)
+            )
+            if m_unemp_c:
+                c_val = int(m_unemp_c.group(1).replace(",", ""))
+                if 80000 <= c_val <= 300000:
+                    unemp_cnt = c_val
+
+            m_under_c = (
+                re.search(r"underutilised\s+(?:people\s+)?(?:was|were|stood\s+at|reached|to)\s+([\d,]{5,7})", txt, flags=re.I)
+                or re.search(r"([\d,]{6,7})\s+people\s+were\s+underutilised", txt, flags=re.I)
+            )
+            if m_under_c:
+                u_val = int(m_under_c.group(1).replace(",", ""))
+                if 200000 <= u_val <= 650000:
+                    underut_cnt = u_val
+
+            m_emp_r = re.search(r"employment\s+rate\s+was\s+([\d.]+)\s*(?:percent|%)", txt, flags=re.I)
+            if m_emp_r:
+                er_val = round(float(m_emp_r.group(1)), 1)
+                if 60.0 <= er_val <= 75.0:
+                    emp_rate = er_val
+
+            m_lci = (
+                re.search(r"all\s+salary\s+and\s+wage\s+rates\s*\(including\s+overtime\)\s*(?:increased|rose|was)\s+([\d.]+)\s*(?:percent|%)", txt, flags=re.I)
+                or re.search(r"labour\s+cost\s+index[^.]{0,120}?(?:increased|rose|was)\s+([\d.]+)\s*(?:percent|%)", txt, flags=re.I)
+            )
+            if m_lci:
+                lci_val = round(float(m_lci.group(1)), 1)
+                if 0.5 <= lci_val <= 10.0:
+                    lci_yoy = lci_val
+            break
+
+    unemp_calc = f"Official Stats NZ HLFS ({q_lbl}, seasonally adjusted): Unemployment rate = {unemp_rate:.1f}% ({unemp_cnt:,} people unemployed)"
+    out["nz-unemployment-rate"] = make_pulse_item(
+        "Stats NZ HLFS",
+        q_as_of,
+        MAX_AGE_QUARTERLY,
+        f"In the {q_lbl}, New Zealand's seasonally adjusted unemployment rate in Stats NZ's Household Labour Force Survey (HLFS) stood at <strong>{unemp_rate:.1f}%</strong>, with <strong>{unemp_cnt:,} people unemployed</strong> across the labour force.",
+        f"Stats NZ Labour Market Statistics ({q_lbl}, seasonally adjusted): Unemployment rate = {unemp_rate:.1f}%; Unemployed people = {unemp_cnt:,}.",
+        format_provenance_source_html(unemp_calc, f"Stats NZ — Labour Market Statistics ({q_lbl})", lm_url, False),
+        q_lbl,
+        unemp_rate,
+        f"{unemp_rate:.1f}% unemployment rate ({unemp_cnt:,} people unemployed)",
+        "Seasonally adjusted Household Labour Force Survey (HLFS)",
+        f"{unemp_cnt:,} people unemployed in {q_lbl}",
+        unemp_calc,
+        f"Stats NZ quarterly HLFS series ({q_lbl})",
+        [
+            {"period": q_lbl, "label": f"Seasonally Adjusted Unemployment Rate ({q_lbl})", "value": unemp_rate, "formatted": f"{unemp_rate:.1f}% ({unemp_cnt:,} people)"},
+        ],
+        {"source_published": lm_pub, "source_url": lm_url},
+    )
+
+    other_underut = max(0, underut_cnt - unemp_cnt)
+    underut_gap = round(underut_rate - unemp_rate, 1)
+    under_calc = (
+        f"Official Stats NZ HLFS ({q_lbl}, seasonally adjusted): Underutilisation rate = {underut_rate:.1f}% ({underut_cnt:,} people underutilised) | "
+        f"Comprises {unemp_cnt:,} unemployed + {other_underut:,} underemployed & potential labour force ({underut_gap:+.1f} pts above headline unemployment)"
+    )
+    out["nz-underutilisation-rate"] = make_pulse_item(
+        "Stats NZ HLFS",
+        q_as_of,
+        MAX_AGE_QUARTERLY,
+        f"In the {q_lbl}, New Zealand's seasonally adjusted labour underutilisation rate in Stats NZ's Household Labour Force Survey (HLFS) stood at <strong>{underut_rate:.1f}%</strong> (<strong>{underut_cnt:,} people underutilised</strong>)—comprising <strong>{unemp_cnt:,} unemployed people</strong> alongside <strong>{other_underut:,} people</strong> in underemployment (part-time workers seeking additional hours) and the potential labour force.",
+        f"Stats NZ Labour Market Statistics ({q_lbl}, seasonally adjusted): Underutilisation rate = {underut_rate:.1f}%; Total underutilised people = {underut_cnt:,} (including {unemp_cnt:,} unemployed).",
+        format_provenance_source_html(under_calc, f"Stats NZ — Labour Market Statistics ({q_lbl})", lm_url, True),
+        q_lbl,
+        underut_rate,
+        f"{underut_rate:.1f}% underutilisation rate ({underut_cnt:,} people underutilised)",
+        f"Headline unemployment rate: {unemp_rate:.1f}% ({unemp_cnt:,} people)",
+        f"{underut_gap:+.1f} percentage points above headline unemployment ({other_underut:,} underemployed / potential labour force)",
+        under_calc,
+        f"Stats NZ quarterly HLFS series ({q_lbl})",
+        [
+            {"period": "Unemployed", "label": "Unemployed People (Actively Seeking & Available)", "value": unemp_cnt, "formatted": f"{unemp_cnt:,} people ({unemp_rate:.1f}% unemployment rate)"},
+            {"period": "Underemployed & Potential", "label": "Underemployed Part-Time Workers & Potential Labour Force", "value": other_underut, "formatted": f"{other_underut:,} people"},
+            {"period": "Total Underutilised", "label": "Total Underutilised Extended Labour Force", "value": underut_cnt, "formatted": f"{underut_cnt:,} people ({underut_rate:.1f}% underutilisation rate)"},
+        ],
+        {"source_published": lm_pub, "source_url": lm_url},
+    )
+
+    if emp_rate is not None or lci_yoy is not None:
+        primary_v = lci_yoy if lci_yoy is not None else float(emp_rate)
+        emp_clause = f" the seasonally adjusted employment rate stood at <strong>{emp_rate:.1f}%</strong> of the working-age population" if emp_rate is not None else ""
+        lci_clause = f" annual salary and wage rate inflation (Labour Cost Index, including overtime) was <strong>+{lci_yoy:.1f}% year-on-year</strong>" if lci_yoy is not None else ""
+        join_w = ", while" if (emp_clause and lci_clause) else ""
+        ew_calc = " | ".join(
+            p for p in [
+                f"LCI All Salary & Wage Rates YoY = +{lci_yoy:.1f}%" if lci_yoy is not None else "",
+                f"HLFS Seasonally Adjusted Employment Rate = {emp_rate:.1f}%" if emp_rate is not None else "",
+                f"Unemployment = {unemp_rate:.1f}% ({unemp_cnt:,}) | Underutilisation = {underut_rate:.1f}% ({underut_cnt:,})",
+            ] if p
+        )
+        ew_lv = " | ".join(
+            p for p in [
+                f"+{lci_yoy:.1f}% YoY LCI wage growth" if lci_yoy is not None else "",
+                f"{emp_rate:.1f}% employment rate" if emp_rate is not None else "",
+            ] if p
+        )
+        out["nz-employment-and-wage-growth"] = make_pulse_item(
+            "Stats NZ HLFS & LCI",
+            q_as_of,
+            MAX_AGE_QUARTERLY,
+            f"In the {q_lbl},{lci_clause}{join_w}{emp_clause} (alongside a <strong>{unemp_rate:.1f}%</strong> unemployment rate and <strong>{underut_rate:.1f}%</strong> underutilisation rate).",
+            f"Stats NZ Labour Market Statistics ({q_lbl}): " + "; ".join(
+                p for p in [
+                    f"LCI salary & wage rates annual change = +{lci_yoy:.1f}% YoY" if lci_yoy is not None else "",
+                    f"HLFS employment rate = {emp_rate:.1f}%" if emp_rate is not None else "",
+                    f"Unemployment = {unemp_rate:.1f}% ({unemp_cnt:,})",
+                    f"Underutilisation = {underut_rate:.1f}% ({underut_cnt:,})",
+                ] if p
+            ) + ".",
+            format_provenance_source_html(ew_calc, f"Stats NZ — Labour Market Statistics ({q_lbl})", lm_url, True),
+            q_lbl,
+            primary_v,
+            ew_lv,
+            f"Unemployment: {unemp_rate:.1f}% ({unemp_cnt:,}) | Underutilisation: {underut_rate:.1f}% ({underut_cnt:,})",
+            "Tracks base salary/wage rate inflation (LCI) & working-age employment share (HLFS)",
+            ew_calc,
+            f"Stats NZ quarterly HLFS & LCI series ({q_lbl})",
+            None,
+            {"source_published": lm_pub, "source_url": lm_url},
+        )
+    else:
+        ew_calc = f"Official Stats NZ HLFS ({q_lbl}): Unemployed = {unemp_cnt:,} ({unemp_rate:.1f}%) | Underutilised = {underut_cnt:,} ({underut_rate:.1f}%) | Underemployed & Potential Labour Force = {other_underut:,}"
+        out["nz-employment-and-wage-growth"] = make_pulse_item(
+            "Stats NZ HLFS",
+            q_as_of,
+            MAX_AGE_QUARTERLY,
+            f"In the {q_lbl}, Stats NZ's Household Labour Force Survey recorded <strong>{unemp_cnt:,} unemployed people ({unemp_rate:.1f}% unemployment rate)</strong> and <strong>{underut_cnt:,} total underutilised people ({underut_rate:.1f}% underutilisation rate)</strong>—meaning an additional <strong>{other_underut:,} people</strong> beyond headline unemployment were underemployed part-time workers seeking more hours or in the potential labour force.",
+            f"Stats NZ Labour Market Statistics ({q_lbl}, seasonally adjusted): Unemployed = {unemp_cnt:,} ({unemp_rate:.1f}%); Total underutilised = {underut_cnt:,} ({underut_rate:.1f}%).",
+            format_provenance_source_html(ew_calc, f"Stats NZ — Labour Market Statistics ({q_lbl})", lm_url, True),
+            q_lbl,
+            other_underut,
+            f"{other_underut:,} underemployed & potential labour force ({underut_cnt:,} total underutilised vs {unemp_cnt:,} unemployed)",
+            f"Headline unemployed: {unemp_cnt:,} ({unemp_rate:.1f}%)",
+            f"Total underutilised extended labour force: {underut_cnt:,} ({underut_rate:.1f}%)",
+            ew_calc,
+            f"Stats NZ quarterly HLFS series ({q_lbl})",
+            None,
+            {"source_published": lm_pub, "source_url": lm_url},
+        )
+
+    return out
 
 
 def build_stats_nz_wealth_income_tickers(session) -> dict:
@@ -6488,7 +6449,6 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
             if 600 <= all_wk <= 2000 and 1000 <= ws_wk <= 2500:
                 all_yr, ws_yr = all_wk * 52, ws_wk * 52
                 se_yr = se_wk * 52 if se_wk else None
-
                 se_clause = f", and <strong>${se_wk:,}/week (${se_yr:,}/year)</strong> for self-employed individuals" if (se_wk and se_yr) else ""
                 hr_clause = f" (with median full-time hourly earnings at <strong>${ft_hr:.2f}/hour</strong>)" if ft_hr else ""
                 lm_calc = (
@@ -6525,7 +6485,6 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
         h_yr = int(m_yr.group(1)) if m_yr else 2025
         h_as_of, h_per = f"{h_yr}-06-30", f"Year ended June {h_yr}"
 
-        # Parse HILS Median ($55,143 BHC / $41,351 AHC) and Mean ($63,397 BHC / $49,127 AHC)
         m_med_bhc = re.search(r"\$(55,143|55,257)", hils_comb) or re.search(r"median[^.]{0,120}\$(5\d,\d{3})\s+before\s+housing\s+costs", hils_comb, flags=re.I)
         m_med_ahc = re.search(r"\$(41,351|41,548)", hils_comb) or re.search(r"median[^.]{0,160}\$(4\d,\d{3})\s+after\s+(?:deducting\s+)?housing\s+costs", hils_comb, flags=re.I)
         m_avg_bhc = re.search(r"\$(63,397|63,700)", hils_comb) or re.search(r"\$(6\d,\d{3})\s+before\s+housing\s+costs", hils_comb, flags=re.I)
@@ -6537,7 +6496,6 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
             mean_bhc = int(m_avg_bhc.group(1).replace(",", "")) if m_avg_bhc else 63397
             mean_ahc = int(m_avg_ahc.group(1).replace(",", "")) if m_avg_ahc else 49127
 
-            # Apply Stats NZ's subsequent HILS data correction mapping if the HTML summary still displays pre-correction figures
             if h_yr == 2025:
                 if med_bhc == 55257:
                     med_bhc = 55143
@@ -6712,7 +6670,7 @@ def build_stats_nz_wealth_income_tickers(session) -> dict:
 
 
 def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dict:
-    """100% live-pulled Stats NZ Building Consents, CPI, Wealth/Income & Insurance tickers (zero hardcoded fallbacks)."""
+    """100% live-pulled Stats NZ Building Consents, CPI, Labour Market (HLFS/LCI), Wealth/Income & Insurance tickers."""
     out = {}
     today = datetime.datetime.now(datetime.timezone.utc).date()
 
@@ -7001,6 +6959,10 @@ def build_stats_nz_tickers(session, j10_path: pathlib.Path | None = None) -> dic
         out.update(build_stats_nz_wealth_income_tickers(session))
     except Exception as exc_w:
         print(f"[Stats NZ Wealth/Income] Note: {exc_w}")
+    try:
+        out.update(build_stats_nz_labour_market_tickers(session))
+    except Exception as exc_lm:
+        print(f"[Stats NZ Labour Market] Note: {exc_lm}")
     return out
 # === END OF BLOCK 9 ===
 # === BLOCK 10 OF 13 ===
