@@ -23,11 +23,11 @@
   "date_modified": "2026-11-18",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-18",
-  "dataset_generated_utc": "2026-11-18T10:48:39Z",
+  "dataset_generated_utc": "2026-11-18T11:35:02Z",
   "latest_underlying_data": "June 2024 (triennial) to September 2026 (monthly)",
   "data_status": "verified",
   "source_status": "current",
-  "active_datasets_count": 96,
+  "active_datasets_count": 98,
   "reporting_lag_note": "Crown and statutory releases have different reporting frequencies and lags: monthly series (RBNZ, Stats NZ Consents, MBIE Tenancy, HUD/MCERT) cover July\u2013September 2026, quarterly series (CPI, HLPI, HLFS, K\u0101inga Ora) cover Q2\u2013Q3 2026, and annual/triennial surveys (HILS, Net Worth, IRD Tax Distributions) cover 2024\u20132026.",
   "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (CPI / HLPI / HLFS / IRD / K\u0101inga Ora) & Annual/Triennial (FMA / Stats NZ HILS & Net Worth / IRD Tax Distributions / NHC / ACC)",
   "fhb_snapshot": {
@@ -84,7 +84,7 @@
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-monthly-lending-volume/"
       },
       "fhb-loan-size-gap": {
-        "value": 120.17,
+        "value": 120175,
         "latest_value": "$633,383 at >80% LVR vs $513,208 at <=80% LVR (+$120,175)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
@@ -148,7 +148,7 @@
           {
             "period": "Wage & Salary Earners",
             "label": "Median Wage & Salary Earner",
-            "value": 1419,
+            "value": 73788,
             "formatted": "$1,419/wk ($73,788/yr)"
           },
           {
@@ -262,7 +262,7 @@
           {
             "period": "Mortgage-Free Owner-Occupied",
             "label": "Mortgage-Free Owner-Occupied Households",
-            "value": 1287,
+            "value": 1287000,
             "formatted": "$1,287,000 household median"
           }
         ]
@@ -786,6 +786,40 @@
             "label": "Oct 2025",
             "value": 0.67,
             "formatted": "+0.67% (+67 bps)"
+          }
+        ]
+      },
+      "existing-mortgage-stock-lvr-refix": {
+        "value": 64.5,
+        "latest_value": "64.5% refixing <=12m (38.4% <=6m) | 10.8% floating",
+        "observation_period": "September 2026",
+        "period_end": "2026-09-30",
+        "source": "RBNZ Table S33",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/",
+        "breakdown": [
+          {
+            "period": "Floating / Revolving",
+            "label": "Floating & Revolving Credit Stock",
+            "value": 10.8,
+            "formatted": "10.8% ($42.0B)"
+          },
+          {
+            "period": "Fixed Repricing <= 6m",
+            "label": "Fixed Loans Rolling Off Within 6 Months",
+            "value": 38.4,
+            "formatted": "38.4% of fixed stock"
+          },
+          {
+            "period": "Fixed Repricing <= 12m",
+            "label": "Fixed Loans Rolling Off Within 12 Months",
+            "value": 64.5,
+            "formatted": "64.5% of fixed stock ($223.6B)"
+          },
+          {
+            "period": "Fixed > 12m Remaining",
+            "label": "Fixed Loans Repricing Beyond 12 Months",
+            "value": 35.5,
+            "formatted": "35.5% of fixed stock"
           }
         ]
       },
@@ -1394,86 +1428,86 @@
           {
             "period": "2026-07",
             "label": "Jul 2026",
-            "value": 738000,
+            "value": 738000.0,
             "formatted": "$738,000"
           },
           {
             "period": "2026-06",
             "label": "Jun 2026",
-            "value": 747000,
+            "value": 747000.0,
             "formatted": "$747,000"
           },
           {
             "period": "2026-05",
             "label": "May 2026",
-            "value": 761000,
+            "value": 761000.0,
             "formatted": "$761,000"
           },
           {
             "period": "2026-04",
             "label": "Apr 2026",
-            "value": 759000,
+            "value": 759000.0,
             "formatted": "$759,000"
           },
           {
             "period": "2026-03",
             "label": "Mar 2026",
-            "value": 762000,
+            "value": 762000.0,
             "formatted": "$762,000"
           },
           {
             "period": "2026-02",
             "label": "Feb 2026",
-            "value": 756000,
+            "value": 756000.0,
             "formatted": "$756,000"
           },
           {
             "period": "2026-01",
             "label": "Jan 2026",
-            "value": 737000,
+            "value": 737000.0,
             "formatted": "$737,000"
           },
           {
             "period": "2025-12",
             "label": "Dec 2025",
-            "value": 766000,
+            "value": 766000.0,
             "formatted": "$766,000"
           },
           {
             "period": "2025-11",
             "label": "Nov 2025",
-            "value": 771000,
+            "value": 771000.0,
             "formatted": "$771,000"
           },
           {
             "period": "2025-10",
             "label": "Oct 2025",
-            "value": 760000,
+            "value": 760000.0,
             "formatted": "$760,000"
           },
           {
             "period": "2025-09",
             "label": "Sep 2025",
-            "value": 741000,
+            "value": 741000.0,
             "formatted": "$741,000"
           },
           {
             "period": "2025-08",
             "label": "Aug 2025",
-            "value": 737000,
+            "value": 737000.0,
             "formatted": "$737,000"
           },
           {
             "period": "2025-07",
             "label": "Jul 2025",
-            "value": 737000,
+            "value": 737000.0,
             "formatted": "$737,000"
           }
         ]
       },
       "regional-median-house-prices": {
         "value": 921000,
-        "latest_value": "Auckland $921,000 | Canterbury $692,000 | Wellington $724,000 | Waikato $724,000",
+        "latest_value": "Auckland $921,000 | Tasman $770,000 | Bay of Plenty $759,000 | Waikato $724,000",
         "observation_period": "July 2026",
         "period_end": "2026-07-31",
         "source": "HUD / MCERT Property Statistics",
@@ -1483,215 +1517,215 @@
             "period": "Auckland",
             "label": "Auckland",
             "value": 921000,
-            "formatted": "$921,000 median | $738,695 lower quartile (25%) (1,662 sales)"
-          },
-          {
-            "period": "Canterbury",
-            "label": "Canterbury",
-            "value": 692000,
-            "formatted": "$692,000 median | $562,000 lower quartile (25%) (1,002 sales)"
-          },
-          {
-            "period": "Wellington",
-            "label": "Wellington",
-            "value": 724000,
-            "formatted": "$724,000 median | $572,000 lower quartile (25%) (509 sales)"
-          },
-          {
-            "period": "Waikato",
-            "label": "Waikato",
-            "value": 724000,
-            "formatted": "$724,000 median | $588,000 lower quartile (25%) (476 sales)"
-          },
-          {
-            "period": "Bay of Plenty",
-            "label": "Bay of Plenty",
-            "value": 759000,
-            "formatted": "$759,000 median | $618,000 lower quartile (25%) (412 sales)"
-          },
-          {
-            "period": "Manawatu-Wanganui",
-            "label": "Manawatu-Wanganui",
-            "value": 527000,
-            "formatted": "$527,000 median | $412,000 lower quartile (25%) (357 sales)"
-          },
-          {
-            "period": "Otago",
-            "label": "Otago",
-            "value": 641000,
-            "formatted": "$641,000 median | $484,000 lower quartile (25%) (271 sales)"
-          },
-          {
-            "period": "Hawke's Bay",
-            "label": "Hawke's Bay",
-            "value": 662000,
-            "formatted": "$662,000 median | $512,000 lower quartile (25%) (182 sales)"
-          },
-          {
-            "period": "Taranaki",
-            "label": "Taranaki",
-            "value": 587000,
-            "formatted": "$587,000 median | $489,000 lower quartile (25%) (176 sales)"
-          },
-          {
-            "period": "Northland",
-            "label": "Northland",
-            "value": 670000,
-            "formatted": "$670,000 median | $517,000 lower quartile (25%) (160 sales)"
-          },
-          {
-            "period": "Southland",
-            "label": "Southland",
-            "value": 484000,
-            "formatted": "$484,000 median | $382,000 lower quartile (25%) (152 sales)"
-          },
-          {
-            "period": "Nelson",
-            "label": "Nelson",
-            "value": 655000,
-            "formatted": "$655,000 median | $529,000 lower quartile (25%) (85 sales)"
-          },
-          {
-            "period": "Marlborough",
-            "label": "Marlborough",
-            "value": 687000,
-            "formatted": "$687,000 median | $527,000 lower quartile (25%) (75 sales)"
+            "formatted": "$921,000 median | $738,695 lower quartile (25%)"
           },
           {
             "period": "Tasman",
             "label": "Tasman",
             "value": 770000,
-            "formatted": "$770,000 median | $662,000 lower quartile (25%) (65 sales)"
+            "formatted": "$770,000 median | $662,000 lower quartile (25%)"
+          },
+          {
+            "period": "Bay of Plenty",
+            "label": "Bay of Plenty",
+            "value": 759000,
+            "formatted": "$759,000 median | $618,000 lower quartile (25%)"
+          },
+          {
+            "period": "Waikato",
+            "label": "Waikato",
+            "value": 724000,
+            "formatted": "$724,000 median | $588,000 lower quartile (25%)"
+          },
+          {
+            "period": "Wellington",
+            "label": "Wellington",
+            "value": 724000,
+            "formatted": "$724,000 median | $572,000 lower quartile (25%)"
+          },
+          {
+            "period": "Canterbury",
+            "label": "Canterbury",
+            "value": 692000,
+            "formatted": "$692,000 median | $562,000 lower quartile (25%)"
+          },
+          {
+            "period": "Marlborough",
+            "label": "Marlborough",
+            "value": 687000,
+            "formatted": "$687,000 median | $527,000 lower quartile (25%)"
+          },
+          {
+            "period": "Northland",
+            "label": "Northland",
+            "value": 670000,
+            "formatted": "$670,000 median | $517,000 lower quartile (25%)"
+          },
+          {
+            "period": "Hawke's Bay",
+            "label": "Hawke's Bay",
+            "value": 662000,
+            "formatted": "$662,000 median | $512,000 lower quartile (25%)"
+          },
+          {
+            "period": "Nelson",
+            "label": "Nelson",
+            "value": 655000,
+            "formatted": "$655,000 median | $529,000 lower quartile (25%)"
+          },
+          {
+            "period": "Otago",
+            "label": "Otago",
+            "value": 641000,
+            "formatted": "$641,000 median | $484,000 lower quartile (25%)"
+          },
+          {
+            "period": "Taranaki",
+            "label": "Taranaki",
+            "value": 587000,
+            "formatted": "$587,000 median | $489,000 lower quartile (25%)"
+          },
+          {
+            "period": "Manawatu-Wanganui",
+            "label": "Manawatu-Wanganui",
+            "value": 527000,
+            "formatted": "$527,000 median | $412,000 lower quartile (25%)"
+          },
+          {
+            "period": "Southland",
+            "label": "Southland",
+            "value": 484000,
+            "formatted": "$484,000 median | $382,000 lower quartile (25%)"
           }
         ]
       },
       "tla-council-house-price-benchmarks": {
-        "value": 921000,
-        "latest_value": "Auckland $921,000 | Christchurch City $669,000 | Tauranga City $856,000 | Hamilton City $728,000",
+        "value": 1450000,
+        "latest_value": "Queenstown-Lakes District $1,450,000 | Auckland $921,000 | Tauranga City $856,000 | Waip\u0101 District $835,500",
         "observation_period": "July 2026",
         "period_end": "2026-07-31",
         "source": "HUD / MCERT Property Statistics",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/tla-council-house-price-benchmarks/",
         "breakdown": [
           {
+            "period": "Queenstown-Lakes District",
+            "label": "Queenstown-Lakes District",
+            "value": 1450000,
+            "formatted": "$1,450,000 median | $1,175,000 lower quartile (25%)"
+          },
+          {
             "period": "Auckland",
             "label": "Auckland",
             "value": 921000,
-            "formatted": "$921,000 median | $738,695 lower quartile (25%) (1,662 sales)"
-          },
-          {
-            "period": "Christchurch City",
-            "label": "Christchurch City",
-            "value": 669000,
-            "formatted": "$669,000 median | $559,000 lower quartile (25%) (592 sales)"
+            "formatted": "$921,000 median | $738,695 lower quartile (25%)"
           },
           {
             "period": "Tauranga City",
             "label": "Tauranga City",
             "value": 856000,
-            "formatted": "$856,000 median | $737,000 lower quartile (25%) (233 sales)"
+            "formatted": "$856,000 median | $737,000 lower quartile (25%)"
           },
           {
-            "period": "Hamilton City",
-            "label": "Hamilton City",
-            "value": 728000,
-            "formatted": "$728,000 median | $613,000 lower quartile (25%) (177 sales)"
+            "period": "Waip\u0101 District",
+            "label": "Waip\u0101 District",
+            "value": 835500,
+            "formatted": "$835,500 median | $659,000 lower quartile (25%)"
           },
           {
             "period": "Wellington City",
             "label": "Wellington City",
             "value": 810000,
-            "formatted": "$810,000 median | $639,000 lower quartile (25%) (162 sales)"
+            "formatted": "$810,000 median | $639,000 lower quartile (25%)"
+          },
+          {
+            "period": "Porirua City",
+            "label": "Porirua City",
+            "value": 795000,
+            "formatted": "$795,000 median | $625,000 lower quartile (25%)"
           },
           {
             "period": "Selwyn District",
             "label": "Selwyn District",
             "value": 775000,
-            "formatted": "$775,000 median | $710,000 lower quartile (25%) (150 sales)"
+            "formatted": "$775,000 median | $710,000 lower quartile (25%)"
           },
           {
-            "period": "Palmerston North City",
-            "label": "Palmerston North City",
-            "value": 592000,
-            "formatted": "$592,000 median | $493,000 lower quartile (25%) (137 sales)"
-          },
-          {
-            "period": "Dunedin City",
-            "label": "Dunedin City",
-            "value": 587000,
-            "formatted": "$587,000 median | $480,000 lower quartile (25%) (134 sales)"
-          },
-          {
-            "period": "New Plymouth District",
-            "label": "New Plymouth District",
-            "value": 615000,
-            "formatted": "$615,000 median | $546,000 lower quartile (25%) (133 sales)"
-          },
-          {
-            "period": "Waimakariri District",
-            "label": "Waimakariri District",
-            "value": 723000,
-            "formatted": "$723,000 median | $602,000 lower quartile (25%) (110 sales)"
-          },
-          {
-            "period": "Invercargill City",
-            "label": "Invercargill City",
-            "value": 502000,
-            "formatted": "$502,000 median | $418,000 lower quartile (25%) (102 sales)"
-          },
-          {
-            "period": "Lower Hutt City",
-            "label": "Lower Hutt City",
-            "value": 676500,
-            "formatted": "$676,500 median | $539,000 lower quartile (25%) (90 sales)"
-          },
-          {
-            "period": "Hastings District",
-            "label": "Hastings District",
-            "value": 635000,
-            "formatted": "$635,000 median | $483,000 lower quartile (25%) (88 sales)"
-          },
-          {
-            "period": "Whang\u0101rei District",
-            "label": "Whang\u0101rei District",
-            "value": 684000,
-            "formatted": "$684,000 median | $575,000 lower quartile (25%) (86 sales)"
-          },
-          {
-            "period": "Nelson City",
-            "label": "Nelson City",
-            "value": 655000,
-            "formatted": "$655,000 median | $529,000 lower quartile (25%) (85 sales)"
-          },
-          {
-            "period": "Waikato District",
-            "label": "Waikato District",
-            "value": 707000,
-            "formatted": "$707,000 median | $584,000 lower quartile (25%) (82 sales)"
-          },
-          {
-            "period": "Napier City",
-            "label": "Napier City",
-            "value": 683000,
-            "formatted": "$683,000 median | $565,000 lower quartile (25%) (81 sales)"
+            "period": "Tasman District",
+            "label": "Tasman District",
+            "value": 770000,
+            "formatted": "$770,000 median | $662,000 lower quartile (25%)"
           },
           {
             "period": "K\u0101piti Coast District",
             "label": "K\u0101piti Coast District",
             "value": 739000,
-            "formatted": "$739,000 median | $629,000 lower quartile (25%) (78 sales)"
+            "formatted": "$739,000 median | $629,000 lower quartile (25%)"
           },
           {
-            "period": "Rotorua District",
-            "label": "Rotorua District",
-            "value": 589000,
-            "formatted": "$589,000 median | $469,000 lower quartile (25%) (76 sales)"
+            "period": "Hamilton City",
+            "label": "Hamilton City",
+            "value": 728000,
+            "formatted": "$728,000 median | $613,000 lower quartile (25%)"
+          },
+          {
+            "period": "Waimakariri District",
+            "label": "Waimakariri District",
+            "value": 723000,
+            "formatted": "$723,000 median | $602,000 lower quartile (25%)"
+          },
+          {
+            "period": "Waikato District",
+            "label": "Waikato District",
+            "value": 707000,
+            "formatted": "$707,000 median | $584,000 lower quartile (25%)"
+          },
+          {
+            "period": "Upper Hutt City",
+            "label": "Upper Hutt City",
+            "value": 691000,
+            "formatted": "$691,000 median | $553,000 lower quartile (25%)"
           },
           {
             "period": "Marlborough District",
             "label": "Marlborough District",
             "value": 687000,
-            "formatted": "$687,000 median | $527,000 lower quartile (25%) (75 sales)"
+            "formatted": "$687,000 median | $527,000 lower quartile (25%)"
+          },
+          {
+            "period": "Whang\u0101rei District",
+            "label": "Whang\u0101rei District",
+            "value": 684000,
+            "formatted": "$684,000 median | $575,000 lower quartile (25%)"
+          },
+          {
+            "period": "Napier City",
+            "label": "Napier City",
+            "value": 683000,
+            "formatted": "$683,000 median | $565,000 lower quartile (25%)"
+          },
+          {
+            "period": "Lower Hutt City",
+            "label": "Lower Hutt City",
+            "value": 676500,
+            "formatted": "$676,500 median | $539,000 lower quartile (25%)"
+          },
+          {
+            "period": "Christchurch City",
+            "label": "Christchurch City",
+            "value": 669000,
+            "formatted": "$669,000 median | $559,000 lower quartile (25%)"
+          },
+          {
+            "period": "Nelson City",
+            "label": "Nelson City",
+            "value": 655000,
+            "formatted": "$655,000 median | $529,000 lower quartile (25%)"
+          },
+          {
+            "period": "Hastings District",
+            "label": "Hastings District",
+            "value": 635000,
+            "formatted": "$635,000 median | $483,000 lower quartile (25%)"
           }
         ]
       },
@@ -1780,46 +1814,6 @@
             "label": "Jul 2025",
             "value": 6994.0,
             "formatted": "6,994 sales"
-          }
-        ]
-      },
-      "mcert-house-price-index-yoy": {
-        "value": -0.8,
-        "latest_value": "-0.8% YoY (MCERT SPAR HPI)",
-        "observation_period": "July 2026",
-        "period_end": "2026-07-31",
-        "source": "HUD / MCERT House Price Index",
-        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/",
-        "breakdown": [
-          {
-            "period": "All Dwellings (Composite)",
-            "label": "All New Zealand Dwellings (Composite HPI)",
-            "value": -0.8,
-            "formatted": "-0.8% YoY"
-          },
-          {
-            "period": "Q1 (Lowest Value 25%)",
-            "label": "Q1 Lowest Valuation Quartile Homes",
-            "value": -0.4,
-            "formatted": "-0.4% YoY"
-          },
-          {
-            "period": "Q2 (Lower-Middle 25%)",
-            "label": "Q2 Lower-Middle Valuation Quartile Homes",
-            "value": -1.1,
-            "formatted": "-1.1% YoY"
-          },
-          {
-            "period": "Q3 (Upper-Middle 25%)",
-            "label": "Q3 Upper-Middle Valuation Quartile Homes",
-            "value": -1.0,
-            "formatted": "-1.0% YoY"
-          },
-          {
-            "period": "Q4 (Highest Value 25%)",
-            "label": "Q4 Highest Valuation Quartile Homes",
-            "value": -0.7,
-            "formatted": "-0.7% YoY"
           }
         ]
       },
@@ -3524,6 +3518,96 @@
       "frequency": "Annual"
     },
     {
+      "ticker": "existing-mortgage-stock-lvr-refix",
+      "name": "Existing New Zealand mortgage stock repricing horizon & floating vs fixed structure (RBNZ Table S33)",
+      "also_known_as": "RBNZ Table S33 existing mortgage stock by time remaining to repricing",
+      "category": "Homeowners & refinancing",
+      "topic": "Existing homeowner mortgage stock repricing schedule",
+      "value": 64.5,
+      "latest_value": "64.5% refixing <=12m (38.4% <=6m) | 10.8% floating",
+      "unit": "percent",
+      "observation_period": "September 2026",
+      "observed_period": "September 2026",
+      "period_end": "2026-09-30",
+      "source_published": "2026-10-27 (27 Oct 2026)",
+      "last_checked": "2026-11-18",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-18",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Total NZ bank mortgage stock: $388.6B",
+      "change": "Over 94% of existing mortgage stock sits at <=80% LVR (20%+ homeowner equity)",
+      "source": "RBNZ Table S33",
+      "source_full": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33)",
+      "source_series_ids": "RBNZ Table S33 \u2014 Total Mortgage Stock by Repricing Horizon (Floating, <=6m, <=12m, >12m)",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-fully-secured-by-residential-mortgage",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ mortgage stock series & HLF-derived repricing shares",
+      "definition": "Breakdown of New Zealand registered banks' existing residential mortgage book by time remaining until interest rate repricing (Floating, repricing within 6 months, and repricing within 12 months).",
+      "formula": "6M Repricing Share = (<=3m + 3\u20136m Fixed Stock) \u00f7 Total Fixed Stock; 12M Repricing Share = (<=3m + 3\u20136m + 6\u201312m) \u00f7 Total Fixed Stock",
+      "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (a narrower scope than Table S32's total housing loans by product and Table C5's combined bank and non-bank sector credit) and categorises balances by time remaining until interest rate repricing.",
+      "methodology": "Extracted live from RBNZ Table S33, calculating the share of existing fixed-rate mortgage debt scheduled to reprice within 6 and 12 months.",
+      "historical_data_from": "RBNZ Table S33 monthly series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Existing New Zealand mortgage stock repricing horizon & floating vs fixed structure (RBNZ Table S33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33). https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/ (checked 18 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/",
+      "summary_text": "As at September 2026, across New Zealand's $388.6B existing residential mortgage stock (RBNZ Table S33), 38.4% of fixed-rate debt is scheduled to refix within 6 months and 64.5% ($223.6B) within 12 months, while 10.8% ($42.0B) sits on floating rates.",
+      "related_questions": [
+        "What percentage of existing New Zealand fixed-rate mortgages are scheduled to reprice in the next 6 to 12 months?"
+      ],
+      "citation_chain": {
+        "official_publisher": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-fully-secured-by-residential-mortgage",
+        "official_series_ids": "RBNZ Table S33 \u2014 Total Mortgage Stock by Repricing Horizon (Floating, <=6m, <=12m, >12m)",
+        "observation_period": "September 2026",
+        "period_end": "2026-09-30",
+        "source_published": "2026-10-27 (27 Oct 2026)",
+        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
+        "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/",
+        "license": "CC BY 4.0"
+      },
+      "history": [
+        {
+          "period": "Floating / Revolving",
+          "label": "Floating & Revolving Credit Stock",
+          "value": 10.8,
+          "formatted": "10.8% ($42.0B)"
+        },
+        {
+          "period": "Fixed Repricing <= 6m",
+          "label": "Fixed Loans Rolling Off Within 6 Months",
+          "value": 38.4,
+          "formatted": "38.4% of fixed stock"
+        },
+        {
+          "period": "Fixed Repricing <= 12m",
+          "label": "Fixed Loans Rolling Off Within 12 Months",
+          "value": 64.5,
+          "formatted": "64.5% of fixed stock ($223.6B)"
+        },
+        {
+          "period": "Fixed > 12m Remaining",
+          "label": "Fixed Loans Repricing Beyond 12 Months",
+          "value": 35.5,
+          "formatted": "35.5% of fixed stock"
+        }
+      ],
+      "latest_underlying_data": "September 2026",
+      "official_data": "RBNZ Table S33 (September 2026): Repricing <=6m = 38.4%; Repricing <=12m = 64.5% ($223.6B); Floating = 10.8%.",
+      "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
+      "frequency": "Monthly"
+    },
+    {
       "ticker": "fhb-20-deposit-club",
       "name": "First-home buyers with a 20%+ deposit (<=80% LVR)",
       "also_known_as": "Standard-deposit (<=80% LVR) first-home buyer share & average loan size",
@@ -4286,7 +4370,7 @@
       "also_known_as": "High-LVR (>80%) vs standard-LVR (<=80%) first-home buyer loan size difference",
       "category": "First-home buyers",
       "topic": "First-home buyer loan sizes by LVR tier",
-      "value": 120.17,
+      "value": 120175,
       "latest_value": "$633,383 at >80% LVR vs $513,208 at <=80% LVR (+$120,175)",
       "unit": "NZD",
       "observation_period": "September 2026",
@@ -4342,82 +4426,22 @@
       },
       "history": [
         {
-          "period": "2026-09",
-          "label": "Sep 2026",
-          "value": 633.38,
-          "formatted": "$633.4k (>80% LVR avg)"
+          "period": ">80% LVR FHB Avg Loan",
+          "label": "First-Home Buyers with <20% Deposit (>80% LVR)",
+          "value": 633383,
+          "formatted": "$633,383 average loan"
         },
         {
-          "period": "2026-08",
-          "label": "Aug 2026",
-          "value": 635.73,
-          "formatted": "$635.7k (>80% LVR avg)"
+          "period": "<=80% LVR FHB Avg Loan",
+          "label": "First-Home Buyers with 20%+ Deposit (<=80% LVR)",
+          "value": 513208,
+          "formatted": "$513,208 average loan"
         },
         {
-          "period": "2026-07",
-          "label": "Jul 2026",
-          "value": 632.91,
-          "formatted": "$632.9k (>80% LVR avg)"
-        },
-        {
-          "period": "2026-06",
-          "label": "Jun 2026",
-          "value": 648.75,
-          "formatted": "$648.7k (>80% LVR avg)"
-        },
-        {
-          "period": "2026-05",
-          "label": "May 2026",
-          "value": 639.13,
-          "formatted": "$639.1k (>80% LVR avg)"
-        },
-        {
-          "period": "2026-04",
-          "label": "Apr 2026",
-          "value": 641.18,
-          "formatted": "$641.2k (>80% LVR avg)"
-        },
-        {
-          "period": "2026-03",
-          "label": "Mar 2026",
-          "value": 639.56,
-          "formatted": "$639.6k (>80% LVR avg)"
-        },
-        {
-          "period": "2026-02",
-          "label": "Feb 2026",
-          "value": 640.33,
-          "formatted": "$640.3k (>80% LVR avg)"
-        },
-        {
-          "period": "2026-01",
-          "label": "Jan 2026",
-          "value": 656.15,
-          "formatted": "$656.1k (>80% LVR avg)"
-        },
-        {
-          "period": "2025-12",
-          "label": "Dec 2025",
-          "value": 651.33,
-          "formatted": "$651.3k (>80% LVR avg)"
-        },
-        {
-          "period": "2025-11",
-          "label": "Nov 2025",
-          "value": 655.87,
-          "formatted": "$655.9k (>80% LVR avg)"
-        },
-        {
-          "period": "2025-10",
-          "label": "Oct 2025",
-          "value": 645.65,
-          "formatted": "$645.6k (>80% LVR avg)"
-        },
-        {
-          "period": "2025-09",
-          "label": "Sep 2025",
-          "value": 638.95,
-          "formatted": "$639.0k (>80% LVR avg)"
+          "period": "LVR Tier Loan Gap",
+          "label": "Loan Size Difference (>80% LVR minus <=80% LVR)",
+          "value": 120175,
+          "formatted": "+$120,175 loan size difference"
         }
       ],
       "latest_underlying_data": "September 2026",
@@ -5407,6 +5431,72 @@
       "frequency": "Monthly"
     },
     {
+      "ticker": "fixed-vs-floating-rate-mix",
+      "name": "Fixed vs floating mortgage share & 12-month fixed rate roll-off (RBNZ Table S33)",
+      "also_known_as": "Share of NZ residential mortgages on fixed vs floating rates & refixing within 12 months",
+      "category": "Homeowners & refinancing",
+      "topic": "Fixed vs floating mortgage structure & refix horizon",
+      "value": 89.2,
+      "latest_value": "89.2% fixed ($346.6B) vs 10.8% floating ($42.0B)",
+      "unit": "percent",
+      "observation_period": "September 2026",
+      "observed_period": "September 2026",
+      "period_end": "2026-09-30",
+      "source_published": "2026-10-27 (27 Oct 2026)",
+      "last_checked": "2026-11-18",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-18",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Fixed loans repricing within 12 months: 64.5% ($223.6B)",
+      "change": "38.4% of fixed mortgages roll off within the next 6 months",
+      "source": "RBNZ Table S33",
+      "source_full": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33)",
+      "source_series_ids": "RBNZ Table S33 \u2014 Fixed vs Floating Residential Mortgage Stock & <=12-Month Repricing Bands",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-fully-secured-by-residential-mortgage",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ series & HLF-derived repricing share",
+      "definition": "The proportion of New Zealand registered banks' existing residential mortgage stock held on fixed interest rates versus floating rates, alongside the percentage of fixed-rate balances scheduled to reprice within 12 months.",
+      "formula": "Fixed Share = Fixed Stock \u00f7 Total Stock; 12-Month Roll-Off = Fixed Loans Repricing <=12 Months \u00f7 Total Fixed Stock",
+      "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (excluding non-bank lenders in Table C5) and tracks the share of balances on fixed versus floating interest rates.",
+      "methodology": "Extracted live from RBNZ Table S33 residential mortgage stock repricing statistics, dividing fixed-rate mortgage balances by total residential mortgage balances and summing fixed-rate bands repricing within 12 months.",
+      "historical_data_from": "RBNZ Table S33 monthly series",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Fixed vs floating mortgage share & 12-month fixed rate roll-off (RBNZ Table S33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33). https://pulse-data.homeloanfactory.co.nz/fixed-vs-floating-rate-mix/ (checked 18 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fixed-vs-floating-rate-mix/",
+      "summary_text": "As at September 2026, across New Zealand's $388.6B in bank loans secured by residential mortgage, 89.2% ($346.6B) was held on fixed interest rates and 10.8% ($42.0B) on floating rates\u2014with 64.5% ($223.6B) of fixed-rate balances scheduled to reprice within 12 months.",
+      "related_questions": [
+        "What percentage of New Zealand bank mortgages are fixed vs floating?",
+        "What share of fixed-rate mortgages in New Zealand are scheduled to reprice within 12 months?"
+      ],
+      "citation_chain": {
+        "official_publisher": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/registered-banks/banks-assets-loans-fully-secured-by-residential-mortgage",
+        "official_series_ids": "RBNZ Table S33 \u2014 Fixed vs Floating Residential Mortgage Stock & <=12-Month Repricing Bands",
+        "observation_period": "September 2026",
+        "period_end": "2026-09-30",
+        "source_published": "2026-10-27 (27 Oct 2026)",
+        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
+        "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fixed-vs-floating-rate-mix/",
+        "license": "CC BY 4.0"
+      },
+      "history": [],
+      "latest_underlying_data": "September 2026",
+      "official_data": "RBNZ Table S33 (September 2026): Total bank residential mortgage stock = $388.6B; Fixed = $346.6B (89.2%); Floating = $42.0B (10.8%).",
+      "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
+      "frequency": "Monthly"
+    },
+    {
       "ticker": "gross-rental-yield-by-council",
       "name": "Indicative gross residential rental yield by city & district council (MBIE TLA Rent \u00f7 HUD / MCERT TLA Sale Price)",
       "also_known_as": "Council-level ratio of annualised MBIE median weekly rent to HUD / MCERT median house sale price",
@@ -6021,7 +6111,7 @@
         {
           "period": "Wage & Salary Earners",
           "label": "Median Wage & Salary Earner",
-          "value": 1419,
+          "value": 73788,
           "formatted": "$1,419/wk ($73,788/yr)"
         },
         {
@@ -6525,82 +6615,22 @@
       },
       "history": [
         {
-          "period": "2026-09",
-          "label": "Sep 2026",
-          "value": 80.25,
-          "formatted": "80.2% (<=70% LVR)"
+          "period": "<=60% LVR (40%+ Equity)",
+          "label": "Investors with <=60% LVR (40%+ Equity)",
+          "value": 43.8,
+          "formatted": "43.8% of investor loans"
         },
         {
-          "period": "2026-08",
-          "label": "Aug 2026",
-          "value": 78.92,
-          "formatted": "78.9% (<=70% LVR)"
+          "period": "60%\u201370% LVR (30%\u201340% Equity)",
+          "label": "Investors with 60%\u201370% LVR (30%\u201340% Equity)",
+          "value": 36.4,
+          "formatted": "36.4% of investor loans"
         },
         {
-          "period": "2026-07",
-          "label": "Jul 2026",
-          "value": 80.62,
-          "formatted": "80.6% (<=70% LVR)"
-        },
-        {
-          "period": "2026-06",
-          "label": "Jun 2026",
-          "value": 81.42,
-          "formatted": "81.4% (<=70% LVR)"
-        },
-        {
-          "period": "2026-05",
-          "label": "May 2026",
-          "value": 82.64,
-          "formatted": "82.6% (<=70% LVR)"
-        },
-        {
-          "period": "2026-04",
-          "label": "Apr 2026",
-          "value": 83.0,
-          "formatted": "83.0% (<=70% LVR)"
-        },
-        {
-          "period": "2026-03",
-          "label": "Mar 2026",
-          "value": 82.77,
-          "formatted": "82.8% (<=70% LVR)"
-        },
-        {
-          "period": "2026-02",
-          "label": "Feb 2026",
-          "value": 82.04,
-          "formatted": "82.0% (<=70% LVR)"
-        },
-        {
-          "period": "2026-01",
-          "label": "Jan 2026",
-          "value": 80.39,
-          "formatted": "80.4% (<=70% LVR)"
-        },
-        {
-          "period": "2025-12",
-          "label": "Dec 2025",
-          "value": 80.49,
-          "formatted": "80.5% (<=70% LVR)"
-        },
-        {
-          "period": "2025-11",
-          "label": "Nov 2025",
-          "value": 83.34,
-          "formatted": "83.3% (<=70% LVR)"
-        },
-        {
-          "period": "2025-10",
-          "label": "Oct 2025",
-          "value": 81.68,
-          "formatted": "81.7% (<=70% LVR)"
-        },
-        {
-          "period": "2025-09",
-          "label": "Sep 2025",
-          "value": 83.62,
-          "formatted": "83.6% (<=70% LVR)"
+          "period": ">70% LVR (<30% Equity)",
+          "label": "Investors with >70% LVR (<30% Equity)",
+          "value": 19.8,
+          "formatted": "19.8% of investor loans"
         }
       ],
       "latest_underlying_data": "September 2026",
@@ -7261,9 +7291,9 @@
       "value": 58565,
       "latest_value": "$58,565 mean taxable income ($278.2B across 4,750,300 individuals)",
       "unit": "NZD",
-      "observation_period": "2024 tax year",
-      "observed_period": "2024 tax year",
-      "period_end": "2024-03-31",
+      "observation_period": "2025 tax year",
+      "observed_period": "2025 tax year",
+      "period_end": "2025-03-31",
       "source_published": "Annual Inland Revenue release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
@@ -7282,7 +7312,7 @@
       "formula": "Mean Taxable Income = Combined Taxable Income ($B) \u00f7 Total Individuals",
       "hlf_interpretation": "HLF market context: Reports the aggregate number of individual taxpayers, combined assessable taxable income, and mean taxable income across New Zealand's administrative tax base.",
       "methodology": "Automatically fetched and parsed from Inland Revenue's Taxable Income Distribution of Individuals release on ird.govt.nz. IRD's administrative series covers all individuals with non-zero taxable income in the tax year (including full-time, part-time, part-year, investment, and benefit earners) and is published after IR3 return processing.",
-      "historical_data_from": "Inland Revenue 2024 tax year release",
+      "historical_data_from": "Inland Revenue 2025 tax year release",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -7293,9 +7323,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand individual taxable income distribution: total individuals, taxable income & mean (Inland Revenue),\" 2024 tax year. Derived by HLF from Inland Revenue \u2014 Taxable Income Distribution of Individuals. https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand individual taxable income distribution: total individuals, taxable income & mean (Inland Revenue),\" 2025 tax year. Derived by HLF from Inland Revenue \u2014 Taxable Income Distribution of Individuals. https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/",
-      "summary_text": "In Inland Revenue's 2024 Taxable Income Distribution of Individuals, 4,750,300 New Zealand individuals recorded a combined taxable income of $278.2B\u2014a mean taxable income of $58,565 per individual.",
+      "summary_text": "In Inland Revenue's 2025 Taxable Income Distribution of Individuals, 4,750,300 New Zealand individuals recorded a combined taxable income of $278.2B\u2014a mean taxable income of $58,565 per individual.",
       "related_questions": [
         "What is the total and average taxable income of individuals in New Zealand according to Inland Revenue?"
       ],
@@ -7303,18 +7333,18 @@
         "official_publisher": "Inland Revenue \u2014 Taxable Income Distribution of Individuals",
         "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/income-distribution",
         "official_series_ids": "IRD Taxable Income Distribution \u2014 Total Individuals & Combined Taxable Income ($B)",
-        "observation_period": "2024 tax year",
-        "period_end": "2024-03-31",
+        "observation_period": "2025 tax year",
+        "period_end": "2025-03-31",
         "source_published": "Annual Inland Revenue release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Official IRD (2024 tax year): $278.2B total taxable income \u00f7 4,750,300 individuals = $58,565 mean taxable income",
+        "hlf_calculation": "Official IRD (2025 tax year): $278.2B total taxable income \u00f7 4,750,300 individuals = $58,565 mean taxable income",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/",
         "license": "CC BY 4.0"
       },
       "history": null,
-      "latest_underlying_data": "2024 tax year",
-      "official_data": "Inland Revenue Taxable Income Distribution (2024 tax year): Total individuals = 4,750,300; Combined taxable income = $278.2B.",
-      "hlf_calculation": "Official IRD (2024 tax year): $278.2B total taxable income \u00f7 4,750,300 individuals = $58,565 mean taxable income",
+      "latest_underlying_data": "2025 tax year",
+      "official_data": "Inland Revenue Taxable Income Distribution (2025 tax year): Total individuals = 4,750,300; Combined taxable income = $278.2B.",
+      "hlf_calculation": "Official IRD (2025 tax year): $278.2B total taxable income \u00f7 4,750,300 individuals = $58,565 mean taxable income",
       "frequency": "Annual"
     },
     {
@@ -7391,17 +7421,17 @@
       "value": 2840300,
       "latest_value": "2,840,300 PAYE wage & salary earners",
       "unit": "earners",
-      "observation_period": "2026 tax year",
-      "observed_period": "2026 tax year",
+      "observation_period": "Latest IRD Tax Year",
+      "observed_period": "Latest IRD Tax Year",
       "period_end": "2026-03-31",
-      "source_published": "Annual Inland Revenue release",
+      "source_published": "2026-05-14 (14 May 2026)",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Inland Revenue administrative PAYE series (2026 tax year)",
-      "change": "Covers all individuals with PAYE-deducted earnings during the March tax year",
+      "previous_period": "Inland Revenue administrative PAYE series",
+      "change": "Parsed live from Inland Revenue Wage and Salary Distributions release",
       "source": "Inland Revenue (IRD)",
       "source_full": "Inland Revenue \u2014 Wage and Salary Distributions for Individuals",
       "source_series_ids": "IRD Wage & Salary Distributions \u2014 Total PAYE Earners & Modal Income Point",
@@ -7412,7 +7442,7 @@
       "formula": "Officially reported Inland Revenue PAYE wage and salary earner headcount",
       "hlf_interpretation": "HLF market context: Reports the total number of individuals receiving PAYE-deducted wage and salary earnings across New Zealand during the tax year.",
       "methodology": "Extracted live from Inland Revenue's Wage and Salary Distributions release pages and `.xlsx` workbook on ird.govt.nz. Includes all individuals who received PAYE wages or salaries at any point during the March tax year (excluding benefits, student allowances, NZ Superannuation, and self-employed shareholder-salaries not subject to PAYE).",
-      "historical_data_from": "Inland Revenue Wage & Salary series (2026 tax year)",
+      "historical_data_from": "Inland Revenue Wage & Salary series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -7423,9 +7453,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand PAYE wage & salary earner headcount & modal wage point (Inland Revenue),\" 2026 tax year. Source: Inland Revenue \u2014 Wage and Salary Distributions for Individuals. https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand PAYE wage & salary earner headcount & modal wage point (Inland Revenue),\" Latest IRD Tax Year. Source: Inland Revenue \u2014 Wage and Salary Distributions for Individuals. https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/",
-      "summary_text": "In Inland Revenue's Wage and Salary Distributions release (2026 tax year), 2,840,300 New Zealand individuals received PAYE wage and salary earnings during the tax year.",
+      "summary_text": "In Inland Revenue's Wage and Salary Distributions release, 2,840,300 New Zealand individuals received PAYE wage and salary earnings during the tax year.",
       "related_questions": [
         "How many PAYE wage and salary earners are there in New Zealand?"
       ],
@@ -7433,18 +7463,18 @@
         "official_publisher": "Inland Revenue \u2014 Wage and Salary Distributions for Individuals",
         "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions",
         "official_series_ids": "IRD Wage & Salary Distributions \u2014 Total PAYE Earners & Modal Income Point",
-        "observation_period": "2026 tax year",
+        "observation_period": "Latest IRD Tax Year",
         "period_end": "2026-03-31",
-        "source_published": "Annual Inland Revenue release",
+        "source_published": "2026-05-14 (14 May 2026)",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Official IRD Wage and Salary Distributions (2026 tax year): Total PAYE wage & salary earners = 2,840,300",
+        "hlf_calculation": "Official IRD Wage and Salary Distributions: Total PAYE wage & salary earners = 2,840,300",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/",
         "license": "CC BY 4.0"
       },
       "history": null,
-      "latest_underlying_data": "2026 tax year",
-      "official_data": "Inland Revenue Wage and Salary Distributions (2026 tax year): Total PAYE wage and salary earners = 2,840,300.",
-      "hlf_calculation": "Official IRD Wage and Salary Distributions (2026 tax year): Total PAYE wage & salary earners = 2,840,300",
+      "latest_underlying_data": "Latest IRD Tax Year",
+      "official_data": "Inland Revenue Wage and Salary Distributions: Total PAYE wage and salary earners = 2,840,300.",
+      "hlf_calculation": "Official IRD Wage and Salary Distributions: Total PAYE wage & salary earners = 2,840,300",
       "frequency": "Annual"
     },
     {
@@ -8818,103 +8848,6 @@
       "frequency": "Monthly"
     },
     {
-      "ticker": "mcert-house-price-index-yoy",
-      "name": "Official Crown House Price Index (MCERT HPI): annual & 3-month quality-adjusted price change",
-      "also_known_as": "HUD / MCERT Sales Price to Appraisal Ratio (SPAR) House Price Index annual percentage change",
-      "category": "House prices, sales & HPI",
-      "topic": "Quality-adjusted House Price Index (MCERT SPAR HPI)",
-      "value": -0.8,
-      "latest_value": "-0.8% YoY (MCERT SPAR HPI)",
-      "unit": "percent",
-      "observation_period": "July 2026",
-      "observed_period": "July 2026",
-      "period_end": "2026-07-31",
-      "source_published": "2026-10-15 (15 Oct 2026)",
-      "last_checked": "2026-11-18",
-      "date_created": "2026-02-01",
-      "date_modified": "2026-11-18",
-      "data_status": "verified",
-      "source_status": "current",
-      "previous_period": "SPAR valuation-adjusted index (controls for sales composition)",
-      "change": "Published with 3-month DVR settlement lag (July 2026)",
-      "source": "HUD / MCERT House Price Index",
-      "source_full": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index (CC BY 4.0)",
-      "source_series_ids": "MCERT House Price Index (All Dwellings) \u2014 Annual % Change, 3-Month % Change & Index Level",
-      "source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
-      "derived_by_hlf": false,
-      "data_type": "Officially reported HUD / MCERT House Price Index series",
-      "definition": "The annual (12-month) percentage change in the official MCERT House Price Index (HPI) for New Zealand, calculated using the Sales Price to Appraisal Ratio (SPAR) methodology.",
-      "formula": "Officially reported MCERT House Price Index (All-Dwellings) annual % change",
-      "hlf_interpretation": "HLF market context: Unlike raw median sale prices (which can shift when a higher or lower share of expensive homes sells in a given month), the SPAR-based MCERT House Price Index adjusts for property valuation quality and compositional mix across New Zealand.",
-      "methodology": "Extracted live from the HUD / MCERT Property and Sales Statistics workbook and HPI dashboard. As detailed in the MCERT HPI Methodology Paper, the index uses a Sales Price to Appraisal Ratio (SPAR) method\u2014comparing each property's sale price to its rating valuation (Capital Value) within each Territorial Authority and weighting by housing stock\u2014to measure price changes while controlling for changes in the quality and mix of properties sold.",
-      "historical_data_from": "MCERT monthly HPI series (July 2026)",
-      "creator_name": "Andy Palliser",
-      "creator_alternate_name": "Andrew Jonathan Palliser",
-      "creator_fsp": "FSP1004725",
-      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
-      "publisher": "Home Loan Factory",
-      "publisher_legal_name": "HLF Financial Limited",
-      "publisher_url": "https://www.homeloanfactory.co.nz/",
-      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
-      "license": "https://creativecommons.org/licenses/by/4.0/",
-      "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Official Crown House Price Index (MCERT HPI): annual & 3-month quality-adjusted price change,\" July 2026. Source: Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/ (checked 18 November 2026). CC BY 4.0.",
-      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/",
-      "summary_text": "In July 2026 (by agreement date), the official Crown House Price Index (MCERT HPI, calculated using the Sales Price to Appraisal Ratio methodology) changed by -0.8% year-on-year across New Zealand.",
-      "related_questions": [
-        "What is the annual change in the official HUD / MCERT House Price Index for New Zealand?",
-        "How does the MCERT House Price Index differ from median house sale prices?"
-      ],
-      "citation_chain": {
-        "official_publisher": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 House Price Index (CC BY 4.0)",
-        "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
-        "official_series_ids": "MCERT House Price Index (All Dwellings) \u2014 Annual % Change, 3-Month % Change & Index Level",
-        "observation_period": "July 2026",
-        "period_end": "2026-07-31",
-        "source_published": "2026-10-15 (15 Oct 2026)",
-        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Official MCERT SPAR House Price Index (July 2026): National All-Dwellings = -0.8% YoY (Q1 = -0.4% | Q2 = -1.1% | Q3 = -1.0% | Q4 = -0.7%)",
-        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mcert-house-price-index-yoy/",
-        "license": "CC BY 4.0"
-      },
-      "history": [
-        {
-          "period": "All Dwellings (Composite)",
-          "label": "All New Zealand Dwellings (Composite HPI)",
-          "value": -0.8,
-          "formatted": "-0.8% YoY"
-        },
-        {
-          "period": "Q1 (Lowest Value 25%)",
-          "label": "Q1 Lowest Valuation Quartile Homes",
-          "value": -0.4,
-          "formatted": "-0.4% YoY"
-        },
-        {
-          "period": "Q2 (Lower-Middle 25%)",
-          "label": "Q2 Lower-Middle Valuation Quartile Homes",
-          "value": -1.1,
-          "formatted": "-1.1% YoY"
-        },
-        {
-          "period": "Q3 (Upper-Middle 25%)",
-          "label": "Q3 Upper-Middle Valuation Quartile Homes",
-          "value": -1.0,
-          "formatted": "-1.0% YoY"
-        },
-        {
-          "period": "Q4 (Highest Value 25%)",
-          "label": "Q4 Highest Valuation Quartile Homes",
-          "value": -0.7,
-          "formatted": "-0.7% YoY"
-        }
-      ],
-      "latest_underlying_data": "July 2026",
-      "official_data": "HUD / MCERT House Price Index (July 2026): National All-Dwellings HPI annual change = -0.8% YoY (Q1 = -0.4%, Q2 = -1.1%, Q3 = -1.0%, Q4 = -0.7%).",
-      "hlf_calculation": "Official MCERT SPAR House Price Index (July 2026): National All-Dwellings = -0.8% YoY (Q1 = -0.4% | Q2 = -1.1% | Q3 = -1.0% | Q4 = -0.7%)",
-      "frequency": "Monthly (3-Month DVR Settlement Lag)"
-    },
-    {
       "ticker": "mortgage-excess-repayments",
       "name": "Quarterly voluntary excess mortgage repayments vs scheduled repayments (RBNZ Table C35)",
       "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation \u2014 Voluntary excess principal repayments ($B/qtr & $B/yr)",
@@ -9791,7 +9724,7 @@
         {
           "period": "Mortgage-Free Owner-Occupied",
           "label": "Mortgage-Free Owner-Occupied Households",
-          "value": 1287,
+          "value": 1287000,
           "formatted": "$1,287,000 household median"
         }
       ],
@@ -9799,6 +9732,97 @@
       "official_data": "Stats NZ Household Net Worth (year ended June 2024): All-household median net worth = $529,000; Owner-occupied households = $989,000 ($1,287,000 mortgage-free; $727,000 with mortgage); Non-owner-occupied households = $57,000.",
       "hlf_calculation": "Owner-Occupied Household Median Net Worth ($989,000: $1,287,000 mortgage-free / $727,000 mortgaged) \u00f7 Non-Owner-Occupied Household Median ($57,000) = 17.4x ratio (All-NZ Household Median = $529,000)",
       "frequency": "Triennial"
+    },
+    {
+      "ticker": "new-build-consent-cost-by-type",
+      "name": "Average residential building consent construction value per consented dwelling (Stats NZ)",
+      "also_known_as": "Stats NZ Building Consents average residential construction value (excluding land)",
+      "category": "New builds & construction",
+      "topic": "Average dollar build consent value",
+      "value": 594000,
+      "latest_value": "Houses $594,000 | Townhouses, flats & units $396,000 (excl. land)",
+      "unit": "NZD",
+      "observation_period": "September 2026",
+      "observed_period": "September 2026",
+      "period_end": "2026-09-30",
+      "source_published": "2026-10-29 (29 Oct 2026)",
+      "last_checked": "2026-11-18",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-18",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Estimated construction value declared on building consent (excluding land)",
+      "change": "Stand-alone house ($594k) vs townhouse/unit ($396k) consent build value",
+      "source": "Stats NZ Building Consents",
+      "source_full": "Stats NZ \u2014 Building Consents Issued (Residential Building Consent Values & Dwelling Counts)",
+      "source_series_ids": "Total New Residential Building Consent Value ($m) \u00f7 Consented Dwelling Count",
+      "source_url": "https://www.stats.govt.nz/information-releases/building-consents-issued-september-2026/",
+      "derived_by_hlf": true,
+      "data_type": "HLF-derived mean consent value from official Stats NZ Building Consents release",
+      "definition": "The average consented construction value in New Zealand dollars (excluding land and GST) per newly consented residential dwelling in Stats NZ's monthly Building Consents Issued release.",
+      "formula": "Mean Consented Build Value = Residential Consent Value ($) \u00f7 Consented Dwellings",
+      "hlf_interpretation": "HLF market context: Reflects the average estimated physical construction value declared on building consent applications per dwelling (excluding land and GST), rather than the final turnkey purchase price of a house-and-land package.",
+      "methodology": "Derived live from Stats NZ Building Consents Issued by dividing consented residential building value by the number of new dwellings consented. As noted by Stats NZ, building consent values record the estimated construction cost declared on the building consent application (excluding land purchase price, GST, developer margin, and off-site subdivision infrastructure).",
+      "historical_data_from": "Stats NZ residential consent value series (September 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Average residential building consent construction value per consented dwelling (Stats NZ),\" September 2026. Derived by HLF from Stats NZ \u2014 Building Consents Issued (Residential Building Consent Values & Dwelling Counts). https://pulse-data.homeloanfactory.co.nz/new-build-consent-cost-by-type/ (checked 18 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/new-build-consent-cost-by-type/",
+      "summary_text": "In September 2026, average consented residential building work values (excluding land and GST) in Stats NZ's building consents dataset were $594,000 for a stand-alone house and $396,000 for a townhouse, flat, or unit.",
+      "related_questions": [
+        "What is the average building consent construction value per new dwelling in New Zealand?",
+        "Does Stats NZ building consent value include land?"
+      ],
+      "citation_chain": {
+        "official_publisher": "Stats NZ \u2014 Building Consents Issued (Residential Building Consent Values & Dwelling Counts)",
+        "official_source_url": "https://www.stats.govt.nz/information-releases/building-consents-issued-september-2026/",
+        "official_series_ids": "Total New Residential Building Consent Value ($m) \u00f7 Consented Dwelling Count",
+        "observation_period": "September 2026",
+        "period_end": "2026-09-30",
+        "source_published": "2026-10-29 (29 Oct 2026)",
+        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
+        "hlf_calculation": "Stats NZ Building Consents Value Series (September 2026, excluding land and GST): Stand-alone houses = $594,000 | Townhouses, flats & units = $396,000 | Apartments = $468,000 | Retirement units = $432,000",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/new-build-consent-cost-by-type/",
+        "license": "CC BY 4.0"
+      },
+      "history": [
+        {
+          "period": "Stand-alone houses",
+          "label": "Stand-alone houses (Consent Build Value)",
+          "value": 594000,
+          "formatted": "$594,000 per dwelling (excl. land)"
+        },
+        {
+          "period": "Apartments",
+          "label": "Apartments (Consent Build Value)",
+          "value": 468000,
+          "formatted": "$468,000 per dwelling (excl. land)"
+        },
+        {
+          "period": "Retirement village units",
+          "label": "Retirement village units (Consent Build Value)",
+          "value": 432000,
+          "formatted": "$432,000 per dwelling (excl. land)"
+        },
+        {
+          "period": "Townhouses, flats & units",
+          "label": "Townhouses, flats & units (Consent Build Value)",
+          "value": 396000,
+          "formatted": "$396,000 per dwelling (excl. land)"
+        }
+      ],
+      "latest_underlying_data": "September 2026",
+      "official_data": "Stats NZ Building Consents Issued (September 2026, excluding land): Stand-alone house mean consent value = $594,000; Townhouse/flat/unit mean = $396,000.",
+      "hlf_calculation": "Stats NZ Building Consents Value Series (September 2026, excluding land and GST): Stand-alone houses = $594,000 | Townhouses, flats & units = $396,000 | Apartments = $468,000 | Retirement units = $432,000",
+      "frequency": "Monthly"
     },
     {
       "ticker": "new-build-lvr-exemption-flow",
@@ -10107,7 +10131,7 @@
       "observation_period": "July 2026",
       "observed_period": "July 2026",
       "period_end": "2026-07-31",
-      "source_published": "2026-10-15 (15 Oct 2026)",
+      "source_published": "Monthly HUD / MCERT release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -10118,7 +10142,7 @@
       "source": "HUD / MCERT Property Statistics",
       "source_full": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0)",
       "source_series_ids": "HUD / MCERT Property and Sales Statistics \u2014 New Zealand Monthly Median, Lower Quartile & Upper Quartile Sale Price ($ NZD)",
-      "source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
+      "source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-August-2026.xlsx?m=ee5f328a82e7f3685c7529df3ece6b42bf93d462",
       "derived_by_hlf": true,
       "data_type": "Officially reported HUD / MCERT District Valuation Roll series & HLF-derived interquartile spread",
       "definition": "Monthly national median (50th percentile), lower-quartile (25th percentile), and upper-quartile (75th percentile) residential property sale prices across New Zealand from the HUD / MCERT Property and Sales Statistics dataset.",
@@ -10145,11 +10169,11 @@
       ],
       "citation_chain": {
         "official_publisher": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0)",
-        "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
+        "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-August-2026.xlsx?m=ee5f328a82e7f3685c7529df3ece6b42bf93d462",
         "official_series_ids": "HUD / MCERT Property and Sales Statistics \u2014 New Zealand Monthly Median, Lower Quartile & Upper Quartile Sale Price ($ NZD)",
         "observation_period": "July 2026",
         "period_end": "2026-07-31",
-        "source_published": "2026-10-15 (15 Oct 2026)",
+        "source_published": "Monthly HUD / MCERT release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "National Median Sale Price (July 2026) = $738,000 (YoY: +0.1% vs $737,000) | Lower Quartile (25%) = $569,000 | Upper Quartile (75%) = $950,000 (Spread = $381,000)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/nz-median-house-price-quartiles/",
@@ -10159,79 +10183,79 @@
         {
           "period": "2026-07",
           "label": "Jul 2026",
-          "value": 738000,
+          "value": 738000.0,
           "formatted": "$738,000"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
-          "value": 747000,
+          "value": 747000.0,
           "formatted": "$747,000"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
-          "value": 761000,
+          "value": 761000.0,
           "formatted": "$761,000"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
-          "value": 759000,
+          "value": 759000.0,
           "formatted": "$759,000"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
-          "value": 762000,
+          "value": 762000.0,
           "formatted": "$762,000"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
-          "value": 756000,
+          "value": 756000.0,
           "formatted": "$756,000"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
-          "value": 737000,
+          "value": 737000.0,
           "formatted": "$737,000"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
-          "value": 766000,
+          "value": 766000.0,
           "formatted": "$766,000"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
-          "value": 771000,
+          "value": 771000.0,
           "formatted": "$771,000"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
-          "value": 760000,
+          "value": 760000.0,
           "formatted": "$760,000"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
-          "value": 741000,
+          "value": 741000.0,
           "formatted": "$741,000"
         },
         {
           "period": "2025-08",
           "label": "Aug 2025",
-          "value": 737000,
+          "value": 737000.0,
           "formatted": "$737,000"
         },
         {
           "period": "2025-07",
           "label": "Jul 2025",
-          "value": 737000,
+          "value": 737000.0,
           "formatted": "$737,000"
         }
       ],
@@ -10252,7 +10276,7 @@
       "observation_period": "July 2026",
       "observed_period": "July 2026",
       "period_end": "2026-07-31",
-      "source_published": "2026-10-15 (15 Oct 2026)",
+      "source_published": "Monthly HUD / MCERT release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -10263,7 +10287,7 @@
       "source": "HUD / MCERT Property Statistics",
       "source_full": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0)",
       "source_series_ids": "HUD / MCERT Property and Sales Statistics \u2014 New Zealand Monthly Residential Sales Count & 12-Month Rolling Sum",
-      "source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
+      "source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-August-2026.xlsx?m=ee5f328a82e7f3685c7529df3ece6b42bf93d462",
       "derived_by_hlf": true,
       "data_type": "Officially reported HUD / MCERT monthly sales count & HLF-derived 12-month rolling total",
       "definition": "The monthly and rolling 12-month number of arm's-length freehold residential property sales agreed across New Zealand from the HUD / MCERT Property and Sales Statistics dataset.",
@@ -10289,11 +10313,11 @@
       ],
       "citation_chain": {
         "official_publisher": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0)",
-        "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
+        "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-August-2026.xlsx?m=ee5f328a82e7f3685c7529df3ece6b42bf93d462",
         "official_series_ids": "HUD / MCERT Property and Sales Statistics \u2014 New Zealand Monthly Residential Sales Count & 12-Month Rolling Sum",
         "observation_period": "July 2026",
         "period_end": "2026-07-31",
-        "source_published": "2026-10-15 (15 Oct 2026)",
+        "source_published": "Monthly HUD / MCERT release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "Monthly DVR Sales (July 2026) = 5,654 sales (-19.2% YoY vs 6,994) | Rolling 12-Month Sales = 80,128",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/nz-monthly-property-sales-volume/",
@@ -10930,12 +10954,12 @@
       "category": "House prices, sales & HPI",
       "topic": "Regional median & lower-quartile house sale prices",
       "value": 921000,
-      "latest_value": "Auckland $921,000 | Canterbury $692,000 | Wellington $724,000 | Waikato $724,000",
+      "latest_value": "Auckland $921,000 | Tasman $770,000 | Bay of Plenty $759,000 | Waikato $724,000",
       "unit": "NZD",
       "observation_period": "July 2026",
       "observed_period": "July 2026",
       "period_end": "2026-07-31",
-      "source_published": "2026-10-15 (15 Oct 2026)",
+      "source_published": "Monthly HUD / MCERT release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -10946,7 +10970,7 @@
       "source": "HUD / MCERT Property Statistics",
       "source_full": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0)",
       "source_series_ids": "HUD / MCERT Property and Sales Statistics \u2014 Regional Median & Lower Quartile Sale Prices ($ NZD)",
-      "source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
+      "source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-August-2026.xlsx?m=ee5f328a82e7f3685c7529df3ece6b42bf93d462",
       "derived_by_hlf": false,
       "data_type": "Officially reported HUD / MCERT regional sale price series",
       "definition": "Monthly median and lower-quartile (25th percentile) residential property sale prices across New Zealand regions from the HUD / MCERT Property and Sales Statistics dataset.",
@@ -10966,19 +10990,19 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Regional median & lower-quartile residential property sale prices across New Zealand regions (HUD / MCERT),\" July 2026. Source: Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/regional-median-house-prices/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/regional-median-house-prices/",
-      "summary_text": "In July 2026 (HUD / MCERT regional DVR series), regional median residential sale prices across New Zealand's largest regional markets were $921,000 in Auckland (lower quartile $738,695), $692,000 in Canterbury, and $724,000 in Wellington.",
+      "summary_text": "In July 2026 (HUD / MCERT regional DVR series), regional median residential sale prices across New Zealand's largest regional markets were $921,000 in Auckland (lower quartile $738,695), $770,000 in Tasman, and $759,000 in Bay of Plenty.",
       "related_questions": [
         "How do median and lower-quartile house sale prices compare across New Zealand regions?"
       ],
       "citation_chain": {
         "official_publisher": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0)",
-        "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
+        "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-August-2026.xlsx?m=ee5f328a82e7f3685c7529df3ece6b42bf93d462",
         "official_series_ids": "HUD / MCERT Property and Sales Statistics \u2014 Regional Median & Lower Quartile Sale Prices ($ NZD)",
         "observation_period": "July 2026",
         "period_end": "2026-07-31",
-        "source_published": "2026-10-15 (15 Oct 2026)",
+        "source_published": "Monthly HUD / MCERT release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Manawatu-Wanganui: $527,000 median (LQ $412,000)",
+        "hlf_calculation": "Auckland: $921,000 median (LQ $738,695) | Tasman: $770,000 median (LQ $662,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Waikato: $724,000 median (LQ $588,000) | Wellington: $724,000 median (LQ $572,000) | Canterbury: $692,000 median (LQ $562,000)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/regional-median-house-prices/",
         "license": "CC BY 4.0"
       },
@@ -10987,90 +11011,90 @@
           "period": "Auckland",
           "label": "Auckland",
           "value": 921000,
-          "formatted": "$921,000 median | $738,695 lower quartile (25%) (1,662 sales)"
-        },
-        {
-          "period": "Canterbury",
-          "label": "Canterbury",
-          "value": 692000,
-          "formatted": "$692,000 median | $562,000 lower quartile (25%) (1,002 sales)"
-        },
-        {
-          "period": "Wellington",
-          "label": "Wellington",
-          "value": 724000,
-          "formatted": "$724,000 median | $572,000 lower quartile (25%) (509 sales)"
-        },
-        {
-          "period": "Waikato",
-          "label": "Waikato",
-          "value": 724000,
-          "formatted": "$724,000 median | $588,000 lower quartile (25%) (476 sales)"
-        },
-        {
-          "period": "Bay of Plenty",
-          "label": "Bay of Plenty",
-          "value": 759000,
-          "formatted": "$759,000 median | $618,000 lower quartile (25%) (412 sales)"
-        },
-        {
-          "period": "Manawatu-Wanganui",
-          "label": "Manawatu-Wanganui",
-          "value": 527000,
-          "formatted": "$527,000 median | $412,000 lower quartile (25%) (357 sales)"
-        },
-        {
-          "period": "Otago",
-          "label": "Otago",
-          "value": 641000,
-          "formatted": "$641,000 median | $484,000 lower quartile (25%) (271 sales)"
-        },
-        {
-          "period": "Hawke's Bay",
-          "label": "Hawke's Bay",
-          "value": 662000,
-          "formatted": "$662,000 median | $512,000 lower quartile (25%) (182 sales)"
-        },
-        {
-          "period": "Taranaki",
-          "label": "Taranaki",
-          "value": 587000,
-          "formatted": "$587,000 median | $489,000 lower quartile (25%) (176 sales)"
-        },
-        {
-          "period": "Northland",
-          "label": "Northland",
-          "value": 670000,
-          "formatted": "$670,000 median | $517,000 lower quartile (25%) (160 sales)"
-        },
-        {
-          "period": "Southland",
-          "label": "Southland",
-          "value": 484000,
-          "formatted": "$484,000 median | $382,000 lower quartile (25%) (152 sales)"
-        },
-        {
-          "period": "Nelson",
-          "label": "Nelson",
-          "value": 655000,
-          "formatted": "$655,000 median | $529,000 lower quartile (25%) (85 sales)"
-        },
-        {
-          "period": "Marlborough",
-          "label": "Marlborough",
-          "value": 687000,
-          "formatted": "$687,000 median | $527,000 lower quartile (25%) (75 sales)"
+          "formatted": "$921,000 median | $738,695 lower quartile (25%)"
         },
         {
           "period": "Tasman",
           "label": "Tasman",
           "value": 770000,
-          "formatted": "$770,000 median | $662,000 lower quartile (25%) (65 sales)"
+          "formatted": "$770,000 median | $662,000 lower quartile (25%)"
+        },
+        {
+          "period": "Bay of Plenty",
+          "label": "Bay of Plenty",
+          "value": 759000,
+          "formatted": "$759,000 median | $618,000 lower quartile (25%)"
+        },
+        {
+          "period": "Waikato",
+          "label": "Waikato",
+          "value": 724000,
+          "formatted": "$724,000 median | $588,000 lower quartile (25%)"
+        },
+        {
+          "period": "Wellington",
+          "label": "Wellington",
+          "value": 724000,
+          "formatted": "$724,000 median | $572,000 lower quartile (25%)"
+        },
+        {
+          "period": "Canterbury",
+          "label": "Canterbury",
+          "value": 692000,
+          "formatted": "$692,000 median | $562,000 lower quartile (25%)"
+        },
+        {
+          "period": "Marlborough",
+          "label": "Marlborough",
+          "value": 687000,
+          "formatted": "$687,000 median | $527,000 lower quartile (25%)"
+        },
+        {
+          "period": "Northland",
+          "label": "Northland",
+          "value": 670000,
+          "formatted": "$670,000 median | $517,000 lower quartile (25%)"
+        },
+        {
+          "period": "Hawke's Bay",
+          "label": "Hawke's Bay",
+          "value": 662000,
+          "formatted": "$662,000 median | $512,000 lower quartile (25%)"
+        },
+        {
+          "period": "Nelson",
+          "label": "Nelson",
+          "value": 655000,
+          "formatted": "$655,000 median | $529,000 lower quartile (25%)"
+        },
+        {
+          "period": "Otago",
+          "label": "Otago",
+          "value": 641000,
+          "formatted": "$641,000 median | $484,000 lower quartile (25%)"
+        },
+        {
+          "period": "Taranaki",
+          "label": "Taranaki",
+          "value": 587000,
+          "formatted": "$587,000 median | $489,000 lower quartile (25%)"
+        },
+        {
+          "period": "Manawatu-Wanganui",
+          "label": "Manawatu-Wanganui",
+          "value": 527000,
+          "formatted": "$527,000 median | $412,000 lower quartile (25%)"
+        },
+        {
+          "period": "Southland",
+          "label": "Southland",
+          "value": 484000,
+          "formatted": "$484,000 median | $382,000 lower quartile (25%)"
         }
       ],
       "latest_underlying_data": "July 2026",
-      "official_data": "HUD / MCERT Property and Sales Statistics (July 2026 Regional Series): Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Manawatu-Wanganui: $527,000 median (LQ $412,000).",
-      "hlf_calculation": "Auckland: $921,000 median (LQ $738,695) | Canterbury: $692,000 median (LQ $562,000) | Wellington: $724,000 median (LQ $572,000) | Waikato: $724,000 median (LQ $588,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Manawatu-Wanganui: $527,000 median (LQ $412,000)",
+      "official_data": "HUD / MCERT Property and Sales Statistics (July 2026 Regional Series): Auckland: $921,000 median (LQ $738,695) | Tasman: $770,000 median (LQ $662,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Waikato: $724,000 median (LQ $588,000) | Wellington: $724,000 median (LQ $572,000) | Canterbury: $692,000 median (LQ $562,000).",
+      "hlf_calculation": "Auckland: $921,000 median (LQ $738,695) | Tasman: $770,000 median (LQ $662,000) | Bay of Plenty: $759,000 median (LQ $618,000) | Waikato: $724,000 median (LQ $588,000) | Wellington: $724,000 median (LQ $572,000) | Canterbury: $692,000 median (LQ $562,000)",
       "frequency": "Monthly (3-Month DVR Settlement Lag)"
     },
     {
@@ -12215,13 +12239,13 @@
       "also_known_as": "City and district council median and 25th-percentile residential sale prices (HUD / MCERT DVR series)",
       "category": "House prices, sales & HPI",
       "topic": "City & district council median and lower-quartile house sale prices",
-      "value": 921000,
-      "latest_value": "Auckland $921,000 | Christchurch City $669,000 | Tauranga City $856,000 | Hamilton City $728,000",
+      "value": 1450000,
+      "latest_value": "Queenstown-Lakes District $1,450,000 | Auckland $921,000 | Tauranga City $856,000 | Waip\u0101 District $835,500",
       "unit": "NZD",
       "observation_period": "July 2026",
       "observed_period": "July 2026",
       "period_end": "2026-07-31",
-      "source_published": "2026-10-15 (15 Oct 2026)",
+      "source_published": "Monthly HUD / MCERT release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -12232,7 +12256,7 @@
       "source": "HUD / MCERT Property Statistics",
       "source_full": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0)",
       "source_series_ids": "HUD / MCERT Property and Sales Statistics \u2014 Territorial Authority Median Sale Price, Lower Quartile Sale Price & Sales Count",
-      "source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
+      "source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-August-2026.xlsx?m=ee5f328a82e7f3685c7529df3ece6b42bf93d462",
       "derived_by_hlf": false,
       "data_type": "Officially reported HUD / MCERT Territorial Authority series",
       "definition": "Median and lower-quartile (25th percentile) residential property sale prices and sales counts across New Zealand Territorial Local Authorities (city and district councils) from the HUD / MCERT dataset.",
@@ -12252,172 +12276,178 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Territorial Local Authority (city & district council) median & lower-quartile house sale prices (HUD / MCERT),\" July 2026. Source: Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/tla-council-house-price-benchmarks/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/tla-council-house-price-benchmarks/",
-      "summary_text": "In July 2026 (HUD / MCERT Territorial Authority DVR series), council-level median residential sale prices in the largest urban districts were $921,000 in Auckland, $669,000 in Christchurch City, and $856,000 in Tauranga City.",
+      "summary_text": "In July 2026 (HUD / MCERT Territorial Authority DVR series), council-level median residential sale prices in the largest urban districts were $1,450,000 in Queenstown-Lakes District (lower quartile $1,175,000), $921,000 in Auckland (lower quartile $738,695), and $856,000 in Tauranga City.",
       "related_questions": [
         "What is the median and lower-quartile house sale price in Wellington City, Auckland, Christchurch City, and Hamilton City?",
         "How do house sale prices compare across New Zealand city and district councils?"
       ],
       "citation_chain": {
         "official_publisher": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Property and Sales Statistics (CC BY 4.0)",
-        "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-July-2026.xlsx?m=e141007c9ceaea6c61ca3f7d76ad900682f583d8",
+        "official_source_url": "https://www.hud.govt.nz/assets/Property-and-Sales-data-download-August-2026.xlsx?m=ee5f328a82e7f3685c7529df3ece6b42bf93d462",
         "official_series_ids": "HUD / MCERT Property and Sales Statistics \u2014 Territorial Authority Median Sale Price, Lower Quartile Sale Price & Sales Count",
         "observation_period": "July 2026",
         "period_end": "2026-07-31",
-        "source_published": "2026-10-15 (15 Oct 2026)",
+        "source_published": "Monthly HUD / MCERT release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Auckland: $921,000 median | Christchurch City: $669,000 median | Tauranga City: $856,000 median | Hamilton City: $728,000 median | Wellington City: $810,000 median",
+        "hlf_calculation": "Queenstown-Lakes District: $1,450,000 median (LQ $1,175,000) | Auckland: $921,000 median (LQ $738,695) | Tauranga City: $856,000 median (LQ $737,000) | Waip\u0101 District: $835,500 median (LQ $659,000) | Wellington City: $810,000 median (LQ $639,000)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/tla-council-house-price-benchmarks/",
         "license": "CC BY 4.0"
       },
       "history": [
         {
+          "period": "Queenstown-Lakes District",
+          "label": "Queenstown-Lakes District",
+          "value": 1450000,
+          "formatted": "$1,450,000 median | $1,175,000 lower quartile (25%)"
+        },
+        {
           "period": "Auckland",
           "label": "Auckland",
           "value": 921000,
-          "formatted": "$921,000 median | $738,695 lower quartile (25%) (1,662 sales)"
-        },
-        {
-          "period": "Christchurch City",
-          "label": "Christchurch City",
-          "value": 669000,
-          "formatted": "$669,000 median | $559,000 lower quartile (25%) (592 sales)"
+          "formatted": "$921,000 median | $738,695 lower quartile (25%)"
         },
         {
           "period": "Tauranga City",
           "label": "Tauranga City",
           "value": 856000,
-          "formatted": "$856,000 median | $737,000 lower quartile (25%) (233 sales)"
-        },
-        {
-          "period": "Hamilton City",
-          "label": "Hamilton City",
-          "value": 728000,
-          "formatted": "$728,000 median | $613,000 lower quartile (25%) (177 sales)"
-        },
-        {
-          "period": "Wellington City",
-          "label": "Wellington City",
-          "value": 810000,
-          "formatted": "$810,000 median | $639,000 lower quartile (25%) (162 sales)"
-        },
-        {
-          "period": "Selwyn District",
-          "label": "Selwyn District",
-          "value": 775000,
-          "formatted": "$775,000 median | $710,000 lower quartile (25%) (150 sales)"
-        },
-        {
-          "period": "Palmerston North City",
-          "label": "Palmerston North City",
-          "value": 592000,
-          "formatted": "$592,000 median | $493,000 lower quartile (25%) (137 sales)"
-        },
-        {
-          "period": "Dunedin City",
-          "label": "Dunedin City",
-          "value": 587000,
-          "formatted": "$587,000 median | $480,000 lower quartile (25%) (134 sales)"
-        },
-        {
-          "period": "New Plymouth District",
-          "label": "New Plymouth District",
-          "value": 615000,
-          "formatted": "$615,000 median | $546,000 lower quartile (25%) (133 sales)"
-        },
-        {
-          "period": "Waimakariri District",
-          "label": "Waimakariri District",
-          "value": 723000,
-          "formatted": "$723,000 median | $602,000 lower quartile (25%) (110 sales)"
-        },
-        {
-          "period": "Invercargill City",
-          "label": "Invercargill City",
-          "value": 502000,
-          "formatted": "$502,000 median | $418,000 lower quartile (25%) (102 sales)"
-        },
-        {
-          "period": "Lower Hutt City",
-          "label": "Lower Hutt City",
-          "value": 676500,
-          "formatted": "$676,500 median | $539,000 lower quartile (25%) (90 sales)"
-        },
-        {
-          "period": "Hastings District",
-          "label": "Hastings District",
-          "value": 635000,
-          "formatted": "$635,000 median | $483,000 lower quartile (25%) (88 sales)"
-        },
-        {
-          "period": "Whang\u0101rei District",
-          "label": "Whang\u0101rei District",
-          "value": 684000,
-          "formatted": "$684,000 median | $575,000 lower quartile (25%) (86 sales)"
-        },
-        {
-          "period": "Nelson City",
-          "label": "Nelson City",
-          "value": 655000,
-          "formatted": "$655,000 median | $529,000 lower quartile (25%) (85 sales)"
-        },
-        {
-          "period": "Waikato District",
-          "label": "Waikato District",
-          "value": 707000,
-          "formatted": "$707,000 median | $584,000 lower quartile (25%) (82 sales)"
-        },
-        {
-          "period": "Napier City",
-          "label": "Napier City",
-          "value": 683000,
-          "formatted": "$683,000 median | $565,000 lower quartile (25%) (81 sales)"
-        },
-        {
-          "period": "K\u0101piti Coast District",
-          "label": "K\u0101piti Coast District",
-          "value": 739000,
-          "formatted": "$739,000 median | $629,000 lower quartile (25%) (78 sales)"
-        },
-        {
-          "period": "Rotorua District",
-          "label": "Rotorua District",
-          "value": 589000,
-          "formatted": "$589,000 median | $469,000 lower quartile (25%) (76 sales)"
-        },
-        {
-          "period": "Marlborough District",
-          "label": "Marlborough District",
-          "value": 687000,
-          "formatted": "$687,000 median | $527,000 lower quartile (25%) (75 sales)"
-        },
-        {
-          "period": "Timaru District",
-          "label": "Timaru District",
-          "value": 484500,
-          "formatted": "$484,500 median | $404,000 lower quartile (25%) (68 sales)"
-        },
-        {
-          "period": "Tasman District",
-          "label": "Tasman District",
-          "value": 770000,
-          "formatted": "$770,000 median | $662,000 lower quartile (25%) (65 sales)"
-        },
-        {
-          "period": "Upper Hutt City",
-          "label": "Upper Hutt City",
-          "value": 691000,
-          "formatted": "$691,000 median | $553,000 lower quartile (25%) (58 sales)"
+          "formatted": "$856,000 median | $737,000 lower quartile (25%)"
         },
         {
           "period": "Waip\u0101 District",
           "label": "Waip\u0101 District",
           "value": 835500,
-          "formatted": "$835,500 median | $659,000 lower quartile (25%) (56 sales)"
+          "formatted": "$835,500 median | $659,000 lower quartile (25%)"
+        },
+        {
+          "period": "Wellington City",
+          "label": "Wellington City",
+          "value": 810000,
+          "formatted": "$810,000 median | $639,000 lower quartile (25%)"
+        },
+        {
+          "period": "Porirua City",
+          "label": "Porirua City",
+          "value": 795000,
+          "formatted": "$795,000 median | $625,000 lower quartile (25%)"
+        },
+        {
+          "period": "Selwyn District",
+          "label": "Selwyn District",
+          "value": 775000,
+          "formatted": "$775,000 median | $710,000 lower quartile (25%)"
+        },
+        {
+          "period": "Tasman District",
+          "label": "Tasman District",
+          "value": 770000,
+          "formatted": "$770,000 median | $662,000 lower quartile (25%)"
+        },
+        {
+          "period": "K\u0101piti Coast District",
+          "label": "K\u0101piti Coast District",
+          "value": 739000,
+          "formatted": "$739,000 median | $629,000 lower quartile (25%)"
+        },
+        {
+          "period": "Hamilton City",
+          "label": "Hamilton City",
+          "value": 728000,
+          "formatted": "$728,000 median | $613,000 lower quartile (25%)"
+        },
+        {
+          "period": "Waimakariri District",
+          "label": "Waimakariri District",
+          "value": 723000,
+          "formatted": "$723,000 median | $602,000 lower quartile (25%)"
+        },
+        {
+          "period": "Waikato District",
+          "label": "Waikato District",
+          "value": 707000,
+          "formatted": "$707,000 median | $584,000 lower quartile (25%)"
+        },
+        {
+          "period": "Upper Hutt City",
+          "label": "Upper Hutt City",
+          "value": 691000,
+          "formatted": "$691,000 median | $553,000 lower quartile (25%)"
+        },
+        {
+          "period": "Marlborough District",
+          "label": "Marlborough District",
+          "value": 687000,
+          "formatted": "$687,000 median | $527,000 lower quartile (25%)"
+        },
+        {
+          "period": "Whang\u0101rei District",
+          "label": "Whang\u0101rei District",
+          "value": 684000,
+          "formatted": "$684,000 median | $575,000 lower quartile (25%)"
+        },
+        {
+          "period": "Napier City",
+          "label": "Napier City",
+          "value": 683000,
+          "formatted": "$683,000 median | $565,000 lower quartile (25%)"
+        },
+        {
+          "period": "Lower Hutt City",
+          "label": "Lower Hutt City",
+          "value": 676500,
+          "formatted": "$676,500 median | $539,000 lower quartile (25%)"
+        },
+        {
+          "period": "Christchurch City",
+          "label": "Christchurch City",
+          "value": 669000,
+          "formatted": "$669,000 median | $559,000 lower quartile (25%)"
+        },
+        {
+          "period": "Nelson City",
+          "label": "Nelson City",
+          "value": 655000,
+          "formatted": "$655,000 median | $529,000 lower quartile (25%)"
+        },
+        {
+          "period": "Hastings District",
+          "label": "Hastings District",
+          "value": 635000,
+          "formatted": "$635,000 median | $483,000 lower quartile (25%)"
+        },
+        {
+          "period": "New Plymouth District",
+          "label": "New Plymouth District",
+          "value": 615000,
+          "formatted": "$615,000 median | $546,000 lower quartile (25%)"
+        },
+        {
+          "period": "Palmerston North City",
+          "label": "Palmerston North City",
+          "value": 592000,
+          "formatted": "$592,000 median | $493,000 lower quartile (25%)"
+        },
+        {
+          "period": "Rotorua District",
+          "label": "Rotorua District",
+          "value": 589000,
+          "formatted": "$589,000 median | $469,000 lower quartile (25%)"
+        },
+        {
+          "period": "Ashburton District",
+          "label": "Ashburton District",
+          "value": 587000,
+          "formatted": "$587,000 median | $476,000 lower quartile (25%)"
+        },
+        {
+          "period": "Dunedin City",
+          "label": "Dunedin City",
+          "value": 587000,
+          "formatted": "$587,000 median | $480,000 lower quartile (25%)"
         }
       ],
       "latest_underlying_data": "July 2026",
-      "official_data": "HUD / MCERT Property and Sales Statistics (July 2026 Territorial Authority Series): Auckland = $921,000; Christchurch City = $669,000; Tauranga City = $856,000.",
-      "hlf_calculation": "Auckland: $921,000 median | Christchurch City: $669,000 median | Tauranga City: $856,000 median | Hamilton City: $728,000 median | Wellington City: $810,000 median",
+      "official_data": "HUD / MCERT Property and Sales Statistics (July 2026 Territorial Authority Series): Queenstown-Lakes District: $1,450,000 median (LQ $1,175,000) | Auckland: $921,000 median (LQ $738,695) | Tauranga City: $856,000 median (LQ $737,000) | Waip\u0101 District: $835,500 median (LQ $659,000) | Wellington City: $810,000 median (LQ $639,000).",
+      "hlf_calculation": "Queenstown-Lakes District: $1,450,000 median (LQ $1,175,000) | Auckland: $921,000 median (LQ $738,695) | Tauranga City: $856,000 median (LQ $737,000) | Waip\u0101 District: $835,500 median (LQ $659,000) | Wellington City: $810,000 median (LQ $639,000)",
       "frequency": "Monthly (3-Month DVR Settlement Lag)"
     },
     {
@@ -12810,7 +12840,7 @@
       "data_type": "Officially reported RBNZ series & HLF-derived sector share & YoY change",
       "definition": "The total stock of residential mortgage debt outstanding across New Zealand registered banks and non-bank lending institutions (NBLIs), alongside its share of total private sector credit.",
       "formula": "Housing Share of Total Credit (%) = (Total Housing Lending \u00f7 Total Sector Lending) \u00d7 100; YoY Growth (%)",
-      "hlf_interpretation": "HLF market context: RBNZ Table C5 measures total residential mortgage debt across both registered banks and non-bank lending institutions (NBLIs), which is why the Table C5 total is higher than the registered-bank-only housing loan stock in RBNZ Tables S32 and S33.",
+      "hlf_interpretation": "HLF market context: RBNZ Table C5 measures total residential mortgage debt across both registered banks and non-bank lending institutions (NBLIs), which is why the Table C5 total is higher than the registered-bank-only housing loan series in RBNZ Table S32 (loans by product) and Table S33 (loans fully secured by residential mortgage).",
       "methodology": "Extracted live from RBNZ Table C5 (Sector lending). Computes year-on-year dollar and percentage growth and divides total housing lending by total private sector lending (housing, consumer, business, and agriculture).",
       "historical_data_from": "Available from June 1998 (340 monthly observations)",
       "creator_name": "Andy Palliser",
