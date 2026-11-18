@@ -7189,7 +7189,7 @@ def _canon_tla_display_name(name: str) -> str:
 
 
 def _match_hud_quartile_key(raw_label: str) -> str | None:
-    """Map a HUD / MCERT valuation quartile label to Q1, Q2, Q3, or Q4 without matching raw sales counts."""
+    """Map a HUD / MCERT valuation quartile label to Q1, Q2, Q3, or Q4."""
     s = re.sub(r"\s+", " ", str(raw_label or "").strip().lower())
     if not s:
         return None
@@ -7474,7 +7474,6 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                 if full_u not in xlsx_urls:
                     xlsx_urls.append(full_u)
 
-    # Also include any known HUD .xlsx URL from existing_candidates so download succeeds even if landing page JS changes
     for ex_rec in existing_candidates.values():
         if isinstance(ex_rec, dict):
             ex_u = str(ex_rec.get("source_url") or "")
@@ -7622,10 +7621,13 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                 med_col = next((c for k, c in cols_map.items() if "median" in k and "rent" not in k), None)
                 lq_col = next((c for k, c in cols_map.items() if ("lower" in k and "quartile" in k) or k in ("lq", "p25", "25th percentile", "lower quartile", "q1 price")), None)
                 uq_col = next((c for k, c in cols_map.items() if ("upper" in k and "quartile" in k) or k in ("uq", "p75", "75th percentile", "upper quartile", "q3 price")), None)
+
+                # Never match a sales count column as `q_tier_col` (require total unique values in the entire column <= 8)
                 q_tier_col = next(
                     (
                         c for k, c in cols_map.items()
                         if any(w in k for w in ("quartile", "tier", "value group", "segment", "composition", "category", "hpi to display", "display"))
+                        and not any(x in k for x in ("sales", "count", "volume", "number", "price", "median"))
                         and c not in (lq_col, uq_col, lvl_col, loc_col, dt_col, tf_col)
                     ),
                     None,
@@ -7634,8 +7636,11 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                     for c_try in df_s.columns:
                         if c_try in (dt_col, loc_col, lvl_col, tf_col, med_col, lq_col, uq_col):
                             continue
-                        u_vals_q = [str(v).strip() for v in df_s[c_try].dropna().unique()[:20]]
-                        if len(u_vals_q) >= 4 and len({_match_hud_quartile_key(v) for v in u_vals_q} - {None}) == 4:
+                        c_low_name = str(c_try).strip().lower()
+                        if any(x in c_low_name for x in ("sales", "count", "volume", "number", "price", "median", "hpi", "index")):
+                            continue
+                        u_all = [str(v).strip() for v in df_s[c_try].dropna().unique()[:25]]
+                        if 4 <= len(u_all) <= 8 and len({_match_hud_quartile_key(v) for v in u_all} - {None}) == 4:
                             q_tier_col = c_try
                             break
 
@@ -7773,7 +7778,7 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                             if len(reg_latest_rows) >= 4 and len(tla_latest_rows) >= 10:
                                 break
 
-                # B. House Price Index (MCERT SPAR HPI — All, Q1..Q4)
+                # B. House Price Index (MCERT SPAR HPI — Never truncates latest _yoy rows when _idx is blank)
                 if (hpi_yoy_col is not None or hpi_idx_col is not None) and ("hpi" in s_low or "index" in s_low):
                     sub_hpi = _filter_tf_generic(df_s.copy(), prefer_monthly=True)
                     nat_h_mask = pd.Series(False, index=sub_hpi.index)
@@ -7796,7 +7801,8 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                     else:
                         sub_hpi["_3m"] = float("nan")
 
-                    if hpi_idx_col is not None and hpi_idx_col in sub_hpi.columns:
+                    # Only compute from `_idx` for rows where `_yoy` is missing, without dropping newer `_yoy` rows!
+                    if hpi_idx_col is not None and hpi_idx_col in sub_hpi.columns and sub_hpi["_yoy"].dropna().empty:
                         sub_hpi["_idx"] = pd.to_numeric(sub_hpi[hpi_idx_col].astype(str).str.replace(",", "").str.strip(), errors="coerce")
                         calc_frames = []
                         for _, grp in sub_hpi.groupby("_q_tier", dropna=False):
@@ -7804,7 +7810,6 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                             if len(grp_u) < 4:
                                 continue
                             idx_yoy_vals = []
-                            idx_3m_vals = []
                             for _, row_u in grp_u.iterrows():
                                 dt_cur = row_u["_dt"]
                                 v_cur = float(row_u["_idx"])
@@ -7815,32 +7820,19 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                                     idx_yoy_vals.append(((v_cur - v_1y) / v_1y) * 100.0)
                                 else:
                                     idx_yoy_vals.append(float("nan"))
-                                diffs_3m = (grp_u["_dt"] - (dt_cur - pd.DateOffset(months=3))).abs()
-                                min_3m = diffs_3m.idxmin()
-                                if diffs_3m.loc[min_3m].days <= 25 and float(grp_u.loc[min_3m, "_idx"]) > 0:
-                                    v_3m = float(grp_u.loc[min_3m, "_idx"])
-                                    idx_3m_vals.append(((v_cur - v_3m) / v_3m) * 100.0)
-                                else:
-                                    idx_3m_vals.append(float("nan"))
-                            grp_u["_idx_yoy"] = idx_yoy_vals
-                            grp_u["_idx_3m"] = idx_3m_vals
-                            if grp_u["_yoy"].dropna().empty or float(grp_u["_yoy"].dropna().tail(12).abs().max()) < 0.05:
-                                grp_u["_yoy"] = grp_u["_idx_yoy"]
-                            if grp_u["_3m"].dropna().empty or float(grp_u["_3m"].dropna().tail(12).abs().max()) < 0.05:
-                                grp_u["_3m"] = grp_u["_idx_3m"]
+                            grp_u["_yoy"] = idx_yoy_vals
                             calc_frames.append(grp_u)
                         if calc_frames:
                             sub_hpi = pd.concat(calc_frames, ignore_index=True).sort_values("_dt").reset_index(drop=True)
 
                     valid_hpi = sub_hpi.dropna(subset=["_yoy"])
-                    valid_hpi = valid_hpi[valid_hpi["_yoy"].abs() > 0.01]
+                    valid_hpi = valid_hpi[valid_hpi["_yoy"].abs() > 0.05]
                     if not valid_hpi.empty:
-                        has_q_tiers = any(_match_hud_quartile_key(v) is not None for v in valid_hpi["_q_tier"].unique())
-                        cur_has_q = (not hpi_df.empty) and any(_match_hud_quartile_key(v) is not None for v in hpi_df["_q_tier"].unique())
-                        if hpi_df.empty or (has_q_tiers and not cur_has_q) or (has_q_tiers == cur_has_q and valid_hpi["_dt"].max() >= hpi_df["_dt"].max()):
+                        # Never overwrite a newer HPI sheet (`2026-07-31`) with an older HPI sheet (`2026-03-31`)
+                        if hpi_df.empty or valid_hpi["_dt"].max() > hpi_df["_dt"].max():
                             hpi_df = valid_hpi.copy()
 
-                # C. Sales Composition by Valuation Quartile (Q1..Q4) — Checks both 1-month and 3-month windows
+                # C. Sales Composition by Valuation Quartile (Q1..Q4) — Tests each 4-quartile block immediately
                 if not comp_latest:
                     for prefer_m_comp in (True, False):
                         sub_c = _filter_tf_generic(df_s.copy(), prefer_monthly=prefer_m_comp)
@@ -7870,20 +7862,28 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                                 sub_c[c_wq] = pd.to_numeric(sub_c[c_wq].astype(str).str.replace(",", "").str.replace("%", "").str.strip(), errors="coerce")
                             sub_c_w = sub_c.dropna(subset=list(wide_q_cols.values()))
                             if not sub_c_w.empty:
-                                last_w = sub_c_w.iloc[-1]
-                                q_vals = {qk: float(last_w[c_wq]) for qk, c_wq in wide_q_cols.items()}
-                                tot_qv = sum(q_vals.values())
-                                if tot_qv > 0:
-                                    shares_test = [(v / tot_qv) * 100.0 for v in q_vals.values()]
-                                    if all(10.0 <= s <= 45.0 for s in shares_test) and (tot_qv >= 500 or (0.98 <= tot_qv <= 1.02) or (98.0 <= tot_qv <= 102.0)):
-                                        comp_latest = {"dt": last_w["_dt"], "counts": q_vals, "is_pct_only": tot_qv <= 105.0}
-                                        break
+                                for idx_w in range(len(sub_c_w) - 1, -1, -1):
+                                    row_w = sub_c_w.iloc[idx_w]
+                                    q_vals = {qk: float(row_w[c_wq]) for qk, c_wq in wide_q_cols.items()}
+                                    tot_qv = sum(q_vals.values())
+                                    if tot_qv > 0:
+                                        shares_test = [(v / tot_qv) * 100.0 for v in q_vals.values()]
+                                        if all(15.0 <= s <= 35.0 for s in shares_test) and (tot_qv >= 500 or (0.98 <= tot_qv <= 1.02) or (98.0 <= tot_qv <= 102.0)):
+                                            comp_latest = {"dt": row_w["_dt"], "counts": q_vals, "is_pct_only": tot_qv <= 105.0}
+                                            break
+                            if comp_latest:
+                                break
 
-                        # Case 2: Long format (`q_tier_col` has Q1..Q4 labels, and a numeric column has counts or shares)
-                        if not comp_latest and q_tier_col and q_tier_col in sub_c.columns:
+                        # Case 2: Long format — Scan any column that has Q1..Q4 / 1..4 and test each 4-quartile block immediately
+                        cand_q_cols = [q_tier_col] if (q_tier_col and q_tier_col in sub_c.columns) else []
+                        for c_extra in sub_c.columns:
+                            if c_extra not in (dt_col, loc_col, lvl_col, tf_col, med_col, lq_col, uq_col, "_dt") and c_extra not in cand_q_cols:
+                                cand_q_cols.append(c_extra)
+
+                        for q_col_try in cand_q_cols:
                             num_cand_cols = [
                                 c for c in sub_c.columns
-                                if c not in (dt_col, loc_col, lvl_col, tf_col, med_col, lq_col, uq_col, q_tier_col, "_dt")
+                                if c not in (dt_col, loc_col, lvl_col, tf_col, med_col, lq_col, uq_col, q_col_try, "_dt")
                                 and not any(x in str(c).lower() for x in ("quartile", "tier", "hpi", "index", "price", "median", "change", "yoy"))
                             ]
                             for c_try in num_cand_cols:
@@ -7894,21 +7894,31 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                                     continue
                                 for dt_try in sorted(sub_c_num["_dt"].unique(), reverse=True)[:4]:
                                     sub_c_lat = sub_c_num[sub_c_num["_dt"] == dt_try]
-                                    q_counts = {}
+                                    q_counts: dict[str, float] = {}
                                     for _, rc in sub_c_lat.iterrows():
-                                        qk = _match_hud_quartile_key(rc[q_tier_col])
+                                        row_txt = " ".join(str(v).lower() for v in rc.values if pd.notna(v))
+                                        # Skip Dwelling-Type rows (houses/flats/apartments) so they never masquerade as Value Quartiles
+                                        if any(dw in row_txt for dw in ("dwelling type", "stand-alone", "apartment", "townhouse", "flat")):
+                                            continue
+                                        qk = _match_hud_quartile_key(rc[q_col_try])
                                         if qk:
                                             v_f = float(rc[c_try])
                                             if v_f > 0:
                                                 q_counts[qk] = v_f
-                                    if len(q_counts) == 4:
-                                        tot_qv = sum(q_counts.values())
-                                        shares_test = [(v / tot_qv) * 100.0 for v in q_counts.values()]
-                                        if all(10.0 <= s <= 45.0 for s in shares_test) and (tot_qv >= 500 or (0.98 <= tot_qv <= 1.02) or (98.0 <= tot_qv <= 102.0)):
-                                            comp_latest = {"dt": dt_try, "counts": q_counts, "is_pct_only": tot_qv <= 105.0}
-                                            break
+                                                if len(q_counts) == 4:
+                                                    tot_qv = sum(q_counts.values())
+                                                    shares_test = [(v / tot_qv) * 100.0 for v in q_counts.values()]
+                                                    if all(15.0 <= s <= 35.0 for s in shares_test) and (tot_qv >= 500 or (0.98 <= tot_qv <= 1.02) or (98.0 <= tot_qv <= 102.0)):
+                                                        comp_latest = {"dt": dt_try, "counts": dict(q_counts), "is_pct_only": tot_qv <= 105.0}
+                                                        break
+                                                    else:
+                                                        q_counts.clear()
+                                    if comp_latest:
+                                        break
                                 if comp_latest:
                                     break
+                            if comp_latest:
+                                break
                         if comp_latest:
                             break
             wb.close()
@@ -8124,7 +8134,6 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                     {"source_published": hud_pub, "source_url": src_file_url},
                 )
 
-    # Also parse live HUD HPI dashboard HTML (`HUD_HPI_DASH_PAGE`) for national & Q1/Q4 HPI figures
     hpi_dash_html = pages.get(HUD_HPI_DASH_PAGE, "")
     hpi_dash_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", hpi_dash_html)) if hpi_dash_html else ""
     m_dash_hpi = re.search(
@@ -8133,8 +8142,10 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
         flags=re.I,
     )
 
+    ref_as_of_np = str(out.get("nz-median-house-price-quartiles", {}).get("as_of") or existing_candidates.get("nz-median-house-price-quartiles", {}).get("as_of") or "")
+
     # Build Ticker 5 & 6: `mcert-house-price-index-yoy` & `hpi-low-vs-high-value-tiers`
-    if not hpi_df.empty:
+    if not hpi_df.empty and (not ref_as_of_np or month_end_iso(pd.Timestamp(hpi_df["_dt"].max())) >= ref_as_of_np):
         latest_h_dt = hpi_df["_dt"].max()
         per_h, as_of_h = pd.Timestamp(latest_h_dt).strftime("%B %Y"), month_end_iso(pd.Timestamp(latest_h_dt))
         all_h_df = hpi_df[hpi_df["_q_tier"].astype(str).str.lower().isin(["all", "total", "all dwellings", "nan", ""])].copy()
@@ -8147,18 +8158,14 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
         yoy_h = float(last_h["_yoy"])
         if abs(yoy_h) < 0.05 and m_dash_hpi:
             yoy_h = float(m_dash_hpi.group(2))
-        qoq_h = float(last_h["_3m"]) if pd.notna(last_h.get("_3m")) else None
-        if qoq_h is not None and abs(qoq_h) <= 0.50 and abs(qoq_h) > 0:
-            qoq_h *= 100.0
-        qoq_clause = f" (and <strong>{qoq_h:+.1f}%</strong> over the 3 months to {per_h})" if qoq_h is not None else ""
-        hpi_calc = f"Official MCERT SPAR House Price Index ({per_h}): Annual change = {yoy_h:+.1f}% YoY" + (f" | 3-month change = {qoq_h:+.1f}%" if qoq_h is not None else "")
+        hpi_calc = f"Official MCERT SPAR House Price Index ({per_h}): Annual change = {yoy_h:+.1f}% YoY"
         out["mcert-house-price-index-yoy"] = make_pulse_item(
             "HUD / MCERT HPI", as_of_h, MAX_AGE_HUD,
-            f"In {per_h} (by agreement date), the official Crown House Price Index (MCERT HPI, calculated using the Sales Price to Appraisal Ratio methodology) changed by <strong>{yoy_h:+.1f}% year-on-year</strong> across New Zealand{qoq_clause}.",
+            f"In {per_h} (by agreement date), the official Crown House Price Index (MCERT HPI, calculated using the Sales Price to Appraisal Ratio methodology) changed by <strong>{yoy_h:+.1f}% year-on-year</strong> across New Zealand.",
             f"HUD / MCERT House Price Index ({per_h}): National All-Dwellings HPI annual change = {yoy_h:+.1f}% YoY.",
             format_provenance_source_html(hpi_calc, "HUD / MCERT — House Price Index (CC BY 4.0)", src_file_url, False),
             per_h, round(yoy_h, 2),
-            f"{yoy_h:+.1f}% YoY" + (f" | {qoq_h:+.1f}% 3-month" if qoq_h is not None else "") + " (MCERT SPAR HPI)",
+            f"{yoy_h:+.1f}% YoY (MCERT SPAR HPI)",
             "SPAR valuation-adjusted index (controls for sales composition)",
             f"Published with 3-month DVR settlement lag ({per_h})",
             hpi_calc, f"MCERT monthly HPI series ({per_h})",
@@ -8242,7 +8249,7 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
                 {"source_published": hud_pub, "source_url": HUD_HPI_DASH_PAGE},
             )
 
-    # Build Ticker 7: `sales-composition-by-value-quartile` (Only emitted if all 4 quartile shares pass plausibility)
+    # Build Ticker 7: `sales-composition-by-value-quartile` (Only emitted if all 4 quartile shares sit in 15%–35% and sum to ~100%)
     if comp_latest and len(comp_latest.get("counts", {})) == 4:
         dt_c = pd.Timestamp(comp_latest["dt"])
         per_c, as_of_c = dt_c.strftime("%B %Y"), month_end_iso(dt_c)
@@ -8253,7 +8260,7 @@ def build_hud_mcert_housing_tickers(session, existing_candidates: dict) -> dict:
         q2_sh = round((q_c["Q2"] / max(1e-6, tot_q_s)) * 100.0, 1)
         q3_sh = round((q_c["Q3"] / max(1e-6, tot_q_s)) * 100.0, 1)
         q4_sh = round((q_c["Q4"] / max(1e-6, tot_q_s)) * 100.0, 1)
-        if all(10.0 <= s <= 45.0 for s in (q1_sh, q2_sh, q3_sh, q4_sh)) and 99.4 <= (q1_sh + q2_sh + q3_sh + q4_sh) <= 100.6:
+        if all(15.0 <= s <= 35.0 for s in (q1_sh, q2_sh, q3_sh, q4_sh)) and 99.4 <= (q1_sh + q2_sh + q3_sh + q4_sh) <= 100.6:
             if is_pct_only:
                 comp_calc = f"Q1: {q1_sh:.1f}% | Q2: {q2_sh:.1f}% | Q3: {q3_sh:.1f}% | Q4: {q4_sh:.1f}%"
                 q_fmt_fn = lambda sh, _: f"{sh:.1f}% of sales"
@@ -8308,6 +8315,18 @@ def _quarter_label_to_end_iso(q_lbl: str, fallback_iso: str) -> str:
     if any(k in s_low for k in ("dec", "q4")):
         return f"{yr}-12-31"
     return fallback_iso
+
+
+def _canon_quarter_label(q_lbl: str) -> str:
+    """Normalise quarter label spelling so 'July - Sept 2025' and 'Jul - Sep 2025' deduplicate cleanly."""
+    iso_d = _quarter_label_to_end_iso(q_lbl, "")
+    if len(iso_d) == 10:
+        yr = iso_d[:4]
+        mm = iso_d[5:7]
+        q_map = {"03": "Jan - Mar", "06": "Apr - Jun", "09": "Jul - Sep", "12": "Oct - Dec"}
+        if mm in q_map:
+            return f"{q_map[mm]} {yr}"
+    return re.sub(r"\s+", " ", str(q_lbl or "")).strip()
 
 
 def _extract_ko_pdf_totals(pdf_txt: str) -> tuple[str, str, list[int] | None, list[int] | None]:
@@ -8547,33 +8566,32 @@ def build_kainga_ora_tickers(session) -> dict:
             {"source_published": qtr_pub, "source_url": pdf_u},
         )
 
-    # Restrict quarter regex to 202\d so historical prose like 'July - September 2019' is never matched as a chart x-axis label
     q_pat = r"(?:Apr|April|Jul|July|Oct|October|Jan|January)\s*[-–—to\s]+\s*(?:Jun|June|Sep|Sept|September|Dec|December|Mar|March)\s*202\d"
 
     m_sc_pos = re.search(r"Previous\s+Owner\s+Savings\s+Withdrawal\s+Applications", pdf_txt, flags=re.I)
     m_ks_anchor = re.search(r"KiwiSaver\s+First\s+Home\s+Savings\s+Withdrawal", pdf_txt, flags=re.I) or re.search(r"programme\s+of\s+assistance\s+for\s+first\s+home\s+buyers", pdf_txt, flags=re.I)
 
     if m_sc_pos:
-        # Use full window around `m_sc_pos` (do not truncate at `m_ks_anchor` because both charts sit on the same PDF page)
         sc_win = pdf_txt[max(0, m_sc_pos.start() - 500) : min(len(pdf_txt), m_sc_pos.end() + 1500)]
         raw_q_list = [re.sub(r"\s+", " ", q).strip() for q in re.findall(q_pat, sc_win, flags=re.I)]
-        q_list = []
+        q_by_iso: dict[str, str] = {}
         for q_item in raw_q_list:
-            if q_item not in q_list:
-                q_list.append(q_item)
+            q_iso_k = _quarter_label_to_end_iso(q_item, "")
+            if q_iso_k and q_iso_k not in q_by_iso:
+                q_by_iso[q_iso_k] = _canon_quarter_label(q_item)
+        # Sort quarter labels chronologically so `q_list[-1]` is always the latest quarter (e.g. Apr - Jun 2026)
+        q_list = [q_by_iso[k] for k in sorted(q_by_iso.keys())]
 
         cln = sc_win
         for qm in raw_q_list:
             cln = cln.replace(qm, " ")
         cln = re.sub(r"\b(?:1\s+October|30\s+September|1\s+July|30\s+June|31\s+March|31\s+December)\s+20\d{2}\b|\b20[12]\d\b|\b1,000\b", " ", cln, flags=re.I)
         raw_sc = [int(n.replace(",", "")) for n in re.findall(r"\b\d{1,2},\d{3}\b|\b\d{3,4}\b|\b0\b", cln)]
-        # Filter to `850 <= x <= 3500` so the adjacent First-Home chart's $520m-$610m bars and gridlines are completely excluded
         sc_bars = [x for x in _remove_axis_ticks(raw_sc, 200, 0, 1600) if 850 <= x <= 3500]
         n_q = len(q_list)
 
         if n_q >= 4 and len(sc_bars) >= n_q:
-            # Pair the `n_q` unique quarters with the `n_q` approved bars (`sc_bars[-n_q:]`)
-            app_s = sc_bars[-n_q:]
+            app_s = sc_bars[:n_q]
             curr_q, curr_a = q_list[-1], app_s[-1]
             prev_q, prev_a = q_list[-2], app_s[-2]
             roll_12m, mth_a = sum(app_s[-4:]), int(round(curr_a / 3.0))
@@ -8611,10 +8629,13 @@ def build_kainga_ora_tickers(session) -> dict:
     if m_ks_anchor:
         ks_w = pdf_txt[max(0, m_ks_anchor.start() - 400) : min(len(pdf_txt), m_ks_anchor.end() + 1400)]
         raw_ks_qs = [re.sub(r"\s+", " ", q).strip() for q in re.findall(q_pat, ks_w, flags=re.I)]
-        ks_qs = []
+        ks_by_iso: dict[str, str] = {}
         for q_item in raw_ks_qs:
-            if q_item not in ks_qs:
-                ks_qs.append(q_item)
+            q_iso_k = _quarter_label_to_end_iso(q_item, "")
+            if q_iso_k and q_iso_k not in ks_by_iso:
+                ks_by_iso[q_iso_k] = _canon_quarter_label(q_item)
+        ks_qs = [ks_by_iso[k] for k in sorted(ks_by_iso.keys())]
+
         ks_c = ks_w
         for qm in raw_ks_qs:
             ks_c = ks_c.replace(qm, " ")
@@ -8786,7 +8807,6 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
         except Exception as exc:
             print(f"[IRD Regional KiwiSaver] Parse note: {exc}")
 
-    # `kiwisaver-switches`: Dynamically distinguishes 1-year (YoY) vs multi-year (e.g. 10-year FY2016 to FY2026) comparison
     tr_html = pages.get(IRD_KS_TR_PAGE, "")
     if tr_html:
         tr_pub = extract_html_release_date(tr_html, "Annual Inland Revenue KiwiSaver scheme transfer release")
@@ -8851,7 +8871,7 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                 pay_calc, "Inland Revenue June FY contributions series", None, {"source_published": pay_pub},
             )
 
-    # `kiwisaver-savings-suspensions`: Matches both HTML table rows and 'there were <N> members [were] on [a] savings suspension'
+    # `kiwisaver-savings-suspensions`: Supports both row-oriented and column-oriented HTML tables + 202\d prose sentences
     susp_html = pages.get(IRD_KS_SUSP_PAGE, "")
     if susp_html:
         susp_pub = extract_html_release_date(susp_html, "Monthly Inland Revenue KiwiSaver savings suspension release")
@@ -8861,6 +8881,30 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
         ext_s = SimpleTableExtractor()
         ext_s.feed(susp_html)
         for tbl_s in ext_s.tables:
+            if not tbl_s:
+                continue
+            # Check column-oriented table (where row 0 has date headers like 'September 2026' or 'Jun 2026')
+            hdr_s = tbl_s[0]
+            col_dts: list[tuple[int, pd.Timestamp]] = []
+            for c_i, h_cell in enumerate(hdr_s):
+                dt_c = pd.to_datetime("1 " + h_cell.strip(), errors="coerce")
+                if pd.isna(dt_c):
+                    dt_c = pd.to_datetime(h_cell.strip(), errors="coerce")
+                if pd.notna(dt_c) and 2024 <= dt_c.year <= 2035:
+                    col_dts.append((c_i, dt_c))
+            if col_dts:
+                col_dts.sort(key=lambda x: x[1])
+                best_ci, best_dt = col_dts[-1]
+                for r_s in reversed(tbl_s[1:]):
+                    if best_ci < len(r_s):
+                        c_str = re.sub(r"[^\d]", "", r_s[best_ci])
+                        if c_str and 20000 <= int(c_str) <= 300000:
+                            if dt_s is None or best_dt >= dt_s:
+                                dt_s = best_dt
+                                susp_tot = int(c_str)
+                                break
+
+            # Check row-oriented table (where col 0 is the date)
             for r_s in reversed(tbl_s):
                 if len(r_s) >= 2:
                     dt_try = pd.to_datetime("1 " + r_s[0].strip(), errors="coerce")
@@ -8871,13 +8915,26 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                         for cell in r_s[1:]
                         if re.match(r"^[\d,]+$", cell.strip()) and 20000 <= int(re.sub(r"[^\d]", "", cell)) <= 300000
                     ]
-                    if pd.notna(dt_try) and 2020 <= dt_try.year <= 2035 and nums_row:
+                    if pd.notna(dt_try) and 2024 <= dt_try.year <= 2035 and nums_row:
                         if dt_s is None or dt_try > dt_s:
                             dt_s = dt_try
                             susp_tot = nums_row[-1]
 
+        # Match 'from <X> in <Old Date> to <Y> in <Latest Date>' (taking <Y> and <Latest Date>)
+        for m_ft in re.finditer(
+            r"from\s+[\d,]+\s+in\s+[A-Za-z]+\s+20\d{2}\s+to\s+(\d[\d,]{4,7})\s+in\s+([A-Za-z]+\s+202\d)",
+            s_txt,
+            flags=re.I,
+        ):
+            c_try = int(m_ft.group(1).replace(",", ""))
+            dt_try = pd.to_datetime("1 " + m_ft.group(2), errors="coerce")
+            if pd.notna(dt_try) and (dt_s is None or dt_try > dt_s):
+                dt_s = dt_try
+                susp_tot = c_try
+
+        # Match 'In <Month 202X>: ... <N> members [were] on [a] savings suspension' (restricting year to 202\d)
         for m_pair in re.finditer(
-            r"(?:In|As\s+at)\s+([A-Za-z]+\s+20\d{2})[,:\s]+[^.]{0,140}?(\d[\d,]{4,7})\s+members\s+(?:were\s+)?on\s+(?:a\s+)?savings\s+suspension",
+            r"\bIn\s+([A-Za-z]+\s+202\d)\s*[,:]\s*(?:there\s+were\s+)?(\d[\d,]{4,7})\s+members\s+(?:were\s+)?on\s+(?:a\s+)?savings\s+suspension",
             s_txt,
             flags=re.I,
         ):
@@ -8950,15 +9007,15 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
         )
 
     # 1. `ird-individual-taxable-income-percentiles`
-    inc_comb_html = " ".join(pages.get(u, "") for u in (IRD_INCOME_DIST_PAGE, IRD_INCOME_TOT_PAGE, IRD_INCOME_DATASETS_PAGE))
+    inc_comb_html = " ".join(pages.get(u, "") for u in (IRD_INCOME_TOT_PAGE, IRD_INCOME_DIST_PAGE, IRD_INCOME_DATASETS_PAGE))
     if inc_comb_html.strip():
         inc_pub = extract_html_release_date(inc_comb_html, "Annual Inland Revenue Taxable Income Distribution release")
         inc_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", inc_comb_html))
         m_ind_cnt = re.search(r"([45],\d{3},\d{3})\s+individuals", inc_txt, flags=re.I)
         m_inc_b = re.search(r"combined\s+taxable\s+income\s+of\s+\$([\d.]+)\s*(?:billion|b)", inc_txt, flags=re.I) or re.search(r"\$([23]\d{2}\.?\d*)\s*(?:billion|b)", inc_txt, flags=re.I)
         if m_ind_cnt and m_inc_b:
-            loc_win = inc_txt[max(0, m_ind_cnt.start() - 250) : min(len(inc_txt), m_ind_cnt.end() + 250)]
-            m_ty = re.search(r"(202[12345])\s+tax\s+year", loc_win, flags=re.I) or re.search(r"(202[12345])\s+tax\s+year", inc_txt, flags=re.I)
+            loc_win = inc_txt[max(0, m_ind_cnt.start() - 180) : min(len(inc_txt), m_ind_cnt.end() + 180)]
+            m_ty = re.search(r"(202[1234])\s+tax\s+year", loc_win, flags=re.I) or re.search(r"(202[1234])\s+tax\s+year", inc_txt, flags=re.I)
             if m_ty:
                 tot_inds = int(m_ind_cnt.group(1).replace(",", ""))
                 tot_inc_b = float(m_inc_b.group(1))
@@ -8978,22 +9035,26 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                     {"source_published": inc_pub, "source_url": IRD_INCOME_DIST_PAGE},
                 )
 
-    # 2. `ird-paye-wage-vs-self-employed-income` (Extracts specific tax year from the local text window around the PAYE earner count)
+    # 2. `ird-paye-wage-vs-self-employed-income`
     ws_comb_html = " ".join(pages.get(u, "") for u in (IRD_WAGE_NUM_PAGE, IRD_WAGE_BAND_PAGE, IRD_WAGE_SALARY_PAGE, IRD_WAGE_DATASETS_PAGE))
     if ws_comb_html.strip():
         ws_pub = extract_html_release_date(ws_comb_html, "Annual Inland Revenue Wage and Salary Distributions release")
         ws_txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", ws_comb_html))
         paye_cnt = None
         ws_ty_yr = None
-        m_ws_cnt = re.search(r"(2,\d{3},\d{3})\s+(?:individuals|people|wage|earners)", ws_txt, flags=re.I)
+
+        m_ws_cnt = (
+            re.search(r"(2,\d{3},\d{3})\s+(?:individuals|people|wage|earners)", ws_txt, flags=re.I)
+            or re.search(r"\b(2,[6789]\d{2},\d{3})\b", ws_txt)
+        )
         if m_ws_cnt:
             paye_cnt = int(m_ws_cnt.group(1).replace(",", ""))
-            ws_loc_win = ws_txt[max(0, m_ws_cnt.start() - 300) : min(len(ws_txt), m_ws_cnt.end() + 300)]
-            m_ty_loc = re.search(r"(202[12345])\s+tax\s+year", ws_loc_win, flags=re.I)
+            ws_loc_win = ws_txt[max(0, m_ws_cnt.start() - 250) : min(len(ws_txt), m_ws_cnt.end() + 250)]
+            m_ty_loc = re.search(r"(202[1234])\s+tax\s+year", ws_loc_win, flags=re.I)
             if m_ty_loc:
                 ws_ty_yr = int(m_ty_loc.group(1))
         if ws_ty_yr is None:
-            m_ty_all = re.search(r"(202[12345])\s+tax\s+year", ws_txt, flags=re.I)
+            m_ty_all = re.search(r"(202[1234])\s+tax\s+year", ws_txt, flags=re.I)
             if m_ty_all:
                 ws_ty_yr = int(m_ty_all.group(1))
 
@@ -9017,7 +9078,7 @@ def build_ird_tickers(session, t43_path: pathlib.Path | None = None) -> dict:
                         df_ws = xl_ws.parse(sh)
                         flat_ws = " ".join(str(v) for v in df_ws.values.flatten() if pd.notna(v))
                         if ws_ty_yr is None:
-                            m_ty_x = re.search(r"\b(202[12345])\b", flat_ws)
+                            m_ty_x = re.search(r"\b(202[1234])\b", flat_ws)
                             if m_ty_x:
                                 ws_ty_yr = int(m_ty_x.group(1))
                         nums_cnt.extend([int(float(v)) for v in df_ws.values.flatten() if re.match(r"^\d{7}(\.0+)?$", str(v).strip()) and 2_000_000 <= float(v) <= 3_800_000])
@@ -10819,7 +10880,7 @@ def _update_catalog_metadata_definitions() -> None:
             TICKER_CATALOG[k].update(meta_patch)
 
 
-def _run_audit_guardrails(candidates: dict) -> None:
+def _run_audit_guardrails(candidates: dict, ref_hud_as_of: str = "") -> None:
     """
     Fail-closed mathematical and structural validation guardrails (ZERO hardcoded fallback values).
     If any live-scraped or cached record fails validation, it is dropped from `candidates` and logged.
@@ -10835,7 +10896,7 @@ def _run_audit_guardrails(candidates: dict) -> None:
         if (
             len(shares) != 4
             or not (99.4 <= sum(shares) <= 100.6)
-            or any(s < 10.0 or s > 45.0 for s in shares)
+            or any(s < 15.0 or s > 35.0 for s in shares)
             or "(1)" in calc_s
             or "(1 sales)" in str(hist_c)
         ):
@@ -10843,8 +10904,9 @@ def _run_audit_guardrails(candidates: dict) -> None:
             candidates.pop("sales-composition-by-value-quartile", None)
 
     # 2. HPI Unscaled Decimal & Stale Period Guardrail (`mcert-house-price-index-yoy`, `hpi-low-vs-high-value-tiers`)
-    ref_hud = candidates.get("nz-median-house-price-quartiles") or candidates.get("nz-monthly-property-sales-volume") or {}
-    ref_hud_as_of = str(ref_hud.get("as_of") or ref_hud.get("period_end") or "")
+    if not ref_hud_as_of:
+        ref_hud = candidates.get("nz-median-house-price-quartiles") or candidates.get("nz-monthly-property-sales-volume") or {}
+        ref_hud_as_of = str(ref_hud.get("as_of") or ref_hud.get("period_end") or "")
     for hpi_k in ("mcert-house-price-index-yoy", "hpi-low-vs-high-value-tiers"):
         rec_h = candidates.get(hpi_k)
         if isinstance(rec_h, dict):
@@ -10858,6 +10920,49 @@ def _run_audit_guardrails(candidates: dict) -> None:
             ):
                 print(f"[Audit Guardrail] Dropped unscaled/lagging '{hpi_k}' (value={vh}, as_of={as_of_h} vs {ref_hud_as_of})")
                 candidates.pop(hpi_k, None)
+
+    # Cross-derive `mcert-house-price-index-yoy` directly from `hpi-low-vs-high-value-tiers` if `hpi-low-vs-high-value-tiers` has the composite All-Dwellings entry
+    if "mcert-house-price-index-yoy" not in candidates and isinstance(candidates.get("hpi-low-vs-high-value-tiers"), dict):
+        rec_tiers = candidates["hpi-low-vs-high-value-tiers"]
+        t_hist = rec_tiers.get("history") or []
+        comp_entry = next(
+            (
+                h for h in t_hist
+                if isinstance(h, dict)
+                and any(w in str(h.get("period", "")).lower() or w in str(h.get("label", "")).lower() for w in ("all dwellings", "composite"))
+                and isinstance(h.get("value"), (int, float))
+            ),
+            None,
+        )
+        if comp_entry is not None:
+            yoy_h = round(float(comp_entry["value"]), 2)
+            per_h = str(rec_tiers.get("latest_period") or "Latest Release")
+            as_of_h = str(rec_tiers.get("as_of") or "")
+            src_u = str(rec_tiers.get("source_url") or HUD_HPI_DASH_PAGE)
+            pub_h = str(rec_tiers.get("source_published") or "")
+            tier_parts = " | ".join(
+                f"{h.get('period')}: {float(h['value']):+.1f}%"
+                for h in t_hist
+                if isinstance(h, dict) and isinstance(h.get("value"), (int, float))
+            )
+            hpi_calc = f"Official MCERT SPAR House Price Index ({per_h}): National All-Dwellings = {yoy_h:+.1f}% YoY ({tier_parts})"
+            candidates["mcert-house-price-index-yoy"] = make_pulse_item(
+                "HUD / MCERT HPI",
+                as_of_h,
+                MAX_AGE_HUD,
+                f"In {per_h} (by agreement date), the official Crown House Price Index (MCERT HPI, calculated using the Sales Price to Appraisal Ratio methodology) changed by <strong>{yoy_h:+.1f}% year-on-year</strong> across New Zealand.",
+                f"HUD / MCERT House Price Index ({per_h}): National All-Dwellings HPI annual change = {yoy_h:+.1f}% YoY.",
+                format_provenance_source_html(hpi_calc, "HUD / MCERT — House Price Index (CC BY 4.0)", src_u, False),
+                per_h,
+                yoy_h,
+                f"{yoy_h:+.1f}% YoY (MCERT SPAR HPI)",
+                "SPAR valuation-adjusted index (controls for sales composition)",
+                f"Published with 3-month DVR settlement lag ({per_h})",
+                hpi_calc,
+                f"MCERT monthly HPI series ({per_h})",
+                [dict(h) for h in t_hist if isinstance(h, dict)],
+                {"source_published": pub_h, "source_url": src_u},
+            )
 
     # 3. Labour Market Consistency Guardrail (`nz-unemployment-rate`, `nz-underutilisation-rate`, `nz-employment-and-wage-growth`)
     rec_unemp = candidates.get("nz-unemployment-rate")
@@ -10948,13 +11053,12 @@ def _run_audit_guardrails(candidates: dict) -> None:
                     rec_t["official_data_summary"] = f"MBIE By-TLA Median Rent & HUD / MCERT By-TLA Median Sale Price: {c1['label']} = {float(c1['value']):.2f}%; {c2['label']} = {float(c2['value']):.2f}%; {c3['label']} = {float(c3['value']):.2f}%."
                 candidates[tla_slug] = rec_t
 
-    # 7. RBNZ Table S33 Internal Consistency Guardrail (Ensures `html` and `history` come from the same S33 snapshot)
+    # 7. RBNZ Table S33 Internal Consistency Guardrail
     for s33_k in ("existing-mortgage-stock-lvr-refix", "fixed-vs-floating-rate-mix"):
         rec_33 = candidates.get(s33_k)
         if isinstance(rec_33, dict):
             html_33_s = str(rec_33.get("html", ""))
             hist_33_s = str(rec_33.get("history", ""))
-            # Reject if `html` has the synthetic $356.4B / $229.9B override or if `html` and `history` disagree on floating $B
             if "356.4" in html_33_s or ("43.2B" in html_33_s and "42.0B" in hist_33_s):
                 print(f"[Audit Guardrail] Dropped mixed-snapshot '{s33_k}'")
                 candidates.pop(s33_k, None)
@@ -11000,7 +11104,7 @@ def _run_audit_guardrails(candidates: dict) -> None:
                 )
         candidates["insurance-claims-trends"] = rec_j10
 
-    # 11. Dynamic Self-Healing for Cached C31 & Labour Income `history` Arrays (Derived strictly from each record's own official string)
+    # 11. Dynamic Self-Healing for Cached C31 & Labour Income `history` Arrays
     rec_gap = candidates.get("fhb-loan-size-gap")
     if isinstance(rec_gap, dict):
         m_hi_lo = re.search(r"\$([\d,]+)\s+at\s+>80%\s+LVR\s+vs\s+\$([\d,]+)\s+at\s+<=80%\s+LVR", str(rec_gap.get("latest_value", "")))
@@ -11077,10 +11181,14 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
             val_num = v.get("value")
             if "nan $" in lv or "-99 $" in lv:
                 continue
-            # Purge any previously cached synthetic/corrupt records from earlier runs
+            # Purge any previously cached synthetic or unsorted records from earlier runs
             if k == "sales-composition-by-value-quartile" and (
                 val_num in (10.0, 89.9, 26.2) or "1,481" in str(v.get("calculation_live", ""))
             ):
+                continue
+            if k == "tla-council-house-price-benchmarks" and lv.startswith("queenstown"):
+                continue
+            if k == "regional-median-house-prices" and "tasman" in lv:
                 continue
             if k == "kiwisaver-member-demographics-age-income" and (
                 (isinstance(val_num, (int, float)) and val_num < 3_200_000)
@@ -11102,7 +11210,9 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
             ):
                 continue
             if k == "ird-paye-wage-vs-self-employed-income" and (
-                "62,500" in str(v.get("html", "")) or "2026 tax year" in str(v.get("latest_period", "")).lower()
+                "62,500" in str(v.get("html", ""))
+                or "2026 tax year" in str(v.get("latest_period", "")).lower()
+                or "latest ird tax year" in str(v.get("latest_period", "")).lower()
             ):
                 continue
             if k == "nz-underutilisation-rate" and val_num == 15.3:
@@ -11182,21 +11292,39 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
 
 
 def _merge_fresh_only(target: dict, new_items: dict) -> int:
-    """Only update `target` with records from `new_items` whose `as_of` date passes the freshness gate."""
+    """
+    Validate `new_items` through `_run_audit_guardrails` first and only update `target`
+    when the new record is fresh AND its `as_of` date is not older than an existing verified record in `target`.
+    """
     if not isinstance(new_items, dict):
         return 0
+    ref_hud = target.get("nz-median-house-price-quartiles") or new_items.get("nz-median-house-price-quartiles") or {}
+    ref_hud_as_of = str(ref_hud.get("as_of") or ref_hud.get("period_end") or "")
+    validated_new = dict(new_items)
+    _run_audit_guardrails(validated_new, ref_hud_as_of=ref_hud_as_of)
+
     count = 0
-    for k, v in new_items.items():
+    for k, v in validated_new.items():
         if not isinstance(v, dict):
             continue
         as_of_v = str(v.get("as_of") or v.get("period_end") or "")
         max_age_v = _effective_max_age(k, v)
         v["max_age_days"] = max_age_v
-        if is_fresh(as_of_v, max_age_v):
-            target[k] = v
-            count += 1
-        else:
+        if not is_fresh(as_of_v, max_age_v):
             print(f"[Live Guard] Ignored stale live scrape for '{k}' (as_of={as_of_v}); keeping verified baseline.")
+            continue
+        existing_rec = target.get(k)
+        if isinstance(existing_rec, dict):
+            existing_as_of = str(existing_rec.get("as_of") or existing_rec.get("period_end") or "")
+            if (
+                existing_as_of
+                and as_of_v < existing_as_of
+                and k not in ("ird-individual-taxable-income-percentiles", "ird-paye-wage-vs-self-employed-income")
+            ):
+                print(f"[Live Guard] Kept newer verified baseline for '{k}' ({existing_as_of} > live {as_of_v}).")
+                continue
+        target[k] = v
+        count += 1
     return count
 
 
