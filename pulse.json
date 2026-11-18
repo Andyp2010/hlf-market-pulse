@@ -23,11 +23,11 @@
   "date_modified": "2026-11-18",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-18",
-  "dataset_generated_utc": "2026-11-18T20:04:37Z",
+  "dataset_generated_utc": "2026-11-18T21:43:32Z",
   "latest_underlying_data": "June 2024 (triennial) to September 2026 (monthly)",
   "data_status": "verified",
   "source_status": "current",
-  "active_datasets_count": 99,
+  "active_datasets_count": 101,
   "reporting_lag_note": "Crown and statutory releases have different reporting frequencies and lags: monthly series (RBNZ, Stats NZ Consents, MBIE Tenancy, HUD/MCERT) cover July\u2013September 2026, quarterly series (CPI, HLPI, HLFS, K\u0101inga Ora) cover Q2\u2013Q3 2026, and annual/triennial surveys (HILS, Net Worth, IRD Tax Distributions) cover 2024\u20132026.",
   "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (CPI / HLPI / HLFS / IRD / K\u0101inga Ora) & Annual/Triennial (FMA / Stats NZ HILS & Net Worth / IRD Tax Distributions / NHC / ACC)",
   "fhb_snapshot": {
@@ -135,7 +135,7 @@
   },
   "reality_check_benchmarks": {
     "title": "New Zealand Household, Income, Rent, Debt, Employment & Property Reality Check Benchmarks",
-    "active_benchmark_series": 27,
+    "active_benchmark_series": 28,
     "series": {
       "individual-income-by-source-benchmarks": {
         "value": 73788,
@@ -790,36 +790,36 @@
         ]
       },
       "existing-mortgage-stock-lvr-refix": {
-        "value": 64.5,
-        "latest_value": "64.5% refixing <=12m (38.4% <=6m) | 10.8% floating",
+        "value": 39.7,
+        "latest_value": "39.7% refixing <=12m ($160.9B) | 8.7% floating ($38.7B)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
         "source": "RBNZ Table S33",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/",
         "breakdown": [
           {
-            "period": "Floating / Revolving",
-            "label": "Floating & Revolving Credit Stock",
-            "value": 10.8,
-            "formatted": "10.8% ($42.0B)"
-          },
-          {
             "period": "Fixed Repricing <= 6m",
-            "label": "Fixed Loans Rolling Off Within 6 Months",
-            "value": 38.4,
-            "formatted": "38.4% of fixed stock"
+            "label": "Fixed Mortgages Repricing Within 6 Months",
+            "value": 19.8,
+            "formatted": "19.8% of fixed stock ($80.1B)"
           },
           {
             "period": "Fixed Repricing <= 12m",
-            "label": "Fixed Loans Rolling Off Within 12 Months",
-            "value": 64.5,
-            "formatted": "64.5% of fixed stock ($223.6B)"
+            "label": "Fixed Mortgages Repricing Within 12 Months",
+            "value": 39.7,
+            "formatted": "39.7% of fixed stock ($160.9B)"
           },
           {
-            "period": "Fixed > 12m Remaining",
-            "label": "Fixed Loans Repricing Beyond 12 Months",
-            "value": 35.5,
-            "formatted": "35.5% of fixed stock"
+            "period": "Total Fixed Stock",
+            "label": "Total Fixed-Rate Bank Mortgage Stock",
+            "value": 91.3,
+            "formatted": "91.3% ($405.7B)"
+          },
+          {
+            "period": "Floating / Revolving",
+            "label": "Floating & Revolving Bank Mortgage Stock",
+            "value": 8.7,
+            "formatted": "8.7% ($38.7B)"
           }
         ]
       },
@@ -1894,6 +1894,40 @@
             "label": "All New Zealand Dwellings (Composite HPI)",
             "value": -0.8,
             "formatted": "-0.8% YoY"
+          }
+        ]
+      },
+      "sales-composition-by-value-quartile": {
+        "value": 26.2,
+        "latest_value": "Q1 Lowest CV 26.2% | Q2 25.5% | Q3 24.8% | Q4 Highest CV 23.5%",
+        "observation_period": "July 2026",
+        "period_end": "2026-07-31",
+        "source": "HUD / MCERT Property Statistics",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/sales-composition-by-value-quartile/",
+        "breakdown": [
+          {
+            "period": "Q1 (Lowest 25% CV Stock)",
+            "label": "Quartile 1 (Lowest Valuation 25% of Stock)",
+            "value": 26.2,
+            "formatted": "26.2% of sales (1,481 sales)"
+          },
+          {
+            "period": "Q2 (25%\u201350% CV Stock)",
+            "label": "Quartile 2 (Lower-Middle Valuation 25% of Stock)",
+            "value": 25.5,
+            "formatted": "25.5% of sales (1,442 sales)"
+          },
+          {
+            "period": "Q3 (50%\u201375% CV Stock)",
+            "label": "Quartile 3 (Upper-Middle Valuation 25% of Stock)",
+            "value": 24.8,
+            "formatted": "24.8% of sales (1,402 sales)"
+          },
+          {
+            "period": "Q4 (Highest 25% CV Stock)",
+            "label": "Quartile 4 (Highest Valuation 25% of Stock)",
+            "value": 23.5,
+            "formatted": "23.5% of sales (1,329 sales)"
           }
         ]
       },
@@ -3569,20 +3603,20 @@
       "also_known_as": "RBNZ Table S33 existing mortgage stock by time remaining to repricing",
       "category": "Homeowners & refinancing",
       "topic": "Existing homeowner mortgage stock repricing schedule",
-      "value": 64.5,
-      "latest_value": "64.5% refixing <=12m (38.4% <=6m) | 10.8% floating",
+      "value": 39.7,
+      "latest_value": "39.7% refixing <=12m ($160.9B) | 8.7% floating ($38.7B)",
       "unit": "percent",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-27 (27 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Total NZ bank mortgage stock: $388.6B",
-      "change": "Over 94% of existing mortgage stock sits at <=80% LVR (20%+ homeowner equity)",
+      "previous_period": "Table S33 bank stock: $444.4B (registered banks, fully mortgage-secured)",
+      "change": "+2.4 pts YoY shift in fixed-rate share",
       "source": "RBNZ Table S33",
       "source_full": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33)",
       "source_series_ids": "RBNZ Table S33 \u2014 Total Mortgage Stock by Repricing Horizon (Floating, <=6m, <=12m, >12m)",
@@ -3593,7 +3627,7 @@
       "formula": "6M Repricing Share = (<=3m + 3\u20136m Fixed Stock) \u00f7 Total Fixed Stock; 12M Repricing Share = (<=3m + 3\u20136m + 6\u201312m) \u00f7 Total Fixed Stock",
       "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (a narrower scope than Table S32's total housing loans by product and Table C5's combined bank and non-bank sector credit) and categorises balances by time remaining until interest rate repricing.",
       "methodology": "Extracted live from RBNZ Table S33, calculating the share of existing fixed-rate mortgage debt scheduled to reprice within 6 and 12 months.",
-      "historical_data_from": "RBNZ Table S33 monthly series",
+      "historical_data_from": "RBNZ Table S33 monthly series (September 2026)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -3606,7 +3640,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Existing New Zealand mortgage stock repricing horizon & floating vs fixed structure (RBNZ Table S33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33). https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/",
-      "summary_text": "As at September 2026, across New Zealand's $388.6B existing residential mortgage stock (RBNZ Table S33), 38.4% of fixed-rate debt is scheduled to refix within 6 months and 64.5% ($223.6B) within 12 months, while 10.8% ($42.0B) sits on floating rates.",
+      "summary_text": "As at September 2026, across New Zealand registered banks' $444.4B in loans fully secured by residential mortgage in RBNZ Table S33 (registered banks only, excluding non-bank lenders in Table C5), 8.7% ($38.7B) was on floating rates and 91.3% ($405.7B) on fixed rates\u2014with 39.7% ($160.9B) of fixed debt scheduled to reprice within 12 months (and 19.8% within 6 months).",
       "related_questions": [
         "What percentage of existing New Zealand fixed-rate mortgages are scheduled to reprice in the next 6 to 12 months?"
       ],
@@ -3616,41 +3650,41 @@
         "official_series_ids": "RBNZ Table S33 \u2014 Total Mortgage Stock by Repricing Horizon (Floating, <=6m, <=12m, >12m)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-27 (27 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
+        "hlf_calculation": "Fixed Share: $405.70B \u00f7 $444.36B = 91.3% | Repricing <=12m: $160.94B \u00f7 $405.70B = 39.7%",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/",
         "license": "CC BY 4.0"
       },
       "history": [
         {
-          "period": "Floating / Revolving",
-          "label": "Floating & Revolving Credit Stock",
-          "value": 10.8,
-          "formatted": "10.8% ($42.0B)"
-        },
-        {
           "period": "Fixed Repricing <= 6m",
-          "label": "Fixed Loans Rolling Off Within 6 Months",
-          "value": 38.4,
-          "formatted": "38.4% of fixed stock"
+          "label": "Fixed Mortgages Repricing Within 6 Months",
+          "value": 19.8,
+          "formatted": "19.8% of fixed stock ($80.1B)"
         },
         {
           "period": "Fixed Repricing <= 12m",
-          "label": "Fixed Loans Rolling Off Within 12 Months",
-          "value": 64.5,
-          "formatted": "64.5% of fixed stock ($223.6B)"
+          "label": "Fixed Mortgages Repricing Within 12 Months",
+          "value": 39.7,
+          "formatted": "39.7% of fixed stock ($160.9B)"
         },
         {
-          "period": "Fixed > 12m Remaining",
-          "label": "Fixed Loans Repricing Beyond 12 Months",
-          "value": 35.5,
-          "formatted": "35.5% of fixed stock"
+          "period": "Total Fixed Stock",
+          "label": "Total Fixed-Rate Bank Mortgage Stock",
+          "value": 91.3,
+          "formatted": "91.3% ($405.7B)"
+        },
+        {
+          "period": "Floating / Revolving",
+          "label": "Floating & Revolving Bank Mortgage Stock",
+          "value": 8.7,
+          "formatted": "8.7% ($38.7B)"
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table S33 (September 2026): Repricing <=6m = 38.4%; Repricing <=12m = 64.5% ($223.6B); Floating = 10.8%.",
-      "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
+      "official_data": "RBNZ Table S33 (September 2026, registered-bank loans fully secured by residential mortgage): Total = $444.4B ($444,358m); Fixed = $405.7B (91.3%); Floating = $38.7B (8.7%); Repricing <=12m = $160.9B (39.7%).",
+      "hlf_calculation": "Fixed Share: $405.70B \u00f7 $444.36B = 91.3% | Repricing <=12m: $160.94B \u00f7 $405.70B = 39.7%",
       "frequency": "Monthly"
     },
     {
@@ -5482,20 +5516,20 @@
       "also_known_as": "Share of NZ residential mortgages on fixed vs floating rates & refixing within 12 months",
       "category": "Homeowners & refinancing",
       "topic": "Fixed vs floating mortgage structure & refix horizon",
-      "value": 89.2,
-      "latest_value": "89.2% fixed ($346.6B) vs 10.8% floating ($42.0B)",
+      "value": 91.3,
+      "latest_value": "91.3% fixed ($405.7B) vs 8.7% floating ($38.7B)",
       "unit": "percent",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-27 (27 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Fixed loans repricing within 12 months: 64.5% ($223.6B)",
-      "change": "38.4% of fixed mortgages roll off within the next 6 months",
+      "previous_period": "September 2025 (88.9% fixed share)",
+      "change": "+2.4 percentage points YoY (fixed share)",
       "source": "RBNZ Table S33",
       "source_full": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33)",
       "source_series_ids": "RBNZ Table S33 \u2014 Fixed vs Floating Residential Mortgage Stock & <=12-Month Repricing Bands",
@@ -5506,7 +5540,7 @@
       "formula": "Fixed Share = Fixed Stock \u00f7 Total Stock; 12-Month Roll-Off = Fixed Loans Repricing <=12 Months \u00f7 Total Fixed Stock",
       "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (excluding non-bank lenders in Table C5) and tracks the share of balances on fixed versus floating interest rates.",
       "methodology": "Extracted live from RBNZ Table S33 residential mortgage stock repricing statistics, dividing fixed-rate mortgage balances by total residential mortgage balances and summing fixed-rate bands repricing within 12 months.",
-      "historical_data_from": "RBNZ Table S33 monthly series",
+      "historical_data_from": "Available from December 2016 (118 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -5519,7 +5553,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Fixed vs floating mortgage share & 12-month fixed rate roll-off (RBNZ Table S33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33). https://pulse-data.homeloanfactory.co.nz/fixed-vs-floating-rate-mix/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fixed-vs-floating-rate-mix/",
-      "summary_text": "As at September 2026, across New Zealand's $388.6B in bank loans secured by residential mortgage, 89.2% ($346.6B) was held on fixed interest rates and 10.8% ($42.0B) on floating rates\u2014with 64.5% ($223.6B) of fixed-rate balances scheduled to reprice within 12 months.",
+      "summary_text": "As at September 2026, across New Zealand registered banks' $444.4B in loans fully secured by residential mortgage (RBNZ Table S33, registered banks only), 91.3% ($405.7B) was held on fixed interest rates and 8.7% ($38.7B) on floating rates\u2014with 39.7% ($160.9B) of fixed-rate balances scheduled to reprice within 12 months.",
       "related_questions": [
         "What percentage of New Zealand bank mortgages are fixed vs floating?",
         "What share of fixed-rate mortgages in New Zealand are scheduled to reprice within 12 months?"
@@ -5530,16 +5564,95 @@
         "official_series_ids": "RBNZ Table S33 \u2014 Fixed vs Floating Residential Mortgage Stock & <=12-Month Repricing Bands",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-27 (27 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
+        "hlf_calculation": "Fixed Share: $405.70B \u00f7 $444.36B = 91.3% | Floating Share: $38.66B \u00f7 $444.36B = 8.7% | Repricing <=12m: $160.94B \u00f7 $405.70B = 39.7%",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fixed-vs-floating-rate-mix/",
         "license": "CC BY 4.0"
       },
-      "history": [],
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 91.3,
+          "formatted": "91.3% fixed"
+        },
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 91.07,
+          "formatted": "91.1% fixed"
+        },
+        {
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 90.9,
+          "formatted": "90.9% fixed"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 90.62,
+          "formatted": "90.6% fixed"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 90.76,
+          "formatted": "90.8% fixed"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 90.62,
+          "formatted": "90.6% fixed"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 90.36,
+          "formatted": "90.4% fixed"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 89.89,
+          "formatted": "89.9% fixed"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 89.65,
+          "formatted": "89.7% fixed"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 89.22,
+          "formatted": "89.2% fixed"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 86.83,
+          "formatted": "86.8% fixed"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 88.23,
+          "formatted": "88.2% fixed"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 88.93,
+          "formatted": "88.9% fixed"
+        }
+      ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table S33 (September 2026): Total bank residential mortgage stock = $388.6B; Fixed = $346.6B (89.2%); Floating = $42.0B (10.8%).",
-      "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
+      "official_data": "RBNZ Table S33 (September 2026, registered-bank loans fully secured by residential mortgage): Total = $444,358m ($444.4B); Fixed-rate loans = $405,702m (91.3%); Floating loans = $38,656m (8.7%).",
+      "hlf_calculation": "Fixed Share: $405.70B \u00f7 $444.36B = 91.3% | Floating Share: $38.66B \u00f7 $444.36B = 8.7% | Repricing <=12m: $160.94B \u00f7 $405.70B = 39.7%",
       "frequency": "Monthly"
     },
     {
@@ -7343,9 +7456,9 @@
       "value": 58565,
       "latest_value": "$58,565 mean taxable income ($278.2B across 4,750,300 individuals)",
       "unit": "NZD",
-      "observation_period": "2024 tax year",
-      "observed_period": "2024 tax year",
-      "period_end": "2024-03-31",
+      "observation_period": "2025 tax year",
+      "observed_period": "2025 tax year",
+      "period_end": "2025-03-31",
       "source_published": "Annual Inland Revenue release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
@@ -7364,7 +7477,7 @@
       "formula": "Mean Taxable Income = Combined Taxable Income ($B) \u00f7 Total Individuals",
       "hlf_interpretation": "HLF market context: Reports the aggregate number of individual taxpayers, combined assessable taxable income, and mean taxable income across New Zealand's administrative tax base.",
       "methodology": "Automatically fetched and parsed from Inland Revenue's Taxable Income Distribution of Individuals release on ird.govt.nz. IRD's administrative series covers all individuals with non-zero taxable income in the tax year (including full-time, part-time, part-year, investment, and benefit earners) and is published after IR3 return processing.",
-      "historical_data_from": "Inland Revenue 2024 tax year release",
+      "historical_data_from": "Inland Revenue 2025 tax year release",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -7375,9 +7488,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand individual taxable income distribution: total individuals, taxable income & mean (Inland Revenue),\" 2024 tax year. Derived by HLF from Inland Revenue \u2014 Taxable Income Distribution of Individuals. https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand individual taxable income distribution: total individuals, taxable income & mean (Inland Revenue),\" 2025 tax year. Derived by HLF from Inland Revenue \u2014 Taxable Income Distribution of Individuals. https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/",
-      "summary_text": "In Inland Revenue's 2024 Taxable Income Distribution of Individuals, 4,750,300 New Zealand individuals recorded a combined taxable income of $278.2B\u2014a mean taxable income of $58,565 per individual.",
+      "summary_text": "In Inland Revenue's 2025 Taxable Income Distribution of Individuals, 4,750,300 New Zealand individuals recorded a combined taxable income of $278.2B\u2014a mean taxable income of $58,565 per individual.",
       "related_questions": [
         "What is the total and average taxable income of individuals in New Zealand according to Inland Revenue?"
       ],
@@ -7385,18 +7498,18 @@
         "official_publisher": "Inland Revenue \u2014 Taxable Income Distribution of Individuals",
         "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/income-distribution",
         "official_series_ids": "IRD Taxable Income Distribution \u2014 Total Individuals & Combined Taxable Income ($B)",
-        "observation_period": "2024 tax year",
-        "period_end": "2024-03-31",
+        "observation_period": "2025 tax year",
+        "period_end": "2025-03-31",
         "source_published": "Annual Inland Revenue release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Official IRD (2024 tax year): $278.2B total taxable income \u00f7 4,750,300 individuals = $58,565 mean taxable income",
+        "hlf_calculation": "Official IRD (2025 tax year): $278.2B total taxable income \u00f7 4,750,300 individuals = $58,565 mean taxable income",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/",
         "license": "CC BY 4.0"
       },
       "history": null,
-      "latest_underlying_data": "2024 tax year",
-      "official_data": "Inland Revenue Taxable Income Distribution (2024 tax year): Total individuals = 4,750,300; Combined taxable income = $278.2B.",
-      "hlf_calculation": "Official IRD (2024 tax year): $278.2B total taxable income \u00f7 4,750,300 individuals = $58,565 mean taxable income",
+      "latest_underlying_data": "2025 tax year",
+      "official_data": "Inland Revenue Taxable Income Distribution (2025 tax year): Total individuals = 4,750,300; Combined taxable income = $278.2B.",
+      "hlf_calculation": "Official IRD (2025 tax year): $278.2B total taxable income \u00f7 4,750,300 individuals = $58,565 mean taxable income",
       "frequency": "Annual"
     },
     {
@@ -7463,6 +7576,71 @@
       "official_data": "Inland Revenue Tax and Entitlements Debt Statistics (June 2026): 524,000 customers in debt; total overdue debt = $9.7B; owed by individuals = $3.2B.",
       "hlf_calculation": "Total Overdue IRD Debt (June 2026) = $9.7B across 524,000 customers (Mean = $18,511/customer | Individuals = $3.2B)",
       "frequency": "Quarterly / Annual"
+    },
+    {
+      "ticker": "ird-paye-wage-vs-self-employed-income",
+      "name": "New Zealand PAYE wage & salary earner headcount & modal wage point (Inland Revenue)",
+      "also_known_as": "Inland Revenue Wage and Salary Distributions for Individuals",
+      "category": "Income, net worth & household benchmarks",
+      "topic": "PAYE wage & salary earner distribution",
+      "value": 2840300,
+      "latest_value": "2,840,300 PAYE wage & salary earners",
+      "unit": "earners",
+      "observation_period": "2025 tax year",
+      "observed_period": "2025 tax year",
+      "period_end": "2025-03-31",
+      "source_published": "Annual Inland Revenue release",
+      "last_checked": "2026-11-18",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-18",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Inland Revenue administrative PAYE series (2025 tax year)",
+      "change": "Covers all individuals with PAYE-deducted earnings during the March tax year",
+      "source": "Inland Revenue (IRD)",
+      "source_full": "Inland Revenue \u2014 Wage and Salary Distributions for Individuals",
+      "source_series_ids": "IRD Wage & Salary Distributions \u2014 Total PAYE Earners & Modal Income Point",
+      "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions",
+      "derived_by_hlf": false,
+      "data_type": "Officially reported Inland Revenue PAYE series",
+      "definition": "The total number of New Zealand individuals receiving PAYE wage and salary earnings during the tax year (and modal income point where reported) from Inland Revenue's Wage and Salary Distributions dataset.",
+      "formula": "Officially reported Inland Revenue PAYE wage and salary earner headcount",
+      "hlf_interpretation": "HLF market context: Reports the total number of individuals receiving PAYE-deducted wage and salary earnings across New Zealand during the tax year.",
+      "methodology": "Extracted live from Inland Revenue's Wage and Salary Distributions release pages and `.xlsx` workbook on ird.govt.nz. Includes all individuals who received PAYE wages or salaries at any point during the March tax year (excluding benefits, student allowances, NZ Superannuation, and self-employed shareholder-salaries not subject to PAYE).",
+      "historical_data_from": "Inland Revenue Wage & Salary series (2025 tax year)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand PAYE wage & salary earner headcount & modal wage point (Inland Revenue),\" 2025 tax year. Source: Inland Revenue \u2014 Wage and Salary Distributions for Individuals. https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/ (checked 18 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/",
+      "summary_text": "In Inland Revenue's Wage and Salary Distributions release (2025 tax year), 2,840,300 New Zealand individuals received PAYE wage and salary earnings during the tax year.",
+      "related_questions": [
+        "How many PAYE wage and salary earners are there in New Zealand?"
+      ],
+      "citation_chain": {
+        "official_publisher": "Inland Revenue \u2014 Wage and Salary Distributions for Individuals",
+        "official_source_url": "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions",
+        "official_series_ids": "IRD Wage & Salary Distributions \u2014 Total PAYE Earners & Modal Income Point",
+        "observation_period": "2025 tax year",
+        "period_end": "2025-03-31",
+        "source_published": "Annual Inland Revenue release",
+        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
+        "hlf_calculation": "Official IRD Wage and Salary Distributions (2025 tax year): Total PAYE wage & salary earners = 2,840,300",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/",
+        "license": "CC BY 4.0"
+      },
+      "history": null,
+      "latest_underlying_data": "2025 tax year",
+      "official_data": "Inland Revenue Wage and Salary Distributions (2025 tax year): Total PAYE wage and salary earners = 2,840,300.",
+      "hlf_calculation": "Official IRD Wage and Salary Distributions (2025 tax year): Total PAYE wage & salary earners = 2,840,300",
+      "frequency": "Annual"
     },
     {
       "ticker": "kainga-ora-first-home-loan-approvals",
@@ -12112,6 +12290,97 @@
       "official_data": "MBIE Tenancy Services (September 2026): Active Bonds = 523,812 (vs 496,302 a year earlier); Monthly Lodged Bonds = 12,828; Monthly Closed Bonds = 12,504.",
       "hlf_calculation": "12M Net Active Bond Change: 523,812 \u2212 496,302 = +27,510 (+5.5%) | Monthly Net Flow: 12,828 \u2212 12,504 = +324",
       "frequency": "Monthly"
+    },
+    {
+      "ticker": "sales-composition-by-value-quartile",
+      "name": "Residential sales composition by valuation quartile: Q1 (lowest value) to Q4 (highest value) share (HUD / MCERT)",
+      "also_known_as": "HUD / MCERT proportion of monthly residential sales in Value Quartiles Q1, Q2, Q3 & Q4",
+      "category": "House prices, sales & HPI",
+      "topic": "Residential sales composition by rating-valuation quartile",
+      "value": 26.2,
+      "latest_value": "Q1 Lowest CV 26.2% | Q2 25.5% | Q3 24.8% | Q4 Highest CV 23.5%",
+      "unit": "percent",
+      "observation_period": "July 2026",
+      "observed_period": "July 2026",
+      "period_end": "2026-07-31",
+      "source_published": "2026-10-15 (15 Oct 2026)",
+      "last_checked": "2026-11-18",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-18",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "Equal-stock benchmark: 25.0% of housing stock per valuation quartile",
+      "change": "Q1 minus Q4 sales share difference: +2.7 percentage points (+152 sales)",
+      "source": "HUD / MCERT Property Statistics",
+      "source_full": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Sales Composition Statistics (CC BY 4.0)",
+      "source_series_ids": "HUD / MCERT Sales Composition \u2014 Share of Sales in Value Quartiles Q1 (Lowest), Q2, Q3 & Q4 (Highest)",
+      "source_url": "https://www.hud.govt.nz/stats-and-insights/property-and-sales-statistics/dashboard-2",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported HUD / MCERT sales counts by value quartile & HLF-derived percentage shares",
+      "definition": "The percentage of monthly New Zealand residential property sales occurring in each rating-valuation quartile: Q1 (lowest 25% of housing stock by value), Q2, Q3, and Q4 (highest 25% of housing stock by value).",
+      "formula": "Quartile Share of Sales (%) = (Sales in Valuation Quartile Q_i \u00f7 Total Sales across Q1\u2013Q4) \u00d7 100",
+      "hlf_interpretation": "HLF market context: As noted by HUD / MCERT, tracking sales composition by valuation quartile helps identify whether a change in the raw median sale price reflects underlying price movement or a shift in the proportion of lower-value (Q1) versus higher-value (Q4) homes transacting.",
+      "methodology": "Extracted live from the Sales Composition series in the HUD / MCERT Property and Sales Statistics workbook. Each Territorial Authority's housing stock is divided into four equal 25% quartiles by rateable Capital Value; this series tracks what share of properties sold in a given month belonged to each valuation quartile.",
+      "historical_data_from": "HUD / MCERT sales composition series (July 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Residential sales composition by valuation quartile: Q1 (lowest value) to Q4 (highest value) share (HUD / MCERT),\" July 2026. Derived by HLF from Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Sales Composition Statistics (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/sales-composition-by-value-quartile/ (checked 18 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/sales-composition-by-value-quartile/",
+      "summary_text": "In July 2026, across New Zealand's 5,654 arm's-length residential property sales in the HUD / MCERT Sales Composition dataset, 26.2% (1,481 sales) were in the lowest rating-valuation quartile (Q1), 25.5% (1,442) in Q2, 24.8% (1,402) in Q3, and 23.5% (1,329) in the highest valuation quartile (Q4).",
+      "related_questions": [
+        "What share of New Zealand house sales are in the lowest value quartile (Q1) versus the highest value quartile (Q4)?",
+        "How does sales composition affect median house prices in New Zealand?"
+      ],
+      "citation_chain": {
+        "official_publisher": "Te T\u016b\u0101papa Kura K\u0101inga \u2013 Ministry of Housing and Urban Development / Ministry for Cities, Environment, Regions and Transport (MCERT) \u2014 Sales Composition Statistics (CC BY 4.0)",
+        "official_source_url": "https://www.hud.govt.nz/stats-and-insights/property-and-sales-statistics/dashboard-2",
+        "official_series_ids": "HUD / MCERT Sales Composition \u2014 Share of Sales in Value Quartiles Q1 (Lowest), Q2, Q3 & Q4 (Highest)",
+        "observation_period": "July 2026",
+        "period_end": "2026-07-31",
+        "source_published": "2026-10-15 (15 Oct 2026)",
+        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
+        "hlf_calculation": "Q1: 26.2% (1,481) | Q2: 25.5% (1,442) | Q3: 24.8% (1,402) | Q4: 23.5% (1,329) across 5,654 national DVR sales",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/sales-composition-by-value-quartile/",
+        "license": "CC BY 4.0"
+      },
+      "history": [
+        {
+          "period": "Q1 (Lowest 25% CV Stock)",
+          "label": "Quartile 1 (Lowest Valuation 25% of Stock)",
+          "value": 26.2,
+          "formatted": "26.2% of sales (1,481 sales)"
+        },
+        {
+          "period": "Q2 (25%\u201350% CV Stock)",
+          "label": "Quartile 2 (Lower-Middle Valuation 25% of Stock)",
+          "value": 25.5,
+          "formatted": "25.5% of sales (1,442 sales)"
+        },
+        {
+          "period": "Q3 (50%\u201375% CV Stock)",
+          "label": "Quartile 3 (Upper-Middle Valuation 25% of Stock)",
+          "value": 24.8,
+          "formatted": "24.8% of sales (1,402 sales)"
+        },
+        {
+          "period": "Q4 (Highest 25% CV Stock)",
+          "label": "Quartile 4 (Highest Valuation 25% of Stock)",
+          "value": 23.5,
+          "formatted": "23.5% of sales (1,329 sales)"
+        }
+      ],
+      "latest_underlying_data": "July 2026",
+      "official_data": "HUD / MCERT Sales Composition (July 2026, 5,654 total sales): Q1 = 26.2% (1,481); Q2 = 25.5% (1,442); Q3 = 24.8% (1,402); Q4 = 23.5% (1,329).",
+      "hlf_calculation": "Q1: 26.2% (1,481) | Q2: 25.5% (1,442) | Q3: 24.8% (1,402) | Q4: 23.5% (1,329) across 5,654 national DVR sales",
+      "frequency": "Monthly (3-Month DVR Settlement Lag)"
     },
     {
       "ticker": "settled-rates",
