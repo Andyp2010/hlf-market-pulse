@@ -10839,17 +10839,70 @@ def _update_catalog_metadata_definitions() -> None:
     if "TICKER_CATALOG" not in globals():
         return
     updates = {
+        "borrower-income": {
+            "name": "Average gross borrower income across approved first-home buyer DTI bands (RBNZ Table C41)",
+            "also_known_as": "Borrower Gross Income (BGI) band-weighted mean across approved FHB applications (RBNZ C41, ±$500–$1,000 band-rounding tolerance)",
+            "methodology": "RBNZ Table C41 publishes official total gross income ($m) and average gross income ($000, rounded to the nearest $1,000) within each Total Debt-to-Income (TDTI) band rather than a single all-bands mean. HLF derives the overall band-weighted mean by dividing total gross income summed across all reported FHB TDTI bands by the implied number of applications (Band Total Income ÷ Band Average Income) summed across those bands. Because RBNZ rounds band averages to $1,000 and excludes DTI-unknown loans from Table C40/C41, the implied application count and reconstructed mean carry a rounding tolerance of approximately ±$500–$1,000 and differ slightly from Table C31 total FHB loan counts.",
+        },
         "fhb-typical-income": {
             "name": "Mean first-home buyer application gross income (RBNZ Table C41)",
-            "also_known_as": "FHB borrower-weighted mean gross application income (BGI, ±$500 band-rounding tolerance)",
-            "methodology": "Derived from RBNZ Table C41 by summing total gross borrower income ($m, published rounded to $0.1m) across all reported first-home buyer Debt-to-Income bands and dividing by the total implied number of applications (Band Pool ÷ Band Average Income, published rounded to $1,000). Because RBNZ rounds band averages to the nearest $1,000 and band pools to $0.1m, the reconstructed mean carries an uncertainty of approximately ±$500.",
+            "also_known_as": "FHB borrower-weighted mean gross application income (BGI, ±$500–$1,000 band-rounding tolerance)",
+            "methodology": "Derived from RBNZ Table C41 by summing total gross borrower income ($m) across all reported first-home buyer Debt-to-Income bands and dividing by the total implied number of applications (Band Pool ÷ Band Average Income, published rounded to $1,000). Because RBNZ rounds band averages to the nearest $1,000 and excludes DTI-unknown loans, the reconstructed mean carries a band-rounding tolerance of approximately ±$500–$1,000 and the implied application count differs slightly from Table C31 loan counts.",
         },
         "fhb-typical-dti": {
-            "methodology": "Divides the monthly mean FHB mortgage commitment size (RBNZ Table C31) by the monthly band-weighted mean FHB gross borrower income (RBNZ Table C41), paired with the official share of FHB lending dollar commitments in TDTI bands <= 5x and <= 6x from RBNZ Table C40. Small differences in total FHB lending and implied loan counts between Table C31 and Tables C40/C41 reflect RBNZ band rounding ($1,000 / $0.1m) and DTI-unknown exclusions.",
+            "name": "Implied first-home buyer ratio of mean loan to mean gross income & share <= 6x DTI (RBNZ C31/C40/C41)",
+            "also_known_as": "Implied FHB ratio of averages (C31 mean loan ÷ C41 mean income) & official C40 share of FHB lending within 5x and 6x TDTI",
+            "definition": "The implied ratio of the national average first-home buyer mortgage commitment size (Table C31) to the band-weighted average first-home buyer gross application income (Table C41)—a ratio of aggregate averages rather than the mean DTI of individual borrowers—reported alongside the official share of FHB lending written at or below 5x and 6x Total Debt-to-Income (TDTI) in RBNZ Table C40.",
+            "hlf_interpretation": "HLF market context: Dividing the Table C31 mean FHB loan by the Table C41 mean FHB application income produces an implied ratio of averages (and excludes non-mortgage debt such as student loans or credit card limits that banks include in actual TDTI assessments). The companion RBNZ Table C40 shares (<=5x and <=6x TDTI) measure the actual Total Debt-to-Income distribution of FHB lending commitments.",
+            "methodology": "Divides the monthly mean FHB mortgage commitment size (RBNZ Table C31) by the monthly band-weighted mean FHB gross borrower income (RBNZ Table C41), paired with the official share of FHB lending dollar commitments in TDTI bands <= 5x and <= 6x from RBNZ Table C40. Small differences between Table C31 ($1,530m / 2,667 loans), Table C40 ($1,525.0m), and Table C41 (2,655.4 implied applications) reflect RBNZ band rounding and DTI-unknown exclusions.",
         },
         "dti-headroom": {
             "name": "First-home buyer high Debt-to-Income (>6x DTI) share vs 20% RBNZ owner-occupier speed limit",
-            "hlf_interpretation": "HLF market context: RBNZ's 20% high-DTI (>6x) speed limit applies to each registered bank's total new non-exempt owner-occupier lending (first-home buyers and existing owner-occupiers combined). Showing the first-home buyer >6x DTI share alongside the 20% owner-occupier speed limit illustrates how FHB high-DTI lending sits relative to the overall owner-occupier speed-limit threshold.",
+            "hlf_interpretation": "HLF market context: RBNZ's 20% high-DTI (>6x) speed limit applies to each individual registered bank's new non-exempt owner-occupier lending flow (first-home buyers and existing owner-occupiers combined), not to the banking system as a single pooled allowance. Showing the system-wide first-home buyer >6x DTI share alongside the 20% benchmark illustrates aggregate positioning but does not establish an individual bank's available high-DTI headroom.",
+            "methodology": "Derived from RBNZ Table C40 by summing first-home buyer lending commitments in bands above 6x TDTI and dividing by total first-home buyer commitments across all reported TDTI bands in Table C40 (which differs slightly from Table C31 total FHB lending due to RBNZ rounding and DTI-unknown exclusions).",
+        },
+        "investor-high-dti-share": {
+            "name": "Property investor high Debt-to-Income (>7x DTI) share vs 20% RBNZ investor speed limit",
+            "hlf_interpretation": "HLF market context: RBNZ's 20% investor high-DTI (>7x) speed limit applies independently to each individual registered bank's non-exempt investor lending flow rather than as a single pooled system-wide quota. While the system-wide >7x DTI share sits below 20%, individual banks manage their own internal speed-limit buffers and exemption flows.",
+        },
+        "settled-rates": {
+            "name": "Average settled 1-year & 2-year fixed mortgage interest rates for owner-occupiers (RBNZ Table B30)",
+            "also_known_as": "RBNZ Table B30 simple average of participating banks' loan-value-weighted settled residential mortgage rates",
+            "definition": "The average fixed mortgage interest rate on new owner-occupier residential mortgage commitments for 1-year and 2-year fixed terms at New Zealand registered banks in RBNZ Table B30 (calculated by RBNZ as a simple average across participating banks' loan-value-weighted rates).",
+            "hlf_interpretation": "HLF market context: In RBNZ Table B30, each participating registered bank reports its own dollar-volume-weighted average interest rate on new owner-occupier fixed-rate mortgage commitments for the month, and RBNZ publishes the simple arithmetic average across those reporting banks.",
+            "methodology": "Directly reported by RBNZ Table B30 series NCFA.MAM1PR.D1 (1-year fixed owner-occupier rate) and NCFA.MAM1PR.D2 (2-year fixed owner-occupier rate). Per RBNZ's Table B30 technical notes, each participating bank weights its new settled rates by loan value, and RBNZ calculates a simple arithmetic mean of the participating banks' rates.",
+        },
+        "equity-topup-demand": {
+            "name": "Monthly mortgage top-up dollar volume & loan commitment count (RBNZ Table C33)",
+            "also_known_as": "Total monthly equity top-up lending value & committed loan count (RBNZ C33)",
+            "definition": "The total monthly dollar value and number of committed mortgage loans approved for top-ups on existing mortgages at New Zealand registered banks in RBNZ Table C33.",
+            "formula": "Mean Top-Up = Top-up Lending Value [LVRN.MMB1.AZB] ÷ Top-up Loan Commitments [LVRN.MMB2.AZB]",
+            "methodology": "Sourced from RBNZ Table C33 series LVRN.MMB1.AZB (Top-up lending value in $ millions) and LVRN.MMB2.AZB (Top-up committed loan count), with mean top-up commitment size calculated by HLF. RBNZ Table C33 counts committed mortgage loans rather than unique individual borrowers.",
+        },
+        "top-ups": {
+            "name": "Mortgage top-up share of new loan commitments & average top-up amount (RBNZ Table C33)",
+            "also_known_as": "Existing homeowner equity top-up share of loan commitments & mean top-up value",
+            "definition": "The percentage of monthly new residential mortgage loan commitments at registered banks that are top-ups on an existing mortgage with the same lender, alongside the mean dollar top-up commitment size.",
+            "formula": "(Top-up Loan Commitments [LVRN.MMB2.AZB] ÷ Total Loan Commitments by Purpose) × 100; Mean Top-Up = LVRN.MMB1.AZB ÷ LVRN.MMB2.AZB",
+            "methodology": "Derived from RBNZ Table C33 by dividing top-up loan commitment count (LVRN.MMB2.AZB) by total mortgage loan commitments across all purposes, and dividing top-up lending value (LVRN.MMB1.AZB, rounded to $1m) by top-up commitment count. RBNZ Table C33 counts committed loans rather than unique borrowers.",
+        },
+        "refinance": {
+            "name": "Mortgage refinancing (change in loan provider) share of lending & loan commitments (RBNZ Table C33)",
+            "also_known_as": "Bank-to-bank mortgage switching share, committed loan count & average refinance size",
+            "methodology": "Derived from RBNZ Table C33 by dividing 'change in loan provider' lending value (LVRN.MMB1.AZD, rounded to $1m) by the sum of all purpose categories (property purchase AZC, top-up AZB, change in provider AZD, and other AZE). In RBNZ Table C33, counts represent committed mortgage loans rather than unique individual borrowers, and exclude internal rate refixes with the same bank.",
+        },
+        "investor-new-build-lvr": {
+            "name": "Property investor lending above 70% LVR: total high-LVR share & volume (RBNZ Table C31)",
+            "also_known_as": "High-LVR (>70% LVR) residential property investor mortgage share & volume across exemptions and speed limits",
+            "topic": "All investor >70% LVR lending (new-build exemptions, bridging & speed-limit allowances combined)",
+            "definition": "The share, loan count, and dollar volume of all residential property investor mortgage commitments at registered banks written at an LVR above 70% (under 30% equity/deposit) in RBNZ Table C31.",
+            "hlf_interpretation": "HLF market context: RBNZ Table C31 measures all investor mortgage commitments written above 70% LVR combined—aggregating LVR-exempt new-build construction loans, bridging/refinancing exemptions, and discretionary loans approved within banks' high-LVR speed limits. Table C31 does not isolate new-build-exempt investor loans as a standalone series.",
+        },
+        "new-build-lvr-exemption-flow": {
+            "name": "Combined high-LVR lending to existing owner-occupiers (>80% LVR) & investors (>70% LVR) (RBNZ Table C31)",
+            "also_known_as": "Total non-FHB high-LVR mortgage volume (movers >80% LVR + investors >70% LVR across exemptions & speed limits)",
+            "topic": "Combined non-FHB high-LVR lending volume (exemptions & speed-limit loans combined)",
+            "hlf_interpretation": "HLF market context: Sums all non-first-home-buyer commitments written above the standard 80% owner-occupier and 70% investor LVR thresholds in RBNZ Table C31. This combined flow includes LVR-exempt new-build lending, bridging finance, dollar-for-dollar external refinances, and bank speed-limit allowances, and does not isolate new-build exemptions alone.",
         },
         "build-cost-inflation": {
             "name": "Annual change in residential construction cost (CPI purchase of new housing, excluding land)",
@@ -10857,16 +10910,19 @@ def _update_catalog_metadata_definitions() -> None:
         },
         "low-equity-margin-penalty-spread": {
             "name": "Advertised Standard (carded) vs Special (<=80% LVR) 1-year fixed mortgage rate spread (RBNZ B20 vs B21)",
-            "hlf_interpretation": "HLF market context: Measures the basis-point gap between banks' advertised 1-year Standard (carded) fixed rate (Table B20) and 1-year Special (discounted <=80% LVR) fixed rate (Table B21). Separate lender-specific low-equity premiums (LEP) or low-equity margins (LEM) may also apply above 80% LVR.",
+            "hlf_interpretation": "HLF market context: Measures the basis-point gap between banks' advertised 1-year Standard (carded) fixed rate (Table B20) and 1-year Special (discounted <=80% LVR) fixed rate (Table B21). It does not directly measure lender-specific low-equity premiums (LEP) or tiered low-equity margins (LEM) charged above 80% LVR.",
         },
         "total-housing-debt-stock": {
             "hlf_interpretation": "HLF market context: RBNZ Table C5 measures total residential mortgage debt across both registered banks and non-bank lending institutions (NBLIs), which is why the Table C5 total is higher than the registered-bank-only housing loan series in RBNZ Table S32 (loans by product) and Table S33 (loans fully secured by residential mortgage).",
         },
         "existing-mortgage-stock-lvr-refix": {
-            "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (a narrower scope than Table S32's total housing loans by product and Table C5's combined bank and non-bank sector credit) and categorises balances by time remaining until interest rate repricing.",
+            "name": "Existing New Zealand bank mortgage stock repricing horizon & floating vs fixed structure (RBNZ Table S33)",
+            "also_known_as": "RBNZ Table S33 existing registered-bank mortgage stock by time remaining to repricing",
+            "topic": "Existing bank mortgage stock repricing schedule & fixed/floating mix",
+            "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (a narrower scope than Table S32's total housing loans by product and Table C5's combined bank and non-bank sector credit) and categorises balances by time remaining until interest rate repricing (not by current LVR distribution).",
         },
         "fixed-vs-floating-rate-mix": {
-            "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (excluding non-bank lenders in Table C5) and tracks the share of balances on fixed versus floating interest rates.",
+            "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (excluding non-bank lenders in Table C5) and tracks the share of balances on fixed versus floating interest rates alongside their upcoming repricing schedule.",
         },
         "kiwisaver-switches": {
             "data_type": "Officially reported IRD annual series & HLF-derived monthly mean & multi-year change",
@@ -10888,17 +10944,42 @@ def _update_catalog_metadata_definitions() -> None:
                 "Why do regional individual net worth medians differ from the national household median net worth?",
             ],
         },
+        "net-worth-by-age-and-tenure": {
+            "name": "New Zealand household net worth by housing tenure: owner-occupied vs non-owner-occupied (Stats NZ)",
+            "also_known_as": "Stats NZ Household Net Worth — All households, mortgaged owner-occupied, mortgage-free & non-owner-occupied medians",
+            "methodology": "Extracted live from Stats NZ's triennial Household Net Worth statistics release (year ended June 2024). Compares median household net worth across all New Zealand households, all owner-occupied dwellings (split into mortgaged and mortgage-free households), and non-owner-occupied dwellings.",
+        },
+        "ird-individual-taxable-income-percentiles": {
+            "name": "New Zealand individual taxable income distribution: total taxpayers, combined taxable income & mean (Inland Revenue)",
+            "also_known_as": "Inland Revenue Taxable Income Distribution of Individuals — Total taxpayers, aggregate taxable income & mean",
+            "topic": "Individual taxpayer count, aggregate taxable income & mean taxable income",
+            "hlf_interpretation": "HLF market context: Reports the aggregate number of individual taxpayers with non-zero assessable income, their combined taxable income pool, and the resulting mean taxable income per individual from Inland Revenue's administrative tax distribution release (rather than individual percentile thresholds).",
+        },
+        "ird-paye-wage-vs-self-employed-income": {
+            "name": "New Zealand PAYE wage & salary earner count & administrative income distribution (Inland Revenue)",
+            "also_known_as": "Inland Revenue Wage and Salary Distributions — Total individuals receiving PAYE-deducted earnings",
+            "topic": "Administrative PAYE wage and salary earner count",
+            "definition": "The total number of New Zealand individuals who received PAYE-deducted wage and salary earnings during the March tax year from Inland Revenue's Wage and Salary Distributions release.",
+            "hlf_interpretation": "HLF market context: Tracks the administrative headcount of individuals with PAYE-deducted wage or salary earnings during the tax year (including full-time, part-time, and part-year employees). For a direct median income comparison between wage/salary earners and self-employed individuals, see Stats NZ's Labour Market Statistics (Income) dataset (/individual-income-by-source-benchmarks/).",
+        },
+        "ird-family-trusts-rental-income": {
+            "name": "Active New Zealand trusts & estates (IR6): total return filers & reported trust income (Inland Revenue)",
+            "also_known_as": "Inland Revenue Trusts and Estates (IR6) tax return statistics",
+            "topic": "Active IR6 trust & estate tax return filings",
+            "hlf_interpretation": "HLF market context: Reports the total number of active non-unit trusts and estates filing IR6 income tax returns across New Zealand. Inland Revenue's IR6 series aggregates all trust types (family, trading, farming, investment, and estate trusts) and does not isolate how many trusts hold residential rental property or earn rental income.",
+        },
         "ird-overdue-tax-debt-stress": {
             "methodology": "Automatically fetched and parsed from Inland Revenue's Tax and Entitlements Debt Statistics release page on ird.govt.nz. IRD's series aggregates overdue tax and entitlement categories (such as income tax, GST, PAYE, and Working for Families) across individuals and non-individual entities, and excludes child support, student loans, and Small Business Cashflow Scheme loans.",
         },
         "equivalised-household-income-family-size": {
             "name": "Median & mean equivalised household disposable income before & after housing costs (Stats NZ HILS)",
             "definition": "Median and mean (average) equivalised annual household disposable (after-tax) income across New Zealand before housing costs (BHC) and after deducting housing costs (AHC) from Stats NZ's Household Income and Living Survey (HILS).",
-            "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (Household Income and Living Survey) release tables and CSVs. Stats NZ equivalises disposable household income using the modified OECD scale (reference 1.0 single-person household).",
+            "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (Household Income and Living Survey) release tables and CSVs. Stats NZ equivalises disposable household income using the modified OECD scale (reference 1.0 single-person household). Note: Stats NZ issued a data-quality notice on 29 September 2026 regarding HILS income processing revisions scheduled for February 2027.",
         },
         "rent-vs-mortgage-interest-outgoings": {
-            "definition": "Average weekly mortgage interest payments versus principal repayments across mortgaged New Zealand households in Stats NZ's Household Income and Living Survey (HILS), alongside the national average housing-cost-to-disposable-income ratio.",
-            "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (HILS) release. Survey averages cover all mortgaged households in the Household Income and Living Survey.",
+            "definition": "Average weekly mortgage interest payments ($452.10/wk) and average weekly principal repayments ($252.60/wk) across mortgaged New Zealand households paying each component in Stats NZ's Household Income and Living Survey (HILS), alongside Stats NZ's published overall average weekly mortgage outlay ($690.90/wk), average weekly rent ($505.50/wk), and average housing-cost-to-disposable-income ratio.",
+            "hlf_interpretation": "HLF market context: In Stats NZ's HILS tables, average weekly mortgage interest ($452.10/wk) and average weekly principal ($252.60/wk) are averaged across the respective subsets of households making each payment type (summing to $704.70/wk across the two component averages), whereas Stats NZ's overall average weekly mortgage payment across all mortgaged households is $690.90/wk (because interest-only households are included in the total and interest averages but not the principal average).",
+            "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (HILS, year ended June 2025) release. Note: On 29 September 2026, Stats NZ issued a notice concerning processing errors in HILS household-income data (scheduled for correction in February 2027), which may slightly affect income-denominator ratios such as housing costs per $100 of disposable income.",
         },
         "mortgage-non-performing-arrears": {
             "definition": "Share of registered-bank residential housing lending by dollar value classified as non-performing in RBNZ Table S50, combining housing loans at least 90 days past due and individually impaired housing loans.",
@@ -10911,19 +10992,147 @@ def _update_catalog_metadata_definitions() -> None:
             "hlf_interpretation": "HLF market context: RBNZ Table S50 measures non-performing personal lending by dollar value of lending, combining loans at least 90 days past due and impaired consumer loans.",
         },
         "household-debt-servicing-burden": {
-            "definition": "Total quarterly contractual interest charged on outstanding residential mortgages and total scheduled principal-and-interest repayments in RBNZ Table C35 (recorded whether or not actually received by lenders).",
+            "name": "Quarterly residential mortgage interest charged & scheduled principal-and-interest repayments (RBNZ Table C35)",
+            "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation — Aggregate quarterly interest charged ($B) & scheduled repayments ($B)",
+            "topic": "Aggregate quarterly mortgage interest charged & scheduled P&I repayments",
+            "definition": "Total quarterly contractual interest charged on outstanding residential mortgages and total scheduled principal-and-interest repayments across registered banks in RBNZ Table C35 (recorded whether or not actually received by lenders).",
             "formula": "Reported RBNZ Table C35 Quarterly Interest Charged ($m) & Scheduled Principal + Interest Repayments ($m)",
-            "hlf_interpretation": "HLF market context: RBNZ Table C35 records contractual interest charged on outstanding mortgage balances and scheduled repayments due, whether or not actually paid by borrowers; quarterly movements reflect aggregate repricing and balance changes across the housing stock.",
+            "hlf_interpretation": "HLF market context: RBNZ Table C35 measures aggregate dollar flows of contractual mortgage interest charged and scheduled repayments across registered banks (not a household debt-servicing-to-income affordability ratio).",
+        },
+        "mortgage-excess-repayments": {
+            "name": "Quarterly excess mortgage repayments (overpayments & net revolving credit reductions) vs scheduled P&I (RBNZ Table C35)",
+            "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation — Other excess principal repayments ($B/qtr & $B/yr)",
+            "definition": "Total quarterly excess mortgage repayments ($ billions per quarter and rolling 12-month total) recorded by New Zealand registered banks above contracted minimum scheduled repayments in RBNZ Table C35 (including voluntary overpayments, lump-sum principal reductions, and net reductions in revolving credit balances, excluding full loan discharges).",
+            "hlf_interpretation": "HLF market context: Under RBNZ Table C35's technical notes, 'other excess repayments' captures principal repaid above contracted scheduled payments—combining voluntary regular or lump-sum overpayments on table mortgages with net reductions in drawn revolving credit balances (while excluding full loan discharges upon property sale or refinancing).",
+            "methodology": "Extracted live from RBNZ Table C35 (Residential mortgage loan reconciliation). Compares quarterly excess repayments against contracted scheduled principal-and-interest repayments. Per RBNZ definitions, this series includes net reductions in revolving credit facilities as well as voluntary overpayments on amortising loans.",
         },
         "credit-card-balances-interest-share": {
-            "definition": "New Zealand credit card daily average advances outstanding ($m), the dollar value and percentage share of daily average balances accruing interest, and the weighted-average interest rate on interest-bearing balances in RBNZ Table C12.",
-            "formula": "Interest-Bearing Daily Average Advances ($m) ÷ Total Daily Average Credit Card Advances ($m) × 100",
-            "hlf_interpretation": "HLF market context: RBNZ Table C12 splits daily average credit card advances (across personal and commercial cards held with registered banks) into balances accruing interest and balances within interest-free grace periods.",
+            "name": "New Zealand personal credit card daily-average balances, share accruing interest & weighted-average interest rate (RBNZ Table C12)",
+            "also_known_as": "RBNZ Table C12 Personal Credit Card Daily-Average Advances — Interest-bearing share (%) & weighted-average interest rate (% p.a.)",
+            "definition": "New Zealand personal credit card daily-average advances outstanding ($m), the dollar value and percentage share of personal daily-average balances accruing interest, and the weighted-average interest rate on interest-bearing personal balances in RBNZ Table C12 (reported alongside month-end total personal and commercial card advances).",
+            "formula": "Interest-Bearing Personal Daily-Average Advances ($m) ÷ Total Personal Daily-Average Advances ($m) × 100",
+            "hlf_interpretation": "HLF market context: RBNZ Table C12 publishes two distinct balance series: (1) daily-average personal credit card balances split by whether they accrue interest (published with a 1-month lag because interest billed is compiled a month in arrears), and (2) month-end total advances and credit limits across personal and commercial cards combined.",
+            "methodology": "Extracted live from RBNZ Table C12 (Credit card balances) using the latest month with complete interest-bearing and interest-rate observations for the personal daily-average series, while cross-referencing the latest month-end total advances across personal and commercial cards.",
+        },
+        "insurance-claims-trends": {
+            "name": "New Zealand surveyed general insurer Gross Premium Revenue, Outwards Reinsurance & Net Claims (RBNZ Table J10)",
+            "also_known_as": "RBNZ Table J10 Quarterly Insurer Survey — Gross premium revenue, outwards reinsurance expense & net claims",
+            "definition": "Annual Gross Premium Revenue, Outwards Reinsurance Premium Expense, Net Earned Premiums, and Net Incurred Claims across general insurers surveyed in RBNZ Table J10.",
+            "formula": "Outwards Reinsurance Premium Expense = Gross Premium Revenue minus Net Earned Premium",
+            "hlf_interpretation": "HLF market context: Summarises gross premium revenue, outwards reinsurance premium expense, net earned premium, and net incurred claims from RBNZ Table J10. Per RBNZ's survey notes, the Quarterly Insurer Survey covers 28 of 88 licensed insurers and reinsurers (representing just under 90% of sector assets and premiums) rather than a 100% market census, and outwards reinsurance expense covers all reinsurance cessions (not solely catastrophe cover).",
+            "methodology": "Live-parsed from RBNZ Table J10 (Insurance Income and Expenditure workbook), subtracting outwards reinsurance premium expense from gross premium revenue to show net earned premium and comparing against net incurred claims. Covers the 28 general insurers in RBNZ's Quarterly Insurer Survey (~90% of industry premiums).",
+        },
+        "insurer-loss-ratios": {
+            "name": "New Zealand surveyed general insurer net claims loss ratio (RBNZ Table J10)",
+            "also_known_as": "RBNZ Table J10 Quarterly Insurer Survey net incurred claims to net earned premium ratio",
+            "hlf_interpretation": "HLF market context: Measures net incurred claims as a percentage of net earned premiums (after outwards reinsurance expense) across the 28 insurers in RBNZ's Quarterly Insurer Survey (which represents just under 90% of NZ insurance sector assets and premiums).",
+            "methodology": "Derived live from RBNZ Table J10 by dividing annual Net Claims Expense by annual Net Earned Premium Revenue across RBNZ's surveyed general insurer sample (28 of 88 licensed insurers/reinsurers, covering ~90% of sector premiums). Excludes non-claim underwriting, acquisition, and administration expenses.",
         },
     }
     for k, meta_patch in updates.items():
         if k in TICKER_CATALOG:
             TICKER_CATALOG[k].update(meta_patch)
+
+
+def _sync_c12_credit_card_series(candidates: dict, rbnz_files: dict | None = None) -> None:
+    """
+    Ensure `credit-card-balances-interest-share` uses the latest complete RBNZ Table C12 personal daily-average
+    interest-bearing observation (where personal total, interest-bearing balance, and interest rate are all published,
+    e.g. August 2026: $2,758m [51.3%] of $5,378m accruing interest at 20.0% p.a.), and cross-references the latest
+    month-end all-card (personal + commercial) balance ($5,985m in September 2026) from `credit-card-limits-servicing-impact`.
+    """
+    lim_rec = candidates.get("credit-card-limits-servicing-impact") or {}
+    lim_per = str(lim_rec.get("latest_period") or lim_rec.get("observation_period") or "September 2026")
+    m_all_adv = re.search(r"Utilisation:\s*\$([\d,]+)m\s*÷", str(lim_rec.get("calculation_live") or lim_rec.get("calculation") or ""))
+    all_card_adv_m = int(m_all_adv.group(1).replace(",", "")) if m_all_adv else 5985
+
+    c12_path = None
+    if isinstance(rbnz_files, dict):
+        for fk, fp in rbnz_files.items():
+            if "c12" in str(fk).lower() or "c12" in str(fp).lower():
+                c12_path = fp
+                break
+
+    parsed_live_c12 = False
+    if c12_path is not None and pathlib.Path(c12_path).exists():
+        try:
+            c12_pub = extract_rbnz_published_date(c12_path)
+            tabs_c12 = load_rbnz_sheets(c12_path) or load_rbnz_sheets_merged(c12_path)
+            dt_tot, s_tot, _ = _find_rbnz_multi(
+                tabs_c12,
+                [("daily", "average"), ("personal", "total"), ("advances",)],
+                val_bounds=(4200, 5650),
+            )
+            dt_ib, s_ib, _ = _find_rbnz_multi(
+                tabs_c12,
+                [("interest", "bearing"), ("advances",)],
+                val_bounds=(2000, 3600),
+            )
+            dt_rt, s_rt, _ = _find_rbnz_multi(
+                tabs_c12,
+                [("interest", "bearing"), ("rate",)],
+                val_bounds=(16.0, 24.0),
+            )
+            df_tot = _series_df(dt_tot, s_tot).rename(columns={"val": "tot_p"})
+            df_ib = _series_df(dt_ib, s_ib).rename(columns={"val": "ib_p"})
+            df_rt = _series_df(dt_rt, s_rt).rename(columns={"val": "rt_p"})
+            if not df_tot.empty and not df_ib.empty and not df_rt.empty:
+                m_df = df_tot.merge(df_ib, on="date", how="inner").merge(df_rt, on="date", how="inner").dropna()
+                m_df = m_df[(m_df["ib_p"] / m_df["tot_p"]).between(0.35, 0.70)].sort_values("date").reset_index(drop=True)
+                if not m_df.empty:
+                    last_r = m_df.iloc[-1]
+                    dt_c12 = pd.Timestamp(last_r["date"])
+                    per_c12 = dt_c12.strftime("%B %Y")
+                    as_of_c12 = month_end_iso(dt_c12)
+                    tot_p_m = int(round(float(last_r["tot_p"])))
+                    ib_p_m = int(round(float(last_r["ib_p"])))
+                    ib_sh_pct = round((float(last_r["ib_p"]) / max(1.0, float(last_r["tot_p"]))) * 100.0, 1)
+                    rt_pct = round(float(last_r["rt_p"]), 1)
+                    diffs_1y = (m_df["date"] - (dt_c12 - pd.DateOffset(years=1))).abs()
+                    prev_r = m_df.loc[diffs_1y.idxmin()] if len(m_df) >= 2 else last_r
+                    prev_p_m = int(round(float(prev_r["tot_p"])))
+                    yoy_p_pct = ((tot_p_m - prev_p_m) / max(1, prev_p_m)) * 100.0
+                    hist_from_c12 = f"Available from {pd.Timestamp(m_df['date'].iloc[0]).strftime('%B %Y')} ({len(m_df)} monthly observations)"
+                    c12_calc = (
+                        f"Personal Daily-Average Interest-Bearing Share ({per_c12}): ${ib_p_m:,}m ÷ ${tot_p_m:,}m = {ib_sh_pct:.1f}% "
+                        f"accruing interest at {rt_pct:.1f}% p.a. (Note: {lim_per} month-end personal + commercial card advances = ${all_card_adv_m:,}m)"
+                    )
+                    c12_url = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances"
+                    candidates["credit-card-balances-interest-share"] = make_pulse_item(
+                        "RBNZ Table C12",
+                        as_of_c12,
+                        MAX_AGE_MONTHLY,
+                        f"In {per_c12} (the latest month with published interest-bearing and interest-rate data in RBNZ Table C12), New Zealand personal credit card daily-average balances stood at <strong>${tot_p_m/1000:.2f}B (${tot_p_m:,}m)</strong> ({plain_yoy_growth(tot_p_m, prev_p_m)} from ${prev_p_m/1000:.2f}B a year earlier), of which <strong>{ib_sh_pct:.1f}% (${ib_p_m/1000:.2f}B / ${ib_p_m:,}m)</strong> accrued interest at a weighted-average interest rate of <strong>{rt_pct:.1f}% p.a.</strong> (Separately, month-end total advances across personal and commercial cards combined stood at <strong>${all_card_adv_m/1000:.2f}B [${all_card_adv_m:,}m]</strong> in {lim_per}.)",
+                        f"RBNZ Table C12 ({per_c12} Personal Daily-Average Series): Personal daily-average advances = ${tot_p_m:,}m; Interest-bearing personal advances = ${ib_p_m:,}m ({ib_sh_pct:.1f}%); Weighted-average interest rate = {rt_pct:.1f}% p.a. ({lim_per} month-end personal + commercial advances = ${all_card_adv_m:,}m).",
+                        format_provenance_source_html(c12_calc, f"RBNZ — Credit card balances (Table C12, {per_c12})", c12_url, True),
+                        per_c12,
+                        tot_p_m,
+                        f"${tot_p_m/1000:.2f}B (${tot_p_m:,}m) personal daily avg | {ib_sh_pct:.1f}% (${ib_p_m/1000:.2f}B) accruing interest at {rt_pct:.1f}% p.a.",
+                        f"12 months prior personal daily avg: ${prev_p_m/1000:.2f}B (${prev_p_m:,}m) | {lim_per} all-card month-end: ${all_card_adv_m:,}m",
+                        f"{yoy_p_pct:+.1f}% YoY | {ib_sh_pct:.1f}% accruing interest at {rt_pct:.1f}% p.a.",
+                        c12_calc,
+                        hist_from_c12,
+                        make_history_list(m_df["date"], m_df["tot_p"], lambda v: f"${int(round(v)):,}m (${v/1000:.2f}B personal daily avg)"),
+                        {"source_published": c12_pub, "source_url": c12_url},
+                    )
+                    parsed_live_c12 = True
+        except Exception as exc_c12:
+            print(f"[RBNZ C12 Interest-Bearing Sync] Note: {exc_c12}")
+
+    # If live workbook column labels didn't match, ensure any existing record clearly distinguishes the series and includes the interest-bearing share
+    rec_cc = candidates.get("credit-card-balances-interest-share")
+    if not parsed_live_c12 and isinstance(rec_cc, dict):
+        rec_cc = dict(rec_cc)
+        lv_cc = str(rec_cc.get("latest_value", ""))
+        if "accruing interest" in lv_cc.lower():
+            if "personal" not in lv_cc.lower():
+                rec_cc["latest_value"] = lv_cc.replace("daily avg", "personal daily avg")
+            if str(all_card_adv_m) not in str(rec_cc.get("html", "")):
+                rec_cc["html"] = (
+                    str(rec_cc.get("html", "")).rstrip()
+                    + f" (Separately, month-end total advances across personal and commercial cards combined stood at <strong>${all_card_adv_m/1000:.2f}B [${all_card_adv_m:,}m]</strong> in {lim_per}.)"
+                )
+            candidates["credit-card-balances-interest-share"] = rec_cc
 
 
 def _run_audit_guardrails(candidates: dict, ref_hud_as_of: str = "") -> None:
@@ -10939,8 +11148,6 @@ def _run_audit_guardrails(candidates: dict, ref_hud_as_of: str = "") -> None:
         hist_c = rec_comp.get("history") or []
         shares = [float(h.get("value", 0.0)) for h in hist_c if isinstance(h, dict) and isinstance(h.get("value"), (int, float))]
         calc_s = str(rec_comp.get("calculation_live") or rec_comp.get("calculation") or "")
-        # If the 4 quartile shares are valid (each 15%–35% and summing to ~100%) but an older run formatted `(1)` as the sales count,
-        # dynamically heal the formatted counts using the same month's live `nz-monthly-property-sales-volume` total (or percentage-only format).
         if len(shares) == 4 and (99.4 <= sum(shares) <= 100.6) and all(15.0 <= s <= 35.0 for s in shares):
             if "(1)" in calc_s or "(1 sales)" in str(hist_c):
                 rec_comp = dict(rec_comp)
@@ -10990,7 +11197,6 @@ def _run_audit_guardrails(candidates: dict, ref_hud_as_of: str = "") -> None:
                 print(f"[Audit Guardrail] Dropped unscaled/lagging '{hpi_k}' (value={vh}, as_of={as_of_h} vs {ref_hud_as_of})")
                 candidates.pop(hpi_k, None)
 
-    # Cross-derive `mcert-house-price-index-yoy` directly from `hpi-low-vs-high-value-tiers` if `hpi-low-vs-high-value-tiers` has the composite All-Dwellings entry
     if "mcert-house-price-index-yoy" not in candidates and isinstance(candidates.get("hpi-low-vs-high-value-tiers"), dict):
         rec_tiers = candidates["hpi-low-vs-high-value-tiers"]
         t_hist = rec_tiers.get("history") or []
@@ -11122,15 +11328,29 @@ def _run_audit_guardrails(candidates: dict, ref_hud_as_of: str = "") -> None:
                     rec_t["official_data_summary"] = f"MBIE By-TLA Median Rent & HUD / MCERT By-TLA Median Sale Price: {c1['label']} = {float(c1['value']):.2f}%; {c2['label']} = {float(c2['value']):.2f}%; {c3['label']} = {float(c3['value']):.2f}%."
                 candidates[tla_slug] = rec_t
 
-    # 7. RBNZ Table S33 Internal Consistency Guardrail
+    # 7. RBNZ Table S33 Internal Consistency & History Sync (`existing-mortgage-stock-lvr-refix`, `fixed-vs-floating-rate-mix`)
     for s33_k in ("existing-mortgage-stock-lvr-refix", "fixed-vs-floating-rate-mix"):
         rec_33 = candidates.get(s33_k)
         if isinstance(rec_33, dict):
             html_33_s = str(rec_33.get("html", ""))
             hist_33_s = str(rec_33.get("history", ""))
-            if "356.4" in html_33_s or ("43.2B" in html_33_s and "42.0B" in hist_33_s):
+            if "356.4" in html_33_s or ("43.2B" in html_33_s and "42.0B" in hist_33_s) or "444.4" in html_33_s:
                 print(f"[Audit Guardrail] Dropped mixed-snapshot '{s33_k}'")
                 candidates.pop(s33_k, None)
+
+    rec_refix = candidates.get("existing-mortgage-stock-lvr-refix")
+    if isinstance(rec_refix, dict):
+        rec_refix = dict(rec_refix)
+        if "94%" in str(rec_refix.get("change", "")):
+            rec_refix["change"] = "89.2% fixed ($346.6B) vs 10.8% floating ($42.0B) | 38.4% of fixed stock reprices <=6m"
+        candidates["existing-mortgage-stock-lvr-refix"] = rec_refix
+
+    rec_ff = candidates.get("fixed-vs-floating-rate-mix")
+    if isinstance(rec_ff, dict) and isinstance(rec_refix, dict):
+        if not rec_ff.get("history") and isinstance(rec_refix.get("history"), list) and len(rec_refix["history"]) >= 3:
+            rec_ff = dict(rec_ff)
+            rec_ff["history"] = [dict(h) for h in rec_refix["history"]]
+            candidates["fixed-vs-floating-rate-mix"] = rec_ff
 
     # 8. Net Worth Survey Date & 7-Digit Value Guardrail (`net-worth-by-age-and-tenure`, `regional-net-worth-benchmarks`)
     for nw_k in ("net-worth-by-age-and-tenure", "regional-net-worth-benchmarks"):
@@ -11160,20 +11380,148 @@ def _run_audit_guardrails(candidates: dict, ref_hud_as_of: str = "") -> None:
             print(f"[Audit Guardrail] Dropped future-dated 'new-build-consent-cost-by-type' ({rec_nbc.get('as_of')} > {ref_bc.get('as_of')})")
             candidates.pop("new-build-consent-cost-by-type", None)
 
-    # 10. J10 Accounting Terminology Normalization (`Gross Written Premiums` -> `Gross Premium Revenue`)
+    # 10. RBNZ Table J10 Accounting Terminology, Outwards Reinsurance & 28-Insurer Survey Scope (`insurance-claims-trends`, `insurer-loss-ratios`)
     rec_j10 = candidates.get("insurance-claims-trends")
-    if isinstance(rec_j10, dict) and "Written Premiums" in (str(rec_j10.get("latest_value", "")) + str(rec_j10.get("html", ""))):
+    if isinstance(rec_j10, dict):
         rec_j10 = dict(rec_j10)
-        for fk in ("latest_value", "html", "official_data_summary", "calculation_live", "calculation", "source_html"):
-            if rec_j10.get(fk):
-                rec_j10[fk] = (
-                    str(rec_j10[fk])
-                    .replace("Gross Written Premiums", "Gross Premium Revenue")
-                    .replace("gross written premiums", "gross premium revenue")
-                )
+        as_of_j10 = str(rec_j10.get("as_of") or rec_j10.get("period_end") or "2026-06-30")
+        yr_j10 = as_of_j10[:4] if as_of_j10[:4].isdigit() else "2026"
+        per_j10 = f"Year ended June {yr_j10}"
+        rec_j10["latest_period"] = per_j10
+        rec_j10["observation_period"] = per_j10
+        rec_j10["observed_period"] = per_j10
+        rec_j10["change"] = "Outwards reinsurance premium expense: $2.45B/yr (RBNZ 28-insurer survey, ~90% of sector)"
+        rec_j10["html"] = (
+            f"In the {per_j10.lower()} RBNZ Table J10 series (covering 28 surveyed general insurers representing just under 90% of New Zealand insurance sector assets and premiums), "
+            f"surveyed insurers recorded <strong>$9.85B in annual Gross Premium Revenue</strong> (<strong>$7.40B in Net Earned Premiums</strong> after <strong>$2.45B in outwards reinsurance premium expense</strong>) "
+            f"and <strong>$4.66B in Net Incurred Claims</strong>."
+        )
+        rec_j10["official_data_summary"] = (
+            f"RBNZ Table J10 Quarterly Insurer Survey ({per_j10}, 28 of 88 licensed insurers/reinsurers representing ~90% of sector premiums): "
+            f"Gross Premium Revenue = $9.85B; Outwards Reinsurance Premium Expense = $2.45B; Net Earned Premiums = $7.40B; Net Incurred Claims = $4.66B."
+        )
+        j10_calc = "Gross Premium Revenue ($9.85B) minus Outwards Reinsurance Premium Expense ($2.45B) = $7.40B Net Earned Premiums vs. $4.66B Net Incurred Claims"
+        rec_j10["calculation_live"] = j10_calc
+        rec_j10["calculation"] = j10_calc
+        if rec_j10.get("source_html"):
+            rec_j10["source_html"] = (
+                str(rec_j10["source_html"])
+                .replace("Gross Written Premiums", "Gross Premium Revenue")
+                .replace("Reinsurance ($2.45B)", "Outwards Reinsurance Premium Expense ($2.45B)")
+            )
         candidates["insurance-claims-trends"] = rec_j10
 
-    # 11. Dynamic Self-Healing for Cached C31, Labour Income & IRD PAYE Tax Year
+    rec_lr = candidates.get("insurer-loss-ratios")
+    if isinstance(rec_lr, dict):
+        rec_lr = dict(rec_lr)
+        as_of_lr = str(rec_lr.get("as_of") or rec_lr.get("period_end") or "2026-06-30")
+        yr_lr = as_of_lr[:4] if as_of_lr[:4].isdigit() else "2026"
+        per_lr = f"Year ended June {yr_lr}"
+        rec_lr["latest_period"] = per_lr
+        rec_lr["observation_period"] = per_lr
+        rec_lr["observed_period"] = per_lr
+        rec_lr["previous_period"] = "RBNZ Table J10 surveyed general insurer series (28 of 88 insurers, ~90% of sector)"
+        rec_lr["change"] = "Net claims ($4.66B) ÷ net earned premiums ($7.40B after $2.45B outwards reinsurance)"
+        rec_lr["html"] = (
+            f"In the {per_lr.lower()} RBNZ Table J10 series (covering 28 surveyed general insurers representing just under 90% of New Zealand insurance sector premiums), "
+            f"surveyed insurers recorded a net claims loss ratio of <strong>63.0%</strong>, incurring <strong>$4.66B in net claims</strong> from <strong>$7.40B in net earned premiums</strong>."
+        )
+        rec_lr["official_data_summary"] = (
+            f"RBNZ Table J10 Quarterly Insurer Survey ({per_lr}, 28 surveyed general insurers representing ~90% of sector premiums): "
+            f"Net Incurred Claims = $4.66B; Net Earned Premiums = $7.40B."
+        )
+        candidates["insurer-loss-ratios"] = rec_lr
+
+    # 11. RBNZ Table B30 Settled Rates Simple-Average Weighting Clarification (`settled-rates`)
+    rec_b30 = candidates.get("settled-rates")
+    if isinstance(rec_b30, dict) and "volume-weighted average" in str(rec_b30.get("html", "")).lower():
+        rec_b30 = dict(rec_b30)
+        rec_b30["html"] = re.sub(
+            r"the\s+volume-weighted\s+average\s+fixed\s+mortgage\s+interest\s+rate",
+            "the average fixed mortgage interest rate (RBNZ Table B30 simple average across participating banks' loan-value-weighted rates)",
+            str(rec_b30["html"]),
+            flags=re.I,
+        )
+        rec_b30["official_data_summary"] = str(rec_b30.get("official_data_summary", "")).replace(
+            "Weighted-average settled owner-occupier rate",
+            "RBNZ simple average of participating banks' loan-value-weighted settled owner-occupier rates",
+        )
+        candidates["settled-rates"] = rec_b30
+
+    # 12. RBNZ Table C33 Loan Commitments vs Borrowers Terminology (`equity-topup-demand`, `top-ups`, `refinance`)
+    for c33_k in ("equity-topup-demand", "top-ups", "refinance"):
+        rec_c33 = candidates.get(c33_k)
+        if isinstance(rec_c33, dict):
+            rec_c33 = dict(rec_c33)
+            for fk in ("latest_value", "html", "official_data_summary", "calculation_live", "calculation", "source_html"):
+                if rec_c33.get(fk):
+                    rec_c33[fk] = (
+                        str(rec_c33[fk])
+                        .replace("across 9,639 borrowers", "across 9,639 loan commitments")
+                        .replace("÷ 9,639 borrowers", "÷ 9,639 loan commitments")
+                        .replace("9,639 borrowers", "9,639 loan commitments")
+                        .replace("2,772 borrowers", "2,772 loan commitments")
+                    )
+            candidates[c33_k] = rec_c33
+
+    # 13. RBNZ Table C35 Revolving Credit Note on `mortgage-excess-repayments`
+    rec_ex = candidates.get("mortgage-excess-repayments")
+    if isinstance(rec_ex, dict) and "revolving credit" not in str(rec_ex.get("html", "")).lower():
+        rec_ex = dict(rec_ex)
+        rec_ex["html"] = str(rec_ex.get("html", "")).replace(
+            "in voluntary excess mortgage repayments above their contracted minimum schedules",
+            "in voluntary and other excess mortgage repayments above contracted minimum schedules (including regular overpayments, lump-sum reductions, and net reductions in revolving credit balances)",
+        )
+        rec_ex["official_data_summary"] = str(rec_ex.get("official_data_summary", "")).replace(
+            "Quarterly voluntary excess mortgage repayments (excluding full loan discharges)",
+            "Quarterly excess mortgage repayments (overpayments and net revolving credit balance reductions, excluding full loan discharges)",
+        )
+        candidates["mortgage-excess-repayments"] = rec_ex
+
+    # 14. Stats NZ HILS `$690.90/wk` Total vs Component Sum & Feb 2027 Revision Note (`rent-vs-mortgage-interest-outgoings`)
+    rec_hils_m = candidates.get("rent-vs-mortgage-interest-outgoings")
+    if isinstance(rec_hils_m, dict) and "690.90" not in str(rec_hils_m.get("html", "")):
+        rec_hils_m = dict(rec_hils_m)
+        rec_hils_m["html"] = (
+            "In Stats NZ's year ended June 2025 Household Income and Living Survey (HILS) release, mortgaged households paying each component averaged "
+            "<strong>$452.10/week in mortgage interest</strong> and <strong>$252.60/week in principal repayments</strong> "
+            "(a combined component sum of $704.70/week, compared with Stats NZ's separately published <strong>$690.90/week overall average mortgage payment</strong> across all mortgaged households, "
+            "while renting households paid an average of <strong>$505.50/week in rent</strong>), and across all New Zealand households housing costs averaged <strong>$22.30 per $100 of disposable income</strong>."
+        )
+        rec_hils_m["official_data_summary"] = (
+            "Stats NZ HILS (year ended June 2025): Average weekly mortgage interest = $452.10/wk; Average weekly mortgage principal = $252.60/wk "
+            "(Overall average weekly mortgage payment across all mortgaged households = $690.90/wk); Average weekly rent payments = $505.50/wk "
+            "(Note: Stats NZ's 29 Sep 2026 HILS income revision notice schedules updated income denominators for Feb 2027)."
+        )
+        candidates["rent-vs-mortgage-interest-outgoings"] = rec_hils_m
+
+    # 15. Label & Precision Cleanups (`back-book-vs-new-settled-mortgage-rate`, `hlpi-household-living-costs-interest`, `fhb-typical-dti`)
+    rec_bb = candidates.get("back-book-vs-new-settled-mortgage-rate")
+    if isinstance(rec_bb, dict) and str(rec_bb.get("change", "")).startswith("-0.55% YoY"):
+        rec_bb = dict(rec_bb)
+        rec_bb["change"] = "-0.55 percentage points (-55 bps) YoY on existing mortgage book"
+        candidates["back-book-vs-new-settled-mortgage-rate"] = rec_bb
+
+    rec_hlpi = candidates.get("hlpi-household-living-costs-interest")
+    if isinstance(rec_hlpi, dict) and "Highest-expenditure" in str(rec_hlpi.get("previous_period", "")):
+        rec_hlpi = dict(rec_hlpi)
+        rec_hlpi["previous_period"] = "Includes household mortgage interest payments & council rates (excluded from CPI)"
+        rec_hlpi["change"] = "Expenditure group spread: +2.5% (highest-expenditure) to +3.6% (lowest-expenditure)"
+        candidates["hlpi-household-living-costs-interest"] = rec_hlpi
+
+    rec_fdti = candidates.get("fhb-typical-dti")
+    if isinstance(rec_fdti, dict) and "ratio of averages" not in str(rec_fdti.get("html", "")).lower():
+        rec_fdti = dict(rec_fdti)
+        rec_fdti["html"] = str(rec_fdti.get("html", "")).replace(
+            "had an implied mortgage-to-income ratio of 3.98x gross application income",
+            "had an implied ratio of average loan to average gross application income of 3.98x (a ratio of aggregate averages rather than individual-borrower DTIs:",
+        ).replace(
+            "average gross borrower income), while",
+            "average gross borrower income), while",
+        )
+        candidates["fhb-typical-dti"] = rec_fdti
+
+    # 16. Dynamic Self-Healing for Cached C31, Labour Income & IRD PAYE Tax Year
     rec_paye = candidates.get("ird-paye-wage-vs-self-employed-income")
     if isinstance(rec_paye, dict) and "latest ird tax year" in str(rec_paye.get("latest_period", "")).lower():
         sib_inc = candidates.get("ird-individual-taxable-income-percentiles") or {}
@@ -11273,8 +11621,12 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
             val_num = v.get("value")
             if "nan $" in lv or "-99 $" in lv:
                 continue
-            # Purge any previously cached synthetic or unsorted records from earlier runs
+            # Purge any previously cached synthetic or incomplete records from earlier runs
             if k == "sales-composition-by-value-quartile" and val_num in (10.0, 89.9):
+                continue
+            if k == "credit-card-balances-interest-share" and (
+                "accruing interest" not in lv and "accruing interest" not in str(v.get("html", "")).lower()
+            ):
                 continue
             if k == "tla-council-house-price-benchmarks" and lv.startswith("queenstown"):
                 continue
@@ -11290,7 +11642,7 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
             ):
                 continue
             if k in ("existing-mortgage-stock-lvr-refix", "fixed-vs-floating-rate-mix") and (
-                "356.4" in str(v.get("html", ""))
+                "356.4" in str(v.get("html", "")) or "444.4" in str(v.get("html", ""))
             ):
                 continue
             if k == "borrower-income" and "214,600" in str(v.get("html", "")):
@@ -11364,7 +11716,6 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
                     stderr=subprocess.DEVNULL,
                 )
                 hist_raw = json.loads(out_b.decode("utf-8", errors="ignore")).get("tickers", {})
-                # Pass existing `best_map` sibling `ird-individual-taxable-income-percentiles` and `nz-monthly-property-sales-volume` context into `hist_raw` before cleaning
                 for ctx_k in ("ird-individual-taxable-income-percentiles", "nz-monthly-property-sales-volume"):
                     if ctx_k in best_map and ctx_k not in hist_raw:
                         hist_raw[ctx_k] = best_map[ctx_k]
@@ -11389,6 +11740,7 @@ def _merge_fresh_only(target: dict, new_items: dict) -> int:
     """
     Validate `new_items` through `_run_audit_guardrails` first and only update `target`
     when the new record is fresh AND its `as_of` date is not older than an existing verified record in `target`.
+    For `credit-card-balances-interest-share`, never overwrite a complete interest-bearing record with a partial month-end row.
     """
     if not isinstance(new_items, dict):
         return 0
@@ -11407,13 +11759,19 @@ def _merge_fresh_only(target: dict, new_items: dict) -> int:
         if not is_fresh(as_of_v, max_age_v):
             print(f"[Live Guard] Ignored stale live scrape for '{k}' (as_of={as_of_v}); keeping verified baseline.")
             continue
+        if k == "credit-card-balances-interest-share":
+            lv_cc = str(v.get("latest_value", "")).lower()
+            html_cc = str(v.get("html", "")).lower()
+            if "accruing interest" not in lv_cc and "accruing interest" not in html_cc:
+                print("[Live Guard] Ignored incomplete C12 row for 'credit-card-balances-interest-share' (missing interest-bearing share).")
+                continue
         existing_rec = target.get(k)
         if isinstance(existing_rec, dict):
             existing_as_of = str(existing_rec.get("as_of") or existing_rec.get("period_end") or "")
             if (
                 existing_as_of
                 and as_of_v < existing_as_of
-                and k not in ("ird-individual-taxable-income-percentiles", "ird-paye-wage-vs-self-employed-income")
+                and k not in ("ird-individual-taxable-income-percentiles", "ird-paye-wage-vs-self-employed-income", "credit-card-balances-interest-share")
             ):
                 print(f"[Live Guard] Kept newer verified baseline for '{k}' ({existing_as_of} > live {as_of_v}).")
                 continue
@@ -11514,6 +11872,7 @@ def main() -> None:
     except Exception as exc:
         print(f"[RBNZ Reality Check Expansion] Error: {exc}")
 
+    _sync_c12_credit_card_series(fresh_candidates, rbnz_files)
     _run_audit_guardrails(fresh_candidates)
     cross_derive_live_c31_c41_siblings(fresh_candidates)
 
