@@ -23,7 +23,7 @@
   "date_modified": "2026-11-18",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-18",
-  "dataset_generated_utc": "2026-11-18T21:43:32Z",
+  "dataset_generated_utc": "2026-11-18T23:19:30Z",
   "latest_underlying_data": "June 2024 (triennial) to September 2026 (monthly)",
   "data_status": "verified",
   "source_status": "current",
@@ -53,14 +53,14 @@
       },
       "fhb-typical-income": {
         "value": 144232,
-        "latest_value": "$144,232 typical FHB gross application income",
+        "latest_value": "$144,232 mean FHB gross application income (\u00b1$500 band tolerance)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
         "source": "RBNZ Table C41",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-typical-income/"
       },
       "fhb-average-loan-size": {
-        "value": 573678.0,
+        "value": 573678,
         "latest_value": "$573,678 average FHB loan (2,667 loans / $1.53B ($1,530m))",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
@@ -108,7 +108,7 @@
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-vs-investors/"
       },
       "fhb-annual-milestone": {
-        "value": 33485.0,
+        "value": 33485,
         "latest_value": "33,485 loans / $19.61B ($19,613m) (12m rolling)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
@@ -790,36 +790,36 @@
         ]
       },
       "existing-mortgage-stock-lvr-refix": {
-        "value": 39.7,
-        "latest_value": "39.7% refixing <=12m ($160.9B) | 8.7% floating ($38.7B)",
+        "value": 64.5,
+        "latest_value": "64.5% refixing <=12m (38.4% <=6m) | 10.8% floating",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
         "source": "RBNZ Table S33",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/",
         "breakdown": [
           {
+            "period": "Floating / Revolving",
+            "label": "Floating & Revolving Credit Stock",
+            "value": 10.8,
+            "formatted": "10.8% ($42.0B)"
+          },
+          {
             "period": "Fixed Repricing <= 6m",
-            "label": "Fixed Mortgages Repricing Within 6 Months",
-            "value": 19.8,
-            "formatted": "19.8% of fixed stock ($80.1B)"
+            "label": "Fixed Loans Rolling Off Within 6 Months",
+            "value": 38.4,
+            "formatted": "38.4% of fixed stock"
           },
           {
             "period": "Fixed Repricing <= 12m",
-            "label": "Fixed Mortgages Repricing Within 12 Months",
-            "value": 39.7,
-            "formatted": "39.7% of fixed stock ($160.9B)"
+            "label": "Fixed Loans Rolling Off Within 12 Months",
+            "value": 64.5,
+            "formatted": "64.5% of fixed stock ($223.6B)"
           },
           {
-            "period": "Total Fixed Stock",
-            "label": "Total Fixed-Rate Bank Mortgage Stock",
-            "value": 91.3,
-            "formatted": "91.3% ($405.7B)"
-          },
-          {
-            "period": "Floating / Revolving",
-            "label": "Floating & Revolving Bank Mortgage Stock",
-            "value": 8.7,
-            "formatted": "8.7% ($38.7B)"
+            "period": "Fixed > 12m Remaining",
+            "label": "Fixed Loans Repricing Beyond 12 Months",
+            "value": 35.5,
+            "formatted": "35.5% of fixed stock"
           }
         ]
       },
@@ -912,90 +912,90 @@
         ]
       },
       "credit-card-balances-interest-share": {
-        "value": 5985.0,
-        "latest_value": "$5.99B ($5,985m) daily avg balances",
-        "observation_period": "September 2026",
-        "period_end": "2026-09-30",
+        "value": 5379.0,
+        "latest_value": "$5.38B ($5,379m) personal daily avg balances | $2.76B (51.3%) accruing interest at 20.0% p.a.",
+        "observation_period": "August 2026",
+        "period_end": "2026-08-31",
         "source": "RBNZ Table C12",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
         "breakdown": [
           {
-            "period": "2026-09",
-            "label": "Sep 2026",
-            "value": 5985.0,
-            "formatted": "$5,985m ($5.99B daily avg)"
-          },
-          {
             "period": "2026-08",
             "label": "Aug 2026",
-            "value": 5935.0,
-            "formatted": "$5,935m ($5.93B daily avg)"
+            "value": 5379.0,
+            "formatted": "$5,379m ($5.38B daily avg)"
           },
           {
             "period": "2026-07",
             "label": "Jul 2026",
-            "value": 5876.0,
-            "formatted": "$5,876m ($5.88B daily avg)"
+            "value": 5372.0,
+            "formatted": "$5,372m ($5.37B daily avg)"
           },
           {
             "period": "2026-06",
             "label": "Jun 2026",
-            "value": 5968.0,
-            "formatted": "$5,968m ($5.97B daily avg)"
+            "value": 5414.0,
+            "formatted": "$5,414m ($5.41B daily avg)"
           },
           {
             "period": "2026-05",
             "label": "May 2026",
-            "value": 5990.0,
-            "formatted": "$5,990m ($5.99B daily avg)"
+            "value": 5429.0,
+            "formatted": "$5,429m ($5.43B daily avg)"
           },
           {
             "period": "2026-04",
             "label": "Apr 2026",
-            "value": 5960.0,
-            "formatted": "$5,960m ($5.96B daily avg)"
+            "value": 5482.0,
+            "formatted": "$5,482m ($5.48B daily avg)"
           },
           {
             "period": "2026-03",
             "label": "Mar 2026",
-            "value": 6075.0,
-            "formatted": "$6,075m ($6.08B daily avg)"
+            "value": 5584.0,
+            "formatted": "$5,584m ($5.58B daily avg)"
           },
           {
             "period": "2026-02",
             "label": "Feb 2026",
-            "value": 6193.0,
-            "formatted": "$6,193m ($6.19B daily avg)"
+            "value": 5652.0,
+            "formatted": "$5,652m ($5.65B daily avg)"
           },
           {
             "period": "2026-01",
             "label": "Jan 2026",
-            "value": 6152.0,
-            "formatted": "$6,152m ($6.15B daily avg)"
+            "value": 5699.0,
+            "formatted": "$5,699m ($5.70B daily avg)"
           },
           {
             "period": "2025-12",
             "label": "Dec 2025",
-            "value": 6285.0,
-            "formatted": "$6,285m ($6.29B daily avg)"
+            "value": 5794.0,
+            "formatted": "$5,794m ($5.79B daily avg)"
           },
           {
             "period": "2025-11",
             "label": "Nov 2025",
-            "value": 6298.0,
-            "formatted": "$6,298m ($6.30B daily avg)"
+            "value": 5656.0,
+            "formatted": "$5,656m ($5.66B daily avg)"
           },
           {
             "period": "2025-10",
             "label": "Oct 2025",
-            "value": 6057.0,
-            "formatted": "$6,057m ($6.06B daily avg)"
+            "value": 5521.0,
+            "formatted": "$5,521m ($5.52B daily avg)"
           },
           {
             "period": "2025-09",
             "label": "Sep 2025",
-            "value": 6056.0,
-            "formatted": "$6,056m ($6.06B daily avg)"
+            "value": 5552.0,
+            "formatted": "$5,552m ($5.55B daily avg)"
+          },
+          {
+            "period": "2025-08",
+            "label": "Aug 2025",
+            "value": 5480.0,
+            "formatted": "$5,480m ($5.48B daily avg)"
           }
         ]
       },
@@ -2168,7 +2168,7 @@
       "data_status": "verified",
       "source_status": "current",
       "previous_period": "12 months prior existing yield: 5.36%",
-      "change": "-0.55% YoY on existing mortgage book",
+      "change": "-0.55 percentage points (-55 bps) YoY on existing mortgage book",
       "source": "RBNZ Tables B6 & B30",
       "source_full": "Reserve Bank of New Zealand \u2014 Yields on Loans (Table B6) & New Residential Mortgage Weighted Average Interest Rates (Table B30)",
       "source_series_ids": "RBNZ Table B6 Housing Loan Effective Yield (%) minus Table B30 1-Year Settled Owner-Occupier Rate (%)",
@@ -2296,17 +2296,17 @@
     },
     {
       "ticker": "borrower-income",
-      "name": "Average gross borrower income for approved first-home buyers vs property investors",
-      "also_known_as": "Borrower Gross Income (BGI) mean across approved FHB & investor applications (RBNZ C41)",
+      "name": "Average gross borrower income across approved first-home buyer DTI bands (RBNZ Table C41)",
+      "also_known_as": "Borrower Gross Income (BGI) band-weighted mean across approved FHB applications (RBNZ C41, \u00b1$500\u2013$1,000 band-rounding tolerance)",
       "category": "First-home buyers",
       "topic": "Borrower Gross Income (BGI)",
       "value": 144232,
-      "latest_value": "$144,232 FHB mean",
+      "latest_value": "$144,232 FHB mean (\u00b1$500 band tolerance)",
       "unit": "NZD",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -2323,7 +2323,7 @@
       "definition": "The band-weighted mean annual gross borrower income across approved New Zealand first-home buyer mortgage applications and property investor applications at registered banks, derived from RBNZ Table C41.",
       "formula": "Sum(Band Total Gross Income [$m]) \u00f7 Sum(Band Total Gross Income [$m] \u00f7 Band Average Gross Income [$k]) \u00d7 1,000",
       "hlf_interpretation": "HLF market context: RBNZ's Borrower Gross Income (BGI) measures combined application-level gross income across all borrowers on the loan (which for couples combines two incomes, and for investors includes personal salaries plus gross rental and other qualifying income). It does not measure individual solo salaries.",
-      "methodology": "RBNZ Table C41 publishes official total gross income ($m, rounded to $0.1m) and average gross income ($000, rounded to $1,000) within each TDTI band rather than a single all-bands average. HLF derives the overall mean by dividing total gross income summed across all reported TDTI bands by the implied number of applications (Band Total Income \u00f7 Band Average Income) summed across those bands.",
+      "methodology": "RBNZ Table C41 publishes official total gross income ($m) and average gross income ($000, rounded to the nearest $1,000) within each Total Debt-to-Income (TDTI) band rather than a single all-bands mean. HLF derives the overall band-weighted mean by dividing total gross income summed across all reported FHB TDTI bands by the implied number of applications (Band Total Income \u00f7 Band Average Income) summed across those bands. Because RBNZ rounds band averages to $1,000 and excludes DTI-unknown loans from Table C40/C41, the implied application count and reconstructed mean carry a rounding tolerance of approximately \u00b1$500\u2013$1,000 and differ slightly from Table C31 total FHB loan counts.",
       "historical_data_from": "Available from June 2017 (112 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -2335,9 +2335,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Average gross borrower income for approved first-home buyers vs property investors,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage borrower gross income (BGI) (Table C41). https://pulse-data.homeloanfactory.co.nz/borrower-income/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Average gross borrower income across approved first-home buyer DTI bands (RBNZ Table C41),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage borrower gross income (BGI) (Table C41). https://pulse-data.homeloanfactory.co.nz/borrower-income/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/borrower-income/",
-      "summary_text": "In September 2026, approved New Zealand first-home buyer mortgage applications at registered banks averaged $144,232 in combined gross borrower income (ranging from $123,000 to $197,000 across DTI bands).",
+      "summary_text": "In September 2026, approved New Zealand first-home buyer mortgage applications at registered banks averaged $144,232 in combined gross borrower income (ranging from $123,000 to $197,000 across DTI bands, \u00b1$500 rounding tolerance).",
       "related_questions": [
         "What is the average application gross income of an approved first-home buyer in RBNZ Table C41?",
         "How does application gross income compare between first-home buyers and property investors in RBNZ data?"
@@ -2348,9 +2348,9 @@
         "official_series_ids": "Sum(Band Total Gross Income) \u00f7 Sum(Band Implied Borrowers) across TDTI bands",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "FHB: $383.0m total band income \u00f7 2,655.4 implied applications = $144,232",
+        "hlf_calculation": "FHB: $383.0m total band income \u00f7 ~2,655 implied applications = $144,232 (\u00b1$500 band-rounding tolerance)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/borrower-income/",
         "license": "CC BY 4.0"
       },
@@ -2358,85 +2358,85 @@
         {
           "period": "2026-09",
           "label": "Sep 2026",
-          "value": 144232,
+          "value": 144232.0,
           "formatted": "$144,232"
         },
         {
           "period": "2026-08",
           "label": "Aug 2026",
-          "value": 147271,
+          "value": 147271.0,
           "formatted": "$147,271"
         },
         {
           "period": "2026-07",
           "label": "Jul 2026",
-          "value": 145942,
+          "value": 145942.0,
           "formatted": "$145,942"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
-          "value": 147576,
+          "value": 147576.0,
           "formatted": "$147,576"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
-          "value": 146205,
+          "value": 146205.0,
           "formatted": "$146,205"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
-          "value": 144369,
+          "value": 144369.0,
           "formatted": "$144,369"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
-          "value": 148011,
+          "value": 148011.0,
           "formatted": "$148,011"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
-          "value": 143290,
+          "value": 143290.0,
           "formatted": "$143,290"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
-          "value": 148888,
+          "value": 148888.0,
           "formatted": "$148,888"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
-          "value": 147209,
+          "value": 147209.0,
           "formatted": "$147,209"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
-          "value": 146099,
+          "value": 146099.0,
           "formatted": "$146,099"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
-          "value": 144066,
+          "value": 144066.0,
           "formatted": "$144,066"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
-          "value": 144534,
+          "value": 144534.0,
           "formatted": "$144,534"
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C41 (September 2026) Official FHB Band Figures: TDTI \u2264 3x income: $197,000 avg ($59.0m pool / 299.5 implied apps) | 3x < TDTI \u2264 4x income: $151,000 avg ($101.0m pool / 668.9 implied apps) | 4x < TDTI \u2264 5x income: $139,000 avg ($124.0m pool / 892.1 implied apps) | 5x < TDTI \u2264 6x income: $125,000 avg ($76.0m pool / 608.0 implied apps) | TDTI > 6x income: $123,000 avg ($23.0m pool / 187.0 implied apps).",
-      "hlf_calculation": "FHB: $383.0m total band income \u00f7 2,655.4 implied applications = $144,232",
+      "official_data": "RBNZ Table C41 (September 2026) Official FHB Band Figures: TDTI \u2264 3x income: $197,000 avg ($59.0m pool / ~300 implied apps) | 3x < TDTI \u2264 4x income: $151,000 avg ($101.0m pool / ~669 implied apps) | 4x < TDTI \u2264 5x income: $139,000 avg ($124.0m pool / ~892 implied apps) | 5x < TDTI \u2264 6x income: $125,000 avg ($76.0m pool / ~608 implied apps) | TDTI > 6x income: $123,000 avg ($23.0m pool / ~187 implied apps).",
+      "hlf_calculation": "FHB: $383.0m total band income \u00f7 ~2,655 implied applications = $144,232 (\u00b1$500 band-rounding tolerance)",
       "frequency": "Monthly"
     },
     {
@@ -2928,35 +2928,35 @@
     },
     {
       "ticker": "credit-card-balances-interest-share",
-      "name": "New Zealand credit card debt, share accruing interest & weighted average interest rate (RBNZ Table C12)",
-      "also_known_as": "RBNZ Table C12 Credit Card Balances \u2014 Total advances outstanding, interest-bearing share & interest rate",
+      "name": "New Zealand personal credit card daily-average balances, share accruing interest & weighted-average interest rate (RBNZ Table C12)",
+      "also_known_as": "RBNZ Table C12 Personal Credit Card Daily-Average Advances \u2014 Interest-bearing share (%) & weighted-average interest rate (% p.a.)",
       "category": "Household debt, credit cards & borrower stress",
       "topic": "Credit card debt, interest-bearing share & interest rates",
-      "value": 5985.0,
-      "latest_value": "$5.99B ($5,985m) daily avg balances",
+      "value": 5379.0,
+      "latest_value": "$5.38B ($5,379m) personal daily avg balances | $2.76B (51.3%) accruing interest at 20.0% p.a.",
       "unit": "NZD_millions",
-      "observation_period": "September 2026",
-      "observed_period": "September 2026",
-      "period_end": "2026-09-30",
+      "observation_period": "August 2026",
+      "observed_period": "August 2026",
+      "period_end": "2026-08-31",
       "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "12 months prior daily average: $6.06B ($6,056m)",
-      "change": "-1.2% YoY | 19.9% p.a. weighted-average rate",
+      "previous_period": "12 months prior daily average: $5.48B ($5,480m)",
+      "change": "-1.8% YoY | 20.0% p.a. weighted-average rate",
       "source": "RBNZ Table C12",
       "source_full": "Reserve Bank of New Zealand \u2014 Credit card balances (Table C12)",
       "source_series_ids": "RBNZ Table C12 \u2014 Total Advances Outstanding ($m), Interest-Bearing Advances ($m) & Weighted Average Interest Rate (%)",
       "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances",
       "derived_by_hlf": true,
       "data_type": "Officially reported RBNZ series & HLF-derived interest-bearing share",
-      "definition": "New Zealand credit card daily average advances outstanding ($m), the dollar value and percentage share of daily average balances accruing interest, and the weighted-average interest rate on interest-bearing balances in RBNZ Table C12.",
-      "formula": "Interest-Bearing Daily Average Advances ($m) \u00f7 Total Daily Average Credit Card Advances ($m) \u00d7 100",
-      "hlf_interpretation": "HLF market context: RBNZ Table C12 splits daily average credit card advances (across personal and commercial cards held with registered banks) into balances accruing interest and balances within interest-free grace periods.",
-      "methodology": "Extracted live from RBNZ Table C12 (Credit card balances). Divides interest-bearing advances by total advances outstanding. RBNZ Table C12 aggregates both personal and commercial/business credit card balances held with New Zealand registered banks.",
-      "historical_data_from": "Available from January 1981 (549 monthly observations)",
+      "definition": "New Zealand personal credit card daily-average advances outstanding ($m), the dollar value and percentage share of personal daily-average balances accruing interest, and the weighted-average interest rate on interest-bearing personal balances in RBNZ Table C12 (reported alongside month-end total personal and commercial card advances).",
+      "formula": "Interest-Bearing Personal Daily-Average Advances ($m) \u00f7 Total Personal Daily-Average Advances ($m) \u00d7 100",
+      "hlf_interpretation": "HLF market context: RBNZ Table C12 publishes two distinct balance series: (1) daily-average personal credit card balances split by whether they accrue interest (published with a 1-month lag because interest billed is compiled a month in arrears), and (2) month-end total advances and credit limits across personal and commercial cards combined.",
+      "methodology": "Extracted live from RBNZ Table C12 (Credit card balances) using the latest month with complete interest-bearing and interest-rate observations for the personal daily-average series, while cross-referencing the latest month-end total advances across personal and commercial cards.",
+      "historical_data_from": "Available from July 2000 (314 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -2967,9 +2967,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand credit card debt, share accruing interest & weighted average interest rate (RBNZ Table C12),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Credit card balances (Table C12). https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand personal credit card daily-average balances, share accruing interest & weighted-average interest rate (RBNZ Table C12),\" August 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Credit card balances (Table C12). https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
-      "summary_text": "In September 2026, New Zealand credit card daily average balances in RBNZ Table C12 stood at $5.99B ($5,985m) (down 1.2% year-on-year from $6.06B a year earlier) at a weighted-average interest rate of 19.9% p.a.",
+      "summary_text": "In August 2026, New Zealand credit card daily average balances in RBNZ Table C12 stood at $5.38B ($5,379m) (down 1.8% year-on-year from $5.48B a year earlier), of which $2.76B ($2,758m, or 51.3%) was accruing interest at a weighted-average interest rate of 20.0% p.a. (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.)",
       "related_questions": [
         "How much credit card debt is outstanding in New Zealand?",
         "What is the average interest rate on interest-bearing credit card balances in New Zealand?",
@@ -2979,97 +2979,97 @@
         "official_publisher": "Reserve Bank of New Zealand \u2014 Credit card balances (Table C12)",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances",
         "official_series_ids": "RBNZ Table C12 \u2014 Total Advances Outstanding ($m), Interest-Bearing Advances ($m) & Weighted Average Interest Rate (%)",
-        "observation_period": "September 2026",
-        "period_end": "2026-09-30",
+        "observation_period": "August 2026",
+        "period_end": "2026-08-31",
         "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "RBNZ Table C12 Daily Average Advances (September 2026) = $5,985m ($5.99B) | Weighted-Average Rate = 19.9% p.a.",
+        "hlf_calculation": "RBNZ Table C12 Daily Average Advances (August 2026) = $5,379m ($5.38B) | Interest-Bearing Share: $2,758m \u00f7 $5,379m = 51.3% at 20.0% p.a.",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
         "license": "CC BY 4.0"
       },
       "history": [
         {
-          "period": "2026-09",
-          "label": "Sep 2026",
-          "value": 5985.0,
-          "formatted": "$5,985m ($5.99B daily avg)"
-        },
-        {
           "period": "2026-08",
           "label": "Aug 2026",
-          "value": 5935.0,
-          "formatted": "$5,935m ($5.93B daily avg)"
+          "value": 5379.0,
+          "formatted": "$5,379m ($5.38B daily avg)"
         },
         {
           "period": "2026-07",
           "label": "Jul 2026",
-          "value": 5876.0,
-          "formatted": "$5,876m ($5.88B daily avg)"
+          "value": 5372.0,
+          "formatted": "$5,372m ($5.37B daily avg)"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
-          "value": 5968.0,
-          "formatted": "$5,968m ($5.97B daily avg)"
+          "value": 5414.0,
+          "formatted": "$5,414m ($5.41B daily avg)"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
-          "value": 5990.0,
-          "formatted": "$5,990m ($5.99B daily avg)"
+          "value": 5429.0,
+          "formatted": "$5,429m ($5.43B daily avg)"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
-          "value": 5960.0,
-          "formatted": "$5,960m ($5.96B daily avg)"
+          "value": 5482.0,
+          "formatted": "$5,482m ($5.48B daily avg)"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
-          "value": 6075.0,
-          "formatted": "$6,075m ($6.08B daily avg)"
+          "value": 5584.0,
+          "formatted": "$5,584m ($5.58B daily avg)"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
-          "value": 6193.0,
-          "formatted": "$6,193m ($6.19B daily avg)"
+          "value": 5652.0,
+          "formatted": "$5,652m ($5.65B daily avg)"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
-          "value": 6152.0,
-          "formatted": "$6,152m ($6.15B daily avg)"
+          "value": 5699.0,
+          "formatted": "$5,699m ($5.70B daily avg)"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
-          "value": 6285.0,
-          "formatted": "$6,285m ($6.29B daily avg)"
+          "value": 5794.0,
+          "formatted": "$5,794m ($5.79B daily avg)"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
-          "value": 6298.0,
-          "formatted": "$6,298m ($6.30B daily avg)"
+          "value": 5656.0,
+          "formatted": "$5,656m ($5.66B daily avg)"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
-          "value": 6057.0,
-          "formatted": "$6,057m ($6.06B daily avg)"
+          "value": 5521.0,
+          "formatted": "$5,521m ($5.52B daily avg)"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
-          "value": 6056.0,
-          "formatted": "$6,056m ($6.06B daily avg)"
+          "value": 5552.0,
+          "formatted": "$5,552m ($5.55B daily avg)"
+        },
+        {
+          "period": "2025-08",
+          "label": "Aug 2025",
+          "value": 5480.0,
+          "formatted": "$5,480m ($5.48B daily avg)"
         }
       ],
-      "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C12 (September 2026): Daily average credit card advances = $5,985m ($5.99B).",
-      "hlf_calculation": "RBNZ Table C12 Daily Average Advances (September 2026) = $5,985m ($5.99B) | Weighted-Average Rate = 19.9% p.a.",
+      "latest_underlying_data": "August 2026",
+      "official_data": "RBNZ Table C12 (August 2026): Daily average credit card advances = $5,379m ($5.38B); interest-bearing daily average advances = $2,758m ($2.76B, or 51.3%) at 20.0% p.a.",
+      "hlf_calculation": "RBNZ Table C12 Daily Average Advances (August 2026) = $5,379m ($5.38B) | Interest-Bearing Share: $2,758m \u00f7 $5,379m = 51.3% at 20.0% p.a.",
       "frequency": "Monthly"
     },
     {
@@ -3224,12 +3224,12 @@
       "category": "LVR, DTI & credit policy",
       "topic": "Debt-to-Income (DTI) speed limits & headroom",
       "value": 8.98,
-      "latest_value": "9.0% at >6x DTI (11.0 pts below 20% benchmark)",
+      "latest_value": "9.0% at >6x DTI (11.0 pts below 20% owner-occupier cap)",
       "unit": "percent",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -3245,8 +3245,8 @@
       "data_type": "Officially reported RBNZ series & HLF-derived >6x DTI share",
       "definition": "The percentage of monthly first-home buyer mortgage lending value at registered banks committed at a Total Debt-to-Income (TDTI) ratio above 6x gross income, compared against the 20% RBNZ speed-limit cap on non-exempt owner-occupier lending.",
       "formula": "(FHB Lending with TDTI > 6 \u00f7 Total FHB Commitments across all TDTI bands) \u00d7 100; Headroom = 20.0% minus (>6x Share)",
-      "hlf_interpretation": "HLF market context: RBNZ's 20% high-DTI (>6x) speed limit applies to each registered bank's total new non-exempt owner-occupier lending (first-home buyers and existing owner-occupiers combined). Showing the first-home buyer >6x DTI share alongside the 20% owner-occupier speed limit illustrates how FHB high-DTI lending sits relative to the overall owner-occupier speed-limit threshold.",
-      "methodology": "Derived from RBNZ Table C40 by summing first-home buyer lending commitments in bands above 6x TDTI (including unknown TDTI) and dividing by total first-home buyer commitments across all TDTI bands.",
+      "hlf_interpretation": "HLF market context: RBNZ's 20% high-DTI (>6x) speed limit applies to each individual registered bank's new non-exempt owner-occupier lending flow (first-home buyers and existing owner-occupiers combined), not to the banking system as a single pooled allowance. Showing the system-wide first-home buyer >6x DTI share alongside the 20% benchmark illustrates aggregate positioning but does not establish an individual bank's available high-DTI headroom.",
+      "methodology": "Derived from RBNZ Table C40 by summing first-home buyer lending commitments in bands above 6x TDTI and dividing by total first-home buyer commitments across all reported TDTI bands in Table C40 (which differs slightly from Table C31 total FHB lending due to RBNZ rounding and DTI-unknown exclusions).",
       "historical_data_from": "Available from June 2017 (112 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -3260,7 +3260,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"First-home buyer high Debt-to-Income (>6x DTI) share vs 20% RBNZ owner-occupier speed limit,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage lending by Debt-to-Income (DTI) purpose use (Table C40). https://pulse-data.homeloanfactory.co.nz/dti-headroom/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/dti-headroom/",
-      "summary_text": "In September 2026, 9.0% of first-home buyer mortgage commitments at registered banks had a Debt-to-Income (DTI) ratio above 6x ($137.0m of $1,525.0m)\u2014sitting 11.0 percentage points below the 20% RBNZ speed-limit allowance.",
+      "summary_text": "In September 2026, 9.0% of first-home buyer mortgage commitments at registered banks had a Debt-to-Income (DTI) ratio above 6x ($137.0m of $1,525.0m)\u2014sitting 11.0 percentage points below the 20% RBNZ speed-limit allowance on total non-exempt owner-occupier lending.",
       "related_questions": [
         "What percentage of first-home buyers borrow more than 6 times their income in RBNZ Table C40?",
         "How does current first-home buyer >6x DTI lending compare to the 20% RBNZ speed limit?"
@@ -3271,9 +3271,9 @@
         "official_series_ids": "FHB New Commitments with TDTI > 6 \u00f7 Total FHB New Commitments",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "$137.0m \u00f7 $1,525.0m = 9.0% (Benchmark diff: 20.0% - 9.0% = 11.0 pts)",
+        "hlf_calculation": "$137.0m \u00f7 $1,525.0m = 9.0% (vs 20.0% RBNZ owner-occupier speed limit: 20.0% - 9.0% = 11.0 pts)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/dti-headroom/",
         "license": "CC BY 4.0"
       },
@@ -3359,22 +3359,22 @@
       ],
       "latest_underlying_data": "September 2026",
       "official_data": "RBNZ Table C40 (September 2026): FHB lending with TDTI > 6 = $137.0m out of $1,525.0m total FHB commitments.",
-      "hlf_calculation": "$137.0m \u00f7 $1,525.0m = 9.0% (Benchmark diff: 20.0% - 9.0% = 11.0 pts)",
+      "hlf_calculation": "$137.0m \u00f7 $1,525.0m = 9.0% (vs 20.0% RBNZ owner-occupier speed limit: 20.0% - 9.0% = 11.0 pts)",
       "frequency": "Monthly"
     },
     {
       "ticker": "equity-topup-demand",
-      "name": "Monthly mortgage top-up dollar volume & borrower count",
-      "also_known_as": "Total monthly equity top-up lending value (RBNZ C33)",
+      "name": "Monthly mortgage top-up dollar volume & loan commitment count (RBNZ Table C33)",
+      "also_known_as": "Total monthly equity top-up lending value & committed loan count (RBNZ C33)",
       "category": "Homeowners & refinancing",
       "topic": "Homeowner equity release volume",
       "value": 962.0,
-      "latest_value": "$962m across 9,639 borrowers (avg $99,803)",
+      "latest_value": "$962m across 9,639 loan commitments (avg $99,803)",
       "unit": "NZD_millions",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -3388,10 +3388,10 @@
       "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
       "derived_by_hlf": true,
       "data_type": "Officially reported RBNZ series & HLF-derived mean",
-      "definition": "The total monthly dollar value and commitment count of new residential mortgage lending approved for top-ups on existing mortgages at New Zealand registered banks.",
-      "formula": "Mean Top-Up = Top-up Lending Value [LVRN.MMB1.AZB] \u00f7 Top-up Borrower Count [LVRN.MMB2.AZB]",
+      "definition": "The total monthly dollar value and number of committed mortgage loans approved for top-ups on existing mortgages at New Zealand registered banks in RBNZ Table C33.",
+      "formula": "Mean Top-Up = Top-up Lending Value [LVRN.MMB1.AZB] \u00f7 Top-up Loan Commitments [LVRN.MMB2.AZB]",
       "hlf_interpretation": "HLF market context: Tracks the monthly dollar value of additional mortgage commitments approved on existing properties with the same registered bank.",
-      "methodology": "Sourced from RBNZ Table C33 series LVRN.MMB1.AZB (Top-up lending value in $ millions) and LVRN.MMB2.AZB (Top-up borrower count), with mean top-up size calculated by HLF.",
+      "methodology": "Sourced from RBNZ Table C33 series LVRN.MMB1.AZB (Top-up lending value in $ millions) and LVRN.MMB2.AZB (Top-up committed loan count), with mean top-up commitment size calculated by HLF. RBNZ Table C33 counts committed mortgage loans rather than unique individual borrowers.",
       "historical_data_from": "Available from January 2017 (117 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -3403,7 +3403,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Monthly mortgage top-up dollar volume & borrower count,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/equity-topup-demand/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Monthly mortgage top-up dollar volume & loan commitment count (RBNZ Table C33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/equity-topup-demand/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/equity-topup-demand/",
       "summary_text": "In September 2026, New Zealand registered banks committed $962m in mortgage top-ups across 9,639 commitments, at an average of $99,803 per top-up.",
       "related_questions": [
@@ -3416,9 +3416,9 @@
         "official_series_ids": "LVRN.MMB1.AZB (Value) & LVRN.MMB2.AZB (Count)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Reported $962m top-up lending \u00d7 $1m \u00f7 9,639 borrowers = $99,803 mean",
+        "hlf_calculation": "Reported $962m top-up lending \u00d7 $1m \u00f7 9,639 loan commitments = $99,803 mean",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/equity-topup-demand/",
         "license": "CC BY 4.0"
       },
@@ -3503,8 +3503,8 @@
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C33 (September 2026): Top-up lending value = $962m across 9,639 borrowers.",
-      "hlf_calculation": "Reported $962m top-up lending \u00d7 $1m \u00f7 9,639 borrowers = $99,803 mean",
+      "official_data": "RBNZ Table C33 (September 2026): Top-up lending value = $962m across 9,639 loan commitments.",
+      "hlf_calculation": "Reported $962m top-up lending \u00d7 $1m \u00f7 9,639 loan commitments = $99,803 mean",
       "frequency": "Monthly"
     },
     {
@@ -3536,7 +3536,7 @@
       "definition": "Median and mean (average) equivalised annual household disposable (after-tax) income across New Zealand before housing costs (BHC) and after deducting housing costs (AHC) from Stats NZ's Household Income and Living Survey (HILS).",
       "formula": "Difference (%) = ((BHC Equivalised Median \u2212 AHC Equivalised Median) \u00f7 BHC Equivalised Median) \u00d7 100",
       "hlf_interpretation": "HLF market context: Compares Stats NZ's national median equivalised after-tax household income before and after deducting housing costs.",
-      "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (Household Income and Living Survey) release tables and CSVs. Stats NZ equivalises disposable household income using the modified OECD scale (reference 1.0 single-person household).",
+      "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (Household Income and Living Survey) release tables and CSVs. Stats NZ equivalises disposable household income using the modified OECD scale (reference 1.0 single-person household). Note: Stats NZ issued a data-quality notice on 29 September 2026 regarding HILS income processing revisions scheduled for February 2027.",
       "historical_data_from": "Stats NZ HILS series (Year ended June 2025)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -3599,24 +3599,24 @@
     },
     {
       "ticker": "existing-mortgage-stock-lvr-refix",
-      "name": "Existing New Zealand mortgage stock repricing horizon & floating vs fixed structure (RBNZ Table S33)",
-      "also_known_as": "RBNZ Table S33 existing mortgage stock by time remaining to repricing",
+      "name": "Existing New Zealand bank mortgage stock repricing horizon & floating vs fixed structure (RBNZ Table S33)",
+      "also_known_as": "RBNZ Table S33 existing registered-bank mortgage stock by time remaining to repricing",
       "category": "Homeowners & refinancing",
-      "topic": "Existing homeowner mortgage stock repricing schedule",
-      "value": 39.7,
-      "latest_value": "39.7% refixing <=12m ($160.9B) | 8.7% floating ($38.7B)",
+      "topic": "Existing bank mortgage stock repricing schedule & fixed/floating mix",
+      "value": 64.5,
+      "latest_value": "64.5% refixing <=12m (38.4% <=6m) | 10.8% floating",
       "unit": "percent",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "Monthly RBNZ release",
+      "source_published": "2026-10-27 (27 Oct 2026)",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Table S33 bank stock: $444.4B (registered banks, fully mortgage-secured)",
-      "change": "+2.4 pts YoY shift in fixed-rate share",
+      "previous_period": "Total NZ bank mortgage stock: $388.6B",
+      "change": "89.2% fixed ($346.6B) vs 10.8% floating ($42.0B) | 38.4% of fixed stock reprices <=6m",
       "source": "RBNZ Table S33",
       "source_full": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33)",
       "source_series_ids": "RBNZ Table S33 \u2014 Total Mortgage Stock by Repricing Horizon (Floating, <=6m, <=12m, >12m)",
@@ -3625,9 +3625,9 @@
       "data_type": "Officially reported RBNZ mortgage stock series & HLF-derived repricing shares",
       "definition": "Breakdown of New Zealand registered banks' existing residential mortgage book by time remaining until interest rate repricing (Floating, repricing within 6 months, and repricing within 12 months).",
       "formula": "6M Repricing Share = (<=3m + 3\u20136m Fixed Stock) \u00f7 Total Fixed Stock; 12M Repricing Share = (<=3m + 3\u20136m + 6\u201312m) \u00f7 Total Fixed Stock",
-      "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (a narrower scope than Table S32's total housing loans by product and Table C5's combined bank and non-bank sector credit) and categorises balances by time remaining until interest rate repricing.",
+      "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (a narrower scope than Table S32's total housing loans by product and Table C5's combined bank and non-bank sector credit) and categorises balances by time remaining until interest rate repricing (not by current LVR distribution).",
       "methodology": "Extracted live from RBNZ Table S33, calculating the share of existing fixed-rate mortgage debt scheduled to reprice within 6 and 12 months.",
-      "historical_data_from": "RBNZ Table S33 monthly series (September 2026)",
+      "historical_data_from": "RBNZ Table S33 monthly series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -3638,9 +3638,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Existing New Zealand mortgage stock repricing horizon & floating vs fixed structure (RBNZ Table S33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33). https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Existing New Zealand bank mortgage stock repricing horizon & floating vs fixed structure (RBNZ Table S33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33). https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/",
-      "summary_text": "As at September 2026, across New Zealand registered banks' $444.4B in loans fully secured by residential mortgage in RBNZ Table S33 (registered banks only, excluding non-bank lenders in Table C5), 8.7% ($38.7B) was on floating rates and 91.3% ($405.7B) on fixed rates\u2014with 39.7% ($160.9B) of fixed debt scheduled to reprice within 12 months (and 19.8% within 6 months).",
+      "summary_text": "As at September 2026, across New Zealand's $388.6B existing residential mortgage stock (RBNZ Table S33), 38.4% of fixed-rate debt is scheduled to refix within 6 months and 64.5% ($223.6B) within 12 months, while 10.8% ($42.0B) sits on floating rates.",
       "related_questions": [
         "What percentage of existing New Zealand fixed-rate mortgages are scheduled to reprice in the next 6 to 12 months?"
       ],
@@ -3650,41 +3650,41 @@
         "official_series_ids": "RBNZ Table S33 \u2014 Total Mortgage Stock by Repricing Horizon (Floating, <=6m, <=12m, >12m)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "Monthly RBNZ release",
+        "source_published": "2026-10-27 (27 Oct 2026)",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Fixed Share: $405.70B \u00f7 $444.36B = 91.3% | Repricing <=12m: $160.94B \u00f7 $405.70B = 39.7%",
+        "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/existing-mortgage-stock-lvr-refix/",
         "license": "CC BY 4.0"
       },
       "history": [
         {
+          "period": "Floating / Revolving",
+          "label": "Floating & Revolving Credit Stock",
+          "value": 10.8,
+          "formatted": "10.8% ($42.0B)"
+        },
+        {
           "period": "Fixed Repricing <= 6m",
-          "label": "Fixed Mortgages Repricing Within 6 Months",
-          "value": 19.8,
-          "formatted": "19.8% of fixed stock ($80.1B)"
+          "label": "Fixed Loans Rolling Off Within 6 Months",
+          "value": 38.4,
+          "formatted": "38.4% of fixed stock"
         },
         {
           "period": "Fixed Repricing <= 12m",
-          "label": "Fixed Mortgages Repricing Within 12 Months",
-          "value": 39.7,
-          "formatted": "39.7% of fixed stock ($160.9B)"
+          "label": "Fixed Loans Rolling Off Within 12 Months",
+          "value": 64.5,
+          "formatted": "64.5% of fixed stock ($223.6B)"
         },
         {
-          "period": "Total Fixed Stock",
-          "label": "Total Fixed-Rate Bank Mortgage Stock",
-          "value": 91.3,
-          "formatted": "91.3% ($405.7B)"
-        },
-        {
-          "period": "Floating / Revolving",
-          "label": "Floating & Revolving Bank Mortgage Stock",
-          "value": 8.7,
-          "formatted": "8.7% ($38.7B)"
+          "period": "Fixed > 12m Remaining",
+          "label": "Fixed Loans Repricing Beyond 12 Months",
+          "value": 35.5,
+          "formatted": "35.5% of fixed stock"
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table S33 (September 2026, registered-bank loans fully secured by residential mortgage): Total = $444.4B ($444,358m); Fixed = $405.7B (91.3%); Floating = $38.7B (8.7%); Repricing <=12m = $160.9B (39.7%).",
-      "hlf_calculation": "Fixed Share: $405.70B \u00f7 $444.36B = 91.3% | Repricing <=12m: $160.94B \u00f7 $405.70B = 39.7%",
+      "official_data": "RBNZ Table S33 (September 2026): Repricing <=6m = 38.4%; Repricing <=12m = 64.5% ($223.6B); Floating = 10.8%.",
+      "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
       "frequency": "Monthly"
     },
     {
@@ -3699,7 +3699,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -3741,7 +3741,7 @@
         "official_series_ids": "(LVRN.MMB2.AC1 - LVRN.MMB2.BC1) \u00f7 LVRN.MMB2.AC1",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "1,325 \u00f7 2,667 = 49.7% (Mean loan: $680m \u00d7 $1m \u00f7 1,325 = $513,208)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-20-deposit-club/",
@@ -3838,13 +3838,13 @@
       "also_known_as": "Annual first-home buyer loan count, dollar volume & low-deposit total",
       "category": "First-home buyers",
       "topic": "Annual first-home buyer market volume",
-      "value": 33485.0,
+      "value": 33485,
       "latest_value": "33,485 loans / $19.61B ($19,613m) (12m rolling)",
       "unit": "loans",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -3886,7 +3886,7 @@
         "official_series_ids": "12-month rolling sum of LVRN.MMB2.AC1, LVRN.MMB1.AC1 & LVRN.MMB2.BC1",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "12-month sum = 33,485 loans ($19,613m); >80% LVR share = 15,743 \u00f7 33,485 = 47.0%",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-annual-milestone/",
@@ -3983,13 +3983,13 @@
       "also_known_as": "Average New Zealand first-home buyer loan amount",
       "category": "First-home buyers",
       "topic": "First-home buyer loan size benchmark",
-      "value": 573678.0,
+      "value": 573678,
       "latest_value": "$573,678 average FHB loan (2,667 loans / $1.53B ($1,530m))",
       "unit": "NZD",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -4031,7 +4031,7 @@
         "official_series_ids": "LVRN.MMB1.AC1 \u00f7 LVRN.MMB2.AC1",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "($1,530m \u00d7 $1,000,000) \u00f7 2,667 loans = $573,678",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-average-loan-size/",
@@ -4041,79 +4041,79 @@
         {
           "period": "2026-09",
           "label": "Sep 2026",
-          "value": 573678,
+          "value": 573678.0,
           "formatted": "$573,678"
         },
         {
           "period": "2026-08",
           "label": "Aug 2026",
-          "value": 581166,
+          "value": 581166.0,
           "formatted": "$581,166"
         },
         {
           "period": "2026-07",
           "label": "Jul 2026",
-          "value": 578331,
+          "value": 578331.0,
           "formatted": "$578,331"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
-          "value": 591430,
+          "value": 591430.0,
           "formatted": "$591,430"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
-          "value": 584348,
+          "value": 584348.0,
           "formatted": "$584,348"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
-          "value": 578376,
+          "value": 578376.0,
           "formatted": "$578,376"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
-          "value": 585445,
+          "value": 585445.0,
           "formatted": "$585,445"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
-          "value": 579541,
+          "value": 579541.0,
           "formatted": "$579,541"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
-          "value": 599437,
+          "value": 599437.0,
           "formatted": "$599,437"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
-          "value": 597720,
+          "value": 597720.0,
           "formatted": "$597,720"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
-          "value": 595206,
+          "value": 595206.0,
           "formatted": "$595,206"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
-          "value": 583585,
+          "value": 583585.0,
           "formatted": "$583,585"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
-          "value": 573095,
+          "value": 573095.0,
           "formatted": "$573,095"
         }
       ],
@@ -4134,7 +4134,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -4175,7 +4175,7 @@
         "official_series_ids": "LVRN.MMB1.BC1 \u00f7 LVRN.MMB1.BA (Dollars) | LVRN.MMB2.BC1 \u00f7 LVRN.MMB2.BA (Loans)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "Dollars: $850m \u00f7 $1,264m = 67.2% | Loans: 1,342 \u00f7 2,165 = 62.0%",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-bank-lvr-priority/",
@@ -4278,7 +4278,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -4309,7 +4309,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"First-home buyer gross borrower income by Debt-to-Income (DTI) band \u2014 New Zealand,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage borrower gross income (BGI) (Table C41). https://pulse-data.homeloanfactory.co.nz/fhb-income-by-dti-band/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-income-by-dti-band/",
-      "summary_text": "In September 2026, average combined gross borrower incomes across New Zealand first-home buyer Debt-to-Income bands ranged from $123,000 to $197,000, with an overall band-weighted average of $144,232.",
+      "summary_text": "In September 2026, average combined gross borrower incomes across New Zealand first-home buyer Debt-to-Income bands ranged from $123,000 to $197,000, with an overall band-weighted mean of $144,232 (\u00b1$500 band-rounding tolerance).",
       "related_questions": [
         "How does first-home buyer application income vary across Debt-to-Income (DTI) bands in RBNZ Table C41?"
       ],
@@ -4319,9 +4319,9 @@
         "official_series_ids": "RBNZ C41 FHB TDTI Bands (<=3, 3\u20134, 4\u20135, 5\u20136, >6) Average & Total Gross Income",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "$383.0m total band income \u00d7 $1m \u00f7 2,655.4 total implied applications = $144,232",
+        "hlf_calculation": "$383.0m total band income \u00d7 $1m \u00f7 ~2,655 total implied applications = $144,232",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-income-by-dti-band/",
         "license": "CC BY 4.0"
       },
@@ -4329,85 +4329,85 @@
         {
           "period": "2026-09",
           "label": "Sep 2026",
-          "value": 144232,
+          "value": 144232.0,
           "formatted": "$144,232"
         },
         {
           "period": "2026-08",
           "label": "Aug 2026",
-          "value": 147271,
+          "value": 147271.0,
           "formatted": "$147,271"
         },
         {
           "period": "2026-07",
           "label": "Jul 2026",
-          "value": 145942,
+          "value": 145942.0,
           "formatted": "$145,942"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
-          "value": 147576,
+          "value": 147576.0,
           "formatted": "$147,576"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
-          "value": 146205,
+          "value": 146205.0,
           "formatted": "$146,205"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
-          "value": 144369,
+          "value": 144369.0,
           "formatted": "$144,369"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
-          "value": 148011,
+          "value": 148011.0,
           "formatted": "$148,011"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
-          "value": 143290,
+          "value": 143290.0,
           "formatted": "$143,290"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
-          "value": 148888,
+          "value": 148888.0,
           "formatted": "$148,888"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
-          "value": 147209,
+          "value": 147209.0,
           "formatted": "$147,209"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
-          "value": 146099,
+          "value": 146099.0,
           "formatted": "$146,099"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
-          "value": 144066,
+          "value": 144066.0,
           "formatted": "$144,066"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
-          "value": 144534,
+          "value": 144534.0,
           "formatted": "$144,534"
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C41 (September 2026) Official FHB Band Figures: TDTI \u2264 3x income: $197,000 avg ($59.0m pool / 299.5 implied apps) | 3x < TDTI \u2264 4x income: $151,000 avg ($101.0m pool / 668.9 implied apps) | 4x < TDTI \u2264 5x income: $139,000 avg ($124.0m pool / 892.1 implied apps) | 5x < TDTI \u2264 6x income: $125,000 avg ($76.0m pool / 608.0 implied apps) | TDTI > 6x income: $123,000 avg ($23.0m pool / 187.0 implied apps).",
-      "hlf_calculation": "$383.0m total band income \u00d7 $1m \u00f7 2,655.4 total implied applications = $144,232",
+      "official_data": "RBNZ Table C41 (September 2026) Official FHB Band Figures: TDTI \u2264 3x income: $197,000 avg ($59.0m pool / ~300 implied apps) | 3x < TDTI \u2264 4x income: $151,000 avg ($101.0m pool / ~669 implied apps) | 4x < TDTI \u2264 5x income: $139,000 avg ($124.0m pool / ~892 implied apps) | 5x < TDTI \u2264 6x income: $125,000 avg ($76.0m pool / ~608 implied apps) | TDTI > 6x income: $123,000 avg ($23.0m pool / ~187 implied apps).",
+      "hlf_calculation": "$383.0m total band income \u00d7 $1m \u00f7 ~2,655 total implied applications = $144,232",
       "frequency": "Monthly",
       "tdti_bands": [
         {
@@ -4442,7 +4442,7 @@
         }
       ],
       "tdti_total_pool_m": 383.0,
-      "tdti_total_implied_apps": 2655.4
+      "tdti_total_implied_apps": 2655
     },
     {
       "ticker": "fhb-loan-size-gap",
@@ -4456,7 +4456,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -4498,7 +4498,7 @@
         "official_series_ids": "LVRN.MMB1.BC1 \u00f7 LVRN.MMB2.BC1 vs (LVRN.MMB1.AC1 - BC1) \u00f7 (LVRN.MMB2.AC1 - BC1)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "($850m \u00d7 $1m \u00f7 1,342 = $633,383) minus ($680m \u00d7 $1m \u00f7 1,325 = $513,208) = $120,175",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-loan-size-gap/",
@@ -4506,22 +4506,82 @@
       },
       "history": [
         {
-          "period": ">80% LVR FHB Avg Loan",
-          "label": "First-Home Buyers with <20% Deposit (>80% LVR)",
-          "value": 633383,
-          "formatted": "$633,383 average loan"
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 120175.0,
+          "formatted": "+$120,175 (>80% vs <=80% LVR)"
         },
         {
-          "period": "<=80% LVR FHB Avg Loan",
-          "label": "First-Home Buyers with 20%+ Deposit (<=80% LVR)",
-          "value": 513208,
-          "formatted": "$513,208 average loan"
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 110247.0,
+          "formatted": "+$110,247 (>80% vs <=80% LVR)"
         },
         {
-          "period": "LVR Tier Loan Gap",
-          "label": "Loan Size Difference (>80% LVR minus <=80% LVR)",
-          "value": 120175,
-          "formatted": "+$120,175 loan size difference"
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 107353.0,
+          "formatted": "+$107,353 (>80% vs <=80% LVR)"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 115019.0,
+          "formatted": "+$115,019 (>80% vs <=80% LVR)"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 105351.0,
+          "formatted": "+$105,351 (>80% vs <=80% LVR)"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 116783.0,
+          "formatted": "+$116,783 (>80% vs <=80% LVR)"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 98901.0,
+          "formatted": "+$98,901 (>80% vs <=80% LVR)"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 112506.0,
+          "formatted": "+$112,506 (>80% vs <=80% LVR)"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 117597.0,
+          "formatted": "+$117,597 (>80% vs <=80% LVR)"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 91962.0,
+          "formatted": "+$91,962 (>80% vs <=80% LVR)"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 109973.0,
+          "formatted": "+$109,973 (>80% vs <=80% LVR)"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 112071.0,
+          "formatted": "+$112,071 (>80% vs <=80% LVR)"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 122063.0,
+          "formatted": "+$122,063 (>80% vs <=80% LVR)"
         }
       ],
       "latest_underlying_data": "September 2026",
@@ -4541,7 +4601,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -4584,7 +4644,7 @@
         "official_series_ids": "LVRN.MMB2.BC1 \u00f7 LVRN.MMB2.AC1 (Count) | LVRN.MMB1.BC1 (Value)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "1,342 \u00f7 2,667 = 50.3% (Lending: $850m \u00f7 $1,530m = 55.6%)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-low-deposit/",
@@ -4687,7 +4747,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -4729,7 +4789,7 @@
         "official_series_ids": "LVRN.MMB1.AC1 (FHB Lending Value $m) & LVRN.MMB2.AC1 (FHB Borrower Count)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "Reported LVRN.MMB1.AC1 = $1,530m across 2,667 FHB loans",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-monthly-lending-volume/",
@@ -4995,7 +5055,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -5038,7 +5098,7 @@
         "official_series_ids": "LVRN.MMB1.AC1 \u00f7 LVRN.MMB1.AA (Share) | LVRN.MMB1.AC1 \u00f7 LVRN.MMB2.AC1 (Mean Loan)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "$1,530m \u00f7 $7,533m = 20.3% (Mean loan: $1,530m \u00d7 $1m \u00f7 2,667 = $573,678)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-share/",
@@ -5131,8 +5191,8 @@
     },
     {
       "ticker": "fhb-typical-dti",
-      "name": "Implied first-home buyer mortgage-to-income ratio & share <= 6x DTI (RBNZ C31/C40/C41)",
-      "also_known_as": "Implied FHB loan-to-income multiple & share of FHB lending within 5x and 6x TDTI",
+      "name": "Implied first-home buyer ratio of mean loan to mean gross income & share <= 6x DTI (RBNZ C31/C40/C41)",
+      "also_known_as": "Implied FHB ratio of averages (C31 mean loan \u00f7 C41 mean income) & official C40 share of FHB lending within 5x and 6x TDTI",
       "category": "First-home buyers",
       "topic": "First-home buyer Debt-to-Income benchmark",
       "value": 3.98,
@@ -5141,24 +5201,24 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
       "previous_period": "65.0% of FHB lending written at <= 5x TDTI",
-      "change": "9.0% above 6x TDTI (vs 20.0% RBNZ speed limit)",
+      "change": "9.0% above 6x TDTI (vs 20.0% RBNZ owner-occupier speed limit)",
       "source": "RBNZ Tables C31, C40 & C41",
       "source_full": "Reserve Bank of New Zealand \u2014 New Lending (C31), DTI Purpose Use (C40) & Borrower Gross Income (C41)",
       "source_series_ids": "C31 Mean FHB Loan \u00f7 C41 Mean FHB Gross Income | C40 Share of FHB Lending with TDTI <= 5 and <= 6",
       "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-lending-by-debt-to-income-dti-purpose-use",
       "derived_by_hlf": true,
       "data_type": "HLF-derived loan-to-income ratio & band shares from official RBNZ Tables C31, C40 & C41",
-      "definition": "The implied ratio of average first-home buyer mortgage size (Table C31) to average first-home buyer gross application income (Table C41), reported alongside the official share of FHB lending written at or below 5x and 6x Total Debt-to-Income (TDTI) in RBNZ Table C40.",
+      "definition": "The implied ratio of the national average first-home buyer mortgage commitment size (Table C31) to the band-weighted average first-home buyer gross application income (Table C41)\u2014a ratio of aggregate averages rather than the mean DTI of individual borrowers\u2014reported alongside the official share of FHB lending written at or below 5x and 6x Total Debt-to-Income (TDTI) in RBNZ Table C40.",
       "formula": "Implied Mortgage-to-Income Ratio = Avg FHB Loan (C31) \u00f7 Avg FHB Gross Income (C41); Share <= 6x TDTI = 100% \u2212 (>6x TDTI Share in C40)",
-      "hlf_interpretation": "HLF market context: Compares the average first-home buyer loan size against average application gross income alongside the official RBNZ Table C40 Total Debt-to-Income distribution.",
-      "methodology": "Divides the monthly mean FHB mortgage commitment size (RBNZ Table C31) by the monthly band-weighted mean FHB gross borrower income (RBNZ Table C41), paired with the official share of FHB lending dollar commitments in TDTI bands <= 5x and <= 6x from RBNZ Table C40. Small differences in total FHB lending and implied loan counts between Table C31 and Tables C40/C41 reflect RBNZ band rounding ($1,000 / $0.1m) and DTI-unknown exclusions.",
+      "hlf_interpretation": "HLF market context: Dividing the Table C31 mean FHB loan by the Table C41 mean FHB application income produces an implied ratio of averages (and excludes non-mortgage debt such as student loans or credit card limits that banks include in actual TDTI assessments). The companion RBNZ Table C40 shares (<=5x and <=6x TDTI) measure the actual Total Debt-to-Income distribution of FHB lending commitments.",
+      "methodology": "Divides the monthly mean FHB mortgage commitment size (RBNZ Table C31) by the monthly band-weighted mean FHB gross borrower income (RBNZ Table C41), paired with the official share of FHB lending dollar commitments in TDTI bands <= 5x and <= 6x from RBNZ Table C40. Small differences between Table C31 ($1,530m / 2,667 loans), Table C40 ($1,525.0m), and Table C41 (2,655.4 implied applications) reflect RBNZ band rounding and DTI-unknown exclusions.",
       "historical_data_from": "Available from June 2017 (112 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -5170,7 +5230,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Implied first-home buyer mortgage-to-income ratio & share <= 6x DTI (RBNZ C31/C40/C41),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New Lending (C31), DTI Purpose Use (C40) & Borrower Gross Income (C41). https://pulse-data.homeloanfactory.co.nz/fhb-typical-dti/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Implied first-home buyer ratio of mean loan to mean gross income & share <= 6x DTI (RBNZ C31/C40/C41),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New Lending (C31), DTI Purpose Use (C40) & Borrower Gross Income (C41). https://pulse-data.homeloanfactory.co.nz/fhb-typical-dti/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-typical-dti/",
       "summary_text": "In September 2026, approved New Zealand first-home buyers had an implied mortgage-to-income ratio of 3.98x gross application income ($573,678 average loan divided by $144,232 average gross borrower income), while in RBNZ Table C40 91.0% of all first-home buyer lending was written at or below 6x TDTI (and 65.0% at or below 5x TDTI).",
       "related_questions": [
@@ -5183,7 +5243,7 @@
         "official_series_ids": "C31 Mean FHB Loan \u00f7 C41 Mean FHB Gross Income | C40 Share of FHB Lending with TDTI <= 5 and <= 6",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "Implied FHB Loan-to-Income Ratio: $573,678 (C31 avg FHB loan) \u00f7 $144,232 (C41 avg FHB gross income) = 3.98x | C40 Share <= 6x TDTI: 100.0% \u2212 9.0% = 91.0% (Share <= 5x TDTI: 65.0%)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-typical-dti/",
@@ -5212,7 +5272,7 @@
           "period": "TDTI > 6x Share",
           "label": "FHB Lending above 6x TDTI (C40 Speed Limit Band)",
           "value": 9.0,
-          "formatted": "9.0% (vs 20.0% RBNZ cap)"
+          "formatted": "9.0% (vs 20.0% owner-occupier cap)"
         }
       ],
       "latest_underlying_data": "September 2026",
@@ -5223,16 +5283,16 @@
     {
       "ticker": "fhb-typical-income",
       "name": "Mean first-home buyer application gross income (RBNZ Table C41)",
-      "also_known_as": "FHB borrower-weighted mean gross application income (BGI, \u00b1$500 band-rounding tolerance)",
+      "also_known_as": "FHB borrower-weighted mean gross application income (BGI, \u00b1$500\u2013$1,000 band-rounding tolerance)",
       "category": "First-home buyers",
       "topic": "First-home buyer application income benchmark",
       "value": 144232,
-      "latest_value": "$144,232 typical FHB gross application income",
+      "latest_value": "$144,232 mean FHB gross application income (\u00b1$500 band tolerance)",
       "unit": "NZD",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -5249,7 +5309,7 @@
       "definition": "The borrower-weighted mean annual gross income across approved New Zealand first-home buyer mortgage applications at registered banks, derived from RBNZ Table C41.",
       "formula": "Total FHB Gross Income Pool ($m) \u00d7 $1m \u00f7 Total Implied FHB Applications",
       "hlf_interpretation": "HLF market context: Under RBNZ's Borrower Gross Income (BGI) methodology, income is measured at the mortgage application level\u2014combining the gross incomes of all borrowers named on the loan (such as couples or co-borrowers, plus any qualifying boarder or other income accepted by the bank). It does not measure individual solo salaries or general population household income.",
-      "methodology": "Derived from RBNZ Table C41 by summing total gross borrower income ($m, published rounded to $0.1m) across all reported first-home buyer Debt-to-Income bands and dividing by the total implied number of applications (Band Pool \u00f7 Band Average Income, published rounded to $1,000). Because RBNZ rounds band averages to the nearest $1,000 and band pools to $0.1m, the reconstructed mean carries an uncertainty of approximately \u00b1$500.",
+      "methodology": "Derived from RBNZ Table C41 by summing total gross borrower income ($m) across all reported first-home buyer Debt-to-Income bands and dividing by the total implied number of applications (Band Pool \u00f7 Band Average Income, published rounded to $1,000). Because RBNZ rounds band averages to the nearest $1,000 and excludes DTI-unknown loans, the reconstructed mean carries a band-rounding tolerance of approximately \u00b1$500\u2013$1,000 and the implied application count differs slightly from Table C31 loan counts.",
       "historical_data_from": "Available from June 2017 (112 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -5263,7 +5323,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Mean first-home buyer application gross income (RBNZ Table C41),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage borrower gross income (BGI) (Table C41). https://pulse-data.homeloanfactory.co.nz/fhb-typical-income/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-typical-income/",
-      "summary_text": "In September 2026, the borrower-weighted average combined gross borrower income across approved New Zealand first-home buyer mortgage applications at registered banks was $144,232 (down 0.2% year-on-year from $144,534 a year earlier).",
+      "summary_text": "In September 2026, the borrower-weighted mean combined gross borrower income across approved New Zealand first-home buyer mortgage applications at registered banks was $144,232 (down 0.2% year-on-year from $144,534 a year earlier; reconstructed from RBNZ Table C41 bands with \u00b1$500 rounding tolerance).",
       "related_questions": [
         "What is the average application income of a first-home buyer in New Zealand?",
         "What does Borrower Gross Income (BGI) measure in RBNZ mortgage statistics?"
@@ -5274,9 +5334,9 @@
         "official_series_ids": "Sum(FHB Band Gross Income Pool) \u00f7 Sum(FHB Band Implied Applications)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "$383.0m total FHB gross income pool \u00d7 $1m \u00f7 2,655.4 implied FHB applications = $144,232",
+        "hlf_calculation": "$383.0m total FHB gross income pool \u00d7 $1m \u00f7 ~2,655 implied FHB applications = $144,232 (\u00b1$500 band-rounding tolerance)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-typical-income/",
         "license": "CC BY 4.0"
       },
@@ -5284,85 +5344,85 @@
         {
           "period": "2026-09",
           "label": "Sep 2026",
-          "value": 144232,
+          "value": 144232.0,
           "formatted": "$144,232"
         },
         {
           "period": "2026-08",
           "label": "Aug 2026",
-          "value": 147271,
+          "value": 147271.0,
           "formatted": "$147,271"
         },
         {
           "period": "2026-07",
           "label": "Jul 2026",
-          "value": 145942,
+          "value": 145942.0,
           "formatted": "$145,942"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
-          "value": 147576,
+          "value": 147576.0,
           "formatted": "$147,576"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
-          "value": 146205,
+          "value": 146205.0,
           "formatted": "$146,205"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
-          "value": 144369,
+          "value": 144369.0,
           "formatted": "$144,369"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
-          "value": 148011,
+          "value": 148011.0,
           "formatted": "$148,011"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
-          "value": 143290,
+          "value": 143290.0,
           "formatted": "$143,290"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
-          "value": 148888,
+          "value": 148888.0,
           "formatted": "$148,888"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
-          "value": 147209,
+          "value": 147209.0,
           "formatted": "$147,209"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
-          "value": 146099,
+          "value": 146099.0,
           "formatted": "$146,099"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
-          "value": 144066,
+          "value": 144066.0,
           "formatted": "$144,066"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
-          "value": 144534,
+          "value": 144534.0,
           "formatted": "$144,534"
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C41 (September 2026): Total FHB gross income pool = $383.0m across 2,655.4 implied applications (band averages: $123,000\u2013$197,000).",
-      "hlf_calculation": "$383.0m total FHB gross income pool \u00d7 $1m \u00f7 2,655.4 implied FHB applications = $144,232",
+      "official_data": "RBNZ Table C41 (September 2026): Total FHB gross income pool = $383.0m across ~2,655 implied applications (band averages: $123,000\u2013$197,000).",
+      "hlf_calculation": "$383.0m total FHB gross income pool \u00d7 $1m \u00f7 ~2,655 implied FHB applications = $144,232 (\u00b1$500 band-rounding tolerance)",
       "frequency": "Monthly"
     },
     {
@@ -5377,7 +5437,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -5419,7 +5479,7 @@
         "official_series_ids": "LVRN.MMB1.AC1 vs LVRN.MMB1.AN",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "$1,530m (FHB) minus $1,335m (Investors) = +$195m",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fhb-vs-investors/",
@@ -5516,20 +5576,20 @@
       "also_known_as": "Share of NZ residential mortgages on fixed vs floating rates & refixing within 12 months",
       "category": "Homeowners & refinancing",
       "topic": "Fixed vs floating mortgage structure & refix horizon",
-      "value": 91.3,
-      "latest_value": "91.3% fixed ($405.7B) vs 8.7% floating ($38.7B)",
+      "value": 89.2,
+      "latest_value": "89.2% fixed ($346.6B) vs 10.8% floating ($42.0B)",
       "unit": "percent",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "Monthly RBNZ release",
+      "source_published": "2026-10-27 (27 Oct 2026)",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "September 2025 (88.9% fixed share)",
-      "change": "+2.4 percentage points YoY (fixed share)",
+      "previous_period": "Fixed loans repricing within 12 months: 64.5% ($223.6B)",
+      "change": "38.4% of fixed mortgages roll off within the next 6 months",
       "source": "RBNZ Table S33",
       "source_full": "Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33)",
       "source_series_ids": "RBNZ Table S33 \u2014 Fixed vs Floating Residential Mortgage Stock & <=12-Month Repricing Bands",
@@ -5538,9 +5598,9 @@
       "data_type": "Officially reported RBNZ series & HLF-derived repricing share",
       "definition": "The proportion of New Zealand registered banks' existing residential mortgage stock held on fixed interest rates versus floating rates, alongside the percentage of fixed-rate balances scheduled to reprice within 12 months.",
       "formula": "Fixed Share = Fixed Stock \u00f7 Total Stock; 12-Month Roll-Off = Fixed Loans Repricing <=12 Months \u00f7 Total Fixed Stock",
-      "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (excluding non-bank lenders in Table C5) and tracks the share of balances on fixed versus floating interest rates.",
+      "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (excluding non-bank lenders in Table C5) and tracks the share of balances on fixed versus floating interest rates alongside their upcoming repricing schedule.",
       "methodology": "Extracted live from RBNZ Table S33 residential mortgage stock repricing statistics, dividing fixed-rate mortgage balances by total residential mortgage balances and summing fixed-rate bands repricing within 12 months.",
-      "historical_data_from": "Available from December 2016 (118 monthly observations)",
+      "historical_data_from": "RBNZ Table S33 monthly series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -5553,7 +5613,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Fixed vs floating mortgage share & 12-month fixed rate roll-off (RBNZ Table S33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Banks: Assets \u2013 Loans fully secured by residential mortgage (Table S33). https://pulse-data.homeloanfactory.co.nz/fixed-vs-floating-rate-mix/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fixed-vs-floating-rate-mix/",
-      "summary_text": "As at September 2026, across New Zealand registered banks' $444.4B in loans fully secured by residential mortgage (RBNZ Table S33, registered banks only), 91.3% ($405.7B) was held on fixed interest rates and 8.7% ($38.7B) on floating rates\u2014with 39.7% ($160.9B) of fixed-rate balances scheduled to reprice within 12 months.",
+      "summary_text": "As at September 2026, across New Zealand's $388.6B in bank loans secured by residential mortgage, 89.2% ($346.6B) was held on fixed interest rates and 10.8% ($42.0B) on floating rates\u2014with 64.5% ($223.6B) of fixed-rate balances scheduled to reprice within 12 months.",
       "related_questions": [
         "What percentage of New Zealand bank mortgages are fixed vs floating?",
         "What share of fixed-rate mortgages in New Zealand are scheduled to reprice within 12 months?"
@@ -5564,95 +5624,41 @@
         "official_series_ids": "RBNZ Table S33 \u2014 Fixed vs Floating Residential Mortgage Stock & <=12-Month Repricing Bands",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "Monthly RBNZ release",
+        "source_published": "2026-10-27 (27 Oct 2026)",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Fixed Share: $405.70B \u00f7 $444.36B = 91.3% | Floating Share: $38.66B \u00f7 $444.36B = 8.7% | Repricing <=12m: $160.94B \u00f7 $405.70B = 39.7%",
+        "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/fixed-vs-floating-rate-mix/",
         "license": "CC BY 4.0"
       },
       "history": [
         {
-          "period": "2026-09",
-          "label": "Sep 2026",
-          "value": 91.3,
-          "formatted": "91.3% fixed"
+          "period": "Floating / Revolving",
+          "label": "Floating & Revolving Credit Stock",
+          "value": 10.8,
+          "formatted": "10.8% ($42.0B)"
         },
         {
-          "period": "2026-08",
-          "label": "Aug 2026",
-          "value": 91.07,
-          "formatted": "91.1% fixed"
+          "period": "Fixed Repricing <= 6m",
+          "label": "Fixed Loans Rolling Off Within 6 Months",
+          "value": 38.4,
+          "formatted": "38.4% of fixed stock"
         },
         {
-          "period": "2026-07",
-          "label": "Jul 2026",
-          "value": 90.9,
-          "formatted": "90.9% fixed"
+          "period": "Fixed Repricing <= 12m",
+          "label": "Fixed Loans Rolling Off Within 12 Months",
+          "value": 64.5,
+          "formatted": "64.5% of fixed stock ($223.6B)"
         },
         {
-          "period": "2026-06",
-          "label": "Jun 2026",
-          "value": 90.62,
-          "formatted": "90.6% fixed"
-        },
-        {
-          "period": "2026-05",
-          "label": "May 2026",
-          "value": 90.76,
-          "formatted": "90.8% fixed"
-        },
-        {
-          "period": "2026-04",
-          "label": "Apr 2026",
-          "value": 90.62,
-          "formatted": "90.6% fixed"
-        },
-        {
-          "period": "2026-03",
-          "label": "Mar 2026",
-          "value": 90.36,
-          "formatted": "90.4% fixed"
-        },
-        {
-          "period": "2026-02",
-          "label": "Feb 2026",
-          "value": 89.89,
-          "formatted": "89.9% fixed"
-        },
-        {
-          "period": "2026-01",
-          "label": "Jan 2026",
-          "value": 89.65,
-          "formatted": "89.7% fixed"
-        },
-        {
-          "period": "2025-12",
-          "label": "Dec 2025",
-          "value": 89.22,
-          "formatted": "89.2% fixed"
-        },
-        {
-          "period": "2025-11",
-          "label": "Nov 2025",
-          "value": 86.83,
-          "formatted": "86.8% fixed"
-        },
-        {
-          "period": "2025-10",
-          "label": "Oct 2025",
-          "value": 88.23,
-          "formatted": "88.2% fixed"
-        },
-        {
-          "period": "2025-09",
-          "label": "Sep 2025",
-          "value": 88.93,
-          "formatted": "88.9% fixed"
+          "period": "Fixed > 12m Remaining",
+          "label": "Fixed Loans Repricing Beyond 12 Months",
+          "value": 35.5,
+          "formatted": "35.5% of fixed stock"
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table S33 (September 2026, registered-bank loans fully secured by residential mortgage): Total = $444,358m ($444.4B); Fixed-rate loans = $405,702m (91.3%); Floating loans = $38,656m (8.7%).",
-      "hlf_calculation": "Fixed Share: $405.70B \u00f7 $444.36B = 91.3% | Floating Share: $38.66B \u00f7 $444.36B = 8.7% | Repricing <=12m: $160.94B \u00f7 $405.70B = 39.7%",
+      "official_data": "RBNZ Table S33 (September 2026): Total bank residential mortgage stock = $388.6B; Fixed = $346.6B (89.2%); Floating = $42.0B (10.8%).",
+      "hlf_calculation": "Fixed Share: $346.6B \u00f7 $388.6B = 89.2% | Floating Share: $42.0B \u00f7 $388.6B = 10.8% | Repricing <=12m: 64.5% ($223.6B)",
       "frequency": "Monthly"
     },
     {
@@ -5925,8 +5931,8 @@
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Highest-expenditure households: +2.5% | Lowest-expenditure: +3.6%",
-      "change": "Includes household mortgage interest payments & council rates",
+      "previous_period": "Includes household mortgage interest payments & council rates (excluded from CPI)",
+      "change": "Expenditure group spread: +2.5% (highest-expenditure) to +3.6% (lowest-expenditure)",
       "source": "Stats NZ HLPI",
       "source_full": "Stats NZ \u2014 Household living-costs price indexes (HLPI)",
       "source_series_ids": "Stats NZ HLPI \u2014 All-Households Annual % Change & Expenditure Quintile Spread",
@@ -5974,10 +5980,10 @@
     },
     {
       "ticker": "household-debt-servicing-burden",
-      "name": "Quarterly mortgage interest charged & scheduled principal-and-interest repayments (RBNZ Table C35)",
-      "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation \u2014 Quarterly interest charged ($B) & scheduled repayments ($B)",
+      "name": "Quarterly residential mortgage interest charged & scheduled principal-and-interest repayments (RBNZ Table C35)",
+      "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation \u2014 Aggregate quarterly interest charged ($B) & scheduled repayments ($B)",
       "category": "Household debt, credit cards & borrower stress",
-      "topic": "Quarterly mortgage interest charged & scheduled repayments",
+      "topic": "Aggregate quarterly mortgage interest charged & scheduled P&I repayments",
       "value": 4.84,
       "latest_value": "$4.84B/qtr mortgage interest charged | $7.36B/qtr scheduled P&I",
       "unit": "NZD_billions",
@@ -5998,9 +6004,9 @@
       "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-loan-reconciliation",
       "derived_by_hlf": true,
       "data_type": "Officially reported RBNZ quarterly mortgage reconciliation series",
-      "definition": "Total quarterly contractual interest charged on outstanding residential mortgages and total scheduled principal-and-interest repayments in RBNZ Table C35 (recorded whether or not actually received by lenders).",
+      "definition": "Total quarterly contractual interest charged on outstanding residential mortgages and total scheduled principal-and-interest repayments across registered banks in RBNZ Table C35 (recorded whether or not actually received by lenders).",
       "formula": "Reported RBNZ Table C35 Quarterly Interest Charged ($m) & Scheduled Principal + Interest Repayments ($m)",
-      "hlf_interpretation": "HLF market context: RBNZ Table C35 records contractual interest charged on outstanding mortgage balances and scheduled repayments due, whether or not actually paid by borrowers; quarterly movements reflect aggregate repricing and balance changes across the housing stock.",
+      "hlf_interpretation": "HLF market context: RBNZ Table C35 measures aggregate dollar flows of contractual mortgage interest charged and scheduled repayments across registered banks (not a household debt-servicing-to-income affordability ratio).",
       "methodology": "Extracted live from RBNZ Table C35 (Residential mortgage loan reconciliation). Covers registered banks' residential mortgage books and measures aggregate dollar flows rather than individual household debt-servicing-to-income ratios.",
       "historical_data_from": "Available from September 2014 (49 quarterly observations)",
       "creator_name": "Andy Palliser",
@@ -6013,7 +6019,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Quarterly mortgage interest charged & scheduled principal-and-interest repayments (RBNZ Table C35),\" September 2026 quarter. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage loan reconciliation (Table C35). https://pulse-data.homeloanfactory.co.nz/household-debt-servicing-burden/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Quarterly residential mortgage interest charged & scheduled principal-and-interest repayments (RBNZ Table C35),\" September 2026 quarter. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage loan reconciliation (Table C35). https://pulse-data.homeloanfactory.co.nz/household-debt-servicing-burden/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/household-debt-servicing-burden/",
       "summary_text": "In the September 2026 quarter, $4.84B ($4,842m) in residential mortgage interest was charged across outstanding New Zealand home loans in RBNZ Table C35 (down 7.2% year-on-year from $5.22B a year earlier, and a quarterly change of +$59m [+1.2% QoQ] in aggregate interest charged), alongside $7.36B in scheduled principal-and-interest repayments ($29.11B over the rolling 12 months, recorded as contractual amounts due whether or not actually received).",
       "related_questions": [
@@ -6299,15 +6305,15 @@
     },
     {
       "ticker": "insurance-claims-trends",
-      "name": "New Zealand insurer Gross Premium Revenue, Net Earned Premiums & Net Claims (RBNZ J10)",
-      "also_known_as": "RBNZ Table J10 insurance sector premium revenue, reinsurance expense & claims",
+      "name": "New Zealand surveyed general insurer Gross Premium Revenue, Outwards Reinsurance & Net Claims (RBNZ Table J10)",
+      "also_known_as": "RBNZ Table J10 Quarterly Insurer Survey \u2014 Gross premium revenue, outwards reinsurance expense & net claims",
       "category": "Insurance Market & Claims",
       "topic": "Insurer premiums, reinsurance & claims",
       "value": 4.66,
       "latest_value": "$4.66B Net Incurred Claims vs. $9.85B Gross Premium Revenue",
       "unit": "NZD_billions",
-      "observation_period": "Annual RBNZ Insurance Series",
-      "observed_period": "Annual RBNZ Insurance Series",
+      "observation_period": "Year ended June 2026",
+      "observed_period": "Year ended June 2026",
       "period_end": "2026-06-30",
       "source_published": "2026-07-27 (27 Jul 2026)",
       "last_checked": "2026-11-18",
@@ -6316,17 +6322,17 @@
       "data_status": "verified",
       "source_status": "current",
       "previous_period": "Net Earned Premium (after reinsurance): $7.40B",
-      "change": "Reinsurance & catastrophe protection outflow: ~$2.45B/yr",
+      "change": "Outwards reinsurance premium expense: $2.45B/yr (RBNZ 28-insurer survey, ~90% of sector)",
       "source": "RBNZ Table J10",
       "source_full": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
       "source_series_ids": "RBNZ Table J10 \u2014 Gross Premium Revenue, Outwards Reinsurance Expense & Net Claims Expense",
       "source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
       "derived_by_hlf": true,
       "data_type": "Officially reported RBNZ Table J10 series & HLF-derived reinsurance difference",
-      "definition": "Annual Gross Premium Revenue, Net Earned Premiums (after outwards reinsurance expense), and Net Incurred Claims across insurers surveyed in RBNZ Table J10.",
-      "formula": "Reinsurance Outflow = Gross Premium Revenue minus Net Earned Premium",
-      "hlf_interpretation": "HLF market context: Summarises aggregate gross premium revenue, outwards reinsurance expense, net earned premium, and net incurred claims reported by insurers in RBNZ Table J10.",
-      "methodology": "Live-parsed from RBNZ Table J10 (Insurance Income and Expenditure workbook), subtracting outwards reinsurance expense from gross premium revenue to show net earned premium and comparing against net claims expense. RBNZ Table J10 is compiled from the Reserve Bank's quarterly insurer survey.",
+      "definition": "Annual Gross Premium Revenue, Outwards Reinsurance Premium Expense, Net Earned Premiums, and Net Incurred Claims across general insurers surveyed in RBNZ Table J10.",
+      "formula": "Outwards Reinsurance Premium Expense = Gross Premium Revenue minus Net Earned Premium",
+      "hlf_interpretation": "HLF market context: Summarises gross premium revenue, outwards reinsurance premium expense, net earned premium, and net incurred claims from RBNZ Table J10. Per RBNZ's survey notes, the Quarterly Insurer Survey covers 28 of 88 licensed insurers and reinsurers (representing just under 90% of sector assets and premiums) rather than a 100% market census, and outwards reinsurance expense covers all reinsurance cessions (not solely catastrophe cover).",
+      "methodology": "Live-parsed from RBNZ Table J10 (Insurance Income and Expenditure workbook), subtracting outwards reinsurance premium expense from gross premium revenue to show net earned premium and comparing against net incurred claims. Covers the 28 general insurers in RBNZ's Quarterly Insurer Survey (~90% of industry premiums).",
       "historical_data_from": "RBNZ licensed general insurer financial series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -6338,9 +6344,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand insurer Gross Premium Revenue, Net Earned Premiums & Net Claims (RBNZ J10),\" Annual RBNZ Insurance Series. Derived by HLF from Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10). https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand surveyed general insurer Gross Premium Revenue, Outwards Reinsurance & Net Claims (RBNZ Table J10),\" Year ended June 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10). https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/",
-      "summary_text": "Licensed New Zealand general insurers collected approximately $9.85B in annual Gross Premium Revenue ($7.40B in Net Earned Premiums after international reinsurance) and paid out $4.66B in Net Incurred Claims.",
+      "summary_text": "In the year ended June 2026 RBNZ Table J10 series (covering 28 surveyed general insurers representing just under 90% of New Zealand insurance sector assets and premiums), surveyed insurers recorded $9.85B in annual Gross Premium Revenue ($7.40B in Net Earned Premiums after $2.45B in outwards reinsurance premium expense) and $4.66B in Net Incurred Claims.",
       "related_questions": [
         "How much do insurers surveyed in RBNZ Table J10 collect in premiums and incur in net claims?",
         "How much outwards reinsurance expense is reported in RBNZ Table J10?"
@@ -6349,31 +6355,31 @@
         "official_publisher": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
         "official_series_ids": "RBNZ Table J10 \u2014 Gross Premium Revenue, Outwards Reinsurance Expense & Net Claims Expense",
-        "observation_period": "Annual RBNZ Insurance Series",
+        "observation_period": "Year ended June 2026",
         "period_end": "2026-06-30",
         "source_published": "2026-07-27 (27 Jul 2026)",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Gross Premium Revenue ($9.85B) minus Reinsurance ($2.45B) = $7.40B Net Earned Premiums vs. $4.66B Net Claims",
+        "hlf_calculation": "Gross Premium Revenue ($9.85B) minus Outwards Reinsurance Premium Expense ($2.45B) = $7.40B Net Earned Premiums vs. $4.66B Net Incurred Claims",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/insurance-claims-trends/",
         "license": "CC BY 4.0"
       },
       "history": [],
-      "latest_underlying_data": "Annual RBNZ Insurance Series",
-      "official_data": "RBNZ Insurance Statistics: Gross Premium Revenue = ~$9.85B; Net Earned Premiums = ~$7.40B; Net Incurred Claims = ~$4.66B.",
-      "hlf_calculation": "Gross Premium Revenue ($9.85B) minus Reinsurance ($2.45B) = $7.40B Net Earned Premiums vs. $4.66B Net Claims",
+      "latest_underlying_data": "Year ended June 2026",
+      "official_data": "RBNZ Table J10 Quarterly Insurer Survey (year ended June 2026, 28 of 88 licensed insurers/reinsurers representing ~90% of sector premiums): Gross Premium Revenue = $9.85B; Outwards Reinsurance Premium Expense = $2.45B; Net Earned Premiums = $7.40B; Net Incurred Claims = $4.66B.",
+      "hlf_calculation": "Gross Premium Revenue ($9.85B) minus Outwards Reinsurance Premium Expense ($2.45B) = $7.40B Net Earned Premiums vs. $4.66B Net Incurred Claims",
       "frequency": "Quarterly / Annual"
     },
     {
       "ticker": "insurer-loss-ratios",
-      "name": "New Zealand insurer net claims loss ratio (RBNZ Table J10)",
-      "also_known_as": "RBNZ Table J10 net incurred claims to net earned premium ratio",
+      "name": "New Zealand surveyed general insurer net claims loss ratio (RBNZ Table J10)",
+      "also_known_as": "RBNZ Table J10 Quarterly Insurer Survey net incurred claims to net earned premium ratio",
       "category": "Insurance Market & Claims",
       "topic": "Insurer net claims loss ratio",
       "value": 63.0,
       "latest_value": "63.0% Net Loss Ratio ($4.66B claims \u00f7 $7.40B net earned premium)",
       "unit": "percent",
-      "observation_period": "Annual RBNZ Insurance Series",
-      "observed_period": "Annual RBNZ Insurance Series",
+      "observation_period": "Year ended June 2026",
+      "observed_period": "Year ended June 2026",
       "period_end": "2026-06-30",
       "source_published": "2026-07-27 (27 Jul 2026)",
       "last_checked": "2026-11-18",
@@ -6381,8 +6387,8 @@
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "2023 Severe Weather Event Peak: >85% net loss ratio",
-      "change": "Normalised from 2023 North Island weather catastrophe peak",
+      "previous_period": "RBNZ Table J10 surveyed general insurer series (28 of 88 insurers, ~90% of sector)",
+      "change": "Net claims ($4.66B) \u00f7 net earned premiums ($7.40B after $2.45B outwards reinsurance)",
       "source": "RBNZ Table J10",
       "source_full": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
       "source_series_ids": "RBNZ Table J10 \u2014 Net Claims Expense \u00f7 Net Premium Revenue",
@@ -6391,8 +6397,8 @@
       "data_type": "HLF-derived percentage ratio from official RBNZ Table J10 series",
       "definition": "The net claims loss ratio across insurers surveyed in RBNZ Table J10, measuring net incurred claims as a percentage of net earned premiums.",
       "formula": "Net Loss Ratio (%) = (Net Claims Expense \u00f7 Net Earned Premium Revenue) \u00d7 100",
-      "hlf_interpretation": "HLF market context: Measures net incurred claims as a proportion of net earned premiums (after reinsurance) across insurers surveyed in RBNZ Table J10.",
-      "methodology": "Derived live from RBNZ Table J10 by dividing annual Net Claims Expense by annual Net Earned Premium Revenue, multiplied by 100. Note that the net claims ratio excludes non-claim operating, acquisition, and administration expenses.",
+      "hlf_interpretation": "HLF market context: Measures net incurred claims as a percentage of net earned premiums (after outwards reinsurance expense) across the 28 insurers in RBNZ's Quarterly Insurer Survey (which represents just under 90% of NZ insurance sector assets and premiums).",
+      "methodology": "Derived live from RBNZ Table J10 by dividing annual Net Claims Expense by annual Net Earned Premium Revenue across RBNZ's surveyed general insurer sample (28 of 88 licensed insurers/reinsurers, covering ~90% of sector premiums). Excludes non-claim underwriting, acquisition, and administration expenses.",
       "historical_data_from": "RBNZ insurer financial performance series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -6404,9 +6410,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand insurer net claims loss ratio (RBNZ Table J10),\" Annual RBNZ Insurance Series. Derived by HLF from Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10). https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand surveyed general insurer net claims loss ratio (RBNZ Table J10),\" Year ended June 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10). https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/insurer-loss-ratios/",
-      "summary_text": "Licensed New Zealand general insurers recorded a net claims loss ratio of 63.0%, paying out $4.66B in net incurred claims from $7.40B in net earned premiums.",
+      "summary_text": "In the year ended June 2026 RBNZ Table J10 series (covering 28 surveyed general insurers representing just under 90% of New Zealand insurance sector premiums), surveyed insurers recorded a net claims loss ratio of 63.0%, incurring $4.66B in net claims from $7.40B in net earned premiums.",
       "related_questions": [
         "What is the net claims loss ratio reported in RBNZ Table J10?"
       ],
@@ -6414,7 +6420,7 @@
         "official_publisher": "Reserve Bank of New Zealand \u2014 Insurance Income and Expenditure (Table J10)",
         "official_source_url": "https://www.rbnz.govt.nz/statistics/series/insurance",
         "official_series_ids": "RBNZ Table J10 \u2014 Net Claims Expense \u00f7 Net Premium Revenue",
-        "observation_period": "Annual RBNZ Insurance Series",
+        "observation_period": "Year ended June 2026",
         "period_end": "2026-06-30",
         "source_published": "2026-07-27 (27 Jul 2026)",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
@@ -6423,8 +6429,8 @@
         "license": "CC BY 4.0"
       },
       "history": [],
-      "latest_underlying_data": "Annual RBNZ Insurance Series",
-      "official_data": "RBNZ General Insurance Series: Net Incurred Claims = $4.66B; Net Earned Premiums = $7.40B.",
+      "latest_underlying_data": "Year ended June 2026",
+      "official_data": "RBNZ Table J10 Quarterly Insurer Survey (year ended June 2026, 28 surveyed general insurers representing ~90% of sector premiums): Net Incurred Claims = $4.66B; Net Earned Premiums = $7.40B.",
       "hlf_calculation": "($4.66B Net Incurred Claims \u00f7 $7.40B Net Earned Premiums) \u00d7 100 = 63.0%",
       "frequency": "Quarterly / Annual"
     },
@@ -6440,7 +6446,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -6482,7 +6488,7 @@
         "official_series_ids": "New Investor Interest-Only \u00f7 LVRN.MMB1.AN | New Owner-Occupier Interest-Only \u00f7 LVRN.MMB1.AC",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "Investors: $420m \u00f7 $1,335m = 31.5% | Owner-Occupiers: $828m \u00f7 $6,064m = 13.7%",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/interest-only/",
@@ -6579,13 +6585,13 @@
       "also_known_as": "Average New Zealand residential property investor mortgage size & monthly commitments",
       "category": "Property investors",
       "topic": "Property investor loan size benchmark",
-      "value": 500375.0,
+      "value": 500375,
       "latest_value": "$500,375 average investor loan (2,668 loans / $1.33B ($1,335m))",
       "unit": "NZD",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -6627,7 +6633,7 @@
         "official_series_ids": "LVRN.MMB1.AN \u00f7 LVRN.MMB2.AN",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "($1,335m \u00d7 $1,000,000) \u00f7 2,668 investor loans = $500,375",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-average-loan-size/",
@@ -6637,79 +6643,79 @@
         {
           "period": "2026-09",
           "label": "Sep 2026",
-          "value": 500375,
+          "value": 500375.0,
           "formatted": "$500,375"
         },
         {
           "period": "2026-08",
           "label": "Aug 2026",
-          "value": 536866,
+          "value": 536866.0,
           "formatted": "$536,866"
         },
         {
           "period": "2026-07",
           "label": "Jul 2026",
-          "value": 535430,
+          "value": 535430.0,
           "formatted": "$535,430"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
-          "value": 537231,
+          "value": 537231.0,
           "formatted": "$537,231"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
-          "value": 527023,
+          "value": 527023.0,
           "formatted": "$527,023"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
-          "value": 522190,
+          "value": 522190.0,
           "formatted": "$522,190"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
-          "value": 554153,
+          "value": 554153.0,
           "formatted": "$554,153"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
-          "value": 522451,
+          "value": 522451.0,
           "formatted": "$522,451"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
-          "value": 580258,
+          "value": 580258.0,
           "formatted": "$580,258"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
-          "value": 655551,
+          "value": 655551.0,
           "formatted": "$655,551"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
-          "value": 589884,
+          "value": 589884.0,
           "formatted": "$589,884"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
-          "value": 554534,
+          "value": 554534.0,
           "formatted": "$554,534"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
-          "value": 557161,
+          "value": 557161.0,
           "formatted": "$557,161"
         }
       ],
@@ -6730,14 +6736,14 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "September 2025 (83.6% at <=70% LVR)",
-      "change": "+3.4 pts shift in >70% LVR share",
+      "previous_period": "September 2025 (46.9% at <=60% LVR)",
+      "change": "-3.0 pts YoY in <=60% LVR share",
       "source": "RBNZ Table C31",
       "source_full": "Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31)",
       "source_series_ids": "LVRN.MMB2.TN (<=60% LVR) | LVRN.MMB2.FN - DN (60\u201370% LVR) | LVRN.MMB2.DN (>70% LVR)",
@@ -6772,7 +6778,7 @@
         "official_series_ids": "LVRN.MMB2.TN (<=60% LVR) | LVRN.MMB2.FN - DN (60\u201370% LVR) | LVRN.MMB2.DN (>70% LVR)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "<=60% LVR: 1,169 \u00f7 2,668 = 43.8% | 60\u201370% LVR: 972 \u00f7 2,668 = 36.4% | >70% LVR: 527 \u00f7 2,668 = 19.8%",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-equity-tiers/",
@@ -6780,22 +6786,82 @@
       },
       "history": [
         {
-          "period": "<=60% LVR (40%+ Equity)",
-          "label": "Investors with <=60% LVR (40%+ Equity)",
-          "value": 43.8,
-          "formatted": "43.8% of investor loans"
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 43.82,
+          "formatted": "43.8% (<=60% LVR)"
         },
         {
-          "period": "60%\u201370% LVR (30%\u201340% Equity)",
-          "label": "Investors with 60%\u201370% LVR (30%\u201340% Equity)",
-          "value": 36.4,
-          "formatted": "36.4% of investor loans"
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 45.2,
+          "formatted": "45.2% (<=60% LVR)"
         },
         {
-          "period": ">70% LVR (<30% Equity)",
-          "label": "Investors with >70% LVR (<30% Equity)",
-          "value": 19.8,
-          "formatted": "19.8% of investor loans"
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 46.38,
+          "formatted": "46.4% (<=60% LVR)"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 45.17,
+          "formatted": "45.2% (<=60% LVR)"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 47.04,
+          "formatted": "47.0% (<=60% LVR)"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 46.21,
+          "formatted": "46.2% (<=60% LVR)"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 47.31,
+          "formatted": "47.3% (<=60% LVR)"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 46.83,
+          "formatted": "46.8% (<=60% LVR)"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 44.95,
+          "formatted": "45.0% (<=60% LVR)"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 43.61,
+          "formatted": "43.6% (<=60% LVR)"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 45.26,
+          "formatted": "45.3% (<=60% LVR)"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 46.2,
+          "formatted": "46.2% (<=60% LVR)"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 46.85,
+          "formatted": "46.9% (<=60% LVR)"
         }
       ],
       "latest_underlying_data": "September 2026",
@@ -6805,7 +6871,7 @@
     },
     {
       "ticker": "investor-high-dti-share",
-      "name": "Property investor high Debt-to-Income (>7x DTI) share vs 20% RBNZ speed limit",
+      "name": "Property investor high Debt-to-Income (>7x DTI) share vs 20% RBNZ investor speed limit",
       "also_known_as": "Investor TDTI > 7 share of commitments & buffer below RBNZ 20% investor DTI speed limit",
       "category": "LVR, DTI & credit policy",
       "topic": "Investor Debt-to-Income (>7x DTI) speed limits & headroom",
@@ -6815,7 +6881,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -6831,7 +6897,7 @@
       "data_type": "Officially reported RBNZ series & HLF-derived >7x DTI share",
       "definition": "The percentage of monthly residential property investor mortgage commitments at registered banks written at a Total Debt-to-Income (TDTI) ratio above 7x gross income, compared against the 20% RBNZ speed-limit cap on non-exempt investor lending.",
       "formula": "(Investor Lending with TDTI > 7 \u00f7 Total Investor Commitments across all TDTI bands) \u00d7 100; Headroom = 20.0% minus (>7x Share)",
-      "hlf_interpretation": "HLF market context: Tracks the share of residential property investor commitments written above 7x Total Debt-to-Income in RBNZ Table C40 relative to the 20% RBNZ speed-limit allowance on non-exempt investor lending.",
+      "hlf_interpretation": "HLF market context: RBNZ's 20% investor high-DTI (>7x) speed limit applies independently to each individual registered bank's non-exempt investor lending flow rather than as a single pooled system-wide quota. While the system-wide >7x DTI share sits below 20%, individual banks manage their own internal speed-limit buffers and exemption flows.",
       "methodology": "Derived from RBNZ Table C40 by summing property investor new commitments with TDTI > 7 and dividing by total investor commitments across all TDTI bands.",
       "historical_data_from": "Available from June 2017 (112 monthly observations)",
       "creator_name": "Andy Palliser",
@@ -6844,7 +6910,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Property investor high Debt-to-Income (>7x DTI) share vs 20% RBNZ speed limit,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage lending by Debt-to-Income (DTI) purpose use (Table C40). https://pulse-data.homeloanfactory.co.nz/investor-high-dti-share/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Property investor high Debt-to-Income (>7x DTI) share vs 20% RBNZ investor speed limit,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage lending by Debt-to-Income (DTI) purpose use (Table C40). https://pulse-data.homeloanfactory.co.nz/investor-high-dti-share/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-high-dti-share/",
       "summary_text": "In September 2026, 12.2% of residential property investor mortgage commitments at registered banks had a Debt-to-Income (DTI) ratio above 7x ($163.0m of $1,335.0m)\u2014sitting 7.8 percentage points below the 20% RBNZ investor speed-limit allowance.",
       "related_questions": [
@@ -6857,7 +6923,7 @@
         "official_series_ids": "Investor New Commitments with TDTI > 7 \u00f7 Total Investor New Commitments",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "$163.0m \u00f7 $1,335.0m = 12.2% (Headroom below 20% investor speed limit: 20.0% - 12.2% = 7.8 pts)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-high-dti-share/",
@@ -6954,13 +7020,13 @@
       "also_known_as": "Low-deposit property investor mortgages (>80% LVR & 70%\u201380% LVR)",
       "category": "Property investors",
       "topic": "High-LVR (>70% & >80%) investor lending",
-      "value": 52.0,
+      "value": 52,
       "latest_value": ">80% LVR: 52 loans ($36m) | 70\u201380% LVR: 475 loans ($301m)",
       "unit": "loans",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -7001,7 +7067,7 @@
         "official_series_ids": "LVRN.MMB2.BN & LVRN.MMB1.BN (>80% LVR) | LVRN.MMB2.DN - BN (70\u201380% LVR)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": ">80% LVR: 52 \u00f7 2,668 = 1.9% ($36m) | 70\u201380% LVR: 527 - 52 = 475 loans ($301m)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-low-deposit/",
@@ -7094,17 +7160,17 @@
     },
     {
       "ticker": "investor-new-build-lvr",
-      "name": "Property investor lending above 70% LVR (under 30% deposit)",
-      "also_known_as": "High-LVR (>70% LVR) investor mortgage share & volume",
+      "name": "Property investor lending above 70% LVR: total high-LVR share & volume (RBNZ Table C31)",
+      "also_known_as": "High-LVR (>70% LVR) residential property investor mortgage share & volume across exemptions and speed limits",
       "category": "LVR, DTI & credit policy",
-      "topic": "Investor >70% LVR lending & exemptions",
+      "topic": "All investor >70% LVR lending (new-build exemptions, bridging & speed-limit allowances combined)",
       "value": 19.75,
       "latest_value": "19.8% at >70% LVR (527 loans / $337m)",
       "unit": "percent",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -7118,9 +7184,9 @@
       "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
       "derived_by_hlf": true,
       "data_type": "Officially reported RBNZ series & HLF-derived share",
-      "definition": "The share, loan count, and dollar volume of residential property investor mortgage commitments at registered banks written at an LVR above 70% (under 30% equity/deposit).",
+      "definition": "The share, loan count, and dollar volume of all residential property investor mortgage commitments at registered banks written at an LVR above 70% (under 30% equity/deposit) in RBNZ Table C31.",
       "formula": "(Investor Loans >70% LVR [LVRN.MMB2.DN] \u00f7 Total Investor Loans [LVRN.MMB2.AN]) \u00d7 100",
-      "hlf_interpretation": "HLF market context: Reports total investor commitments written above 70% LVR in RBNZ Table C31 (combining LVR-exempt new-build lending, bridging/refinancing exemptions, and loans written under bank high-LVR speed limits).",
+      "hlf_interpretation": "HLF market context: RBNZ Table C31 measures all investor mortgage commitments written above 70% LVR combined\u2014aggregating LVR-exempt new-build construction loans, bridging/refinancing exemptions, and discretionary loans approved within banks' high-LVR speed limits. Table C31 does not isolate new-build-exempt investor loans as a standalone series.",
       "methodology": "Derived from RBNZ Table C31 by dividing investor commitments with LVR > 70% (LVRN.MMB2.DN) by total investor commitments (LVRN.MMB2.AN).",
       "historical_data_from": "Available from August 2014 (146 monthly observations)",
       "creator_name": "Andy Palliser",
@@ -7133,7 +7199,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Property investor lending above 70% LVR (under 30% deposit),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/investor-new-build-lvr/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Property investor lending above 70% LVR: total high-LVR share & volume (RBNZ Table C31),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/investor-new-build-lvr/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-new-build-lvr/",
       "summary_text": "In September 2026, 19.8% of property investor mortgage commitments (527 loans totalling $337m) were written above 70% LVR\u2014comprising 475 loans ($301m) at 70%\u201380% LVR and 52 loans ($36m) above 80% LVR.",
       "related_questions": [
@@ -7145,7 +7211,7 @@
         "official_series_ids": "LVRN.MMB2.DN \u00f7 LVRN.MMB2.AN (Share) | LVRN.MMB1.DN (Value)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "527 \u00f7 2,668 = 19.8% (475 loans in 70\u201380% LVR + 52 loans in >80% LVR)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investor-new-build-lvr/",
@@ -7248,7 +7314,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -7290,7 +7356,7 @@
         "official_series_ids": "LVRN.MMB1.AN \u00f7 LVRN.MMB1.AA (Share) | LVRN.MMB2.AN (Borrower Count)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "$1,335m \u00f7 $7,533m = 17.7%",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/investors/",
@@ -7383,10 +7449,10 @@
     },
     {
       "ticker": "ird-family-trusts-rental-income",
-      "name": "Active New Zealand trusts & estates (IR6): total count & total trust income (IRD)",
-      "also_known_as": "Inland Revenue Trusts and Estates (IR6) statistics",
+      "name": "Active New Zealand trusts & estates (IR6): total return filers & reported trust income (Inland Revenue)",
+      "also_known_as": "Inland Revenue Trusts and Estates (IR6) tax return statistics",
       "category": "Property investors",
-      "topic": "IR6 trust & estate return filings",
+      "topic": "Active IR6 trust & estate tax return filings",
       "value": 233000,
       "latest_value": "233,000 active NZ trusts & estates (IR6) | 39% trustee tax rate (> $10k trustee income)",
       "unit": "trusts",
@@ -7409,7 +7475,7 @@
       "data_type": "Officially reported Inland Revenue IR6 trust series",
       "definition": "The total number of active trusts and estates filing IR6 income tax returns in New Zealand, alongside total income reported inside IR6 structures.",
       "formula": "Official IRD active IR6 trust count, YoY % change & total IR6 trust income ($B)",
-      "hlf_interpretation": "HLF market context: Reports the total number of active trusts and estates filing IR6 tax returns across New Zealand and their combined reported income.",
+      "hlf_interpretation": "HLF market context: Reports the total number of active non-unit trusts and estates filing IR6 income tax returns across New Zealand. Inland Revenue's IR6 series aggregates all trust types (family, trading, farming, investment, and estate trusts) and does not isolate how many trusts hold residential rental property or earn rental income.",
       "methodology": "Automatically fetched and parsed from Inland Revenue's Trusts and Estates statistics release pages on ird.govt.nz. IRD's series covers all non-unit trusts and estates filing an IR6 return (including family, trading, farming, and investment trusts) and does not isolate trusts that hold residential rental property.",
       "historical_data_from": "Inland Revenue IR6 trusts & estates series",
       "creator_name": "Andy Palliser",
@@ -7422,7 +7488,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Active New Zealand trusts & estates (IR6): total count & total trust income (IRD),\" Tax year ended March 2026. Source: Inland Revenue \u2014 Trusts and Estates (IR6) Tax Statistics. https://pulse-data.homeloanfactory.co.nz/ird-family-trusts-rental-income/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Active New Zealand trusts & estates (IR6): total return filers & reported trust income (Inland Revenue),\" Tax year ended March 2026. Source: Inland Revenue \u2014 Trusts and Estates (IR6) Tax Statistics. https://pulse-data.homeloanfactory.co.nz/ird-family-trusts-rental-income/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-family-trusts-rental-income/",
       "summary_text": "In Inland Revenue's Trusts and Estates (IR6) statistics, 233,000 active trusts and estates filed returns across New Zealand (down ~3.4% year-on-year following enhanced IRD trust disclosure rules and the 39% trustee tax rate on trustee income above $10,000).",
       "related_questions": [
@@ -7449,10 +7515,10 @@
     },
     {
       "ticker": "ird-individual-taxable-income-percentiles",
-      "name": "New Zealand individual taxable income distribution: total individuals, taxable income & mean (Inland Revenue)",
-      "also_known_as": "Inland Revenue Taxable Income Distribution of Individuals \u2014 Total taxpayers, combined taxable income & mean",
+      "name": "New Zealand individual taxable income distribution: total taxpayers, combined taxable income & mean (Inland Revenue)",
+      "also_known_as": "Inland Revenue Taxable Income Distribution of Individuals \u2014 Total taxpayers, aggregate taxable income & mean",
       "category": "Income, net worth & household benchmarks",
-      "topic": "Individual taxable income distribution",
+      "topic": "Individual taxpayer count, aggregate taxable income & mean taxable income",
       "value": 58565,
       "latest_value": "$58,565 mean taxable income ($278.2B across 4,750,300 individuals)",
       "unit": "NZD",
@@ -7475,7 +7541,7 @@
       "data_type": "Officially reported Inland Revenue administrative tax series & HLF-derived mean",
       "definition": "The total number of New Zealand individuals with taxable income, their combined taxable income ($ billions), and the resulting mean taxable income per individual reported by Inland Revenue.",
       "formula": "Mean Taxable Income = Combined Taxable Income ($B) \u00f7 Total Individuals",
-      "hlf_interpretation": "HLF market context: Reports the aggregate number of individual taxpayers, combined assessable taxable income, and mean taxable income across New Zealand's administrative tax base.",
+      "hlf_interpretation": "HLF market context: Reports the aggregate number of individual taxpayers with non-zero assessable income, their combined taxable income pool, and the resulting mean taxable income per individual from Inland Revenue's administrative tax distribution release (rather than individual percentile thresholds).",
       "methodology": "Automatically fetched and parsed from Inland Revenue's Taxable Income Distribution of Individuals release on ird.govt.nz. IRD's administrative series covers all individuals with non-zero taxable income in the tax year (including full-time, part-time, part-year, investment, and benefit earners) and is published after IR3 return processing.",
       "historical_data_from": "Inland Revenue 2025 tax year release",
       "creator_name": "Andy Palliser",
@@ -7488,7 +7554,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand individual taxable income distribution: total individuals, taxable income & mean (Inland Revenue),\" 2025 tax year. Derived by HLF from Inland Revenue \u2014 Taxable Income Distribution of Individuals. https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand individual taxable income distribution: total taxpayers, combined taxable income & mean (Inland Revenue),\" 2025 tax year. Derived by HLF from Inland Revenue \u2014 Taxable Income Distribution of Individuals. https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-individual-taxable-income-percentiles/",
       "summary_text": "In Inland Revenue's 2025 Taxable Income Distribution of Individuals, 4,750,300 New Zealand individuals recorded a combined taxable income of $278.2B\u2014a mean taxable income of $58,565 per individual.",
       "related_questions": [
@@ -7579,10 +7645,10 @@
     },
     {
       "ticker": "ird-paye-wage-vs-self-employed-income",
-      "name": "New Zealand PAYE wage & salary earner headcount & modal wage point (Inland Revenue)",
-      "also_known_as": "Inland Revenue Wage and Salary Distributions for Individuals",
+      "name": "New Zealand PAYE wage & salary earner count & administrative income distribution (Inland Revenue)",
+      "also_known_as": "Inland Revenue Wage and Salary Distributions \u2014 Total individuals receiving PAYE-deducted earnings",
       "category": "Income, net worth & household benchmarks",
-      "topic": "PAYE wage & salary earner distribution",
+      "topic": "Administrative PAYE wage and salary earner count",
       "value": 2840300,
       "latest_value": "2,840,300 PAYE wage & salary earners",
       "unit": "earners",
@@ -7603,9 +7669,9 @@
       "source_url": "https://www.ird.govt.nz/about-us/tax-statistics/revenue-refunds/wage-salary-distributions",
       "derived_by_hlf": false,
       "data_type": "Officially reported Inland Revenue PAYE series",
-      "definition": "The total number of New Zealand individuals receiving PAYE wage and salary earnings during the tax year (and modal income point where reported) from Inland Revenue's Wage and Salary Distributions dataset.",
+      "definition": "The total number of New Zealand individuals who received PAYE-deducted wage and salary earnings during the March tax year from Inland Revenue's Wage and Salary Distributions release.",
       "formula": "Officially reported Inland Revenue PAYE wage and salary earner headcount",
-      "hlf_interpretation": "HLF market context: Reports the total number of individuals receiving PAYE-deducted wage and salary earnings across New Zealand during the tax year.",
+      "hlf_interpretation": "HLF market context: Tracks the administrative headcount of individuals with PAYE-deducted wage or salary earnings during the tax year (including full-time, part-time, and part-year employees). For a direct median income comparison between wage/salary earners and self-employed individuals, see Stats NZ's Labour Market Statistics (Income) dataset (/individual-income-by-source-benchmarks/).",
       "methodology": "Extracted live from Inland Revenue's Wage and Salary Distributions release pages and `.xlsx` workbook on ird.govt.nz. Includes all individuals who received PAYE wages or salaries at any point during the March tax year (excluding benefits, student allowances, NZ Superannuation, and self-employed shareholder-salaries not subject to PAYE).",
       "historical_data_from": "Inland Revenue Wage & Salary series (2025 tax year)",
       "creator_name": "Andy Palliser",
@@ -7618,7 +7684,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand PAYE wage & salary earner headcount & modal wage point (Inland Revenue),\" 2025 tax year. Source: Inland Revenue \u2014 Wage and Salary Distributions for Individuals. https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand PAYE wage & salary earner count & administrative income distribution (Inland Revenue),\" 2025 tax year. Source: Inland Revenue \u2014 Wage and Salary Distributions for Individuals. https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/ird-paye-wage-vs-self-employed-income/",
       "summary_text": "In Inland Revenue's Wage and Salary Distributions release (2025 tax year), 2,840,300 New Zealand individuals received PAYE wage and salary earnings during the tax year.",
       "related_questions": [
@@ -8993,7 +9059,7 @@
       "data_type": "Officially reported RBNZ advertised rate series & HLF-derived basis-point spread",
       "definition": "The difference (in percentage points and basis points) between major New Zealand banks' advertised 1-year 'Standard' fixed mortgage rate (RBNZ Table B20) and advertised 1-year 'Special' fixed mortgage rate for borrowers meeting minimum equity criteria (RBNZ Table B21).",
       "formula": "Standard vs Special Spread = 1Y Standard Rate (B20) minus 1Y Special Rate (B21)",
-      "hlf_interpretation": "HLF market context: Measures the basis-point gap between banks' advertised 1-year Standard (carded) fixed rate (Table B20) and 1-year Special (discounted <=80% LVR) fixed rate (Table B21). Separate lender-specific low-equity premiums (LEP) or low-equity margins (LEM) may also apply above 80% LVR.",
+      "hlf_interpretation": "HLF market context: Measures the basis-point gap between banks' advertised 1-year Standard (carded) fixed rate (Table B20) and 1-year Special (discounted <=80% LVR) fixed rate (Table B21). It does not directly measure lender-specific low-equity premiums (LEP) or tiered low-equity margins (LEM) charged above 80% LVR.",
       "methodology": "Derived live from RBNZ Table B20 and Table B21 workbooks by subtracting the 1-year Special fixed rate from the 1-year Standard fixed rate. Note that RBNZ Tables B20 and B21 measure advertised carded rates rather than separate low-equity premium (LEP) or low-equity margin (LEM) tiers that individual lenders may apply above 80% LVR.",
       "historical_data_from": "RBNZ Tables B20 & B21 monthly series",
       "creator_name": "Andy Palliser",
@@ -9208,8 +9274,8 @@
     },
     {
       "ticker": "mortgage-excess-repayments",
-      "name": "Quarterly voluntary excess mortgage repayments vs scheduled repayments (RBNZ Table C35)",
-      "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation \u2014 Voluntary excess principal repayments ($B/qtr & $B/yr)",
+      "name": "Quarterly excess mortgage repayments (overpayments & net revolving credit reductions) vs scheduled P&I (RBNZ Table C35)",
+      "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation \u2014 Other excess principal repayments ($B/qtr & $B/yr)",
       "category": "Homeowners & refinancing",
       "topic": "Voluntary extra mortgage repayments & principal reduction",
       "value": 4.3,
@@ -9232,10 +9298,10 @@
       "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-loan-reconciliation",
       "derived_by_hlf": true,
       "data_type": "Officially reported RBNZ quarterly series & HLF-derived ratio to scheduled repayments",
-      "definition": "Total voluntary excess mortgage repayments ($ billions per quarter and rolling 12-month total) paid by New Zealand registered bank borrowers above their contracted minimum scheduled repayments, excluding full loan discharges.",
+      "definition": "Total quarterly excess mortgage repayments ($ billions per quarter and rolling 12-month total) recorded by New Zealand registered banks above contracted minimum scheduled repayments in RBNZ Table C35 (including voluntary overpayments, lump-sum principal reductions, and net reductions in revolving credit balances, excluding full loan discharges).",
       "formula": "Ratio to Scheduled P&I (%) = (Excess Repayments [$m] \u00f7 Scheduled Repayments [$m]) \u00d7 100; Rolling 12M Excess = Sum of 4 quarters",
-      "hlf_interpretation": "HLF market context: RBNZ Table C35 tracks principal repayments made by borrowers in excess of their contracted scheduled payments (such as regular overpayments or lump-sum reductions) across registered banks.",
-      "methodology": "Extracted live from RBNZ Table C35 (Residential mortgage loan reconciliation). Compares quarterly voluntary excess repayments against contracted scheduled principal-and-interest repayments. Excludes full loan discharges upon property sale or refinancing.",
+      "hlf_interpretation": "HLF market context: Under RBNZ Table C35's technical notes, 'other excess repayments' captures principal repaid above contracted scheduled payments\u2014combining voluntary regular or lump-sum overpayments on table mortgages with net reductions in drawn revolving credit balances (while excluding full loan discharges upon property sale or refinancing).",
+      "methodology": "Extracted live from RBNZ Table C35 (Residential mortgage loan reconciliation). Compares quarterly excess repayments against contracted scheduled principal-and-interest repayments. Per RBNZ definitions, this series includes net reductions in revolving credit facilities as well as voluntary overpayments on amortising loans.",
       "historical_data_from": "Available from September 2014 (49 quarterly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -9247,7 +9313,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Quarterly voluntary excess mortgage repayments vs scheduled repayments (RBNZ Table C35),\" September 2026 quarter. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage loan reconciliation (Table C35). https://pulse-data.homeloanfactory.co.nz/mortgage-excess-repayments/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Quarterly excess mortgage repayments (overpayments & net revolving credit reductions) vs scheduled P&I (RBNZ Table C35),\" September 2026 quarter. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage loan reconciliation (Table C35). https://pulse-data.homeloanfactory.co.nz/mortgage-excess-repayments/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mortgage-excess-repayments/",
       "summary_text": "In the September 2026 quarter, New Zealand mortgage borrowers made $4.30B ($4,297m) in voluntary excess mortgage repayments above their contracted minimum schedules (down 3.0% year-on-year from $4.43B a year earlier)\u2014equivalent to 58.4% on top of the $7.36B ($7,361m) recorded in scheduled principal-and-interest repayments (and bringing rolling 12-month voluntary excess repayments to $18.03B).",
       "related_questions": [
@@ -9347,7 +9413,7 @@
         }
       ],
       "latest_underlying_data": "September 2026 quarter",
-      "official_data": "RBNZ Table C35 (September 2026 quarter): Quarterly voluntary excess mortgage repayments (excluding full loan discharges) = $4,297m ($4.30B; rolling 4 quarters = $18.03B).",
+      "official_data": "RBNZ Table C35 (September 2026 quarter): Quarterly excess mortgage repayments (overpayments and net revolving credit balance reductions, excluding full loan discharges) = $4,297m ($4.30B; rolling 4 quarters = $18.03B).",
       "hlf_calculation": "Quarterly Excess Repayments (September 2026 quarter) = $4.30B ($4,297m; 12M rolling = $18.03B) | Ratio to Scheduled P&I: $4,297m \u00f7 $7,361m = 58.4% (36.9% of combined scheduled + excess repayments)",
       "frequency": "Quarterly"
     },
@@ -9647,13 +9713,13 @@
       "also_known_as": "Other owner-occupier monthly mortgage commitments & mean loan value",
       "category": "Homeowners & refinancing",
       "topic": "Existing owner-occupier loan size benchmark",
-      "value": 300344.0,
+      "value": 300344,
       "latest_value": "$300,344 average mover loan (15,096 loans / $4.53B ($4,534m))",
       "unit": "NZD",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -9695,7 +9761,7 @@
         "official_series_ids": "LVRN.MMB1.AC2 \u00f7 LVRN.MMB2.AC2",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "($4,534m \u00d7 $1,000,000) \u00f7 15,096 other owner-occupier loans = $300,344",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mover-average-loan-size/",
@@ -9705,79 +9771,79 @@
         {
           "period": "2026-09",
           "label": "Sep 2026",
-          "value": 300344,
+          "value": 300344.0,
           "formatted": "$300,344"
         },
         {
           "period": "2026-08",
           "label": "Aug 2026",
-          "value": 293453,
+          "value": 293453.0,
           "formatted": "$293,453"
         },
         {
           "period": "2026-07",
           "label": "Jul 2026",
-          "value": 302637,
+          "value": 302637.0,
           "formatted": "$302,637"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
-          "value": 312879,
+          "value": 312879.0,
           "formatted": "$312,879"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
-          "value": 314559,
+          "value": 314559.0,
           "formatted": "$314,559"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
-          "value": 309463,
+          "value": 309463.0,
           "formatted": "$309,463"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
-          "value": 327800,
+          "value": 327800.0,
           "formatted": "$327,800"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
-          "value": 309124,
+          "value": 309124.0,
           "formatted": "$309,124"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
-          "value": 326257,
+          "value": 326257.0,
           "formatted": "$326,257"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
-          "value": 434526,
+          "value": 434526.0,
           "formatted": "$434,526"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
-          "value": 343283,
+          "value": 343283.0,
           "formatted": "$343,283"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
-          "value": 318932,
+          "value": 318932.0,
           "formatted": "$318,932"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
-          "value": 327517,
+          "value": 327517.0,
           "formatted": "$327,517"
         }
       ],
@@ -9798,7 +9864,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -9839,7 +9905,7 @@
         "official_series_ids": "LVRN.MMB2.BC2 \u00f7 LVRN.MMB2.AC2 (Share) | LVRN.MMB1.BC2 (Value)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "769 \u00f7 15,096 = 5.1%",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mover-low-equity/",
@@ -9998,7 +10064,7 @@
     {
       "ticker": "net-worth-by-age-and-tenure",
       "name": "New Zealand household net worth by housing tenure: owner-occupied vs non-owner-occupied (Stats NZ)",
-      "also_known_as": "Stats NZ Household Net Worth \u2014 All households, owner-occupied & non-owner-occupied medians",
+      "also_known_as": "Stats NZ Household Net Worth \u2014 All households, mortgaged owner-occupied, mortgage-free & non-owner-occupied medians",
       "category": "Income, net worth & household benchmarks",
       "topic": "Household net worth by housing tenure",
       "value": 529000,
@@ -10024,7 +10090,7 @@
       "definition": "Median household net worth (total assets minus total liabilities) across all New Zealand households, households in owner-occupied dwellings, and households in non-owner-occupied dwellings from Stats NZ's Household Net Worth statistics.",
       "formula": "Tenure Net Worth Ratio = Owner-Occupied Household Median Net Worth \u00f7 Non-Owner-Occupied Household Median Net Worth",
       "hlf_interpretation": "HLF market context: Compares median household net worth between households living in owner-occupied dwellings and households in non-owner-occupied dwellings in Stats NZ's triennial wealth survey.",
-      "methodology": "Extracted live from Stats NZ's Household Net Worth statistics release. Owner-occupied households include both mortgaged and mortgage-free dwellings and reflect net property equity alongside financial, business, and KiwiSaver assets.",
+      "methodology": "Extracted live from Stats NZ's triennial Household Net Worth statistics release (year ended June 2024). Compares median household net worth across all New Zealand households, all owner-occupied dwellings (split into mortgaged and mortgage-free households), and non-owner-occupied dwellings.",
       "historical_data_from": "Stats NZ triennial Household Net Worth release (Year ended June 2024)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -10185,17 +10251,17 @@
     },
     {
       "ticker": "new-build-lvr-exemption-flow",
-      "name": "Combined high-LVR lending to existing owner-occupiers (>80% LVR) & investors (>70% LVR)",
-      "also_known_as": "Non-FHB high-LVR mortgage volume (movers >80% LVR + investors >70% LVR)",
+      "name": "Combined high-LVR lending to existing owner-occupiers (>80% LVR) & investors (>70% LVR) (RBNZ Table C31)",
+      "also_known_as": "Total non-FHB high-LVR mortgage volume (movers >80% LVR + investors >70% LVR across exemptions & speed limits)",
       "category": "LVR, DTI & credit policy",
-      "topic": "High-LVR mover & investor lending volume",
+      "topic": "Combined non-FHB high-LVR lending volume (exemptions & speed-limit loans combined)",
       "value": 715.0,
       "latest_value": "$715m across 1,296 high-LVR mover & investor loans",
       "unit": "NZD_millions",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -10211,7 +10277,7 @@
       "data_type": "HLF-derived combined series from official RBNZ Table C31",
       "definition": "The combined monthly dollar value and commitment count of non-first-home-buyer mortgages at registered banks written above standard LVR thresholds: existing owner-occupiers at >80% LVR plus property investors at >70% LVR.",
       "formula": "Other OO >80% LVR [LVRN.MMB1.BC2] + Investor >70% LVR [LVRN.MMB1.DN]",
-      "hlf_interpretation": "HLF market context: Sums non-first-home-buyer commitments written above the 80% owner-occupier and 70% investor LVR thresholds in RBNZ Table C31.",
+      "hlf_interpretation": "HLF market context: Sums all non-first-home-buyer commitments written above the standard 80% owner-occupier and 70% investor LVR thresholds in RBNZ Table C31. This combined flow includes LVR-exempt new-build lending, bridging finance, dollar-for-dollar external refinances, and bank speed-limit allowances, and does not isolate new-build exemptions alone.",
       "methodology": "Derived from RBNZ Table C31 by summing other owner-occupier >80% LVR lending (LVRN.MMB1.BC2) and investor >70% LVR lending (LVRN.MMB1.DN). Includes both LVR-exempt lending (such as new builds and bridging finance) and discretionary speed-limit lending.",
       "historical_data_from": "Available from August 2014 (146 monthly observations)",
       "creator_name": "Andy Palliser",
@@ -10224,7 +10290,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Combined high-LVR lending to existing owner-occupiers (>80% LVR) & investors (>70% LVR),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/new-build-lvr-exemption-flow/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Combined high-LVR lending to existing owner-occupiers (>80% LVR) & investors (>70% LVR) (RBNZ Table C31),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/new-build-lvr-exemption-flow/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/new-build-lvr-exemption-flow/",
       "summary_text": "In September 2026, non-first-home-buyer mortgage commitments above standard LVR thresholds totalled $715m across 1,296 loans\u2014comprising 769 existing owner-occupier loans ($378m) above 80% LVR and 527 investor loans ($337m) above 70% LVR.",
       "related_questions": [
@@ -10236,7 +10302,7 @@
         "official_series_ids": "LVRN.MMB1.BC2 + LVRN.MMB1.DN (Dollars) | LVRN.MMB2.BC2 + LVRN.MMB2.DN (Loans)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "Dollars: $378m + $337m = $715m | Loans: 769 + 527 = 1,296",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/new-build-lvr-exemption-flow/",
@@ -10931,7 +10997,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -10972,7 +11038,7 @@
         "official_series_ids": "(LVRN.MMB2.AC2 - LVRN.MMB2.BC2) \u00f7 LVRN.MMB2.AC2",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "14,327 \u00f7 15,096 = 94.9% (Mean loan: $4,156m \u00d7 $1m \u00f7 14,327 = $290,082)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/owner-equity-buffer/",
@@ -11065,8 +11131,8 @@
     },
     {
       "ticker": "refinance",
-      "name": "Mortgage refinancing (switching loan provider) share & volume",
-      "also_known_as": "Bank-to-bank mortgage switching share, loan count & average refinance size",
+      "name": "Mortgage refinancing (change in loan provider) share of lending & loan commitments (RBNZ Table C33)",
+      "also_known_as": "Bank-to-bank mortgage switching share, committed loan count & average refinance size",
       "category": "Homeowners & refinancing",
       "topic": "Mortgage refinancing & bank switching",
       "value": 22.95,
@@ -11075,7 +11141,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -11092,7 +11158,7 @@
       "definition": "The share of new residential mortgage lending value and number of commitments where a borrower switches from one mortgage provider to another ('change in loan provider' in RBNZ Table C33), alongside the mean refinanced commitment size.",
       "formula": "(Change in Loan Provider Value [LVRN.MMB1.AZD] \u00f7 Total Lending by Purpose) \u00d7 100; Mean Loan = LVRN.MMB1.AZD \u00f7 LVRN.MMB2.AZD",
       "hlf_interpretation": "HLF market context: RBNZ Table C33 'change in loan provider' measures external refinancing commitments where a borrower moves a mortgage from one lender to a registered bank (excluding internal fixed-rate rollovers with the same bank).",
-      "methodology": "Derived from RBNZ Table C33 by dividing 'change in loan provider' lending value (LVRN.MMB1.AZD, rounded to $1m) by the sum of all purpose categories (property purchase AZC, top-up AZB, change in provider AZD, and other AZE). Covers external lender switches at registered banks and excludes internal rate refixes with the same bank.",
+      "methodology": "Derived from RBNZ Table C33 by dividing 'change in loan provider' lending value (LVRN.MMB1.AZD, rounded to $1m) by the sum of all purpose categories (property purchase AZC, top-up AZB, change in provider AZD, and other AZE). In RBNZ Table C33, counts represent committed mortgage loans rather than unique individual borrowers, and exclude internal rate refixes with the same bank.",
       "historical_data_from": "Available from January 2017 (117 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -11104,7 +11170,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Mortgage refinancing (switching loan provider) share & volume,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/refinance/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Mortgage refinancing (change in loan provider) share of lending & loan commitments (RBNZ Table C33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/refinance/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/refinance/",
       "summary_text": "In September 2026, 2,772 New Zealand mortgage commitments involved switching loan providers, refinancing $1.73B ($1,729m) in home loans\u2014representing 23.0% of all new residential mortgage lending, at an average commitment size of $623,737.",
       "related_questions": [
@@ -11118,7 +11184,7 @@
         "official_series_ids": "LVRN.MMB1.AZD (Refinance Value) & LVRN.MMB2.AZD (Refinance Count)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "$1,729m \u00f7 $7,533m = 23.0% (Mean loan: $1,729m \u00d7 $1m \u00f7 2,772 = $623,737)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/refinance/",
@@ -11205,7 +11271,7 @@
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C33 (September 2026): Change in loan provider = 2,772 borrowers and $1,729m out of $7,533m total purpose lending.",
+      "official_data": "RBNZ Table C33 (September 2026): Change in loan provider = 2,772 loan commitments and $1,729m out of $7,533m total purpose lending.",
       "hlf_calculation": "$1,729m \u00f7 $7,533m = 23.0% (Mean loan: $1,729m \u00d7 $1m \u00f7 2,772 = $623,737)",
       "frequency": "Monthly"
     },
@@ -11797,10 +11863,10 @@
       "source_url": "https://www.stats.govt.nz/information-releases/household-income-and-housing-cost-statistics-year-ended-june-2025/",
       "derived_by_hlf": true,
       "data_type": "Officially reported Stats NZ HILS series & HLF-derived interest vs principal shares",
-      "definition": "Average weekly mortgage interest payments versus principal repayments across mortgaged New Zealand households in Stats NZ's Household Income and Living Survey (HILS), alongside the national average housing-cost-to-disposable-income ratio.",
+      "definition": "Average weekly mortgage interest payments ($452.10/wk) and average weekly principal repayments ($252.60/wk) across mortgaged New Zealand households paying each component in Stats NZ's Household Income and Living Survey (HILS), alongside Stats NZ's published overall average weekly mortgage outlay ($690.90/wk), average weekly rent ($505.50/wk), and average housing-cost-to-disposable-income ratio.",
       "formula": "Total Weekly Mortgage Outgoing = Weekly Interest + Weekly Principal; Interest Share (%) = Interest \u00f7 Total \u00d7 100",
-      "hlf_interpretation": "HLF market context: Reports the average weekly split between mortgage interest payments and principal repayments across surveyed New Zealand households with a mortgage.",
-      "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (HILS) release. Survey averages cover all mortgaged households in the Household Income and Living Survey.",
+      "hlf_interpretation": "HLF market context: In Stats NZ's HILS tables, average weekly mortgage interest ($452.10/wk) and average weekly principal ($252.60/wk) are averaged across the respective subsets of households making each payment type (summing to $704.70/wk across the two component averages), whereas Stats NZ's overall average weekly mortgage payment across all mortgaged households is $690.90/wk (because interest-only households are included in the total and interest averages but not the principal average).",
+      "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (HILS, year ended June 2025) release. Note: On 29 September 2026, Stats NZ issued a notice concerning processing errors in HILS household-income data (scheduled for correction in February 2027), which may slightly affect income-denominator ratios such as housing costs per $100 of disposable income.",
       "historical_data_from": "Stats NZ HILS housing-cost series (Year ended June 2025)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -11814,7 +11880,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Weekly mortgage interest vs principal payments & housing cost-to-income ratio (Stats NZ HILS),\" Year ended June 2025. Derived by HLF from Stats NZ \u2014 Household Income and Housing-Cost Statistics (Housing Costs Release). https://pulse-data.homeloanfactory.co.nz/rent-vs-mortgage-interest-outgoings/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rent-vs-mortgage-interest-outgoings/",
-      "summary_text": "In Stats NZ's year ended June 2025 Household Income and Living Survey (HILS) release, households with a mortgage paid an average of $452.10/week (64.2%) in mortgage interest and $252.60/week (35.8%) in principal repayments (while renting households paid an average of $505.50/week in rent), and across all New Zealand households housing costs averaged $22.30 per $100 of disposable income.",
+      "summary_text": "In Stats NZ's year ended June 2025 Household Income and Living Survey (HILS) release, mortgaged households paying each component averaged $452.10/week in mortgage interest and $252.60/week in principal repayments (a combined component sum of $704.70/week, compared with Stats NZ's separately published $690.90/week overall average mortgage payment across all mortgaged households, while renting households paid an average of $505.50/week in rent), and across all New Zealand households housing costs averaged $22.30 per $100 of disposable income.",
       "related_questions": [
         "What is the average weekly mortgage interest and principal payment in Stats NZ's Household Economic Survey?",
         "How much of their disposable income do New Zealand households spend on housing costs on average?"
@@ -11852,7 +11918,7 @@
         }
       ],
       "latest_underlying_data": "Year ended June 2025",
-      "official_data": "Stats NZ HILS (year ended June 2025): Average weekly mortgage interest = $452.10/wk; Average weekly mortgage principal = $252.60/wk; Average weekly rent payments = $505.50/wk.",
+      "official_data": "Stats NZ HILS (year ended June 2025): Average weekly mortgage interest = $452.10/wk; Average weekly mortgage principal = $252.60/wk (Overall average weekly mortgage payment across all mortgaged households = $690.90/wk); Average weekly rent payments = $505.50/wk (Note: Stats NZ's 29 Sep 2026 HILS income revision notice schedules updated income denominators for Feb 2027).",
       "hlf_calculation": "Weekly Mortgage Interest ($452.10/wk) + Weekly Mortgage Principal ($252.60/wk) = $704.70/wk (64.2% interest vs 35.8% principal) | HILS Avg Weekly Rent = $505.50/wk",
       "frequency": "Annual"
     },
@@ -12384,8 +12450,8 @@
     },
     {
       "ticker": "settled-rates",
-      "name": "Weighted-average settled 1-year & 2-year fixed mortgage rates (owner-occupiers)",
-      "also_known_as": "RBNZ Table B30 average settled residential mortgage interest rates",
+      "name": "Average settled 1-year & 2-year fixed mortgage interest rates for owner-occupiers (RBNZ Table B30)",
+      "also_known_as": "RBNZ Table B30 simple average of participating banks' loan-value-weighted settled residential mortgage rates",
       "category": "Homeowners & refinancing",
       "topic": "Settled fixed mortgage interest rates",
       "value": 4.82,
@@ -12394,7 +12460,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -12408,10 +12474,10 @@
       "source_url": "https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/new-residential-mortgage-weighted-average-interest-rates",
       "derived_by_hlf": false,
       "data_type": "Officially reported RBNZ series",
-      "definition": "The volume-weighted average fixed mortgage interest rate on new owner-occupier residential mortgage commitments for 1-year and 2-year fixed terms at New Zealand registered banks.",
+      "definition": "The average fixed mortgage interest rate on new owner-occupier residential mortgage commitments for 1-year and 2-year fixed terms at New Zealand registered banks in RBNZ Table B30 (calculated by RBNZ as a simple average across participating banks' loan-value-weighted rates).",
       "formula": "Officially reported RBNZ Table B30 weighted-average settled rate series (plus YoY rate change)",
-      "hlf_interpretation": "HLF market context: RBNZ Table B30 measures the dollar-weighted average interest rate on new owner-occupier fixed-rate mortgage commitments entered into during the reference month across registered banks.",
-      "methodology": "Directly reported by RBNZ Table B30 series NCFA.MAM1PR.D1 (1-year fixed owner-occupier rate) and NCFA.MAM1PR.D2 (2-year fixed owner-occupier rate), weighted by dollar lending volume.",
+      "hlf_interpretation": "HLF market context: In RBNZ Table B30, each participating registered bank reports its own dollar-volume-weighted average interest rate on new owner-occupier fixed-rate mortgage commitments for the month, and RBNZ publishes the simple arithmetic average across those reporting banks.",
+      "methodology": "Directly reported by RBNZ Table B30 series NCFA.MAM1PR.D1 (1-year fixed owner-occupier rate) and NCFA.MAM1PR.D2 (2-year fixed owner-occupier rate). Per RBNZ's Table B30 technical notes, each participating bank weights its new settled rates by loan value, and RBNZ calculates a simple arithmetic mean of the participating banks' rates.",
       "historical_data_from": "Available from April 2021 (66 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -12423,9 +12489,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Weighted-average settled 1-year & 2-year fixed mortgage rates (owner-occupiers),\" September 2026. Source: Reserve Bank of New Zealand \u2014 New residential mortgage weighted average interest rates (Table B30). https://pulse-data.homeloanfactory.co.nz/settled-rates/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Average settled 1-year & 2-year fixed mortgage interest rates for owner-occupiers (RBNZ Table B30),\" September 2026. Source: Reserve Bank of New Zealand \u2014 New residential mortgage weighted average interest rates (Table B30). https://pulse-data.homeloanfactory.co.nz/settled-rates/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/settled-rates/",
-      "summary_text": "In September 2026, the volume-weighted average fixed mortgage interest rate on new owner-occupier commitments at New Zealand registered banks was 4.82% for 1-year terms and 5.09% for 2-year terms.",
+      "summary_text": "In September 2026, the average fixed mortgage interest rate (RBNZ Table B30 simple average across participating banks' loan-value-weighted rates) on new owner-occupier commitments at New Zealand registered banks was 4.82% for 1-year terms and 5.09% for 2-year terms.",
       "related_questions": [
         "What is the average 1-year and 2-year fixed mortgage rate in RBNZ Table B30?"
       ],
@@ -12435,7 +12501,7 @@
         "official_series_ids": "NCFA.MAM1PR.D1 (1-Year Fixed OO) & NCFA.MAM1PR.D2 (2-Year Fixed OO)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "Directly reported RBNZ B30 series NCFA.MAM1PR.D1 = 4.82% (1Y) & NCFA.MAM1PR.D2 = 5.09% (2Y)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/settled-rates/",
@@ -12522,7 +12588,7 @@
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table B30 (September 2026): Weighted-average settled owner-occupier rate = 4.82% (1-year fixed) and 5.09% (2-year fixed).",
+      "official_data": "RBNZ Table B30 (September 2026): RBNZ simple average of participating banks' loan-value-weighted settled owner-occupier rates = 4.82% (1-year fixed) and 5.09% (2-year fixed).",
       "hlf_calculation": "Directly reported RBNZ B30 series NCFA.MAM1PR.D1 = 4.82% (1Y) & NCFA.MAM1PR.D2 = 5.09% (2Y)",
       "frequency": "Monthly"
     },
@@ -13119,8 +13185,8 @@
     },
     {
       "ticker": "top-ups",
-      "name": "Mortgage top-up share of approvals & average top-up amount",
-      "also_known_as": "Existing homeowner equity top-up approval share & mean top-up value",
+      "name": "Mortgage top-up share of new loan commitments & average top-up amount (RBNZ Table C33)",
+      "also_known_as": "Existing homeowner equity top-up share of loan commitments & mean top-up value",
       "category": "Homeowners & refinancing",
       "topic": "Mortgage top-ups & equity release",
       "value": 46.42,
@@ -13129,7 +13195,7 @@
       "observation_period": "September 2026",
       "observed_period": "September 2026",
       "period_end": "2026-09-30",
-      "source_published": "2026-10-28 (28 Oct 2026)",
+      "source_published": "Monthly RBNZ release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -13143,10 +13209,10 @@
       "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
       "derived_by_hlf": true,
       "data_type": "Officially reported RBNZ series & HLF-derived share/mean",
-      "definition": "The percentage of monthly new residential mortgage commitments at registered banks that are top-ups on an existing mortgage with the same lender, alongside the mean dollar top-up commitment size.",
-      "formula": "(Top-up Count [LVRN.MMB2.AZB] \u00f7 Total Approvals by Purpose) \u00d7 100; Mean Top-Up = LVRN.MMB1.AZB \u00f7 LVRN.MMB2.AZB",
+      "definition": "The percentage of monthly new residential mortgage loan commitments at registered banks that are top-ups on an existing mortgage with the same lender, alongside the mean dollar top-up commitment size.",
+      "formula": "(Top-up Loan Commitments [LVRN.MMB2.AZB] \u00f7 Total Loan Commitments by Purpose) \u00d7 100; Mean Top-Up = LVRN.MMB1.AZB \u00f7 LVRN.MMB2.AZB",
       "hlf_interpretation": "HLF market context: RBNZ Table C33 records the number and dollar value of new commitments that increase lending on an existing mortgage with the same bank; the dataset does not record the specific end-use of the topped-up funds.",
-      "methodology": "Derived from RBNZ Table C33 by dividing top-up commitment count (LVRN.MMB2.AZB) by total mortgage commitments across all purposes, and dividing top-up lending value (LVRN.MMB1.AZB, rounded to $1m) by top-up commitment count.",
+      "methodology": "Derived from RBNZ Table C33 by dividing top-up loan commitment count (LVRN.MMB2.AZB) by total mortgage loan commitments across all purposes, and dividing top-up lending value (LVRN.MMB1.AZB, rounded to $1m) by top-up commitment count. RBNZ Table C33 counts committed loans rather than unique borrowers.",
       "historical_data_from": "Available from January 2017 (117 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -13158,7 +13224,7 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Mortgage top-up share of approvals & average top-up amount,\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/top-ups/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Mortgage top-up share of new loan commitments & average top-up amount (RBNZ Table C33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/top-ups/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/top-ups/",
       "summary_text": "In September 2026, 9,639 mortgage top-up commitments were recorded on existing properties\u2014accounting for 46.4% of all mortgage commitments by purpose across New Zealand registered banks, with an average top-up of $99,803.",
       "related_questions": [
@@ -13171,7 +13237,7 @@
         "official_series_ids": "LVRN.MMB2.AZB (Top-up Count) & LVRN.MMB1.AZB (Top-up Value)",
         "observation_period": "September 2026",
         "period_end": "2026-09-30",
-        "source_published": "2026-10-28 (28 Oct 2026)",
+        "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "9,639 \u00f7 20,763 = 46.4% (Mean top-up: $962m \u00d7 $1m \u00f7 9,639 = $99,803)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/top-ups/",
@@ -13258,7 +13324,7 @@
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C33 (September 2026): Top-up commitments = 9,639 borrowers ($962m) out of 20,763 total commitments.",
+      "official_data": "RBNZ Table C33 (September 2026): Top-up commitments = 9,639 loan commitments ($962m) out of 20,763 total commitments.",
       "hlf_calculation": "9,639 \u00f7 20,763 = 46.4% (Mean top-up: $962m \u00d7 $1m \u00f7 9,639 = $99,803)",
       "frequency": "Monthly"
     },
