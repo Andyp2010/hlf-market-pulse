@@ -23,7 +23,7 @@
   "date_modified": "2026-11-18",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-18",
-  "dataset_generated_utc": "2026-11-18T01:46:40Z",
+  "dataset_generated_utc": "2026-11-18T03:40:59Z",
   "latest_underlying_data": "September 2026",
   "data_status": "verified",
   "source_status": "current",
@@ -166,24 +166,36 @@
         ]
       },
       "equivalised-household-income-family-size": {
-        "value": 63700,
-        "latest_value": "$63,700 BHC vs $49,423 AHC equivalised (22.4% difference)",
+        "value": 55143,
+        "latest_value": "Median $55,143 BHC vs $41,351 AHC (-25.0%) | Mean $63,397 BHC vs $49,127 AHC",
         "observation_period": "Year ended June 2025",
         "period_end": "2025-06-30",
         "source": "Stats NZ HILS",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/equivalised-household-income-family-size/",
         "breakdown": [
           {
-            "period": "Before Housing Costs (BHC)",
-            "label": "Median Equivalised Disposable Income (BHC)",
-            "value": 63700,
-            "formatted": "$63,700/yr"
+            "period": "Median BHC",
+            "label": "Median Equivalised Disposable Income (Before Housing Costs)",
+            "value": 55143,
+            "formatted": "$55,143/yr"
           },
           {
-            "period": "After Housing Costs (AHC)",
-            "label": "Median Equivalised Disposable Income (AHC)",
-            "value": 49423,
-            "formatted": "$49,423/yr (-$14,277)"
+            "period": "Median AHC",
+            "label": "Median Equivalised Disposable Income (After Housing Costs)",
+            "value": 41351,
+            "formatted": "$41,351/yr (-$13,792 / -25.0%)"
+          },
+          {
+            "period": "Mean (Average) BHC",
+            "label": "Mean Equivalised Disposable Income (Before Housing Costs)",
+            "value": 63397,
+            "formatted": "$63,397/yr"
+          },
+          {
+            "period": "Mean (Average) AHC",
+            "label": "Mean Equivalised Disposable Income (After Housing Costs)",
+            "value": 49127,
+            "formatted": "$49,127/yr (-$14,270 / -22.5%)"
           }
         ]
       },
@@ -912,8 +924,8 @@
         ]
       },
       "credit-card-balances-interest-share": {
-        "value": 5.38,
-        "latest_value": "$5.38B daily avg balances ($2.76B / 51.3% accruing interest)",
+        "value": 5379.0,
+        "latest_value": "$5.38B ($5,379m) daily avg balances | $2.76B (51.3%) accruing interest at 20.0% p.a.",
         "observation_period": "August 2026",
         "period_end": "2026-08-31",
         "source": "RBNZ Table C12",
@@ -922,80 +934,80 @@
           {
             "period": "2026-08",
             "label": "Aug 2026",
-            "value": 5378.0,
-            "formatted": "$5,378m ($5.38B)"
+            "value": 5379.0,
+            "formatted": "$5,379m ($5.38B daily avg)"
           },
           {
             "period": "2026-07",
             "label": "Jul 2026",
             "value": 5372.0,
-            "formatted": "$5,372m ($5.37B)"
+            "formatted": "$5,372m ($5.37B daily avg)"
           },
           {
             "period": "2026-06",
             "label": "Jun 2026",
             "value": 5414.0,
-            "formatted": "$5,414m ($5.41B)"
+            "formatted": "$5,414m ($5.41B daily avg)"
           },
           {
             "period": "2026-05",
             "label": "May 2026",
-            "value": 5428.0,
-            "formatted": "$5,428m ($5.43B)"
+            "value": 5429.0,
+            "formatted": "$5,429m ($5.43B daily avg)"
           },
           {
             "period": "2026-04",
             "label": "Apr 2026",
-            "value": 5481.0,
-            "formatted": "$5,481m ($5.48B)"
+            "value": 5482.0,
+            "formatted": "$5,482m ($5.48B daily avg)"
           },
           {
             "period": "2026-03",
             "label": "Mar 2026",
             "value": 5584.0,
-            "formatted": "$5,584m ($5.58B)"
+            "formatted": "$5,584m ($5.58B daily avg)"
           },
           {
             "period": "2026-02",
             "label": "Feb 2026",
-            "value": 5651.0,
-            "formatted": "$5,651m ($5.65B)"
+            "value": 5652.0,
+            "formatted": "$5,652m ($5.65B daily avg)"
           },
           {
             "period": "2026-01",
             "label": "Jan 2026",
             "value": 5699.0,
-            "formatted": "$5,699m ($5.70B)"
+            "formatted": "$5,699m ($5.70B daily avg)"
           },
           {
             "period": "2025-12",
             "label": "Dec 2025",
             "value": 5794.0,
-            "formatted": "$5,794m ($5.79B)"
+            "formatted": "$5,794m ($5.79B daily avg)"
           },
           {
             "period": "2025-11",
             "label": "Nov 2025",
             "value": 5656.0,
-            "formatted": "$5,656m ($5.66B)"
+            "formatted": "$5,656m ($5.66B daily avg)"
           },
           {
             "period": "2025-10",
             "label": "Oct 2025",
             "value": 5521.0,
-            "formatted": "$5,521m ($5.52B)"
+            "formatted": "$5,521m ($5.52B daily avg)"
           },
           {
             "period": "2025-09",
             "label": "Sep 2025",
             "value": 5552.0,
-            "formatted": "$5,552m ($5.55B)"
+            "formatted": "$5,552m ($5.55B daily avg)"
           },
           {
             "period": "2025-08",
             "label": "Aug 2025",
-            "value": 5481.0,
-            "formatted": "$5,481m ($5.48B)"
+            "value": 5480.0,
+            "formatted": "$5,480m ($5.48B daily avg)"
           }
         ]
       },
@@ -2108,7 +2120,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Existing 'back-book' effective mortgage rate vs newly settled fixed mortgage rates (RBNZ Table B6 vs B30),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Yields on Loans (Table B6) & New Residential Mortgage Weighted Average Interest Rates (Table B30). https://pulse-data.homeloanfactory.co.nz/back-book-vs-new-settled-mortgage-rate/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/back-book-vs-new-settled-mortgage-rate/",
-      "summary_text": "In September 2026, the effective interest rate paid across all existing New Zealand bank mortgages ('back book', RBNZ Table B6) averaged 4.81% , compared with 4.82% for newly settled 1-year fixed owner-occupier loans (RBNZ Table B30)\u2014a difference of 1 basis points (-0.01%) .",
+      "summary_text": "In September 2026, the effective interest rate across all existing New Zealand bank mortgages ('back book', RBNZ Table B6) averaged 4.81% , compared with 4.82% for newly settled 1-year fixed owner-occupier loans (RBNZ Table B30)\u2014a difference of 1 basis points (-0.01%) .",
       "related_questions": [
         "What is the average effective interest rate across all existing mortgages in New Zealand (RBNZ Table B6)?",
         "How does the existing mortgage book interest rate compare with new 1-year fixed mortgage rates?"
@@ -2723,7 +2735,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Total New Zealand personal & consumer lending stock across banks & non-bank lenders (RBNZ Table C5),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Registered banks and non-bank lending institutions: Sector lending (Table C5). https://pulse-data.homeloanfactory.co.nz/consumer-personal-lending-stock/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/consumer-personal-lending-stock/",
-      "summary_text": "As at September 2026, total New Zealand personal and consumer lending (personal loans, vehicle finance, hire purchase, overdrafts, and cards) stood at $14.64B ($14,636m) (up 2.2% year-on-year from $14.32B a year earlier), including $7.33B (50.1%) from non-bank lenders.",
+      "summary_text": "As at September 2026, total New Zealand personal and consumer lending stock across registered banks and non-bank lending institutions stood at $14.64B ($14,636m) (up 2.2% year-on-year from $14.32B a year earlier), including $7.33B (50.1%) held with non-bank lending institutions.",
       "related_questions": [
         "How much personal and consumer debt is outstanding in New Zealand?",
         "What share of New Zealand consumer lending is held with non-bank lenders?"
@@ -2946,8 +2958,8 @@
       "also_known_as": "RBNZ Table C12 Credit Card Balances \u2014 Total advances outstanding, interest-bearing share & interest rate",
       "category": "Household debt, credit cards & borrower stress",
       "topic": "Credit card debt, interest-bearing share & interest rates",
-      "value": 5.38,
-      "latest_value": "$5.38B daily avg balances ($2.76B / 51.3% accruing interest)",
+      "value": 5379.0,
+      "latest_value": "$5.38B ($5,379m) daily avg balances | $2.76B (51.3%) accruing interest at 20.0% p.a.",
       "unit": "NZD_millions",
       "observation_period": "August 2026",
       "observed_period": "August 2026",
@@ -2958,19 +2970,19 @@
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Interest-free grace period balances: $2.62B (48.7%)",
-      "change": "Weighted-average interest-bearing card rate: 20.0% p.a.",
+      "previous_period": "12 months prior daily average: $5.48B ($5,480m)",
+      "change": "-1.8% YoY | 20.0% p.a. weighted-average rate",
       "source": "RBNZ Table C12",
       "source_full": "Reserve Bank of New Zealand \u2014 Credit card balances (Table C12)",
       "source_series_ids": "RBNZ Table C12 \u2014 Total Advances Outstanding ($m), Interest-Bearing Advances ($m) & Weighted Average Interest Rate (%)",
       "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances",
       "derived_by_hlf": true,
       "data_type": "Officially reported RBNZ series & HLF-derived interest-bearing share",
-      "definition": "New Zealand personal credit card daily average advances outstanding, the dollar value and percentage share of daily average balances accruing interest, and the weighted-average interest rate on interest-bearing balances in RBNZ Table C12.",
+      "definition": "New Zealand credit card daily average advances outstanding ($m), the dollar value and percentage share of daily average balances accruing interest, and the weighted-average interest rate on interest-bearing balances in RBNZ Table C12.",
       "formula": "Interest-Bearing Daily Average Advances ($m) \u00f7 Total Daily Average Credit Card Advances ($m) \u00d7 100",
-      "hlf_interpretation": "HLF market context: RBNZ Table C12 splits daily average credit card advances into balances accruing interest and balances within interest-free grace periods.",
+      "hlf_interpretation": "HLF market context: RBNZ Table C12 splits daily average credit card advances (across personal and commercial cards held with registered banks) into balances accruing interest and balances within interest-free grace periods.",
       "methodology": "Extracted live from RBNZ Table C12 (Credit card balances). Divides interest-bearing advances by total advances outstanding. RBNZ Table C12 aggregates both personal and commercial/business credit card balances held with New Zealand registered banks.",
-      "historical_data_from": "RBNZ Table C12 monthly series",
+      "historical_data_from": "Available from July 2000 (314 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -2983,7 +2995,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"New Zealand credit card debt, share accruing interest & weighted average interest rate (RBNZ Table C12),\" August 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Credit card balances (Table C12). https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
-      "summary_text": "In August 2026, New Zealand personal credit card daily average balances in RBNZ Table C12 stood at $5.38B ($5,380m) , of which $2.76B ($2,760m, or 51.3%) was accruing interest at a weighted-average interest rate of 20.0% p.a.",
+      "summary_text": "In August 2026, New Zealand credit card daily average balances in RBNZ Table C12 stood at $5.38B ($5,379m) (down 1.8% year-on-year from $5.48B a year earlier), of which $2.76B ($2,758m, or 51.3%) was accruing interest at a weighted-average interest rate of 20.0% p.a. .",
       "related_questions": [
         "How much credit card debt is outstanding in New Zealand?",
         "What is the average interest rate on interest-bearing credit card balances in New Zealand?",
@@ -2997,7 +3009,7 @@
         "period_end": "2026-08-31",
         "source_published": "Monthly RBNZ statistical release (~4 weeks after reference month-end)",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "RBNZ Table C12 Daily Average Advances (August 2026): $2,760m interest-bearing \u00f7 $5,380m total daily average advances = 51.3% accruing interest (Weighted-average interest-bearing rate = 20.0% p.a.)",
+        "hlf_calculation": "RBNZ Table C12 Daily Average Advances (August 2026) = $5,379m ($5.38B) | Interest-Bearing Share: $2,758m \u00f7 $5,379m = 51.3% at 20.0% p.a.",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
         "license": "CC BY 4.0"
       },
@@ -3005,85 +3017,85 @@
         {
           "period": "2026-08",
           "label": "Aug 2026",
-          "value": 5378.0,
-          "formatted": "$5,378m ($5.38B)"
+          "value": 5379.0,
+          "formatted": "$5,379m ($5.38B daily avg)"
         },
         {
           "period": "2026-07",
           "label": "Jul 2026",
           "value": 5372.0,
-          "formatted": "$5,372m ($5.37B)"
+          "formatted": "$5,372m ($5.37B daily avg)"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
           "value": 5414.0,
-          "formatted": "$5,414m ($5.41B)"
+          "formatted": "$5,414m ($5.41B daily avg)"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
-          "value": 5428.0,
-          "formatted": "$5,428m ($5.43B)"
+          "value": 5429.0,
+          "formatted": "$5,429m ($5.43B daily avg)"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
-          "value": 5481.0,
-          "formatted": "$5,481m ($5.48B)"
+          "value": 5482.0,
+          "formatted": "$5,482m ($5.48B daily avg)"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
           "value": 5584.0,
-          "formatted": "$5,584m ($5.58B)"
+          "formatted": "$5,584m ($5.58B daily avg)"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
-          "value": 5651.0,
-          "formatted": "$5,651m ($5.65B)"
+          "value": 5652.0,
+          "formatted": "$5,652m ($5.65B daily avg)"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
           "value": 5699.0,
-          "formatted": "$5,699m ($5.70B)"
+          "formatted": "$5,699m ($5.70B daily avg)"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
           "value": 5794.0,
-          "formatted": "$5,794m ($5.79B)"
+          "formatted": "$5,794m ($5.79B daily avg)"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
           "value": 5656.0,
-          "formatted": "$5,656m ($5.66B)"
+          "formatted": "$5,656m ($5.66B daily avg)"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
           "value": 5521.0,
-          "formatted": "$5,521m ($5.52B)"
+          "formatted": "$5,521m ($5.52B daily avg)"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
           "value": 5552.0,
-          "formatted": "$5,552m ($5.55B)"
+          "formatted": "$5,552m ($5.55B daily avg)"
         },
         {
           "period": "2025-08",
           "label": "Aug 2025",
-          "value": 5481.0,
-          "formatted": "$5,481m ($5.48B)"
+          "value": 5480.0,
+          "formatted": "$5,480m ($5.48B daily avg)"
         }
       ],
       "latest_underlying_data": "August 2026",
-      "official_data": "RBNZ Table C12 Credit Card Balances (August 2026): Total daily average advances = $5,380m ($5.38B); Interest-bearing balances = $2,760m ($2.76B, or 51.3%) at 20.0% p.a.",
-      "hlf_calculation": "RBNZ Table C12 Daily Average Advances (August 2026): $2,760m interest-bearing \u00f7 $5,380m total daily average advances = 51.3% accruing interest (Weighted-average interest-bearing rate = 20.0% p.a.)",
+      "official_data": "RBNZ Table C12 (August 2026): Daily average credit card advances = $5,379m ($5.38B); interest-bearing daily average advances = $2,758m ($2.76B, or 51.3%) at 20.0% p.a..",
+      "hlf_calculation": "RBNZ Table C12 Daily Average Advances (August 2026) = $5,379m ($5.38B) | Interest-Bearing Share: $2,758m \u00f7 $5,379m = 51.3% at 20.0% p.a.",
       "frequency": "Monthly"
     },
     {
@@ -3523,34 +3535,34 @@
     },
     {
       "ticker": "equivalised-household-income-family-size",
-      "name": "Median equivalised household disposable income before & after housing costs (Stats NZ HILS)",
+      "name": "Median & mean equivalised household disposable income before & after housing costs (Stats NZ HILS)",
       "also_known_as": "Stats NZ Household Income and Housing-Cost Statistics \u2014 Equivalised BHC & AHC disposable income",
       "category": "Income, net worth & household benchmarks",
       "topic": "Household disposable income before & after housing costs",
-      "value": 63700,
-      "latest_value": "$63,700 BHC vs $49,423 AHC equivalised (22.4% difference)",
+      "value": 55143,
+      "latest_value": "Median $55,143 BHC vs $41,351 AHC (-25.0%) | Mean $63,397 BHC vs $49,127 AHC",
       "unit": "NZD",
       "observation_period": "Year ended June 2025",
       "observed_period": "Year ended June 2025",
       "period_end": "2025-06-30",
-      "source_published": "Annual Stats NZ Household Income and Housing-Cost Statistics release",
+      "source_published": "Annual Stats NZ Household Income and Housing-Cost Statistics (HILS) release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "BHC minus AHC difference: $14,277 per equivalised adult",
-      "change": "Equivalised for household size and composition using the modified OECD scale",
+      "previous_period": "Mean (average) equivalised disposable income: $63,397 BHC / $49,127 AHC",
+      "change": "Housing cost deduction: -$13,792/yr (-25.0%) at median | -$14,270/yr (-22.5%) at mean",
       "source": "Stats NZ HILS",
       "source_full": "Stats NZ \u2014 Household Income and Housing-Cost Statistics (HILS)",
       "source_series_ids": "Stats NZ HILS \u2014 Median Equivalised Disposable Income Before Housing Costs (BHC) & After Housing Costs (AHC)",
       "source_url": "https://www.stats.govt.nz/information-releases/household-income-and-housing-cost-statistics-year-ended-june-2025/",
       "derived_by_hlf": true,
       "data_type": "Officially reported Stats NZ equivalised series & HLF-derived difference",
-      "definition": "Median equivalised annual household disposable (after-tax) income across New Zealand before housing costs (BHC) and after deducting housing costs (AHC).",
+      "definition": "Median and mean (average) equivalised annual household disposable (after-tax) income across New Zealand before housing costs (BHC) and after deducting housing costs (AHC) from Stats NZ's Household Income and Living Survey (HILS, corrected series).",
       "formula": "Difference (%) = ((BHC Equivalised Median \u2212 AHC Equivalised Median) \u00f7 BHC Equivalised Median) \u00d7 100",
       "hlf_interpretation": "HLF market context: Compares Stats NZ's national median equivalised after-tax household income before and after deducting housing costs.",
-      "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (Household Economic Survey) release. Stats NZ equivalises disposable household income using the modified OECD scale (reference 1.0 single-person household) so households of different sizes and compositions can be compared on an equivalent basis.",
+      "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (Household Income and Living Survey) release, incorporating Stats NZ's subsequent data correction. Stats NZ equivalises disposable household income using the modified OECD scale (reference 1.0 single-person household) so households of different sizes and compositions can be compared on an equivalent basis.",
       "historical_data_from": "Stats NZ HILS series (Year ended June 2025)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -3562,9 +3574,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Median equivalised household disposable income before & after housing costs (Stats NZ HILS),\" Year ended June 2025. Derived by HLF from Stats NZ \u2014 Household Income and Housing-Cost Statistics (HILS). https://pulse-data.homeloanfactory.co.nz/equivalised-household-income-family-size/ (checked 18 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Median & mean equivalised household disposable income before & after housing costs (Stats NZ HILS),\" Year ended June 2025. Derived by HLF from Stats NZ \u2014 Household Income and Housing-Cost Statistics (HILS). https://pulse-data.homeloanfactory.co.nz/equivalised-household-income-family-size/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/equivalised-household-income-family-size/",
-      "summary_text": "In the year ended june 2025, Stats NZ reported median equivalised household disposable income of $63,700 before housing costs (BHC) and $49,423 after deducting housing costs (AHC) \u2014a difference of $14,277/year (22.4%) per equivalised adult.",
+      "summary_text": "In the year ended june 2025, Stats NZ's Household Income and Living Survey (HILS, corrected series) recorded median annual equivalised household disposable income of $55,143 before housing costs (BHC) and $41,351 after deducting housing costs (AHC) \u2014a difference of $13,792/year (25.0%) at the median\u2014while mean (average) equivalised household disposable income was $63,397 BHC and $49,127 AHC (a difference of $14,270/year, or 22.5% ).",
       "related_questions": [
         "What is the median equivalised household disposable income in New Zealand before and after housing costs?"
       ],
@@ -3574,29 +3586,41 @@
         "official_series_ids": "Stats NZ HILS \u2014 Median Equivalised Disposable Income Before Housing Costs (BHC) & After Housing Costs (AHC)",
         "observation_period": "Year ended June 2025",
         "period_end": "2025-06-30",
-        "source_published": "Annual Stats NZ Household Income and Housing-Cost Statistics release",
+        "source_published": "Annual Stats NZ Household Income and Housing-Cost Statistics (HILS) release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Equivalised Disposable Income: $63,700 Before Housing Costs (BHC) vs $49,423 After Housing Costs (AHC; 22.4% difference)",
+        "hlf_calculation": "Median Equivalised Disposable Income: $55,143 BHC vs $41,351 AHC (-$13,792/yr or -25.0%) | Mean (Average) Equivalised Disposable Income: $63,397 BHC vs $49,127 AHC (-$14,270/yr or -22.5%)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/equivalised-household-income-family-size/",
         "license": "CC BY 4.0"
       },
       "history": [
         {
-          "period": "Before Housing Costs (BHC)",
-          "label": "Median Equivalised Disposable Income (BHC)",
-          "value": 63700,
-          "formatted": "$63,700/yr"
+          "period": "Median BHC",
+          "label": "Median Equivalised Disposable Income (Before Housing Costs)",
+          "value": 55143,
+          "formatted": "$55,143/yr"
         },
         {
-          "period": "After Housing Costs (AHC)",
-          "label": "Median Equivalised Disposable Income (AHC)",
-          "value": 49423,
-          "formatted": "$49,423/yr (-$14,277)"
+          "period": "Median AHC",
+          "label": "Median Equivalised Disposable Income (After Housing Costs)",
+          "value": 41351,
+          "formatted": "$41,351/yr (-$13,792 / -25.0%)"
+        },
+        {
+          "period": "Mean (Average) BHC",
+          "label": "Mean Equivalised Disposable Income (Before Housing Costs)",
+          "value": 63397,
+          "formatted": "$63,397/yr"
+        },
+        {
+          "period": "Mean (Average) AHC",
+          "label": "Mean Equivalised Disposable Income (After Housing Costs)",
+          "value": 49127,
+          "formatted": "$49,127/yr (-$14,270 / -22.5%)"
         }
       ],
       "latest_underlying_data": "Year ended June 2025",
-      "official_data": "Stats NZ HILS (Year ended June 2025): Median equivalised disposable income BHC = $63,700; AHC = $49,423.",
-      "hlf_calculation": "Equivalised Disposable Income: $63,700 Before Housing Costs (BHC) vs $49,423 After Housing Costs (AHC; 22.4% difference)",
+      "official_data": "Stats NZ HILS (Year ended June 2025, corrected series): Median equivalised disposable income = $55,143 BHC and $41,351 AHC; Mean (average) equivalised disposable income = $63,397 BHC and $49,127 AHC.",
+      "hlf_calculation": "Median Equivalised Disposable Income: $55,143 BHC vs $41,351 AHC (-$13,792/yr or -25.0%) | Mean (Average) Equivalised Disposable Income: $63,397 BHC vs $49,127 AHC (-$14,270/yr or -22.5%)",
       "frequency": "Annual"
     },
     {
@@ -5957,8 +5981,8 @@
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Highest-expenditure households: +0.9% | Lowest-expenditure: +0.8%",
-      "change": "Includes household mortgage interest & council rates",
+      "previous_period": "Highest-expenditure households: +2.5% | Lowest-expenditure: +3.6%",
+      "change": "Includes household mortgage interest payments & council rates",
       "source": "Stats NZ HLPI",
       "source_full": "Stats NZ \u2014 Household living-costs price indexes (HLPI)",
       "source_series_ids": "Stats NZ HLPI \u2014 All-Households Annual % Change & Expenditure Quintile Spread",
@@ -5982,7 +6006,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Household Living-Costs Price Index (HLPI): all-households inflation & expenditure group spread (Stats NZ),\" September 2026 quarter. Source: Stats NZ \u2014 Household living-costs price indexes (HLPI). https://pulse-data.homeloanfactory.co.nz/hlpi-household-living-costs-interest/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/hlpi-household-living-costs-interest/",
-      "summary_text": "In the 12 months to the September 2026 quarter, Stats NZ's Household Living-Costs Price Index (HLPI) for all New Zealand households rose 3.0% (ranging from 0.9% for the highest-expenditure household group to 0.8% for the lowest-expenditure household group).",
+      "summary_text": "In the 12 months to the September 2026 quarter, Stats NZ's Household Living-Costs Price Index (HLPI) for all New Zealand households rose 3.0% (ranging from 2.5% for the highest-expenditure household group to 3.6% for the lowest-expenditure household group).",
       "related_questions": [
         "How much have New Zealand household living costs (HLPI) changed over the past year?"
       ],
@@ -5994,14 +6018,14 @@
         "period_end": "2026-09-30",
         "source_published": "Quarterly Stats NZ Household Living-Costs Price Indexes (HLPI) release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Official Stats NZ HLPI All-Households 12-month change (September 2026 quarter) = +3.0%",
+        "hlf_calculation": "Official Stats NZ HLPI All-Households 12-month change (September 2026 quarter) = +3.0% (Highest-expenditure group = +2.5%; Lowest-expenditure group = +3.6%)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/hlpi-household-living-costs-interest/",
         "license": "CC BY 4.0"
       },
       "history": null,
       "latest_underlying_data": "September 2026 quarter",
-      "official_data": "Stats NZ Household Living-Costs Price Indexes (September 2026 quarter): All-households annual change = +3.0%.",
-      "hlf_calculation": "Official Stats NZ HLPI All-Households 12-month change (September 2026 quarter) = +3.0%",
+      "official_data": "Stats NZ Household Living-Costs Price Indexes (September 2026 quarter): All-households annual change = +3.0% (highest-expenditure group = +2.5%; lowest-expenditure group = +3.6%).",
+      "hlf_calculation": "Official Stats NZ HLPI All-Households 12-month change (September 2026 quarter) = +3.0% (Highest-expenditure group = +2.5%; Lowest-expenditure group = +3.6%)",
       "frequency": "Quarterly"
     },
     {
@@ -6022,8 +6046,8 @@
       "date_modified": "2026-11-18",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "Recorded as contractual interest charged & scheduled repayments due",
-      "change": "Reflects aggregate change in interest charged across outstanding mortgage stock",
+      "previous_period": "Prior quarter: $4.78B ($4,783m) | Same quarter prior year: $5.22B",
+      "change": "Aggregate interest charged: $+59m (+1.2% QoQ) | -7.2% YoY",
       "source": "RBNZ Table C35",
       "source_full": "Reserve Bank of New Zealand \u2014 Residential mortgage loan reconciliation (Table C35)",
       "source_series_ids": "RBNZ Table C35 \u2014 Quarterly Interest Charged ($m) & Scheduled Principal-and-Interest Repayments ($m)",
@@ -6034,7 +6058,7 @@
       "formula": "Reported RBNZ Table C35 Quarterly Interest Charged ($m) & Scheduled Principal + Interest Repayments ($m)",
       "hlf_interpretation": "HLF market context: RBNZ Table C35 records contractual interest charged on outstanding mortgage balances and scheduled repayments due, whether or not actually paid by borrowers; quarterly movements reflect aggregate repricing and balance changes across the housing stock.",
       "methodology": "Extracted live from RBNZ Table C35 (Residential mortgage loan reconciliation). Covers registered banks' residential mortgage books and measures aggregate dollar flows rather than individual household debt-servicing-to-income ratios.",
-      "historical_data_from": "RBNZ Table C35 quarterly series",
+      "historical_data_from": "Available from September 2014 (49 quarterly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -6047,7 +6071,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Quarterly mortgage interest charged & scheduled principal-and-interest repayments (RBNZ Table C35),\" September 2026 quarter. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage loan reconciliation (Table C35). https://pulse-data.homeloanfactory.co.nz/household-debt-servicing-burden/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/household-debt-servicing-burden/",
-      "summary_text": "In the September 2026 quarter, $4.84B ($4,840m) in residential mortgage interest was charged across outstanding New Zealand home loans in RBNZ Table C35 alongside $7.36B ($7,360m) in scheduled principal-and-interest repayments (recorded as contractual amounts due whether or not actually received).",
+      "summary_text": "In the September 2026 quarter, $4.84B ($4,842m) in residential mortgage interest was charged across outstanding New Zealand home loans in RBNZ Table C35 (down 7.2% year-on-year from $5.22B a year earlier, and a quarterly change of $+59m [+1.2% QoQ] in aggregate interest charged), alongside $7.36B in scheduled principal-and-interest repayments ($29.11B over the rolling 12 months, recorded as contractual amounts due whether or not actually received).",
       "related_questions": [
         "How much residential mortgage interest is charged across New Zealand banks each quarter?"
       ],
@@ -6059,7 +6083,7 @@
         "period_end": "2026-09-30",
         "source_published": "Monthly RBNZ statistical release (~4 weeks after reference month-end)",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "RBNZ Table C35 (September 2026 quarter): Mortgage interest charged = $4,840m ($4.84B) | Scheduled principal-and-interest repayments = $7,360m ($7.36B)",
+        "hlf_calculation": "Quarterly Mortgage Interest Charged (September 2026 quarter) = $4.84B ($4,842m; QoQ change: $+59m / +1.2%; YoY: -7.2%) | Scheduled P&I Repayments = $7.36B/qtr ($29.11B/yr)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/household-debt-servicing-burden/",
         "license": "CC BY 4.0"
       },
@@ -6144,8 +6168,8 @@
         }
       ],
       "latest_underlying_data": "September 2026 quarter",
-      "official_data": "RBNZ Table C35 Residential Mortgage Loan Reconciliation (September 2026 quarter): Total mortgage interest charged = $4,840m ($4.84B); Scheduled repayments = $7,360m ($7.36B).",
-      "hlf_calculation": "RBNZ Table C35 (September 2026 quarter): Mortgage interest charged = $4,840m ($4.84B) | Scheduled principal-and-interest repayments = $7,360m ($7.36B)",
+      "official_data": "RBNZ Table C35 (September 2026 quarter): Quarterly residential mortgage interest charged = $4,842m ($4.84B); scheduled repayments = $7,361m ($7.36B).",
+      "hlf_calculation": "Quarterly Mortgage Interest Charged (September 2026 quarter) = $4.84B ($4,842m; QoQ change: $+59m / +1.2%; YoY: -7.2%) | Scheduled P&I Repayments = $7.36B/qtr ($29.11B/yr)",
       "frequency": "Quarterly"
     },
     {
@@ -7621,7 +7645,7 @@
       "definition": "The total dollar value of overdue tax and entitlements debt owed to Inland Revenue across New Zealand ($ billions), the number of customers with overdue debt, and the portion owed by individuals.",
       "formula": "Average Overdue Debt per Customer = Total Overdue Debt ($B) \u00f7 Customers with Debt",
       "hlf_interpretation": "HLF market context: Reports total overdue tax and entitlement balances recorded by Inland Revenue across individuals and entities. When assessing self-employed or company-director mortgage applications, lenders typically review IRD account statements to check whether tax obligations are current or under a payment arrangement.",
-      "methodology": "Automatically fetched and parsed from Inland Revenue's Tax and Entitlements Debt Statistics release page on ird.govt.nz. IRD's series aggregates all overdue tax and entitlement categories (including income tax, GST, PAYE, Working for Families, student loans, and child support) across both individuals and non-individual entities.",
+      "methodology": "Automatically fetched and parsed from Inland Revenue's Tax and Entitlements Debt Statistics release page on ird.govt.nz. IRD's series aggregates overdue tax and entitlement categories (such as income tax, GST, PAYE, and Working for Families) across individuals and non-individual entities, and excludes child support, student loans, and Small Business Cashflow Scheme loans.",
       "historical_data_from": "Inland Revenue debt statistics (June 2026)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -9137,7 +9161,7 @@
       "data_status": "verified",
       "source_status": "current",
       "previous_period": "12 months prior: 5.10% Standard vs 4.43% Special",
-      "change": "+0.59% (+59 bps) advertised rate margin between >80% LVR and <=80% LVR",
+      "change": "+0.59% (+59 bps) advertised rate margin between Standard and Special 1Y fixed rates",
       "source": "RBNZ Tables B20 & B21",
       "source_full": "Reserve Bank of New Zealand \u2014 Standard (Table B20) vs Special (Table B21) Residential Mortgage Interest Rates",
       "source_series_ids": "RBNZ Table B20 (1Y Standard Rate) minus Table B21 (1Y Special <=80% LVR Rate)",
@@ -9161,7 +9185,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Advertised Standard vs Special (<=80% LVR) 1-year fixed mortgage rate spread (RBNZ B20 vs B21),\" October 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Standard (Table B20) vs Special (Table B21) Residential Mortgage Interest Rates. https://pulse-data.homeloanfactory.co.nz/low-equity-margin-penalty-spread/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/low-equity-margin-penalty-spread/",
-      "summary_text": "In October 2026, the gap between New Zealand banks' advertised 1-year 'Standard' fixed rate for borrowers with under 20% equity ( 5.54% , RBNZ Table B20) and 1-year 'Special' fixed rate for borrowers with 20%+ equity ( 4.95% , Table B21) was +59 basis points (+0.59%) .",
+      "summary_text": "In October 2026, the spread between New Zealand banks' advertised 1-year 'Standard' fixed mortgage rate ( 5.54% , RBNZ Table B20) and 1-year 'Special' fixed rate for borrowers with at least 20% equity ( 4.95% , Table B21) was +59 basis points (+0.59%) .",
       "related_questions": [
         "What is the difference between Special and Standard 1-year fixed mortgage rates in RBNZ Tables B20 and B21?"
       ],
@@ -9383,7 +9407,7 @@
       "formula": "Ratio to Scheduled P&I (%) = (Excess Repayments [$m] \u00f7 Scheduled Repayments [$m]) \u00d7 100; Rolling 12M Excess = Sum of 4 quarters",
       "hlf_interpretation": "HLF market context: RBNZ Table C35 tracks principal repayments made by borrowers in excess of their contracted scheduled payments (such as regular overpayments or lump-sum reductions) across registered banks.",
       "methodology": "Extracted live from RBNZ Table C35 (Residential mortgage loan reconciliation). Compares quarterly voluntary excess repayments against contracted scheduled principal-and-interest repayments. Excludes full loan discharges upon property sale or refinancing.",
-      "historical_data_from": "RBNZ Table C35 quarterly series",
+      "historical_data_from": "Available from September 2014 (49 quarterly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -9396,7 +9420,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Quarterly voluntary excess mortgage repayments vs scheduled repayments (RBNZ Table C35),\" September 2026 quarter. Derived by HLF from Reserve Bank of New Zealand \u2014 Residential mortgage loan reconciliation (Table C35). https://pulse-data.homeloanfactory.co.nz/mortgage-excess-repayments/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mortgage-excess-repayments/",
-      "summary_text": "In the September 2026 quarter, New Zealand mortgage borrowers made $4.30B ($4,297m) in voluntary excess mortgage repayments above their contracted minimum schedules (down 3.0% year-on-year from $4.43B a year earlier)\u2014equivalent to 58.4% on top of the $7.36B ($7,361m) paid in scheduled minimum principal-and-interest repayments (and bringing rolling 12-month voluntary excess repayments to $18.03B ).",
+      "summary_text": "In the September 2026 quarter, New Zealand mortgage borrowers made $4.30B ($4,297m) in voluntary excess mortgage repayments above their contracted minimum schedules (down 3.0% year-on-year from $4.43B a year earlier)\u2014equivalent to 58.4% on top of the $7.36B ($7,361m) recorded in scheduled principal-and-interest repayments (and bringing rolling 12-month voluntary excess repayments to $18.03B ).",
       "related_questions": [
         "How much in voluntary excess mortgage repayments do New Zealand borrowers make each quarter?",
         "How do voluntary excess mortgage repayments compare with scheduled repayments in RBNZ Table C35?"
@@ -11710,7 +11734,7 @@
       "observation_period": "Year ended June 2025",
       "observed_period": "Year ended June 2025",
       "period_end": "2025-06-30",
-      "source_published": "Annual Stats NZ Household Income and Housing-Cost Statistics release",
+      "source_published": "Annual Stats NZ Household Income and Housing-Cost Statistics (HILS) release",
       "last_checked": "2026-11-18",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-18",
@@ -11724,10 +11748,10 @@
       "source_url": "https://www.stats.govt.nz/information-releases/household-income-and-housing-cost-statistics-year-ended-june-2025/",
       "derived_by_hlf": true,
       "data_type": "Officially reported Stats NZ HILS series & HLF-derived interest vs principal shares",
-      "definition": "Average weekly mortgage interest payments versus principal repayments across mortgaged New Zealand households in Stats NZ's Household Economic Survey, alongside the national average housing-cost-to-disposable-income ratio.",
+      "definition": "Average weekly mortgage interest payments versus principal repayments across mortgaged New Zealand households in Stats NZ's Household Income and Living Survey (HILS), alongside the national average housing-cost-to-disposable-income ratio.",
       "formula": "Total Weekly Mortgage Outgoing = Weekly Interest + Weekly Principal; Interest Share (%) = Interest \u00f7 Total \u00d7 100",
       "hlf_interpretation": "HLF market context: Reports the average weekly split between mortgage interest payments and principal repayments across surveyed New Zealand households with a mortgage.",
-      "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics release. Survey averages cover all mortgaged households in the Household Economic Survey (including long-standing homeowners with smaller remaining balances as well as recent buyers).",
+      "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (HILS) release. Survey averages cover all mortgaged households in the Household Income and Living Survey (including long-standing homeowners with smaller remaining balances as well as recent buyers).",
       "historical_data_from": "Stats NZ HILS housing-cost series (Year ended June 2025)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -11741,7 +11765,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Weekly mortgage interest vs principal payments & housing cost-to-income ratio (Stats NZ HILS),\" Year ended June 2025. Derived by HLF from Stats NZ \u2014 Household Income and Housing-Cost Statistics (Housing Costs Release). https://pulse-data.homeloanfactory.co.nz/rent-vs-mortgage-interest-outgoings/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rent-vs-mortgage-interest-outgoings/",
-      "summary_text": "In Stats NZ's Year ended June 2025 Household Economic Survey release, households with a mortgage paid an average of $452.10/week (64.2%) in mortgage interest and $252.60/week (35.8%) in principal repayments (while renting households paid an average of $505.50/week in rent), and across all New Zealand households housing costs averaged $22.30 per $100 of disposable income .",
+      "summary_text": "In Stats NZ's Year ended June 2025 Household Income and Living Survey (HILS) release, households with a mortgage paid an average of $452.10/week (64.2%) in mortgage interest and $252.60/week (35.8%) in principal repayments (while renting households paid an average of $505.50/week in rent), and across all New Zealand households housing costs averaged $22.30 per $100 of disposable income .",
       "related_questions": [
         "What is the average weekly mortgage interest and principal payment in Stats NZ's Household Economic Survey?",
         "How much of their disposable income do New Zealand households spend on housing costs on average?"
@@ -11752,7 +11776,7 @@
         "official_series_ids": "Stats NZ HILS \u2014 Weekly Mortgage Interest ($/wk), Weekly Mortgage Principal ($/wk) & Housing Cost per $100 Income",
         "observation_period": "Year ended June 2025",
         "period_end": "2025-06-30",
-        "source_published": "Annual Stats NZ Household Income and Housing-Cost Statistics release",
+        "source_published": "Annual Stats NZ Household Income and Housing-Cost Statistics (HILS) release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
         "hlf_calculation": "Weekly Mortgage Interest ($452.10/wk) + Weekly Mortgage Principal ($252.60/wk) = $704.70/wk (64.2% interest vs 35.8% principal) | HILS Avg Weekly Rent = $505.50/wk",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/rent-vs-mortgage-interest-outgoings/",
@@ -13232,7 +13256,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Total New Zealand residential mortgage debt outstanding & share of private sector credit (RBNZ Table C5),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Registered banks and non-bank lending institutions: Sector lending (Table C5). https://pulse-data.homeloanfactory.co.nz/total-housing-debt-stock/ (checked 18 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/total-housing-debt-stock/",
-      "summary_text": "As at September 2026, total New Zealand residential mortgage debt across registered banks and non-bank lenders reached $404.76B ($404,758m) (up 5.3% year-on-year from $384.30B a year earlier).",
+      "summary_text": "As at September 2026, total New Zealand residential mortgage debt across registered banks and non-bank lending institutions reached $404.76B ($404,758m) (up 5.3% year-on-year from $384.30B a year earlier).",
       "related_questions": [
         "What is the total amount of residential mortgage debt in New Zealand?",
         "What percentage of New Zealand private sector credit is housing debt?"
