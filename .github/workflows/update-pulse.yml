@@ -1,21 +1,15 @@
-name: Update NZ Mortgage & Housing Pulse
+name: Update HLF Pulse Data & Deploy Pages
 
 on:
+  schedule:
+    - cron: "15 18 * * *" # Runs daily at 18:15 UTC (07:15 NZDT / 06:15 NZST)
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
-      - '*.xlsx'
-      - '*.csv'
-      - '*.pdf'
-      - 'update_pulse.py'
-      - 'update_fhb_benchmark.py'
-      - '.github/workflows/update-pulse.yml'
-  schedule:
-    # Runs Mon, Wed, Fri at 02:35 UTC (3:35 PM NZDT / 2:35 PM Fiji) to catch:
-    # - Stats NZ Building Consents (~1st-4th), Tenancy Services (~10th-15th),
-    # - IRD KiwiSaver (~18th-22nd), Stats NZ CPI (~20th-24th), and RBNZ C31-C41/B30 (~25th-29th).
-    - cron: '35 2 * * 1,3,5'
+      - "update_pulse.py"
+      - ".github/workflows/**"
 
 permissions:
   contents: write
@@ -23,25 +17,27 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: "hlf-pulse-build-and-deploy"
+  cancel-in-progress: true
 
 jobs:
-  update-pulse:
+  build-and-deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (with Git history for baseline recovery)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 12
+          fetch-depth: 25
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
+          cache: "pip"
 
       - name: Cache Camoufox browser binary
         uses: actions/cache@v4
@@ -49,46 +45,57 @@ jobs:
           path: ~/.cache/camoufox
           key: ${{ runner.os }}-camoufox-v1
 
-      - name: Install 3-tier browser & Python dependencies
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Python dependencies & Camoufox
         run: |
-          sudo apt-get update && sudo apt-get install -y xvfb libgtk-3-0t64 libasound2t64 libx11-xcb1 || sudo apt-get install -y xvfb
           python -m pip install --upgrade pip
-          pip install pandas openpyxl requests curl_cffi "camoufox[geoip]" playwright pypdf
-          python -m playwright install --with-deps chromium
-          python -m camoufox fetch || echo "Camoufox GitHub release API rate-limited; continuing with Playwright Chromium + curl_cffi"
+          pip install requests beautifulsoup4 lxml openpyxl pandas pypdf "camoufox[geoip]" playwright
+          python -m camoufox fetch
 
-      - name: Fetch RBNZ, Stats NZ, Tenancy, HUD/MCERT & IRD data
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python -c "import pathlib; p=pathlib.Path('update_pulse.py'); p.write_text(p.read_text('utf-8').replace('\u00a0', ' '), 'utf-8')"
-          xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" python update_pulse.py
-          if [ -f update_fhb_benchmark.py ]; then
-            python -c "import pathlib; p=pathlib.Path('update_fhb_benchmark.py'); p.write_text(p.read_text('utf-8').replace('\u00a0', ' '), 'utf-8')"
-            xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" python update_fhb_benchmark.py
-          fi
-          touch .nojekyll
+      - name: Run HLF Pulse live data builder
+        run: python update_pulse.py
 
       - name: Commit and push updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          if git diff --staged --quiet; then
-            echo "No file changes to commit."
-          else
-            git commit -m "Auto-update HLF Pulse dataset & canonical pages ($(date -u +'%Y-%m-%d %H:%M UTC'))"
-            git pull --rebase origin main
+          if ! git diff --staged --quiet; then
+            COMMIT_MSG="Auto-update HLF Pulse dataset & canonical pages ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+            git commit -m "$COMMIT_MSG"
+            if ! git pull --rebase -X theirs origin main; then
+              git rebase --abort || true
+              git fetch origin main
+              git reset --soft origin/main
+              git add -A
+              git commit -m "$COMMIT_MSG"
+            fi
             git push origin HEAD:main
+          else
+            echo "No data changes to commit."
           fi
+
+      - name: Prepare clean Pages directory
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude='_site' \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='__pycache__' \
+            --exclude='*.pyc' \
+            --exclude='tmp_*' \
+            ./ _site/
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: "_site"
+
+      - name: Wait for GitHub Artifact API indexing
+        run: sleep 3
 
       - name: Deploy to GitHub Pages
         id: deployment
