@@ -37,7 +37,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: "pip"
 
       - name: Cache Camoufox browser binary
         uses: actions/cache@v4
@@ -50,9 +49,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4 lxml openpyxl pandas pypdf "camoufox[geoip]" playwright
           python -m camoufox fetch
+          playwright install chromium
 
-      - name: Run HLF Pulse live data builder
-        run: python update_pulse.py
+      - name: Sanitize non-breaking spaces & run HLF Pulse live data builder
+        run: |
+          python -c "import pathlib; p=pathlib.Path('update_pulse.py'); p.write_text(p.read_text('utf-8').replace('\u00a0', ' '), 'utf-8')"
+          python update_pulse.py
 
       - name: Commit and push updated data
         run: |
