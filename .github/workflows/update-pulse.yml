@@ -21,12 +21,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  update-data:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Checkout repository (with Git history for baseline recovery)
         uses: actions/checkout@v4
@@ -85,6 +81,9 @@ jobs:
             --exclude='.github' \
             --exclude='__pycache__' \
             --exclude='*.pyc' \
+            --exclude='*.py' \
+            --exclude='*.xlsx' \
+            --exclude='*.pdf' \
             --exclude='tmp_*' \
             ./ _site/
 
@@ -96,9 +95,13 @@ jobs:
         with:
           path: "_site"
 
-      - name: Wait for GitHub Artifact API indexing
-        run: sleep 3
-
+  deploy-pages:
+    needs: update-data
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
