@@ -8378,6 +8378,233 @@ def _extract_ko_pdf_totals(pdf_txt: str) -> tuple[str, str, list[int] | None, li
     return q_label, q_end_iso, app_row, set_row
 
 
+KO_ALL_67_TLA_SPECS: list[tuple[str, str]] = [
+    ("Far North District", r"Far\s+North\s+District"),
+    ("Whangārei District", r"Whang[aā]rei\s+District"),
+    ("Kaipara District", r"Kaipara\s+District"),
+    ("Auckland City", r"Auckland\s+City"),
+    ("Thames-Coromandel District", r"Thames-\s*Coromandel\s+District"),
+    ("Hauraki District", r"Hauraki\s+District"),
+    ("Waikato District", r"Waikato\s+District"),
+    ("Matamata-Piako District", r"Matamata-\s*Piako\s+District"),
+    ("Hamilton City", r"Hamilton\s+City"),
+    ("Waipā District", r"Waip[aā]\s+District"),
+    ("Ōtorohanga District", r"[OŌ]torohanga\s+District"),
+    ("South Waikato District", r"South\s+Waikato\s+District"),
+    ("Waitomo District", r"Waitomo\s+District"),
+    ("Taupō District", r"Taup[oō]\s+District"),
+    ("Western Bay of Plenty District", r"Western\s+Bay\s+of\s+Plenty\s+District"),
+    ("Tauranga City", r"Tauranga\s+City"),
+    ("Rotorua District", r"Rotorua\s+District"),
+    ("Whakatāne District", r"Whakat[aā]ne\s+District"),
+    ("Kawerau District", r"Kawerau\s+District"),
+    ("Ōpōtiki District", r"[OŌ]p[oō]tiki\s+District"),
+    ("Gisborne District", r"Gisborne\s+District"),
+    ("Wairoa District", r"Wairoa\s+District"),
+    ("Hastings District", r"Hastings\s+District"),
+    ("Napier City", r"Napier\s+City"),
+    ("Central Hawke's Bay District", r"Central\s+Hawke'?s?\s+Bay\s+District"),
+    ("New Plymouth District", r"New\s+Plymouth\s+District"),
+    ("Stratford District", r"Stratford\s+District"),
+    ("South Taranaki District", r"South\s+Taranaki\s+District"),
+    ("Ruapehu District", r"Ruapehu\s+District"),
+    ("Whanganui District", r"Whanganui\s+District"),
+    ("Rangitīkei District", r"Rangit[iī]kei\s+District"),
+    ("Manawatū District", r"Manawat[uū]\s+District"),
+    ("Palmerston North District", r"Palmerston\s+North\s+District"),
+    ("Tararua District", r"Tararua\s+District"),
+    ("Horowhenua District", r"Horowhenua\s+District"),
+    ("Kāpiti Coast District", r"K[aā]piti\s+Coast\s+District"),
+    ("Porirua City", r"Porirua\s+City"),
+    ("Upper Hutt City", r"Upper\s+Hutt\s+City"),
+    ("Lower Hutt City", r"Lower\s+Hutt\s+City"),
+    ("Wellington City", r"Wellington\s+City"),
+    ("Masterton District", r"Masterton\s+District"),
+    ("Carterton District", r"Carterton\s+District"),
+    ("South Wairarapa District", r"South\s+Wairarapa\s+District"),
+    ("Tasman District", r"Tasman\s+District"),
+    ("Nelson City", r"Nelson\s+City"),
+    ("Marlborough District", r"Marlborough\s+District"),
+    ("Kaikōura District", r"Kaik[oō]ura\s+District"),
+    ("Buller District", r"Buller\s+District"),
+    ("Grey District", r"Grey\s+District"),
+    ("Westland District", r"Westland\s+District"),
+    ("Hurunui District", r"Hurunui\s+District"),
+    ("Waimakariri District", r"Waimakariri\s+District"),
+    ("Christchurch City", r"Christchurch\s+City"),
+    ("Selwyn District", r"Selwyn\s+District"),
+    ("Ashburton District", r"Ashburton\s+District"),
+    ("Timaru District", r"Timaru\s+District"),
+    ("Mackenzie District", r"Mac[kK]enzie\s+District"),
+    ("Waimate District", r"Waimate\s+District"),
+    ("Waitaki District", r"Waitaki\s+District"),
+    ("Central Otago District", r"Central\s+Otago\s+District"),
+    ("Queenstown-Lakes District", r"Queenstown[-\s]+Lakes\s+District"),
+    ("Dunedin City", r"Dunedin\s+City"),
+    ("Clutha District", r"Clutha\s+District"),
+    ("Southland District", r"Southland\s+District"),
+    ("Gore District", r"Gore\s+District"),
+    ("Invercargill City", r"Invercargill\s+City"),
+    ("Chatham Islands Territory", r"Chatham\s+Islands?\s+(?:District|Territory)"),
+]
+
+GREATER_WELLINGTON_TLA_NAMES: set[str] = {
+    "Wellington City",
+    "Lower Hutt City",
+    "Upper Hutt City",
+    "Porirua City",
+    "Kāpiti Coast District",
+    "Masterton District",
+    "Carterton District",
+    "South Wairarapa District",
+}
+
+
+def _parse_single_ko_column_stream(col_txt: str) -> dict[str, int]:
+    """
+    Parse a single Kāinga Ora TLA column text stream (either Approvals or Settlements) across all 67 TLAs.
+    Handles 0, 1, 2, or 3 blank monthly cells per row by slicing between consecutive TLA headers.
+    """
+    tla_totals: dict[str, int] = {}
+    matches: list[tuple[int, int, str]] = []
+    for c_lbl, c_pat in KO_ALL_67_TLA_SPECS:
+        m = re.search(c_pat, col_txt, flags=re.I)
+        if m:
+            matches.append((m.start(), m.end(), c_lbl))
+
+    matches.sort(key=lambda x: x[0])
+    if not matches:
+        return tla_totals
+
+    for idx, (_, end_pos, c_lbl) in enumerate(matches):
+        next_start = matches[idx + 1][0] if (idx + 1 < len(matches)) else len(col_txt)
+        seg = col_txt[end_pos:next_start]
+        # Truncate at Total or footer/narrative markers
+        m_stop = re.search(
+            r"\b(?:Total|Tenant\s+Home\s+Ownership|First\s+Home\s+Loan|Approvals\s+by|Settlements\s+by|Territorial\s+Local)\b",
+            seg,
+            flags=re.I,
+        )
+        if m_stop:
+            seg = seg[: m_stop.start()]
+        # Remove any 4-digit year headers like 2025/2026
+        seg_clean = re.sub(r"\b202\d\b", " ", seg)
+        nums = [int(n.replace(",", "")) for n in re.findall(r"\d[\d,]*", seg_clean)]
+        if not nums:
+            tla_totals[c_lbl] = 0
+            continue
+        # If a trailing single-digit page number (2, 3, or 4) was captured at the bottom of a page,
+        # strip it when the preceding numbers already form a valid [m1.., total] row where sum(m) == total.
+        if (
+            len(nums) >= 3
+            and nums[-1] in (2, 3, 4)
+            and len(nums[:-1]) >= 2
+            and sum(nums[:-2]) == nums[-2]
+        ):
+            nums = nums[:-1]
+        tla_totals[c_lbl] = nums[-1]
+
+    return tla_totals
+
+
+def _extract_ko_all_67_tlas(pdf_bytes: bytes, pdf_txt: str) -> list[dict]:
+    """
+    Extract Approvals and Settlements for all 67 New Zealand Territorial Local Authorities from a Kāinga Ora
+    Quarterly Report PDF. Uses coordinate-aware left/right column splitting (`visitor_text`) first so multi-line
+    TLA rows and blank monthly cells never interleave, with a regex fallback on `pdf_txt`.
+    """
+    left_chunks: list[str] = []
+    right_chunks: list[str] = []
+
+    try:
+        import pypdf
+
+        reader = pypdf.PdfReader(io.BytesIO(pdf_bytes))
+        for page in reader.pages:
+            p_raw = page.extract_text() or ""
+            if not any(k in p_raw for k in ("Far North District", "Opotiki District", "Queenstown", "Dunedin City")):
+                continue
+            p_width = float(page.mediabox.width or 595.0)
+            x_split = p_width * 0.495  # ~294.5pt on an A4 page (left table x=35..280, right table x=305..555)
+
+            frags: list[tuple[float, float, str]] = []
+
+            def _visitor(text, cm, tm, font_dict, font_size):
+                s = str(text or "").strip()
+                if not s:
+                    return
+                x = float(tm[4] * cm[0] + tm[5] * cm[2] + cm[4]) if cm and tm else float(tm[4])
+                y = float(tm[4] * cm[1] + tm[5] * cm[3] + cm[5]) if cm and tm else float(tm[5])
+                # Ignore bottom page number footer (y < 38)
+                if y < 38.0:
+                    return
+                frags.append((x, y, s))
+
+            page.extract_text(visitor_text=_visitor)
+            if not frags:
+                continue
+
+            # Refine x_split dynamically if right-hand table TLA headers are detected
+            right_header_xs = [
+                x for x, _, s in frags
+                if x > 250.0 and any(h in s for h in ("Far North", "Whangarei", "Auckland", "Opotiki", "Hastings", "Christchurch", "Dunedin", "Invercargill"))
+            ]
+            if right_header_xs:
+                x_split = min(right_header_xs) - 8.0
+
+            left_frags = [(round(y / 3.0) * 3.0, x, s) for x, y, s in frags if x < x_split]
+            right_frags = [(round(y / 3.0) * 3.0, x, s) for x, y, s in frags if x >= x_split]
+
+            left_frags.sort(key=lambda t: (-t[0], t[1]))
+            right_frags.sort(key=lambda t: (-t[0], t[1]))
+
+            left_chunks.append(" ".join(s for _, _, s in left_frags))
+            right_chunks.append(" ".join(s for _, _, s in right_frags))
+    except Exception as exc_v:
+        print(f"[Kāinga Ora TLA Coordinate Parser] Note: {exc_v}")
+
+    app_map: dict[str, int] = {}
+    set_map: dict[str, int] = {}
+
+    if left_chunks and right_chunks:
+        app_map = _parse_single_ko_column_stream(re.sub(r"\s+", " ", " ".join(left_chunks)))
+        set_map = _parse_single_ko_column_stream(re.sub(r"\s+", " ", " ".join(right_chunks)))
+
+    # Fallback / supplement from `pdf_txt` if `visitor_text` was unavailable or missed any TLA
+    if len(app_map) < 50:
+        norm_txt = re.sub(r"\s+", " ", re.sub(r"[\|\r\n]+", " ", pdf_txt))
+        # In standard pypdf text stream, each page outputs the Left Table (Approvals) followed by the Right Table (Settlements)
+        for c_lbl, c_pat in KO_ALL_67_TLA_SPECS:
+            if c_lbl in app_map and c_lbl in set_map:
+                continue
+            m_list = [
+                [int(m.group(i).replace(",", "")) for i in range(1, 5)]
+                for m in re.finditer(c_pat + r"\s+(\d[\d,]*)\s+(\d[\d,]*)\s+(\d[\d,]*)\s+(\d[\d,]*)", norm_txt, flags=re.I)
+            ]
+            m_list = [v for v in m_list if v[0] + v[1] + v[2] == v[3]]
+            if len(m_list) == 1:
+                mm = re.search(c_pat + r"\s+[A-Za-z\s]+?\s+(\d+)\s+\d+\s+(\d+)\s+\d+\s+(\d+)\s+\d+\s+(\d+)\s+\d+", norm_txt, flags=re.I)
+                if mm:
+                    vm = [int(mm.group(i)) for i in range(1, 5)]
+                    if vm[0] + vm[1] + vm[2] == vm[3]:
+                        m_list.append(vm)
+            if m_list:
+                app_map.setdefault(c_lbl, m_list[0][3])
+                if len(m_list) >= 2:
+                    set_map.setdefault(c_lbl, m_list[1][3])
+
+    rows_out: list[dict] = []
+    for c_lbl, _ in KO_ALL_67_TLA_SPECS:
+        if c_lbl in app_map or c_lbl in set_map:
+            rows_out.append({
+                "label": c_lbl,
+                "approvals": int(app_map.get(c_lbl, 0)),
+                "settlements": int(set_map.get(c_lbl, 0)),
+                "is_subgroup": False,
+            })
+    return rows_out
+
+
 def build_kainga_ora_tickers(session) -> dict:
     """
     100% live-pulled Kāinga Ora Home Ownership Products Quarterly Report PDFs (CC BY 4.0).
@@ -8437,6 +8664,7 @@ def build_kainga_ora_tickers(session) -> dict:
     parsed_quarters.sort(key=lambda x: x["q_end_iso"], reverse=True)
     latest = parsed_quarters[0]
     pdf_u = latest["url"]
+    pdf_b = latest["bytes"]
     pdf_txt = latest["text"]
     q_disp = latest["q_label"]
     q_end_iso = latest["q_end_iso"]
@@ -8444,7 +8672,6 @@ def build_kainga_ora_tickers(session) -> dict:
     m1s, m2s, m3s, q_set = latest["set_row"]
     ma_app, ma_set = int(round(q_app / 3.0)), int(round(q_set / 3.0))
     conv = (q_set / max(1, q_app)) * 100.0
-    norm_txt = re.sub(r"\s+", " ", re.sub(r"[\|\r\n]+", " ", pdf_txt))
 
     trend_clause = ""
     roll_clause = ""
@@ -8536,56 +8763,85 @@ def build_kainga_ora_tickers(session) -> dict:
         {"source_published": qtr_pub, "source_url": pdf_u},
     )
 
-    cities_spec = [
-        ("Auckland City", r"Auckland\s+City"), ("Christchurch City", r"Christchurch\s+City"),
-        ("Hamilton City", r"Hamilton\s+City"), ("Dunedin City", r"Dunedin\s+City"),
-        ("Wellington City", r"Wellington\s+City"), ("Tauranga City", r"Tauranga\s+City"),
-        ("Invercargill City", r"Invercargill\s+City"), ("Napier City", r"Napier\s+City"),
-        ("Rotorua District", r"Rotorua\s+District"), ("Palmerston North District", r"Palmerston\s+North\s+District"),
-        ("Nelson City", r"Nelson\s+City"), ("Waikato District", r"Waikato\s+District"),
-        ("New Plymouth District", r"New\s+Plymouth\s+District"), ("Lower Hutt City", r"Lower\s+Hutt\s+City"),
-        ("Selwyn District", r"Selwyn\s+District"), ("Hastings District", r"Hastings\s+District"),
-        ("Waimakariri District", r"Waimakariri\s+District"),
-    ]
-    c_rows = []
-    for c_lbl, c_pat in cities_spec:
-        m_list = [
-            [int(m.group(i).replace(",", "")) for i in range(1, 5)]
-            for m in re.finditer(c_pat + r"\s+(\d[\d,]*)\s+(\d[\d,]*)\s+(\d[\d,]*)\s+(\d[\d,]*)", norm_txt, flags=re.I)
-        ]
-        m_list = [v for v in m_list if v[0] + v[1] + v[2] == v[3]]
-        if len(m_list) == 1:
-            mm = re.search(c_pat + r"\s+[A-Za-z\s]+?\s+(\d+)\s+\d+\s+(\d+)\s+\d+\s+(\d+)\s+\d+\s+(\d+)\s+\d+", norm_txt, flags=re.I)
-            if mm:
-                vm = [int(mm.group(i)) for i in range(1, 5)]
-                if vm[0] + vm[1] + vm[2] == vm[3]:
-                    m_list.append(vm)
-        if m_list:
-            ca = m_list[0][3]
-            cs = m_list[1][3] if len(m_list) >= 2 else None
-            c_sh = (ca / max(1, q_app)) * 100.0
-            s_part = f" | {cs:,} settlements" if cs is not None else ""
-            c_rows.append({"period": c_lbl, "label": c_lbl, "value": ca, "set_val": cs or 0, "share": c_sh, "formatted": f"{ca:,} approvals ({c_sh:.1f}% of NZ){s_part}"})
+    # Parse all 67 Territorial Local Authorities + build HLF's Greater Wellington Region subgroup
+    tla_raw_rows = _extract_ko_all_67_tlas(pdf_b, pdf_txt)
+    if len(tla_raw_rows) >= 15:
+        gw_rows = [r for r in tla_raw_rows if r["label"] in GREATER_WELLINGTON_TLA_NAMES]
+        gw_app = sum(r["approvals"] for r in gw_rows)
+        gw_set = sum(r["settlements"] for r in gw_rows)
+        gw_app_sh = (gw_app / max(1, q_app)) * 100.0
+        gw_set_sh = (gw_set / max(1, q_set)) * 100.0
 
-    if len(c_rows) >= 5:
-        c_rows.sort(key=lambda x: x["value"], reverse=True)
-        top1, top2, top3, top4 = c_rows[0], c_rows[1], c_rows[2], c_rows[3]
+        c_rows: list[dict] = []
+        for r in tla_raw_rows:
+            ca = r["approvals"]
+            cs = r["settlements"]
+            c_sh = (ca / max(1, q_app)) * 100.0
+            c_rows.append({
+                "period": r["label"],
+                "label": r["label"],
+                "value": ca,
+                "set_val": cs,
+                "share": c_sh,
+                "is_subgroup": False,
+                "formatted": f"{ca:,} approvals ({c_sh:.1f}% of NZ) | {cs:,} settlements",
+            })
+
+        # Sort all 67 TLAs by approvals descending, then settlements descending, then name
+        c_rows.sort(key=lambda x: (x["value"], x["set_val"]), reverse=True)
+        top1, top2, top3 = c_rows[0], c_rows[1], c_rows[2]
         top2_comb_sh = top1["share"] + top2["share"]
+
+        # Insert Greater Wellington (HLF Subgroup) in sorted position by approval count
+        if gw_app > 0:
+            gw_entry = {
+                "period": "Greater Wellington (HLF Subgroup)",
+                "label": "Greater Wellington (HLF Subgroup — 8 Councils Combined)",
+                "value": gw_app,
+                "set_val": gw_set,
+                "share": gw_app_sh,
+                "is_subgroup": True,
+                "formatted": (
+                    f"{gw_app:,} approvals ({gw_app_sh:.1f}% of NZ) | {gw_set:,} settlements ({gw_set_sh:.1f}% of NZ) "
+                    f"[Wellington City, Lower Hutt, Upper Hutt, Porirua, Kāpiti Coast & Wairarapa]"
+                ),
+            }
+            insert_idx = next((i for i, r in enumerate(c_rows) if r["value"] < gw_app), len(c_rows))
+            c_rows.insert(insert_idx, gw_entry)
+
+        wgtn_city_r = next((r for r in tla_raw_rows if r["label"] == "Wellington City"), {"approvals": 0, "settlements": 0})
+        lh_city_r = next((r for r in tla_raw_rows if r["label"] == "Lower Hutt City"), {"approvals": 0, "settlements": 0})
+        uh_city_r = next((r for r in tla_raw_rows if r["label"] == "Upper Hutt City"), {"approvals": 0, "settlements": 0})
+        por_city_r = next((r for r in tla_raw_rows if r["label"] == "Porirua City"), {"approvals": 0, "settlements": 0})
+        kap_dist_r = next((r for r in tla_raw_rows if r["label"] == "Kāpiti Coast District"), {"approvals": 0, "settlements": 0})
+        wai_app = sum(r["approvals"] for r in tla_raw_rows if r["label"] in ("Masterton District", "Carterton District", "South Wairarapa District"))
+        wai_set = sum(r["settlements"] for r in tla_raw_rows if r["label"] in ("Masterton District", "Carterton District", "South Wairarapa District"))
+
         reg_fhl_calc = (
-            f"{top1['label']}: {top1['value']:,}÷{q_app:,}={top1['share']:.1f}% | "
-            f"{top2['label']}: {top2['value']:,}÷{q_app:,}={top2['share']:.1f}% | "
-            f"{top3['label']}: {top3['value']:,}÷{q_app:,}={top3['share']:.1f}%"
+            f"{top1['label']}: {top1['value']:,}÷{q_app:,}={top1['share']:.1f}% ({top1['set_val']:,} settled) | "
+            f"{top2['label']}: {top2['value']:,}÷{q_app:,}={top2['share']:.1f}% ({top2['set_val']:,} settled) | "
+            f"{top3['label']}: {top3['value']:,}÷{q_app:,}={top3['share']:.1f}% ({top3['set_val']:,} settled) | "
+            f"Greater Wellington (HLF Subgroup, 8 councils): {gw_app:,}÷{q_app:,}={gw_app_sh:.1f}% ({gw_set:,} settled, {gw_set_sh:.1f}% of NZ)"
         )
         out["kainga-ora-first-home-loan-regional"] = make_pulse_item(
             "Kāinga Ora Report", q_end_iso, MAX_AGE_QUARTERLY,
-            f"In the {q_disp} quarter, Kāinga Ora's <strong>{q_app:,}</strong> First Home Loan (5% deposit) approvals were led by <strong>{top1['label']} ({top1['value']:,} approvals, or {top1['share']:.1f}% of NZ)</strong> and <strong>{top2['label']} ({top2['value']:,}, or {top2['share']:.1f}%)</strong>—together accounting for <strong>{top2_comb_sh:.1f}%</strong> of national approvals—followed by <strong>{top3['label']} ({top3['value']:,})</strong> and <strong>{top4['label']} ({top4['value']:,})</strong>.",
-            f"Kāinga Ora Home Ownership Products Report ({q_disp} TLA Tables): {top1['label']} = {top1['value']:,} approvals ({top1['set_val']:,} settlements); {top2['label']} = {top2['value']:,} ({top2['set_val']:,}); {top3['label']} = {top3['value']:,} ({top3['set_val']:,}).",
+            f"In the {q_disp} quarter, Kāinga Ora's <strong>{q_app:,}</strong> First Home Loan (5% deposit) approvals and <strong>{q_set:,}</strong> settlements across all {len(tla_raw_rows)} New Zealand Territorial Local Authorities were led by "
+            f"<strong>{top1['label']} ({top1['value']:,} approvals [{top1['share']:.1f}%] | {top1['set_val']:,} settlements)</strong>, "
+            f"<strong>{top2['label']} ({top2['value']:,} [{top2['share']:.1f}%] | {top2['set_val']:,} settlements)</strong>, and "
+            f"<strong>{top3['label']} ({top3['value']:,} [{top3['share']:.1f}%] | {top3['set_val']:,} settlements)</strong>. "
+            f"Across our <strong>Greater Wellington (HLF Subgroup)</strong>—combining Wellington City ({wgtn_city_r['approvals']:,} approvals | {wgtn_city_r['settlements']:,} settlements), "
+            f"Lower Hutt City ({lh_city_r['approvals']:,} | {lh_city_r['settlements']:,}), Upper Hutt City ({uh_city_r['approvals']:,} | {uh_city_r['settlements']:,}), "
+            f"Porirua City ({por_city_r['approvals']:,} | {por_city_r['settlements']:,}), Kāpiti Coast District ({kap_dist_r['approvals']:,} | {kap_dist_r['settlements']:,}), "
+            f"and Wairarapa ({wai_app:,} | {wai_set:,})—Kāinga Ora recorded <strong>{gw_app:,} approvals ({gw_app_sh:.1f}% of NZ) and {gw_set:,} settlements ({gw_set_sh:.1f}% of NZ)</strong>.",
+            f"Kāinga Ora Home Ownership Products Report ({q_disp} TLA Tables, all {len(tla_raw_rows)} councils): {top1['label']} = {top1['value']:,} approvals ({top1['set_val']:,} settlements); "
+            f"{top2['label']} = {top2['value']:,} ({top2['set_val']:,}); {top3['label']} = {top3['value']:,} ({top3['set_val']:,}); "
+            f"Greater Wellington (HLF 8-council subgroup) = {gw_app:,} approvals ({gw_set:,} settlements).",
             format_provenance_source_html(reg_fhl_calc, f"Kāinga Ora — Home Ownership Products Report TLA Tables ({q_disp})", pdf_u, True),
             q_disp, top1["value"],
-            f"{top1['label']} {top1['value']:,} ({top1['share']:.1f}%) | {top2['label']} {top2['value']:,} ({top2['share']:.1f}%) | {top3['label']} {top3['value']:,}",
-            f"National quarterly total: {q_app:,} approvals & {q_set:,} settlements",
-            f"{top1['label']} + {top2['label']} = {top2_comb_sh:.1f}% of all NZ First Home Loan approvals",
-            reg_fhl_calc, f"Kāinga Ora Territorial Local Authority tables ({q_disp})",
+            f"{top1['label']} {top1['value']:,} ({top1['set_val']:,} settled) | {top2['label']} {top2['value']:,} ({top2['set_val']:,}) | {top3['label']} {top3['value']:,} | Greater Wellington {gw_app:,} ({gw_set:,} settled)",
+            f"National quarterly total: {q_app:,} approvals & {q_set:,} settlements across all {len(tla_raw_rows)} NZ councils",
+            f"Greater Wellington Subgroup: {gw_app:,} approvals ({gw_app_sh:.1f}% of NZ) & {gw_set:,} settlements ({gw_set_sh:.1f}% of NZ)",
+            reg_fhl_calc, f"Kāinga Ora Territorial Local Authority tables (All {len(tla_raw_rows)} NZ councils + Greater Wellington HLF Subgroup, {q_disp})",
             [{k: r[k] for k in ("period", "label", "value", "formatted")} for r in c_rows],
             {"source_published": qtr_pub, "source_url": pdf_u},
         )
@@ -8614,33 +8870,63 @@ def build_kainga_ora_tickers(session) -> dict:
         n_q = len(q_list)
 
         if n_q >= 4 and len(sc_bars) >= n_q:
-            app_s = sc_bars[:n_q]
+            # In the Page 5 chart, if both Applications Received (green bars) and Applications Approved (grey bars) are extracted (2 * n_q bars),
+            # pair `rec_s = sc_bars[:n_q]` and `app_s = sc_bars[n_q : 2 * n_q]`.
+            if len(sc_bars) >= 2 * n_q and all(sc_bars[i + n_q] <= sc_bars[i] for i in range(n_q)):
+                rec_s = sc_bars[:n_q]
+                app_s = sc_bars[n_q : 2 * n_q]
+            else:
+                rec_s = None
+                app_s = sc_bars[-n_q:]
+
             curr_q, curr_a = q_list[-1], app_s[-1]
             prev_q, prev_a = q_list[-2], app_s[-2]
             roll_12m, mth_a = sum(app_s[-4:]), int(round(curr_a / 3.0))
             qoq_pct = ((curr_a - prev_a) / max(1, prev_a)) * 100.0
-            yoy_cl = f" ({'up' if qoq_pct >= 0 else 'down'} {abs(qoq_pct):.1f}% QoQ from {prev_a:,} in {prev_q})"
+            yoy_cl = f" ({'up' if qoq_a_pct >= 0 else 'down'} {abs(qoq_pct):.1f}% QoQ from {prev_a:,} in {prev_q})"
             yoy_chg = f"{curr_a - prev_a:+,d} ({qoq_pct:+.1f}% QoQ) vs {prev_q}"
             if n_q >= 5:
                 yq, ya = q_list[-5], app_s[-5]
                 ypct = ((curr_a - ya) / max(1, ya)) * 100.0
                 yoy_cl = f" ({plain_yoy_growth(curr_a, ya)} from {ya:,} in {yq}, and {'up' if qoq_pct >= 0 else 'down'} {abs(qoq_pct):.1f}% QoQ from {prev_a:,} in {prev_q})"
                 yoy_chg = f"{curr_a - ya:+,d} ({ypct:+.1f}% YoY vs {yq}: {ya:,}) | {curr_a - prev_a:+,d} ({qoq_pct:+.1f}% QoQ)"
+
             sc_expr_4q = " + ".join(f"{x:,}" for x in app_s[-4:])
-            sc_calc = f"12-Month Rolling Approvals: {sc_expr_4q} = {roll_12m:,} approvals/yr | Latest Quarter ({curr_q}): {curr_a:,} approved (÷ 3 = {mth_a:,}/mth)"
-            sc_hist = [
-                {
-                    "period": ql,
-                    "label": ql,
-                    "value": av,
-                    "formatted": f"{av:,} approved",
-                }
-                for ql, av in reversed(list(zip(q_list, app_s)))
-            ]
+            if rec_s:
+                curr_rec = rec_s[-1]
+                roll_rec_12m = sum(rec_s[-4:])
+                app_rate_q = (curr_a / max(1, curr_rec)) * 100.0
+                rec_clause = f" out of <strong>{curr_rec:,} applications received</strong> (an <strong>{app_rate_q:.1f}%</strong> approval rate)"
+                sc_calc = (
+                    f"12-Month Rolling Approvals: {sc_expr_4q} = {roll_12m:,} approved/yr (from {roll_rec_12m:,} received) | "
+                    f"Latest Quarter ({curr_q}): {curr_a:,} approved of {curr_rec:,} received ({app_rate_q:.1f}%; {mth_a:,}/mth)"
+                )
+                sc_hist = [
+                    {
+                        "period": ql,
+                        "label": ql,
+                        "value": av,
+                        "formatted": f"{av:,} approved of {rv:,} received ({(av/max(1,rv))*100:.1f}%)",
+                    }
+                    for ql, av, rv in reversed(list(zip(q_list, app_s, rec_s)))
+                ]
+            else:
+                rec_clause = ""
+                sc_calc = f"12-Month Rolling Approvals: {sc_expr_4q} = {roll_12m:,} approvals/yr | Latest Quarter ({curr_q}): {curr_a:,} approved (÷ 3 = {mth_a:,}/mth)"
+                sc_hist = [
+                    {
+                        "period": ql,
+                        "label": ql,
+                        "value": av,
+                        "formatted": f"{av:,} approved",
+                    }
+                    for ql, av in reversed(list(zip(q_list, app_s)))
+                ]
+
             sc_end_iso = _quarter_label_to_end_iso(curr_q, q_end_iso)
             out["kainga-ora-second-chance-kiwisaver-approvals"] = make_pulse_item(
                 "Kāinga Ora Report", sc_end_iso, MAX_AGE_QUARTERLY,
-                f"In the {curr_q} quarter, Kāinga Ora approved <strong>{curr_a:,} Previous Homeowner ('second-chance') KiwiSaver savings withdrawal determination applications</strong>{yoy_cl} (~{mth_a:,}/month), bringing the rolling 12-month total to <strong>{roll_12m:,} approved applications</strong>.",
+                f"In the {curr_q} quarter, Kāinga Ora approved <strong>{curr_a:,} Previous Homeowner ('second-chance') KiwiSaver savings withdrawal determination applications</strong>{rec_clause}{yoy_cl} (~{mth_a:,}/month), bringing the rolling 12-month total to <strong>{roll_12m:,} approved applications</strong>.",
                 f"Kāinga Ora Home Ownership Products Report ({curr_q}): Previous Owner Savings Withdrawal Applications Approved = {curr_a:,} in {curr_q} ({roll_12m:,} over rolling 4 quarters).",
                 format_provenance_source_html(sc_calc, f"Kāinga Ora — Home Ownership Products Quarterly Report ({curr_q})", pdf_u, True),
                 curr_q, curr_a, f"{curr_a:,} approvals in {curr_q} ({roll_12m:,} over 12 months)",
@@ -10773,6 +11059,71 @@ def write_legacy_redirect_page(root: pathlib.Path, alias_key: str, target_key: s
     )
 # === END OF BLOCK 12 ===
 # === BLOCK 13 OF 13 ===
+def _extract_ko_all_67_tlas(pdf_bytes: bytes, pdf_txt: str) -> list[dict]:
+    """
+    Sequential 134-row parser for Kāinga Ora's Home Ownership Products Quarterly Report PDF (Pages 2–4).
+    In Kāinga Ora's PDF text stream, each page outputs the Left Table (Approvals) followed by the Right Table
+    (Settlements), so each of the 67 New Zealand Territorial Local Authorities appears twice in strict order:
+    1st occurrence = Approvals, 2nd occurrence = Settlements.
+    """
+    norm_txt = re.sub(r"\s+", " ", re.sub(r"[\|\r\n]+", " ", pdf_txt))
+    all_matches: list[tuple[int, int, str]] = []
+    for c_lbl, c_pat in KO_ALL_67_TLA_SPECS:
+        for m in re.finditer(c_pat, norm_txt, flags=re.I):
+            all_matches.append((m.start(), m.end(), c_lbl))
+
+    all_matches.sort(key=lambda x: x[0])
+    if not all_matches:
+        return []
+
+    occurrence_counts: dict[str, int] = {}
+    app_map: dict[str, int] = {}
+    set_map: dict[str, int] = {}
+
+    for idx, (_, end_pos, c_lbl) in enumerate(all_matches):
+        next_start = all_matches[idx + 1][0] if (idx + 1 < len(all_matches)) else len(norm_txt)
+        seg = norm_txt[end_pos:next_start]
+        m_stop = re.search(
+            r"\b(?:Total|Tenant\s+Home\s+Ownership|First\s+Home\s+Loan|Approvals\s+by|Settlements\s+by|Territorial\s+Local)\b",
+            seg,
+            flags=re.I,
+        )
+        if m_stop:
+            seg = seg[: m_stop.start()]
+        seg_clean = re.sub(r"\b202\d\b", " ", seg)
+        nums = [int(n.replace(",", "")) for n in re.findall(r"\d[\d,]*", seg_clean)]
+
+        if not nums:
+            q_tot = 0
+        else:
+            # Strip trailing page footer number (2, 3, or 4) when preceding numbers already sum to the row total
+            if (
+                len(nums) >= 3
+                and nums[-1] in (2, 3, 4)
+                and sum(nums[:-2]) == nums[-2]
+            ):
+                nums = nums[:-1]
+            q_tot = nums[-1]
+
+        occ = occurrence_counts.get(c_lbl, 0)
+        occurrence_counts[c_lbl] = occ + 1
+        if occ == 0:
+            app_map[c_lbl] = q_tot
+        elif occ == 1:
+            set_map[c_lbl] = q_tot
+
+    rows_out: list[dict] = []
+    for c_lbl, _ in KO_ALL_67_TLA_SPECS:
+        if c_lbl in app_map or c_lbl in set_map:
+            rows_out.append({
+                "label": c_lbl,
+                "approvals": int(app_map.get(c_lbl, 0)),
+                "settlements": int(set_map.get(c_lbl, 0)),
+                "is_subgroup": False,
+            })
+    return rows_out
+
+
 def _format_cat_card_value(rec: dict) -> str:
     """Format a concise value badge for the top category cards without truncating at inline labels like (Q1)."""
     raw = str(rec.get("latest_value", "")).strip()
@@ -10839,6 +11190,15 @@ def _update_catalog_metadata_definitions() -> None:
     if "TICKER_CATALOG" not in globals():
         return
     updates = {
+        "kainga-ora-first-home-loan-regional": {
+            "name": "Kāinga Ora First Home Loan (5% deposit) approvals & settlements across all 67 NZ councils + Greater Wellington subgroup",
+            "also_known_as": "Kāinga Ora First Home Loan Approvals & Settlements by Territorial Local Authority (All 67 TLAs + Greater Wellington 8-Council Subgroup)",
+            "topic": "Regional Kāinga Ora 5% deposit First Home Loan approvals & settlements across all 67 NZ councils",
+            "definition": "Complete distribution of Kāinga Ora 5% deposit First Home Loan approvals and settlements across all 67 New Zealand Territorial Local Authorities (city and district councils), plus an HLF-derived Greater Wellington regional subgroup combining Wellington City, Lower Hutt City, Upper Hutt City, Porirua City, Kāpiti Coast District, Masterton District, Carterton District, and South Wairarapa District.",
+            "formula": "Council Share of National Approvals (%) = (Council Quarterly Approvals ÷ National Quarterly Approvals) × 100; Greater Wellington Subgroup = Sum of 8 Greater Wellington TLAs",
+            "hlf_interpretation": "HLF market context: While Auckland is reported as a single unitary council (Auckland City), the Wellington regional housing market is split across eight separate city and district councils in Kāinga Ora's TLA tables. Aggregating all eight councils into the Greater Wellington (HLF Subgroup) shows the true scale of 5%-deposit First Home Loan activity across the Greater Wellington region alongside all 67 individual councils nationwide.",
+            "methodology": "Automatically parsed from the Territorial Local Authority Approvals and Settlements tables (Pages 2–4) in Kāinga Ora's Home Ownership Products Quarterly Report PDF across all 67 New Zealand Territorial Local Authorities (including councils with zero approvals or settlements in the quarter), with the Greater Wellington HLF Subgroup summed across the 8 constituent councils of the Greater Wellington region.",
+        },
         "borrower-income": {
             "name": "Average gross borrower income across approved first-home buyer DTI bands (RBNZ Table C41)",
             "also_known_as": "Borrower Gross Income (BGI) band-weighted mean across approved FHB applications (RBNZ C41, ±$500–$1,000 band-rounding tolerance)",
@@ -11119,7 +11479,6 @@ def _sync_c12_credit_card_series(candidates: dict, rbnz_files: dict | None = Non
         except Exception as exc_c12:
             print(f"[RBNZ C12 Interest-Bearing Sync] Note: {exc_c12}")
 
-    # If live workbook column labels didn't match, ensure any existing record clearly distinguishes the series and includes the interest-bearing share
     rec_cc = candidates.get("credit-card-balances-interest-share")
     if not parsed_live_c12 and isinstance(rec_cc, dict):
         rec_cc = dict(rec_cc)
@@ -11515,9 +11874,6 @@ def _run_audit_guardrails(candidates: dict, ref_hud_as_of: str = "") -> None:
         rec_fdti["html"] = str(rec_fdti.get("html", "")).replace(
             "had an implied mortgage-to-income ratio of 3.98x gross application income",
             "had an implied ratio of average loan to average gross application income of 3.98x (a ratio of aggregate averages rather than individual-borrower DTIs:",
-        ).replace(
-            "average gross borrower income), while",
-            "average gross borrower income), while",
         )
         candidates["fhb-typical-dti"] = rec_fdti
 
@@ -11621,7 +11977,12 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
             val_num = v.get("value")
             if "nan $" in lv or "-99 $" in lv:
                 continue
-            # Purge any previously cached synthetic or incomplete records from earlier runs
+            # Purge any previously cached partial (17-council) Kāinga Ora regional record lacking the full 67 TLAs + Greater Wellington subgroup
+            if k == "kainga-ora-first-home-loan-regional" and (
+                len(v.get("history") or []) < 60
+                or "greater wellington" not in str(v.get("html", "")).lower()
+            ):
+                continue
             if k == "sales-composition-by-value-quartile" and val_num in (10.0, 89.9):
                 continue
             if k == "credit-card-balances-interest-share" and (
