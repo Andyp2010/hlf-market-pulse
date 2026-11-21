@@ -9740,672 +9740,77 @@ document.addEventListener("click", function(e) {
 });
 </script>"""
 
-
-def render_creator_card_html(compact: bool = False) -> str:
-    """Render the author & attribution banner for the main hub and standalone ticker pages."""
-    cta_part = ""
-    if not compact:
-        cta_part = f"""
-    <div class="context-cta">
-      <div class="context-cta-text">
-        <strong>Using HLF Pulse data for research, journalism, or a mortgage decision?</strong>
-        <p>All HLF-derived calculations, ratios, and data dictionary definitions are reusable under <a href="{HLF_LICENSE_URL}" target="_blank" rel="noopener">{HLF_LICENSE_SHORT}</a> with attribution to HLF Pulse.</p>
-      </div>
-      <div class="context-cta-actions">
-        <a class="cta-btn is-primary" href="{FHB_2026_ARTICLE_URL}" target="_blank" rel="noopener">
-          <strong>Read: {html_lib.escape(FHB_2026_ARTICLE_TITLE)} &rarr;</strong>
-          <span>Full analysis of deposits, DTI bands, and borrower incomes across New Zealand</span>
-        </a>
-        <a class="cta-btn is-secondary" href="{MEDIA_KIT_URL}" target="_blank" rel="noopener">
-          <strong>Media Kit, Methodology &amp; Citation Guide &rarr;</strong>
-          <span>Plain-text &amp; HTML citations, 4-field date rules, and journalist inquiries</span>
-        </a>
-      </div>
-      <div class="context-cta-meta">
-        Published by <a href="{PUBLISHER_URL}" target="_blank" rel="noopener">{PUBLISHER_NAME}</a> ({PUBLISHER_LEGAL}, {PUBLISHER_FSP}) &bull; <a href="{DISCLOSURES_URL}" target="_blank" rel="noopener">Public Disclosures</a> &bull; <a href="{HOW_PAID_URL}" target="_blank" rel="noopener">How We Get Paid</a> &bull; <a href="{CONTACT_URL}" target="_blank" rel="noopener">Contact</a>
-      </div>
-    </div>"""
-    return f"""<section class="creator-wrap" aria-label="Dataset Creator and Publisher Attribution">
-    <div class="creator-card">
-      <div class="creator-avatar">
-        <img src="{CREATOR_IMAGE}" alt="{html_lib.escape(CREATOR_NAME)}" loading="lazy">
-      </div>
-      <div class="creator-body">
-        <div class="creator-hdr">
-          <strong>{html_lib.escape(CREATOR_NAME)}</strong>
-          <span class="creator-badge">{html_lib.escape(CREATOR_BADGE)}</span>
-          <span class="creator-badge">{html_lib.escape(CREATOR_FSP)}</span>
-        </div>
-        <div class="creator-role">{html_lib.escape(CREATOR_ROLE)}</div>
-        <p>HLF Pulse is an open, machine-readable New Zealand reference dataset and data dictionary maintained by {html_lib.escape(CREATOR_NAME)} ({html_lib.escape(CREATOR_ALT_NAME)}). Every record separates official Crown/statutory statistics from HLF-derived calculations and market context.</p>
-        <div class="creator-links">
-          <a href="{CREATOR_URL}" target="_blank" rel="noopener">Adviser Profile</a> &bull;
-          <a href="{GLOSSARY_BASE_URL}" target="_blank" rel="noopener">HLF Financial Glossary</a> &bull;
-          <a href="{MEDIA_KIT_URL}" target="_blank" rel="noopener">Citation &amp; Media Guide</a> &bull;
-          <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>
-        </div>
-      </div>
-    </div>{cta_part}
-  </section>"""
+HLF_FAVICON_URL = f"{PULSE_BASE_URL}/favicon.png"
+HLF_APPLE_TOUCH_ICON_URL = f"{PULSE_BASE_URL}/apple-touch-icon.png"
 
 
-def render_about_and_quality_footer_html() -> str:
-    """Render the methodology, data quality rules, and reuse licensing footer section."""
-    return f"""
-    <section class="quality-box" id="data-methodology">
-      <h2>Methodology, 3-Layer Provenance &amp; 4-Field Date Standard</h2>
-      <ul>
-        <li><strong>Three-Layer Separation:</strong> Every ticker explicitly separates <strong>Official Data</strong> (as reported by RBNZ, Stats NZ, Inland Revenue, MBIE Tenancy Services, HUD / MCERT, FMA, Kāinga Ora, NHC, or ACC), <strong>HLF Calculation</strong> (exact arithmetic formula and inputs), and <strong>HLF Interpretation</strong> (scope notes and market context).</li>
-        <li><strong>Four-Field Date Architecture:</strong> Every record tracks (1) <code>observation_period</code> (the period the underlying data covers, ranging from triennial and annual surveys to monthly series), (2) <code>period_end</code> (ISO <code>YYYY-MM-DD</code> end date), (3) <code>source_published</code> (when the source agency released the data, or its release schedule where no timestamp is embedded in the source file), and (4) <code>last_checked</code> (when HLF Pulse last verified the release).</li>
-        <li><strong>Automated Validation Guardrails:</strong> Records are checked for composition sum-to-100 consistency, demographic cohort reconciliation, and unit scaling before publication.</li>
-      </ul>
-    </section>
-    <section class="about-footer-box" id="reuse-licensing">
-      <h2>Reuse Licence ({HLF_LICENSE_SHORT}) &amp; Regulatory Notice</h2>
-      <p>{html_lib.escape(HLF_LICENSE_NOTE)}</p>
-      <p style="margin-bottom:0;font-size:0.82rem;color:#4b5563;"><strong>General Information Only:</strong> HLF Pulse is a statistical reference dataset and does not constitute personalised financial, mortgage, tax, or insurance advice under the Financial Markets Conduct Act 2013. View our <a href="{DISCLOSURES_URL}" target="_blank" rel="noopener">Public Disclosures</a> and <a href="{HOW_PAID_URL}" target="_blank" rel="noopener">How We Get Paid</a>.</p>
-    </section>"""
+def sync_hlf_favicon(root: pathlib.Path) -> tuple[str, str]:
+    """
+    Fetch the live Webflow <link rel="shortcut icon" / "icon"> and <link rel="apple-touch-icon">
+    from https://www.homeloanfactory.co.nz/, mirror the icon files into the repo root
+    (favicon.png, favicon.ico, apple-touch-icon.png), and return (favicon_url, apple_touch_icon_url).
+    """
+    global HLF_FAVICON_URL, HLF_APPLE_TOUCH_ICON_URL
+    fav_url = ""
+    touch_url = ""
+    try:
+        sess = get_http_session()
+        resp = sess.get(PUBLISHER_URL, timeout=15)
+        if resp.status_code == 200 and resp.text:
+            head_html = resp.text[:25000]
+            for m_tag in re.finditer(r"<link\b[^>]*>", head_html, flags=re.I):
+                tag_s = m_tag.group(0)
+                m_rel = re.search(r'\brel=["\']([^"\']+)["\']', tag_s, flags=re.I)
+                m_href = re.search(r'\bhref=["\']([^"\']+)["\']', tag_s, flags=re.I)
+                if not m_rel or not m_href:
+                    continue
+                rel_v = m_rel.group(1).strip().lower()
+                href_v = m_href.group(1).strip()
+                if not href_v:
+                    continue
+                if href_v.startswith("//"):
+                    href_v = "https:" + href_v
+                elif href_v.startswith("/"):
+                    href_v = PUBLISHER_URL.rstrip("/") + href_v
+                if rel_v in ("shortcut icon", "icon") and not fav_url:
+                    fav_url = href_v
+                elif "apple-touch-icon" in rel_v and not touch_url:
+                    touch_url = href_v
+
+            if fav_url:
+                r_fav = sess.get(fav_url, timeout=15)
+                if r_fav.status_code == 200 and len(r_fav.content) > 64:
+                    (root / "favicon.png").write_bytes(r_fav.content)
+                    (root / "favicon.ico").write_bytes(r_fav.content)
+                    HLF_FAVICON_URL = fav_url
+                    print(f"[Favicon Sync] Mirrored HLF favicon from {fav_url} -> /favicon.png & /favicon.ico")
+
+            if touch_url:
+                r_touch = sess.get(touch_url, timeout=15)
+                if r_touch.status_code == 200 and len(r_touch.content) > 64:
+                    (root / "apple-touch-icon.png").write_bytes(r_touch.content)
+                    HLF_APPLE_TOUCH_ICON_URL = touch_url
+            elif fav_url:
+                HLF_APPLE_TOUCH_ICON_URL = HLF_FAVICON_URL
+    except Exception as exc_fav:
+        print(f"[Favicon Sync] Note: {exc_fav}")
+
+    if not fav_url and (root / "favicon.png").exists():
+        HLF_FAVICON_URL = f"{PULSE_BASE_URL}/favicon.png"
+    if not touch_url and (root / "apple-touch-icon.png").exists():
+        HLF_APPLE_TOUCH_ICON_URL = f"{PULSE_BASE_URL}/apple-touch-icon.png"
+    return HLF_FAVICON_URL, HLF_APPLE_TOUCH_ICON_URL
 
 
-def render_three_layer_badges_html(rec: dict, compact: bool = False) -> str:
-    """Render the 3-layer breakdown (Official Data, HLF Calculation, HLF Interpretation)."""
-    off_txt = html_lib.escape(str(rec.get("official_data_summary") or ""))
-    calc_txt = html_lib.escape(str(rec.get("calculation") or rec.get("calculation_live") or ""))
-    interp_txt = html_lib.escape(str(rec.get("hlf_interpretation") or ""))
+def render_favicon_head_tags_html() -> str:
+    """Return the <link> tags for favicon and apple-touch-icon inside <head>."""
+    fav_esc = html_lib.escape(HLF_FAVICON_URL, quote=True)
+    touch_esc = html_lib.escape(HLF_APPLE_TOUCH_ICON_URL, quote=True)
     return (
-        f"<div class='layer-stack'>"
-        f"<div class='layer-row'><span class='lbadge is-off'>Official Data</span><span>{off_txt}</span></div>"
-        f"<div class='layer-row'><span class='lbadge is-calc'>HLF Calculation</span><span><code>{calc_txt}</code></span></div>"
-        f"<div class='layer-row'><span class='lbadge is-interp'>HLF Interpretation</span><span>{interp_txt}</span></div>"
-        f"</div>"
+        f'  <link rel="icon" href="{fav_esc}">\n'
+        f'  <link rel="shortcut icon" href="{fav_esc}">\n'
+        f'  <link rel="apple-touch-icon" href="{touch_esc}">'
     )
-
-
-def render_cite_line_html(rec: dict) -> str:
-    """Render the copyable citation bar for a dataset record."""
-    cite_str = str(rec.get("citation") or "")
-    cite_esc = html_lib.escape(cite_str, quote=True)
-    return (
-        f"<div class='cite-line'>"
-        f"<strong>Cite as:</strong> <span class='cite-text'>{cite_esc}</span>"
-        f"<button type='button' class='cite-btn' data-cite='{cite_esc}'>Copy citation</button>"
-        f"</div>"
-    )
-
-
-def render_c41_band_table_html(rec: dict) -> str:
-    """Render the RBNZ Table C41 TDTI band breakdown table when `tdti_bands` is present on a record."""
-    bands = rec.get("tdti_bands")
-    if not bands or not isinstance(bands, list):
-        return ""
-    rows = "".join(
-        f"<tr><td>{html_lib.escape(str(b.get('band', '')))}</td>"
-        f"<td><strong>${int(b.get('avg_income_nzd', 0)):,}</strong></td>"
-        f"<td>${float(b.get('total_income_m', 0.0)):,.1f}m</td>"
-        f"<td>{int(round(float(b.get('implied_borrowers', 0.0)))):,}</td></tr>"
-        for b in bands
-    )
-    return (
-        "<div class='hist-wrap'><table><thead><tr>"
-        "<th>Official RBNZ C41 TDTI Band</th><th>Band Avg Gross Income</th>"
-        "<th>Band Gross Income Pool</th><th>Implied Applications (est.)</th>"
-        f"</tr></thead><tbody>{rows}</tbody></table></div>"
-    )
-
-
-def _clean_text_formatting(s: str) -> str:
-    """Fix signed currency placement ($-302 -> -$302, -16m -> -$16m), em-dash spacing, double periods, and grammar."""
-    if not s:
-        return ""
-    out = str(s)
-    out = re.sub(r"\$([+-])(\d)", r"\1$\2", out)
-    out = re.sub(r"(?<![\$\w])([+-])(\d[\d,]*(?:\.\d+)?m)\b", r"\1$\2", out)
-    out = re.sub(r"\s+—", "—", out)
-    out = re.sub(r"—\s+", "—", out)
-    out = re.sub(r"\.\.+", ".", out)
-    out = re.sub(r"\b1 basis points\b", "1 basis point", out, flags=re.I)
-    out = re.sub(r"\byear ended june\b", "year ended June", out, flags=re.I)
-    out = out.replace(
-        "for people receiving wages and salaries, and $962/week ($50,024/year annualised) across all people from all sources, and",
-        "for people receiving wages and salaries, $962/week ($50,024/year annualised) across all people from all sources, and",
-    )
-    return out
-
-
-def _adjust_to_nz_working_day(dt_in: datetime.date) -> datetime.date:
-    """Ensure any extracted publication date never lands on a weekend or NZ statutory public holiday."""
-    d = dt_in
-    if d.weekday() == 5:
-        d = d - datetime.timedelta(days=1)
-    elif d.weekday() == 6:
-        d = d + datetime.timedelta(days=1)
-    nz_holidays = {
-        datetime.date(2026, 10, 26): datetime.date(2026, 10, 28),
-        datetime.date(2026, 6, 1): datetime.date(2026, 6, 2),
-        datetime.date(2026, 4, 6): datetime.date(2026, 4, 7),
-        datetime.date(2026, 4, 3): datetime.date(2026, 4, 2),
-        datetime.date(2026, 2, 6): datetime.date(2026, 2, 9),
-    }
-    if d in nz_holidays:
-        d = nz_holidays[d]
-    return d
-
-
-def _resolve_publication_date_str(key: str, raw_pub: str, source_name: str, frequency: str) -> str:
-    """
-    Format the publication date extracted directly from the official source file or release page.
-    Never invents or back-calculates a synthetic calendar date from `period_end`.
-    """
-    s = str(raw_pub or "").strip()
-    m_iso = re.match(r"^(20\d{2}-\d{2}-\d{2})", s)
-    if m_iso:
-        dt_p = pd.to_datetime(m_iso.group(1), errors="coerce")
-        if pd.notna(dt_p):
-            wd = dt_p.date() if key in ("natural-hazard-claims", "acc-earners-levy-cap") else _adjust_to_nz_working_day(dt_p.date())
-            return f"{wd.strftime('%Y-%m-%d')} ({wd.day} {wd.strftime('%b %Y')})"
-    m_dmy = re.search(r"(\d{1,2}\s+[A-Za-z]+\s+20\d{2})", s)
-    if m_dmy:
-        dt_p = pd.to_datetime(m_dmy.group(1), errors="coerce")
-        if pd.notna(dt_p):
-            wd = dt_p.date() if key in ("natural-hazard-claims", "acc-earners-levy-cap") else _adjust_to_nz_working_day(dt_p.date())
-            return f"{wd.strftime('%Y-%m-%d')} ({wd.day} {wd.strftime('%b %Y')})"
-
-    freq_word = (frequency or "Official").split("(")[0].strip()
-    src_short = (
-        "RBNZ" if "rbnz" in source_name.lower()
-        else ("Stats NZ" if "stats nz" in source_name.lower()
-        else ("Inland Revenue" if ("inland revenue" in source_name.lower() or "ird" in source_name.lower())
-        else ("MBIE Tenancy" if ("mbie" in source_name.lower() or "tenancy" in source_name.lower())
-        else ("HUD / MCERT" if ("hud" in source_name.lower() or "mcert" in source_name.lower())
-        else ("Kāinga Ora" if ("kāinga ora" in source_name.lower() or "kainga ora" in source_name.lower())
-        else source_name)))))
-    )
-    return f"{freq_word} {src_short} release"
-
-
-def _normalize_history_scaling(key: str, val_top, unit: str, hist_list: list | None) -> list | None:
-    """
-    Ensure `history[].value` uses the exact same unit and integer precision as top-level `value`
-    without truncating 7-digit numbers ($1,287,000) or matching weekly (/wk) figures on annual series.
-    """
-    if not hist_list or not isinstance(hist_list, list):
-        return hist_list
-    out_h = []
-    for item in hist_list:
-        if not isinstance(item, dict):
-            continue
-        h = dict(item)
-        hv = h.get("value")
-        fmt_s = _clean_text_formatting(str(h.get("formatted") or ""))
-        if fmt_s:
-            h["formatted"] = fmt_s
-        if isinstance(hv, (int, float)) and isinstance(val_top, (int, float)):
-            # 1. NZD loan/income tickers where history was stored in $k (hv <= 2000 while top-level value >= 15000)
-            if unit == "NZD" and abs(float(val_top)) >= 15000 and 10.0 <= abs(float(hv)) <= 2000.0:
-                m_dlr = re.search(r"\$([\d,]{5,11})(?!/wk)\b", fmt_s)
-                if m_dlr:
-                    h["value"] = int(m_dlr.group(1).replace(",", ""))
-                else:
-                    h["value"] = int(round(float(hv) * 1000.0))
-            # 2. NZD_billions debt tickers where history was stored in $m (hv >= 1000 while top-level value < 1000)
-            elif unit == "NZD_billions" and abs(float(val_top)) < 1000.0 and abs(float(hv)) >= 1000.0:
-                h["value"] = round(float(hv) / 1000.0, 2)
-        out_h.append(h)
-    return out_h
-
-
-def cross_derive_live_c31_c41_siblings(candidates: dict) -> None:
-    """
-    Cross-derive C31/C41 sibling tickers strictly from live-parsed C31, C40, and C41 records in `candidates`.
-    Zero hardcoded fallback numbers or dates.
-    """
-    fhb_sh_rec = candidates.get("fhb-share")
-    if isinstance(fhb_sh_rec, dict) and "fhb-average-loan-size" not in candidates:
-        m_avg = re.search(r"avg\s+\$([\d,]+)", str(fhb_sh_rec.get("latest_value", "")))
-        m_cnt = re.search(r"([\d,]+)\s+loans", str(fhb_sh_rec.get("latest_value", "")))
-        per_s = str(fhb_sh_rec.get("latest_period") or "").strip()
-        as_of_s = str(fhb_sh_rec.get("as_of") or "").strip()
-        if m_avg and m_cnt and per_s and as_of_s:
-            avg_v = int(m_avg.group(1).replace(",", ""))
-            cnt_v = int(m_cnt.group(1).replace(",", ""))
-            c31_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type"
-            calc_s = f"RBNZ Table C31 ({per_s}): Mean FHB mortgage commitment = ${avg_v:,} across {cnt_v:,} loans"
-            candidates["fhb-average-loan-size"] = make_pulse_item(
-                "RBNZ C31",
-                as_of_s,
-                MAX_AGE_MONTHLY,
-                f"In {per_s}, the average first-home buyer mortgage commitment at New Zealand registered banks was <strong>${avg_v:,}</strong> across <strong>{cnt_v:,} first-home buyer loans</strong>.",
-                f"RBNZ Table C31 ({per_s}): Mean FHB commitment = ${avg_v:,} across {cnt_v:,} FHB borrowers.",
-                format_provenance_source_html(calc_s, "RBNZ Table C31 (Reserve Bank of New Zealand)", c31_u, True),
-                per_s,
-                avg_v,
-                f"${avg_v:,} average FHB loan ({cnt_v:,} loans)",
-                str(fhb_sh_rec.get("previous_period", "Monthly RBNZ Table C31 series")),
-                str(fhb_sh_rec.get("change", "Derived from RBNZ Table C31")),
-                calc_s,
-                str(fhb_sh_rec.get("historical_data_from", "RBNZ Table C31 monthly series")),
-                fhb_sh_rec.get("history"),
-                {"source_published": fhb_sh_rec.get("source_published", ""), "source_url": c31_u},
-            )
-
-    bgi_rec = candidates.get("borrower-income") or candidates.get("fhb-income-by-dti-band")
-    if isinstance(bgi_rec, dict) and "fhb-typical-income" not in candidates:
-        raw_inc = bgi_rec.get("value")
-        per_s = str(bgi_rec.get("latest_period") or "").strip()
-        as_of_s = str(bgi_rec.get("as_of") or "").strip()
-        if isinstance(raw_inc, (int, float)) and raw_inc > 0 and per_s and as_of_s:
-            inc_v = int(round(float(raw_inc)))
-            c41_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-borrower-gross-income-bgi"
-            calc_s = str(bgi_rec.get("calculation_live") or f"RBNZ Table C41 ({per_s}): Band-weighted mean FHB gross application income = ${inc_v:,}")
-            candidates["fhb-typical-income"] = make_pulse_item(
-                "RBNZ C41",
-                as_of_s,
-                MAX_AGE_MONTHLY,
-                f"In {per_s}, the borrower-weighted mean combined gross borrower income across approved New Zealand first-home buyer mortgage applications at registered banks was <strong>${inc_v:,}</strong> (reconstructed from RBNZ Table C41 bands; subject to ±$500 rounding tolerance).",
-                str(bgi_rec.get("official_data_summary") or f"RBNZ Table C41 ({per_s}): Mean FHB gross borrower income = ${inc_v:,}."),
-                format_provenance_source_html(calc_s, "RBNZ Table C41 (Reserve Bank of New Zealand)", c41_u, True),
-                per_s,
-                inc_v,
-                f"${inc_v:,} mean FHB gross application income (±$500 band tolerance)",
-                str(bgi_rec.get("previous_period", "Monthly RBNZ Table C41 series")),
-                str(bgi_rec.get("change", "Band-weighted mean across TDTI tiers")),
-                calc_s,
-                str(bgi_rec.get("historical_data_from", "RBNZ Table C41 monthly series")),
-                bgi_rec.get("history"),
-                {"source_published": bgi_rec.get("source_published", ""), "source_url": c41_u},
-            )
-
-    if "fhb-typical-dti" not in candidates:
-        loan_rec = candidates.get("fhb-average-loan-size")
-        inc_rec = candidates.get("fhb-typical-income") or candidates.get("borrower-income")
-        dti_rec = candidates.get("dti-headroom")
-        if (
-            isinstance(loan_rec, dict)
-            and isinstance(inc_rec, dict)
-            and isinstance(dti_rec, dict)
-            and isinstance(loan_rec.get("value"), (int, float))
-            and isinstance(inc_rec.get("value"), (int, float))
-            and isinstance(dti_rec.get("value"), (int, float))
-        ):
-            loan_v = float(loan_rec["value"])
-            inc_v = float(inc_rec["value"])
-            gt6_v = float(dti_rec["value"])
-            per_s = str(inc_rec.get("latest_period") or "").strip()
-            as_of_s = str(inc_rec.get("as_of") or "").strip()
-            if loan_v > 0 and inc_v > 0 and per_s and as_of_s:
-                le6_v = round(100.0 - gt6_v, 1)
-                ratio_x = round(loan_v / inc_v, 2)
-                c40_u = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/residential-mortgage-lending-by-debt-to-income-dti-purpose-use"
-                calc_s = f"Implied FHB Loan-to-Income Ratio: ${int(round(loan_v)):,} ÷ ${int(round(inc_v)):,} = {ratio_x:.2f}x | Share <= 6x TDTI = {le6_v:.1f}%"
-                candidates["fhb-typical-dti"] = make_pulse_item(
-                    "RBNZ C31, C40 & C41",
-                    as_of_s,
-                    MAX_AGE_MONTHLY,
-                    f"In {per_s}, approved New Zealand first-home buyers had an implied mortgage-to-income ratio of <strong>{ratio_x:.2f}x gross application income</strong> (${int(round(loan_v)):,} average loan divided by ${int(round(inc_v)):,} average gross borrower income), while <strong>{le6_v:.1f}% of all first-home buyer lending</strong> in RBNZ Table C40 was written at or below <strong>6x TDTI</strong>.",
-                    f"RBNZ Tables C31, C40 & C41 ({per_s}): Average FHB loan = ${int(round(loan_v)):,}; Average FHB gross income = ${int(round(inc_v)):,}; Share <= 6x TDTI = {le6_v:.1f}%.",
-                    format_provenance_source_html(calc_s, "RBNZ Tables C31, C40 & C41", c40_u, True),
-                    per_s,
-                    ratio_x,
-                    f"{ratio_x:.2f}x implied mortgage-to-income ratio | {le6_v:.1f}% <= 6x TDTI",
-                    f"RBNZ Table C40 >6x TDTI share: {gt6_v:.1f}%",
-                    f"{le6_v:.1f}% of FHB lending written at or below 6x TDTI",
-                    calc_s,
-                    str(inc_rec.get("historical_data_from", "RBNZ Tables C31, C40 & C41 series")),
-                    None,
-                    {"source_published": inc_rec.get("source_published", ""), "source_url": c40_u},
-                )
-
-
-def enrich_ticker_record(key: str, item: dict, today_iso: str, now_human: str) -> dict:
-    """Enrich a raw pulse item with full TICKER_CATALOG metadata, 4-field dates, scaled history, and clean formatting."""
-    meta = TICKER_CATALOG.get(key, {})
-    r = dict(item)
-    r["ticker"] = key
-    r["name"] = meta.get("name", key)
-    r["also_known_as"] = meta.get("also_known_as", "")
-    r["category"] = meta.get("category", "Homeowners & refinancing")
-    r["topic"] = meta.get("topic", r["name"])
-    r["unit"] = meta.get("unit", "value")
-    r["update_frequency"] = meta.get("frequency", "Monthly")
-
-    obs_per = str(r.get("latest_period") or r.get("observation_period") or "Latest Release")
-    r["latest_period"] = obs_per
-    r["observation_period"] = obs_per
-    r["observed_period"] = obs_per
-
-    p_end = str(r.get("as_of") or r.get("period_end") or today_iso)
-    r["as_of"] = p_end
-    r["period_end"] = p_end
-
-    r["source"] = meta.get("source", r.get("chip", "Official Release"))
-    r["source_full"] = meta.get("source_full", r["source"])
-    r["source_series_ids"] = meta.get("series_ids", "")
-    r["source_url"] = str(r.get("source_url") or meta.get("source_url") or PUBLISHER_URL)
-
-    r["source_published"] = _resolve_publication_date_str(
-        key,
-        str(r.get("source_published") or ""),
-        r["source"],
-        r["update_frequency"],
-    )
-    r["last_checked"] = today_iso
-    r["last_verified_human"] = now_human
-    r["date_created"] = PULSE_DATE_CREATED
-    r["date_modified"] = today_iso
-    r["data_status"] = "verified"
-    r["source_status"] = "current"
-
-    r["derived_by_hlf"] = bool(meta.get("derived_by_hlf", True))
-    r["hlf_derived_label"] = "Yes (HLF-derived from official series)" if r["derived_by_hlf"] else "No (Officially reported figure)"
-    r["data_type"] = meta.get("data_type", "Officially reported series & HLF calculation")
-    r["definition"] = meta.get("definition", "")
-    r["formula"] = meta.get("formula") or meta.get("hlf_calculation") or str(r.get("calculation_live") or "")
-
-    r["html"] = _clean_text_formatting(str(r.get("html") or ""))
-    r["latest_value"] = _clean_text_formatting(str(r.get("latest_value") or ""))
-    r["previous_period"] = _clean_text_formatting(str(r.get("previous_period") or ""))
-    r["change"] = _clean_text_formatting(str(r.get("change") or ""))
-    r["calculation_live"] = _clean_text_formatting(str(r.get("calculation_live") or r.get("calculation") or r["formula"]))
-    r["calculation"] = r["calculation_live"]
-
-    r["hlf_interpretation"] = meta.get("hlf_interpretation", "")
-    r["methodology"] = meta.get("methodology", "")
-    r["historical_data_from"] = str(r.get("historical_data_from") or f"{r['source']} series ({obs_per})")
-
-    # Ensure top-level `value` on NZD series is never left in $k (e.g. 120.17 -> 120175 on fhb-loan-size-gap)
-    if r["unit"] == "NZD" and isinstance(r.get("value"), (int, float)) and 0 < abs(float(r["value"])) < 1000.0:
-        m_gap_dlr = re.search(r"\(\+\$([\d,]{5,9})\)", r["latest_value"])
-        if m_gap_dlr:
-            r["value"] = int(m_gap_dlr.group(1).replace(",", ""))
-        else:
-            r["value"] = int(round(float(r["value"]) * 1000.0))
-
-    if r.get("history"):
-        r["history"] = _normalize_history_scaling(key, r.get("value"), r["unit"], r["history"])
-
-    r["creator_name"] = CREATOR_NAME
-    r["creator_alternate_name"] = CREATOR_ALT_NAME
-    r["creator_fsp"] = CREATOR_FSP
-    r["creator_url"] = CREATOR_URL
-    r["publisher"] = PUBLISHER_NAME
-    r["publisher_legal_name"] = PUBLISHER_LEGAL
-    r["publisher_url"] = PUBLISHER_URL
-    r["media_kit_url"] = MEDIA_KIT_URL
-    r["license"] = HLF_LICENSE_URL
-    r["license_label"] = HLF_LICENSE_SHORT
-
-    r["canonical_url"] = f"{PULSE_BASE_URL}/{key}/"
-    plain_html = re.sub(r"<[^>]+>", " ", r["html"])
-    plain_html = re.sub(r"\s+", " ", plain_html).strip()
-    plain_html = re.sub(r"\s+([.,);:])", r"\1", plain_html)
-    plain_html = re.sub(r"\(\s+", "(", plain_html)
-    r["summary_text"] = _clean_text_formatting(html_lib.unescape(plain_html))
-    r["official_data_summary"] = _clean_text_formatting(str(r.get("official_data_summary") or r["summary_text"]))
-    r["related_questions"] = meta.get("questions", [])
-
-    deriv_phrase = "Derived by HLF from" if r["derived_by_hlf"] else "Source:"
-    r["citation"] = (
-        f'HLF Pulse, Home Loan Factory. "{r["name"]}," {obs_per}. '
-        f"{deriv_phrase} {r['source_full']}. {r['canonical_url']} (checked {now_human}). {HLF_LICENSE_SHORT}."
-    )
-    r["citation_chain"] = {
-        "official_publisher": r["source_full"],
-        "official_source_url": r["source_url"],
-        "official_series_ids": r["source_series_ids"],
-        "observation_period": obs_per,
-        "period_end": p_end,
-        "source_published": r["source_published"],
-        "curated_and_derived_by": f"{CREATOR_NAME} ({CREATOR_FSP}), {PUBLISHER_NAME}",
-        "hlf_calculation": r["calculation"],
-        "canonical_url": r["canonical_url"],
-        "license": HLF_LICENSE_SHORT,
-    }
-    r["source_html"] = format_provenance_source_html(
-        r["calculation"],
-        r["source_full"],
-        r["source_url"],
-        r["derived_by_hlf"],
-        now_human,
-    )
-    return r
-
-
-def build_fhb_snapshot_object(verified_tickers: dict) -> dict:
-    """Build the top-level `fhb_snapshot` summary object for `nz-mortgage-pulse.json` and `pulse.json`."""
-    fhb_keys = (
-        "fhb-low-deposit",
-        "fhb-share",
-        "fhb-typical-income",
-        "fhb-average-loan-size",
-        "fhb-typical-dti",
-        "fhb-monthly-lending-volume",
-        "fhb-loan-size-gap",
-        "fhb-20-deposit-club",
-        "fhb-vs-investors",
-        "fhb-annual-milestone",
-        "kainga-ora-first-home-loan-approvals",
-        "kiwisaver-first-home",
-    )
-    series_out = {}
-    for k in fhb_keys:
-        rec = verified_tickers.get(k)
-        if isinstance(rec, dict):
-            series_out[k] = {
-                "value": rec.get("value"),
-                "latest_value": rec.get("latest_value", ""),
-                "observation_period": rec.get("observation_period", ""),
-                "period_end": rec.get("period_end", ""),
-                "source": rec.get("source", ""),
-                "canonical_url": rec.get("canonical_url", ""),
-            }
-    return {
-        "title": "New Zealand First-Home Buyer Snapshot — HLF Pulse",
-        "reference_article_url": FHB_2026_ARTICLE_URL,
-        "active_series_count": len(series_out),
-        "series": series_out,
-    }
-
-
-def build_reality_check_benchmarks_object(verified_tickers: dict) -> dict:
-    """Build the `reality_check_benchmarks` object for calculators and reality-check tools."""
-    bench_keys = (
-        "individual-income-by-source-benchmarks",
-        "equivalised-household-income-family-size",
-        "rent-vs-mortgage-interest-outgoings",
-        "net-worth-by-age-and-tenure",
-        "regional-net-worth-benchmarks",
-        "tla-council-rent-benchmarks",
-        "rent-yield-pulse",
-        "settled-rates",
-        "back-book-vs-new-settled-mortgage-rate",
-        "low-equity-margin-penalty-spread",
-        "existing-mortgage-stock-lvr-refix",
-        "total-housing-debt-stock",
-        "credit-card-balances-interest-share",
-        "credit-card-limits-servicing-impact",
-        "mortgage-non-performing-arrears",
-        "household-debt-servicing-burden",
-        "mortgage-excess-repayments",
-        "nz-unemployment-rate",
-        "nz-underutilisation-rate",
-        "nz-employment-and-wage-growth",
-    )
-    series_out = {}
-    for k in bench_keys:
-        rec = verified_tickers.get(k)
-        if isinstance(rec, dict):
-            series_out[k] = {
-                "value": rec.get("value"),
-                "latest_value": rec.get("latest_value", ""),
-                "observation_period": rec.get("observation_period", ""),
-                "period_end": rec.get("period_end", ""),
-                "source": rec.get("source", ""),
-                "canonical_url": rec.get("canonical_url", ""),
-                "breakdown": (rec.get("history") or [])[:20],
-            }
-    return {
-        "title": "New Zealand Household, Income, Rent, Debt, Employment & Property Reality Check Benchmarks",
-        "active_benchmark_series": len(series_out),
-        "series": series_out,
-    }
-
-
-def write_robots_txt(root: pathlib.Path) -> None:
-    """Write `robots.txt` allowing search and AI crawlers full access to the dataset and sitemap."""
-    (root / "robots.txt").write_text(
-        f"User-agent: *\nAllow: /\n\nSitemap: {PULSE_BASE_URL}/sitemap.xml\n",
-        encoding="utf-8",
-    )
-
-
-def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_count: int) -> None:
-    """Write standalone `/<ticker>/index.html` Data Dictionary & historical series page."""
-    t_dir = root / key
-    t_dir.mkdir(parents=True, exist_ok=True)
-
-    hist_rows_html = ""
-    hist_list = rec.get("history") or []
-    if hist_list:
-        h_trs = "".join(
-            f"<tr><td>{html_lib.escape(str(h.get('label') or h.get('period') or ''))}</td>"
-            f"<td><strong>{html_lib.escape(str(h.get('formatted') or h.get('value') or ''))}</strong></td></tr>"
-            for h in hist_list
-        )
-        hist_rows_html = (
-            f"<h2>Historical Series &amp; Breakdown ({html_lib.escape(str(rec.get('historical_data_from', '')))})</h2>"
-            f"<div class='hist-wrap'><table><thead><tr><th>Period / Segment</th><th>Verified Value</th></tr></thead>"
-            f"<tbody>{h_trs}</tbody></table></div>"
-        )
-
-    q_html = ""
-    if rec.get("related_questions"):
-        q_lis = "".join(f"<li>{html_lib.escape(str(q))}</li>" for q in rec["related_questions"])
-        q_html = f"<h2>Common Questions Answered by This Dataset</h2><ul>{q_lis}</ul>"
-
-    schema_obj = {
-        "@context": "https://schema.org",
-        "@type": "Dataset",
-        "name": f"{rec['name']} — HLF Pulse ({rec['observation_period']})",
-        "description": rec["summary_text"],
-        "url": rec["canonical_url"],
-        "inLanguage": "en-NZ",
-        "license": HLF_LICENSE_URL,
-        "citation": rec["citation"],
-        "dateCreated": rec["date_created"],
-        "dateModified": rec["date_modified"],
-        "temporalCoverage": f"{rec['observation_period']} (ends {rec['period_end']})",
-        "spatialCoverage": "New Zealand",
-        "creator": CREATOR_SCHEMA_OBJ,
-        "publisher": PUBLISHER_SCHEMA_OBJ,
-        "isPartOf": {"@type": "Dataset", "name": "HLF Pulse", "url": f"{PULSE_BASE_URL}/"},
-    }
-
-    page_html = f"""<!DOCTYPE html>
-<html lang="en-NZ">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="{rec['canonical_url']}">
-  <title>{html_lib.escape(rec['name'])} ({html_lib.escape(rec['observation_period'])}) | HLF Pulse</title>
-  <meta name="description" content="{html_lib.escape(rec['summary_text'][:155], quote=True)}">
-  <script type="application/ld+json">{json.dumps(schema_obj)}</script>
-  <style>
-    body {{ font-family: Inter, system-ui, -apple-system, sans-serif; color: #111827; background: #f8fafc; margin: 0; padding: 24px 14px 56px; line-height: 1.58; font-variant-numeric: tabular-nums; }}
-    main {{ max-width: 920px; margin: 0 auto; background: #ffffff; border-top: 5px solid #0b2559; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(11,37,89,0.05); }}
-    h1 {{ margin: 8px 0 6px; color: #0b2559; font-size: 1.45rem; }}
-    h2 {{ margin: 24px 0 10px; color: #0b2559; font-size: 1.12rem; }}
-    a {{ color: #186bd6; font-weight: 600; }}
-    code {{ background: #eff6ff; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; color: #0b2559; }}
-    .lead-box {{ background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 16px 18px; margin: 14px 0; font-size: 1rem; }}
-    .meta-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px; margin: 14px 0; font-size: 0.82rem; }}
-    .layer-stack {{ display: flex; flex-direction: column; gap: 6px; margin: 12px 0; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 12px; font-size: 0.82rem; }}
-    .layer-row {{ display: flex; align-items: baseline; gap: 8px; }}
-    .lbadge {{ flex-shrink: 0; display: inline-block; width: 112px; text-align: center; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 5px; }}
-    .lbadge.is-off {{ background: #ecfdf5; border: 1px solid #6ee7b7; color: #065f46; }}
-    .lbadge.is-calc {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; }}
-    .lbadge.is-interp {{ background: #fefce8; border: 1px solid #fde68a; color: #92400e; }}
-    .cite-line {{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 10px; margin: 12px 0; font-size: 0.78rem; }}
-    .cite-text {{ flex: 1; min-width: 200px; }}
-    .cite-btn {{ background: #eff6ff; border: 1px solid #93c5fd; color: #0b2559; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 5px; cursor: pointer; }}
-    table {{ width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-top: 8px; }}
-    th {{ background: #f8fafc; color: #0b2559; text-align: left; padding: 8px 10px; border-bottom: 2px solid #dbeafe; }}
-    td {{ padding: 8px 10px; border-bottom: 1px solid #e5e7eb; }}
-    .hist-wrap {{ border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-top: 8px; }}
-    .creator-wrap {{ margin: 22px 0; border: 1px solid #dbeafe; border-radius: 14px; overflow: hidden; background: #f8fafc; }}
-    .creator-card {{ display: flex; align-items: flex-start; gap: 16px; padding: 16px 18px; }}
-    .creator-avatar {{ width: 56px; height: 56px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #0b2559; }}
-    .creator-avatar img {{ width: 100%; height: 100%; object-fit: cover; }}
-    .creator-badge {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-left: 6px; }}
-    .creator-role {{ font-size: 0.8rem; color: #4b5563; font-weight: 600; margin: 2px 0 6px; }}
-  </style>
-</head>
-<body>
-  <main>
-    <div><a href="{PULSE_BASE_URL}/">&larr; All {total_count} Datasets in HLF Pulse Hub</a> &bull; <code>{key}</code></div>
-    <h1>{html_lib.escape(rec['name'])}</h1>
-    <div class="lead-box">{rec['html']}</div>
-    <div class="meta-grid">
-      <div><strong>Latest Value:</strong><br>{html_lib.escape(str(rec.get('latest_value', '')))}</div>
-      <div><strong>1. Observation Period:</strong><br>{html_lib.escape(rec['observation_period'])} (Ends <code>{rec['period_end']}</code>)</div>
-      <div><strong>2. Source Published:</strong><br>{html_lib.escape(rec['source_published'])}</div>
-      <div><strong>3. Last Checked by HLF:</strong><br>{html_lib.escape(rec['last_verified_human'])} (<code>{rec['last_checked']}</code>)</div>
-      <div><strong>Prior / Benchmark:</strong><br>{html_lib.escape(str(rec.get('previous_period', '')))}</div>
-      <div><strong>Change / Spread:</strong><br>{html_lib.escape(str(rec.get('change', '')))}</div>
-    </div>
-    {render_three_layer_badges_html(rec, False)}
-    {render_cite_line_html(rec)}
-    <p style="font-size:0.82rem;color:#4b5563;">{rec['source_html']}</p>
-    <h2>Definition &amp; Methodology</h2>
-    <p><strong>Definition:</strong> {html_lib.escape(rec['definition'])}</p>
-    <p><strong>Methodology:</strong> {html_lib.escape(rec['methodology'])}</p>
-    {render_c41_band_table_html(rec)}
-    {hist_rows_html}
-    {q_html}
-    {render_creator_card_html(compact=True)}
-  </main>
-  {CITE_COPY_JS}
-</body>
-</html>"""
-    (t_dir / "index.html").write_text(page_html, encoding="utf-8")
-
-
-def write_legacy_redirect_page(root: pathlib.Path, alias_key: str, target_key: str) -> None:
-    """Write a lightweight canonical redirect page for legacy ticker slugs."""
-    a_dir = root / alias_key
-    a_dir.mkdir(parents=True, exist_ok=True)
-    target_url = f"{PULSE_BASE_URL}/{target_key}/"
-    (a_dir / "index.html").write_text(
-        f"""<!DOCTYPE html>
-<html lang="en-NZ">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url={target_url}">
-  <link rel="canonical" href="{target_url}">
-  <title>Redirecting to {target_key} | HLF Pulse</title>
-</head>
-<body>
-  <p>Redirecting to canonical dataset <a href="{target_url}"><code>{target_key}</code></a>...</p>
-</body>
-</html>""",
-        encoding="utf-8",
-    )
-# === END OF BLOCK 12 ===
-# === BLOCK 12 OF 13 ===
-CITE_COPY_JS = """<script>
-document.addEventListener("click", function(e) {
-  const btn = e.target.closest(".cite-btn[data-cite]");
-  if (!btn) return;
-  const txt = btn.getAttribute("data-cite") || "";
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(txt).then(function() {
-      const orig = btn.textContent;
-      btn.textContent = "Copied!";
-      setTimeout(function() { btn.textContent = orig; }, 1800);
-    });
-  }
-});
-</script>"""
 
 
 def render_creator_card_html(compact: bool = False) -> str:
@@ -10607,14 +10012,12 @@ def _normalize_history_scaling(key: str, val_top, unit: str, hist_list: list | N
         if fmt_s:
             h["formatted"] = fmt_s
         if isinstance(hv, (int, float)) and isinstance(val_top, (int, float)):
-            # 1. NZD loan/income tickers where history was stored in $k (hv <= 2000 while top-level value >= 15000)
             if unit == "NZD" and abs(float(val_top)) >= 15000 and 10.0 <= abs(float(hv)) <= 2000.0:
                 m_dlr = re.search(r"\$([\d,]{5,11})(?!/wk)\b", fmt_s)
                 if m_dlr:
                     h["value"] = int(m_dlr.group(1).replace(",", ""))
                 else:
                     h["value"] = int(round(float(hv) * 1000.0))
-            # 2. NZD_billions debt tickers where history was stored in $m (hv >= 1000 while top-level value < 1000)
             elif unit == "NZD_billions" and abs(float(val_top)) < 1000.0 and abs(float(hv)) >= 1000.0:
                 h["value"] = round(float(hv) / 1000.0, 2)
         out_h.append(h)
@@ -10708,7 +10111,7 @@ def cross_derive_live_c31_c41_siblings(candidates: dict) -> None:
                     "RBNZ C31, C40 & C41",
                     as_of_s,
                     MAX_AGE_MONTHLY,
-                    f"In {per_s}, approved New Zealand first-home buyers had an implied mortgage-to-income ratio of <strong>{ratio_x:.2f}x gross application income</strong> (${int(round(loan_v)):,} average loan divided by ${int(round(inc_v)):,} average gross borrower income), while <strong>{le6_v:.1f}% of all first-home buyer lending</strong> in RBNZ Table C40 was written at or below <strong>6x TDTI</strong>.",
+                    f"In {per_s}, approved New Zealand first-home buyers had an implied ratio of average loan to average gross application income of <strong>{ratio_x:.2f}x</strong> (a ratio of aggregate averages rather than individual-borrower DTIs: ${int(round(loan_v)):,} average loan divided by ${int(round(inc_v)):,} average gross borrower income), while <strong>{le6_v:.1f}% of all first-home buyer lending</strong> in RBNZ Table C40 was written at or below <strong>6x TDTI</strong>.",
                     f"RBNZ Tables C31, C40 & C41 ({per_s}): Average FHB loan = ${int(round(loan_v)):,}; Average FHB gross income = ${int(round(inc_v)):,}; Share <= 6x TDTI = {le6_v:.1f}%.",
                     format_provenance_source_html(calc_s, "RBNZ Tables C31, C40 & C41", c40_u, True),
                     per_s,
@@ -10779,7 +10182,6 @@ def enrich_ticker_record(key: str, item: dict, today_iso: str, now_human: str) -
     r["methodology"] = meta.get("methodology", "")
     r["historical_data_from"] = str(r.get("historical_data_from") or f"{r['source']} series ({obs_per})")
 
-    # Ensure top-level `value` on NZD series is never left in $k (e.g. 120.17 -> 120175 on fhb-loan-size-gap)
     if r["unit"] == "NZD" and isinstance(r.get("value"), (int, float)) and 0 < abs(float(r["value"])) < 1000.0:
         m_gap_dlr = re.search(r"\(\+\$([\d,]{5,9})\)", r["latest_value"])
         if m_gap_dlr:
@@ -10918,7 +10320,8 @@ def build_reality_check_benchmarks_object(verified_tickers: dict) -> dict:
 
 
 def write_robots_txt(root: pathlib.Path) -> None:
-    """Write `robots.txt` allowing search and AI crawlers full access to the dataset and sitemap."""
+    """Sync the HLF Webflow favicon into the repo root and write `robots.txt`."""
+    sync_hlf_favicon(root)
     (root / "robots.txt").write_text(
         f"User-agent: *\nAllow: /\n\nSitemap: {PULSE_BASE_URL}/sitemap.xml\n",
         encoding="utf-8",
@@ -10929,6 +10332,7 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_c
     """Write standalone `/<ticker>/index.html` Data Dictionary & historical series page."""
     t_dir = root / key
     t_dir.mkdir(parents=True, exist_ok=True)
+    fav_tags = render_favicon_head_tags_html()
 
     hist_rows_html = ""
     hist_list = rec.get("history") or []
@@ -10974,6 +10378,7 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_c
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{rec['canonical_url']}">
+{fav_tags}
   <title>{html_lib.escape(rec['name'])} ({html_lib.escape(rec['observation_period'])}) | HLF Pulse</title>
   <meta name="description" content="{html_lib.escape(rec['summary_text'][:155], quote=True)}">
   <script type="application/ld+json">{json.dumps(schema_obj)}</script>
@@ -11042,6 +10447,7 @@ def write_legacy_redirect_page(root: pathlib.Path, alias_key: str, target_key: s
     a_dir = root / alias_key
     a_dir.mkdir(parents=True, exist_ok=True)
     target_url = f"{PULSE_BASE_URL}/{target_key}/"
+    fav_tags = render_favicon_head_tags_html()
     (a_dir / "index.html").write_text(
         f"""<!DOCTYPE html>
 <html lang="en-NZ">
@@ -11049,6 +10455,7 @@ def write_legacy_redirect_page(root: pathlib.Path, alias_key: str, target_key: s
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="0; url={target_url}">
   <link rel="canonical" href="{target_url}">
+{fav_tags}
   <title>Redirecting to {target_key} | HLF Pulse</title>
 </head>
 <body>
@@ -11096,7 +10503,6 @@ def _extract_ko_all_67_tlas(pdf_bytes: bytes, pdf_txt: str) -> list[dict]:
         if not nums:
             q_tot = 0
         else:
-            # Strip trailing page footer number (2, 3, or 4) when preceding numbers already sum to the row total
             if (
                 len(nums) >= 3
                 and nums[-1] in (2, 3, 4)
@@ -11977,7 +11383,6 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
             val_num = v.get("value")
             if "nan $" in lv or "-99 $" in lv:
                 continue
-            # Purge any previously cached partial (17-council) Kāinga Ora regional record lacking the full 67 TLAs + Greater Wellington subgroup
             if k == "kainga-ora-first-home-loan-regional" and (
                 len(v.get("history") or []) < 60
                 or "greater wellington" not in str(v.get("html", "")).lower()
@@ -12478,6 +11883,7 @@ def main() -> None:
     robots_tag = "index, follow" if verified_tickers else "noindex, nofollow"
     creator_main_html = render_creator_card_html(compact=False)
     about_footer_html = render_about_and_quality_footer_html()
+    fav_tags_hub = render_favicon_head_tags_html()
 
     pill_filter_js = """<script>
 (function() {
@@ -12576,6 +11982,7 @@ def main() -> None:
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="{robots_tag}">
   <link rel="canonical" href="{PULSE_BASE_URL}/">
+{fav_tags_hub}
   <title>NZ Mortgage, Housing, KiwiSaver, Income &amp; Insurance Pulse — Reference Dataset | HLF</title>
   <script type="application/ld+json">{json.dumps(hub_schema_obj)}</script>
   <style>
