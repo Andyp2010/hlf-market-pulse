@@ -23,7 +23,7 @@
   "date_modified": "2026-11-21",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-21",
-  "dataset_generated_utc": "2026-11-21T00:07:35Z",
+  "dataset_generated_utc": "2026-11-21T03:51:50Z",
   "latest_underlying_data": "June 2024 (triennial) to September 2026 (monthly)",
   "data_status": "verified",
   "source_status": "current",
@@ -2969,7 +2969,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"New Zealand personal credit card daily-average balances, share accruing interest & weighted-average interest rate (RBNZ Table C12),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Credit card balances (Table C12). https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/ (checked 21 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
-      "summary_text": "In September 2026 (the latest month with published interest-bearing and interest-rate data in RBNZ Table C12), New Zealand personal credit card daily-average balances stood at $5.41B ($5,406m) (down 2.6% year-on-year from $5.55B a year earlier), of which 51.2% ($2.77B / $2,766m) accrued interest at a weighted-average interest rate of 20.0% p.a. (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.)",
+      "summary_text": "In September 2026 (the latest month with published interest-bearing and interest-rate data in RBNZ Table C12), New Zealand personal credit card daily-average balances stood at $5.41B ($5,406m) (down 2.6% year-on-year from $5.55B a year earlier), of which 51.2% ($2.77B / $2,766m) accrued interest at a weighted-average interest rate of 20.0% p.a. (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.) (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.)",
       "related_questions": [
         "How much credit card debt is outstanding in New Zealand?",
         "What is the average interest rate on interest-bearing credit card balances in New Zealand?",
