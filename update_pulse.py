@@ -9740,25 +9740,108 @@ document.addEventListener("click", function(e) {
 });
 </script>"""
 
-HLF_FAVICON_URL = f"{PULSE_BASE_URL}/favicon.png"
-HLF_APPLE_TOUCH_ICON_URL = f"{PULSE_BASE_URL}/apple-touch-icon.png"
+HLF_FAVICON_VERSION = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d%H")
+HLF_FAVICON_URL = f"{PULSE_BASE_URL}/favicon.png?v={HLF_FAVICON_VERSION}"
+HLF_APPLE_TOUCH_ICON_URL = f"{PULSE_BASE_URL}/apple-touch-icon.png?v={HLF_FAVICON_VERSION}"
+
+
+def _generate_fallback_hlf_png() -> bytes:
+    """Generate a valid 64x64 HLF navy (#0b2559) PNG with a white HLF monogram if remote fetch fails."""
+    import struct
+    import zlib
+
+    w, h = 64, 64
+    navy = (11, 37, 89, 255)
+    blue_accent = (24, 107, 214, 255)
+    white = (255, 255, 255, 255)
+
+    glyphs = {
+        "H": [
+            "10001",
+            "10001",
+            "10001",
+            "11111",
+            "10001",
+            "10001",
+            "10001",
+        ],
+        "L": [
+            "10000",
+            "10000",
+            "10000",
+            "10000",
+            "10000",
+            "10000",
+            "11111",
+        ],
+        "F": [
+            "11111",
+            "10000",
+            "10000",
+            "11110",
+            "10000",
+            "10000",
+            "10000",
+        ],
+    }
+
+    grid = [[navy for _ in range(w)] for _ in range(h)]
+    for y in range(6):
+        for x in range(w):
+            grid[y][x] = blue_accent
+
+    scale = 3
+    x_cursor = 6
+    y_start = 23
+    for ch in ("H", "L", "F"):
+        bmp = glyphs[ch]
+        for gy, row_s in enumerate(bmp):
+            for gx, bit in enumerate(row_s):
+                if bit == "1":
+                    for dy in range(scale):
+                        for dx in range(scale):
+                            py = y_start + gy * scale + dy
+                            px = x_cursor + gx * scale + dx
+                            if 0 <= py < h and 0 <= px < w:
+                                grid[py][px] = white
+        x_cursor += 5 * scale + 3
+
+    raw_rows = bytearray()
+    for y in range(h):
+        raw_rows.append(0)
+        for x in range(w):
+            raw_rows.extend(grid[y][x])
+
+    def _png_chunk(c_type: bytes, c_data: bytes) -> bytes:
+        crc = zlib.crc32(c_type + c_data) & 0xFFFFFFFF
+        return struct.pack(">I", len(c_data)) + c_type + c_data + struct.pack(">I", crc)
+
+    ihdr = struct.pack(">IIBBBBB", w, h, 8, 6, 0, 0, 0)
+    idat = zlib.compress(bytes(raw_rows), 9)
+    return b"\x89PNG\r\n\x1a\n" + _png_chunk(b"IHDR", ihdr) + _png_chunk(b"IDAT", idat) + _png_chunk(b"IEND", b"")
 
 
 def sync_hlf_favicon(root: pathlib.Path) -> tuple[str, str]:
     """
-    Fetch the live Webflow <link rel="shortcut icon" / "icon"> and <link rel="apple-touch-icon">
-    from https://www.homeloanfactory.co.nz/, mirror the icon files into the repo root
-    (favicon.png, favicon.ico, apple-touch-icon.png), and return (favicon_url, apple_touch_icon_url).
+    Scan the full HTML of https://www.homeloanfactory.co.nz/ for the Webflow favicon & apple-touch-icon,
+    mirror them into the repo root (favicon.png, favicon.ico, apple-touch-icon.png), and guarantee valid
+    icon files on disk with a cache-busting version query string.
     """
     global HLF_FAVICON_URL, HLF_APPLE_TOUCH_ICON_URL
     fav_url = ""
     touch_url = ""
+    sess = get_http_session()
+
     try:
-        sess = get_http_session()
-        resp = sess.get(PUBLISHER_URL, timeout=15)
-        if resp.status_code == 200 and resp.text:
-            head_html = resp.text[:25000]
-            for m_tag in re.finditer(r"<link\b[^>]*>", head_html, flags=re.I):
+        pages = fetch_html_with_browser_fallback(sess, [PUBLISHER_URL], "HLF Favicon")
+        full_html = pages.get(PUBLISHER_URL, "")
+        if not full_html:
+            resp = sess.get(PUBLISHER_URL, timeout=20)
+            if resp.status_code == 200:
+                full_html = resp.text
+
+        if full_html:
+            for m_tag in re.finditer(r"<link\b[^>]*>", full_html, flags=re.I):
                 tag_s = m_tag.group(0)
                 m_rel = re.search(r'\brel=["\']([^"\']+)["\']', tag_s, flags=re.I)
                 m_href = re.search(r'\bhref=["\']([^"\']+)["\']', tag_s, flags=re.I)
@@ -9766,49 +9849,77 @@ def sync_hlf_favicon(root: pathlib.Path) -> tuple[str, str]:
                     continue
                 rel_v = m_rel.group(1).strip().lower()
                 href_v = m_href.group(1).strip()
-                if not href_v:
+                if not href_v or href_v.startswith("data:"):
                     continue
                 if href_v.startswith("//"):
                     href_v = "https:" + href_v
                 elif href_v.startswith("/"):
                     href_v = PUBLISHER_URL.rstrip("/") + href_v
-                if rel_v in ("shortcut icon", "icon") and not fav_url:
+                if any(k in rel_v for k in ("shortcut icon", "icon")) and "apple-touch-icon" not in rel_v and not fav_url:
                     fav_url = href_v
                 elif "apple-touch-icon" in rel_v and not touch_url:
                     touch_url = href_v
 
+            if not fav_url:
+                m_wf_fav = re.search(
+                    r'https://cdn\.prod\.website-files\.com/[^"\'\s>]+?(?:favicon|icon|webclip)[^"\'\s>]*\.(?:png|ico|svg|jpg|jpeg|webp)',
+                    full_html,
+                    flags=re.I,
+                )
+                if m_wf_fav:
+                    fav_url = m_wf_fav.group(0)
+
             if fav_url:
-                r_fav = sess.get(fav_url, timeout=15)
-                if r_fav.status_code == 200 and len(r_fav.content) > 64:
-                    (root / "favicon.png").write_bytes(r_fav.content)
-                    (root / "favicon.ico").write_bytes(r_fav.content)
-                    HLF_FAVICON_URL = fav_url
-                    print(f"[Favicon Sync] Mirrored HLF favicon from {fav_url} -> /favicon.png & /favicon.ico")
+                fav_bytes = fetch_bytes_with_browser_fallback(sess, fav_url, referer=PUBLISHER_URL, min_bytes=64)
+                if fav_bytes and len(fav_bytes) > 64:
+                    (root / "favicon.png").write_bytes(fav_bytes)
+                    (root / "favicon.ico").write_bytes(fav_bytes)
+                    if not touch_url:
+                        (root / "apple-touch-icon.png").write_bytes(fav_bytes)
+                    print(f"[Favicon Sync] Mirrored Webflow favicon from {fav_url} ({len(fav_bytes)} bytes)")
 
             if touch_url:
-                r_touch = sess.get(touch_url, timeout=15)
-                if r_touch.status_code == 200 and len(r_touch.content) > 64:
-                    (root / "apple-touch-icon.png").write_bytes(r_touch.content)
-                    HLF_APPLE_TOUCH_ICON_URL = touch_url
-            elif fav_url:
-                HLF_APPLE_TOUCH_ICON_URL = HLF_FAVICON_URL
+                touch_bytes = fetch_bytes_with_browser_fallback(sess, touch_url, referer=PUBLISHER_URL, min_bytes=64)
+                if touch_bytes and len(touch_bytes) > 64:
+                    (root / "apple-touch-icon.png").write_bytes(touch_bytes)
+                    if not (root / "favicon.png").exists():
+                        (root / "favicon.png").write_bytes(touch_bytes)
+                        (root / "favicon.ico").write_bytes(touch_bytes)
+                    print(f"[Favicon Sync] Mirrored Webflow apple-touch-icon from {touch_url} ({len(touch_bytes)} bytes)")
     except Exception as exc_fav:
         print(f"[Favicon Sync] Note: {exc_fav}")
 
-    if not fav_url and (root / "favicon.png").exists():
-        HLF_FAVICON_URL = f"{PULSE_BASE_URL}/favicon.png"
-    if not touch_url and (root / "apple-touch-icon.png").exists():
-        HLF_APPLE_TOUCH_ICON_URL = f"{PULSE_BASE_URL}/apple-touch-icon.png"
+    if not (root / "favicon.png").exists() or (root / "favicon.png").stat().st_size < 64:
+        fallback_png = _generate_fallback_hlf_png()
+        (root / "favicon.png").write_bytes(fallback_png)
+        (root / "favicon.ico").write_bytes(fallback_png)
+        print("[Favicon Sync] Generated built-in 64x64 HLF monogram favicon.png & favicon.ico")
+
+    if not (root / "apple-touch-icon.png").exists() or (root / "apple-touch-icon.png").stat().st_size < 64:
+        (root / "apple-touch-icon.png").write_bytes((root / "favicon.png").read_bytes())
+
+    svg_icon = (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
+        '<rect width="64" height="64" rx="14" fill="#0b2559"/>'
+        '<rect width="64" height="7" fill="#186bd6"/>'
+        '<text x="32" y="42" font-family="Inter,system-ui,sans-serif" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">HLF</text>'
+        "</svg>"
+    )
+    (root / "favicon.svg").write_text(svg_icon, encoding="utf-8")
+
+    HLF_FAVICON_URL = f"{PULSE_BASE_URL}/favicon.png?v={HLF_FAVICON_VERSION}"
+    HLF_APPLE_TOUCH_ICON_URL = f"{PULSE_BASE_URL}/apple-touch-icon.png?v={HLF_FAVICON_VERSION}"
     return HLF_FAVICON_URL, HLF_APPLE_TOUCH_ICON_URL
 
 
 def render_favicon_head_tags_html() -> str:
-    """Return the <link> tags for favicon and apple-touch-icon inside <head>."""
+    """Return the cache-busted <link> tags for favicon and apple-touch-icon inside <head>."""
     fav_esc = html_lib.escape(HLF_FAVICON_URL, quote=True)
+    ico_esc = html_lib.escape(f"{PULSE_BASE_URL}/favicon.ico?v={HLF_FAVICON_VERSION}", quote=True)
     touch_esc = html_lib.escape(HLF_APPLE_TOUCH_ICON_URL, quote=True)
     return (
-        f'  <link rel="icon" href="{fav_esc}">\n'
-        f'  <link rel="shortcut icon" href="{fav_esc}">\n'
+        f'  <link rel="icon" type="image/png" href="{fav_esc}">\n'
+        f'  <link rel="shortcut icon" href="{ico_esc}">\n'
         f'  <link rel="apple-touch-icon" href="{touch_esc}">'
     )
 
@@ -10127,7 +10238,7 @@ def cross_derive_live_c31_c41_siblings(candidates: dict) -> None:
 
 
 def enrich_ticker_record(key: str, item: dict, today_iso: str, now_human: str) -> dict:
-    """Enrich a raw pulse item with full TICKER_CATALOG metadata, 4-field dates, scaled history, and clean formatting."""
+    """Enrich a raw pulse item with full TICKER_CATALOG metadata, 4-field dates, scaled history, and direct canonical deep-links."""
     meta = TICKER_CATALOG.get(key, {})
     r = dict(item)
     r["ticker"] = key
@@ -10229,13 +10340,22 @@ def enrich_ticker_record(key: str, item: dict, today_iso: str, now_human: str) -
         "canonical_url": r["canonical_url"],
         "license": HLF_LICENSE_SHORT,
     }
-    r["source_html"] = format_provenance_source_html(
+    base_agency_source_html = format_provenance_source_html(
         r["calculation"],
         r["source_full"],
         r["source_url"],
         r["derived_by_hlf"],
         now_human,
     )
+    r["source_agency_html"] = base_agency_source_html
+    if r["canonical_url"] not in base_agency_source_html:
+        r["source_html"] = (
+            f"{base_agency_source_html} &bull; "
+            f'<a href="{r["canonical_url"]}" target="_blank" rel="noopener">'
+            f"Full Data Dictionary &amp; historical series (/{key}/) &rarr;</a>"
+        )
+    else:
+        r["source_html"] = base_agency_source_html
     return r
 
 
@@ -10371,6 +10491,8 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_c
         "isPartOf": {"@type": "Dataset", "name": "HLF Pulse", "url": f"{PULSE_BASE_URL}/"},
     }
 
+    page_source_line = str(rec.get("source_agency_html") or rec.get("source_html") or "")
+
     page_html = f"""<!DOCTYPE html>
 <html lang="en-NZ">
 <head>
@@ -10427,7 +10549,7 @@ def write_canonical_ticker_page(root: pathlib.Path, key: str, rec: dict, total_c
     </div>
     {render_three_layer_badges_html(rec, False)}
     {render_cite_line_html(rec)}
-    <p style="font-size:0.82rem;color:#4b5563;">{rec['source_html']}</p>
+    <p style="font-size:0.82rem;color:#4b5563;">{page_source_line}</p>
     <h2>Definition &amp; Methodology</h2>
     <p><strong>Definition:</strong> {html_lib.escape(rec['definition'])}</p>
     <p><strong>Methodology:</strong> {html_lib.escape(rec['methodology'])}</p>
@@ -11854,7 +11976,7 @@ def main() -> None:
             f"{html_lib.escape(cat)} <span class='pill-cnt'>{len(items)}</span></button>"
         )
         links = "".join(
-            f"<li><a href='#{k}'><code>{k}</code></a> — {html_lib.escape(r['name'])} "
+            f"<li><a href='{r['canonical_url']}'><code>{k}</code></a> — {html_lib.escape(r['name'])} "
             f"(<strong>{html_lib.escape(_format_cat_card_value(r))}</strong>)</li>"
             for k, r in items
         )
@@ -11877,7 +11999,7 @@ def main() -> None:
             f"<div class='rchk'>End: <code>{v['period_end']}</code></div><div class='rchk'>Published: {html_lib.escape(v['source_published'])}</div>"
             f"<div class='rchk'>Checked: {html_lib.escape(v['last_verified_human'])}</div></td>"
             f"<td><div class='rsum'>{v['html']}</div>{render_c41_band_table_html(v)}{render_three_layer_badges_html(v, True)}{render_cite_line_html(v)}"
-            f"<div class='rsrc'>{v['source_html']} &bull; <a href='{v['canonical_url']}'>Full Data Dictionary &amp; historical series (/{k}/) &rarr;</a></div></td></tr>"
+            f"<div class='rsrc'>{v['source_html']}</div></td></tr>"
         )
     rows_html = "".join(rows_html_list)
     robots_tag = "index, follow" if verified_tickers else "noindex, nofollow"
