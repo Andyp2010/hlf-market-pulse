@@ -23,7 +23,7 @@
   "date_modified": "2026-11-22",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-22",
-  "dataset_generated_utc": "2026-11-22T07:28:32Z",
+  "dataset_generated_utc": "2026-11-22T08:06:56Z",
   "latest_underlying_data": "June 2024 (triennial) to September 2026 (monthly)",
   "data_status": "verified",
   "source_status": "current",
@@ -2065,7 +2065,7 @@
   },
   "mortgage_market_share_timeline": {
     "ticker": "mortgage-market-share-timeline",
-    "title": "New Zealand residential mortgage market share timeline: First-home buyers, movers, investors, refinances & top-ups (RBNZ C31 & C33)",
+    "title": "NZ Mortgage Market Share Timeline: First-Home Buyers, Investors, Refinances & Top-Ups (RBNZ C31 & C33)",
     "source": "Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31) & by purpose (Table C33)",
     "source_urls": [
       "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/c31-new-residential-mortgage-lending-by-borrower-type.xlsx",
@@ -2074,7 +2074,7 @@
     "latest_month": "2026-09",
     "start_month": "2017-01",
     "month_count": 117,
-    "updated_at": "2026-11-22T07:28:32Z",
+    "updated_at": "2026-11-22T08:06:56Z",
     "history": [
       {
         "ym": "2017-01",
@@ -10706,7 +10706,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"New Zealand personal credit card daily-average balances, share accruing interest & weighted-average interest rate (RBNZ Table C12),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Credit card balances (Table C12). https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/ (checked 22 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
-      "summary_text": "In September 2026 (the latest month with published interest-bearing and interest-rate data in RBNZ Table C12), New Zealand personal credit card daily-average balances stood at $5.41B ($5,406m) (down 2.6% year-on-year from $5.55B a year earlier), of which 51.2% ($2.77B / $2,766m) accrued interest at a weighted-average interest rate of 20.0% p.a. (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.)",
+      "summary_text": "In September 2026 (the latest month with published interest-bearing and interest-rate data in RBNZ Table C12), New Zealand personal credit card daily-average balances stood at $5.41B ($5,406m) (down 2.6% year-on-year from $5.55B a year earlier), of which 51.2% ($2.77B / $2,766m) accrued interest at a weighted-average interest rate of 20.0% p.a. (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.) (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.)",
       "related_questions": [
         "How much credit card debt is outstanding in New Zealand?",
         "What is the average interest rate on interest-bearing credit card balances in New Zealand?",
@@ -17462,7 +17462,7 @@
     },
     {
       "ticker": "mortgage-market-share-timeline",
-      "name": "New Zealand residential mortgage market share timeline: First-home buyers, movers, investors, refinances & top-ups (RBNZ C31 & C33)",
+      "name": "NZ Mortgage Market Share Timeline: First-Home Buyers, Investors, Refinances & Top-Ups (RBNZ C31 & C33)",
       "also_known_as": "100% stacked mortgage lending share timeline by borrower type (Table C31) and loan purpose (Table C33)",
       "category": "Homeowners & refinancing",
       "topic": "Full historical mortgage market share timeline (FHB vs Movers vs Investors vs Refinances vs Top-Ups)",
@@ -17487,9 +17487,9 @@
       "derived_by_hlf": true,
       "data_type": "Officially reported RBNZ C31 & C33 monthly series & HLF-reconciled 100% market share timeline",
       "definition": "Full monthly percentage market share, dollar volume ($ millions), and loan commitment count (#) across New Zealand registered bank residential mortgages split by Borrower Type (RBNZ Table C31: First-Home Buyers, Other Owner-Occupiers, Property Investors, Business) and Loan Purpose (RBNZ Table C33: Property Purchases, Change in Loan Provider / Refinances, Equity Top-Ups, and Other), plus an HLF-reconciled 100% combined breakdown.",
-      "formula": "C31 Shares = Cohort \u00f7 C31 Total \u00d7 100; C33 Shares = Purpose \u00f7 C33 Total \u00d7 100; Combined 100% View partitions non-FHB Purchases between Second+ Home Movers and Investors by their monthly C31 ratio",
-      "hlf_interpretation": "HLF market context: Reconciles RBNZ Table C31 and Table C33 on a 0%\u2013100% monthly timeline so first-home buyers, home movers, property investors, bank-to-bank refinances, and equity top-ups can be tracked over time without double-counting.",
-      "methodology": "Aligns every overlapping monthly observation from RBNZ Table C31 (Borrower Type) and RBNZ Table C33 (Loan Purpose) across both lending value ($m) and committed loan counts (#). Because Table C31 includes refinances and top-ups inside Other Owner-Occupiers and Investors, the HLF Combined 100% view partitions total monthly lending into: (1) First-Home Buyers (C31), (2) Second+ Home Purchases (non-FHB property purchases allocated by C31 Other Owner-Occupier share), (3) Property Investor Purchases (non-FHB property purchases allocated by C31 Investor share), (4) Refinances / Bank Switches (C33 Change in Loan Provider), (5) Mortgage Top-Ups (C33 Top-Ups), and (6) Other / Construction.",
+      "formula": "C31 Shares = Cohort \u00f7 C31 Total \u00d7 100; C33 Shares = Purpose \u00f7 C33 Total \u00d7 100; Combined 100% View partitions non-FHB Purchases (100% \u2212 FHB \u2212 Refinances \u2212 Top-Ups \u2212 Other) between Second+ Home Movers and Investors by their monthly C31 dollar ratio (OOO_Val \u00f7 [OOO_Val + INV_Val])",
+      "hlf_interpretation": "HLF market context: Reconciles RBNZ Table C31 and Table C33 on a 0% to 100% monthly timeline so first-home buyers, home movers, property investors, bank-to-bank refinances, and equity top-ups can be compared over time without double-counting. Note that in standalone Table C31, total investor lending (~22% to 24%) includes investor refinances and top-ups alongside investor property purchases (~11% to 13%).",
+      "methodology": "Aligns every overlapping monthly observation from RBNZ Table C31 (Borrower Type) and RBNZ Table C33 (Loan Purpose) across both lending value ($m) and committed loan counts (#). Because Table C31 includes external bank refinances and equity top-ups inside Other Owner-Occupiers and Investors, the HLF Reconciled 100% view partitions total monthly lending without double-counting into: (1) First-Home Buyers (C31 AC1), (2) Second+ Home Purchases (non-FHB property purchases allocated by C31 Other Owner-Occupier dollar weight), (3) Property Investor Purchases (non-FHB property purchases allocated by C31 Investor dollar weight), (4) Refinances / Bank Switches (C33 AZD Change in Loan Provider), (5) Mortgage Top-Ups (C33 AZB Top-Ups), and (6) Other / Construction (C33 AZE).",
       "historical_data_from": "Available from January 2017 (117 monthly observations)",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
@@ -17501,12 +17501,15 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"New Zealand residential mortgage market share timeline: First-home buyers, movers, investors, refinances & top-ups (RBNZ C31 & C33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31) & by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/mortgage-market-share-timeline/ (checked 22 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"NZ Mortgage Market Share Timeline: First-Home Buyers, Investors, Refinances & Top-Ups (RBNZ C31 & C33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31) & by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/mortgage-market-share-timeline/ (checked 22 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mortgage-market-share-timeline/",
       "summary_text": "In September 2026, across $7.53B ($7,533m) (20,763 loan commitments) in new New Zealand residential mortgage lending, the reconciled 100% dollar-value share comprised 20.3% First-Home Buyers ($1,530m), 30.1% Second+ Home Purchases, 8.9% Property Investor Purchases, 22.9% Refinances / Bank Switches ($1,729m), 12.8% Mortgage Top-Ups ($962m across 9,639 top-up loans, or 46.4% of all loan commitments by count), and 5.0% Other / Construction.",
       "related_questions": [
-        "What percentage of New Zealand mortgages go to first-home buyers vs second-home movers vs investors vs refinances vs top-ups?",
-        "How has the share of mortgage top-ups and bank-to-bank refinances changed over time in New Zealand?"
+        "What percentage of New Zealand mortgages go to first-home buyers versus property investors?",
+        "What percentage of New Zealand mortgage lending is homeowners refinancing to a new bank?",
+        "Why do mortgage top-ups make up over a third of all New Zealand home loan approvals by count, but only ~10% to 13% by dollar value?",
+        "What is the difference between RBNZ Table C31 (Borrower Type) and RBNZ Table C33 (Loan Purpose), and why can't you add them together?",
+        "How do Reserve Bank LVR deposit rules, Debt-to-Income (DTI) caps, and OCR changes affect first-home buyer and investor market share?"
       ],
       "citation_chain": {
         "official_publisher": "Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31) & by purpose (Table C33)",
