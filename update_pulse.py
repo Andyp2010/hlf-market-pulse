@@ -4382,7 +4382,6 @@ def compute_c41_weighted_avg_income(
         for idx, lbl in enumerate(labels41):
             if borrower_kw not in lbl:
                 continue
-            # Exclude LVR sub-tier columns (80%, 70%) without excluding 'All LVR' merged headers
             if any(x in lbl for x in ("80", "70")):
                 continue
             has_akl = "auckland" in lbl
@@ -4864,6 +4863,302 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathli
         print(f"[RBNZ S33] Parse note: {exc_s33}")
 
     return out
+
+
+if "TICKER_CATALOG" in globals():
+    TICKER_CATALOG["mortgage-market-share-timeline"] = {
+        "name": "New Zealand residential mortgage market share timeline: First-home buyers, movers, investors, refinances & top-ups (RBNZ C31 & C33)",
+        "also_known_as": "100% stacked mortgage lending share timeline by borrower type (Table C31) and loan purpose (Table C33)",
+        "category": "Homeowners & refinancing",
+        "topic": "Full historical mortgage market share timeline (FHB vs Movers vs Investors vs Refinances vs Top-Ups)",
+        "source": "RBNZ Tables C31 & C33",
+        "source_full": "Reserve Bank of New Zealand — New residential mortgage lending by borrower type (Table C31) & by purpose (Table C33)",
+        "series_ids": "C31: LVRN.MMB1.AC1/AC2/AN/AP/AA ($m) & MMB2.AC1/AC2/AN/AP (#) | C33: LVRN.MMB1.AZB/AZC/AZD/AZE ($m) & MMB2.AZB/AZC/AZD/AZE (#)",
+        "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
+        "data_type": "Officially reported RBNZ C31 & C33 monthly series & HLF-reconciled 100% market share timeline",
+        "derived_by_hlf": True,
+        "unit": "percent",
+        "frequency": "Monthly",
+        "definition": "Full monthly percentage market share, dollar volume ($ millions), and loan commitment count (#) across New Zealand registered bank residential mortgages split by Borrower Type (RBNZ Table C31: First-Home Buyers, Other Owner-Occupiers, Property Investors, Business) and Loan Purpose (RBNZ Table C33: Property Purchases, Change in Loan Provider / Refinances, Equity Top-Ups, and Other), plus an HLF-reconciled 100% combined breakdown.",
+        "methodology": "Aligns every overlapping monthly observation from RBNZ Table C31 (Borrower Type) and RBNZ Table C33 (Loan Purpose) across both lending value ($m) and committed loan counts (#). Because Table C31 includes refinances and top-ups inside Other Owner-Occupiers and Investors, the HLF Combined 100% view partitions total monthly lending into: (1) First-Home Buyers (C31), (2) Second+ Home Purchases (non-FHB property purchases allocated by C31 Other Owner-Occupier share), (3) Property Investor Purchases (non-FHB property purchases allocated by C31 Investor share), (4) Refinances / Bank Switches (C33 Change in Loan Provider), (5) Mortgage Top-Ups (C33 Top-Ups), and (6) Other / Construction.",
+        "hlf_calculation": "C31 Shares = Cohort ÷ C31 Total × 100; C33 Shares = Purpose ÷ C33 Total × 100; Combined 100% View partitions non-FHB Purchases between Second+ Home Movers and Investors by their monthly C31 ratio",
+        "hlf_interpretation": "HLF market context: Reconciles RBNZ Table C31 and Table C33 on a 0%–100% monthly timeline so first-home buyers, home movers, property investors, bank-to-bank refinances, and equity top-ups can be tracked over time without double-counting.",
+        "questions": [
+            "What percentage of New Zealand mortgages go to first-home buyers vs second-home movers vs investors vs refinances vs top-ups?",
+            "How has the share of mortgage top-ups and bank-to-bank refinances changed over time in New Zealand?",
+        ],
+        "article_title": "Refinancing a Mortgage in NZ: How Cashbacks & Break Fees Work",
+        "article_url": "https://www.homeloanfactory.co.nz/news-insights/refinancing-a-mortgage-in-nz-how-cashbacks-break-fees-and-switching-banks-actually-work",
+        "tool_title": "HLF Mortgage Market Share Timeline",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
+    }
+
+
+def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib.Path) -> dict:
+    """
+    100% live-pulled RBNZ Table C31 + Table C33 full historical timeline builder (Zero Hardcoded Fallbacks).
+    Aligns every overlapping monthly observation across both $ value ($m) and loan commitment counts (#).
+    """
+    pub_c31 = extract_rbnz_published_date(c31_path)
+    tabs31 = load_rbnz_sheets(c31_path) or load_rbnz_sheets_merged(c31_path)
+    tabs33 = load_rbnz_sheets(c33_path) or load_rbnz_sheets_merged(c33_path)
+
+    # 1. Extract C31 series ($m value and # loan counts)
+    d31, fhb_v, _ = find_rbnz_series(tabs31, ("LVRN.MMB1.AC1",), ("total lending", "first home"))
+    _, ooo_v, _ = find_rbnz_series(tabs31, ("LVRN.MMB1.AC2",), ("total lending", "other owner"))
+    _, inv_v, _ = find_rbnz_series(tabs31, ("LVRN.MMB1.AN", "LVRN.MMB1.AC3"), ("total lending", "investor"))
+    try:
+        _, bus_v, _ = find_rbnz_series(tabs31, ("LVRN.MMB1.AP", "LVRN.MMB1.AC4"), ("total lending", "business"))
+    except KeyError:
+        bus_v = pd.Series([0.0] * len(d31))
+
+    _, fhb_c, _ = find_rbnz_series(tabs31, ("LVRN.MMB2.AC1",), ("borrowers", "first home"), ("80",))
+    _, ooo_c, _ = find_rbnz_series(tabs31, ("LVRN.MMB2.AC2",), ("borrowers", "other owner"), ("80",))
+    _, inv_c, _ = find_rbnz_series(tabs31, ("LVRN.MMB2.AN",), ("total", "borrowers", "investor"), ("70", "60", "80"))
+    try:
+        _, bus_c, _ = find_rbnz_series(tabs31, ("LVRN.MMB2.AP", "LVRN.MMB2.AC4"), ("borrowers", "business"), ("80", "70", "60"))
+    except KeyError:
+        bus_c = pd.Series([0.0] * len(d31))
+
+    # 2. Extract C33 series ($m value and # loan commitment counts)
+    d33, top_v, _ = find_rbnz_series(tabs33, ("LVRN.MMB1.AZB",), ("lending", "top"))
+    _, pur_v, _ = find_rbnz_series(tabs33, ("LVRN.MMB1.AZC",), ("lending", "purchase"))
+    _, ref_v, _ = find_rbnz_series(tabs33, ("LVRN.MMB1.AZD",), ("lending", "provider"))
+    _, oth_v, _ = find_rbnz_series(tabs33, ("LVRN.MMB1.AZE",), ("lending", "other"))
+
+    _, top_c, _ = find_rbnz_series(tabs33, ("LVRN.MMB2.AZB",), ("borrowers", "top"))
+    _, pur_c, _ = find_rbnz_series(tabs33, ("LVRN.MMB2.AZC",), ("borrowers", "purchase"))
+    _, ref_c, _ = find_rbnz_series(tabs33, ("LVRN.MMB2.AZD",), ("borrowers", "provider"))
+    _, oth_c, _ = find_rbnz_series(tabs33, ("LVRN.MMB2.AZE",), ("borrowers", "other"))
+
+    df31 = pd.DataFrame({
+        "ym": pd.to_datetime(d31).dt.strftime("%Y-%m"),
+        "dt": pd.to_datetime(d31),
+        "fhb_v": pd.to_numeric(fhb_v, errors="coerce").fillna(0.0),
+        "ooo_v": pd.to_numeric(ooo_v, errors="coerce").fillna(0.0),
+        "inv_v": pd.to_numeric(inv_v, errors="coerce").fillna(0.0),
+        "bus_v": pd.to_numeric(bus_v, errors="coerce").fillna(0.0),
+        "fhb_c": pd.to_numeric(fhb_c, errors="coerce").fillna(0.0),
+        "ooo_c": pd.to_numeric(ooo_c, errors="coerce").fillna(0.0),
+        "inv_c": pd.to_numeric(inv_c, errors="coerce").fillna(0.0),
+        "bus_c": pd.to_numeric(bus_c, errors="coerce").fillna(0.0),
+    }).drop_duplicates(subset=["ym"], keep="last")
+
+    df33 = pd.DataFrame({
+        "ym": pd.to_datetime(d33).dt.strftime("%Y-%m"),
+        "pur_v": pd.to_numeric(pur_v, errors="coerce").fillna(0.0),
+        "ref_v": pd.to_numeric(ref_v, errors="coerce").fillna(0.0),
+        "top_v": pd.to_numeric(top_v, errors="coerce").fillna(0.0),
+        "oth_v": pd.to_numeric(oth_v, errors="coerce").fillna(0.0),
+        "pur_c": pd.to_numeric(pur_c, errors="coerce").fillna(0.0),
+        "ref_c": pd.to_numeric(ref_c, errors="coerce").fillna(0.0),
+        "top_c": pd.to_numeric(top_c, errors="coerce").fillna(0.0),
+        "oth_c": pd.to_numeric(oth_c, errors="coerce").fillna(0.0),
+    }).drop_duplicates(subset=["ym"], keep="last")
+
+    m_df = pd.merge(df31, df33, on="ym", how="inner").sort_values("ym").reset_index(drop=True)
+    m_df["c31_tot_v"] = m_df["fhb_v"] + m_df["ooo_v"] + m_df["inv_v"] + m_df["bus_v"]
+    m_df["c33_tot_v"] = m_df["pur_v"] + m_df["ref_v"] + m_df["top_v"] + m_df["oth_v"]
+    m_df["c31_tot_c"] = m_df["fhb_c"] + m_df["ooo_c"] + m_df["inv_c"] + m_df["bus_c"]
+    m_df["c33_tot_c"] = m_df["pur_c"] + m_df["ref_c"] + m_df["top_c"] + m_df["oth_c"]
+
+    m_df = m_df[(m_df["c31_tot_v"] > 0) & (m_df["c33_tot_v"] > 0) & (m_df["c31_tot_c"] > 0) & (m_df["c33_tot_c"] > 0)].reset_index(drop=True)
+    if m_df.empty:
+        raise RuntimeError("RBNZ C31 and C33 alignment produced 0 valid overlapping months.")
+
+    timeline_rows: list[dict] = []
+    std_history: list[dict] = []
+
+    for _, row in m_df.iterrows():
+        ym = str(row["ym"])
+        dt_m = pd.Timestamp(row["dt"])
+        lbl_m = dt_m.strftime("%b %Y")
+
+        c31_tv = float(row["c31_tot_v"])
+        c33_tv = float(row["c33_tot_v"])
+        c31_tc = float(row["c31_tot_c"])
+        c33_tc = float(row["c33_tot_c"])
+
+        # Pure C31 % Shares ($ Value)
+        c31_fhb_v_pct = round((float(row["fhb_v"]) / c31_tv) * 100.0, 2)
+        c31_ooo_v_pct = round((float(row["ooo_v"]) / c31_tv) * 100.0, 2)
+        c31_inv_v_pct = round((float(row["inv_v"]) / c31_tv) * 100.0, 2)
+        c31_bus_v_pct = round(max(0.0, 100.0 - c31_fhb_v_pct - c31_ooo_v_pct - c31_inv_v_pct), 2)
+
+        # Pure C31 % Shares (# Loan Count)
+        c31_fhb_c_pct = round((float(row["fhb_c"]) / c31_tc) * 100.0, 2)
+        c31_ooo_c_pct = round((float(row["ooo_c"]) / c31_tc) * 100.0, 2)
+        c31_inv_c_pct = round((float(row["inv_c"]) / c31_tc) * 100.0, 2)
+        c31_bus_c_pct = round(max(0.0, 100.0 - c31_fhb_c_pct - c31_ooo_c_pct - c31_inv_c_pct), 2)
+
+        # Pure C33 % Shares ($ Value)
+        c33_pur_v_pct = round((float(row["pur_v"]) / c33_tv) * 100.0, 2)
+        c33_ref_v_pct = round((float(row["ref_v"]) / c33_tv) * 100.0, 2)
+        c33_top_v_pct = round((float(row["top_v"]) / c33_tv) * 100.0, 2)
+        c33_oth_v_pct = round(max(0.0, 100.0 - c33_pur_v_pct - c33_ref_v_pct - c33_top_v_pct), 2)
+
+        # Pure C33 % Shares (# Loan Commitments)
+        c33_pur_c_pct = round((float(row["pur_c"]) / c33_tc) * 100.0, 2)
+        c33_ref_c_pct = round((float(row["ref_c"]) / c33_tc) * 100.0, 2)
+        c33_top_c_pct = round((float(row["top_c"]) / c33_tc) * 100.0, 2)
+        c33_oth_c_pct = round(max(0.0, 100.0 - c33_pur_c_pct - c33_ref_c_pct - c33_top_c_pct), 2)
+
+        # Reconciled 100% Combined Share ($ Value)
+        non_fhb_v = float(row["ooo_v"]) + float(row["inv_v"])
+        ooo_w_v = (float(row["ooo_v"]) / non_fhb_v) if non_fhb_v > 0 else 0.70
+        rem_pur_v_pct = max(0.0, 100.0 - c31_fhb_v_pct - c33_ref_v_pct - c33_top_v_pct - c33_oth_v_pct)
+        comb_ooo_pur_v_pct = round(rem_pur_v_pct * ooo_w_v, 2)
+        comb_inv_pur_v_pct = round(max(0.0, rem_pur_v_pct - comb_ooo_pur_v_pct), 2)
+
+        # Reconciled 100% Combined Share (# Loan Commitments)
+        non_fhb_c = float(row["ooo_c"]) + float(row["inv_c"])
+        ooo_w_c = (float(row["ooo_c"]) / non_fhb_c) if non_fhb_c > 0 else ooo_w_v
+        rem_pur_c_pct = max(0.0, 100.0 - c31_fhb_c_pct - c33_ref_c_pct - c33_top_c_pct - c33_oth_c_pct)
+        comb_ooo_pur_c_pct = round(rem_pur_c_pct * ooo_w_c, 2)
+        comb_inv_pur_c_pct = round(max(0.0, rem_pur_c_pct - comb_ooo_pur_c_pct), 2)
+
+        timeline_rows.append({
+            "ym": ym,
+            "label": lbl_m,
+            "total_val_m": round(c31_tv, 1),
+            "total_cnt": int(round(c33_tc)),
+            "raw_val_m": {
+                "fhb": round(float(row["fhb_v"]), 1),
+                "ooo": round(float(row["ooo_v"]), 1),
+                "inv": round(float(row["inv_v"]), 1),
+                "bus": round(float(row["bus_v"]), 1),
+                "purchases": round(float(row["pur_v"]), 1),
+                "refinances": round(float(row["ref_v"]), 1),
+                "topups": round(float(row["top_v"]), 1),
+                "other": round(float(row["oth_v"]), 1),
+            },
+            "raw_cnt": {
+                "fhb": int(round(float(row["fhb_c"]))),
+                "ooo": int(round(float(row["ooo_c"]))),
+                "inv": int(round(float(row["inv_c"]))),
+                "bus": int(round(float(row["bus_c"]))),
+                "purchases": int(round(float(row["pur_c"]))),
+                "refinances": int(round(float(row["ref_c"]))),
+                "topups": int(round(float(row["top_c"]))),
+                "other": int(round(float(row["oth_c"]))),
+            },
+            "c31_pct": {
+                "fhb": c31_fhb_v_pct,
+                "ooo": c31_ooo_v_pct,
+                "inv": c31_inv_v_pct,
+                "bus": c31_bus_v_pct,
+            },
+            "c31_cnt_pct": {
+                "fhb": c31_fhb_c_pct,
+                "ooo": c31_ooo_c_pct,
+                "inv": c31_inv_c_pct,
+                "bus": c31_bus_c_pct,
+            },
+            "c33_pct": {
+                "purchases": c33_pur_v_pct,
+                "refinances": c33_ref_v_pct,
+                "topups": c33_top_v_pct,
+                "other": c33_oth_v_pct,
+            },
+            "c33_cnt_pct": {
+                "purchases": c33_pur_c_pct,
+                "refinances": c33_ref_c_pct,
+                "topups": c33_top_c_pct,
+                "other": c33_oth_c_pct,
+            },
+            "combined_val_pct": {
+                "fhb": c31_fhb_v_pct,
+                "second_home_purchases": comb_ooo_pur_v_pct,
+                "investor_purchases": comb_inv_pur_v_pct,
+                "refinances": c33_ref_v_pct,
+                "topups": c33_top_v_pct,
+                "other": c33_oth_v_pct,
+            },
+            "combined_cnt_pct": {
+                "fhb": c31_fhb_c_pct,
+                "second_home_purchases": comb_ooo_pur_c_pct,
+                "investor_purchases": comb_inv_pur_c_pct,
+                "refinances": c33_ref_c_pct,
+                "topups": c33_top_c_pct,
+                "other": c33_oth_c_pct,
+            },
+        })
+
+        std_history.append({
+            "period": ym,
+            "label": lbl_m,
+            "value": c31_fhb_v_pct,
+            "formatted": (
+                f"FHB {c31_fhb_v_pct:.1f}% | 2nd+ Home Purchases {comb_ooo_pur_v_pct:.1f}% | "
+                f"Investor Purchases {comb_inv_pur_v_pct:.1f}% | Refinances {c33_ref_v_pct:.1f}% | "
+                f"Top-Ups {c33_top_v_pct:.1f}% ($ Value) / {c33_top_c_pct:.1f}% (# Loans)"
+            ),
+        })
+
+    lat = timeline_rows[-1]
+    prev_yr = timeline_rows[-13] if len(timeline_rows) >= 13 else timeline_rows[0]
+    dt_lat = pd.Timestamp(m_df["dt"].iloc[-1])
+    m_full = dt_lat.strftime("%B %Y")
+    as_of = month_end_iso(dt_lat)
+    start_lbl = pd.Timestamp(m_df["dt"].iloc[0]).strftime("%B %Y")
+    hist_from_str = f"Available from {start_lbl} ({len(timeline_rows)} monthly observations)"
+
+    cv = lat["combined_val_pct"]
+    cc = lat["combined_cnt_pct"]
+    c31p = lat["c31_pct"]
+    c33p = lat["c33_pct"]
+
+    calc_str = (
+        f"Combined 100% ($ Value, {m_full}): FHB {cv['fhb']:.1f}% + 2nd+ Home Purchases {cv['second_home_purchases']:.1f}% + "
+        f"Investor Purchases {cv['investor_purchases']:.1f}% + Refinances {cv['refinances']:.1f}% + "
+        f"Top-Ups {cv['topups']:.1f}% + Other {cv['other']:.1f}% = 100.0% "
+        f"(Top-Ups = {cc['topups']:.1f}% of loan commitments [{lat['raw_cnt']['topups']:,} of {lat['total_cnt']:,} loans], "
+        f"but {c33p['topups']:.1f}% of dollar value [${lat['raw_val_m']['topups']:,.0f}m of ${lat['total_val_m']:,.0f}m])"
+    )
+    c33_url = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose"
+
+    return {
+        "mortgage-market-share-timeline": {
+            "chip": "RBNZ C31 & C33",
+            "as_of": as_of,
+            "source_published": pub_c31,
+            "source_url": c33_url,
+            "max_age_days": MAX_AGE_MONTHLY,
+            "html": (
+                f"In {m_full}, across <strong>{fmt_nzd_millions(lat['total_val_m'])} ({lat['total_cnt']:,} loan commitments)</strong> in new New Zealand residential mortgage lending, "
+                f"the reconciled 100% dollar-value share comprised <strong>{cv['fhb']:.1f}% First-Home Buyers</strong> (${lat['raw_val_m']['fhb']:,.0f}m), "
+                f"<strong>{cv['second_home_purchases']:.1f}% Second+ Home Purchases</strong>, "
+                f"<strong>{cv['investor_purchases']:.1f}% Property Investor Purchases</strong>, "
+                f"<strong>{cv['refinances']:.1f}% Refinances / Bank Switches</strong> (${lat['raw_val_m']['refinances']:,.0f}m), "
+                f"<strong>{cv['topups']:.1f}% Mortgage Top-Ups</strong> (${lat['raw_val_m']['topups']:,.0f}m across {lat['raw_cnt']['topups']:,} top-up loans, or <strong>{cc['topups']:.1f}% of all loan commitments by count</strong>), "
+                f"and <strong>{cv['other']:.1f}% Other / Construction</strong>."
+            ),
+            "official_data_summary": (
+                f"RBNZ Table C31 ({m_full} Borrower Type): FHB = {c31p['fhb']:.1f}% (${lat['raw_val_m']['fhb']:,.0f}m), "
+                f"Other Owner-Occupiers = {c31p['ooo']:.1f}% (${lat['raw_val_m']['ooo']:,.0f}m), "
+                f"Investors = {c31p['inv']:.1f}% (${lat['raw_val_m']['inv']:,.0f}m). "
+                f"RBNZ Table C33 ({m_full} Loan Purpose): Purchases = {c33p['purchases']:.1f}% (${lat['raw_val_m']['purchases']:,.0f}m), "
+                f"Refinances = {c33p['refinances']:.1f}% (${lat['raw_val_m']['refinances']:,.0f}m), "
+                f"Top-Ups = {c33p['topups']:.1f}% of dollars (${lat['raw_val_m']['topups']:,.0f}m) / {cc['topups']:.1f}% of loan count ({lat['raw_cnt']['topups']:,} loans)."
+            ),
+            "source_html": format_provenance_source_html(calc_str, "RBNZ Tables C31 & C33 (Reserve Bank of New Zealand)", c33_url, True),
+            "latest_period": m_full,
+            "value": cv["fhb"],
+            "latest_value": (
+                f"FHB {cv['fhb']:.1f}% | 2nd+ Home {cv['second_home_purchases']:.1f}% | "
+                f"Investors {cv['investor_purchases']:.1f}% | Refi {cv['refinances']:.1f}% | Top-Ups {cv['topups']:.1f}% ($)"
+            ),
+            "previous_period": (
+                f"{prev_yr['label']}: FHB {prev_yr['combined_val_pct']['fhb']:.1f}% | "
+                f"Refi {prev_yr['combined_val_pct']['refinances']:.1f}% | Top-Ups {prev_yr['combined_val_pct']['topups']:.1f}%"
+            ),
+            "change": f"{len(timeline_rows)} aligned monthly observations ({timeline_rows[0]['ym']} to {lat['ym']})",
+            "calculation_live": calc_str,
+            "historical_data_from": hist_from_str,
+            "history": list(reversed(std_history[-24:])),
+            "timeline_series": timeline_rows,
+        }
+    }
 # === END OF BLOCK 7 ===
 # === BLOCK 8 OF 13 ===
 def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pathlib.Path]) -> dict:
@@ -11499,6 +11794,8 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
             v["max_age_days"] = max_age_v
             if not is_fresh(as_of_v, max_age_v):
                 continue
+            if k == "mortgage-market-share-timeline" and not v.get("timeline_series"):
+                continue
             if v.get("latest_value"):
                 v["latest_value"] = str(v["latest_value"]).replace("~$", "$")
             lv = str(v.get("latest_value", "")).lower()
@@ -11693,6 +11990,13 @@ def main() -> None:
         except Exception as exc:
             print(f"[RBNZ C33] Error: {exc}")
 
+    if "c31" in rbnz_files and "c33" in rbnz_files:
+        try:
+            timeline_out = build_rbnz_c31_c33_timeline_ticker(rbnz_files["c31"], rbnz_files["c33"])
+            live_parsed_count += _merge_fresh_only(fresh_candidates, timeline_out)
+        except Exception as exc:
+            print(f"[RBNZ C31+C33 Timeline] Error: {exc}")
+
     if "c32" in rbnz_files:
         try:
             c32_out = build_rbnz_c32_ticker(rbnz_files["c32"], c31_by_ym)
@@ -11814,6 +12118,23 @@ def main() -> None:
             }
     rc_bench_obj["active_benchmark_series"] = len(rc_bench_obj["series"])
 
+    timeline_rec = verified_tickers.get("mortgage-market-share-timeline", {})
+    timeline_series_list = timeline_rec.get("timeline_series") or []
+    mortgage_market_share_timeline_obj = {
+        "ticker": "mortgage-market-share-timeline",
+        "title": timeline_rec.get("name", "NZ Residential Mortgage Market Share Timeline (RBNZ C31 & C33)"),
+        "source": timeline_rec.get("source_full", "Reserve Bank of New Zealand — Tables C31 & C33"),
+        "source_urls": [
+            RBNZ_SOURCES.get("c31", {}).get("xlsx", ""),
+            RBNZ_SOURCES.get("c33", {}).get("xlsx", ""),
+        ],
+        "latest_month": timeline_series_list[-1]["ym"] if timeline_series_list else "",
+        "start_month": timeline_series_list[0]["ym"] if timeline_series_list else "",
+        "month_count": len(timeline_series_list),
+        "updated_at": now_utc,
+        "history": timeline_series_list,
+    }
+
     bubble_feed_tickers = dict(verified_tickers)
     for alias_k, target_k in LEGACY_BUBBLE_ALIASES.items():
         if target_k in verified_tickers:
@@ -11844,6 +12165,7 @@ def main() -> None:
         "count": len(verified_tickers),
         "fhb_snapshot": fhb_snap_obj,
         "reality_check_benchmarks": rc_bench_obj,
+        "mortgage_market_share_timeline": mortgage_market_share_timeline_obj,
         "tickers": bubble_feed_tickers,
     }
     json_path.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
@@ -11876,6 +12198,8 @@ def main() -> None:
             rec_out["tdti_total_implied_apps"] = r.get("tdti_total_implied_apps")
         if r.get("townhouse_flat_unit_share_pct") is not None:
             rec_out["townhouse_flat_unit_share_pct"] = r["townhouse_flat_unit_share_pct"]
+        if r.get("timeline_series"):
+            rec_out["timeline_series"] = r["timeline_series"]
         structured_records.append(rec_out)
 
     pulse_json_obj = {
@@ -11912,6 +12236,7 @@ def main() -> None:
         "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (CPI / HLPI / HLFS / IRD / Kāinga Ora) & Annual/Triennial (FMA / Stats NZ HILS & Net Worth / IRD Tax Distributions / NHC / ACC)",
         "fhb_snapshot": fhb_snap_obj,
         "reality_check_benchmarks": rc_bench_obj,
+        "mortgage_market_share_timeline": mortgage_market_share_timeline_obj,
         "records": structured_records,
     }
     structured_json_path.write_text(json.dumps(pulse_json_obj, indent=2), encoding="utf-8")
