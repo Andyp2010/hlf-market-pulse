@@ -4867,7 +4867,7 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathli
 
 if "TICKER_CATALOG" in globals():
     TICKER_CATALOG["mortgage-market-share-timeline"] = {
-        "name": "New Zealand residential mortgage market share timeline: First-home buyers, movers, investors, refinances & top-ups (RBNZ C31 & C33)",
+        "name": "NZ Mortgage Market Share Timeline: First-Home Buyers, Investors, Refinances & Top-Ups (RBNZ C31 & C33)",
         "also_known_as": "100% stacked mortgage lending share timeline by borrower type (Table C31) and loan purpose (Table C33)",
         "category": "Homeowners & refinancing",
         "topic": "Full historical mortgage market share timeline (FHB vs Movers vs Investors vs Refinances vs Top-Ups)",
@@ -4880,17 +4880,20 @@ if "TICKER_CATALOG" in globals():
         "unit": "percent",
         "frequency": "Monthly",
         "definition": "Full monthly percentage market share, dollar volume ($ millions), and loan commitment count (#) across New Zealand registered bank residential mortgages split by Borrower Type (RBNZ Table C31: First-Home Buyers, Other Owner-Occupiers, Property Investors, Business) and Loan Purpose (RBNZ Table C33: Property Purchases, Change in Loan Provider / Refinances, Equity Top-Ups, and Other), plus an HLF-reconciled 100% combined breakdown.",
-        "methodology": "Aligns every overlapping monthly observation from RBNZ Table C31 (Borrower Type) and RBNZ Table C33 (Loan Purpose) across both lending value ($m) and committed loan counts (#). Because Table C31 includes refinances and top-ups inside Other Owner-Occupiers and Investors, the HLF Combined 100% view partitions total monthly lending into: (1) First-Home Buyers (C31), (2) Second+ Home Purchases (non-FHB property purchases allocated by C31 Other Owner-Occupier share), (3) Property Investor Purchases (non-FHB property purchases allocated by C31 Investor share), (4) Refinances / Bank Switches (C33 Change in Loan Provider), (5) Mortgage Top-Ups (C33 Top-Ups), and (6) Other / Construction.",
-        "hlf_calculation": "C31 Shares = Cohort ÷ C31 Total × 100; C33 Shares = Purpose ÷ C33 Total × 100; Combined 100% View partitions non-FHB Purchases between Second+ Home Movers and Investors by their monthly C31 ratio",
-        "hlf_interpretation": "HLF market context: Reconciles RBNZ Table C31 and Table C33 on a 0%–100% monthly timeline so first-home buyers, home movers, property investors, bank-to-bank refinances, and equity top-ups can be tracked over time without double-counting.",
+        "methodology": "Aligns every overlapping monthly observation from RBNZ Table C31 (Borrower Type) and RBNZ Table C33 (Loan Purpose) across both lending value ($m) and committed loan counts (#). Because Table C31 includes external bank refinances and equity top-ups inside Other Owner-Occupiers and Investors, the HLF Reconciled 100% view partitions total monthly lending without double-counting into: (1) First-Home Buyers (C31 AC1), (2) Second+ Home Purchases (non-FHB property purchases allocated by C31 Other Owner-Occupier dollar weight), (3) Property Investor Purchases (non-FHB property purchases allocated by C31 Investor dollar weight), (4) Refinances / Bank Switches (C33 AZD Change in Loan Provider), (5) Mortgage Top-Ups (C33 AZB Top-Ups), and (6) Other / Construction (C33 AZE).",
+        "hlf_calculation": "C31 Shares = Cohort ÷ C31 Total × 100; C33 Shares = Purpose ÷ C33 Total × 100; Combined 100% View partitions non-FHB Purchases (100% − FHB − Refinances − Top-Ups − Other) between Second+ Home Movers and Investors by their monthly C31 dollar ratio (OOO_Val ÷ [OOO_Val + INV_Val])",
+        "hlf_interpretation": "HLF market context: Reconciles RBNZ Table C31 and Table C33 on a 0% to 100% monthly timeline so first-home buyers, home movers, property investors, bank-to-bank refinances, and equity top-ups can be compared over time without double-counting. Note that in standalone Table C31, total investor lending (~22% to 24%) includes investor refinances and top-ups alongside investor property purchases (~11% to 13%).",
         "questions": [
-            "What percentage of New Zealand mortgages go to first-home buyers vs second-home movers vs investors vs refinances vs top-ups?",
-            "How has the share of mortgage top-ups and bank-to-bank refinances changed over time in New Zealand?",
+            "What percentage of New Zealand mortgages go to first-home buyers versus property investors?",
+            "What percentage of New Zealand mortgage lending is homeowners refinancing to a new bank?",
+            "Why do mortgage top-ups make up over a third of all New Zealand home loan approvals by count, but only ~10% to 13% by dollar value?",
+            "What is the difference between RBNZ Table C31 (Borrower Type) and RBNZ Table C33 (Loan Purpose), and why can't you add them together?",
+            "How do Reserve Bank LVR deposit rules, Debt-to-Income (DTI) caps, and OCR changes affect first-home buyer and investor market share?",
         ],
         "article_title": "Refinancing a Mortgage in NZ: How Cashbacks & Break Fees Work",
         "article_url": "https://www.homeloanfactory.co.nz/news-insights/refinancing-a-mortgage-in-nz-how-cashbacks-break-fees-and-switching-banks-actually-work",
-        "tool_title": "HLF Mortgage Market Share Timeline",
-        "tool_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
+        "tool_title": "NZ Mortgage Market Share Timeline",
+        "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-mortgage-market-share-timeline",
     }
 
 
@@ -5011,10 +5014,10 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
         comb_inv_pur_v_pct = round(max(0.0, rem_pur_v_pct - comb_ooo_pur_v_pct), 2)
 
         # Reconciled 100% Combined Share (# Loan Commitments)
-        non_fhb_c = float(row["ooo_c"]) + float(row["inv_c"])
-        ooo_w_c = (float(row["ooo_c"]) / non_fhb_c) if non_fhb_c > 0 else ooo_w_v
+        # Weight non-FHB purchase counts by C31 dollar share (ooo_w_v) so high-count/small-dollar
+        # owner-occupier top-ups do not distort the purchase count split between Movers and Investors
         rem_pur_c_pct = max(0.0, 100.0 - c31_fhb_c_pct - c33_ref_c_pct - c33_top_c_pct - c33_oth_c_pct)
-        comb_ooo_pur_c_pct = round(rem_pur_c_pct * ooo_w_c, 2)
+        comb_ooo_pur_c_pct = round(rem_pur_c_pct * ooo_w_v, 2)
         comb_inv_pur_c_pct = round(max(0.0, rem_pur_c_pct - comb_ooo_pur_c_pct), 2)
 
         timeline_rows.append({
@@ -5090,7 +5093,7 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
             "value": c31_fhb_v_pct,
             "formatted": (
                 f"FHB {c31_fhb_v_pct:.1f}% | 2nd+ Home Purchases {comb_ooo_pur_v_pct:.1f}% | "
-                f"Investor Purchases {comb_inv_pur_v_pct:.1f}% | Refinances {c33_ref_v_pct:.1f}% | "
+                f"Investor Purchases (excl. Refi) {comb_inv_pur_v_pct:.1f}% | Refinances {c33_ref_v_pct:.1f}% | "
                 f"Top-Ups {c33_top_v_pct:.1f}% ($ Value) / {c33_top_c_pct:.1f}% (# Loans)"
             ),
         })
@@ -5110,7 +5113,7 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
 
     calc_str = (
         f"Combined 100% ($ Value, {m_full}): FHB {cv['fhb']:.1f}% + 2nd+ Home Purchases {cv['second_home_purchases']:.1f}% + "
-        f"Investor Purchases {cv['investor_purchases']:.1f}% + Refinances {cv['refinances']:.1f}% + "
+        f"Investor Purchases (excl. Refi) {cv['investor_purchases']:.1f}% + Refinances {cv['refinances']:.1f}% + "
         f"Top-Ups {cv['topups']:.1f}% + Other {cv['other']:.1f}% = 100.0% "
         f"(Top-Ups = {cc['topups']:.1f}% of loan commitments [{lat['raw_cnt']['topups']:,} of {lat['total_cnt']:,} loans], "
         f"but {c33p['topups']:.1f}% of dollar value [${lat['raw_val_m']['topups']:,.0f}m of ${lat['total_val_m']:,.0f}m])"
@@ -5128,7 +5131,7 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
                 f"In {m_full}, across <strong>{fmt_nzd_millions(lat['total_val_m'])} ({lat['total_cnt']:,} loan commitments)</strong> in new New Zealand residential mortgage lending, "
                 f"the reconciled 100% dollar-value share comprised <strong>{cv['fhb']:.1f}% First-Home Buyers</strong> (${lat['raw_val_m']['fhb']:,.0f}m), "
                 f"<strong>{cv['second_home_purchases']:.1f}% Second+ Home Purchases</strong>, "
-                f"<strong>{cv['investor_purchases']:.1f}% Property Investor Purchases</strong>, "
+                f"<strong>{cv['investor_purchases']:.1f}% Property Investor Purchases (excl. Refi)</strong> (with total C31 Investor lending including investor refinances &amp; top-ups at <strong>{c31p['inv']:.1f}% / ${lat['raw_val_m']['inv']:,.0f}m</strong>), "
                 f"<strong>{cv['refinances']:.1f}% Refinances / Bank Switches</strong> (${lat['raw_val_m']['refinances']:,.0f}m), "
                 f"<strong>{cv['topups']:.1f}% Mortgage Top-Ups</strong> (${lat['raw_val_m']['topups']:,.0f}m across {lat['raw_cnt']['topups']:,} top-up loans, or <strong>{cc['topups']:.1f}% of all loan commitments by count</strong>), "
                 f"and <strong>{cv['other']:.1f}% Other / Construction</strong>."
@@ -5146,7 +5149,8 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
             "value": cv["fhb"],
             "latest_value": (
                 f"FHB {cv['fhb']:.1f}% | 2nd+ Home {cv['second_home_purchases']:.1f}% | "
-                f"Investors {cv['investor_purchases']:.1f}% | Refi {cv['refinances']:.1f}% | Top-Ups {cv['topups']:.1f}% ($)"
+                f"Investor Purchases {cv['investor_purchases']:.1f}% (Total C31 Inv {c31p['inv']:.1f}%) | "
+                f"Refi {cv['refinances']:.1f}% | Top-Ups {cv['topups']:.1f}% ($)"
             ),
             "previous_period": (
                 f"{prev_yr['label']}: FHB {prev_yr['combined_val_pct']['fhb']:.1f}% | "
