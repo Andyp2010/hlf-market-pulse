@@ -23,11 +23,11 @@
   "date_modified": "2026-11-22",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-22",
-  "dataset_generated_utc": "2026-11-22T23:10:21Z",
+  "dataset_generated_utc": "2026-11-22T23:46:34Z",
   "latest_underlying_data": "June 2024 (triennial) to September 2026 (monthly)",
   "data_status": "verified",
   "source_status": "current",
-  "active_datasets_count": 102,
+  "active_datasets_count": 105,
   "reporting_lag_note": "Crown and statutory releases have different reporting frequencies and lags: monthly series (RBNZ, Stats NZ Consents, MBIE Tenancy, HUD/MCERT) cover July\u2013September 2026, quarterly series (RBNZ Bank Dashboard, CPI, HLPI, HLFS, K\u0101inga Ora) cover Q2\u2013Q3 2026, and annual/triennial surveys (HILS, Net Worth, IRD Tax Distributions) cover 2024\u20132026.",
   "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (RBNZ Bank Dashboard / CPI / HLPI / HLFS / IRD / K\u0101inga Ora) & Annual/Triennial (FMA / Stats NZ HILS & Net Worth / IRD Tax Distributions / NHC / ACC)",
   "fhb_snapshot": {
@@ -2074,7 +2074,7 @@
     "latest_month": "2026-09",
     "start_month": "2017-01",
     "month_count": 117,
-    "updated_at": "2026-11-22T23:10:21Z",
+    "updated_at": "2026-11-22T23:46:34Z",
     "history": [
       {
         "ym": "2017-01",
@@ -2135,8 +2135,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 6.64,
-          "second_home_purchases": 21.3,
-          "investor_purchases": 3.92,
+          "second_home_purchases": 18.19,
+          "investor_purchases": 7.03,
           "refinances": 6.89,
           "topups": 58.26,
           "other": 2.99
@@ -2201,8 +2201,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 7.06,
-          "second_home_purchases": 21.91,
-          "investor_purchases": 4.12,
+          "second_home_purchases": 18.91,
+          "investor_purchases": 7.12,
           "refinances": 7.5,
           "topups": 56.05,
           "other": 3.36
@@ -2267,8 +2267,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 7.43,
-          "second_home_purchases": 23.03,
-          "investor_purchases": 4.63,
+          "second_home_purchases": 19.9,
+          "investor_purchases": 7.76,
           "refinances": 7.66,
           "topups": 54.13,
           "other": 3.12
@@ -2333,8 +2333,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 7.76,
-          "second_home_purchases": 24.15,
-          "investor_purchases": 4.88,
+          "second_home_purchases": 20.45,
+          "investor_purchases": 8.58,
           "refinances": 7.53,
           "topups": 52.78,
           "other": 2.9
@@ -2399,8 +2399,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 8.02,
-          "second_home_purchases": 23.45,
-          "investor_purchases": 4.9,
+          "second_home_purchases": 20.06,
+          "investor_purchases": 8.29,
           "refinances": 8.05,
           "topups": 52.62,
           "other": 2.96
@@ -2465,8 +2465,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 7.85,
-          "second_home_purchases": 22.76,
-          "investor_purchases": 4.68,
+          "second_home_purchases": 19.69,
+          "investor_purchases": 7.75,
           "refinances": 8.26,
           "topups": 53.42,
           "other": 3.03
@@ -2531,8 +2531,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 7.83,
-          "second_home_purchases": 22.74,
-          "investor_purchases": 4.44,
+          "second_home_purchases": 20.05,
+          "investor_purchases": 7.13,
           "refinances": 8.56,
           "topups": 53.49,
           "other": 2.94
@@ -2597,8 +2597,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 7.77,
-          "second_home_purchases": 22.53,
-          "investor_purchases": 4.3,
+          "second_home_purchases": 19.82,
+          "investor_purchases": 7.01,
           "refinances": 8.2,
           "topups": 54.05,
           "other": 3.15
@@ -2663,8 +2663,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 7.81,
-          "second_home_purchases": 19.49,
-          "investor_purchases": 3.71,
+          "second_home_purchases": 16.9,
+          "investor_purchases": 6.3,
           "refinances": 8.48,
           "topups": 57.64,
           "other": 2.87
@@ -2729,8 +2729,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 8.36,
-          "second_home_purchases": 19.35,
-          "investor_purchases": 3.7,
+          "second_home_purchases": 16.77,
+          "investor_purchases": 6.28,
           "refinances": 7.76,
           "topups": 57.91,
           "other": 2.92
@@ -2795,8 +2795,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 7.95,
-          "second_home_purchases": 19.55,
-          "investor_purchases": 3.52,
+          "second_home_purchases": 17.22,
+          "investor_purchases": 5.85,
           "refinances": 8.25,
           "topups": 57.64,
           "other": 3.09
@@ -2861,8 +2861,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 8.42,
-          "second_home_purchases": 19.35,
-          "investor_purchases": 3.45,
+          "second_home_purchases": 17.12,
+          "investor_purchases": 5.68,
           "refinances": 8.21,
           "topups": 57.53,
           "other": 3.04
@@ -2927,8 +2927,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 7.52,
-          "second_home_purchases": 18.05,
-          "investor_purchases": 3.25,
+          "second_home_purchases": 15.95,
+          "investor_purchases": 5.35,
           "refinances": 6.76,
           "topups": 61.57,
           "other": 2.85
@@ -2993,8 +2993,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 8.29,
-          "second_home_purchases": 18.61,
-          "investor_purchases": 3.69,
+          "second_home_purchases": 16.36,
+          "investor_purchases": 5.94,
           "refinances": 7.51,
           "topups": 59.11,
           "other": 2.79
@@ -3059,8 +3059,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 8.9,
-          "second_home_purchases": 19.46,
-          "investor_purchases": 4.08,
+          "second_home_purchases": 16.92,
+          "investor_purchases": 6.62,
           "refinances": 8.43,
           "topups": 56.08,
           "other": 3.05
@@ -3125,8 +3125,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 9.84,
-          "second_home_purchases": 19.7,
-          "investor_purchases": 4.22,
+          "second_home_purchases": 17.13,
+          "investor_purchases": 6.79,
           "refinances": 8.41,
           "topups": 54.83,
           "other": 3.0
@@ -3191,8 +3191,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.16,
-          "second_home_purchases": 19.79,
-          "investor_purchases": 4.37,
+          "second_home_purchases": 17.18,
+          "investor_purchases": 6.98,
           "refinances": 8.5,
           "topups": 54.21,
           "other": 2.97
@@ -3257,8 +3257,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 9.1,
-          "second_home_purchases": 19.22,
-          "investor_purchases": 4.12,
+          "second_home_purchases": 16.76,
+          "investor_purchases": 6.58,
           "refinances": 9.23,
           "topups": 55.35,
           "other": 2.98
@@ -3323,8 +3323,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 9.79,
-          "second_home_purchases": 18.45,
-          "investor_purchases": 4.1,
+          "second_home_purchases": 16.02,
+          "investor_purchases": 6.53,
           "refinances": 9.44,
           "topups": 55.08,
           "other": 3.14
@@ -3389,8 +3389,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 9.21,
-          "second_home_purchases": 18.6,
-          "investor_purchases": 3.82,
+          "second_home_purchases": 16.21,
+          "investor_purchases": 6.21,
           "refinances": 8.64,
           "topups": 56.78,
           "other": 2.95
@@ -3455,8 +3455,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.17,
-          "second_home_purchases": 18.92,
-          "investor_purchases": 3.79,
+          "second_home_purchases": 16.8,
+          "investor_purchases": 5.91,
           "refinances": 8.17,
           "topups": 55.84,
           "other": 3.11
@@ -3521,8 +3521,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.03,
-          "second_home_purchases": 20.17,
-          "investor_purchases": 3.24,
+          "second_home_purchases": 18.1,
+          "investor_purchases": 5.31,
           "refinances": 8.07,
           "topups": 55.64,
           "other": 2.85
@@ -3587,8 +3587,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 9.85,
-          "second_home_purchases": 19.7,
-          "investor_purchases": 3.17,
+          "second_home_purchases": 18.01,
+          "investor_purchases": 4.86,
           "refinances": 8.74,
           "topups": 55.41,
           "other": 3.13
@@ -3653,8 +3653,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.29,
-          "second_home_purchases": 19.5,
-          "investor_purchases": 3.15,
+          "second_home_purchases": 17.76,
+          "investor_purchases": 4.89,
           "refinances": 9.97,
           "topups": 53.99,
           "other": 3.1
@@ -3719,8 +3719,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 9.43,
-          "second_home_purchases": 18.34,
-          "investor_purchases": 2.94,
+          "second_home_purchases": 16.61,
+          "investor_purchases": 4.67,
           "refinances": 7.3,
           "topups": 59.12,
           "other": 2.87
@@ -3785,8 +3785,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 9.79,
-          "second_home_purchases": 18.72,
-          "investor_purchases": 3.09,
+          "second_home_purchases": 16.91,
+          "investor_purchases": 4.9,
           "refinances": 7.95,
           "topups": 57.36,
           "other": 3.09
@@ -3851,8 +3851,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.16,
-          "second_home_purchases": 19.71,
-          "investor_purchases": 3.48,
+          "second_home_purchases": 17.77,
+          "investor_purchases": 5.42,
           "refinances": 8.02,
           "topups": 55.38,
           "other": 3.25
@@ -3917,8 +3917,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.44,
-          "second_home_purchases": 20.4,
-          "investor_purchases": 3.48,
+          "second_home_purchases": 18.56,
+          "investor_purchases": 5.32,
           "refinances": 8.04,
           "topups": 54.34,
           "other": 3.3
@@ -3983,8 +3983,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.65,
-          "second_home_purchases": 19.8,
-          "investor_purchases": 3.35,
+          "second_home_purchases": 18.13,
+          "investor_purchases": 5.02,
           "refinances": 8.48,
           "topups": 54.48,
           "other": 3.24
@@ -4049,8 +4049,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.44,
-          "second_home_purchases": 20.12,
-          "investor_purchases": 3.6,
+          "second_home_purchases": 18.27,
+          "investor_purchases": 5.45,
           "refinances": 9.41,
           "topups": 52.94,
           "other": 3.49
@@ -4115,8 +4115,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.5,
-          "second_home_purchases": 20.05,
-          "investor_purchases": 3.56,
+          "second_home_purchases": 18.17,
+          "investor_purchases": 5.44,
           "refinances": 8.65,
           "topups": 53.67,
           "other": 3.57
@@ -4181,8 +4181,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 9.93,
-          "second_home_purchases": 18.81,
-          "investor_purchases": 3.25,
+          "second_home_purchases": 16.94,
+          "investor_purchases": 5.12,
           "refinances": 8.33,
           "topups": 56.2,
           "other": 3.48
@@ -4247,8 +4247,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 9.8,
-          "second_home_purchases": 19.04,
-          "investor_purchases": 3.32,
+          "second_home_purchases": 17.01,
+          "investor_purchases": 5.35,
           "refinances": 8.34,
           "topups": 56.24,
           "other": 3.26
@@ -4313,8 +4313,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.51,
-          "second_home_purchases": 19.76,
-          "investor_purchases": 3.57,
+          "second_home_purchases": 17.64,
+          "investor_purchases": 5.69,
           "refinances": 8.21,
           "topups": 54.92,
           "other": 3.03
@@ -4379,8 +4379,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.04,
-          "second_home_purchases": 20.62,
-          "investor_purchases": 3.72,
+          "second_home_purchases": 18.29,
+          "investor_purchases": 6.05,
           "refinances": 8.51,
           "topups": 52.89,
           "other": 3.22
@@ -4445,8 +4445,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.22,
-          "second_home_purchases": 20.65,
-          "investor_purchases": 3.86,
+          "second_home_purchases": 18.48,
+          "investor_purchases": 6.03,
           "refinances": 8.63,
           "topups": 52.62,
           "other": 3.02
@@ -4511,8 +4511,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.29,
-          "second_home_purchases": 19.61,
-          "investor_purchases": 3.34,
+          "second_home_purchases": 17.2,
+          "investor_purchases": 5.75,
           "refinances": 7.06,
           "topups": 56.73,
           "other": 2.97
@@ -4577,8 +4577,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.05,
-          "second_home_purchases": 21.39,
-          "investor_purchases": 3.95,
+          "second_home_purchases": 19.14,
+          "investor_purchases": 6.2,
           "refinances": 7.65,
           "topups": 53.97,
           "other": 2.99
@@ -4643,8 +4643,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.92,
-          "second_home_purchases": 22.15,
-          "investor_purchases": 4.53,
+          "second_home_purchases": 19.68,
+          "investor_purchases": 7.0,
           "refinances": 7.84,
           "topups": 51.25,
           "other": 3.31
@@ -4709,8 +4709,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.08,
-          "second_home_purchases": 22.35,
-          "investor_purchases": 4.57,
+          "second_home_purchases": 20.14,
+          "investor_purchases": 6.78,
           "refinances": 8.19,
           "topups": 50.26,
           "other": 3.55
@@ -4775,8 +4775,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.36,
-          "second_home_purchases": 22.73,
-          "investor_purchases": 4.51,
+          "second_home_purchases": 20.28,
+          "investor_purchases": 6.96,
           "refinances": 7.5,
           "topups": 50.54,
           "other": 3.36
@@ -4841,8 +4841,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.99,
-          "second_home_purchases": 19.47,
-          "investor_purchases": 3.8,
+          "second_home_purchases": 17.57,
+          "investor_purchases": 5.7,
           "refinances": 7.07,
           "topups": 55.3,
           "other": 3.37
@@ -4907,8 +4907,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.54,
-          "second_home_purchases": 19.92,
-          "investor_purchases": 4.74,
+          "second_home_purchases": 17.8,
+          "investor_purchases": 6.86,
           "refinances": 6.95,
           "topups": 53.58,
           "other": 3.27
@@ -4973,8 +4973,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.1,
-          "second_home_purchases": 22.26,
-          "investor_purchases": 5.2,
+          "second_home_purchases": 20.08,
+          "investor_purchases": 7.38,
           "refinances": 6.81,
           "topups": 50.28,
           "other": 3.35
@@ -5039,8 +5039,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.84,
-          "second_home_purchases": 22.55,
-          "investor_purchases": 5.57,
+          "second_home_purchases": 20.2,
+          "investor_purchases": 7.92,
           "refinances": 6.7,
           "topups": 50.02,
           "other": 3.32
@@ -5105,8 +5105,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.56,
-          "second_home_purchases": 24.32,
-          "investor_purchases": 5.81,
+          "second_home_purchases": 21.13,
+          "investor_purchases": 9.0,
           "refinances": 6.84,
           "topups": 48.04,
           "other": 3.43
@@ -5171,8 +5171,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.46,
-          "second_home_purchases": 25.47,
-          "investor_purchases": 6.26,
+          "second_home_purchases": 22.45,
+          "investor_purchases": 9.28,
           "refinances": 7.37,
           "topups": 45.98,
           "other": 3.46
@@ -5237,8 +5237,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.67,
-          "second_home_purchases": 24.85,
-          "investor_purchases": 6.16,
+          "second_home_purchases": 21.43,
+          "investor_purchases": 9.58,
           "refinances": 7.41,
           "topups": 46.32,
           "other": 3.59
@@ -5303,8 +5303,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.36,
-          "second_home_purchases": 25.06,
-          "investor_purchases": 5.61,
+          "second_home_purchases": 21.17,
+          "investor_purchases": 9.5,
           "refinances": 6.72,
           "topups": 48.81,
           "other": 3.44
@@ -5369,8 +5369,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 9.81,
-          "second_home_purchases": 23.6,
-          "investor_purchases": 5.01,
+          "second_home_purchases": 20.35,
+          "investor_purchases": 8.26,
           "refinances": 7.53,
           "topups": 50.84,
           "other": 3.21
@@ -5435,8 +5435,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.7,
-          "second_home_purchases": 23.67,
-          "investor_purchases": 4.93,
+          "second_home_purchases": 21.01,
+          "investor_purchases": 7.59,
           "refinances": 7.92,
           "topups": 49.02,
           "other": 3.76
@@ -5501,8 +5501,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.46,
-          "second_home_purchases": 22.75,
-          "investor_purchases": 4.2,
+          "second_home_purchases": 20.45,
+          "investor_purchases": 6.5,
           "refinances": 8.29,
           "topups": 49.5,
           "other": 3.8
@@ -5567,8 +5567,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.82,
-          "second_home_purchases": 21.72,
-          "investor_purchases": 3.5,
+          "second_home_purchases": 19.72,
+          "investor_purchases": 5.5,
           "refinances": 8.47,
           "topups": 50.74,
           "other": 3.75
@@ -5633,8 +5633,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.59,
-          "second_home_purchases": 20.76,
-          "investor_purchases": 3.22,
+          "second_home_purchases": 18.94,
+          "investor_purchases": 5.04,
           "refinances": 9.53,
           "topups": 51.25,
           "other": 3.65
@@ -5699,8 +5699,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.01,
-          "second_home_purchases": 20.85,
-          "investor_purchases": 3.23,
+          "second_home_purchases": 19.13,
+          "investor_purchases": 4.95,
           "refinances": 9.63,
           "topups": 51.64,
           "other": 3.64
@@ -5765,8 +5765,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.55,
-          "second_home_purchases": 21.84,
-          "investor_purchases": 3.46,
+          "second_home_purchases": 20.13,
+          "investor_purchases": 5.17,
           "refinances": 10.6,
           "topups": 50.0,
           "other": 3.55
@@ -5831,8 +5831,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 10.72,
-          "second_home_purchases": 21.81,
-          "investor_purchases": 3.62,
+          "second_home_purchases": 19.92,
+          "investor_purchases": 5.51,
           "refinances": 10.73,
           "topups": 48.98,
           "other": 4.14
@@ -5897,8 +5897,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.23,
-          "second_home_purchases": 23.29,
-          "investor_purchases": 3.86,
+          "second_home_purchases": 21.42,
+          "investor_purchases": 5.73,
           "refinances": 9.15,
           "topups": 47.79,
           "other": 3.68
@@ -5963,8 +5963,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.77,
-          "second_home_purchases": 24.77,
-          "investor_purchases": 4.11,
+          "second_home_purchases": 22.83,
+          "investor_purchases": 6.05,
           "refinances": 8.65,
           "topups": 46.07,
           "other": 3.63
@@ -6029,8 +6029,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.04,
-          "second_home_purchases": 26.4,
-          "investor_purchases": 4.45,
+          "second_home_purchases": 24.42,
+          "investor_purchases": 6.43,
           "refinances": 7.83,
           "topups": 44.4,
           "other": 3.88
@@ -6095,8 +6095,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.78,
-          "second_home_purchases": 25.34,
-          "investor_purchases": 4.16,
+          "second_home_purchases": 23.22,
+          "investor_purchases": 6.28,
           "refinances": 8.3,
           "topups": 46.07,
           "other": 4.35
@@ -6161,8 +6161,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.3,
-          "second_home_purchases": 26.05,
-          "investor_purchases": 4.51,
+          "second_home_purchases": 23.71,
+          "investor_purchases": 6.85,
           "refinances": 7.8,
           "topups": 46.35,
           "other": 3.99
@@ -6227,8 +6227,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.42,
-          "second_home_purchases": 25.72,
-          "investor_purchases": 4.34,
+          "second_home_purchases": 23.66,
+          "investor_purchases": 6.4,
           "refinances": 8.36,
           "topups": 45.61,
           "other": 4.55
@@ -6293,8 +6293,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.83,
-          "second_home_purchases": 25.11,
-          "investor_purchases": 4.51,
+          "second_home_purchases": 23.2,
+          "investor_purchases": 6.42,
           "refinances": 9.38,
           "topups": 43.69,
           "other": 4.48
@@ -6359,8 +6359,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.29,
-          "second_home_purchases": 24.68,
-          "investor_purchases": 4.5,
+          "second_home_purchases": 22.77,
+          "investor_purchases": 6.41,
           "refinances": 10.29,
           "topups": 42.5,
           "other": 4.74
@@ -6425,8 +6425,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.61,
-          "second_home_purchases": 24.34,
-          "investor_purchases": 4.32,
+          "second_home_purchases": 22.47,
+          "investor_purchases": 6.19,
           "refinances": 12.06,
           "topups": 42.55,
           "other": 4.12
@@ -6491,8 +6491,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.89,
-          "second_home_purchases": 23.71,
-          "investor_purchases": 3.78,
+          "second_home_purchases": 22.07,
+          "investor_purchases": 5.42,
           "refinances": 11.64,
           "topups": 44.05,
           "other": 3.93
@@ -6557,8 +6557,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.08,
-          "second_home_purchases": 22.19,
-          "investor_purchases": 3.61,
+          "second_home_purchases": 20.27,
+          "investor_purchases": 5.53,
           "refinances": 10.18,
           "topups": 47.04,
           "other": 3.9
@@ -6623,8 +6623,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.63,
-          "second_home_purchases": 21.61,
-          "investor_purchases": 3.22,
+          "second_home_purchases": 19.83,
+          "investor_purchases": 5.0,
           "refinances": 10.59,
           "topups": 48.02,
           "other": 3.93
@@ -6689,8 +6689,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.12,
-          "second_home_purchases": 22.46,
-          "investor_purchases": 3.57,
+          "second_home_purchases": 20.54,
+          "investor_purchases": 5.49,
           "refinances": 10.98,
           "topups": 45.0,
           "other": 3.87
@@ -6755,8 +6755,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.31,
-          "second_home_purchases": 21.84,
-          "investor_purchases": 3.58,
+          "second_home_purchases": 20.15,
+          "investor_purchases": 5.27,
           "refinances": 11.04,
           "topups": 44.01,
           "other": 5.22
@@ -6821,8 +6821,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.96,
-          "second_home_purchases": 22.12,
-          "investor_purchases": 4.0,
+          "second_home_purchases": 20.06,
+          "investor_purchases": 6.06,
           "refinances": 11.13,
           "topups": 42.56,
           "other": 6.23
@@ -6887,8 +6887,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.43,
-          "second_home_purchases": 19.96,
-          "investor_purchases": 2.82,
+          "second_home_purchases": 18.13,
+          "investor_purchases": 4.65,
           "refinances": 9.82,
           "topups": 48.03,
           "other": 5.94
@@ -6953,8 +6953,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.25,
-          "second_home_purchases": 20.7,
-          "investor_purchases": 3.3,
+          "second_home_purchases": 18.92,
+          "investor_purchases": 5.08,
           "refinances": 11.33,
           "topups": 44.79,
           "other": 6.63
@@ -7019,8 +7019,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.65,
-          "second_home_purchases": 19.91,
-          "investor_purchases": 3.56,
+          "second_home_purchases": 18.15,
+          "investor_purchases": 5.32,
           "refinances": 15.79,
           "topups": 41.06,
           "other": 6.03
@@ -7085,8 +7085,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 15.58,
-          "second_home_purchases": 20.8,
-          "investor_purchases": 3.72,
+          "second_home_purchases": 19.04,
+          "investor_purchases": 5.48,
           "refinances": 12.78,
           "topups": 41.09,
           "other": 6.03
@@ -7151,8 +7151,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 15.73,
-          "second_home_purchases": 21.26,
-          "investor_purchases": 3.57,
+          "second_home_purchases": 19.18,
+          "investor_purchases": 5.65,
           "refinances": 12.21,
           "topups": 41.2,
           "other": 6.03
@@ -7217,8 +7217,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 15.78,
-          "second_home_purchases": 22.59,
-          "investor_purchases": 3.96,
+          "second_home_purchases": 20.65,
+          "investor_purchases": 5.9,
           "refinances": 12.65,
           "topups": 39.58,
           "other": 5.44
@@ -7283,8 +7283,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 15.96,
-          "second_home_purchases": 22.76,
-          "investor_purchases": 3.93,
+          "second_home_purchases": 20.52,
+          "investor_purchases": 6.17,
           "refinances": 12.59,
           "topups": 40.01,
           "other": 4.75
@@ -7349,8 +7349,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 15.55,
-          "second_home_purchases": 22.84,
-          "investor_purchases": 4.06,
+          "second_home_purchases": 20.77,
+          "investor_purchases": 6.13,
           "refinances": 13.15,
           "topups": 39.71,
           "other": 4.69
@@ -7415,8 +7415,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.92,
-          "second_home_purchases": 21.8,
-          "investor_purchases": 3.75,
+          "second_home_purchases": 19.63,
+          "investor_purchases": 5.92,
           "refinances": 12.64,
           "topups": 41.8,
           "other": 5.09
@@ -7481,8 +7481,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 15.48,
-          "second_home_purchases": 22.59,
-          "investor_purchases": 4.28,
+          "second_home_purchases": 20.51,
+          "investor_purchases": 6.36,
           "refinances": 12.38,
           "topups": 42.59,
           "other": 2.68
@@ -7547,8 +7547,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 15.84,
-          "second_home_purchases": 22.9,
-          "investor_purchases": 4.11,
+          "second_home_purchases": 20.75,
+          "investor_purchases": 6.26,
           "refinances": 12.4,
           "topups": 41.76,
           "other": 2.99
@@ -7613,8 +7613,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 15.91,
-          "second_home_purchases": 23.25,
-          "investor_purchases": 4.13,
+          "second_home_purchases": 21.11,
+          "investor_purchases": 6.27,
           "refinances": 10.23,
           "topups": 42.29,
           "other": 4.19
@@ -7679,8 +7679,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.54,
-          "second_home_purchases": 20.98,
-          "investor_purchases": 3.55,
+          "second_home_purchases": 18.67,
+          "investor_purchases": 5.86,
           "refinances": 10.2,
           "topups": 47.46,
           "other": 3.27
@@ -7745,8 +7745,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.03,
-          "second_home_purchases": 22.03,
-          "investor_purchases": 3.76,
+          "second_home_purchases": 19.91,
+          "investor_purchases": 5.88,
           "refinances": 10.6,
           "topups": 45.92,
           "other": 3.66
@@ -7811,8 +7811,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.99,
-          "second_home_purchases": 22.06,
-          "investor_purchases": 4.04,
+          "second_home_purchases": 19.98,
+          "investor_purchases": 6.12,
           "refinances": 11.73,
           "topups": 44.02,
           "other": 3.16
@@ -7877,8 +7877,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.45,
-          "second_home_purchases": 22.53,
-          "investor_purchases": 4.51,
+          "second_home_purchases": 20.02,
+          "investor_purchases": 7.02,
           "refinances": 12.34,
           "topups": 42.75,
           "other": 3.42
@@ -7943,8 +7943,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.72,
-          "second_home_purchases": 21.94,
-          "investor_purchases": 4.31,
+          "second_home_purchases": 19.83,
+          "investor_purchases": 6.42,
           "refinances": 14.16,
           "topups": 41.9,
           "other": 2.97
@@ -8009,8 +8009,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 15.04,
-          "second_home_purchases": 20.81,
-          "investor_purchases": 4.08,
+          "second_home_purchases": 18.83,
+          "investor_purchases": 6.06,
           "refinances": 15.35,
           "topups": 41.48,
           "other": 3.24
@@ -8075,8 +8075,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.81,
-          "second_home_purchases": 20.95,
-          "investor_purchases": 4.46,
+          "second_home_purchases": 18.66,
+          "investor_purchases": 6.75,
           "refinances": 15.46,
           "topups": 41.37,
           "other": 2.95
@@ -8141,8 +8141,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.63,
-          "second_home_purchases": 20.68,
-          "investor_purchases": 4.31,
+          "second_home_purchases": 18.19,
+          "investor_purchases": 6.8,
           "refinances": 14.8,
           "topups": 43.59,
           "other": 2.99
@@ -8207,8 +8207,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.27,
-          "second_home_purchases": 21.71,
-          "investor_purchases": 4.73,
+          "second_home_purchases": 19.27,
+          "investor_purchases": 7.17,
           "refinances": 13.67,
           "topups": 42.57,
           "other": 3.05
@@ -8273,8 +8273,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.35,
-          "second_home_purchases": 22.11,
-          "investor_purchases": 4.75,
+          "second_home_purchases": 19.5,
+          "investor_purchases": 7.36,
           "refinances": 14.63,
           "topups": 41.43,
           "other": 2.73
@@ -8339,8 +8339,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.01,
-          "second_home_purchases": 23.21,
-          "investor_purchases": 5.17,
+          "second_home_purchases": 20.57,
+          "investor_purchases": 7.81,
           "refinances": 13.24,
           "topups": 41.43,
           "other": 2.94
@@ -8405,8 +8405,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.21,
-          "second_home_purchases": 22.37,
-          "investor_purchases": 4.69,
+          "second_home_purchases": 19.94,
+          "investor_purchases": 7.12,
           "refinances": 14.85,
           "topups": 41.22,
           "other": 2.66
@@ -8471,8 +8471,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.87,
-          "second_home_purchases": 21.78,
-          "investor_purchases": 4.63,
+          "second_home_purchases": 18.88,
+          "investor_purchases": 7.53,
           "refinances": 11.98,
           "topups": 45.76,
           "other": 2.98
@@ -8537,8 +8537,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.26,
-          "second_home_purchases": 20.79,
-          "investor_purchases": 4.12,
+          "second_home_purchases": 18.42,
+          "investor_purchases": 6.49,
           "refinances": 12.56,
           "topups": 47.41,
           "other": 2.86
@@ -8603,8 +8603,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.43,
-          "second_home_purchases": 22.05,
-          "investor_purchases": 4.78,
+          "second_home_purchases": 19.71,
+          "investor_purchases": 7.12,
           "refinances": 14.24,
           "topups": 42.62,
           "other": 2.88
@@ -8669,8 +8669,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.97,
-          "second_home_purchases": 22.27,
-          "investor_purchases": 4.72,
+          "second_home_purchases": 20.11,
+          "investor_purchases": 6.88,
           "refinances": 13.63,
           "topups": 42.64,
           "other": 2.77
@@ -8735,8 +8735,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.07,
-          "second_home_purchases": 21.32,
-          "investor_purchases": 4.58,
+          "second_home_purchases": 18.95,
+          "investor_purchases": 6.95,
           "refinances": 14.37,
           "topups": 43.85,
           "other": 2.81
@@ -8801,8 +8801,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.94,
-          "second_home_purchases": 20.44,
-          "investor_purchases": 4.56,
+          "second_home_purchases": 18.23,
+          "investor_purchases": 6.77,
           "refinances": 17.38,
           "topups": 41.75,
           "other": 2.93
@@ -8867,8 +8867,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.17,
-          "second_home_purchases": 20.15,
-          "investor_purchases": 4.39,
+          "second_home_purchases": 18.0,
+          "investor_purchases": 6.54,
           "refinances": 16.67,
           "topups": 42.67,
           "other": 2.95
@@ -8933,8 +8933,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.95,
-          "second_home_purchases": 20.38,
-          "investor_purchases": 4.23,
+          "second_home_purchases": 18.17,
+          "investor_purchases": 6.44,
           "refinances": 14.83,
           "topups": 44.15,
           "other": 3.46
@@ -8999,8 +8999,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.22,
-          "second_home_purchases": 20.95,
-          "investor_purchases": 4.46,
+          "second_home_purchases": 18.65,
+          "investor_purchases": 6.76,
           "refinances": 14.06,
           "topups": 43.86,
           "other": 3.45
@@ -9065,8 +9065,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.04,
-          "second_home_purchases": 20.67,
-          "investor_purchases": 4.58,
+          "second_home_purchases": 18.22,
+          "investor_purchases": 7.03,
           "refinances": 13.31,
           "topups": 44.2,
           "other": 3.2
@@ -9131,8 +9131,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.97,
-          "second_home_purchases": 22.26,
-          "investor_purchases": 4.65,
+          "second_home_purchases": 19.8,
+          "investor_purchases": 7.11,
           "refinances": 13.95,
           "topups": 42.14,
           "other": 3.03
@@ -9197,8 +9197,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.53,
-          "second_home_purchases": 19.35,
-          "investor_purchases": 4.46,
+          "second_home_purchases": 17.67,
+          "investor_purchases": 6.14,
           "refinances": 28.05,
           "topups": 31.79,
           "other": 3.82
@@ -9263,8 +9263,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 11.66,
-          "second_home_purchases": 17.82,
-          "investor_purchases": 3.65,
+          "second_home_purchases": 15.74,
+          "investor_purchases": 5.73,
           "refinances": 18.49,
           "topups": 44.33,
           "other": 4.05
@@ -9329,8 +9329,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.55,
-          "second_home_purchases": 20.26,
-          "investor_purchases": 3.81,
+          "second_home_purchases": 18.27,
+          "investor_purchases": 5.8,
           "refinances": 12.96,
           "topups": 45.17,
           "other": 4.25
@@ -9395,8 +9395,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 14.18,
-          "second_home_purchases": 20.38,
-          "investor_purchases": 4.14,
+          "second_home_purchases": 18.25,
+          "investor_purchases": 6.27,
           "refinances": 13.54,
           "topups": 43.68,
           "other": 4.08
@@ -9461,8 +9461,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 13.41,
-          "second_home_purchases": 19.29,
-          "investor_purchases": 3.5,
+          "second_home_purchases": 17.44,
+          "investor_purchases": 5.35,
           "refinances": 13.54,
           "topups": 46.45,
           "other": 3.81
@@ -9527,8 +9527,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.58,
-          "second_home_purchases": 19.24,
-          "investor_purchases": 3.53,
+          "second_home_purchases": 17.42,
+          "investor_purchases": 5.35,
           "refinances": 14.74,
           "topups": 45.76,
           "other": 4.15
@@ -9593,8 +9593,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.1,
-          "second_home_purchases": 19.24,
-          "investor_purchases": 3.61,
+          "second_home_purchases": 17.28,
+          "investor_purchases": 5.57,
           "refinances": 15.81,
           "topups": 45.5,
           "other": 3.74
@@ -9659,8 +9659,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.85,
-          "second_home_purchases": 19.17,
-          "investor_purchases": 3.43,
+          "second_home_purchases": 17.17,
+          "investor_purchases": 5.43,
           "refinances": 14.18,
           "topups": 46.25,
           "other": 4.12
@@ -9725,8 +9725,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.81,
-          "second_home_purchases": 19.49,
-          "investor_purchases": 3.52,
+          "second_home_purchases": 17.3,
+          "investor_purchases": 5.71,
           "refinances": 13.91,
           "topups": 46.26,
           "other": 4.01
@@ -9791,8 +9791,8 @@
         },
         "combined_cnt_pct": {
           "fhb": 12.85,
-          "second_home_purchases": 20.06,
-          "investor_purchases": 3.55,
+          "second_home_purchases": 18.24,
+          "investor_purchases": 5.37,
           "refinances": 13.35,
           "topups": 46.42,
           "other": 3.77
@@ -9808,7 +9808,7 @@
     "latest_quarter": "",
     "start_quarter": "",
     "quarter_count": 0,
-    "updated_at": "2026-11-22T23:10:21Z",
+    "updated_at": "2026-11-22T23:46:34Z",
     "history": []
   },
   "records": [
@@ -10188,6 +10188,151 @@
       "frequency": "Monthly"
     },
     {
+      "ticker": "bridging-and-other-purpose-lending",
+      "name": "Other mortgage purposes (including bridging finance & unencumbered security) volume & average size (RBNZ Table C33)",
+      "also_known_as": "RBNZ Table C33 Other Purpose residential mortgage commitments (bridging finance, unencumbered property security & capitalised interest)",
+      "category": "Homeowners & refinancing",
+      "topic": "Bridging finance & other purpose residential mortgage commitments",
+      "value": 374.0,
+      "latest_value": "$374m (5.0% of lending across 782 commitments, avg $478,261)",
+      "unit": "NZD_millions",
+      "observation_period": "September 2026",
+      "observed_period": "September 2026",
+      "period_end": "2026-09-30",
+      "source_published": "Monthly RBNZ release",
+      "last_checked": "2026-11-22",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-22",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "September 2025 ($320m)",
+      "change": "+$54m YoY",
+      "source": "RBNZ Table C33",
+      "source_full": "Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33)",
+      "source_series_ids": "LVRN.MMB1.AZE (Other Purpose Lending Value $m) & LVRN.MMB2.AZE (Other Purpose Count)",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ series & HLF-derived share and mean commitment size",
+      "definition": "Monthly dollar volume, purpose count, percentage share, and average commitment size of New Zealand registered bank residential mortgage commitments classified under 'Other purposes' in RBNZ Table C33 (which per RBNZ definitions includes bridging finance, borrowing using an unencumbered property as security, and capitalised interest).",
+      "formula": "Other Purpose Share (%) = LVRN.MMB1.AZE \u00f7 Total Purpose Lending \u00d7 100; Mean Commitment = LVRN.MMB1.AZE \u00d7 $1m \u00f7 LVRN.MMB2.AZE",
+      "hlf_interpretation": "HLF market context: Under RBNZ Table C33 definitions, 'Other commitments' captures residential mortgage lending that is not a standard property purchase, bank switch, or top-up on an existing loan\u2014most notably short-term bridging finance for homeowners buying their next home before their current home settles, or new borrowing raised against a mortgage-free property.",
+      "methodology": "Extracted live from RBNZ Table C33 series LVRN.MMB1.AZE (Other purpose lending value in $ millions) and LVRN.MMB2.AZE (Other purpose count), dividing by total purpose lending for percentage share and dividing value by count for the mean commitment size.",
+      "historical_data_from": "Available from January 2017 (117 monthly observations)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Other mortgage purposes (including bridging finance & unencumbered security) volume & average size (RBNZ Table C33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/bridging-and-other-purpose-lending/ (checked 22 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/bridging-and-other-purpose-lending/",
+      "summary_text": "In September 2026, New Zealand registered banks committed $374m (5.0% of new lending) across 782 commitments for other mortgage purposes (including bridging finance, borrowing against an unencumbered property, and capitalised interest), at an average commitment size of $478,261.",
+      "related_questions": [
+        "What does 'Other purposes' include in RBNZ Table C33 mortgage statistics?",
+        "How much residential mortgage lending goes toward bridging finance and other commitments in New Zealand?"
+      ],
+      "citation_chain": {
+        "official_publisher": "Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
+        "official_series_ids": "LVRN.MMB1.AZE (Other Purpose Lending Value $m) & LVRN.MMB2.AZE (Other Purpose Count)",
+        "observation_period": "September 2026",
+        "period_end": "2026-09-30",
+        "source_published": "Monthly RBNZ release",
+        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
+        "hlf_calculation": "$374m \u00f7 $7,533m = 5.0% across 782 commitments (Mean: $478,261)",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/bridging-and-other-purpose-lending/",
+        "license": "CC BY 4.0"
+      },
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 374.0,
+          "formatted": "$374m"
+        },
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 376.0,
+          "formatted": "$376m"
+        },
+        {
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 442.0,
+          "formatted": "$442m"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 432.0,
+          "formatted": "$432m"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 437.0,
+          "formatted": "$437m"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 413.0,
+          "formatted": "$413m"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 527.0,
+          "formatted": "$527m"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 356.0,
+          "formatted": "$356m"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 288.0,
+          "formatted": "$288m"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 577.0,
+          "formatted": "$577m"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 387.0,
+          "formatted": "$387m"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 315.0,
+          "formatted": "$315m"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 320.0,
+          "formatted": "$320m"
+        }
+      ],
+      "latest_underlying_data": "September 2026",
+      "official_data": "RBNZ Table C33 (September 2026): Other purpose lending = $374m (LVRN.MMB1.AZE) across 782 purpose counts (LVRN.MMB2.AZE).",
+      "hlf_calculation": "$374m \u00f7 $7,533m = 5.0% across 782 commitments (Mean: $478,261)",
+      "frequency": "Monthly"
+    },
+    {
       "ticker": "build-cost-inflation",
       "name": "Annual change in residential construction cost (CPI purchase of new housing, excluding land)",
       "also_known_as": "Stats NZ CPI purchase of new housing inflation rate",
@@ -10317,6 +10462,151 @@
       "official_data": "Stats NZ CPI (September 2026 quarter): Dwelling insurance price index annual change = +0.1% YoY (CPI Index 2,107.0 vs 2,105.0 a year earlier); All-groups CPI = +3.7% YoY.",
       "hlf_calculation": "CPI Index 2,107.0 vs 2,105.0 a year earlier | Dwelling insurance CPI annual change (+0.1% YoY) minus All-groups CPI (+3.7% YoY) = -3.6 percentage points",
       "frequency": "Quarterly"
+    },
+    {
+      "ticker": "business-backed-residential-mortgages",
+      "name": "Residential mortgages committed for business purposes: monthly volume, loan count & average loan size (RBNZ Table C31)",
+      "also_known_as": "RBNZ Table C31 Business Purpose residential mortgage commitments (small business & self-employed home-equity-backed lending)",
+      "category": "Homeowners & refinancing",
+      "topic": "Business-purpose residential mortgage lending",
+      "value": 134.0,
+      "latest_value": "$134m across 317 loans (avg $422,713 | 12m: $1.28B ($1,276m))",
+      "unit": "NZD_millions",
+      "observation_period": "September 2026",
+      "observed_period": "September 2026",
+      "period_end": "2026-09-30",
+      "source_published": "Monthly RBNZ release",
+      "last_checked": "2026-11-22",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-22",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "September 2025 ($87m (285 loans))",
+      "change": "+$47m (+32 loans) YoY",
+      "source": "RBNZ Table C31",
+      "source_full": "Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31)",
+      "source_series_ids": "LVRN.MMB1.AP (Business Purpose Residential Mortgage Value $m) & LVRN.MMB2.AP (Business Purpose Borrower Count)",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ series & HLF-derived 12-month rolling total and mean loan size",
+      "definition": "Monthly and 12-month rolling dollar volume, loan commitment count, percentage share, and average loan size of new loans fully secured by residential mortgage that are committed wholly or predominantly for business purposes at New Zealand registered banks (RBNZ Table C31).",
+      "formula": "Mean Business-Purpose Residential Mortgage = (LVRN.MMB1.AP \u00d7 $1,000,000) \u00f7 LVRN.MMB2.AP; 12-Month Rolling Sum",
+      "hlf_interpretation": "HLF market context: Many self-employed New Zealanders and SME owners secure business working capital, equipment, or commercial buy-in finance against residential property equity to access residential mortgage interest rates and longer amortisation terms. RBNZ Table C31 tracks this residentially secured business lending separately from owner-occupier and residential investor mortgages.",
+      "methodology": "Extracted live from RBNZ Table C31 series LVRN.MMB1.AP (Business purpose lending value in $ millions) and LVRN.MMB2.AP (Business purpose loan count). Per RBNZ definitions, these are loans secured against residential property where the borrowed funds are used for business or commercial purposes rather than buying or renovating a residential dwelling.",
+      "historical_data_from": "Available from August 2014 (146 monthly observations)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Residential mortgages committed for business purposes: monthly volume, loan count & average loan size (RBNZ Table C31),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31). https://pulse-data.homeloanfactory.co.nz/business-backed-residential-mortgages/ (checked 22 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/business-backed-residential-mortgages/",
+      "summary_text": "In September 2026, New Zealand registered banks committed $134m (1.8% of new residential mortgage lending) across 317 residential mortgages for business purposes\u2014at an average loan size of $422,713 (bringing rolling 12-month business-purpose residential mortgage commitments to $1.28B ($1,276m) across 3,410 loans).",
+      "related_questions": [
+        "How much residential mortgage lending in New Zealand is used for business purposes?",
+        "What is the average loan size when a business owner borrows against residential property in RBNZ Table C31?"
+      ],
+      "citation_chain": {
+        "official_publisher": "Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
+        "official_series_ids": "LVRN.MMB1.AP (Business Purpose Residential Mortgage Value $m) & LVRN.MMB2.AP (Business Purpose Borrower Count)",
+        "observation_period": "September 2026",
+        "period_end": "2026-09-30",
+        "source_published": "Monthly RBNZ release",
+        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
+        "hlf_calculation": "Mean Loan: ($134m \u00d7 $1,000,000) \u00f7 317 = $422,713 | 12M Rolling = $1,276m (3,410 loans)",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/business-backed-residential-mortgages/",
+        "license": "CC BY 4.0"
+      },
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 134.0,
+          "formatted": "$134m"
+        },
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 84.0,
+          "formatted": "$84m"
+        },
+        {
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 109.0,
+          "formatted": "$109m"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 95.0,
+          "formatted": "$95m"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 112.0,
+          "formatted": "$112m"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 119.0,
+          "formatted": "$119m"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 134.0,
+          "formatted": "$134m"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 82.0,
+          "formatted": "$82m"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 78.0,
+          "formatted": "$78m"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 102.0,
+          "formatted": "$102m"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 109.0,
+          "formatted": "$109m"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 118.0,
+          "formatted": "$118m"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 87.0,
+          "formatted": "$87m"
+        }
+      ],
+      "latest_underlying_data": "September 2026",
+      "official_data": "RBNZ Table C31 (September 2026): Residential mortgages committed for business purposes = $134m (LVRN.MMB1.AP) across 317 borrowers (LVRN.MMB2.AP).",
+      "hlf_calculation": "Mean Loan: ($134m \u00d7 $1,000,000) \u00f7 317 = $422,713 | 12M Rolling = $1,276m (3,410 loans)",
+      "frequency": "Monthly"
     },
     {
       "ticker": "consumer-loan-stress-npl",
@@ -11153,7 +11443,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Monthly mortgage top-up dollar volume & loan commitment count (RBNZ Table C33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/equity-topup-demand/ (checked 22 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/equity-topup-demand/",
-      "summary_text": "In September 2026, New Zealand registered banks committed $962m in mortgage top-ups across 9,639 commitments, at an average of $99,803 per top-up.",
+      "summary_text": "In September 2026, New Zealand registered banks committed $962m in mortgage top-ups across 9,639 loan commitments, at an average of $99,803 per top-up.",
       "related_questions": [
         "How much money is committed via mortgage top-ups each month in New Zealand?",
         "How many mortgage top-up commitments are approved every month in NZ?"
@@ -17478,7 +17768,7 @@
       "category": "Homeowners & refinancing",
       "topic": "Full historical mortgage market share timeline (five main mortgage activities plus other purposes)",
       "value": 20.31,
-      "latest_value": "FHB 20.3% | 2nd+ Home 30.1% | Investors 8.9% | Refi 22.9% | Top-Ups 12.8% ($)",
+      "latest_value": "FHB 20.3% | 2nd+ Home 30.1% | Investor Purchases 8.9% (Total C31 Inv 17.7%) | Refi 22.9% | Top-Ups 12.8% ($) | Other 5.0%",
       "unit": "percent",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
@@ -17514,7 +17804,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"NZ Mortgage Market Share Timeline: First-Home Buyers, Movers, Investors, Refinances, Top-Ups & Other Purposes (RBNZ C31 & C33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by borrower type (Table C31) & by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/mortgage-market-share-timeline/ (checked 22 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mortgage-market-share-timeline/",
-      "summary_text": "In September 2026, across $7.53B ($7,533m) (20,763 loan commitments) in new New Zealand residential mortgage lending, the reconciled 100% dollar-value share comprised 20.3% First-Home Buyers ($1,530m), 30.1% Second+ Home Purchases, 8.9% Property Investor Purchases, 22.9% Refinances / Bank Switches ($1,729m), 12.8% Mortgage Top-Ups ($962m across 9,639 top-up loans, or 46.4% of all loan commitments by count), and 5.0% Other / Construction.",
+      "summary_text": "In September 2026, across $7.53B ($7,533m) (20,763 reported C33 loan-purpose counts) in new New Zealand residential mortgage lending, the 6-Category Reconciled dollar-value share comprised 20.3% First-Home Buyers ($1,530m), 30.1% Second+ Home Purchases, 8.9% Property Investor Purchases (excl. Refi) (with total C31 Investor lending including investor refinances & top-ups at 17.7% / $1,335m), 22.9% Refinances / Bank Switches ($1,729m), 12.8% Mortgage Top-Ups ($962m across 9,639 top-up purpose counts, representing 46.4% of the C33 loan-purpose count measure), and 5.0% Other Purposes (including bridging finance).",
       "related_questions": [
         "What percentage of New Zealand mortgages go to first-home buyers versus property investors?",
         "What percentage of New Zealand mortgage lending is homeowners refinancing to a new bank?",
@@ -17530,7 +17820,7 @@
         "period_end": "2026-09-30",
         "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Combined 100% ($ Value, September 2026): FHB 20.3% + 2nd+ Home Purchases 30.1% + Investor Purchases 8.9% + Refinances 22.9% + Top-Ups 12.8% + Other 5.0% = 100.0% (Top-Ups = 46.4% of loan commitments [9,639 of 20,763 loans], but 12.8% of dollar value [$962m of $7,533m])",
+        "hlf_calculation": "6-Category Reconciled ($ Value, September 2026): FHB 20.3% + 2nd+ Home Purchases 30.1% + Investor Purchases (excl. Refi) 8.9% + Refinances 22.9% + Top-Ups 12.8% + Other Purposes (incl. bridging) 5.0% = 100.0% (Top-Ups represented 46.4% of the C33 purpose-count measure [9,639 of 20,763 counts], vs 12.8% of dollar value [$962m of $7,533m])",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/mortgage-market-share-timeline/",
         "license": "CC BY 4.0"
       },
@@ -17539,150 +17829,150 @@
           "period": "2026-09",
           "label": "Sep 2026",
           "value": 20.31,
-          "formatted": "FHB 20.3% | 2nd+ Home Purchases 30.1% | Investor Purchases 8.9% | Refinances 22.9% | Top-Ups 12.8% ($ Value) / 46.4% (# Loans)"
+          "formatted": "FHB 20.3% | 2nd+ Home Purchases 30.1% | Investor Purchases (excl. Refi) 8.9% | Refinances 22.9% | Top-Ups 12.8% ($) / 46.4% (C33 counts) | Other 5.0%"
         },
         {
           "period": "2026-08",
           "label": "Aug 2026",
           "value": 20.52,
-          "formatted": "FHB 20.5% | 2nd+ Home Purchases 28.1% | Investor Purchases 9.3% | Refinances 25.1% | Top-Ups 11.8% ($ Value) / 46.3% (# Loans)"
+          "formatted": "FHB 20.5% | 2nd+ Home Purchases 28.1% | Investor Purchases (excl. Refi) 9.3% | Refinances 25.1% | Top-Ups 11.8% ($) / 46.3% (C33 counts) | Other 5.2%"
         },
         {
           "period": "2026-07",
           "label": "Jul 2026",
           "value": 20.12,
-          "formatted": "FHB 20.1% | 2nd+ Home Purchases 28.3% | Investor Purchases 8.9% | Refinances 24.6% | Top-Ups 12.4% ($ Value) / 46.2% (# Loans)"
+          "formatted": "FHB 20.1% | 2nd+ Home Purchases 28.3% | Investor Purchases (excl. Refi) 8.9% | Refinances 24.6% | Top-Ups 12.4% ($) / 46.2% (C33 counts) | Other 5.6%"
         },
         {
           "period": "2026-06",
           "label": "Jun 2026",
           "value": 18.96,
-          "formatted": "FHB 19.0% | 2nd+ Home Purchases 28.0% | Investor Purchases 9.0% | Refinances 27.2% | Top-Ups 11.8% ($ Value) / 45.5% (# Loans)"
+          "formatted": "FHB 19.0% | 2nd+ Home Purchases 28.0% | Investor Purchases (excl. Refi) 9.0% | Refinances 27.2% | Top-Ups 11.8% ($) / 45.5% (C33 counts) | Other 5.1%"
         },
         {
           "period": "2026-05",
           "label": "May 2026",
           "value": 19.46,
-          "formatted": "FHB 19.5% | 2nd+ Home Purchases 29.1% | Investor Purchases 8.9% | Refinances 25.2% | Top-Ups 12.3% ($ Value) / 45.8% (# Loans)"
+          "formatted": "FHB 19.5% | 2nd+ Home Purchases 29.1% | Investor Purchases (excl. Refi) 8.9% | Refinances 25.2% | Top-Ups 12.3% ($) / 45.8% (C33 counts) | Other 5.1%"
         },
         {
           "period": "2026-04",
           "label": "Apr 2026",
           "value": 20.69,
-          "formatted": "FHB 20.7% | 2nd+ Home Purchases 29.1% | Investor Purchases 8.9% | Refinances 23.5% | Top-Ups 12.7% ($ Value) / 46.5% (# Loans)"
+          "formatted": "FHB 20.7% | 2nd+ Home Purchases 29.1% | Investor Purchases (excl. Refi) 8.9% | Refinances 23.5% | Top-Ups 12.7% ($) / 46.5% (C33 counts) | Other 5.2%"
         },
         {
           "period": "2026-03",
           "label": "Mar 2026",
           "value": 20.92,
-          "formatted": "FHB 20.9% | 2nd+ Home Purchases 28.8% | Investor Purchases 9.9% | Refinances 23.1% | Top-Ups 11.8% ($ Value) / 43.7% (# Loans)"
+          "formatted": "FHB 20.9% | 2nd+ Home Purchases 28.8% | Investor Purchases (excl. Refi) 9.9% | Refinances 23.1% | Top-Ups 11.8% ($) / 43.7% (C33 counts) | Other 5.5%"
         },
         {
           "period": "2026-02",
           "label": "Feb 2026",
           "value": 20.92,
-          "formatted": "FHB 20.9% | 2nd+ Home Purchases 29.4% | Investor Purchases 9.3% | Refinances 22.3% | Top-Ups 12.7% ($ Value) / 45.2% (# Loans)"
+          "formatted": "FHB 20.9% | 2nd+ Home Purchases 29.4% | Investor Purchases (excl. Refi) 9.3% | Refinances 22.3% | Top-Ups 12.7% ($) / 45.2% (C33 counts) | Other 5.4%"
         },
         {
           "period": "2026-01",
           "label": "Jan 2026",
           "value": 17.65,
-          "formatted": "FHB 17.6% | 2nd+ Home Purchases 24.9% | Investor Purchases 9.1% | Refinances 33.8% | Top-Ups 9.8% ($ Value) / 44.3% (# Loans)"
+          "formatted": "FHB 17.6% | 2nd+ Home Purchases 24.9% | Investor Purchases (excl. Refi) 9.1% | Refinances 33.8% | Top-Ups 9.8% ($) / 44.3% (C33 counts) | Other 4.8%"
         },
         {
           "period": "2025-12",
           "label": "Dec 2025",
           "value": 15.29,
-          "formatted": "FHB 15.3% | 2nd+ Home Purchases 23.8% | Investor Purchases 8.3% | Refinances 41.1% | Top-Ups 7.5% ($ Value) / 31.8% (# Loans)"
+          "formatted": "FHB 15.3% | 2nd+ Home Purchases 23.8% | Investor Purchases (excl. Refi) 8.3% | Refinances 41.1% | Top-Ups 7.5% ($) / 31.8% (C33 counts) | Other 4.1%"
         },
         {
           "period": "2025-11",
           "label": "Nov 2025",
           "value": 20.04,
-          "formatted": "FHB 20.0% | 2nd+ Home Purchases 30.6% | Investor Purchases 11.0% | Refinances 23.3% | Top-Ups 10.7% ($ Value) / 42.1% (# Loans)"
+          "formatted": "FHB 20.0% | 2nd+ Home Purchases 30.6% | Investor Purchases (excl. Refi) 11.0% | Refinances 23.3% | Top-Ups 10.7% ($) / 42.1% (C33 counts) | Other 4.4%"
         },
         {
           "period": "2025-10",
           "label": "Oct 2025",
           "value": 20.82,
-          "formatted": "FHB 20.8% | 2nd+ Home Purchases 28.8% | Investor Purchases 11.1% | Refinances 23.4% | Top-Ups 12.0% ($ Value) / 44.2% (# Loans)"
+          "formatted": "FHB 20.8% | 2nd+ Home Purchases 28.8% | Investor Purchases (excl. Refi) 11.1% | Refinances 23.4% | Top-Ups 12.0% ($) / 44.2% (C33 counts) | Other 3.8%"
         },
         {
           "period": "2025-09",
           "label": "Sep 2025",
           "value": 19.22,
-          "formatted": "FHB 19.2% | 2nd+ Home Purchases 29.6% | Investor Purchases 10.7% | Refinances 24.4% | Top-Ups 12.2% ($ Value) / 43.9% (# Loans)"
+          "formatted": "FHB 19.2% | 2nd+ Home Purchases 29.6% | Investor Purchases (excl. Refi) 10.7% | Refinances 24.4% | Top-Ups 12.2% ($) / 43.9% (C33 counts) | Other 3.9%"
         },
         {
           "period": "2025-08",
           "label": "Aug 2025",
           "value": 19.45,
-          "formatted": "FHB 19.4% | 2nd+ Home Purchases 28.8% | Investor Purchases 10.2% | Refinances 26.0% | Top-Ups 11.9% ($ Value) / 44.1% (# Loans)"
+          "formatted": "FHB 19.4% | 2nd+ Home Purchases 28.8% | Investor Purchases (excl. Refi) 10.2% | Refinances 26.0% | Top-Ups 11.9% ($) / 44.1% (C33 counts) | Other 3.6%"
         },
         {
           "period": "2025-07",
           "label": "Jul 2025",
           "value": 19.38,
-          "formatted": "FHB 19.4% | 2nd+ Home Purchases 27.6% | Investor Purchases 10.0% | Refinances 28.8% | Top-Ups 10.7% ($ Value) / 42.7% (# Loans)"
+          "formatted": "FHB 19.4% | 2nd+ Home Purchases 27.6% | Investor Purchases (excl. Refi) 10.0% | Refinances 28.8% | Top-Ups 10.7% ($) / 42.7% (C33 counts) | Other 3.5%"
         },
         {
           "period": "2025-06",
           "label": "Jun 2025",
           "value": 18.41,
-          "formatted": "FHB 18.4% | 2nd+ Home Purchases 27.2% | Investor Purchases 10.1% | Refinances 30.0% | Top-Ups 10.3% ($ Value) / 41.8% (# Loans)"
+          "formatted": "FHB 18.4% | 2nd+ Home Purchases 27.2% | Investor Purchases (excl. Refi) 10.1% | Refinances 30.0% | Top-Ups 10.3% ($) / 41.8% (C33 counts) | Other 4.1%"
         },
         {
           "period": "2025-05",
           "label": "May 2025",
           "value": 19.15,
-          "formatted": "FHB 19.1% | 2nd+ Home Purchases 29.4% | Investor Purchases 10.8% | Refinances 25.4% | Top-Ups 12.2% ($ Value) / 43.9% (# Loans)"
+          "formatted": "FHB 19.1% | 2nd+ Home Purchases 29.4% | Investor Purchases (excl. Refi) 10.8% | Refinances 25.4% | Top-Ups 12.2% ($) / 43.9% (C33 counts) | Other 3.1%"
         },
         {
           "period": "2025-04",
           "label": "Apr 2025",
           "value": 20.36,
-          "formatted": "FHB 20.4% | 2nd+ Home Purchases 31.4% | Investor Purchases 10.8% | Refinances 23.0% | Top-Ups 11.2% ($ Value) / 42.6% (# Loans)"
+          "formatted": "FHB 20.4% | 2nd+ Home Purchases 31.4% | Investor Purchases (excl. Refi) 10.8% | Refinances 23.0% | Top-Ups 11.2% ($) / 42.6% (C33 counts) | Other 3.3%"
         },
         {
           "period": "2025-03",
           "label": "Mar 2025",
           "value": 19.67,
-          "formatted": "FHB 19.7% | 2nd+ Home Purchases 30.1% | Investor Purchases 10.9% | Refinances 24.8% | Top-Ups 11.1% ($ Value) / 42.6% (# Loans)"
+          "formatted": "FHB 19.7% | 2nd+ Home Purchases 30.1% | Investor Purchases (excl. Refi) 10.9% | Refinances 24.8% | Top-Ups 11.1% ($) / 42.6% (C33 counts) | Other 3.5%"
         },
         {
           "period": "2025-02",
           "label": "Feb 2025",
           "value": 19.04,
-          "formatted": "FHB 19.0% | 2nd+ Home Purchases 29.8% | Investor Purchases 10.5% | Refinances 24.4% | Top-Ups 13.2% ($ Value) / 47.4% (# Loans)"
+          "formatted": "FHB 19.0% | 2nd+ Home Purchases 29.8% | Investor Purchases (excl. Refi) 10.5% | Refinances 24.4% | Top-Ups 13.2% ($) / 47.4% (C33 counts) | Other 3.0%"
         },
         {
           "period": "2025-01",
           "label": "Jan 2025",
           "value": 20.19,
-          "formatted": "FHB 20.2% | 2nd+ Home Purchases 31.3% | Investor Purchases 12.5% | Refinances 22.0% | Top-Ups 11.0% ($ Value) / 45.8% (# Loans)"
+          "formatted": "FHB 20.2% | 2nd+ Home Purchases 31.3% | Investor Purchases (excl. Refi) 12.5% | Refinances 22.0% | Top-Ups 11.0% ($) / 45.8% (C33 counts) | Other 3.1%"
         },
         {
           "period": "2024-12",
           "label": "Dec 2024",
           "value": 19.86,
-          "formatted": "FHB 19.9% | 2nd+ Home Purchases 30.0% | Investor Purchases 10.7% | Refinances 25.4% | Top-Ups 11.1% ($ Value) / 41.2% (# Loans)"
+          "formatted": "FHB 19.9% | 2nd+ Home Purchases 30.0% | Investor Purchases (excl. Refi) 10.7% | Refinances 25.4% | Top-Ups 11.1% ($) / 41.2% (C33 counts) | Other 2.8%"
         },
         {
           "period": "2024-11",
           "label": "Nov 2024",
           "value": 20.23,
-          "formatted": "FHB 20.2% | 2nd+ Home Purchases 31.1% | Investor Purchases 11.8% | Refinances 22.6% | Top-Ups 11.2% ($ Value) / 41.4% (# Loans)"
+          "formatted": "FHB 20.2% | 2nd+ Home Purchases 31.1% | Investor Purchases (excl. Refi) 11.8% | Refinances 22.6% | Top-Ups 11.2% ($) / 41.4% (C33 counts) | Other 3.1%"
         },
         {
           "period": "2024-10",
           "label": "Oct 2024",
           "value": 20.74,
-          "formatted": "FHB 20.7% | 2nd+ Home Purchases 29.9% | Investor Purchases 11.3% | Refinances 24.6% | Top-Ups 10.5% ($ Value) / 41.4% (# Loans)"
+          "formatted": "FHB 20.7% | 2nd+ Home Purchases 29.9% | Investor Purchases (excl. Refi) 11.3% | Refinances 24.6% | Top-Ups 10.5% ($) / 41.4% (C33 counts) | Other 3.1%"
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C31 (September 2026 Borrower Type): FHB = 20.3% ($1,530m), Other Owner-Occupiers = 60.2% ($4,534m), Investors = 17.7% ($1,335m). RBNZ Table C33 (September 2026 Loan Purpose): Purchases = 59.3% ($4,468m), Refinances = 22.9% ($1,729m), Top-Ups = 12.8% of dollars ($962m) / 46.4% of loan count (9,639 loans).",
-      "hlf_calculation": "Combined 100% ($ Value, September 2026): FHB 20.3% + 2nd+ Home Purchases 30.1% + Investor Purchases 8.9% + Refinances 22.9% + Top-Ups 12.8% + Other 5.0% = 100.0% (Top-Ups = 46.4% of loan commitments [9,639 of 20,763 loans], but 12.8% of dollar value [$962m of $7,533m])",
+      "official_data": "RBNZ Table C31 (September 2026 Borrower Type): FHB = 20.3% ($1,530m), Other Owner-Occupiers = 60.2% ($4,534m), Investors = 17.7% ($1,335m). RBNZ Table C33 (September 2026 Loan Purpose): Purchases = 59.3% ($4,468m), Refinances = 22.9% ($1,729m), Top-Ups = 12.8% of dollars ($962m) / 46.4% of C33 purpose counts (9,639 counts), Other Purposes = 5.0% ($374m).",
+      "hlf_calculation": "6-Category Reconciled ($ Value, September 2026): FHB 20.3% + 2nd+ Home Purchases 30.1% + Investor Purchases (excl. Refi) 8.9% + Refinances 22.9% + Top-Ups 12.8% + Other Purposes (incl. bridging) 5.0% = 100.0% (Top-Ups represented 46.4% of the C33 purpose-count measure [9,639 of 20,763 counts], vs 12.8% of dollar value [$962m of $7,533m])",
       "frequency": "Monthly",
       "timeline_series": [
         {
@@ -17744,8 +18034,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 6.64,
-            "second_home_purchases": 21.3,
-            "investor_purchases": 3.92,
+            "second_home_purchases": 18.19,
+            "investor_purchases": 7.03,
             "refinances": 6.89,
             "topups": 58.26,
             "other": 2.99
@@ -17810,8 +18100,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 7.06,
-            "second_home_purchases": 21.91,
-            "investor_purchases": 4.12,
+            "second_home_purchases": 18.91,
+            "investor_purchases": 7.12,
             "refinances": 7.5,
             "topups": 56.05,
             "other": 3.36
@@ -17876,8 +18166,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 7.43,
-            "second_home_purchases": 23.03,
-            "investor_purchases": 4.63,
+            "second_home_purchases": 19.9,
+            "investor_purchases": 7.76,
             "refinances": 7.66,
             "topups": 54.13,
             "other": 3.12
@@ -17942,8 +18232,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 7.76,
-            "second_home_purchases": 24.15,
-            "investor_purchases": 4.88,
+            "second_home_purchases": 20.45,
+            "investor_purchases": 8.58,
             "refinances": 7.53,
             "topups": 52.78,
             "other": 2.9
@@ -18008,8 +18298,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 8.02,
-            "second_home_purchases": 23.45,
-            "investor_purchases": 4.9,
+            "second_home_purchases": 20.06,
+            "investor_purchases": 8.29,
             "refinances": 8.05,
             "topups": 52.62,
             "other": 2.96
@@ -18074,8 +18364,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 7.85,
-            "second_home_purchases": 22.76,
-            "investor_purchases": 4.68,
+            "second_home_purchases": 19.69,
+            "investor_purchases": 7.75,
             "refinances": 8.26,
             "topups": 53.42,
             "other": 3.03
@@ -18140,8 +18430,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 7.83,
-            "second_home_purchases": 22.74,
-            "investor_purchases": 4.44,
+            "second_home_purchases": 20.05,
+            "investor_purchases": 7.13,
             "refinances": 8.56,
             "topups": 53.49,
             "other": 2.94
@@ -18206,8 +18496,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 7.77,
-            "second_home_purchases": 22.53,
-            "investor_purchases": 4.3,
+            "second_home_purchases": 19.82,
+            "investor_purchases": 7.01,
             "refinances": 8.2,
             "topups": 54.05,
             "other": 3.15
@@ -18272,8 +18562,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 7.81,
-            "second_home_purchases": 19.49,
-            "investor_purchases": 3.71,
+            "second_home_purchases": 16.9,
+            "investor_purchases": 6.3,
             "refinances": 8.48,
             "topups": 57.64,
             "other": 2.87
@@ -18338,8 +18628,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 8.36,
-            "second_home_purchases": 19.35,
-            "investor_purchases": 3.7,
+            "second_home_purchases": 16.77,
+            "investor_purchases": 6.28,
             "refinances": 7.76,
             "topups": 57.91,
             "other": 2.92
@@ -18404,8 +18694,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 7.95,
-            "second_home_purchases": 19.55,
-            "investor_purchases": 3.52,
+            "second_home_purchases": 17.22,
+            "investor_purchases": 5.85,
             "refinances": 8.25,
             "topups": 57.64,
             "other": 3.09
@@ -18470,8 +18760,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 8.42,
-            "second_home_purchases": 19.35,
-            "investor_purchases": 3.45,
+            "second_home_purchases": 17.12,
+            "investor_purchases": 5.68,
             "refinances": 8.21,
             "topups": 57.53,
             "other": 3.04
@@ -18536,8 +18826,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 7.52,
-            "second_home_purchases": 18.05,
-            "investor_purchases": 3.25,
+            "second_home_purchases": 15.95,
+            "investor_purchases": 5.35,
             "refinances": 6.76,
             "topups": 61.57,
             "other": 2.85
@@ -18602,8 +18892,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 8.29,
-            "second_home_purchases": 18.61,
-            "investor_purchases": 3.69,
+            "second_home_purchases": 16.36,
+            "investor_purchases": 5.94,
             "refinances": 7.51,
             "topups": 59.11,
             "other": 2.79
@@ -18668,8 +18958,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 8.9,
-            "second_home_purchases": 19.46,
-            "investor_purchases": 4.08,
+            "second_home_purchases": 16.92,
+            "investor_purchases": 6.62,
             "refinances": 8.43,
             "topups": 56.08,
             "other": 3.05
@@ -18734,8 +19024,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 9.84,
-            "second_home_purchases": 19.7,
-            "investor_purchases": 4.22,
+            "second_home_purchases": 17.13,
+            "investor_purchases": 6.79,
             "refinances": 8.41,
             "topups": 54.83,
             "other": 3.0
@@ -18800,8 +19090,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.16,
-            "second_home_purchases": 19.79,
-            "investor_purchases": 4.37,
+            "second_home_purchases": 17.18,
+            "investor_purchases": 6.98,
             "refinances": 8.5,
             "topups": 54.21,
             "other": 2.97
@@ -18866,8 +19156,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 9.1,
-            "second_home_purchases": 19.22,
-            "investor_purchases": 4.12,
+            "second_home_purchases": 16.76,
+            "investor_purchases": 6.58,
             "refinances": 9.23,
             "topups": 55.35,
             "other": 2.98
@@ -18932,8 +19222,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 9.79,
-            "second_home_purchases": 18.45,
-            "investor_purchases": 4.1,
+            "second_home_purchases": 16.02,
+            "investor_purchases": 6.53,
             "refinances": 9.44,
             "topups": 55.08,
             "other": 3.14
@@ -18998,8 +19288,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 9.21,
-            "second_home_purchases": 18.6,
-            "investor_purchases": 3.82,
+            "second_home_purchases": 16.21,
+            "investor_purchases": 6.21,
             "refinances": 8.64,
             "topups": 56.78,
             "other": 2.95
@@ -19064,8 +19354,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.17,
-            "second_home_purchases": 18.92,
-            "investor_purchases": 3.79,
+            "second_home_purchases": 16.8,
+            "investor_purchases": 5.91,
             "refinances": 8.17,
             "topups": 55.84,
             "other": 3.11
@@ -19130,8 +19420,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.03,
-            "second_home_purchases": 20.17,
-            "investor_purchases": 3.24,
+            "second_home_purchases": 18.1,
+            "investor_purchases": 5.31,
             "refinances": 8.07,
             "topups": 55.64,
             "other": 2.85
@@ -19196,8 +19486,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 9.85,
-            "second_home_purchases": 19.7,
-            "investor_purchases": 3.17,
+            "second_home_purchases": 18.01,
+            "investor_purchases": 4.86,
             "refinances": 8.74,
             "topups": 55.41,
             "other": 3.13
@@ -19262,8 +19552,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.29,
-            "second_home_purchases": 19.5,
-            "investor_purchases": 3.15,
+            "second_home_purchases": 17.76,
+            "investor_purchases": 4.89,
             "refinances": 9.97,
             "topups": 53.99,
             "other": 3.1
@@ -19328,8 +19618,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 9.43,
-            "second_home_purchases": 18.34,
-            "investor_purchases": 2.94,
+            "second_home_purchases": 16.61,
+            "investor_purchases": 4.67,
             "refinances": 7.3,
             "topups": 59.12,
             "other": 2.87
@@ -19394,8 +19684,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 9.79,
-            "second_home_purchases": 18.72,
-            "investor_purchases": 3.09,
+            "second_home_purchases": 16.91,
+            "investor_purchases": 4.9,
             "refinances": 7.95,
             "topups": 57.36,
             "other": 3.09
@@ -19460,8 +19750,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.16,
-            "second_home_purchases": 19.71,
-            "investor_purchases": 3.48,
+            "second_home_purchases": 17.77,
+            "investor_purchases": 5.42,
             "refinances": 8.02,
             "topups": 55.38,
             "other": 3.25
@@ -19526,8 +19816,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.44,
-            "second_home_purchases": 20.4,
-            "investor_purchases": 3.48,
+            "second_home_purchases": 18.56,
+            "investor_purchases": 5.32,
             "refinances": 8.04,
             "topups": 54.34,
             "other": 3.3
@@ -19592,8 +19882,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.65,
-            "second_home_purchases": 19.8,
-            "investor_purchases": 3.35,
+            "second_home_purchases": 18.13,
+            "investor_purchases": 5.02,
             "refinances": 8.48,
             "topups": 54.48,
             "other": 3.24
@@ -19658,8 +19948,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.44,
-            "second_home_purchases": 20.12,
-            "investor_purchases": 3.6,
+            "second_home_purchases": 18.27,
+            "investor_purchases": 5.45,
             "refinances": 9.41,
             "topups": 52.94,
             "other": 3.49
@@ -19724,8 +20014,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.5,
-            "second_home_purchases": 20.05,
-            "investor_purchases": 3.56,
+            "second_home_purchases": 18.17,
+            "investor_purchases": 5.44,
             "refinances": 8.65,
             "topups": 53.67,
             "other": 3.57
@@ -19790,8 +20080,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 9.93,
-            "second_home_purchases": 18.81,
-            "investor_purchases": 3.25,
+            "second_home_purchases": 16.94,
+            "investor_purchases": 5.12,
             "refinances": 8.33,
             "topups": 56.2,
             "other": 3.48
@@ -19856,8 +20146,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 9.8,
-            "second_home_purchases": 19.04,
-            "investor_purchases": 3.32,
+            "second_home_purchases": 17.01,
+            "investor_purchases": 5.35,
             "refinances": 8.34,
             "topups": 56.24,
             "other": 3.26
@@ -19922,8 +20212,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.51,
-            "second_home_purchases": 19.76,
-            "investor_purchases": 3.57,
+            "second_home_purchases": 17.64,
+            "investor_purchases": 5.69,
             "refinances": 8.21,
             "topups": 54.92,
             "other": 3.03
@@ -19988,8 +20278,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.04,
-            "second_home_purchases": 20.62,
-            "investor_purchases": 3.72,
+            "second_home_purchases": 18.29,
+            "investor_purchases": 6.05,
             "refinances": 8.51,
             "topups": 52.89,
             "other": 3.22
@@ -20054,8 +20344,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.22,
-            "second_home_purchases": 20.65,
-            "investor_purchases": 3.86,
+            "second_home_purchases": 18.48,
+            "investor_purchases": 6.03,
             "refinances": 8.63,
             "topups": 52.62,
             "other": 3.02
@@ -20120,8 +20410,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.29,
-            "second_home_purchases": 19.61,
-            "investor_purchases": 3.34,
+            "second_home_purchases": 17.2,
+            "investor_purchases": 5.75,
             "refinances": 7.06,
             "topups": 56.73,
             "other": 2.97
@@ -20186,8 +20476,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.05,
-            "second_home_purchases": 21.39,
-            "investor_purchases": 3.95,
+            "second_home_purchases": 19.14,
+            "investor_purchases": 6.2,
             "refinances": 7.65,
             "topups": 53.97,
             "other": 2.99
@@ -20252,8 +20542,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.92,
-            "second_home_purchases": 22.15,
-            "investor_purchases": 4.53,
+            "second_home_purchases": 19.68,
+            "investor_purchases": 7.0,
             "refinances": 7.84,
             "topups": 51.25,
             "other": 3.31
@@ -20318,8 +20608,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.08,
-            "second_home_purchases": 22.35,
-            "investor_purchases": 4.57,
+            "second_home_purchases": 20.14,
+            "investor_purchases": 6.78,
             "refinances": 8.19,
             "topups": 50.26,
             "other": 3.55
@@ -20384,8 +20674,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.36,
-            "second_home_purchases": 22.73,
-            "investor_purchases": 4.51,
+            "second_home_purchases": 20.28,
+            "investor_purchases": 6.96,
             "refinances": 7.5,
             "topups": 50.54,
             "other": 3.36
@@ -20450,8 +20740,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.99,
-            "second_home_purchases": 19.47,
-            "investor_purchases": 3.8,
+            "second_home_purchases": 17.57,
+            "investor_purchases": 5.7,
             "refinances": 7.07,
             "topups": 55.3,
             "other": 3.37
@@ -20516,8 +20806,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.54,
-            "second_home_purchases": 19.92,
-            "investor_purchases": 4.74,
+            "second_home_purchases": 17.8,
+            "investor_purchases": 6.86,
             "refinances": 6.95,
             "topups": 53.58,
             "other": 3.27
@@ -20582,8 +20872,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.1,
-            "second_home_purchases": 22.26,
-            "investor_purchases": 5.2,
+            "second_home_purchases": 20.08,
+            "investor_purchases": 7.38,
             "refinances": 6.81,
             "topups": 50.28,
             "other": 3.35
@@ -20648,8 +20938,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.84,
-            "second_home_purchases": 22.55,
-            "investor_purchases": 5.57,
+            "second_home_purchases": 20.2,
+            "investor_purchases": 7.92,
             "refinances": 6.7,
             "topups": 50.02,
             "other": 3.32
@@ -20714,8 +21004,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.56,
-            "second_home_purchases": 24.32,
-            "investor_purchases": 5.81,
+            "second_home_purchases": 21.13,
+            "investor_purchases": 9.0,
             "refinances": 6.84,
             "topups": 48.04,
             "other": 3.43
@@ -20780,8 +21070,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.46,
-            "second_home_purchases": 25.47,
-            "investor_purchases": 6.26,
+            "second_home_purchases": 22.45,
+            "investor_purchases": 9.28,
             "refinances": 7.37,
             "topups": 45.98,
             "other": 3.46
@@ -20846,8 +21136,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.67,
-            "second_home_purchases": 24.85,
-            "investor_purchases": 6.16,
+            "second_home_purchases": 21.43,
+            "investor_purchases": 9.58,
             "refinances": 7.41,
             "topups": 46.32,
             "other": 3.59
@@ -20912,8 +21202,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.36,
-            "second_home_purchases": 25.06,
-            "investor_purchases": 5.61,
+            "second_home_purchases": 21.17,
+            "investor_purchases": 9.5,
             "refinances": 6.72,
             "topups": 48.81,
             "other": 3.44
@@ -20978,8 +21268,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 9.81,
-            "second_home_purchases": 23.6,
-            "investor_purchases": 5.01,
+            "second_home_purchases": 20.35,
+            "investor_purchases": 8.26,
             "refinances": 7.53,
             "topups": 50.84,
             "other": 3.21
@@ -21044,8 +21334,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.7,
-            "second_home_purchases": 23.67,
-            "investor_purchases": 4.93,
+            "second_home_purchases": 21.01,
+            "investor_purchases": 7.59,
             "refinances": 7.92,
             "topups": 49.02,
             "other": 3.76
@@ -21110,8 +21400,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.46,
-            "second_home_purchases": 22.75,
-            "investor_purchases": 4.2,
+            "second_home_purchases": 20.45,
+            "investor_purchases": 6.5,
             "refinances": 8.29,
             "topups": 49.5,
             "other": 3.8
@@ -21176,8 +21466,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.82,
-            "second_home_purchases": 21.72,
-            "investor_purchases": 3.5,
+            "second_home_purchases": 19.72,
+            "investor_purchases": 5.5,
             "refinances": 8.47,
             "topups": 50.74,
             "other": 3.75
@@ -21242,8 +21532,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.59,
-            "second_home_purchases": 20.76,
-            "investor_purchases": 3.22,
+            "second_home_purchases": 18.94,
+            "investor_purchases": 5.04,
             "refinances": 9.53,
             "topups": 51.25,
             "other": 3.65
@@ -21308,8 +21598,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.01,
-            "second_home_purchases": 20.85,
-            "investor_purchases": 3.23,
+            "second_home_purchases": 19.13,
+            "investor_purchases": 4.95,
             "refinances": 9.63,
             "topups": 51.64,
             "other": 3.64
@@ -21374,8 +21664,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.55,
-            "second_home_purchases": 21.84,
-            "investor_purchases": 3.46,
+            "second_home_purchases": 20.13,
+            "investor_purchases": 5.17,
             "refinances": 10.6,
             "topups": 50.0,
             "other": 3.55
@@ -21440,8 +21730,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 10.72,
-            "second_home_purchases": 21.81,
-            "investor_purchases": 3.62,
+            "second_home_purchases": 19.92,
+            "investor_purchases": 5.51,
             "refinances": 10.73,
             "topups": 48.98,
             "other": 4.14
@@ -21506,8 +21796,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.23,
-            "second_home_purchases": 23.29,
-            "investor_purchases": 3.86,
+            "second_home_purchases": 21.42,
+            "investor_purchases": 5.73,
             "refinances": 9.15,
             "topups": 47.79,
             "other": 3.68
@@ -21572,8 +21862,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.77,
-            "second_home_purchases": 24.77,
-            "investor_purchases": 4.11,
+            "second_home_purchases": 22.83,
+            "investor_purchases": 6.05,
             "refinances": 8.65,
             "topups": 46.07,
             "other": 3.63
@@ -21638,8 +21928,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.04,
-            "second_home_purchases": 26.4,
-            "investor_purchases": 4.45,
+            "second_home_purchases": 24.42,
+            "investor_purchases": 6.43,
             "refinances": 7.83,
             "topups": 44.4,
             "other": 3.88
@@ -21704,8 +21994,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.78,
-            "second_home_purchases": 25.34,
-            "investor_purchases": 4.16,
+            "second_home_purchases": 23.22,
+            "investor_purchases": 6.28,
             "refinances": 8.3,
             "topups": 46.07,
             "other": 4.35
@@ -21770,8 +22060,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.3,
-            "second_home_purchases": 26.05,
-            "investor_purchases": 4.51,
+            "second_home_purchases": 23.71,
+            "investor_purchases": 6.85,
             "refinances": 7.8,
             "topups": 46.35,
             "other": 3.99
@@ -21836,8 +22126,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.42,
-            "second_home_purchases": 25.72,
-            "investor_purchases": 4.34,
+            "second_home_purchases": 23.66,
+            "investor_purchases": 6.4,
             "refinances": 8.36,
             "topups": 45.61,
             "other": 4.55
@@ -21902,8 +22192,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.83,
-            "second_home_purchases": 25.11,
-            "investor_purchases": 4.51,
+            "second_home_purchases": 23.2,
+            "investor_purchases": 6.42,
             "refinances": 9.38,
             "topups": 43.69,
             "other": 4.48
@@ -21968,8 +22258,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.29,
-            "second_home_purchases": 24.68,
-            "investor_purchases": 4.5,
+            "second_home_purchases": 22.77,
+            "investor_purchases": 6.41,
             "refinances": 10.29,
             "topups": 42.5,
             "other": 4.74
@@ -22034,8 +22324,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.61,
-            "second_home_purchases": 24.34,
-            "investor_purchases": 4.32,
+            "second_home_purchases": 22.47,
+            "investor_purchases": 6.19,
             "refinances": 12.06,
             "topups": 42.55,
             "other": 4.12
@@ -22100,8 +22390,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.89,
-            "second_home_purchases": 23.71,
-            "investor_purchases": 3.78,
+            "second_home_purchases": 22.07,
+            "investor_purchases": 5.42,
             "refinances": 11.64,
             "topups": 44.05,
             "other": 3.93
@@ -22166,8 +22456,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.08,
-            "second_home_purchases": 22.19,
-            "investor_purchases": 3.61,
+            "second_home_purchases": 20.27,
+            "investor_purchases": 5.53,
             "refinances": 10.18,
             "topups": 47.04,
             "other": 3.9
@@ -22232,8 +22522,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.63,
-            "second_home_purchases": 21.61,
-            "investor_purchases": 3.22,
+            "second_home_purchases": 19.83,
+            "investor_purchases": 5.0,
             "refinances": 10.59,
             "topups": 48.02,
             "other": 3.93
@@ -22298,8 +22588,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.12,
-            "second_home_purchases": 22.46,
-            "investor_purchases": 3.57,
+            "second_home_purchases": 20.54,
+            "investor_purchases": 5.49,
             "refinances": 10.98,
             "topups": 45.0,
             "other": 3.87
@@ -22364,8 +22654,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.31,
-            "second_home_purchases": 21.84,
-            "investor_purchases": 3.58,
+            "second_home_purchases": 20.15,
+            "investor_purchases": 5.27,
             "refinances": 11.04,
             "topups": 44.01,
             "other": 5.22
@@ -22430,8 +22720,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.96,
-            "second_home_purchases": 22.12,
-            "investor_purchases": 4.0,
+            "second_home_purchases": 20.06,
+            "investor_purchases": 6.06,
             "refinances": 11.13,
             "topups": 42.56,
             "other": 6.23
@@ -22496,8 +22786,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.43,
-            "second_home_purchases": 19.96,
-            "investor_purchases": 2.82,
+            "second_home_purchases": 18.13,
+            "investor_purchases": 4.65,
             "refinances": 9.82,
             "topups": 48.03,
             "other": 5.94
@@ -22562,8 +22852,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.25,
-            "second_home_purchases": 20.7,
-            "investor_purchases": 3.3,
+            "second_home_purchases": 18.92,
+            "investor_purchases": 5.08,
             "refinances": 11.33,
             "topups": 44.79,
             "other": 6.63
@@ -22628,8 +22918,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.65,
-            "second_home_purchases": 19.91,
-            "investor_purchases": 3.56,
+            "second_home_purchases": 18.15,
+            "investor_purchases": 5.32,
             "refinances": 15.79,
             "topups": 41.06,
             "other": 6.03
@@ -22694,8 +22984,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 15.58,
-            "second_home_purchases": 20.8,
-            "investor_purchases": 3.72,
+            "second_home_purchases": 19.04,
+            "investor_purchases": 5.48,
             "refinances": 12.78,
             "topups": 41.09,
             "other": 6.03
@@ -22760,8 +23050,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 15.73,
-            "second_home_purchases": 21.26,
-            "investor_purchases": 3.57,
+            "second_home_purchases": 19.18,
+            "investor_purchases": 5.65,
             "refinances": 12.21,
             "topups": 41.2,
             "other": 6.03
@@ -22826,8 +23116,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 15.78,
-            "second_home_purchases": 22.59,
-            "investor_purchases": 3.96,
+            "second_home_purchases": 20.65,
+            "investor_purchases": 5.9,
             "refinances": 12.65,
             "topups": 39.58,
             "other": 5.44
@@ -22892,8 +23182,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 15.96,
-            "second_home_purchases": 22.76,
-            "investor_purchases": 3.93,
+            "second_home_purchases": 20.52,
+            "investor_purchases": 6.17,
             "refinances": 12.59,
             "topups": 40.01,
             "other": 4.75
@@ -22958,8 +23248,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 15.55,
-            "second_home_purchases": 22.84,
-            "investor_purchases": 4.06,
+            "second_home_purchases": 20.77,
+            "investor_purchases": 6.13,
             "refinances": 13.15,
             "topups": 39.71,
             "other": 4.69
@@ -23024,8 +23314,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.92,
-            "second_home_purchases": 21.8,
-            "investor_purchases": 3.75,
+            "second_home_purchases": 19.63,
+            "investor_purchases": 5.92,
             "refinances": 12.64,
             "topups": 41.8,
             "other": 5.09
@@ -23090,8 +23380,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 15.48,
-            "second_home_purchases": 22.59,
-            "investor_purchases": 4.28,
+            "second_home_purchases": 20.51,
+            "investor_purchases": 6.36,
             "refinances": 12.38,
             "topups": 42.59,
             "other": 2.68
@@ -23156,8 +23446,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 15.84,
-            "second_home_purchases": 22.9,
-            "investor_purchases": 4.11,
+            "second_home_purchases": 20.75,
+            "investor_purchases": 6.26,
             "refinances": 12.4,
             "topups": 41.76,
             "other": 2.99
@@ -23222,8 +23512,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 15.91,
-            "second_home_purchases": 23.25,
-            "investor_purchases": 4.13,
+            "second_home_purchases": 21.11,
+            "investor_purchases": 6.27,
             "refinances": 10.23,
             "topups": 42.29,
             "other": 4.19
@@ -23288,8 +23578,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.54,
-            "second_home_purchases": 20.98,
-            "investor_purchases": 3.55,
+            "second_home_purchases": 18.67,
+            "investor_purchases": 5.86,
             "refinances": 10.2,
             "topups": 47.46,
             "other": 3.27
@@ -23354,8 +23644,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.03,
-            "second_home_purchases": 22.03,
-            "investor_purchases": 3.76,
+            "second_home_purchases": 19.91,
+            "investor_purchases": 5.88,
             "refinances": 10.6,
             "topups": 45.92,
             "other": 3.66
@@ -23420,8 +23710,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.99,
-            "second_home_purchases": 22.06,
-            "investor_purchases": 4.04,
+            "second_home_purchases": 19.98,
+            "investor_purchases": 6.12,
             "refinances": 11.73,
             "topups": 44.02,
             "other": 3.16
@@ -23486,8 +23776,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.45,
-            "second_home_purchases": 22.53,
-            "investor_purchases": 4.51,
+            "second_home_purchases": 20.02,
+            "investor_purchases": 7.02,
             "refinances": 12.34,
             "topups": 42.75,
             "other": 3.42
@@ -23552,8 +23842,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.72,
-            "second_home_purchases": 21.94,
-            "investor_purchases": 4.31,
+            "second_home_purchases": 19.83,
+            "investor_purchases": 6.42,
             "refinances": 14.16,
             "topups": 41.9,
             "other": 2.97
@@ -23618,8 +23908,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 15.04,
-            "second_home_purchases": 20.81,
-            "investor_purchases": 4.08,
+            "second_home_purchases": 18.83,
+            "investor_purchases": 6.06,
             "refinances": 15.35,
             "topups": 41.48,
             "other": 3.24
@@ -23684,8 +23974,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.81,
-            "second_home_purchases": 20.95,
-            "investor_purchases": 4.46,
+            "second_home_purchases": 18.66,
+            "investor_purchases": 6.75,
             "refinances": 15.46,
             "topups": 41.37,
             "other": 2.95
@@ -23750,8 +24040,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.63,
-            "second_home_purchases": 20.68,
-            "investor_purchases": 4.31,
+            "second_home_purchases": 18.19,
+            "investor_purchases": 6.8,
             "refinances": 14.8,
             "topups": 43.59,
             "other": 2.99
@@ -23816,8 +24106,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.27,
-            "second_home_purchases": 21.71,
-            "investor_purchases": 4.73,
+            "second_home_purchases": 19.27,
+            "investor_purchases": 7.17,
             "refinances": 13.67,
             "topups": 42.57,
             "other": 3.05
@@ -23882,8 +24172,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.35,
-            "second_home_purchases": 22.11,
-            "investor_purchases": 4.75,
+            "second_home_purchases": 19.5,
+            "investor_purchases": 7.36,
             "refinances": 14.63,
             "topups": 41.43,
             "other": 2.73
@@ -23948,8 +24238,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.01,
-            "second_home_purchases": 23.21,
-            "investor_purchases": 5.17,
+            "second_home_purchases": 20.57,
+            "investor_purchases": 7.81,
             "refinances": 13.24,
             "topups": 41.43,
             "other": 2.94
@@ -24014,8 +24304,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.21,
-            "second_home_purchases": 22.37,
-            "investor_purchases": 4.69,
+            "second_home_purchases": 19.94,
+            "investor_purchases": 7.12,
             "refinances": 14.85,
             "topups": 41.22,
             "other": 2.66
@@ -24080,8 +24370,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.87,
-            "second_home_purchases": 21.78,
-            "investor_purchases": 4.63,
+            "second_home_purchases": 18.88,
+            "investor_purchases": 7.53,
             "refinances": 11.98,
             "topups": 45.76,
             "other": 2.98
@@ -24146,8 +24436,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.26,
-            "second_home_purchases": 20.79,
-            "investor_purchases": 4.12,
+            "second_home_purchases": 18.42,
+            "investor_purchases": 6.49,
             "refinances": 12.56,
             "topups": 47.41,
             "other": 2.86
@@ -24212,8 +24502,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.43,
-            "second_home_purchases": 22.05,
-            "investor_purchases": 4.78,
+            "second_home_purchases": 19.71,
+            "investor_purchases": 7.12,
             "refinances": 14.24,
             "topups": 42.62,
             "other": 2.88
@@ -24278,8 +24568,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.97,
-            "second_home_purchases": 22.27,
-            "investor_purchases": 4.72,
+            "second_home_purchases": 20.11,
+            "investor_purchases": 6.88,
             "refinances": 13.63,
             "topups": 42.64,
             "other": 2.77
@@ -24344,8 +24634,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.07,
-            "second_home_purchases": 21.32,
-            "investor_purchases": 4.58,
+            "second_home_purchases": 18.95,
+            "investor_purchases": 6.95,
             "refinances": 14.37,
             "topups": 43.85,
             "other": 2.81
@@ -24410,8 +24700,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.94,
-            "second_home_purchases": 20.44,
-            "investor_purchases": 4.56,
+            "second_home_purchases": 18.23,
+            "investor_purchases": 6.77,
             "refinances": 17.38,
             "topups": 41.75,
             "other": 2.93
@@ -24476,8 +24766,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.17,
-            "second_home_purchases": 20.15,
-            "investor_purchases": 4.39,
+            "second_home_purchases": 18.0,
+            "investor_purchases": 6.54,
             "refinances": 16.67,
             "topups": 42.67,
             "other": 2.95
@@ -24542,8 +24832,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.95,
-            "second_home_purchases": 20.38,
-            "investor_purchases": 4.23,
+            "second_home_purchases": 18.17,
+            "investor_purchases": 6.44,
             "refinances": 14.83,
             "topups": 44.15,
             "other": 3.46
@@ -24608,8 +24898,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.22,
-            "second_home_purchases": 20.95,
-            "investor_purchases": 4.46,
+            "second_home_purchases": 18.65,
+            "investor_purchases": 6.76,
             "refinances": 14.06,
             "topups": 43.86,
             "other": 3.45
@@ -24674,8 +24964,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.04,
-            "second_home_purchases": 20.67,
-            "investor_purchases": 4.58,
+            "second_home_purchases": 18.22,
+            "investor_purchases": 7.03,
             "refinances": 13.31,
             "topups": 44.2,
             "other": 3.2
@@ -24740,8 +25030,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.97,
-            "second_home_purchases": 22.26,
-            "investor_purchases": 4.65,
+            "second_home_purchases": 19.8,
+            "investor_purchases": 7.11,
             "refinances": 13.95,
             "topups": 42.14,
             "other": 3.03
@@ -24806,8 +25096,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.53,
-            "second_home_purchases": 19.35,
-            "investor_purchases": 4.46,
+            "second_home_purchases": 17.67,
+            "investor_purchases": 6.14,
             "refinances": 28.05,
             "topups": 31.79,
             "other": 3.82
@@ -24872,8 +25162,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 11.66,
-            "second_home_purchases": 17.82,
-            "investor_purchases": 3.65,
+            "second_home_purchases": 15.74,
+            "investor_purchases": 5.73,
             "refinances": 18.49,
             "topups": 44.33,
             "other": 4.05
@@ -24938,8 +25228,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.55,
-            "second_home_purchases": 20.26,
-            "investor_purchases": 3.81,
+            "second_home_purchases": 18.27,
+            "investor_purchases": 5.8,
             "refinances": 12.96,
             "topups": 45.17,
             "other": 4.25
@@ -25004,8 +25294,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 14.18,
-            "second_home_purchases": 20.38,
-            "investor_purchases": 4.14,
+            "second_home_purchases": 18.25,
+            "investor_purchases": 6.27,
             "refinances": 13.54,
             "topups": 43.68,
             "other": 4.08
@@ -25070,8 +25360,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 13.41,
-            "second_home_purchases": 19.29,
-            "investor_purchases": 3.5,
+            "second_home_purchases": 17.44,
+            "investor_purchases": 5.35,
             "refinances": 13.54,
             "topups": 46.45,
             "other": 3.81
@@ -25136,8 +25426,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.58,
-            "second_home_purchases": 19.24,
-            "investor_purchases": 3.53,
+            "second_home_purchases": 17.42,
+            "investor_purchases": 5.35,
             "refinances": 14.74,
             "topups": 45.76,
             "other": 4.15
@@ -25202,8 +25492,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.1,
-            "second_home_purchases": 19.24,
-            "investor_purchases": 3.61,
+            "second_home_purchases": 17.28,
+            "investor_purchases": 5.57,
             "refinances": 15.81,
             "topups": 45.5,
             "other": 3.74
@@ -25268,8 +25558,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.85,
-            "second_home_purchases": 19.17,
-            "investor_purchases": 3.43,
+            "second_home_purchases": 17.17,
+            "investor_purchases": 5.43,
             "refinances": 14.18,
             "topups": 46.25,
             "other": 4.12
@@ -25334,8 +25624,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.81,
-            "second_home_purchases": 19.49,
-            "investor_purchases": 3.52,
+            "second_home_purchases": 17.3,
+            "investor_purchases": 5.71,
             "refinances": 13.91,
             "topups": 46.26,
             "other": 4.01
@@ -25400,8 +25690,8 @@
           },
           "combined_cnt_pct": {
             "fhb": 12.85,
-            "second_home_purchases": 20.06,
-            "investor_purchases": 3.55,
+            "second_home_purchases": 18.24,
+            "investor_purchases": 5.37,
             "refinances": 13.35,
             "topups": 46.42,
             "other": 3.77
@@ -27119,6 +27409,151 @@
       "latest_underlying_data": "September 2026",
       "official_data": "RBNZ Table C31 (September 2026): 14,327 <=80% LVR other owner-occupier borrowers ($4,156m) out of 15,096 total other owner-occupier borrowers.",
       "hlf_calculation": "14,327 \u00f7 15,096 = 94.9% (Mean loan: $4,156m \u00d7 $1m \u00f7 14,327 = $290,082)",
+      "frequency": "Monthly"
+    },
+    {
+      "ticker": "property-purchase-share-of-lending",
+      "name": "Property purchase share of new residential mortgage lending & average purchase loan size (RBNZ Table C33)",
+      "also_known_as": "RBNZ Table C33 Property Purchase mortgage commitments ($m, purpose count & mean purchase commitment size)",
+      "category": "Homeowners & refinancing",
+      "topic": "Property purchase mortgage share & mean purchase loan size",
+      "value": 59.31,
+      "latest_value": "59.3% of lending ($4.47B across 7,570 purchases, avg $590,225)",
+      "unit": "percent",
+      "observation_period": "September 2026",
+      "observed_period": "September 2026",
+      "period_end": "2026-09-30",
+      "source_published": "Monthly RBNZ release",
+      "last_checked": "2026-11-22",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-22",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "September 2025 (59.6% / $4.87B ($4,874m))",
+      "change": "-0.3 percentage points YoY",
+      "source": "RBNZ Table C33",
+      "source_full": "Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33)",
+      "source_series_ids": "LVRN.MMB1.AZC (Property Purchase Value $m) & LVRN.MMB2.AZC (Property Purchase Purpose Count)",
+      "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported RBNZ series & HLF-derived share and mean commitment size",
+      "definition": "The percentage of total new residential mortgage lending value at New Zealand registered banks committed specifically for purchasing a residential property (excluding bank-to-bank refinances and equity top-ups on existing loans), alongside the mean purchase mortgage commitment size.",
+      "formula": "Purchase Share (%) = (Property Purchase Lending [LVRN.MMB1.AZC] \u00f7 Total Purpose Lending) \u00d7 100; Mean Purchase Commitment = LVRN.MMB1.AZC \u00d7 $1m \u00f7 LVRN.MMB2.AZC",
+      "hlf_interpretation": "HLF market context: Isolates new mortgage money used to buy residential property from balance-sheet churn (refinancing between banks) and smaller equity top-ups. Because top-ups are excluded, the mean property purchase commitment size in Table C33 provides a cleaner benchmark of typical home purchase borrowing than all-purpose borrower averages.",
+      "methodology": "Derived live from RBNZ Table C33 by dividing property purchase lending value (LVRN.MMB1.AZC) by total new lending across all loan purposes, and dividing property purchase lending value by property purchase purpose count (LVRN.MMB2.AZC). Combines first-home buyer, second+ home mover, and residential investor property acquisitions.",
+      "historical_data_from": "Available from January 2017 (117 monthly observations)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"Property purchase share of new residential mortgage lending & average purchase loan size (RBNZ Table C33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/property-purchase-share-of-lending/ (checked 22 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/property-purchase-share-of-lending/",
+      "summary_text": "In September 2026, 59.3% of new residential mortgage lending dollars at New Zealand registered banks ($4.47B ($4,468m) across 7,570 purchase commitments) was committed specifically for property purchases (down from 59.6% a year earlier), at an average purchase mortgage size of $590,225.",
+      "related_questions": [
+        "What percentage of New Zealand mortgage lending is used to buy a property versus refinancing or topping up?",
+        "What is the average mortgage size for a property purchase in New Zealand?"
+      ],
+      "citation_chain": {
+        "official_publisher": "Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33)",
+        "official_source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
+        "official_series_ids": "LVRN.MMB1.AZC (Property Purchase Value $m) & LVRN.MMB2.AZC (Property Purchase Purpose Count)",
+        "observation_period": "September 2026",
+        "period_end": "2026-09-30",
+        "source_published": "Monthly RBNZ release",
+        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
+        "hlf_calculation": "$4,468m \u00f7 $7,533m = 59.3% (Mean purchase commitment: $4,468m \u00d7 $1m \u00f7 7,570 = $590,225)",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/property-purchase-share-of-lending/",
+        "license": "CC BY 4.0"
+      },
+      "history": [
+        {
+          "period": "2026-09",
+          "label": "Sep 2026",
+          "value": 59.31,
+          "formatted": "59.3%"
+        },
+        {
+          "period": "2026-08",
+          "label": "Aug 2026",
+          "value": 57.87,
+          "formatted": "57.9%"
+        },
+        {
+          "period": "2026-07",
+          "label": "Jul 2026",
+          "value": 57.37,
+          "formatted": "57.4%"
+        },
+        {
+          "period": "2026-06",
+          "label": "Jun 2026",
+          "value": 55.93,
+          "formatted": "55.9%"
+        },
+        {
+          "period": "2026-05",
+          "label": "May 2026",
+          "value": 57.44,
+          "formatted": "57.4%"
+        },
+        {
+          "period": "2026-04",
+          "label": "Apr 2026",
+          "value": 58.7,
+          "formatted": "58.7%"
+        },
+        {
+          "period": "2026-03",
+          "label": "Mar 2026",
+          "value": 59.56,
+          "formatted": "59.6%"
+        },
+        {
+          "period": "2026-02",
+          "label": "Feb 2026",
+          "value": 59.62,
+          "formatted": "59.6%"
+        },
+        {
+          "period": "2026-01",
+          "label": "Jan 2026",
+          "value": 51.68,
+          "formatted": "51.7%"
+        },
+        {
+          "period": "2025-12",
+          "label": "Dec 2025",
+          "value": 47.31,
+          "formatted": "47.3%"
+        },
+        {
+          "period": "2025-11",
+          "label": "Nov 2025",
+          "value": 61.59,
+          "formatted": "61.6%"
+        },
+        {
+          "period": "2025-10",
+          "label": "Oct 2025",
+          "value": 60.77,
+          "formatted": "60.8%"
+        },
+        {
+          "period": "2025-09",
+          "label": "Sep 2025",
+          "value": 59.58,
+          "formatted": "59.6%"
+        }
+      ],
+      "latest_underlying_data": "September 2026",
+      "official_data": "RBNZ Table C33 (September 2026): Property purchase lending = $4,468m (LVRN.MMB1.AZC) across 7,570 commitments (LVRN.MMB2.AZC) out of $7,533m total purpose lending.",
+      "hlf_calculation": "$4,468m \u00f7 $7,533m = 59.3% (Mean purchase commitment: $4,468m \u00d7 $1m \u00f7 7,570 = $590,225)",
       "frequency": "Monthly"
     },
     {
@@ -29182,7 +29617,7 @@
       "category": "Homeowners & refinancing",
       "topic": "Mortgage top-ups & equity release",
       "value": 46.42,
-      "latest_value": "46.4% of commitments (9,639 top-ups, avg $99,803)",
+      "latest_value": "46.4% of C33 purpose counts (9,639 top-ups, avg $99,803)",
       "unit": "percent",
       "observation_period": "September 2026",
       "observed_period": "September 2026",
@@ -29218,7 +29653,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"Mortgage top-up share of new loan commitments & average top-up amount (RBNZ Table C33),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 New residential mortgage lending by purpose (Table C33). https://pulse-data.homeloanfactory.co.nz/top-ups/ (checked 22 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/top-ups/",
-      "summary_text": "In September 2026, 9,639 mortgage top-up commitments were recorded on existing properties\u2014accounting for 46.4% of all mortgage commitments by purpose across New Zealand registered banks, with an average top-up of $99,803.",
+      "summary_text": "In September 2026, 9,639 mortgage top-up commitments were recorded on existing properties\u2014representing 46.4% of the RBNZ Table C33 loan-purpose count measure across New Zealand registered banks, with an average top-up of $99,803.",
       "related_questions": [
         "What share of monthly mortgage approvals in New Zealand are top-ups?",
         "What is the average mortgage top-up amount in NZ?"
@@ -29231,7 +29666,7 @@
         "period_end": "2026-09-30",
         "source_published": "Monthly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "9,639 \u00f7 20,763 = 46.4% (Mean top-up: $962m \u00d7 $1m \u00f7 9,639 = $99,803)",
+        "hlf_calculation": "9,639 \u00f7 20,763 = 46.4% of C33 purpose counts (Mean top-up: $962m \u00d7 $1m \u00f7 9,639 = $99,803)",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/top-ups/",
         "license": "CC BY 4.0"
       },
@@ -29316,8 +29751,8 @@
         }
       ],
       "latest_underlying_data": "September 2026",
-      "official_data": "RBNZ Table C33 (September 2026): Top-up commitments = 9,639 loan commitments ($962m) out of 20,763 total commitments.",
-      "hlf_calculation": "9,639 \u00f7 20,763 = 46.4% (Mean top-up: $962m \u00d7 $1m \u00f7 9,639 = $99,803)",
+      "official_data": "RBNZ Table C33 (September 2026): Top-up commitments = 9,639 purpose counts ($962m) out of 20,763 total C33 purpose counts.",
+      "hlf_calculation": "9,639 \u00f7 20,763 = 46.4% of C33 purpose counts (Mean top-up: $962m \u00d7 $1m \u00f7 9,639 = $99,803)",
       "frequency": "Monthly"
     },
     {
