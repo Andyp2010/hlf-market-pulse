@@ -274,6 +274,15 @@ RBNZ_SOURCES = {
         "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/ht43.xlsx",
         "match": "t43",
     },
+    "bank_dashboard": {
+        "pages": [
+            "https://bankdashboard.rbnz.govt.nz/summary",
+            "https://www.rbnz.govt.nz/have-your-say/bank-financial-strength-dashboard",
+        ],
+        "xlsx": "https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/bank-dashboard/Bank-Financial-Strength-Dashboard-Data.xlsx",
+        "match": "dashboard",
+    },
 }
 
 TENANCY_PAGE = "https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/"
@@ -3715,12 +3724,179 @@ for _rk, _primary_u in (
     ("b30", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/b30-new-residential-mortgage-weighted-average-interest-rates.xlsx"),
     ("j10", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/j10-insurance-income-and-expenditure.xlsx"),
     ("t43", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/t43-kiwisaver-assets-and-liabilities.xlsx"),
+    ("bank_dashboard", "https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx"),
 ):
     if _rk in RBNZ_SOURCES:
         _old_x = RBNZ_SOURCES[_rk].get("xlsx", "")
         RBNZ_SOURCES[_rk]["xlsx"] = _primary_u
         if _old_x and _old_x != _primary_u:
             RBNZ_SOURCES[_rk]["alt_xlsx"] = _old_x
+
+
+if "TICKER_CATALOG" in globals():
+    TICKER_CATALOG.update({
+        "mortgage-market-share-timeline": {
+            "name": "NZ Mortgage Market Share Timeline: First-Home Buyers, Movers, Investors, Refinances, Top-Ups & Other Purposes (RBNZ C31 & C33)",
+            "also_known_as": "6-Category Reconciled 100% stacked mortgage lending share timeline by borrower type (Table C31) and loan purpose (Table C33)",
+            "category": "Homeowners & refinancing",
+            "topic": "Full historical mortgage market share timeline (five main mortgage activities plus other purposes)",
+            "source": "RBNZ Tables C31 & C33",
+            "source_full": "Reserve Bank of New Zealand — New residential mortgage lending by borrower type (Table C31) & by purpose (Table C33)",
+            "series_ids": "C31: LVRN.MMB1.AC1/AC2/AN/AP/AA ($m) & MMB2.AC1/AC2/AN/AP (#) | C33: LVRN.MMB1.AZB/AZC/AZD/AZE ($m) & MMB2.AZB/AZC/AZD/AZE (#)",
+            "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
+            "data_type": "Officially reported RBNZ C31 & C33 monthly series & HLF 6-Category Reconciled 100% market share timeline",
+            "derived_by_hlf": True,
+            "unit": "percent",
+            "frequency": "Monthly",
+            "definition": "Full monthly percentage market share, dollar volume ($ millions), and purpose/commitment count (#) across New Zealand registered bank residential mortgages split across five main mortgage activities plus other purposes: First-Home Buyers, Second+ Home Purchases, Property Investor Purchases (excl. Refi), External Refinances (Change in Loan Provider), Mortgage Top-Ups, and Other Purposes (including bridging finance).",
+            "methodology": "Aligns every overlapping monthly observation from RBNZ Table C31 (Borrower Type) and RBNZ Table C33 (Loan Purpose) across both lending value ($m) and reported purpose/loan counts (#). Because Table C31 includes external bank refinances and equity top-ups inside Other Owner-Occupiers and Investors, the HLF 6-Category Reconciled View partitions total monthly lending without double-counting into: (1) First-Home Buyers (C31 AC1), (2) Second+ Home Purchases (non-FHB property purchases allocated by C31 Other Owner-Occupier dollar weight), (3) Property Investor Purchases (non-FHB property purchases allocated by C31 Investor dollar weight), (4) Refinances / Bank Switches (C33 AZD Change in Loan Provider), (5) Mortgage Top-Ups (C33 AZB Top-Ups), and (6) Other Purposes including bridging finance (C33 AZE). Note that in RBNZ Table C33, multiple loan purposes can be reported against a single loan commitment.",
+            "hlf_calculation": "C31 Shares = Cohort ÷ C31 Total × 100; C33 Shares = Purpose ÷ C33 Total × 100; 6-Category Reconciled View partitions non-FHB Purchases (100% − FHB − Refinances − Top-Ups − Other) between Second+ Home Movers and Investors by their monthly C31 dollar ratio (OOO_Val ÷ [OOO_Val + INV_Val])",
+            "hlf_interpretation": "HLF market context: Reconciles RBNZ Table C31 and Table C33 on a 0% to 100% monthly timeline across five main mortgage activities plus other purposes without double-counting. In standalone Table C31, total investor lending (~22% to 24%) includes investor refinances and top-ups alongside investor property purchases (~11% to 13%).",
+            "questions": [
+                "What percentage of New Zealand mortgages go to first-home buyers versus property investors?",
+                "What percentage of New Zealand mortgage lending is homeowners refinancing to a new bank?",
+                "Why do mortgage top-ups represent such a high share of the RBNZ C33 loan-purpose count compared to their dollar share?",
+                "What is the difference between RBNZ Table C31 (Borrower Type) and RBNZ Table C33 (Loan Purpose), and how does the 6-Category Reconciled View combine them?",
+                "How do Reserve Bank LVR deposit rules, Debt-to-Income (DTI) caps, and mortgage interest deductibility changes affect first-home buyer and investor market share?",
+            ],
+            "article_title": "Refinancing a Mortgage in NZ: How Cashbacks & Break Fees Work",
+            "article_url": "https://www.homeloanfactory.co.nz/news-insights/refinancing-a-mortgage-in-nz-how-cashbacks-break-fees-and-switching-banks-actually-work",
+            "tool_title": "NZ Mortgage Market Share Timeline",
+            "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-mortgage-market-share-timeline",
+        },
+        "property-purchase-share-of-lending": {
+            "name": "Property purchase share of new residential mortgage lending & average purchase loan size (RBNZ Table C33)",
+            "also_known_as": "RBNZ Table C33 Property Purchase mortgage commitments ($m, purpose count & mean purchase commitment size)",
+            "category": "Homeowners & refinancing",
+            "topic": "Property purchase mortgage share & mean purchase loan size",
+            "source": "RBNZ Table C33",
+            "source_full": "Reserve Bank of New Zealand — New residential mortgage lending by purpose (Table C33)",
+            "series_ids": "LVRN.MMB1.AZC (Property Purchase Value $m) & LVRN.MMB2.AZC (Property Purchase Purpose Count)",
+            "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
+            "data_type": "Officially reported RBNZ series & HLF-derived share and mean commitment size",
+            "derived_by_hlf": True,
+            "unit": "percent",
+            "frequency": "Monthly",
+            "definition": "The percentage of total new residential mortgage lending value at New Zealand registered banks committed specifically for purchasing a residential property (excluding bank-to-bank refinances and equity top-ups on existing loans), alongside the mean purchase mortgage commitment size.",
+            "methodology": "Derived live from RBNZ Table C33 by dividing property purchase lending value (LVRN.MMB1.AZC) by total new lending across all loan purposes, and dividing property purchase lending value by property purchase purpose count (LVRN.MMB2.AZC). Combines first-home buyer, second+ home mover, and residential investor property acquisitions.",
+            "hlf_calculation": "Purchase Share (%) = (Property Purchase Lending [LVRN.MMB1.AZC] ÷ Total Purpose Lending) × 100; Mean Purchase Commitment = LVRN.MMB1.AZC × $1m ÷ LVRN.MMB2.AZC",
+            "hlf_interpretation": "HLF market context: Isolates new mortgage money used to buy residential property from balance-sheet churn (refinancing between banks) and smaller equity top-ups. Because top-ups are excluded, the mean property purchase commitment size in Table C33 provides a cleaner benchmark of typical home purchase borrowing than all-purpose borrower averages.",
+            "questions": [
+                "What percentage of New Zealand mortgage lending is used to buy a property versus refinancing or topping up?",
+                "What is the average mortgage size for a property purchase in New Zealand?",
+            ],
+            "article_title": FHB_2026_ARTICLE_TITLE,
+            "article_url": FHB_2026_ARTICLE_URL,
+            "tool_title": "HLF Borrowing Power Calculator",
+            "tool_url": "https://www.homeloanfactory.co.nz/tools/borrowing-power-calculator",
+        },
+        "bridging-and-other-purpose-lending": {
+            "name": "Other mortgage purposes (including bridging finance & unencumbered security) volume & average size (RBNZ Table C33)",
+            "also_known_as": "RBNZ Table C33 Other Purpose residential mortgage commitments (bridging finance, unencumbered property security & capitalised interest)",
+            "category": "Homeowners & refinancing",
+            "topic": "Bridging finance & other purpose residential mortgage commitments",
+            "source": "RBNZ Table C33",
+            "source_full": "Reserve Bank of New Zealand — New residential mortgage lending by purpose (Table C33)",
+            "series_ids": "LVRN.MMB1.AZE (Other Purpose Lending Value $m) & LVRN.MMB2.AZE (Other Purpose Count)",
+            "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
+            "data_type": "Officially reported RBNZ series & HLF-derived share and mean commitment size",
+            "derived_by_hlf": True,
+            "unit": "NZD_millions",
+            "frequency": "Monthly",
+            "definition": "Monthly dollar volume, purpose count, percentage share, and average commitment size of New Zealand registered bank residential mortgage commitments classified under 'Other purposes' in RBNZ Table C33 (which per RBNZ definitions includes bridging finance, borrowing using an unencumbered property as security, and capitalised interest).",
+            "methodology": "Extracted live from RBNZ Table C33 series LVRN.MMB1.AZE (Other purpose lending value in $ millions) and LVRN.MMB2.AZE (Other purpose count), dividing by total purpose lending for percentage share and dividing value by count for the mean commitment size.",
+            "hlf_calculation": "Other Purpose Share (%) = LVRN.MMB1.AZE ÷ Total Purpose Lending × 100; Mean Commitment = LVRN.MMB1.AZE × $1m ÷ LVRN.MMB2.AZE",
+            "hlf_interpretation": "HLF market context: Under RBNZ Table C33 definitions, 'Other commitments' captures residential mortgage lending that is not a standard property purchase, bank switch, or top-up on an existing loan—most notably short-term bridging finance for homeowners buying their next home before their current home settles, or new borrowing raised against a mortgage-free property.",
+            "questions": [
+                "What does 'Other purposes' include in RBNZ Table C33 mortgage statistics?",
+                "How much residential mortgage lending goes toward bridging finance and other commitments in New Zealand?",
+            ],
+            "article_title": "",
+            "article_url": "",
+            "tool_title": "Net Proceeds & Next Home Calculator",
+            "tool_url": "https://www.homeloanfactory.co.nz/tools/net-proceeds-next-home-calculator",
+        },
+        "business-backed-residential-mortgages": {
+            "name": "Residential mortgages committed for business purposes: monthly volume, loan count & average loan size (RBNZ Table C31)",
+            "also_known_as": "RBNZ Table C31 Business Purpose residential mortgage commitments (small business & self-employed home-equity-backed lending)",
+            "category": "Homeowners & refinancing",
+            "topic": "Business-purpose residential mortgage lending",
+            "source": "RBNZ Table C31",
+            "source_full": "Reserve Bank of New Zealand — New residential mortgage lending by borrower type (Table C31)",
+            "series_ids": "LVRN.MMB1.AP (Business Purpose Residential Mortgage Value $m) & LVRN.MMB2.AP (Business Purpose Borrower Count)",
+            "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-borrower-type",
+            "data_type": "Officially reported RBNZ series & HLF-derived 12-month rolling total and mean loan size",
+            "derived_by_hlf": True,
+            "unit": "NZD_millions",
+            "frequency": "Monthly",
+            "definition": "Monthly and 12-month rolling dollar volume, loan commitment count, percentage share, and average loan size of new loans fully secured by residential mortgage that are committed wholly or predominantly for business purposes at New Zealand registered banks (RBNZ Table C31).",
+            "methodology": "Extracted live from RBNZ Table C31 series LVRN.MMB1.AP (Business purpose lending value in $ millions) and LVRN.MMB2.AP (Business purpose loan count). Per RBNZ definitions, these are loans secured against residential property where the borrowed funds are used for business or commercial purposes rather than buying or renovating a residential dwelling.",
+            "hlf_calculation": "Mean Business-Purpose Residential Mortgage = (LVRN.MMB1.AP × $1,000,000) ÷ LVRN.MMB2.AP; 12-Month Rolling Sum",
+            "hlf_interpretation": "HLF market context: Many self-employed New Zealanders and SME owners secure business working capital, equipment, or commercial buy-in finance against residential property equity to access residential mortgage interest rates and longer amortisation terms. RBNZ Table C31 tracks this residentially secured business lending separately from owner-occupier and residential investor mortgages.",
+            "questions": [
+                "How much residential mortgage lending in New Zealand is used for business purposes?",
+                "What is the average loan size when a business owner borrows against residential property in RBNZ Table C31?",
+            ],
+            "article_title": "",
+            "article_url": "",
+            "tool_title": "Usable Equity Calculator",
+            "tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator",
+        },
+        "bank-mortgage-market-share-timeline": {
+            "name": "NZ Bank Mortgage Market Share & Quarterly Net Lending Timeline: ANZ, ASB, BNZ, Westpac, Kiwibank, TSB, SBS & Co-operative Bank (RBNZ Dashboard)",
+            "also_known_as": "RBNZ Bank Financial Strength Dashboard residential mortgage loan book ($B), market share (%) & quarterly net lending flow ($m) by registered bank",
+            "category": "Homeowners & refinancing",
+            "topic": "Bank-by-bank residential mortgage market share & net lending growth",
+            "source": "RBNZ Bank Financial Strength Dashboard",
+            "source_full": "Reserve Bank of New Zealand — Bank Financial Strength Dashboard (Quarterly Registered Bank Disclosure Statements)",
+            "series_ids": "RBNZ Bank Financial Strength Dashboard — Residential Mortgages ($m) / Housing Loans by Registered Bank",
+            "source_url": "https://bankdashboard.rbnz.govt.nz/summary",
+            "data_type": "Officially reported RBNZ bank-level residential mortgage balances ($m) & HLF-derived market share (%) and net lending flow ($m)",
+            "derived_by_hlf": True,
+            "unit": "percent",
+            "frequency": "Quarterly",
+            "definition": "Quarterly residential mortgage loan book balances ($ millions / $ billions), percentage market share (0% to 100%), and quarterly/annual net mortgage lending growth ($ millions) for each New Zealand-incorporated registered bank from the RBNZ Bank Financial Strength Dashboard.",
+            "methodology": "Extracted live from the RBNZ Bank Financial Strength Dashboard workbook (Bank-Financial-Strength-Dashboard-Data.xlsx) by matching the Residential Mortgages ($m) series in 'Series Definitions' against each registered bank's quarterly rows in 'Data'. Market share (%) divides each bank's residential mortgage balance by the sum of all reporting banks' residential mortgage balances in that quarter. Quarterly net lending flow ($m) equals a bank's residential mortgage balance at quarter-end minus its balance at the prior quarter-end.",
+            "hlf_calculation": "Bank Market Share (%) = (Bank Residential Mortgages [$m] ÷ All-Bank Residential Mortgages [$m]) × 100; Quarterly Net Lending ($m) = Bank Mortgages_t − Bank Mortgages_{t-1}",
+            "hlf_interpretation": "HLF market context: Compares the residential mortgage market share and quarterly net lending growth across New Zealand's registered banks from their official quarterly RBNZ Disclosure Statements.",
+            "questions": [
+                "Which New Zealand bank has the largest share of the residential mortgage market?",
+                "What is the mortgage market share of ANZ, ASB, BNZ, Westpac, and Kiwibank in New Zealand?",
+                "Which New Zealand banks are growing their residential mortgage lending books?",
+                "How does the RBNZ Bank Financial Strength Dashboard measure bank mortgage lending compared to Tables C31 and C33?",
+            ],
+            "article_title": "Compare NZ Mortgage Rates",
+            "article_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
+            "tool_title": "NZ Bank Mortgage Market Share Timeline",
+            "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-bank-mortgage-market-share-timeline",
+        },
+        "nz-owned-vs-big4-mortgage-share": {
+            "name": "New Zealand-owned challenger banks vs Big 4 Australian-owned banks residential mortgage market share & book growth (RBNZ Dashboard)",
+            "also_known_as": "Combined mortgage market share of Kiwibank, TSB, SBS Bank & The Co-operative Bank vs ANZ, ASB, BNZ & Westpac",
+            "category": "Homeowners & refinancing",
+            "topic": "NZ-owned challenger banks vs Big 4 Australian-owned banks mortgage share",
+            "source": "RBNZ Bank Financial Strength Dashboard",
+            "source_full": "Reserve Bank of New Zealand — Bank Financial Strength Dashboard (Quarterly Registered Bank Disclosure Statements)",
+            "series_ids": "Sum(Kiwibank, TSB, SBS, Co-op, Heartland Residential Mortgages) vs Sum(ANZ, ASB, BNZ, Westpac Residential Mortgages)",
+            "source_url": "https://bankdashboard.rbnz.govt.nz/summary",
+            "data_type": "HLF-derived ownership group aggregation from official RBNZ Bank Financial Strength Dashboard series",
+            "derived_by_hlf": True,
+            "unit": "percent",
+            "frequency": "Quarterly",
+            "definition": "The combined residential mortgage loan book ($ billions), percentage market share, and annual net lending growth of New Zealand-owned registered banks (Kiwibank, TSB, SBS Bank, The Co-operative Bank, and Heartland Bank) compared with the Big 4 Australian-owned registered banks (ANZ, ASB, BNZ, and Westpac) and international registered banks.",
+            "methodology": "Derived live from the RBNZ Bank Financial Strength Dashboard workbook by grouping reporting NZ-incorporated registered banks by ownership structure and summing their quarterly on-balance-sheet residential mortgage books ($m).",
+            "hlf_calculation": "NZ-Owned Share (%) = Sum(NZ-Owned Bank Mortgages) ÷ All-Bank Mortgages × 100; Big 4 Share (%) = Sum(ANZ + ASB + BNZ + Westpac Mortgages) ÷ All-Bank Mortgages × 100",
+            "hlf_interpretation": "HLF market context: Tracks how much of New Zealand's residential mortgage market is held by domestic New Zealand-owned banks compared with the four major Australian-parented banks and international branch/subsidiary lenders.",
+            "questions": [
+                "How much of the New Zealand mortgage market is held by NZ-owned banks versus Australian-owned banks?",
+                "What is the combined mortgage market share of Kiwibank, TSB, SBS Bank, and The Co-operative Bank?",
+            ],
+            "article_title": "Refinancing a Mortgage in NZ: How Cashbacks & Break Fees Work",
+            "article_url": "https://www.homeloanfactory.co.nz/news-insights/refinancing-a-mortgage-in-nz-how-cashbacks-break-fees-and-switching-banks-actually-work",
+            "tool_title": "Compare NZ Mortgage Rates",
+            "tool_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
+        },
+    })
 
 
 def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: list[str], found: dict, tag: str) -> None:
@@ -3755,7 +3931,8 @@ def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: 
                 pg_html = page.content()
                 for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', pg_html, flags=re.I):
                     if cfg["match"] in href.lower():
-                        full_u = "https://www.rbnz.govt.nz" + href if href.startswith("/") else href
+                        base_host = "https://bankdashboard.rbnz.govt.nz" if "bankdashboard" in pg_url else "https://www.rbnz.govt.nz"
+                        full_u = base_host + href if href.startswith("/") else href
                         b2 = _browser_fetch_binary(ctx, page, full_u, "", 4_000)
                         if b2 and b2[:2] == b"PK":
                             tmp_p = root / f"tmp_{key}.xlsx"
@@ -3788,7 +3965,7 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
         for cand_u in (cfg.get("xlsx"), cfg.get("alt_xlsx")):
             if not cand_u:
                 continue
-            raw = fetch_url_bytes(session, cand_u, referer=RBNZ_WARMUP_URL, timeout=40, use_cb=False)
+            raw = fetch_url_bytes(session, cand_u, referer=RBNZ_WARMUP_URL, timeout=45, use_cb=False)
             if raw and raw[:2] == b"PK" and len(raw) > 4_000:
                 tmp_p = root / f"tmp_{key}.xlsx"
                 tmp_p.write_bytes(raw)
@@ -3844,6 +4021,11 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         _, bus_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AP", "LVRN.MMB1.AC4"), ("total lending", "business"))
     except KeyError:
         bus_val = pd.Series([0.0] * len(dates))
+
+    try:
+        _, bus_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.AP", "LVRN.MMB2.AC4"), ("borrowers", "business"), ("80", "70", "60"))
+    except KeyError:
+        bus_cnt = pd.Series([0.0] * len(dates))
 
     try:
         _, tot_val, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AA",), ("total lending", "all borrower"))
@@ -4159,6 +4341,28 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         ),
     }
 
+    # Emit `business-backed-residential-mortgages` from live C31 LVRN.MMB1.AP & MMB2.AP
+    bus_v_cur = float(bus_val.iloc[i]) if pd.notna(bus_val.iloc[i]) else 0.0
+    bus_c_cur = int(round(float(bus_cnt.iloc[i]))) if pd.notna(bus_cnt.iloc[i]) else 0
+    if bus_v_cur > 0 and bus_c_cur > 0:
+        bus_v_prev = float(bus_val.iloc[iy]) if pd.notna(bus_val.iloc[iy]) else bus_v_cur
+        bus_c_prev = int(round(float(bus_cnt.iloc[iy]))) if pd.notna(bus_cnt.iloc[iy]) else bus_c_cur
+        bus_sh_cur = (bus_v_cur / max(1.0, tot_val_m)) * 100.0
+        bus_avg_nzd = int(round((bus_v_cur * 1_000_000.0) / max(1, bus_c_cur)))
+        bus_12m_v = float(bus_val.iloc[max(0, i - 11) : i + 1].sum())
+        bus_12m_c = int(round(float(bus_cnt.iloc[max(0, i - 11) : i + 1].sum())))
+        bus_sign = "+" if (bus_v_cur - bus_v_prev) >= 0 else "-"
+        out["business-backed-residential-mortgages"] = make_c31_item(
+            f"In {m_full}, New Zealand registered banks committed <strong>{fmt_nzd_millions(bus_v_cur)} ({bus_sh_cur:.1f}% of new residential mortgage lending)</strong> across <strong>{bus_c_cur:,} residential mortgages for business purposes</strong>—at an average loan size of <strong>${bus_avg_nzd:,}</strong> (bringing rolling 12-month business-purpose residential mortgage commitments to <strong>{fmt_nzd_millions(bus_12m_v)} across {bus_12m_c:,} loans</strong>).",
+            f"RBNZ Table C31 ({m_full}): Residential mortgages committed for business purposes = ${bus_v_cur:,.0f}m (LVRN.MMB1.AP) across {bus_c_cur:,} borrowers (LVRN.MMB2.AP).",
+            round(bus_v_cur, 1),
+            f"{fmt_nzd_millions(bus_v_cur)} across {bus_c_cur:,} loans (avg ${bus_avg_nzd:,} | 12m: {fmt_nzd_millions(bus_12m_v)})",
+            f"{fmt_nzd_millions(bus_v_prev)} ({bus_c_prev:,} loans)",
+            f"{bus_sign}${abs(bus_v_cur - bus_v_prev):.0f}m ({bus_c_cur - bus_c_prev:+,d} loans) YoY",
+            f"Mean Loan: (${bus_v_cur:,.0f}m × $1,000,000) ÷ {bus_c_cur:,} = ${bus_avg_nzd:,} | 12M Rolling = ${bus_12m_v:,.0f}m ({bus_12m_c:,} loans)",
+            make_history_list(dates, bus_val, lambda x: f"${x:,.0f}m"),
+        )
+
     if i >= 23:
         r12_ser = fhb_cnt.rolling(12).sum()
         r12_cnt = int(round(fhb_cnt.iloc[i - 11 : i + 1].sum()))
@@ -4219,6 +4423,8 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
     tot_c_ser = top_c + pur_c + ref_c + oth_c
     ref_sh_ser = (ref_v / tot_v_ser) * 100.0
     top_sh_c_ser = (top_c / tot_c_ser) * 100.0
+    pur_sh_ser = (pur_v / tot_v_ser) * 100.0
+    oth_sh_ser = (oth_v / tot_v_ser) * 100.0
 
     tot_v = float(tot_v_ser.iloc[j])
     tot_c = int(round(float(tot_c_ser.iloc[j])))
@@ -4234,10 +4440,26 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
     top_avg_nzd = int(round((top_val_m * 1_000_000.0) / max(1, top_cnt_int)))
     top_diff_Sign = "+" if (top_val_m - top_prev_m) >= 0 else "-"
 
+    pur_val_m = float(pur_v.iloc[j])
+    pur_prev_m = float(pur_v.iloc[jy])
+    pur_cnt_int = int(round(float(pur_c.iloc[j])))
+    pur_sh = float(pur_sh_ser.iloc[j])
+    pur_sh_prev = float(pur_sh_ser.iloc[jy])
+    pur_avg_nzd = int(round((pur_val_m * 1_000_000.0) / max(1, pur_cnt_int)))
+
+    oth_val_m = float(oth_v.iloc[j])
+    oth_prev_m = float(oth_v.iloc[jy])
+    oth_cnt_int = int(round(float(oth_c.iloc[j])))
+    oth_sh = float(oth_sh_ser.iloc[j])
+    oth_avg_nzd = int(round((oth_val_m * 1_000_000.0) / max(1, oth_cnt_int)))
+    oth_diff_Sign = "+" if (oth_val_m - oth_prev_m) >= 0 else "-"
+
     c33_url = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose"
     ref_calc = f"${ref_val_m:,.0f}m ÷ ${tot_v:,.0f}m = {ref_sh:.1f}% (Mean loan: ${ref_val_m:,.0f}m × $1m ÷ {ref_cnt_int:,} = ${ref_avg_nzd:,})"
-    top_calc = f"{top_cnt_int:,} ÷ {tot_c:,} = {top_sh_c:.1f}% (Mean top-up: ${top_val_m:,.0f}m × $1m ÷ {top_cnt_int:,} = ${top_avg_nzd:,})"
-    eq_calc = f"Reported ${top_val_m:,.0f}m top-up lending × $1m ÷ {top_cnt_int:,} borrowers = ${top_avg_nzd:,} mean"
+    top_calc = f"{top_cnt_int:,} ÷ {tot_c:,} = {top_sh_c:.1f}% of C33 purpose counts (Mean top-up: ${top_val_m:,.0f}m × $1m ÷ {top_cnt_int:,} = ${top_avg_nzd:,})"
+    eq_calc = f"Reported ${top_val_m:,.0f}m top-up lending × $1m ÷ {top_cnt_int:,} loan commitments = ${top_avg_nzd:,} mean"
+    pur_calc = f"${pur_val_m:,.0f}m ÷ ${tot_v:,.0f}m = {pur_sh:.1f}% (Mean purchase commitment: ${pur_val_m:,.0f}m × $1m ÷ {pur_cnt_int:,} = ${pur_avg_nzd:,})"
+    oth_calc = f"${oth_val_m:,.0f}m ÷ ${tot_v:,.0f}m = {oth_sh:.1f}% across {oth_cnt_int:,} commitments (Mean: ${oth_avg_nzd:,})"
 
     return {
         "refinance": {
@@ -4250,7 +4472,7 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
                 f"<strong>${ref_val_m/1000.0:.2f}B (${ref_val_m:,.0f}m)</strong> in home loans—representing <strong>{ref_sh:.1f}%</strong> "
                 f"of all new residential mortgage lending, at an average commitment size of <strong>${ref_avg_nzd:,}</strong>."
             ),
-            "official_data_summary": f"RBNZ Table C33 ({m_full}): Change in loan provider = {ref_cnt_int:,} borrowers and ${ref_val_m:,.0f}m out of ${tot_v:,.0f}m total purpose lending.",
+            "official_data_summary": f"RBNZ Table C33 ({m_full}): Change in loan provider = {ref_cnt_int:,} loan commitments and ${ref_val_m:,.0f}m out of ${tot_v:,.0f}m total purpose lending.",
             "source_html": format_provenance_source_html(ref_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
             "latest_period": m_full,
             "value": round(ref_sh, 2),
@@ -4268,14 +4490,14 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
                 f"In {m_full}, <strong>{top_cnt_int:,}</strong> mortgage top-up commitments were recorded on existing properties—"
-                f"accounting for <strong>{top_sh_c:.1f}%</strong> of all mortgage commitments by purpose across New Zealand registered banks, with an average top-up of "
+                f"representing <strong>{top_sh_c:.1f}%</strong> of the RBNZ Table C33 loan-purpose count measure across New Zealand registered banks, with an average top-up of "
                 f"<strong>${top_avg_nzd:,}</strong>."
             ),
-            "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up commitments = {top_cnt_int:,} borrowers (${top_val_m:,.0f}m) out of {tot_c:,} total commitments.",
+            "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up commitments = {top_cnt_int:,} purpose counts (${top_val_m:,.0f}m) out of {tot_c:,} total C33 purpose counts.",
             "source_html": format_provenance_source_html(top_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
             "latest_period": m_full,
             "value": round(top_sh_c, 2),
-            "latest_value": f"{top_sh_c:.1f}% of commitments ({top_cnt_int:,} top-ups, avg ${top_avg_nzd:,})",
+            "latest_value": f"{top_sh_c:.1f}% of C33 purpose counts ({top_cnt_int:,} top-ups, avg ${top_avg_nzd:,})",
             "previous_period": f"{dates.iloc[jy].strftime('%B %Y')} ({float(top_sh_c_ser.iloc[jy]):.1f}%)",
             "change": f"{top_sh_c - float(top_sh_c_ser.iloc[jy]):+.1f} percentage points YoY",
             "calculation_live": top_calc,
@@ -4289,18 +4511,60 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
                 f"In {m_full}, New Zealand registered banks committed <strong>{fmt_nzd_millions(top_val_m)} in mortgage top-ups</strong> across "
-                f"<strong>{top_cnt_int:,} commitments</strong>, at an average of <strong>${top_avg_nzd:,}</strong> per top-up."
+                f"<strong>{top_cnt_int:,} loan commitments</strong>, at an average of <strong>${top_avg_nzd:,}</strong> per top-up."
             ),
-            "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up lending value = ${top_val_m:,.0f}m across {top_cnt_int:,} borrowers.",
+            "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up lending value = ${top_val_m:,.0f}m across {top_cnt_int:,} loan commitments.",
             "source_html": format_provenance_source_html(eq_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
             "latest_period": m_full,
             "value": round(top_val_m, 1),
-            "latest_value": f"{fmt_nzd_millions(top_val_m)} across {top_cnt_int:,} borrowers (avg ${top_avg_nzd:,})",
+            "latest_value": f"{fmt_nzd_millions(top_val_m)} across {top_cnt_int:,} loan commitments (avg ${top_avg_nzd:,})",
             "previous_period": f"{dates.iloc[jy].strftime('%B %Y')} ({fmt_nzd_millions(top_prev_m)})",
             "change": f"{top_diff_Sign}${abs(top_val_m - top_prev_m):.0f}m YoY",
             "calculation_live": eq_calc,
             "historical_data_from": hist_start_lbl,
             "history": make_history_list(dates, top_v, lambda x: f"${x:,.0f}m"),
+        },
+        "property-purchase-share-of-lending": {
+            "chip": "RBNZ C33",
+            "as_of": as_of,
+            "source_published": pub_date,
+            "max_age_days": MAX_AGE_MONTHLY,
+            "html": (
+                f"In {m_full}, <strong>{pur_sh:.1f}%</strong> of new residential mortgage lending dollars at New Zealand registered banks "
+                f"(<strong>{fmt_nzd_millions(pur_val_m)} across {pur_cnt_int:,} purchase commitments</strong>) was committed specifically for "
+                f"<strong>property purchases</strong> ({plain_prior_year_pct(pur_sh, pur_sh_prev)}), at an average purchase mortgage size of <strong>${pur_avg_nzd:,}</strong>."
+            ),
+            "official_data_summary": f"RBNZ Table C33 ({m_full}): Property purchase lending = ${pur_val_m:,.0f}m (LVRN.MMB1.AZC) across {pur_cnt_int:,} commitments (LVRN.MMB2.AZC) out of ${tot_v:,.0f}m total purpose lending.",
+            "source_html": format_provenance_source_html(pur_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
+            "latest_period": m_full,
+            "value": round(pur_sh, 2),
+            "latest_value": f"{pur_sh:.1f}% of lending (${pur_val_m/1000.0:.2f}B across {pur_cnt_int:,} purchases, avg ${pur_avg_nzd:,})",
+            "previous_period": f"{dates.iloc[jy].strftime('%B %Y')} ({pur_sh_prev:.1f}% / {fmt_nzd_millions(pur_prev_m)})",
+            "change": f"{pur_sh - pur_sh_prev:+.1f} percentage points YoY",
+            "calculation_live": pur_calc,
+            "historical_data_from": hist_start_lbl,
+            "history": make_history_list(dates, pur_sh_ser, lambda x: f"{x:.1f}%"),
+        },
+        "bridging-and-other-purpose-lending": {
+            "chip": "RBNZ C33",
+            "as_of": as_of,
+            "source_published": pub_date,
+            "max_age_days": MAX_AGE_MONTHLY,
+            "html": (
+                f"In {m_full}, New Zealand registered banks committed <strong>{fmt_nzd_millions(oth_val_m)} ({oth_sh:.1f}% of new lending)</strong> across "
+                f"<strong>{oth_cnt_int:,} commitments</strong> for <strong>other mortgage purposes</strong> (including bridging finance, borrowing against an unencumbered property, and capitalised interest), "
+                f"at an average commitment size of <strong>${oth_avg_nzd:,}</strong>."
+            ),
+            "official_data_summary": f"RBNZ Table C33 ({m_full}): Other purpose lending = ${oth_val_m:,.0f}m (LVRN.MMB1.AZE) across {oth_cnt_int:,} purpose counts (LVRN.MMB2.AZE).",
+            "source_html": format_provenance_source_html(oth_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
+            "latest_period": m_full,
+            "value": round(oth_val_m, 1),
+            "latest_value": f"{fmt_nzd_millions(oth_val_m)} ({oth_sh:.1f}% of lending across {oth_cnt_int:,} commitments, avg ${oth_avg_nzd:,})",
+            "previous_period": f"{dates.iloc[jy].strftime('%B %Y')} ({fmt_nzd_millions(oth_prev_m)})",
+            "change": f"{oth_diff_Sign}${abs(oth_val_m - oth_prev_m):.0f}m YoY",
+            "calculation_live": oth_calc,
+            "historical_data_from": hist_start_lbl,
+            "history": make_history_list(dates, oth_v, lambda x: f"${x:,.0f}m"),
         },
     }
 
@@ -4865,48 +5129,15 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathli
     return out
 
 
-if "TICKER_CATALOG" in globals():
-    TICKER_CATALOG["mortgage-market-share-timeline"] = {
-        "name": "NZ Mortgage Market Share Timeline: First-Home Buyers, Investors, Refinances & Top-Ups (RBNZ C31 & C33)",
-        "also_known_as": "100% stacked mortgage lending share timeline by borrower type (Table C31) and loan purpose (Table C33)",
-        "category": "Homeowners & refinancing",
-        "topic": "Full historical mortgage market share timeline (FHB vs Movers vs Investors vs Refinances vs Top-Ups)",
-        "source": "RBNZ Tables C31 & C33",
-        "source_full": "Reserve Bank of New Zealand — New residential mortgage lending by borrower type (Table C31) & by purpose (Table C33)",
-        "series_ids": "C31: LVRN.MMB1.AC1/AC2/AN/AP/AA ($m) & MMB2.AC1/AC2/AN/AP (#) | C33: LVRN.MMB1.AZB/AZC/AZD/AZE ($m) & MMB2.AZB/AZC/AZD/AZE (#)",
-        "source_url": "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose",
-        "data_type": "Officially reported RBNZ C31 & C33 monthly series & HLF-reconciled 100% market share timeline",
-        "derived_by_hlf": True,
-        "unit": "percent",
-        "frequency": "Monthly",
-        "definition": "Full monthly percentage market share, dollar volume ($ millions), and loan commitment count (#) across New Zealand registered bank residential mortgages split by Borrower Type (RBNZ Table C31: First-Home Buyers, Other Owner-Occupiers, Property Investors, Business) and Loan Purpose (RBNZ Table C33: Property Purchases, Change in Loan Provider / Refinances, Equity Top-Ups, and Other), plus an HLF-reconciled 100% combined breakdown.",
-        "methodology": "Aligns every overlapping monthly observation from RBNZ Table C31 (Borrower Type) and RBNZ Table C33 (Loan Purpose) across both lending value ($m) and committed loan counts (#). Because Table C31 includes external bank refinances and equity top-ups inside Other Owner-Occupiers and Investors, the HLF Reconciled 100% view partitions total monthly lending without double-counting into: (1) First-Home Buyers (C31 AC1), (2) Second+ Home Purchases (non-FHB property purchases allocated by C31 Other Owner-Occupier dollar weight), (3) Property Investor Purchases (non-FHB property purchases allocated by C31 Investor dollar weight), (4) Refinances / Bank Switches (C33 AZD Change in Loan Provider), (5) Mortgage Top-Ups (C33 AZB Top-Ups), and (6) Other / Construction (C33 AZE).",
-        "hlf_calculation": "C31 Shares = Cohort ÷ C31 Total × 100; C33 Shares = Purpose ÷ C33 Total × 100; Combined 100% View partitions non-FHB Purchases (100% − FHB − Refinances − Top-Ups − Other) between Second+ Home Movers and Investors by their monthly C31 dollar ratio (OOO_Val ÷ [OOO_Val + INV_Val])",
-        "hlf_interpretation": "HLF market context: Reconciles RBNZ Table C31 and Table C33 on a 0% to 100% monthly timeline so first-home buyers, home movers, property investors, bank-to-bank refinances, and equity top-ups can be compared over time without double-counting. Note that in standalone Table C31, total investor lending (~22% to 24%) includes investor refinances and top-ups alongside investor property purchases (~11% to 13%).",
-        "questions": [
-            "What percentage of New Zealand mortgages go to first-home buyers versus property investors?",
-            "What percentage of New Zealand mortgage lending is homeowners refinancing to a new bank?",
-            "Why do mortgage top-ups make up over a third of all New Zealand home loan approvals by count, but only ~10% to 13% by dollar value?",
-            "What is the difference between RBNZ Table C31 (Borrower Type) and RBNZ Table C33 (Loan Purpose), and why can't you add them together?",
-            "How do Reserve Bank LVR deposit rules, Debt-to-Income (DTI) caps, and OCR changes affect first-home buyer and investor market share?",
-        ],
-        "article_title": "Refinancing a Mortgage in NZ: How Cashbacks & Break Fees Work",
-        "article_url": "https://www.homeloanfactory.co.nz/news-insights/refinancing-a-mortgage-in-nz-how-cashbacks-break-fees-and-switching-banks-actually-work",
-        "tool_title": "NZ Mortgage Market Share Timeline",
-        "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-mortgage-market-share-timeline",
-    }
-
-
 def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib.Path) -> dict:
     """
     100% live-pulled RBNZ Table C31 + Table C33 full historical timeline builder (Zero Hardcoded Fallbacks).
-    Aligns every overlapping monthly observation across both $ value ($m) and loan commitment counts (#).
+    Aligns every overlapping monthly observation across both $ value ($m) and purpose/commitment counts (#).
     """
     pub_c31 = extract_rbnz_published_date(c31_path)
     tabs31 = load_rbnz_sheets(c31_path) or load_rbnz_sheets_merged(c31_path)
     tabs33 = load_rbnz_sheets(c33_path) or load_rbnz_sheets_merged(c33_path)
 
-    # 1. Extract C31 series ($m value and # loan counts)
     d31, fhb_v, _ = find_rbnz_series(tabs31, ("LVRN.MMB1.AC1",), ("total lending", "first home"))
     _, ooo_v, _ = find_rbnz_series(tabs31, ("LVRN.MMB1.AC2",), ("total lending", "other owner"))
     _, inv_v, _ = find_rbnz_series(tabs31, ("LVRN.MMB1.AN", "LVRN.MMB1.AC3"), ("total lending", "investor"))
@@ -4923,7 +5154,6 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
     except KeyError:
         bus_c = pd.Series([0.0] * len(d31))
 
-    # 2. Extract C33 series ($m value and # loan commitment counts)
     d33, top_v, _ = find_rbnz_series(tabs33, ("LVRN.MMB1.AZB",), ("lending", "top"))
     _, pur_v, _ = find_rbnz_series(tabs33, ("LVRN.MMB1.AZC",), ("lending", "purchase"))
     _, ref_v, _ = find_rbnz_series(tabs33, ("LVRN.MMB1.AZD",), ("lending", "provider"))
@@ -4982,40 +5212,32 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
         c31_tc = float(row["c31_tot_c"])
         c33_tc = float(row["c33_tot_c"])
 
-        # Pure C31 % Shares ($ Value)
         c31_fhb_v_pct = round((float(row["fhb_v"]) / c31_tv) * 100.0, 2)
         c31_ooo_v_pct = round((float(row["ooo_v"]) / c31_tv) * 100.0, 2)
         c31_inv_v_pct = round((float(row["inv_v"]) / c31_tv) * 100.0, 2)
         c31_bus_v_pct = round(max(0.0, 100.0 - c31_fhb_v_pct - c31_ooo_v_pct - c31_inv_v_pct), 2)
 
-        # Pure C31 % Shares (# Loan Count)
         c31_fhb_c_pct = round((float(row["fhb_c"]) / c31_tc) * 100.0, 2)
         c31_ooo_c_pct = round((float(row["ooo_c"]) / c31_tc) * 100.0, 2)
         c31_inv_c_pct = round((float(row["inv_c"]) / c31_tc) * 100.0, 2)
         c31_bus_c_pct = round(max(0.0, 100.0 - c31_fhb_c_pct - c31_ooo_c_pct - c31_inv_c_pct), 2)
 
-        # Pure C33 % Shares ($ Value)
         c33_pur_v_pct = round((float(row["pur_v"]) / c33_tv) * 100.0, 2)
         c33_ref_v_pct = round((float(row["ref_v"]) / c33_tv) * 100.0, 2)
         c33_top_v_pct = round((float(row["top_v"]) / c33_tv) * 100.0, 2)
         c33_oth_v_pct = round(max(0.0, 100.0 - c33_pur_v_pct - c33_ref_v_pct - c33_top_v_pct), 2)
 
-        # Pure C33 % Shares (# Loan Commitments)
         c33_pur_c_pct = round((float(row["pur_c"]) / c33_tc) * 100.0, 2)
         c33_ref_c_pct = round((float(row["ref_c"]) / c33_tc) * 100.0, 2)
         c33_top_c_pct = round((float(row["top_c"]) / c33_tc) * 100.0, 2)
         c33_oth_c_pct = round(max(0.0, 100.0 - c33_pur_c_pct - c33_ref_c_pct - c33_top_c_pct), 2)
 
-        # Reconciled 100% Combined Share ($ Value)
         non_fhb_v = float(row["ooo_v"]) + float(row["inv_v"])
         ooo_w_v = (float(row["ooo_v"]) / non_fhb_v) if non_fhb_v > 0 else 0.70
         rem_pur_v_pct = max(0.0, 100.0 - c31_fhb_v_pct - c33_ref_v_pct - c33_top_v_pct - c33_oth_v_pct)
         comb_ooo_pur_v_pct = round(rem_pur_v_pct * ooo_w_v, 2)
         comb_inv_pur_v_pct = round(max(0.0, rem_pur_v_pct - comb_ooo_pur_v_pct), 2)
 
-        # Reconciled 100% Combined Share (# Loan Commitments)
-        # Weight non-FHB purchase counts by C31 dollar share (ooo_w_v) so high-count/small-dollar
-        # owner-occupier top-ups do not distort the purchase count split between Movers and Investors
         rem_pur_c_pct = max(0.0, 100.0 - c31_fhb_c_pct - c33_ref_c_pct - c33_top_c_pct - c33_oth_c_pct)
         comb_ooo_pur_c_pct = round(rem_pur_c_pct * ooo_w_v, 2)
         comb_inv_pur_c_pct = round(max(0.0, rem_pur_c_pct - comb_ooo_pur_c_pct), 2)
@@ -5094,7 +5316,7 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
             "formatted": (
                 f"FHB {c31_fhb_v_pct:.1f}% | 2nd+ Home Purchases {comb_ooo_pur_v_pct:.1f}% | "
                 f"Investor Purchases (excl. Refi) {comb_inv_pur_v_pct:.1f}% | Refinances {c33_ref_v_pct:.1f}% | "
-                f"Top-Ups {c33_top_v_pct:.1f}% ($ Value) / {c33_top_c_pct:.1f}% (# Loans)"
+                f"Top-Ups {c33_top_v_pct:.1f}% ($) / {c33_top_c_pct:.1f}% (C33 counts) | Other {c33_oth_v_pct:.1f}%"
             ),
         })
 
@@ -5112,11 +5334,11 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
     c33p = lat["c33_pct"]
 
     calc_str = (
-        f"Combined 100% ($ Value, {m_full}): FHB {cv['fhb']:.1f}% + 2nd+ Home Purchases {cv['second_home_purchases']:.1f}% + "
+        f"6-Category Reconciled ($ Value, {m_full}): FHB {cv['fhb']:.1f}% + 2nd+ Home Purchases {cv['second_home_purchases']:.1f}% + "
         f"Investor Purchases (excl. Refi) {cv['investor_purchases']:.1f}% + Refinances {cv['refinances']:.1f}% + "
-        f"Top-Ups {cv['topups']:.1f}% + Other {cv['other']:.1f}% = 100.0% "
-        f"(Top-Ups = {cc['topups']:.1f}% of loan commitments [{lat['raw_cnt']['topups']:,} of {lat['total_cnt']:,} loans], "
-        f"but {c33p['topups']:.1f}% of dollar value [${lat['raw_val_m']['topups']:,.0f}m of ${lat['total_val_m']:,.0f}m])"
+        f"Top-Ups {cv['topups']:.1f}% + Other Purposes (incl. bridging) {cv['other']:.1f}% = 100.0% "
+        f"(Top-Ups represented {cc['topups']:.1f}% of the C33 purpose-count measure [{lat['raw_cnt']['topups']:,} of {lat['total_cnt']:,} counts], "
+        f"vs {c33p['topups']:.1f}% of dollar value [${lat['raw_val_m']['topups']:,.0f}m of ${lat['total_val_m']:,.0f}m])"
     )
     c33_url = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/new-residential-mortgage-lending-by-purpose"
 
@@ -5128,13 +5350,13 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
             "source_url": c33_url,
             "max_age_days": MAX_AGE_MONTHLY,
             "html": (
-                f"In {m_full}, across <strong>{fmt_nzd_millions(lat['total_val_m'])} ({lat['total_cnt']:,} loan commitments)</strong> in new New Zealand residential mortgage lending, "
-                f"the reconciled 100% dollar-value share comprised <strong>{cv['fhb']:.1f}% First-Home Buyers</strong> (${lat['raw_val_m']['fhb']:,.0f}m), "
+                f"In {m_full}, across <strong>{fmt_nzd_millions(lat['total_val_m'])} ({lat['total_cnt']:,} reported C33 loan-purpose counts)</strong> in new New Zealand residential mortgage lending, "
+                f"the 6-Category Reconciled dollar-value share comprised <strong>{cv['fhb']:.1f}% First-Home Buyers</strong> (${lat['raw_val_m']['fhb']:,.0f}m), "
                 f"<strong>{cv['second_home_purchases']:.1f}% Second+ Home Purchases</strong>, "
                 f"<strong>{cv['investor_purchases']:.1f}% Property Investor Purchases (excl. Refi)</strong> (with total C31 Investor lending including investor refinances &amp; top-ups at <strong>{c31p['inv']:.1f}% / ${lat['raw_val_m']['inv']:,.0f}m</strong>), "
                 f"<strong>{cv['refinances']:.1f}% Refinances / Bank Switches</strong> (${lat['raw_val_m']['refinances']:,.0f}m), "
-                f"<strong>{cv['topups']:.1f}% Mortgage Top-Ups</strong> (${lat['raw_val_m']['topups']:,.0f}m across {lat['raw_cnt']['topups']:,} top-up loans, or <strong>{cc['topups']:.1f}% of all loan commitments by count</strong>), "
-                f"and <strong>{cv['other']:.1f}% Other / Construction</strong>."
+                f"<strong>{cv['topups']:.1f}% Mortgage Top-Ups</strong> (${lat['raw_val_m']['topups']:,.0f}m across {lat['raw_cnt']['topups']:,} top-up purpose counts, representing <strong>{cc['topups']:.1f}% of the C33 loan-purpose count measure</strong>), "
+                f"and <strong>{cv['other']:.1f}% Other Purposes (including bridging finance)</strong>."
             ),
             "official_data_summary": (
                 f"RBNZ Table C31 ({m_full} Borrower Type): FHB = {c31p['fhb']:.1f}% (${lat['raw_val_m']['fhb']:,.0f}m), "
@@ -5142,7 +5364,8 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
                 f"Investors = {c31p['inv']:.1f}% (${lat['raw_val_m']['inv']:,.0f}m). "
                 f"RBNZ Table C33 ({m_full} Loan Purpose): Purchases = {c33p['purchases']:.1f}% (${lat['raw_val_m']['purchases']:,.0f}m), "
                 f"Refinances = {c33p['refinances']:.1f}% (${lat['raw_val_m']['refinances']:,.0f}m), "
-                f"Top-Ups = {c33p['topups']:.1f}% of dollars (${lat['raw_val_m']['topups']:,.0f}m) / {cc['topups']:.1f}% of loan count ({lat['raw_cnt']['topups']:,} loans)."
+                f"Top-Ups = {c33p['topups']:.1f}% of dollars (${lat['raw_val_m']['topups']:,.0f}m) / {cc['topups']:.1f}% of C33 purpose counts ({lat['raw_cnt']['topups']:,} counts), "
+                f"Other Purposes = {c33p['other']:.1f}% (${lat['raw_val_m']['other']:,.0f}m)."
             ),
             "source_html": format_provenance_source_html(calc_str, "RBNZ Tables C31 & C33 (Reserve Bank of New Zealand)", c33_url, True),
             "latest_period": m_full,
@@ -5150,7 +5373,7 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
             "latest_value": (
                 f"FHB {cv['fhb']:.1f}% | 2nd+ Home {cv['second_home_purchases']:.1f}% | "
                 f"Investor Purchases {cv['investor_purchases']:.1f}% (Total C31 Inv {c31p['inv']:.1f}%) | "
-                f"Refi {cv['refinances']:.1f}% | Top-Ups {cv['topups']:.1f}% ($)"
+                f"Refi {cv['refinances']:.1f}% | Top-Ups {cv['topups']:.1f}% ($) | Other {cv['other']:.1f}%"
             ),
             "previous_period": (
                 f"{prev_yr['label']}: FHB {prev_yr['combined_val_pct']['fhb']:.1f}% | "
@@ -5162,6 +5385,377 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
             "history": list(reversed(std_history[-24:])),
             "timeline_series": timeline_rows,
         }
+    }
+
+
+def _canon_rbnz_bank_name(raw_inst: str) -> str | None:
+    """Normalize RBNZ Bank Financial Strength Dashboard institution names into canonical bank keys."""
+    s = str(raw_inst or "").strip()
+    low = s.lower()
+    if not low or low in ("nan", "none", "institution", "bank", "all banks", "total", "system"):
+        return None
+    if "anz" in low:
+        return "ANZ"
+    if "asb" in low:
+        return "ASB"
+    if "bnz" in low or "bank of new zealand" in low:
+        return "BNZ"
+    if "westpac" in low:
+        return "Westpac"
+    if "kiwibank" in low:
+        return "Kiwibank"
+    if "tsb" in low:
+        return "TSB"
+    if "sbs" in low or "southland building" in low:
+        return "SBS Bank"
+    if "co-operative" in low or "cooperative" in low:
+        return "The Co-operative Bank"
+    if "heartland" in low:
+        return "Heartland Bank"
+    if "bank of china" in low:
+        return "Bank of China"
+    if "construction" in low or "ccb" in low:
+        return "China Construction Bank"
+    if "icbc" in low or "industrial and commercial" in low:
+        return "ICBC"
+    if "rabobank" in low:
+        return "Rabobank"
+    return "Other Registered Banks"
+
+
+def build_rbnz_bank_dashboard_timeline_ticker(
+    root: pathlib.Path, session, rbnz_files: dict[str, pathlib.Path] | None = None
+) -> dict:
+    """
+    100% live-pulled RBNZ Bank Financial Strength Dashboard parser (Zero Hardcoded Fallbacks).
+    Outputs two canonical tickers:
+    1. `bank-mortgage-market-share-timeline`
+    2. `nz-owned-vs-big4-mortgage-share`
+    """
+    rbnz_map = rbnz_files if isinstance(rbnz_files, dict) else {}
+    dash_path = _ensure_rbnz_file("bank_dashboard", root, session, rbnz_map)
+    if dash_path is None or not dash_path.exists():
+        summary_url = "https://bankdashboard.rbnz.govt.nz/summary"
+        html_map = fetch_html_with_browser_fallback(session, [summary_url], "RBNZ Bank Dashboard")
+        s_html = html_map.get(summary_url, "")
+        if not s_html or ".xlsx" not in s_html.lower():
+            s_html = fetch_pages_with_camoufox([summary_url], wait_ms=6000).get(summary_url, "")
+        for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', s_html, flags=re.I):
+            full_u = "https://bankdashboard.rbnz.govt.nz" + href if href.startswith("/") else href
+            b = fetch_bytes_with_browser_fallback(session, full_u, referer=summary_url, min_bytes=20_000)
+            if b and b[:2] == b"PK":
+                dash_path = root / "tmp_bank_dashboard.xlsx"
+                dash_path.write_bytes(b)
+                rbnz_map["bank_dashboard"] = dash_path
+                break
+
+    if dash_path is None or not dash_path.exists():
+        raise RuntimeError("Could not download live RBNZ Bank Financial Strength Dashboard workbook.")
+
+    pub_date = extract_rbnz_published_date(dash_path)
+    xl = pd.ExcelFile(dash_path)
+
+    def_sheet = next((s for s in xl.sheet_names if "definition" in s.lower() or "series" in s.lower()), None)
+    data_sheet = next((s for s in xl.sheet_names if s.strip().lower() == "data"), xl.sheet_names[0])
+
+    series_meta: dict[str, str] = {}
+    if def_sheet:
+        df_def = xl.parse(def_sheet)
+        for _, r in df_def.iterrows():
+            vals = [str(v).strip() for v in r.values if pd.notna(v) and str(v).strip()]
+            code = next((v.upper() for v in vals if re.match(r"^DBB\.Q[A-Z0-9._]+$", v, flags=re.I)), None)
+            if code:
+                series_meta[code] = " | ".join(vals).lower()
+
+    raw_data = xl.parse(data_sheet, header=None)
+    code_row_idx = None
+    label_row_idx = None
+    data_start_idx = None
+    date_col_idx = 0
+    inst_col_idx = 1
+
+    for r_idx in range(min(15, len(raw_data))):
+        row_strs = [str(v).strip() if pd.notna(v) else "" for v in raw_data.iloc[r_idx].values]
+        joined_low = " | ".join(row_strs).lower()
+        if any(re.match(r"^dbb\.q", s, flags=re.I) for s in row_strs):
+            code_row_idx = r_idx
+            for c_i, cell_s in enumerate(row_strs):
+                if cell_s.lower() in ("institution", "bank", "registered bank", "bank name"):
+                    inst_col_idx = c_i
+                elif cell_s.lower() in ("date", "quarter", "period", "series id"):
+                    date_col_idx = c_i
+        elif any(k in joined_low for k in ("residential mortgage", "total loans", "cet1", "capital ratio")):
+            label_row_idx = r_idx
+
+        if r_idx >= 1 and data_start_idx is None:
+            dt_try = pd.to_datetime(raw_data.iloc[r_idx, date_col_idx], errors="coerce")
+            inst_try = _canon_rbnz_bank_name(raw_data.iloc[r_idx, inst_col_idx]) if inst_col_idx < raw_data.shape[1] else None
+            if pd.notna(dt_try) and 2015 <= dt_try.year <= 2035 and inst_try:
+                data_start_idx = r_idx
+                break
+
+    if data_start_idx is None:
+        raise RuntimeError("Could not locate data start row in RBNZ Bank Financial Strength Dashboard.")
+
+    df_panel = raw_data.iloc[data_start_idx:].copy().reset_index(drop=True)
+    df_panel["_dt"] = pd.to_datetime(df_panel.iloc[:, date_col_idx], errors="coerce")
+    df_panel["_bank"] = df_panel.iloc[:, inst_col_idx].apply(_canon_rbnz_bank_name)
+    df_panel = df_panel.dropna(subset=["_dt", "_bank"]).copy()
+    df_panel["_ym"] = df_panel["_dt"].dt.strftime("%Y-%m")
+
+    latest_ym = df_panel["_ym"].max()
+    sub_latest = df_panel[df_panel["_ym"] == latest_ym]
+
+    best_col = None
+    best_score = -1
+
+    for c_idx in range(raw_data.shape[1]):
+        if c_idx in (date_col_idx, inst_col_idx):
+            continue
+        col_ser = pd.to_numeric(sub_latest.iloc[:, c_idx], errors="coerce")
+        anz_vals = pd.to_numeric(sub_latest[sub_latest["_bank"] == "ANZ"].iloc[:, c_idx], errors="coerce").dropna()
+        asb_vals = pd.to_numeric(sub_latest[sub_latest["_bank"] == "ASB"].iloc[:, c_idx], errors="coerce").dropna()
+        bnz_vals = pd.to_numeric(sub_latest[sub_latest["_bank"] == "BNZ"].iloc[:, c_idx], errors="coerce").dropna()
+
+        if anz_vals.empty or asb_vals.empty or bnz_vals.empty:
+            continue
+
+        anz_v, asb_v, bnz_v = float(anz_vals.iloc[-1]), float(asb_vals.iloc[-1]), float(bnz_vals.iloc[-1])
+        col_sum = float(col_ser.dropna().sum())
+
+        if not (75_000 <= anz_v <= 155_000 and 50_000 <= asb_v <= 110_000 and 260_000 <= col_sum <= 440_000):
+            continue
+
+        code_s = str(raw_data.iloc[code_row_idx, c_idx]).strip().upper() if code_row_idx is not None else ""
+        lbl_s = str(raw_data.iloc[label_row_idx, c_idx]).strip().lower() if label_row_idx is not None else ""
+        meta_s = f"{code_s} | {lbl_s} | {series_meta.get(code_s, '')}".lower()
+
+        if any(ex in meta_s for ex in ("past due", "impaired", "non-performing", "provision", "rwa", "risk-weighted", "%", "ratio")):
+            continue
+
+        score = 100
+        if any(k in meta_s for k in ("residential mortgage", "housing", "home loan")):
+            score += 80
+        if "total" in meta_s or "on-balance" in meta_s or "loans" in meta_s:
+            score += 20
+        if score > best_score:
+            best_score = score
+            best_col = c_idx
+
+    if best_col is None:
+        raise RuntimeError("Could not isolate Residential Mortgages ($m) column in RBNZ Bank Financial Strength Dashboard.")
+
+    df_panel["_mtg_m"] = pd.to_numeric(df_panel.iloc[:, best_col], errors="coerce").fillna(0.0)
+    df_panel = df_panel[df_panel["_mtg_m"] > 0].copy()
+
+    primary_banks = [
+        "ANZ",
+        "ASB",
+        "BNZ",
+        "Westpac",
+        "Kiwibank",
+        "TSB",
+        "SBS Bank",
+        "The Co-operative Bank",
+    ]
+    all_categories = primary_banks + ["Other Registered Banks"]
+    nz_owned_set = {"Kiwibank", "TSB", "SBS Bank", "The Co-operative Bank", "Heartland Bank"}
+
+    quarters_sorted = sorted(df_panel["_ym"].unique())
+    timeline_rows: list[dict] = []
+    std_history: list[dict] = []
+    nz_owned_history: list[dict] = []
+
+    for ym in quarters_sorted:
+        sub_q = df_panel[df_panel["_ym"] == ym]
+        dt_q = pd.Timestamp(sub_q["_dt"].iloc[0])
+        lbl_q = dt_q.strftime("%b %Y")
+
+        raw_m: dict[str, float] = {b: 0.0 for b in all_categories}
+        nz_owned_exact_m = 0.0
+        for _, r_b in sub_q.iterrows():
+            b_name = str(r_b["_bank"])
+            v_m = float(r_b["_mtg_m"])
+            if b_name in nz_owned_set:
+                nz_owned_exact_m += v_m
+            target_b = b_name if b_name in primary_banks else "Other Registered Banks"
+            raw_m[target_b] = round(raw_m[target_b] + v_m, 1)
+
+        total_m = round(sum(raw_m.values()), 1)
+        if total_m <= 0:
+            continue
+
+        share_pct: dict[str, float] = {}
+        running_pct = 0.0
+        for b_i, b_name in enumerate(all_categories):
+            if b_i < len(all_categories) - 1:
+                p = round((raw_m[b_name] / total_m) * 100.0, 2)
+                share_pct[b_name] = p
+                running_pct += p
+            else:
+                share_pct[b_name] = round(max(0.0, 100.0 - running_pct), 2)
+
+        prev_raw = timeline_rows[-1]["raw_val_m"] if timeline_rows else None
+        qoq_flow_m: dict[str, float] = {}
+        for b_name in all_categories:
+            qoq_flow_m[b_name] = round(raw_m[b_name] - prev_raw[b_name], 1) if prev_raw else 0.0
+        total_qoq_flow_m = round(sum(qoq_flow_m.values()), 1)
+
+        big4_m = round(raw_m["ANZ"] + raw_m["ASB"] + raw_m["BNZ"] + raw_m["Westpac"], 1)
+        nz_owned_m = round(nz_owned_exact_m if nz_owned_exact_m > 0 else (raw_m["Kiwibank"] + raw_m["TSB"] + raw_m["SBS Bank"] + raw_m["The Co-operative Bank"]), 1)
+        other_m = round(max(0.0, total_m - big4_m - nz_owned_m), 1)
+
+        big4_pct = round((big4_m / total_m) * 100.0, 2)
+        nz_owned_pct = round((nz_owned_m / total_m) * 100.0, 2)
+        other_pct = round(max(0.0, 100.0 - big4_pct - nz_owned_pct), 2)
+
+        non_big4_tot = round(total_m - big4_m, 1)
+        challenger_pct: dict[str, float] = {}
+        for cb in ("Kiwibank", "TSB", "SBS Bank", "The Co-operative Bank", "Other Registered Banks"):
+            challenger_pct[cb] = round((raw_m[cb] / non_big4_tot) * 100.0, 2) if non_big4_tot > 0 else 0.0
+
+        timeline_rows.append({
+            "ym": ym,
+            "label": f"{lbl_q} Qtr",
+            "total_val_m": total_m,
+            "total_qoq_flow_m": total_qoq_flow_m,
+            "raw_val_m": raw_m,
+            "share_pct": share_pct,
+            "qoq_flow_m": qoq_flow_m,
+            "ownership_pct": {
+                "Big 4 Australian-Owned (ANZ, ASB, BNZ, Westpac)": big4_pct,
+                "NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)": nz_owned_pct,
+                "International & Other Registered Banks": other_pct,
+            },
+            "ownership_val_m": {
+                "Big 4 Australian-Owned (ANZ, ASB, BNZ, Westpac)": big4_m,
+                "NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)": nz_owned_m,
+                "International & Other Registered Banks": other_m,
+            },
+            "challenger_pct": challenger_pct,
+        })
+
+        std_history.append({
+            "period": ym,
+            "label": f"{lbl_q} Qtr",
+            "value": share_pct["ANZ"],
+            "formatted": (
+                f"ANZ {share_pct['ANZ']:.1f}% (${raw_m['ANZ']/1000:.1f}B) | "
+                f"ASB {share_pct['ASB']:.1f}% (${raw_m['ASB']/1000:.1f}B) | "
+                f"Westpac {share_pct['Westpac']:.1f}% (${raw_m['Westpac']/1000:.1f}B) | "
+                f"BNZ {share_pct['BNZ']:.1f}% (${raw_m['BNZ']/1000:.1f}B) | "
+                f"Kiwibank {share_pct['Kiwibank']:.1f}% (${raw_m['Kiwibank']/1000:.1f}B)"
+            ),
+        })
+
+        nz_owned_history.append({
+            "period": ym,
+            "label": f"{lbl_q} Qtr",
+            "value": nz_owned_pct,
+            "formatted": (
+                f"NZ-Owned Banks {nz_owned_pct:.2f}% (${nz_owned_m/1000:.2f}B) vs "
+                f"Big 4 Australian Banks {big4_pct:.2f}% (${big4_m/1000:.2f}B)"
+            ),
+        })
+
+    if not timeline_rows:
+        raise RuntimeError("RBNZ Bank Financial Strength Dashboard parser produced 0 quarterly observations.")
+
+    lat = timeline_rows[-1]
+    prev_y = timeline_rows[max(0, len(timeline_rows) - 5)]
+    dt_lat = pd.Timestamp(f"{lat['ym']}-01")
+    m_full = f"{dt_lat.strftime('%B %Y')} quarter"
+    as_of = month_end_iso(dt_lat)
+    start_lbl = timeline_rows[0]["label"]
+    hist_from_str = f"Available from {start_lbl} ({len(timeline_rows)} quarterly observations)"
+
+    sp = lat["share_pct"]
+    rm = lat["raw_val_m"]
+    big4_sh = lat["ownership_pct"]["Big 4 Australian-Owned (ANZ, ASB, BNZ, Westpac)"]
+    nz_sh = lat["ownership_pct"]["NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)"]
+    big4_val_b = lat["ownership_val_m"]["Big 4 Australian-Owned (ANZ, ASB, BNZ, Westpac)"] / 1000.0
+    nz_val_b = lat["ownership_val_m"]["NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)"] / 1000.0
+    prev_nz_sh = prev_y["ownership_pct"]["NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)"]
+    prev_nz_val_b = prev_y["ownership_val_m"]["NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)"] / 1000.0
+
+    calc_str = (
+        f"RBNZ Bank Dashboard ({m_full}, Total = ${lat['total_val_m']/1000:.2f}B): "
+        f"ANZ {sp['ANZ']:.1f}% (${rm['ANZ']/1000:.2f}B) + ASB {sp['ASB']:.1f}% (${rm['ASB']/1000:.2f}B) + "
+        f"Westpac {sp['Westpac']:.1f}% (${rm['Westpac']/1000:.2f}B) + BNZ {sp['BNZ']:.1f}% (${rm['BNZ']/1000:.2f}B) + "
+        f"Kiwibank {sp['Kiwibank']:.1f}% (${rm['Kiwibank']/1000:.2f}B) + TSB/SBS/Co-op/Other = 100.0%"
+    )
+    nz_calc_str = (
+        f"NZ-Owned Banks (${nz_val_b:.2f}B) ÷ All Registered Banks (${lat['total_val_m']/1000:.2f}B) = {nz_sh:.2f}% | "
+        f"Big 4 Australian-Owned Banks (${big4_val_b:.2f}B) ÷ All Registered Banks = {big4_sh:.2f}%"
+    )
+    dash_url = "https://bankdashboard.rbnz.govt.nz/summary"
+
+    return {
+        "bank-mortgage-market-share-timeline": {
+            "chip": "RBNZ Bank Dashboard",
+            "as_of": as_of,
+            "source_published": pub_date,
+            "source_url": dash_url,
+            "max_age_days": MAX_AGE_QUARTERLY,
+            "html": (
+                f"As at the {m_full}, across <strong>${lat['total_val_m']/1000:.2f}B (${lat['total_val_m']:,.0f}m)</strong> in New Zealand registered bank residential mortgages, "
+                f"market share was led by <strong>ANZ ({sp['ANZ']:.1f}%, or ${rm['ANZ']/1000:.2f}B)</strong>, "
+                f"<strong>ASB ({sp['ASB']:.1f}%, or ${rm['ASB']/1000:.2f}B)</strong>, "
+                f"<strong>Westpac ({sp['Westpac']:.1f}%, or ${rm['Westpac']/1000:.2f}B)</strong>, "
+                f"<strong>BNZ ({sp['BNZ']:.1f}%, or ${rm['BNZ']/1000:.2f}B)</strong>, and "
+                f"<strong>Kiwibank ({sp['Kiwibank']:.1f}%, or ${rm['Kiwibank']/1000:.2f}B)</strong>—with the Big 4 Australian-owned banks holding "
+                f"<strong>{big4_sh:.1f}%</strong> of the market and New Zealand-owned banks holding <strong>{nz_sh:.1f}%</strong>."
+            ),
+            "official_data_summary": (
+                f"RBNZ Bank Financial Strength Dashboard ({m_full} Residential Mortgages): "
+                f"ANZ = ${rm['ANZ']:,.0f}m ({sp['ANZ']:.1f}%); ASB = ${rm['ASB']:,.0f}m ({sp['ASB']:.1f}%); "
+                f"Westpac = ${rm['Westpac']:,.0f}m ({sp['Westpac']:.1f}%); BNZ = ${rm['BNZ']:,.0f}m ({sp['BNZ']:.1f}%); "
+                f"Kiwibank = ${rm['Kiwibank']:,.0f}m ({sp['Kiwibank']:.1f}%); TSB = ${rm['TSB']:,.0f}m ({sp['TSB']:.1f}%); "
+                f"SBS Bank = ${rm['SBS Bank']:,.0f}m ({sp['SBS Bank']:.1f}%); Co-operative Bank = ${rm['The Co-operative Bank']:,.0f}m ({sp['The Co-operative Bank']:.1f}%)."
+            ),
+            "source_html": format_provenance_source_html(calc_str, "RBNZ Bank Financial Strength Dashboard", dash_url, True),
+            "latest_period": m_full,
+            "value": sp["ANZ"],
+            "latest_value": (
+                f"ANZ {sp['ANZ']:.1f}% | ASB {sp['ASB']:.1f}% | Westpac {sp['Westpac']:.1f}% | "
+                f"BNZ {sp['BNZ']:.1f}% | Kiwibank {sp['Kiwibank']:.1f}%"
+            ),
+            "previous_period": (
+                f"{prev_y['label']}: ANZ {prev_y['share_pct']['ANZ']:.1f}% | "
+                f"Kiwibank {prev_y['share_pct']['Kiwibank']:.1f}% | Big 4 {prev_y['ownership_pct']['Big 4 Australian-Owned (ANZ, ASB, BNZ, Westpac)']:.1f}%"
+            ),
+            "change": f"Quarterly Net Lending Flow: {lat['total_qoq_flow_m']:+,.0f}m across all registered banks",
+            "calculation_live": calc_str,
+            "historical_data_from": hist_from_str,
+            "history": list(reversed(std_history[-20:])),
+            "bank_timeline_series": timeline_rows,
+        },
+        "nz-owned-vs-big4-mortgage-share": {
+            "chip": "RBNZ Bank Dashboard",
+            "as_of": as_of,
+            "source_published": pub_date,
+            "source_url": dash_url,
+            "max_age_days": MAX_AGE_QUARTERLY,
+            "html": (
+                f"As at the {m_full}, New Zealand-owned registered banks (led by <strong>Kiwibank at ${rm['Kiwibank']/1000:.2f}B / {sp['Kiwibank']:.1f}%</strong> alongside "
+                f"<strong>TSB [${rm['TSB']/1000:.2f}B]</strong>, <strong>SBS Bank [${rm['SBS Bank']/1000:.2f}B]</strong>, and <strong>The Co-operative Bank [${rm['The Co-operative Bank']/1000:.2f}B]</strong>) "
+                f"held a combined <strong>${nz_val_b:.2f}B ({nz_sh:.2f}%)</strong> of all registered bank residential mortgages, compared with "
+                f"<strong>${big4_val_b:.2f}B ({big4_sh:.2f}%)</strong> across the Big 4 Australian-owned banks."
+            ),
+            "official_data_summary": (
+                f"RBNZ Bank Financial Strength Dashboard ({m_full}): Combined NZ-owned bank residential mortgages = ${nz_val_b:.2f}B ({nz_sh:.2f}%); "
+                f"Combined Big 4 Australian-owned bank residential mortgages = ${big4_val_b:.2f}B ({big4_sh:.2f}%)."
+            ),
+            "source_html": format_provenance_source_html(nz_calc_str, "RBNZ Bank Financial Strength Dashboard", dash_url, True),
+            "latest_period": m_full,
+            "value": nz_sh,
+            "latest_value": f"NZ-Owned Banks {nz_sh:.2f}% (${nz_val_b:.2f}B) vs Big 4 Australian Banks {big4_sh:.2f}% (${big4_val_b:.2f}B)",
+            "previous_period": f"{prev_y['label']}: NZ-Owned Banks {prev_nz_sh:.2f}% (${prev_nz_val_b:.2f}B)",
+            "change": f"{nz_sh - prev_nz_sh:+.2f} percentage points YoY ({nz_val_b - prev_nz_val_b:+.2f}B book growth)",
+            "calculation_live": nz_calc_str,
+            "historical_data_from": hist_from_str,
+            "history": list(reversed(nz_owned_history[-20:])),
+        },
     }
 # === END OF BLOCK 7 ===
 # === BLOCK 8 OF 13 ===
@@ -11004,6 +11598,8 @@ def _effective_max_age(key: str, item: dict) -> int:
         "tla-council-house-price-benchmarks",
         "nz-monthly-property-sales-volume",
         "gross-rental-yield-by-council",
+        "bank-mortgage-market-share-timeline",
+        "nz-owned-vs-big4-mortgage-share",
     ):
         return max(raw_age, 250)
     return raw_age
@@ -11800,6 +12396,8 @@ def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dic
                 continue
             if k == "mortgage-market-share-timeline" and not v.get("timeline_series"):
                 continue
+            if k == "bank-mortgage-market-share-timeline" and not v.get("bank_timeline_series"):
+                continue
             if v.get("latest_value"):
                 v["latest_value"] = str(v["latest_value"]).replace("~$", "$")
             lv = str(v.get("latest_value", "")).lower()
@@ -12001,6 +12599,12 @@ def main() -> None:
         except Exception as exc:
             print(f"[RBNZ C31+C33 Timeline] Error: {exc}")
 
+    try:
+        bank_dash_out = build_rbnz_bank_dashboard_timeline_ticker(root, session, rbnz_files)
+        live_parsed_count += _merge_fresh_only(fresh_candidates, bank_dash_out)
+    except Exception as exc_bd:
+        print(f"[RBNZ Bank Financial Strength Dashboard] Error: {exc_bd}")
+
     if "c32" in rbnz_files:
         try:
             c32_out = build_rbnz_c32_ticker(rbnz_files["c32"], c31_by_ym)
@@ -12139,6 +12743,20 @@ def main() -> None:
         "history": timeline_series_list,
     }
 
+    bank_rec = verified_tickers.get("bank-mortgage-market-share-timeline", {})
+    bank_series_list = bank_rec.get("bank_timeline_series") or []
+    bank_mortgage_market_share_timeline_obj = {
+        "ticker": "bank-mortgage-market-share-timeline",
+        "title": bank_rec.get("name", "NZ Bank Mortgage Market Share & Net Lending Timeline (RBNZ Dashboard)"),
+        "source": bank_rec.get("source_full", "Reserve Bank of New Zealand — Bank Financial Strength Dashboard"),
+        "source_url": RBNZ_SOURCES.get("bank_dashboard", {}).get("xlsx", ""),
+        "latest_quarter": bank_series_list[-1]["ym"] if bank_series_list else "",
+        "start_quarter": bank_series_list[0]["ym"] if bank_series_list else "",
+        "quarter_count": len(bank_series_list),
+        "updated_at": now_utc,
+        "history": bank_series_list,
+    }
+
     bubble_feed_tickers = dict(verified_tickers)
     for alias_k, target_k in LEGACY_BUBBLE_ALIASES.items():
         if target_k in verified_tickers:
@@ -12170,6 +12788,7 @@ def main() -> None:
         "fhb_snapshot": fhb_snap_obj,
         "reality_check_benchmarks": rc_bench_obj,
         "mortgage_market_share_timeline": mortgage_market_share_timeline_obj,
+        "bank_mortgage_market_share_timeline": bank_mortgage_market_share_timeline_obj,
         "tickers": bubble_feed_tickers,
     }
     json_path.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
@@ -12204,6 +12823,8 @@ def main() -> None:
             rec_out["townhouse_flat_unit_share_pct"] = r["townhouse_flat_unit_share_pct"]
         if r.get("timeline_series"):
             rec_out["timeline_series"] = r["timeline_series"]
+        if r.get("bank_timeline_series"):
+            rec_out["bank_timeline_series"] = r["bank_timeline_series"]
         structured_records.append(rec_out)
 
     pulse_json_obj = {
@@ -12236,11 +12857,12 @@ def main() -> None:
         "data_status": "verified",
         "source_status": "current",
         "active_datasets_count": len(structured_records),
-        "reporting_lag_note": "Crown and statutory releases have different reporting frequencies and lags: monthly series (RBNZ, Stats NZ Consents, MBIE Tenancy, HUD/MCERT) cover July–September 2026, quarterly series (CPI, HLPI, HLFS, Kāinga Ora) cover Q2–Q3 2026, and annual/triennial surveys (HILS, Net Worth, IRD Tax Distributions) cover 2024–2026.",
-        "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (CPI / HLPI / HLFS / IRD / Kāinga Ora) & Annual/Triennial (FMA / Stats NZ HILS & Net Worth / IRD Tax Distributions / NHC / ACC)",
+        "reporting_lag_note": "Crown and statutory releases have different reporting frequencies and lags: monthly series (RBNZ, Stats NZ Consents, MBIE Tenancy, HUD/MCERT) cover July–September 2026, quarterly series (RBNZ Bank Dashboard, CPI, HLPI, HLFS, Kāinga Ora) cover Q2–Q3 2026, and annual/triennial surveys (HILS, Net Worth, IRD Tax Distributions) cover 2024–2026.",
+        "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (RBNZ Bank Dashboard / CPI / HLPI / HLFS / IRD / Kāinga Ora) & Annual/Triennial (FMA / Stats NZ HILS & Net Worth / IRD Tax Distributions / NHC / ACC)",
         "fhb_snapshot": fhb_snap_obj,
         "reality_check_benchmarks": rc_bench_obj,
         "mortgage_market_share_timeline": mortgage_market_share_timeline_obj,
+        "bank_mortgage_market_share_timeline": bank_mortgage_market_share_timeline_obj,
         "records": structured_records,
     }
     structured_json_path.write_text(json.dumps(pulse_json_obj, indent=2), encoding="utf-8")
