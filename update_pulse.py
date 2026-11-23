@@ -11841,8 +11841,11 @@ def write_legacy_redirect_page(root: pathlib.Path, alias_key: str, target_key: s
     )
 # === END OF BLOCK 12 ===
 # === BLOCK 13 OF 13 ===
+import subprocess
+
+
 def _load_existing_tickers_from_disk(root: pathlib.Path) -> dict:
-    for fname in ("pulse.json", "hlf-market-pulse.json"):
+    for fname in ("pulse.json", "hlf-market-pulse.json", "nz-mortgage-pulse.json"):
         p = root / fname
         if p.exists():
             try:
@@ -11857,7 +11860,7 @@ def _load_existing_tickers_from_disk(root: pathlib.Path) -> dict:
 
 def _load_previous_tickers_from_git(root: pathlib.Path) -> dict:
     for rev in ("HEAD", "HEAD~1", "HEAD~2", "HEAD~3", "HEAD~4", "HEAD~5"):
-        for fname in ("pulse.json", "hlf-market-pulse.json"):
+        for fname in ("pulse.json", "hlf-market-pulse.json", "nz-mortgage-pulse.json"):
             try:
                 res = subprocess.run(
                     ["git", "show", f"{rev}:{fname}"],
@@ -11886,7 +11889,6 @@ def _clean_ticker_map(raw_map: dict, today_iso: str) -> dict:
         if k not in TICKER_CATALOG or not isinstance(v, dict):
             continue
         html_s = str(v.get("html") or "")
-        off_s = str(v.get("official_data_summary") or "")
         chg_s = str(v.get("change") or "")
         calc_s = str(v.get("calculation_live") or "")
 
@@ -11927,40 +11929,194 @@ def _clean_ticker_map(raw_map: dict, today_iso: str) -> dict:
         ):
             continue
 
-        # Deduplicate any repeated parenthetical note on credit-card-balances-interest-share
         if k == "credit-card-balances-interest-share" and " (Separately, month-end total advances" in html_s:
             parts = html_s.split(" (Separately, month-end total advances")
             if len(parts) > 2:
                 v["html"] = parts[0] + " (Separately, month-end total advances" + parts[1]
 
-        as_of_s = str(v.get("as_of") or today_iso)
+        as_of_s = str(v.get("as_of") or v.get("period_end") or today_iso)
         max_age = int(v.get("max_age_days") or MAX_AGE_ANNUAL)
         if is_fresh(as_of_s, max_age):
             cleaned[k] = v
     return cleaned
 
 
-def _sync_webflow_favicons(root: pathlib.Path, session) -> None:
-    """Mirror official Webflow favicons into the Pulse repository root for zero-404 browser tab icons."""
-    fav_pairs = (
-        ("favicon.png", WEBFLOW_FAVICON_32_URL, "favicon"),
-        ("apple-touch-icon.png", WEBFLOW_APPLE_TOUCH_ICON_URL, "apple-touch-icon"),
+def build_sitemap_xml(records: list[dict], today_iso: str) -> str:
+    base = PULSE_BASE_URL.rstrip("/")
+    urls = [f"  <url><loc>{base}/</loc><lastmod>{today_iso}</lastmod></url>"]
+    for r in records:
+        urls.append(f"  <url><loc>{base}/{r['ticker']}/</loc><lastmod>{today_iso}</lastmod></url>")
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(urls)
+        + "\n</urlset>\n"
     )
-    for fname, url, label in fav_pairs:
-        try:
-            raw = fetch_url_bytes(session, url, referer="https://www.homeloanfactory.co.nz/", timeout=20, use_cb=False)
-            if raw and len(raw) > 200:
-                (root / fname).write_bytes(raw)
-                print(f"[Favicon Sync] Mirrored Webflow {label} from {url} ({len(raw)} bytes)")
-        except Exception as exc:
-            print(f"[Favicon Sync] Note for {fname}: {exc}")
+
+
+def build_llms_txt(records: list[dict], today_iso: str, today_human: str) -> str:
+    lines = [
+        f"# HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver, Income, Net Worth & Protection Reference Dataset ({len(records)} Datasets)",
+        f"> Curated by {CREATOR_NAME} ({CREATOR_FSP}), {PUBLISHER_NAME} ({PUBLISHER_LEGAL}, {PUBLISHER_FSP}). Last checked: {today_human} ({today_iso}). Licence: {HLF_LICENSE_SHORT} ({HLF_LICENSE_URL}).",
+        f"> Canonical JSON Feed: {PULSE_BASE_URL}/pulse.json",
+        f"> Canonical Hub: {PULSE_BASE_URL}/",
+        "",
+        "## Datasets by Category",
+    ]
+    by_cat: dict[str, list[dict]] = {}
+    for r in records:
+        by_cat.setdefault(r.get("category", "Homeowners & refinancing"), []).append(r)
+
+    ordered_cats = [c for c in CATEGORY_ORDER if c in by_cat] + [c for c in by_cat if c not in CATEGORY_ORDER]
+    for cat in ordered_cats:
+        lines.append(f"\n### {cat} ({len(by_cat[cat])} datasets)")
+        for r in by_cat[cat]:
+            lines.append(
+                f"- [{r['ticker']}]({r['canonical_url']}): {r['name']} — "
+                f"Latest ({r['observation_period']}): {r['latest_value']} | "
+                f"Change: {r['change']} | {r['summary_text']}"
+            )
+    return "\n".join(lines) + "\n"
+
+
+def build_index_html(records: list[dict], today_iso: str, today_human: str) -> str:
+    fav_tags = render_favicon_head_tags_html()
+    by_cat: dict[str, list[dict]] = {}
+    for r in records:
+        by_cat.setdefault(r.get("category", "Homeowners & refinancing"), []).append(r)
+
+    ordered_cats = [c for c in CATEGORY_ORDER if c in by_cat] + [c for c in by_cat if c not in CATEGORY_ORDER]
+
+    cat_nav_links = []
+    cat_sections = []
+    for cat in ordered_cats:
+        cat_slug = re.sub(r"[^a-z0-9]+", "-", cat.lower()).strip("-")
+        items = by_cat[cat]
+        cat_nav_links.append(f'<a class="cat-pill" href="#cat-{cat_slug}">{html_lib.escape(cat)} <span>({len(items)})</span></a>')
+
+        cards_html = []
+        for r in items:
+            t_key = r["ticker"]
+            cards_html.append(
+                f"""<article class="ticker-card" id="{t_key}">
+          <div class="ticker-hdr">
+            <div>
+              <span class="chip">{html_lib.escape(str(r.get('source', '')))}</span>
+              <code>{t_key}</code>
+            </div>
+            <a class="deep-link" href="{r['canonical_url']}">Standalone Data Page &rarr;</a>
+          </div>
+          <h3><a href="{r['canonical_url']}">{html_lib.escape(r['name'])}</a></h3>
+          <div class="lead-box">{r['html']}</div>
+          <div class="meta-grid">
+            <div><strong>Latest Value:</strong><br>{html_lib.escape(str(r.get('latest_value', '')))}</div>
+            <div><strong>Observation Period:</strong><br>{html_lib.escape(str(r.get('observation_period', '')))} (<code>{r['period_end']}</code>)</div>
+            <div><strong>Source Published:</strong><br>{html_lib.escape(str(r.get('source_published', '')))}</div>
+            <div><strong>Change / Spread:</strong><br>{html_lib.escape(str(r.get('change', '')))}</div>
+          </div>
+          {render_three_layer_badges_html(r, True)}
+          {render_cite_line_html(r)}
+        </article>"""
+            )
+        cat_sections.append(
+            f"""<section class="cat-section" id="cat-{cat_slug}">
+        <h2 class="cat-title">{html_lib.escape(cat)} <span>({len(items)} datasets)</span></h2>
+        {''.join(cards_html)}
+      </section>"""
+        )
+
+    schema_obj = {
+        "@context": "https://schema.org",
+        "@type": "DataCatalog",
+        "name": f"HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver & Economic Reference Dataset ({len(records)} Datasets)",
+        "url": f"{PULSE_BASE_URL}/",
+        "dateCreated": PULSE_DATE_CREATED,
+        "dateModified": today_iso,
+        "inLanguage": "en-NZ",
+        "license": HLF_LICENSE_URL,
+        "creator": CREATOR_SCHEMA_OBJ,
+        "publisher": PUBLISHER_SCHEMA_OBJ,
+    }
+
+    return f"""<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="{PULSE_BASE_URL}/">
+{fav_tags}
+  <title>HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver &amp; Economic Reference Dataset ({len(records)} Datasets)</title>
+  <meta name="description" content="Open, machine-readable New Zealand reference dataset and data dictionary ({len(records)} datasets) covering mortgages, house prices, bank market share, rents, KiwiSaver, incomes, and insurance.">
+  <script type="application/ld+json">{json.dumps(schema_obj)}</script>
+  <style>
+    body {{ font-family: Inter, system-ui, -apple-system, sans-serif; color: #111827; background: #f8fafc; margin: 0; padding: 24px 14px 56px; line-height: 1.58; font-variant-numeric: tabular-nums; }}
+    main {{ max-width: 1080px; margin: 0 auto; background: #ffffff; border-top: 6px solid #0b2559; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(11,37,89,0.05); }}
+    h1 {{ margin: 0 0 8px; color: #0b2559; font-size: 1.65rem; }}
+    h2 {{ color: #0b2559; font-size: 1.25rem; }}
+    h3 {{ margin: 8px 0; color: #0b2559; font-size: 1.08rem; }}
+    h3 a {{ color: #0b2559; text-decoration: none; }}
+    h3 a:hover {{ text-decoration: underline; color: #186bd6; }}
+    a {{ color: #186bd6; font-weight: 600; }}
+    code {{ background: #eff6ff; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; color: #0b2559; }}
+    .cat-nav {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 24px; padding: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; }}
+    .cat-pill {{ display: inline-flex; align-items: center; gap: 5px; background: #ffffff; border: 1px solid #cbd5e1; color: #0b2559; padding: 6px 12px; border-radius: 999px; font-size: 0.8rem; text-decoration: none; }}
+    .cat-pill:hover {{ background: #eff6ff; border-color: #186bd6; }}
+    .cat-section {{ margin-top: 32px; }}
+    .cat-title {{ border-bottom: 2px solid #dbeafe; padding-bottom: 8px; margin-bottom: 16px; }}
+    .cat-title span {{ font-size: 0.88rem; color: #64748b; font-weight: 500; }}
+    .ticker-card {{ background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #0b2559; border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; }}
+    .ticker-hdr {{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.82rem; }}
+    .chip {{ background: #0b2559; color: #ffffff; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; margin-right: 6px; }}
+    .deep-link {{ font-size: 0.8rem; }}
+    .lead-box {{ background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 12px 14px; margin: 10px 0; font-size: 0.94rem; }}
+    .meta-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 11px 13px; margin: 10px 0; font-size: 0.8rem; }}
+    .layer-stack {{ display: flex; flex-direction: column; gap: 6px; margin: 10px 0; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 12px; font-size: 0.8rem; }}
+    .layer-row {{ display: flex; align-items: baseline; gap: 8px; }}
+    .lbadge {{ flex-shrink: 0; display: inline-block; width: 112px; text-align: center; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 5px; }}
+    .lbadge.is-off {{ background: #ecfdf5; border: 1px solid #6ee7b7; color: #065f46; }}
+    .lbadge.is-calc {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; }}
+    .lbadge.is-interp {{ background: #fefce8; border: 1px solid #fde68a; color: #92400e; }}
+    .cite-line {{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 10px; margin-top: 8px; font-size: 0.76rem; }}
+    .cite-text {{ flex: 1; min-width: 200px; }}
+    .cite-btn {{ background: #eff6ff; border: 1px solid #93c5fd; color: #0b2559; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 5px; cursor: pointer; }}
+    .creator-wrap {{ margin: 18px 0 24px; border: 1px solid #dbeafe; border-radius: 14px; overflow: hidden; background: #f8fafc; }}
+    .creator-card {{ display: flex; align-items: flex-start; gap: 16px; padding: 18px 20px; }}
+    .creator-avatar {{ width: 60px; height: 60px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #0b2559; }}
+    .creator-avatar img {{ width: 100%; height: 100%; object-fit: cover; }}
+    .creator-badge {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-left: 6px; }}
+    .creator-role {{ font-size: 0.82rem; color: #4b5563; font-weight: 600; margin: 2px 0 6px; }}
+    .context-cta {{ background: #eff6ff; border-top: 1px solid #dbeafe; padding: 16px 20px; }}
+    .context-cta-actions {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin: 12px 0; }}
+    .cta-btn {{ display: flex; flex-direction: column; padding: 11px 14px; border-radius: 10px; text-decoration: none; font-size: 0.84rem; }}
+    .cta-btn.is-primary {{ background: #0b2559; color: #ffffff; }}
+    .cta-btn.is-secondary {{ background: #ffffff; border: 1px solid #93c5fd; color: #0b2559; }}
+    .cta-btn span {{ font-size: 0.76rem; font-weight: 400; opacity: 0.9; margin-top: 2px; }}
+    .context-cta-meta {{ font-size: 0.78rem; color: #4b5563; }}
+    .quality-box, .about-footer-box {{ background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 22px; margin-top: 24px; font-size: 0.88rem; }}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver &amp; Economic Reference Dataset ({len(records)} Datasets)</h1>
+    <p style="color:#475569;margin-top:0;">Last verified: <strong>{today_human}</strong> (<code>{today_iso}</code>) &bull; Machine-readable JSON feed: <a href="/pulse.json"><code>/pulse.json</code></a> &bull; AI / LLM index: <a href="/llms.txt"><code>/llms.txt</code></a></p>
+    {render_creator_card_html(compact=False)}
+    <nav class="cat-nav" aria-label="Dataset Categories">
+      {''.join(cat_nav_links)}
+    </nav>
+    {''.join(cat_sections)}
+    {render_about_and_quality_footer_html()}
+  </main>
+  {CITE_COPY_JS}
+</body>
+</html>"""
 
 
 def main() -> None:
     root = pathlib.Path(__file__).resolve().parent
     session = get_http_session()
     today_iso = datetime.date.today().isoformat()
-    today_human = datetime.date.today().strftime("%-d %B %Y")
+    today_human = f"{datetime.date.today().day} {datetime.date.today().strftime('%B %Y')}"
     now_utc_iso = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     tickers = _clean_ticker_map(_load_existing_tickers_from_disk(root), today_iso)
@@ -12016,24 +12172,39 @@ def main() -> None:
         print(f"[RBNZ Bank Financial Strength Dashboard] Error: {exc}")
 
     try:
-        tickers.update(build_stats_nz_consents_tickers(session))
+        tickers.update(build_stats_nz_tickers(session, rbnz_files.get("j10")))
     except Exception as exc:
-        print(f"[Stats NZ Consents] Error: {exc}")
+        print(f"[Stats NZ Consents/CPI/Labour/Wealth] Error: {exc}")
 
     try:
-        tickers.update(build_mbie_rent_tickers(root, session))
+        tickers.update(build_tenancy_tickers(session))
     except Exception as exc:
-        print(f"[MBIE Rents] Error: {exc}")
+        print(f"[MBIE Tenancy Rents] Error: {exc}")
 
     try:
-        tickers.update(build_insurance_and_kiwisaver_tickers(root, session, rbnz_files))
+        tickers.update(build_ird_tickers(session, rbnz_files.get("t43")))
     except Exception as exc:
-        print(f"[Insurance & KiwiSaver] Error: {exc}")
+        print(f"[IRD / FMA / Kāinga Ora] Error: {exc}")
 
     try:
-        tickers.update(build_expanded_A_to_H_tickers(root, session, rbnz_files, tickers))
+        tickers.update(build_household_debt_stress_credit_tickers(session, rbnz_files))
     except Exception as exc:
-        print(f"[Expanded A-H Datasets] Error: {exc}")
+        print(f"[Household Debt & Stress] Error: {exc}")
+
+    try:
+        tickers.update(build_rbnz_reality_check_expansion_tickers(session, rbnz_files, tickers))
+    except Exception as exc:
+        print(f"[RBNZ Rate Spreads & Repricing] Error: {exc}")
+
+    try:
+        tickers.update(build_hud_mcert_housing_tickers(session, tickers))
+    except Exception as exc:
+        print(f"[HUD / MCERT Housing & HPI] Error: {exc}")
+
+    try:
+        cross_derive_live_c31_c41_siblings(tickers)
+    except Exception as exc:
+        print(f"[C31/C41 Cross-Derive] Note: {exc}")
 
     tickers = _clean_ticker_map(tickers, today_iso)
 
@@ -12046,66 +12217,14 @@ def main() -> None:
     records = []
     datasets_by_key = {}
     for k in sorted(tickers.keys()):
-        rec = record_from_ticker(k, tickers[k], today_iso, today_human)
-        if "tdti_bands" in tickers[k]:
-            rec["tdti_bands"] = tickers[k]["tdti_bands"]
-            rec["tdti_total_pool_m"] = tickers[k].get("tdti_total_pool_m")
-            rec["tdti_total_implied_apps"] = tickers[k].get("tdti_total_implied_apps")
-        if "timeline_series" in tickers[k]:
-            rec["timeline_series"] = tickers[k]["timeline_series"]
-        if "bank_timeline_series" in tickers[k]:
-            rec["bank_timeline_series"] = tickers[k]["bank_timeline_series"]
+        raw_item = {ik: iv for ik, iv in tickers[k].items() if not str(ik).startswith("_")}
+        rec = enrich_ticker_record(k, raw_item, today_iso, today_human)
         records.append(rec)
         datasets_by_key[k] = rec
 
-    fhb_snap_keys = (
-        "fhb-low-deposit",
-        "fhb-share",
-        "fhb-typical-income",
-        "fhb-average-loan-size",
-        "fhb-typical-dti",
-        "fhb-monthly-lending-volume",
-        "fhb-loan-size-gap",
-        "fhb-20-deposit-club",
-        "fhb-vs-investors",
-        "fhb-annual-milestone",
-        "kainga-ora-first-home-loan-approvals",
-        "kiwisaver-first-home",
-    )
-    fhb_snap_series = {}
-    for fk in fhb_snap_keys:
-        if fk in datasets_by_key:
-            r_f = datasets_by_key[fk]
-            fhb_snap_series[fk] = {
-                "value": r_f["value"],
-                "latest_value": r_f["latest_value"],
-                "observation_period": r_f["observation_period"],
-                "period_end": r_f["period_end"],
-                "source": r_f["source"],
-                "canonical_url": r_f["canonical_url"],
-            }
-
-    reality_keys = (
-        "individual-income-by-source-benchmarks",
-        "equivalised-household-income-family-size",
-        "rent-vs-mortgage-interest-outgoings",
-        "net-worth-by-age-and-tenure",
-        "regional-net-worth-benchmarks",
-        "tla-council-rent-benchmarks",
-        "rent-yield-pulse",
-        "settled-rates",
-        "back-book-vs-new-settled-mortgage-rate",
-        "low-equity-margin-penalty-spread",
-        "existing-mortgage-stock-lvr-refix",
-        "total-housing-debt-stock",
-        "credit-card-balances-interest-share",
-        "credit-card-limits-servicing-impact",
-        "mortgage-non-performing-arrears",
-        "household-debt-servicing-burden",
-        "mortgage-excess-repayments",
-        "nz-unemployment-rate",
-        "nz-underutilisation-rate",
-        "nz-employment-and-wage-growth",
+    fhb_snapshot_obj = build_fhb_snapshot_object(datasets_by_key)
+    reality_benchmarks_obj = build_reality_check_benchmarks_object(datasets_by_key)
+    for extra_rk in (
         "nz-median-house-price-quartiles",
         "regional-median-house-prices",
         "tla-council-house-price-benchmarks",
@@ -12114,20 +12233,19 @@ def main() -> None:
         "hpi-low-vs-high-value-tiers",
         "sales-composition-by-value-quartile",
         "gross-rental-yield-by-council",
-    )
-    reality_series = {}
-    for rk in reality_keys:
-        if rk in datasets_by_key:
-            r_b = datasets_by_key[rk]
-            reality_series[rk] = {
-                "value": r_b["value"],
-                "latest_value": r_b["latest_value"],
-                "observation_period": r_b["observation_period"],
-                "period_end": r_b["period_end"],
-                "source": r_b["source"],
-                "canonical_url": r_b["canonical_url"],
-                "breakdown": r_b.get("history") or [],
+    ):
+        if extra_rk in datasets_by_key and extra_rk not in reality_benchmarks_obj["series"]:
+            r_b = datasets_by_key[extra_rk]
+            reality_benchmarks_obj["series"][extra_rk] = {
+                "value": r_b.get("value"),
+                "latest_value": r_b.get("latest_value", ""),
+                "observation_period": r_b.get("observation_period", ""),
+                "period_end": r_b.get("period_end", ""),
+                "source": r_b.get("source", ""),
+                "canonical_url": r_b.get("canonical_url", ""),
+                "breakdown": (r_b.get("history") or [])[:20],
             }
+    reality_benchmarks_obj["active_benchmark_series"] = len(reality_benchmarks_obj["series"])
 
     tl_rec = datasets_by_key.get("mortgage-market-share-timeline", {})
     tl_series = tl_rec.get("timeline_series") or []
@@ -12166,7 +12284,8 @@ def main() -> None:
     pulse_payload = {
         "dataset": "HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver, Income, Labour Market & Protection Reference Dataset",
         "publisher": PUBLISHER_NAME,
-        "publisher_legal_name": PUBLISHER_LEGAL_NAME,
+        "publisher_legal_name": PUBLISHER_LEGAL,
+        "publisher_fsp": PUBLISHER_FSP,
         "publisher_url": PUBLISHER_URL,
         "media_kit_url": MEDIA_KIT_URL,
         "creator_name": CREATOR_NAME,
@@ -12174,17 +12293,17 @@ def main() -> None:
         "creator_fsp": CREATOR_FSP,
         "creator_role": CREATOR_ROLE,
         "creator_url": CREATOR_URL,
-        "license": LICENSE_URL,
-        "license_label": LICENSE_LABEL,
-        "license_note": LICENSE_NOTE,
-        "how_to_cite": f"HLF Pulse, {PUBLISHER_NAME} ({PULSE_BASE_URL}), created by {CREATOR_NAME} (checked {today_human}). {LICENSE_LABEL}.",
+        "license": HLF_LICENSE_URL,
+        "license_label": HLF_LICENSE_SHORT,
+        "license_note": HLF_LICENSE_NOTE,
+        "how_to_cite": f"HLF Pulse, {PUBLISHER_NAME} ({PULSE_BASE_URL}), created by {CREATOR_NAME} (checked {today_human}). {HLF_LICENSE_SHORT}.",
         "date_field_definitions": {
             "observation_period": "When the underlying statistic relates to (e.g., September 2026, Apr - Jun 2026, or Year ended June 2024)",
             "period_end": "The final calendar date covered by the observation period (YYYY-MM-DD)",
             "source_published": "When the original organisation released the dataset (extracted from official release metadata, or release cadence where timestamp is not published)",
             "last_checked": "When HLF last verified the official source (YYYY-MM-DD)",
         },
-        "date_created": DATASET_DATE_CREATED,
+        "date_created": PULSE_DATE_CREATED,
         "date_modified": today_iso,
         "pulse_url": PULSE_BASE_URL,
         "last_checked": today_iso,
@@ -12195,39 +12314,32 @@ def main() -> None:
         "active_datasets_count": len(records),
         "reporting_lag_note": "Crown and statutory releases have different reporting frequencies and lags: monthly series (RBNZ, Stats NZ Consents, MBIE Tenancy, HUD/MCERT) cover July–September 2026, quarterly series (RBNZ Bank Dashboard, CPI, HLPI, HLFS, Kāinga Ora) cover Q2–Q3 2026, and annual/triennial surveys (HILS, Net Worth, IRD Tax Distributions) cover 2024–2026.",
         "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (RBNZ Bank Dashboard / CPI / HLPI / HLFS / IRD / Kāinga Ora) & Annual/Triennial (FMA / Stats NZ HILS & Net Worth / IRD Tax Distributions / NHC / ACC)",
-        "fhb_snapshot": {
-            "title": "New Zealand First-Home Buyer Snapshot — HLF Pulse",
-            "reference_article_url": FHB_2026_ARTICLE_URL,
-            "active_series_count": len(fhb_snap_series),
-            "series": fhb_snap_series,
-        },
-        "reality_check_benchmarks": {
-            "title": "New Zealand Household, Income, Rent, Debt, Employment & Property Reality Check Benchmarks",
-            "active_benchmark_series": len(reality_series),
-            "series": reality_series,
-        },
+        "fhb_snapshot": fhb_snapshot_obj,
+        "reality_check_benchmarks": reality_benchmarks_obj,
         "mortgage_market_share_timeline": mortgage_market_share_timeline_obj,
         "bank_mortgage_market_share_timeline": bank_mortgage_market_share_timeline_obj,
         "records": records,
         "datasets": datasets_by_key,
-        "tickers": tickers,
+        "tickers": datasets_by_key,
     }
 
+    write_robots_txt(root)
+
     json_txt = json.dumps(pulse_payload, indent=2, ensure_ascii=True)
-    (root / "pulse.json").write_text(json_txt, encoding="utf-8")
-    (root / "hlf-market-pulse.json").write_text(json_txt, encoding="utf-8")
+    for j_name in ("pulse.json", "hlf-market-pulse.json", "nz-mortgage-pulse.json"):
+        (root / j_name).write_text(json_txt, encoding="utf-8")
 
     (root / "index.html").write_text(build_index_html(records, today_iso, today_human), encoding="utf-8")
-    (root / "robots.txt").write_text(build_robots_txt(), encoding="utf-8")
     (root / "llms.txt").write_text(build_llms_txt(records, today_iso, today_human), encoding="utf-8")
     (root / "sitemap.xml").write_text(build_sitemap_xml(records, today_iso), encoding="utf-8")
 
     for rec in records:
-        t_dir = root / rec["ticker"]
-        t_dir.mkdir(parents=True, exist_ok=True)
-        (t_dir / "index.html").write_text(build_ticker_page_html(rec, records, today_iso, today_human), encoding="utf-8")
+        write_canonical_ticker_page(root, rec["ticker"], rec, len(records))
 
-    _sync_webflow_favicons(root, session)
+    for alias_k, target_k in LEGACY_BUBBLE_ALIASES.items():
+        if target_k in datasets_by_key and alias_k not in datasets_by_key:
+            write_legacy_redirect_page(root, alias_k, target_k)
+
     print(f"Saved {len(records)} canonical datasets, pulse.json, index.html, robots.txt, llms.txt, sitemap.xml & /<ticker>/ pages.")
 
 
