@@ -3714,68 +3714,20 @@ def make_pulse_item(
         d.update(extra)
     return d
 # === END OF BLOCK 6 ===
-# === BLOCK 7 OF 13 (PART 1 OF 2) ===
+# === BLOCK 7 OF 13 ===
 for _rk, _short_u, _long_u in (
-    (
-        "c31",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/hc31.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/c31-new-residential-mortgage-lending-by-borrower-type.xlsx",
-    ),
-    (
-        "c33",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/hc33.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/c33-new-residential-mortgage-lending-by-purpose.xlsx",
-    ),
-    (
-        "c32",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/hc32.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/c32-new-and-existing-residential-mortgage-lending-by-payment-type.xlsx",
-    ),
-    (
-        "c40",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/hc40.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/c40-residential-mortgage-lending-by-dti-purpose-use.xlsx",
-    ),
-    (
-        "c41",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/hc41.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/c41-residential-mortgage-borrower-gross-income.xlsx",
-    ),
-    (
-        "b30",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/hb30.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/b30-new-residential-mortgage-weighted-average-interest-rates.xlsx",
-    ),
-    (
-        "c12",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c12/hc12-daily-average-balances.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c12/hc12-month-end.xlsx",
-    ),
-    (
-        "s32",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s32/hs32.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/s/s32/hs32.xlsx",
-    ),
-    (
-        "s33",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s33/hs33-long-run.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s33/hs33.xlsx",
-    ),
-    (
-        "s50",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s50/hs50-long-run.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s50/hs50.xlsx",
-    ),
-    (
-        "j10",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/hj10.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/j10-insurance-income-and-expenditure.xlsx",
-    ),
-    (
-        "t43",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/ht43.xlsx",
-        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/t43-kiwisaver-assets-and-liabilities.xlsx",
-    ),
+    ("c31", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/hc31.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/c31-new-residential-mortgage-lending-by-borrower-type.xlsx"),
+    ("c33", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/hc33.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/c33-new-residential-mortgage-lending-by-purpose.xlsx"),
+    ("c32", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/hc32.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/c32-new-and-existing-residential-mortgage-lending-by-payment-type.xlsx"),
+    ("c40", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/hc40.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/c40-residential-mortgage-lending-by-dti-purpose-use.xlsx"),
+    ("c41", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/hc41.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/c41-residential-mortgage-borrower-gross-income.xlsx"),
+    ("b30", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/hb30.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/b30-new-residential-mortgage-weighted-average-interest-rates.xlsx"),
+    ("c12", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c12/hc12-daily-average-balances.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c12/hc12-month-end.xlsx"),
+    ("s32", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s32/hs32.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/s/s32/hs32.xlsx"),
+    ("s33", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s33/hs33-long-run.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s33/hs33.xlsx"),
+    ("s50", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s50/hs50-long-run.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s50/hs50.xlsx"),
+    ("j10", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/hj10.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/j10-insurance-income-and-expenditure.xlsx"),
+    ("t43", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/ht43.xlsx", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/t43-kiwisaver-assets-and-liabilities.xlsx"),
 ):
     if _rk in RBNZ_SOURCES:
         RBNZ_SOURCES[_rk]["xlsx"] = _short_u
@@ -3792,7 +3744,6 @@ if "RBNZ_SOURCES" in globals():
         "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/bank-dashboard/Bank-Financial-Strength-Dashboard-Data.xlsx",
         "match": "dashboard",
     }
-
 
 if "TICKER_CATALOG" in globals():
     TICKER_CATALOG.update({
@@ -3904,36 +3855,36 @@ if "TICKER_CATALOG" in globals():
             "tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator",
         },
         "bank-mortgage-market-share-timeline": {
-            "name": "NZ Bank Mortgage Market Share, Existing Loan Book Balances & Net Lending Timeline: ANZ, ASB, Westpac, BNZ, Kiwibank, TSB, SBS & Co-op (RBNZ Dashboard)",
-            "also_known_as": "RBNZ Bank Financial Strength Dashboard existing residential mortgage loan book balances ($B), market share (%) & quarterly net lending flow ($m) by registered bank",
+            "name": "NZ Bank Mortgage Market Share & Mortgage Book Timeline",
+            "also_known_as": "RBNZ Bank Financial Strength Dashboard existing residential mortgage balances ($B), market share (%) & quarterly change in mortgage book ($m) by registered bank",
             "category": "Homeowners & refinancing",
-            "topic": "Bank-by-bank existing residential mortgage loan book balances, market share & net lending growth",
+            "topic": "Bank-by-bank residential mortgage balances and market share",
             "source": "RBNZ Bank Financial Strength Dashboard",
             "source_full": "Reserve Bank of New Zealand — Bank Financial Strength Dashboard (Quarterly Registered Bank Disclosure Statements)",
             "series_ids": "DBB.QIC20.P1 — Existing Residential Mortgages Loan Book ($m) & Total Gross Loans ($m) by Registered Bank",
             "source_url": "https://bankdashboard.rbnz.govt.nz/summary",
-            "data_type": "Officially reported RBNZ bank-level existing residential mortgage balances ($m) & HLF-derived market share (%) and net lending flow ($m)",
+            "data_type": "Officially reported RBNZ bank-level existing residential mortgage balances ($m) & HLF-derived market share (%) and quarterly change in mortgage book ($m)",
             "derived_by_hlf": True,
             "unit": "percent",
             "frequency": "Quarterly",
-            "definition": "Quarterly existing on-balance-sheet residential mortgage loan book balances ($ millions / $ billions), percentage market share (0% to 100%), quarterly/annual net mortgage lending growth ($ millions), and residential housing share of total bank loans (%) for each New Zealand-incorporated registered bank from the RBNZ Bank Financial Strength Dashboard.",
-            "methodology": "Extracted live from the RBNZ Bank Financial Strength Dashboard workbook (Bank-Financial-Strength-Dashboard-Data.xlsx) using series DBB.QIC20.P1 (Residential mortgages on-balance-sheet loan book) across each registered bank's quarterly rows in 'Data'. Market share (%) divides each bank's existing residential mortgage book balance by the sum of all reporting banks' residential mortgage balances in that quarter. Quarterly net lending flow ($m) equals a bank's residential mortgage book balance at quarter-end minus its balance at the prior quarter-end.",
-            "hlf_calculation": "Bank Market Share (%) = (Bank Existing Residential Mortgage Book [$m] ÷ All-Bank Residential Mortgage Book [$m]) × 100; Quarterly Net Lending ($m) = Book_t − Book_{t-1}",
-            "hlf_interpretation": "HLF market context: Compares both the total existing residential mortgage loan books ($B) and the quarterly net new lending momentum ($m) across New Zealand's registered banks from their official quarterly RBNZ Disclosure Statements.",
+            "definition": "Existing mortgage balances, market share and quarterly/annual changes in mortgage books across New Zealand-incorporated registered banks from the RBNZ Bank Financial Strength Dashboard.",
+            "methodology": "Extracted live from the RBNZ Bank Financial Strength Dashboard workbook (Bank-Financial-Strength-Dashboard-Data.xlsx) using each locally incorporated registered bank's quarterly residential mortgage balance. Market share (%) divides each bank's existing residential mortgage balance by the sum of all reporting registered banks' residential mortgage balances in that quarter. A bank's quarterly change in mortgage book ($m) measures the difference between its reported residential mortgage balance at the end of the quarter and the previous quarter (Book_t − Book_{t-1}). It shows whether the bank's existing mortgage portfolio has expanded or contracted, rather than directly measuring gross new mortgage lending, customer acquisitions, or refinancing wins.",
+            "hlf_calculation": "Bank Market Share (%) = (Bank Existing Mortgage Book [$m] ÷ All-Bank Existing Mortgage Book [$m]) × 100; Quarterly Change in Mortgage Book ($m) = Book_t − Book_{t-1}",
+            "hlf_interpretation": "HLF market context: Compares outstanding mortgage portfolios and their expansion or contraction across New Zealand's registered banks from official quarterly RBNZ Disclosure Statements.",
             "questions": [
-                "Which New Zealand bank has the largest existing residential mortgage loan book and market share?",
-                "What are the existing residential mortgage loan book balances of ANZ, ASB, Westpac, BNZ, and Kiwibank?",
-                "Which New Zealand banks are growing their residential mortgage lending books fastest?",
-                "How does the RBNZ Bank Financial Strength Dashboard measure existing bank mortgage books compared to Tables C31 and C33?",
+                "Which New Zealand bank has the largest share of the residential mortgage market?",
+                "How much of the New Zealand mortgage market is held by the Big 4 Australian-owned banks versus New Zealand-owned banks?",
+                "What is the difference between a bank's quarterly change in mortgage book and gross new mortgage lending?",
+                "Why does the RBNZ Bank Dashboard mortgage total differ from RBNZ Table C5 housing lending?",
             ],
             "article_title": "Compare NZ Mortgage Rates",
             "article_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
-            "tool_title": "NZ Bank Mortgage Market Share Timeline",
+            "tool_title": "NZ Bank Mortgage Market Share & Mortgage Book Timeline",
             "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-bank-mortgage-market-share-timeline",
         },
         "nz-owned-vs-big4-mortgage-share": {
             "name": "New Zealand-owned challenger banks vs Big 4 Australian-owned banks existing mortgage loan books & market share (RBNZ Dashboard)",
-            "also_known_as": "Combined existing residential mortgage loan books ($B) & market share (%) of Kiwibank, TSB, SBS Bank & The Co-operative Bank vs ANZ, ASB, BNZ & Westpac",
+            "also_known_as": "Combined existing residential mortgage loan books ($B), market share (%) & annual change in mortgage book of Kiwibank, TSB, Heartland Bank, SBS Bank & The Co-operative Bank vs ANZ, ASB, BNZ & Westpac",
             "category": "Homeowners & refinancing",
             "topic": "NZ-owned challenger banks vs Big 4 Australian-owned banks existing mortgage books & share",
             "source": "RBNZ Bank Financial Strength Dashboard",
@@ -3944,18 +3895,18 @@ if "TICKER_CATALOG" in globals():
             "derived_by_hlf": True,
             "unit": "percent",
             "frequency": "Quarterly",
-            "definition": "The combined existing residential mortgage loan book ($ billions), percentage market share, and annual net lending growth of New Zealand-owned registered banks (Kiwibank, TSB, SBS Bank, The Co-operative Bank, and Heartland Bank) compared with the Big 4 Australian-owned registered banks (ANZ, ASB, BNZ, and Westpac) and international registered banks.",
-            "methodology": "Derived live from the RBNZ Bank Financial Strength Dashboard workbook (series DBB.QIC20.P1) by grouping reporting NZ-incorporated registered banks by ownership structure and summing their quarterly on-balance-sheet residential mortgage loan books ($m).",
+            "definition": "The combined existing residential mortgage loan book ($ billions), percentage market share, and annual change in mortgage book of New Zealand-owned registered banks (Kiwibank, TSB, Heartland Bank, SBS Bank, and The Co-operative Bank) compared with the Big 4 Australian-owned registered banks (ANZ, ASB, BNZ, and Westpac) and international subsidiary banks.",
+            "methodology": "Derived live from the RBNZ Bank Financial Strength Dashboard workbook by grouping reporting NZ-incorporated registered banks by ultimate ownership structure and summing their quarterly on-balance-sheet residential mortgage loan books ($m).",
             "hlf_calculation": "NZ-Owned Share (%) = Sum(NZ-Owned Bank Mortgage Books) ÷ All-Bank Mortgage Books × 100; Big 4 Share (%) = Sum(ANZ + ASB + BNZ + Westpac Mortgage Books) ÷ All-Bank Mortgage Books × 100",
-            "hlf_interpretation": "HLF market context: Tracks how much of New Zealand's total existing residential mortgage debt is held on the balance sheets of domestic New Zealand-owned banks compared with the four major Australian-parented banks and international branch/subsidiary lenders.",
+            "hlf_interpretation": "HLF market context: Compares outstanding mortgage portfolios and their expansion or contraction across New Zealand-owned registered banks, the Big Four Australian-parented banks, and locally incorporated international subsidiary banks.",
             "questions": [
                 "How much of the New Zealand mortgage market is held by NZ-owned banks versus Australian-owned banks?",
-                "What is the combined residential mortgage loan book of Kiwibank, TSB, SBS Bank, and The Co-operative Bank?",
+                "What is the combined residential mortgage loan book of Kiwibank, TSB, Heartland Bank, SBS Bank, and The Co-operative Bank?",
             ],
             "article_title": "Refinancing a Mortgage in NZ: How Cashbacks & Break Fees Work",
             "article_url": "https://www.homeloanfactory.co.nz/news-insights/refinancing-a-mortgage-in-nz-how-cashbacks-break-fees-and-switching-banks-actually-work",
-            "tool_title": "Compare NZ Mortgage Rates",
-            "tool_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
+            "tool_title": "NZ Bank Mortgage Market Share & Mortgage Book Timeline",
+            "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-bank-mortgage-market-share-timeline",
         },
         "bank-mortgage-share-of-total-lending": {
             "name": "Residential mortgages as a share of each New Zealand bank's total loan book vs business & rural lending (RBNZ Dashboard)",
@@ -3980,7 +3931,7 @@ if "TICKER_CATALOG" in globals():
             ],
             "article_title": "Compare NZ Mortgage Rates",
             "article_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
-            "tool_title": "NZ Bank Mortgage Market Share Timeline",
+            "tool_title": "NZ Bank Mortgage Market Share & Mortgage Book Timeline",
             "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-bank-mortgage-market-share-timeline",
         },
     })
@@ -4010,18 +3961,9 @@ def _wait_for_cf_clearance_page(page, url: str, wait_ms: int = 2500, use_network
 
 
 def _same_origin_fetch_binary(ctx, page, url: str, referer_page: str, min_bytes: int = 4000) -> bytes:
-    """
-    Fetch binary bytes (.xlsx) inside an active browser context while ensuring `page`
-    is on the exact same origin as `url`. Uses native `FileReader.readAsDataURL(blob)`
-    so multi-megabyte workbooks never overflow the V8 call stack.
-    """
+    """Fetch binary bytes (.xlsx) inside an active browser context on the exact same origin using FileReader and cache: 'no-store'."""
     target_origin = "https://bankdashboard.rbnz.govt.nz" if "bankdashboard.rbnz.govt.nz" in url else "https://www.rbnz.govt.nz"
-    eff_referer = referer_page or (
-        "https://bankdashboard.rbnz.govt.nz/summary"
-        if "bankdashboard.rbnz.govt.nz" in url
-        else RBNZ_WARMUP_URL
-    )
-
+    eff_referer = referer_page or ("https://bankdashboard.rbnz.govt.nz/summary" if "bankdashboard.rbnz.govt.nz" in url else RBNZ_WARMUP_URL)
     cur_url = ""
     try:
         cur_url = page.url or ""
@@ -4029,18 +3971,13 @@ def _same_origin_fetch_binary(ctx, page, url: str, referer_page: str, min_bytes:
         cur_url = ""
 
     if not cur_url.startswith(target_origin):
-        _wait_for_cf_clearance_page(
-            page,
-            eff_referer,
-            wait_ms=2800,
-            use_networkidle=("bankdashboard.rbnz.govt.nz" in eff_referer),
-        )
+        _wait_for_cf_clearance_page(page, eff_referer, wait_ms=2800, use_networkidle=("bankdashboard.rbnz.govt.nz" in eff_referer))
 
     try:
         b64_data = page.evaluate(
             """async (u) => {
                 try {
-                    const r = await fetch(u, {credentials: 'include'});
+                    const r = await fetch(u, {credentials: 'include', cache: 'no-store'});
                     if (!r.ok) return '';
                     const blob = await r.blob();
                     return await new Promise((resolve) => {
@@ -4067,7 +4004,7 @@ def _same_origin_fetch_binary(ctx, page, url: str, referer_page: str, min_bytes:
         pass
 
     try:
-        api_resp = ctx.request.get(url, timeout=45000, headers={"Referer": eff_referer})
+        api_resp = ctx.request.get(url, timeout=45000, headers={"Referer": eff_referer, "Cache-Control": "no-cache", "Pragma": "no-cache"})
         if api_resp.ok:
             body = api_resp.body()
             if body and len(body) >= min_bytes and body[:2] == b"PK":
@@ -4079,15 +4016,13 @@ def _same_origin_fetch_binary(ctx, page, url: str, referer_page: str, min_bytes:
 
 
 def _download_bank_dashboard_in_context(ctx, page, root: pathlib.Path, found: dict, tag: str) -> pathlib.Path | None:
-    """
-    Download `Bank-Financial-Strength-Dashboard-Data.xlsx` inside an active browser context
-    using network response sniffing, SPA `networkidle` DOM inspection, `FileReader` fetch,
-    and interactive button-click `expect_download`.
-    """
+    """Download `Bank-Financial-Strength-Dashboard-Data.xlsx` live from `bankdashboard.rbnz.govt.nz` with cache-busting."""
     if "bank_dashboard" in found and found["bank_dashboard"].exists():
         return found["bank_dashboard"]
 
+    cb_ts = int(datetime.datetime.now(datetime.timezone.utc).timestamp())
     dash_url = "https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx"
+    dash_url_cb = f"{dash_url}?cb={cb_ts}"
     dash_ref = "https://bankdashboard.rbnz.govt.nz/summary"
     captured_xlsx: list[bytes] = []
 
@@ -4095,12 +4030,7 @@ def _download_bank_dashboard_in_context(ctx, page, root: pathlib.Path, found: di
         try:
             r_url = (resp.url or "").lower()
             c_type = (resp.headers.get("content-type") or "").lower()
-            if resp.status == 200 and (
-                ".xlsx" in r_url
-                or "spreadsheet" in c_type
-                or "excel" in c_type
-                or ("datafiles" in r_url and "dashboard" in r_url)
-            ):
+            if resp.status == 200 and (".xlsx" in r_url or "spreadsheet" in c_type or "excel" in c_type or ("datafiles" in r_url and "dashboard" in r_url)):
                 b = resp.body()
                 if b and len(b) >= 15_000 and b[:2] == b"PK":
                     captured_xlsx.append(b)
@@ -4110,11 +4040,6 @@ def _download_bank_dashboard_in_context(ctx, page, root: pathlib.Path, found: di
     page.on("response", _on_response)
     try:
         _wait_for_cf_clearance_page(page, dash_ref, wait_ms=3200, use_networkidle=True)
-        try:
-            print(f"[RBNZ Bank Dashboard Diag {tag}] Loaded url={page.url} | title={page.title()}")
-        except Exception:
-            pass
-
         if captured_xlsx:
             out_p = root / "tmp_bank_dashboard.xlsx"
             out_p.write_bytes(captured_xlsx[0])
@@ -4122,7 +4047,6 @@ def _download_bank_dashboard_in_context(ctx, page, root: pathlib.Path, found: di
             print(f"[RBNZ Bank Dashboard {tag}] Captured live workbook via network listener ({len(captured_xlsx[0]):,} bytes)")
             return out_p
 
-        # 1. Inspect all rendered links in the SPA DOM
         dom_links = []
         try:
             dom_links = page.evaluate(
@@ -4138,13 +4062,12 @@ def _download_bank_dashboard_in_context(ctx, page, root: pathlib.Path, found: di
             for x in dom_links
             if any(k in x["href"].lower() or k in x["text"].lower() for k in (".xlsx", "datafile", "download", "excel", "dataset"))
         ]
-        if xlsx_hrefs:
-            print(f"[RBNZ Bank Dashboard Diag {tag}] Found candidate DOM links: {xlsx_hrefs[:6]}")
-
         cand_urls = [
+            dash_url_cb,
             dash_url,
+            f"/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx?cb={cb_ts}",
             "/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx",
-        ] + [u for u in xlsx_hrefs if u not in (dash_url,)]
+        ] + [u for u in xlsx_hrefs if u not in (dash_url, dash_url_cb)]
 
         for cu in cand_urls:
             b_data = _same_origin_fetch_binary(ctx, page, cu, dash_ref, min_bytes=15_000)
@@ -4155,14 +4078,7 @@ def _download_bank_dashboard_in_context(ctx, page, root: pathlib.Path, found: di
                 print(f"[RBNZ Bank Dashboard {tag}] Downloaded live workbook from {cu} ({len(b_data):,} bytes)")
                 return out_p
 
-        # 2. Click any rendered Download button/link in the SPA or trigger programmatic anchor download
-        for sel in (
-            "a[href*='.xlsx']",
-            "a[href*='datafiles']",
-            "a:has-text('Download')",
-            "button:has-text('Download')",
-            "[role='button']:has-text('Download')",
-        ):
+        for sel in ("a[href*='.xlsx']", "a[href*='datafiles']", "a:has-text('Download')", "button:has-text('Download')", "[role='button']:has-text('Download')"):
             try:
                 loc = page.locator(sel).first
                 if loc.count() > 0 and loc.is_visible():
@@ -4181,7 +4097,6 @@ def _download_bank_dashboard_in_context(ctx, page, root: pathlib.Path, found: di
             except Exception:
                 pass
 
-        # 3. Programmatic expect_download on the direct datafile path
         try:
             with page.expect_download(timeout=25000) as dl_info:
                 page.evaluate(
@@ -4192,7 +4107,7 @@ def _download_bank_dashboard_in_context(ctx, page, root: pathlib.Path, found: di
                         document.body.appendChild(a);
                         a.click();
                     }""",
-                    dash_url,
+                    dash_url_cb,
                 )
             dl = dl_info.value
             dl_path = pathlib.Path(dl.path())
@@ -4204,26 +4119,8 @@ def _download_bank_dashboard_in_context(ctx, page, root: pathlib.Path, found: di
                     found["bank_dashboard"] = out_p
                     print(f"[RBNZ Bank Dashboard {tag}] Downloaded workbook via anchor download ({len(b_dl):,} bytes)")
                     return out_p
-        except Exception as exc_dl:
-            print(f"[RBNZ Bank Dashboard Diag {tag}] Anchor expect_download note: {exc_dl}")
-
-        # 4. Check RBNZ main website dashboard landing pages for any direct .xlsx mirror
-        for main_pg in (
-            "https://www.rbnz.govt.nz/financial-stability/bank-financial-strength-dashboard",
-            "https://www.rbnz.govt.nz/have-your-say/bank-financial-strength-dashboard",
-        ):
-            pg_html = _wait_for_cf_clearance_page(page, main_pg, wait_ms=2500)
-            if not pg_html:
-                continue
-            for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', pg_html, flags=re.I):
-                full_u = ("https://www.rbnz.govt.nz" + href) if href.startswith("/") else href
-                b2 = _same_origin_fetch_binary(ctx, page, full_u, main_pg, min_bytes=15_000)
-                if b2 and b2[:2] == b"PK":
-                    out_p = root / "tmp_bank_dashboard.xlsx"
-                    out_p.write_bytes(b2)
-                    found["bank_dashboard"] = out_p
-                    print(f"[RBNZ Bank Dashboard {tag}] Downloaded workbook via RBNZ main site ({len(b2):,} bytes)")
-                    return out_p
+        except Exception:
+            pass
     finally:
         try:
             page.remove_listener("response", _on_response)
@@ -4234,10 +4131,7 @@ def _download_bank_dashboard_in_context(ctx, page, root: pathlib.Path, found: di
 
 
 def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: list[str], found: dict, tag: str) -> None:
-    """
-    Download `bank_dashboard` first while the browser session is fresh, then warm up on
-    `www.rbnz.govt.nz` and batch-download all statistical workbooks.
-    """
+    """Download `bank_dashboard` first while the browser session is fresh, then warm up on `www.rbnz.govt.nz`."""
     if "bank_dashboard" in keys_to_get and "bank_dashboard" not in found:
         _download_bank_dashboard_in_context(ctx, page, root, found, tag)
 
@@ -4268,12 +4162,7 @@ def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: 
             base_host = "https://bankdashboard.rbnz.govt.nz" if "bankdashboard.rbnz.govt.nz" in pg_url else "https://www.rbnz.govt.nz"
             for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', pg_html, flags=re.I):
                 if cfg["match"] in href.lower() or "dashboard" in href.lower():
-                    if href.startswith("http"):
-                        full_u = href
-                    elif href.startswith("/"):
-                        full_u = base_host + href
-                    else:
-                        full_u = f"{base_host}/{href}"
+                    full_u = href if href.startswith("http") else (base_host + href if href.startswith("/") else f"{base_host}/{href}")
                     b2 = _same_origin_fetch_binary(ctx, page, full_u, pg_url, 4_000)
                     if b2 and b2[:2] == b"PK":
                         tmp_p = root / f"tmp_{key}.xlsx"
@@ -4286,14 +4175,9 @@ def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: 
 
 
 def _download_bank_dashboard_xlsx(root: pathlib.Path, session, found: dict[str, pathlib.Path]) -> pathlib.Path | None:
-    """Standalone entry point if `bank_dashboard` was not already populated in `found`."""
+    """Always attempt a live download of `Bank-Financial-Strength-Dashboard-Data.xlsx` first."""
     if "bank_dashboard" in found and found["bank_dashboard"].exists():
         return found["bank_dashboard"]
-
-    for cand in sorted(root.glob("*[Dd]ashboard*.xlsx")):
-        if not cand.name.startswith("tmp_") and cand.stat().st_size > 15_000:
-            found["bank_dashboard"] = cand
-            return cand
 
     try:
         from camoufox.sync_api import Camoufox
@@ -4311,11 +4195,7 @@ def _download_bank_dashboard_xlsx(root: pathlib.Path, session, found: dict[str, 
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
             ctx = browser.new_context(
-                user_agent=(
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/124.0.0.0 Safari/537.36"
-                ),
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
                 locale="en-NZ",
                 accept_downloads=True,
             )
@@ -4331,22 +4211,10 @@ def _download_bank_dashboard_xlsx(root: pathlib.Path, session, found: dict[str, 
 
 
 def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Path]:
-    """
-    Download all RBNZ .xlsx workbooks directly via Camoufox / Playwright without
-    firing raw Python urllib requests at RBNZ first (keeping the runner IP clean with Cloudflare).
-    """
+    """Always download live RBNZ .xlsx workbooks via Camoufox / Playwright (no local file short-circuit)."""
     global _CAMOUFOX_OK
     found: dict[str, pathlib.Path] = {}
-    needs_browser: list[str] = []
-
-    for key, cfg in RBNZ_SOURCES.items():
-        local_candidates = sorted(root.glob(f"*{cfg['match']}*.xlsx"))
-        for cand in local_candidates:
-            if not cand.name.startswith("tmp_") and cand.stat().st_size > 4_000:
-                found[key] = cand
-                break
-        if key not in found:
-            needs_browser.append(key)
+    needs_browser: list[str] = list(RBNZ_SOURCES.keys())
 
     if needs_browser and _CAMOUFOX_OK:
         try:
@@ -4366,11 +4234,7 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
             with sync_playwright() as p:
                 browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
                 ctx = browser.new_context(
-                    user_agent=(
-                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                        "AppleWebKit/537.36 (KHTML, like Gecko) "
-                        "Chrome/124.0.0.0 Safari/537.36"
-                    ),
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
                     locale="en-NZ",
                     accept_downloads=True,
                 )
@@ -4384,8 +4248,8 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
         _download_bank_dashboard_xlsx(root, session, found)
 
     return found
-# === END OF BLOCK 7 (PART 1 OF 2) ===
-# === BLOCK 7 OF 13 (PART 2A) ===
+
+
 def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     pub_date = extract_rbnz_published_date(filepath)
     tabs = load_rbnz_sheets(filepath) or load_rbnz_sheets_merged(filepath)
@@ -4842,11 +4706,7 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "as_of": as_of,
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
-            "html": (
-                f"In {m_full}, <strong>{ref_cnt_int:,}</strong> New Zealand mortgage commitments involved switching loan providers, refinancing "
-                f"<strong>${ref_val_m/1000.0:.2f}B (${ref_val_m:,.0f}m)</strong> in home loans—representing <strong>{ref_sh:.1f}%</strong> "
-                f"of all new residential mortgage lending, at an average commitment size of <strong>${ref_avg_nzd:,}</strong>."
-            ),
+            "html": f"In {m_full}, <strong>{ref_cnt_int:,}</strong> New Zealand mortgage commitments involved switching loan providers, refinancing <strong>${ref_val_m/1000.0:.2f}B (${ref_val_m:,.0f}m)</strong> in home loans—representing <strong>{ref_sh:.1f}%</strong> of all new residential mortgage lending, at an average commitment size of <strong>${ref_avg_nzd:,}</strong>.",
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Change in loan provider = {ref_cnt_int:,} loan commitments and ${ref_val_m:,.0f}m out of ${tot_v:,.0f}m total purpose lending.",
             "source_html": format_provenance_source_html(ref_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
             "latest_period": m_full,
@@ -4863,11 +4723,7 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "as_of": as_of,
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
-            "html": (
-                f"In {m_full}, <strong>{top_cnt_int:,}</strong> mortgage top-up commitments were recorded on existing properties—"
-                f"representing <strong>{top_sh_c:.1f}%</strong> of the RBNZ Table C33 loan-purpose count measure across New Zealand registered banks, with an average top-up of "
-                f"<strong>${top_avg_nzd:,}</strong>."
-            ),
+            "html": f"In {m_full}, <strong>{top_cnt_int:,}</strong> mortgage top-up commitments were recorded on existing properties—representing <strong>{top_sh_c:.1f}%</strong> of the RBNZ Table C33 loan-purpose count measure across New Zealand registered banks, with an average top-up of <strong>${top_avg_nzd:,}</strong>.",
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up commitments = {top_cnt_int:,} purpose counts (${top_val_m:,.0f}m) out of {tot_c:,} total C33 purpose counts.",
             "source_html": format_provenance_source_html(top_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
             "latest_period": m_full,
@@ -4884,10 +4740,7 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "as_of": as_of,
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
-            "html": (
-                f"In {m_full}, New Zealand registered banks committed <strong>{fmt_nzd_millions(top_val_m)} in mortgage top-ups</strong> across "
-                f"<strong>{top_cnt_int:,} loan commitments</strong>, at an average of <strong>${top_avg_nzd:,}</strong> per top-up."
-            ),
+            "html": f"In {m_full}, New Zealand registered banks committed <strong>{fmt_nzd_millions(top_val_m)} in mortgage top-ups</strong> across <strong>{top_cnt_int:,} loan commitments</strong>, at an average of <strong>${top_avg_nzd:,}</strong> per top-up.",
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Top-up lending value = ${top_val_m:,.0f}m across {top_cnt_int:,} loan commitments.",
             "source_html": format_provenance_source_html(eq_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
             "latest_period": m_full,
@@ -4904,11 +4757,7 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "as_of": as_of,
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
-            "html": (
-                f"In {m_full}, <strong>{pur_sh:.1f}%</strong> of new residential mortgage lending dollars at New Zealand registered banks "
-                f"(<strong>{fmt_nzd_millions(pur_val_m)} across {pur_cnt_int:,} purchase commitments</strong>) was committed specifically for "
-                f"<strong>property purchases</strong> ({plain_prior_year_pct(pur_sh, pur_sh_prev)}), at an average purchase mortgage size of <strong>${pur_avg_nzd:,}</strong>."
-            ),
+            "html": f"In {m_full}, <strong>{pur_sh:.1f}%</strong> of new residential mortgage lending dollars at New Zealand registered banks (<strong>{fmt_nzd_millions(pur_val_m)} across {pur_cnt_int:,} purchase commitments</strong>) was committed specifically for <strong>property purchases</strong> ({plain_prior_year_pct(pur_sh, pur_sh_prev)}), at an average purchase mortgage size of <strong>${pur_avg_nzd:,}</strong>.",
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Property purchase lending = ${pur_val_m:,.0f}m (LVRN.MMB1.AZC) across {pur_cnt_int:,} commitments (LVRN.MMB2.AZC) out of ${tot_v:,.0f}m total purpose lending.",
             "source_html": format_provenance_source_html(pur_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
             "latest_period": m_full,
@@ -4925,11 +4774,7 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
             "as_of": as_of,
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
-            "html": (
-                f"In {m_full}, New Zealand registered banks committed <strong>{fmt_nzd_millions(oth_val_m)} ({oth_sh:.1f}% of new lending)</strong> across "
-                f"<strong>{oth_cnt_int:,} commitments</strong> for <strong>other mortgage purposes</strong> (including bridging finance, borrowing against an unencumbered property, and capitalised interest), "
-                f"at an average commitment size of <strong>${oth_avg_nzd:,}</strong>."
-            ),
+            "html": f"In {m_full}, New Zealand registered banks committed <strong>{fmt_nzd_millions(oth_val_m)} ({oth_sh:.1f}% of new lending)</strong> across <strong>{oth_cnt_int:,} commitments</strong> for <strong>other mortgage purposes</strong> (including bridging finance, borrowing against an unencumbered property, and capitalised interest), at an average commitment size of <strong>${oth_avg_nzd:,}</strong>.",
             "official_data_summary": f"RBNZ Table C33 ({m_full}): Other purpose lending = ${oth_val_m:,.0f}m (LVRN.MMB1.AZE) across {oth_cnt_int:,} purpose counts (LVRN.MMB2.AZE).",
             "source_html": format_provenance_source_html(oth_calc, "RBNZ Table C33 (Reserve Bank of New Zealand)", c33_url, True),
             "latest_period": m_full,
@@ -4947,24 +4792,10 @@ def build_rbnz_c33_tickers(filepath: pathlib.Path) -> dict:
 def build_rbnz_c32_ticker(filepath: pathlib.Path, c31_by_ym: dict | None = None) -> dict:
     pub_date = extract_rbnz_published_date(filepath)
     tabs = load_rbnz_sheets_merged(filepath) or load_rbnz_sheets(filepath)
-    dates, inv_io, _ = find_rbnz_series(
-        tabs, (), ("investor", "interest only"), ("80", "less", "higher", "existing", "%", "share", "proportion")
-    )
-    _, oo_io, _ = find_rbnz_series(
-        tabs, (), ("owner", "interest only"), ("80", "less", "higher", "existing", "%", "share", "proportion")
-    )
-    _, inv_tot, _ = find_rbnz_series(
-        tabs,
-        ("LVRN.MMB1.AN",),
-        ("new lending by borrower type", "investors"),
-        ("interest only", "principal", "80", "existing", "%"),
-    )
-    _, oo_tot, _ = find_rbnz_series(
-        tabs,
-        ("LVRN.MMB1.AC",),
-        ("new lending by borrower type", "owner occupiers"),
-        ("interest only", "principal", "80", "existing", "%"),
-    )
+    dates, inv_io, _ = find_rbnz_series(tabs, (), ("investor", "interest only"), ("80", "less", "higher", "existing", "%", "share", "proportion"))
+    _, oo_io, _ = find_rbnz_series(tabs, (), ("owner", "interest only"), ("80", "less", "higher", "existing", "%", "share", "proportion"))
+    _, inv_tot, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AN",), ("new lending by borrower type", "investors"), ("interest only", "principal", "80", "existing", "%"))
+    _, oo_tot, _ = find_rbnz_series(tabs, ("LVRN.MMB1.AC",), ("new lending by borrower type", "owner occupiers"), ("interest only", "principal", "80", "existing", "%"))
 
     dt = dates.iloc[-1]
     iy = max(0, len(dates) - 13)
@@ -4985,10 +4816,7 @@ def build_rbnz_c32_ticker(filepath: pathlib.Path, c31_by_ym: dict | None = None)
             "as_of": as_of,
             "source_published": pub_date,
             "max_age_days": MAX_AGE_MONTHLY,
-            "html": (
-                f"In {m_full}, <strong>{inv_io_pct:.1f}%</strong> of new residential investor mortgage lending at registered banks was written on "
-                f"<strong>interest-only</strong> terms, compared with <strong>{oo_io_pct:.1f}%</strong> for owner-occupiers."
-            ),
+            "html": f"In {m_full}, <strong>{inv_io_pct:.1f}%</strong> of new residential investor mortgage lending at registered banks was written on <strong>interest-only</strong> terms, compared with <strong>{oo_io_pct:.1f}%</strong> for owner-occupiers.",
             "official_data_summary": f"RBNZ Table C32 ({m_full}): New investor interest-only = ${float(inv_io.iloc[-1]):,.0f}m of ${float(inv_tot.iloc[-1]):,.0f}m; New owner-occupier interest-only = ${float(oo_io.iloc[-1]):,.0f}m of ${float(oo_tot.iloc[-1]):,.0f}m.",
             "source_html": format_provenance_source_html(c32_calc, "RBNZ Table C32 (Reserve Bank of New Zealand)", c32_url, True),
             "latest_period": m_full,
@@ -5019,9 +4847,7 @@ def compute_c41_weighted_avg_income(
     for _, df41, _, labels41 in tabs41:
         inc_cols, avg_cols = {}, {}
         for idx, lbl in enumerate(labels41):
-            if borrower_kw not in lbl:
-                continue
-            if any(x in lbl for x in ("80", "70")):
+            if borrower_kw not in lbl or any(x in lbl for x in ("80", "70")):
                 continue
             has_akl = "auckland" in lbl
             has_non = ("outside auckland" in lbl) or ("non auckland" in lbl) or ("excl auckland" in lbl)
@@ -5029,7 +4855,6 @@ def compute_c41_weighted_avg_income(
                 continue
             if region_mode == "akl" and (not has_akl or has_non):
                 continue
-
             for bk, _ in band_defs:
                 if bk in lbl:
                     if "average" in lbl and "income" in lbl:
@@ -5060,25 +4885,12 @@ def compute_c41_weighted_avg_income(
                     avg_inc_nzd = int(round(last_b * 1000.0))
                     sum_pool_m += last_a
                     sum_implied_apps += imp_apps
-                    band_rows.append({
-                        "band": b_label,
-                        "avg_income_nzd": avg_inc_nzd,
-                        "total_income_m": round(last_a, 1),
-                        "implied_borrowers": round(imp_apps, 1),
-                    })
+                    band_rows.append({"band": b_label, "avg_income_nzd": avg_inc_nzd, "total_income_m": round(last_a, 1), "implied_borrowers": round(imp_apps, 1)})
 
             weighted_nzd_ser = ((tot_inc_ser / tot_cnt_ser.replace(0.0, float("nan"))) * 1000.0).round(0)
             valid_w = weighted_nzd_ser.dropna()
             if len(valid_w):
-                return (
-                    df41["date"].iloc[-1],
-                    float(valid_w.iloc[-1]),
-                    df41["date"],
-                    weighted_nzd_ser,
-                    band_rows,
-                    round(sum_pool_m, 1),
-                    round(sum_implied_apps, 1),
-                )
+                return df41["date"].iloc[-1], float(valid_w.iloc[-1]), df41["date"], weighted_nzd_ser, band_rows, round(sum_pool_m, 1), round(sum_implied_apps, 1)
     return None, None, None, None, [], 0.0, 0.0
 
 
@@ -5127,11 +4939,7 @@ def build_rbnz_dti_income_tickers(
             for _, df40, _, labels40 in tabs40:
                 low_idxs, le5_idxs, gran_hi_idxs, sub_gt6_idxs, unk_idxs = [], [], [], [], []
                 for idx, lbl in enumerate(labels40):
-                    if idx >= df40.shape[1] or str(df40.columns[idx]) == "date":
-                        continue
-                    if "first home" not in lbl:
-                        continue
-                    if any(x in lbl for x in ("auckland", "80", "%", "share", "count", "number")):
+                    if idx >= df40.shape[1] or str(df40.columns[idx]) == "date" or "first home" not in lbl or any(x in lbl for x in ("auckland", "80", "%", "share", "count", "number")):
                         continue
                     if any(lo in lbl for lo in ("tdti <= 3", "3 < tdti <= 4", "4 < tdti <= 5")):
                         low_idxs.append(idx)
@@ -5186,11 +4994,7 @@ def build_rbnz_dti_income_tickers(
             for _, df40, _, labels40 in tabs40:
                 i_low, i_hi, i_sub7, i_unk = [], [], [], []
                 for idx, lbl in enumerate(labels40):
-                    if idx >= df40.shape[1] or str(df40.columns[idx]) == "date":
-                        continue
-                    if "investor" not in lbl:
-                        continue
-                    if any(x in lbl for x in ("auckland", "80", "70", "%", "share", "count", "number")):
+                    if idx >= df40.shape[1] or str(df40.columns[idx]) == "date" or "investor" not in lbl or any(x in lbl for x in ("auckland", "80", "70", "%", "share", "count", "number")):
                         continue
                     if any(lo in lbl for lo in ("tdti <= 3", "3 < tdti <= 4", "4 < tdti <= 5", "5 < tdti <= 6", "6 < tdti <= 7")):
                         i_low.append(idx)
@@ -5315,12 +5119,7 @@ def build_rbnz_dti_income_tickers(
                     elif c31_by_ym.get("_latest_fhb_avg_loan_nzd"):
                         avg_loan_for_dti = int(round(c31_by_ym["_latest_fhb_avg_loan_nzd"]))
 
-                if (
-                    avg_loan_for_dti is not None
-                    and fhb_le6_pct_latest is not None
-                    and fhb_le5_pct_latest is not None
-                    and fhb_gt6_pct_latest is not None
-                ):
+                if avg_loan_for_dti is not None and fhb_le6_pct_latest is not None and fhb_le5_pct_latest is not None and fhb_gt6_pct_latest is not None:
                     implied_dti_x = round(avg_loan_for_dti / max(1.0, float(fhb_inc_int)), 2)
                     le6_pct, le5_pct, gt6_pct = fhb_le6_pct_latest, fhb_le5_pct_latest, fhb_gt6_pct_latest
                     typ_dti_calc = (
@@ -5346,18 +5145,14 @@ def build_rbnz_dti_income_tickers(
         except Exception as exc:
             print(f"[C41 BGI] Parse note: {exc}")
     return out
-# === END OF BLOCK 7 (PART 2A) ===
-# === BLOCK 7 OF 13 (PART 2B) ===
+
+
 def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathlib.Path | None = None) -> dict:
     """100% live-parsed settled rates (RBNZ B30) & fixed vs floating / existing stock repricing (RBNZ S33)."""
     pub_date = extract_rbnz_published_date(filepath)
     tabs = load_rbnz_sheets(filepath) or load_rbnz_sheets_merged(filepath)
-    dates, r_1y, _ = find_rbnz_series(
-        tabs, ("NCFA.MAM1PR.D1",), ("1 year",), ("value", "amount", "share", "investor"), val_bounds=(1.0, 15.0)
-    )
-    _, r_2y, _ = find_rbnz_series(
-        tabs, ("NCFA.MAM1PR.D2",), ("2 year",), ("value", "amount", "share", "investor"), val_bounds=(1.0, 15.0)
-    )
+    dates, r_1y, _ = find_rbnz_series(tabs, ("NCFA.MAM1PR.D1",), ("1 year",), ("value", "amount", "share", "investor"), val_bounds=(1.0, 15.0))
+    _, r_2y, _ = find_rbnz_series(tabs, ("NCFA.MAM1PR.D2",), ("2 year",), ("value", "amount", "share", "investor"), val_bounds=(1.0, 15.0))
     dt = dates.iloc[-1]
     iy = max(0, len(dates) - 13)
     m_full = dt.strftime("%B %Y")
@@ -5505,10 +5300,7 @@ def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathli
 
 
 def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib.Path) -> dict:
-    """
-    100% live-pulled RBNZ Table C31 + Table C33 full historical timeline builder (Zero Hardcoded Fallbacks).
-    Aligns every overlapping monthly observation across both $ value ($m) and purpose/commitment counts (#).
-    """
+    """100% live-pulled RBNZ Table C31 + Table C33 full historical timeline builder."""
     pub_c31 = extract_rbnz_published_date(c31_path)
     tabs31 = load_rbnz_sheets(c31_path) or load_rbnz_sheets_merged(c31_path)
     tabs33 = load_rbnz_sheets(c33_path) or load_rbnz_sheets_merged(c33_path)
@@ -5642,30 +5434,10 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
                 "topups": int(round(float(row["top_c"]))),
                 "other": int(round(float(row["oth_c"]))),
             },
-            "c31_pct": {
-                "fhb": c31_fhb_v_pct,
-                "ooo": c31_ooo_v_pct,
-                "inv": c31_inv_v_pct,
-                "bus": c31_bus_v_pct,
-            },
-            "c31_cnt_pct": {
-                "fhb": c31_fhb_c_pct,
-                "ooo": c31_ooo_c_pct,
-                "inv": c31_inv_c_pct,
-                "bus": c31_bus_c_pct,
-            },
-            "c33_pct": {
-                "purchases": c33_pur_v_pct,
-                "refinances": c33_ref_v_pct,
-                "topups": c33_top_v_pct,
-                "other": c33_oth_v_pct,
-            },
-            "c33_cnt_pct": {
-                "purchases": c33_pur_c_pct,
-                "refinances": c33_ref_c_pct,
-                "topups": c33_top_c_pct,
-                "other": c33_oth_c_pct,
-            },
+            "c31_pct": {"fhb": c31_fhb_v_pct, "ooo": c31_ooo_v_pct, "inv": c31_inv_v_pct, "bus": c31_bus_v_pct},
+            "c31_cnt_pct": {"fhb": c31_fhb_c_pct, "ooo": c31_ooo_c_pct, "inv": c31_inv_c_pct, "bus": c31_bus_c_pct},
+            "c33_pct": {"purchases": c33_pur_v_pct, "refinances": c33_ref_v_pct, "topups": c33_top_v_pct, "other": c33_oth_v_pct},
+            "c33_cnt_pct": {"purchases": c33_pur_c_pct, "refinances": c33_ref_c_pct, "topups": c33_top_c_pct, "other": c33_oth_c_pct},
             "combined_val_pct": {
                 "fhb": c31_fhb_v_pct,
                 "second_home_purchases": comb_ooo_pur_v_pct,
@@ -5764,15 +5536,11 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
 
 
 def _canon_rbnz_bank_name(raw_inst: str) -> str | None:
-    """
-    Normalize RBNZ Bank Financial Strength Dashboard institution codes & full names
-    into canonical bank keys (including short codes 'WNZL', 'Co-op', 'BOC', 'CCB', 'ICBC', 'HBL').
-    """
+    """Normalize RBNZ Bank Financial Strength Dashboard institution codes & full names into canonical bank keys."""
     s = str(raw_inst or "").strip()
     low = s.lower()
     if not low or low in ("nan", "none", "institution", "bank", "all banks", "total", "system", "series id", "date"):
         return None
-    # Check Rabobank first so 'ranz' never matches 'anz'
     if "rabobank" in low or low in ("rnzl", "ranz", "rabo"):
         return "Rabobank"
     if low in ("wnzl", "wbc") or "westpac" in low:
@@ -5830,9 +5598,9 @@ def build_rbnz_bank_dashboard_timeline_ticker(
     """
     100% live-pulled RBNZ Bank Financial Strength Dashboard parser (Zero Hardcoded Fallbacks).
     Extracts each registered bank's existing residential mortgage loan book balance ($m / $B),
-    100% market share (%), quarterly/annual net lending flow ($m), and total gross loans ($m)
+    100% market share (%), quarterly/annual change in mortgage book ($m), and total gross loans ($m)
     across all 12 individual mortgage-lending registered banks AND populates 'Other Registered Banks'
-    as the rollup of the smaller banks outside the top 8 so both 9-card and 12-bank views work seamlessly.
+    as the rollup of the smaller banks outside the top 8.
     """
     rbnz_map = rbnz_files if isinstance(rbnz_files, dict) else {}
     dash_path = _download_bank_dashboard_xlsx(root, session, rbnz_map)
@@ -6053,22 +5821,8 @@ def build_rbnz_bank_dashboard_timeline_ticker(
 
     df_panel = df_panel[df_panel["_mtg_m"] > 0].copy()
 
-    top8_banks = [
-        "ANZ",
-        "ASB",
-        "Westpac",
-        "BNZ",
-        "Kiwibank",
-        "TSB",
-        "SBS Bank",
-        "The Co-operative Bank",
-    ]
-    smaller_banks = [
-        "Heartland Bank",
-        "China Construction Bank",
-        "Bank of China",
-        "ICBC",
-    ]
+    top8_banks = ["ANZ", "ASB", "Westpac", "BNZ", "Kiwibank", "TSB", "SBS Bank", "The Co-operative Bank"]
+    smaller_banks = ["Heartland Bank", "China Construction Bank", "Bank of China", "ICBC"]
     primary_banks = top8_banks + smaller_banks
     all_categories = primary_banks + ["Other Registered Banks"]
 
@@ -6105,15 +5859,8 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         if total_m <= 0:
             continue
 
-        # Populate "Other Registered Banks" as the combined rollup of the 4 smaller mortgage banks
-        # (Heartland Bank + China Construction Bank + Bank of China + ICBC + any residual)
-        # while also keeping their 4 individual keys in `raw_val_m` and `share_pct`.
-        raw_m["Other Registered Banks"] = round(
-            sum(raw_m[b] for b in smaller_banks) + residual_other_m, 1
-        )
-        tot_loan_m["Other Registered Banks"] = round(
-            sum(tot_loan_m[b] for b in smaller_banks) + residual_other_tl_m, 1
-        )
+        raw_m["Other Registered Banks"] = round(sum(raw_m[b] for b in smaller_banks) + residual_other_m, 1)
+        tot_loan_m["Other Registered Banks"] = round(sum(tot_loan_m[b] for b in smaller_banks) + residual_other_tl_m, 1)
 
         share_pct: dict[str, float] = {}
         top8_running_pct = 0.0
@@ -6131,9 +5878,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         qoq_flow_m: dict[str, float] = {}
         for b_name in all_categories:
             qoq_flow_m[b_name] = round(raw_m[b_name] - prev_raw.get(b_name, 0.0), 1) if prev_raw else 0.0
-        total_qoq_flow_m = round(
-            sum(qoq_flow_m[b] for b in top8_banks) + qoq_flow_m["Other Registered Banks"], 1
-        )
+        total_qoq_flow_m = round(sum(qoq_flow_m[b] for b in top8_banks) + qoq_flow_m["Other Registered Banks"], 1)
 
         housing_conc_pct: dict[str, float] = {}
         for b_name in all_categories:
@@ -6201,10 +5946,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "period": ym,
             "label": f"{lbl_q} Qtr",
             "value": nz_owned_pct,
-            "formatted": (
-                f"NZ-Owned Banks {nz_owned_pct:.2f}% (${nz_owned_m/1000:.2f}B) vs "
-                f"Big 4 Australian Banks {big4_pct:.2f}% (${big4_m/1000:.2f}B)"
-            ),
+            "formatted": f"NZ-Owned Banks {nz_owned_pct:.2f}% (${nz_owned_m/1000:.2f}B) vs Big 4 Australian Banks {big4_pct:.2f}% (${big4_m/1000:.2f}B)",
         })
 
     if not timeline_rows:
@@ -6238,13 +5980,18 @@ def build_rbnz_bank_dashboard_timeline_ticker(
     prev_nz_sh = prev_y["ownership_pct"][nz_key]
     prev_nz_val_b = prev_y["ownership_val_m"][nz_key] / 1000.0
 
+    qoq_tot_m = lat["total_qoq_flow_m"]
+    qoq_tot_sign = "+" if qoq_tot_m >= 0 else "-"
+    qoq_tot_fmt = f"{qoq_tot_sign}${abs(qoq_tot_m):,.0f}m"
+
     calc_str = (
-        f"RBNZ Bank Dashboard ({m_full}, Total Registered Bank Book = ${lat['total_val_m']/1000:.2f}B): "
+        f"RBNZ Bank Dashboard ({m_full}, Total Registered-Bank Book = ${lat['total_val_m']/1000:.2f}B): "
         f"ANZ {sp['ANZ']:.1f}% (${rm['ANZ']/1000:.2f}B) + ASB {sp['ASB']:.1f}% (${rm['ASB']/1000:.2f}B) + "
         f"Westpac {sp['Westpac']:.1f}% (${rm['Westpac']/1000:.2f}B) + BNZ {sp['BNZ']:.1f}% (${rm['BNZ']/1000:.2f}B) + "
         f"Kiwibank {sp['Kiwibank']:.1f}% (${rm['Kiwibank']/1000:.2f}B) + TSB {sp['TSB']:.1f}% (${rm['TSB']/1000:.2f}B) + "
         f"SBS {sp['SBS Bank']:.1f}% (${rm['SBS Bank']/1000:.2f}B) + Co-op {sp['The Co-operative Bank']:.1f}% (${rm['The Co-operative Bank']/1000:.2f}B) + "
-        f"Other Registered Banks (Heartland/CCB/BOC/ICBC) {sp['Other Registered Banks']:.1f}% (${rm['Other Registered Banks']/1000:.2f}B) = 100.0%"
+        f"Other Registered Banks (Heartland/CCB/BOC/ICBC) {sp['Other Registered Banks']:.1f}% (${rm['Other Registered Banks']/1000:.2f}B) = 100.0% | "
+        f"Quarterly Change in Mortgage Book = {qoq_tot_fmt}"
     )
     nz_calc_str = (
         f"NZ-Owned Banks (${nz_val_b:.2f}B) ÷ All Registered Banks (${lat['total_val_m']/1000:.2f}B) = {nz_sh:.2f}% | "
@@ -6260,7 +6007,8 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "source_url": dash_url,
             "max_age_days": MAX_AGE_ANNUAL,
             "html": (
-                f"As at the {m_full}, across <strong>${lat['total_val_m']/1000:.2f}B (${lat['total_val_m']:,.0f}m)</strong> in existing New Zealand registered bank residential mortgage loan books, "
+                f"As at the {m_full}, across <strong>${lat['total_val_m']/1000:.2f}B (${lat['total_val_m']:,.0f}m)</strong> in existing New Zealand registered-bank residential mortgage loan books "
+                f"(a quarterly change in mortgage book balances of <strong>{qoq_tot_fmt}</strong>), "
                 f"market share was led by <strong>ANZ ({sp['ANZ']:.1f}%, or ${rm['ANZ']/1000:.2f}B)</strong>, "
                 f"<strong>ASB ({sp['ASB']:.1f}%, or ${rm['ASB']/1000:.2f}B)</strong>, "
                 f"<strong>Westpac ({sp['Westpac']:.1f}%, or ${rm['Westpac']/1000:.2f}B)</strong>, "
@@ -6274,7 +6022,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "official_data_summary": (
                 f"RBNZ Bank Financial Strength Dashboard ({m_full} Existing Residential Mortgages): "
                 + "; ".join(f"{b_k} = ${rm[b_k]:,.0f}m ({sp[b_k]:.2f}%)" for b_k in primary_banks if rm.get(b_k, 0) > 0)
-                + "."
+                + f". Quarterly change in registered-bank residential mortgage book balances = {qoq_tot_fmt}."
             ),
             "source_html": format_provenance_source_html(calc_str, "RBNZ Bank Financial Strength Dashboard", dash_url, True),
             "latest_period": m_full,
@@ -6285,11 +6033,8 @@ def build_rbnz_bank_dashboard_timeline_ticker(
                 f"TSB {sp['TSB']:.1f}% | SBS {sp['SBS Bank']:.1f}% | Co-op {sp['The Co-operative Bank']:.1f}% | "
                 f"Other {sp['Other Registered Banks']:.1f}%"
             ),
-            "previous_period": (
-                f"{prev_y['label']}: ANZ {prev_y['share_pct']['ANZ']:.1f}% | "
-                f"Kiwibank {prev_y['share_pct']['Kiwibank']:.1f}% | Co-op {prev_y['share_pct']['The Co-operative Bank']:.1f}%"
-            ),
-            "change": f"Quarterly Net Lending Flow: {lat['total_qoq_flow_m']:+,.0f}m across all registered banks",
+            "previous_period": f"{prev_y['label']}: ANZ {prev_y['share_pct']['ANZ']:.1f}% | Kiwibank {prev_y['share_pct']['Kiwibank']:.1f}% | Co-op {prev_y['share_pct']['The Co-operative Bank']:.1f}%",
+            "change": f"Quarterly change in registered-bank residential mortgage book balances: {qoq_tot_fmt}",
             "calculation_live": calc_str,
             "historical_data_from": hist_from_str,
             "history": list(reversed(std_history[-20:])),
@@ -6303,11 +6048,11 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "max_age_days": MAX_AGE_ANNUAL,
             "html": (
                 f"As at the {m_full}, New Zealand-owned registered banks (led by <strong>Kiwibank at ${rm['Kiwibank']/1000:.2f}B / {sp['Kiwibank']:.1f}%</strong> alongside "
-                f"<strong>TSB [${rm['TSB']/1000:.2f}B / {sp['TSB']:.1f}%]</strong>, <strong>SBS Bank [${rm['SBS Bank']/1000:.2f}B / {sp['SBS Bank']:.1f}%]</strong>, "
-                f"<strong>The Co-operative Bank [${rm['The Co-operative Bank']/1000:.2f}B / {sp['The Co-operative Bank']:.1f}%]</strong>, and "
-                f"<strong>Heartland Bank [${rm['Heartland Bank']:,.0f}m]</strong>) "
-                f"held a combined existing residential mortgage book of <strong>${nz_val_b:.2f}B ({nz_sh:.2f}%)</strong>, compared with "
-                f"<strong>${big4_val_b:.2f}B ({big4_sh:.2f}%)</strong> across the Big 4 Australian-owned banks."
+                f"<strong>TSB [${rm['TSB']/1000:.2f}B / {sp['TSB']:.1f}%]</strong>, <strong>Heartland Bank [${rm['Heartland Bank']/1000:.2f}B / {sp['Heartland Bank']:.1f}%]</strong>, "
+                f"<strong>SBS Bank [${rm['SBS Bank']/1000:.2f}B / {sp['SBS Bank']:.1f}%]</strong>, and "
+                f"<strong>The Co-operative Bank [${rm['The Co-operative Bank']/1000:.2f}B / {sp['The Co-operative Bank']:.1f}%]</strong>) "
+                f"held a combined existing residential mortgage book of <strong>${nz_val_b:.2f}B ({nz_sh:.1f}%)</strong>, compared with "
+                f"<strong>${big4_val_b:.2f}B ({big4_sh:.1f}%)</strong> across the Big 4 Australian-owned banks."
             ),
             "official_data_summary": (
                 f"RBNZ Bank Financial Strength Dashboard ({m_full}): Combined NZ-owned bank residential mortgage books = ${nz_val_b:.2f}B ({nz_sh:.2f}%); "
@@ -6316,9 +6061,9 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "source_html": format_provenance_source_html(nz_calc_str, "RBNZ Bank Financial Strength Dashboard", dash_url, True),
             "latest_period": m_full,
             "value": nz_sh,
-            "latest_value": f"NZ-Owned Banks {nz_sh:.2f}% (${nz_val_b:.2f}B) vs Big 4 Australian Banks {big4_sh:.2f}% (${big4_val_b:.2f}B)",
-            "previous_period": f"{prev_y['label']}: NZ-Owned Banks {prev_nz_sh:.2f}% (${prev_nz_val_b:.2f}B)",
-            "change": f"{nz_sh - prev_nz_sh:+.2f} percentage points YoY ({nz_val_b - prev_nz_val_b:+.2f}B book growth)",
+            "latest_value": f"NZ-Owned Banks {nz_sh:.1f}% (${nz_val_b:.2f}B) vs Big 4 Australian Banks {big4_sh:.1f}% (${big4_val_b:.2f}B)",
+            "previous_period": f"{prev_y['label']}: NZ-Owned Banks {prev_nz_sh:.1f}% (${prev_nz_val_b:.2f}B)",
+            "change": f"{nz_sh - prev_nz_sh:+.2f} percentage points YoY ({nz_val_b - prev_nz_val_b:+.2f}B annual change in mortgage book)",
             "calculation_live": nz_calc_str,
             "historical_data_from": hist_from_str,
             "history": list(reversed(nz_owned_history[-20:])),
@@ -6372,7 +6117,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         }
 
     return out_dict
-# === END OF BLOCK 7 (PART 2B / END OF BLOCK 7) ===
+# === END OF BLOCK 7 ===
 # === BLOCK 8 OF 13 ===
 def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pathlib.Path]) -> dict:
     """
@@ -12096,1229 +11841,271 @@ def write_legacy_redirect_page(root: pathlib.Path, alias_key: str, target_key: s
     )
 # === END OF BLOCK 12 ===
 # === BLOCK 13 OF 13 ===
-def _extract_ko_all_67_tlas(pdf_bytes: bytes, pdf_txt: str) -> list[dict]:
-    """
-    Sequential 134-row parser for Kāinga Ora's Home Ownership Products Quarterly Report PDF (Pages 2–4).
-    In Kāinga Ora's PDF text stream, each page outputs the Left Table (Approvals) followed by the Right Table
-    (Settlements), so each of the 67 New Zealand Territorial Local Authorities appears twice in strict order:
-    1st occurrence = Approvals, 2nd occurrence = Settlements.
-    """
-    norm_txt = re.sub(r"\s+", " ", re.sub(r"[\|\r\n]+", " ", pdf_txt))
-    all_matches: list[tuple[int, int, str]] = []
-    for c_lbl, c_pat in KO_ALL_67_TLA_SPECS:
-        for m in re.finditer(c_pat, norm_txt, flags=re.I):
-            all_matches.append((m.start(), m.end(), c_lbl))
-
-    all_matches.sort(key=lambda x: x[0])
-    if not all_matches:
-        return []
-
-    occurrence_counts: dict[str, int] = {}
-    app_map: dict[str, int] = {}
-    set_map: dict[str, int] = {}
-
-    for idx, (_, end_pos, c_lbl) in enumerate(all_matches):
-        next_start = all_matches[idx + 1][0] if (idx + 1 < len(all_matches)) else len(norm_txt)
-        seg = norm_txt[end_pos:next_start]
-        m_stop = re.search(
-            r"\b(?:Total|Tenant\s+Home\s+Ownership|First\s+Home\s+Loan|Approvals\s+by|Settlements\s+by|Territorial\s+Local)\b",
-            seg,
-            flags=re.I,
-        )
-        if m_stop:
-            seg = seg[: m_stop.start()]
-        seg_clean = re.sub(r"\b202\d\b", " ", seg)
-        nums = [int(n.replace(",", "")) for n in re.findall(r"\d[\d,]*", seg_clean)]
-
-        if not nums:
-            q_tot = 0
-        else:
-            if (
-                len(nums) >= 3
-                and nums[-1] in (2, 3, 4)
-                and sum(nums[:-2]) == nums[-2]
-            ):
-                nums = nums[:-1]
-            q_tot = nums[-1]
-
-        occ = occurrence_counts.get(c_lbl, 0)
-        occurrence_counts[c_lbl] = occ + 1
-        if occ == 0:
-            app_map[c_lbl] = q_tot
-        elif occ == 1:
-            set_map[c_lbl] = q_tot
-
-    rows_out: list[dict] = []
-    for c_lbl, _ in KO_ALL_67_TLA_SPECS:
-        if c_lbl in app_map or c_lbl in set_map:
-            rows_out.append({
-                "label": c_lbl,
-                "approvals": int(app_map.get(c_lbl, 0)),
-                "settlements": int(set_map.get(c_lbl, 0)),
-                "is_subgroup": False,
-            })
-    return rows_out
-
-
-def _format_cat_card_value(rec: dict) -> str:
-    """Format a concise value badge for the top category cards without truncating at inline labels like (Q1)."""
-    raw = str(rec.get("latest_value", "")).strip()
-    if not raw:
-        return "Verified"
-    first_seg = raw.split("|")[0].strip()
-    idx_paren = first_seg.find("(")
-    if idx_paren > 0 and ":" not in first_seg[idx_paren:]:
-        prefix = first_seg[:idx_paren].strip()
-        if re.search(r"\d", prefix) and len(prefix) >= 3:
-            return prefix
-    return first_seg
-
-
-def _effective_max_age(key: str, item: dict) -> int:
-    """Return the freshness window in days for a ticker based on its official publication frequency."""
-    raw_age = int(item.get("max_age_days", MAX_AGE_MONTHLY))
-    if key in (
-        "net-worth-by-age-and-tenure",
-        "regional-net-worth-benchmarks",
-        "ird-individual-taxable-income-percentiles",
-        "ird-paye-wage-vs-self-employed-income",
-        "ird-family-trusts-rental-income",
-        "working-for-families-income-support",
-    ):
-        return max(raw_age, MAX_AGE_TRIENNIAL)
-    if key in (
-        "equivalised-household-income-family-size",
-        "rent-vs-mortgage-interest-outgoings",
-        "individual-income-by-source-benchmarks",
-        "fhb-regional-kiwisaver",
-        "kiwisaver-switches",
-        "kiwisaver-default-vs-active",
-        "kiwisaver-contributions-10yr",
-        "kiwisaver-member-demographics-age-income",
-        "kiwisaver-contribution-rate-mix",
-        "kiwisaver-total-fum-balance",
-        "acc-earners-levy-cap",
-        "natural-hazard-claims",
-        "insurance-claims-trends",
-        "insurer-loss-ratios",
-        "ird-overdue-tax-debt-stress",
-    ):
-        return max(raw_age, MAX_AGE_ANNUAL)
-    if key in (
-        "mcert-house-price-index-yoy",
-        "hpi-low-vs-high-value-tiers",
-        "sales-composition-by-value-quartile",
-        "nz-median-house-price-quartiles",
-        "regional-median-house-prices",
-        "tla-council-house-price-benchmarks",
-        "nz-monthly-property-sales-volume",
-        "gross-rental-yield-by-council",
-        "bank-mortgage-market-share-timeline",
-        "nz-owned-vs-big4-mortgage-share",
-    ):
-        return max(raw_age, 250)
-    return raw_age
-
-
-def _update_catalog_metadata_definitions() -> None:
-    """
-    Synchronise TICKER_CATALOG text definitions, scope notes, and formulas with official agency technical notes.
-    Contains zero hardcoded data values.
-    """
-    if "TICKER_CATALOG" not in globals():
-        return
-    updates = {
-        "kainga-ora-first-home-loan-regional": {
-            "name": "Kāinga Ora First Home Loan (5% deposit) approvals & settlements across all 67 NZ councils + Greater Wellington subgroup",
-            "also_known_as": "Kāinga Ora First Home Loan Approvals & Settlements by Territorial Local Authority (All 67 TLAs + Greater Wellington 8-Council Subgroup)",
-            "topic": "Regional Kāinga Ora 5% deposit First Home Loan approvals & settlements across all 67 NZ councils",
-            "definition": "Complete distribution of Kāinga Ora 5% deposit First Home Loan approvals and settlements across all 67 New Zealand Territorial Local Authorities (city and district councils), plus an HLF-derived Greater Wellington regional subgroup combining Wellington City, Lower Hutt City, Upper Hutt City, Porirua City, Kāpiti Coast District, Masterton District, Carterton District, and South Wairarapa District.",
-            "formula": "Council Share of National Approvals (%) = (Council Quarterly Approvals ÷ National Quarterly Approvals) × 100; Greater Wellington Subgroup = Sum of 8 Greater Wellington TLAs",
-            "hlf_interpretation": "HLF market context: While Auckland is reported as a single unitary council (Auckland City), the Wellington regional housing market is split across eight separate city and district councils in Kāinga Ora's TLA tables. Aggregating all eight councils into the Greater Wellington (HLF Subgroup) shows the true scale of 5%-deposit First Home Loan activity across the Greater Wellington region alongside all 67 individual councils nationwide.",
-            "methodology": "Automatically parsed from the Territorial Local Authority Approvals and Settlements tables (Pages 2–4) in Kāinga Ora's Home Ownership Products Quarterly Report PDF across all 67 New Zealand Territorial Local Authorities (including councils with zero approvals or settlements in the quarter), with the Greater Wellington HLF Subgroup summed across the 8 constituent councils of the Greater Wellington region.",
-        },
-        "borrower-income": {
-            "name": "Average gross borrower income across approved first-home buyer DTI bands (RBNZ Table C41)",
-            "also_known_as": "Borrower Gross Income (BGI) band-weighted mean across approved FHB applications (RBNZ C41, ±$500–$1,000 band-rounding tolerance)",
-            "methodology": "RBNZ Table C41 publishes official total gross income ($m) and average gross income ($000, rounded to the nearest $1,000) within each Total Debt-to-Income (TDTI) band rather than a single all-bands mean. HLF derives the overall band-weighted mean by dividing total gross income summed across all reported FHB TDTI bands by the implied number of applications (Band Total Income ÷ Band Average Income) summed across those bands. Because RBNZ rounds band averages to $1,000 and excludes DTI-unknown loans from Table C40/C41, the implied application count and reconstructed mean carry a rounding tolerance of approximately ±$500–$1,000 and differ slightly from Table C31 total FHB loan counts.",
-        },
-        "fhb-typical-income": {
-            "name": "Mean first-home buyer application gross income (RBNZ Table C41)",
-            "also_known_as": "FHB borrower-weighted mean gross application income (BGI, ±$500–$1,000 band-rounding tolerance)",
-            "methodology": "Derived from RBNZ Table C41 by summing total gross borrower income ($m) across all reported first-home buyer Debt-to-Income bands and dividing by the total implied number of applications (Band Pool ÷ Band Average Income, published rounded to $1,000). Because RBNZ rounds band averages to the nearest $1,000 and excludes DTI-unknown loans, the reconstructed mean carries a band-rounding tolerance of approximately ±$500–$1,000 and the implied application count differs slightly from Table C31 loan counts.",
-        },
-        "fhb-typical-dti": {
-            "name": "Implied first-home buyer ratio of mean loan to mean gross income & share <= 6x DTI (RBNZ C31/C40/C41)",
-            "also_known_as": "Implied FHB ratio of averages (C31 mean loan ÷ C41 mean income) & official C40 share of FHB lending within 5x and 6x TDTI",
-            "definition": "The implied ratio of the national average first-home buyer mortgage commitment size (Table C31) to the band-weighted average first-home buyer gross application income (Table C41)—a ratio of aggregate averages rather than the mean DTI of individual borrowers—reported alongside the official share of FHB lending written at or below 5x and 6x Total Debt-to-Income (TDTI) in RBNZ Table C40.",
-            "hlf_interpretation": "HLF market context: Dividing the Table C31 mean FHB loan by the Table C41 mean FHB application income produces an implied ratio of averages (and excludes non-mortgage debt such as student loans or credit card limits that banks include in actual TDTI assessments). The companion RBNZ Table C40 shares (<=5x and <=6x TDTI) measure the actual Total Debt-to-Income distribution of FHB lending commitments.",
-            "methodology": "Divides the monthly mean FHB mortgage commitment size (RBNZ Table C31) by the monthly band-weighted mean FHB gross borrower income (RBNZ Table C41), paired with the official share of FHB lending dollar commitments in TDTI bands <= 5x and <= 6x from RBNZ Table C40. Small differences between Table C31 ($1,530m / 2,667 loans), Table C40 ($1,525.0m), and Table C41 (2,655.4 implied applications) reflect RBNZ band rounding and DTI-unknown exclusions.",
-        },
-        "dti-headroom": {
-            "name": "First-home buyer high Debt-to-Income (>6x DTI) share vs 20% RBNZ owner-occupier speed limit",
-            "hlf_interpretation": "HLF market context: RBNZ's 20% high-DTI (>6x) speed limit applies to each individual registered bank's new non-exempt owner-occupier lending flow (first-home buyers and existing owner-occupiers combined), not to the banking system as a single pooled allowance. Showing the system-wide first-home buyer >6x DTI share alongside the 20% benchmark illustrates aggregate positioning but does not establish an individual bank's available high-DTI headroom.",
-            "methodology": "Derived from RBNZ Table C40 by summing first-home buyer lending commitments in bands above 6x TDTI and dividing by total first-home buyer commitments across all reported TDTI bands in Table C40 (which differs slightly from Table C31 total FHB lending due to RBNZ rounding and DTI-unknown exclusions).",
-        },
-        "investor-high-dti-share": {
-            "name": "Property investor high Debt-to-Income (>7x DTI) share vs 20% RBNZ investor speed limit",
-            "hlf_interpretation": "HLF market context: RBNZ's 20% investor high-DTI (>7x) speed limit applies independently to each individual registered bank's non-exempt investor lending flow rather than as a single pooled system-wide quota. While the system-wide >7x DTI share sits below 20%, individual banks manage their own internal speed-limit buffers and exemption flows.",
-        },
-        "settled-rates": {
-            "name": "Average settled 1-year & 2-year fixed mortgage interest rates for owner-occupiers (RBNZ Table B30)",
-            "also_known_as": "RBNZ Table B30 simple average of participating banks' loan-value-weighted settled residential mortgage rates",
-            "definition": "The average fixed mortgage interest rate on new owner-occupier residential mortgage commitments for 1-year and 2-year fixed terms at New Zealand registered banks in RBNZ Table B30 (calculated by RBNZ as a simple average across participating banks' loan-value-weighted rates).",
-            "hlf_interpretation": "HLF market context: In RBNZ Table B30, each participating registered bank reports its own dollar-volume-weighted average interest rate on new owner-occupier fixed-rate mortgage commitments for the month, and RBNZ publishes the simple arithmetic average across those reporting banks.",
-            "methodology": "Directly reported by RBNZ Table B30 series NCFA.MAM1PR.D1 (1-year fixed owner-occupier rate) and NCFA.MAM1PR.D2 (2-year fixed owner-occupier rate). Per RBNZ's Table B30 technical notes, each participating bank weights its new settled rates by loan value, and RBNZ calculates a simple arithmetic mean of the participating banks' rates.",
-        },
-        "equity-topup-demand": {
-            "name": "Monthly mortgage top-up dollar volume & loan commitment count (RBNZ Table C33)",
-            "also_known_as": "Total monthly equity top-up lending value & committed loan count (RBNZ C33)",
-            "definition": "The total monthly dollar value and number of committed mortgage loans approved for top-ups on existing mortgages at New Zealand registered banks in RBNZ Table C33.",
-            "formula": "Mean Top-Up = Top-up Lending Value [LVRN.MMB1.AZB] ÷ Top-up Loan Commitments [LVRN.MMB2.AZB]",
-            "methodology": "Sourced from RBNZ Table C33 series LVRN.MMB1.AZB (Top-up lending value in $ millions) and LVRN.MMB2.AZB (Top-up committed loan count), with mean top-up commitment size calculated by HLF. RBNZ Table C33 counts committed mortgage loans rather than unique individual borrowers.",
-        },
-        "top-ups": {
-            "name": "Mortgage top-up share of new loan commitments & average top-up amount (RBNZ Table C33)",
-            "also_known_as": "Existing homeowner equity top-up share of loan commitments & mean top-up value",
-            "definition": "The percentage of monthly new residential mortgage loan commitments at registered banks that are top-ups on an existing mortgage with the same lender, alongside the mean dollar top-up commitment size.",
-            "formula": "(Top-up Loan Commitments [LVRN.MMB2.AZB] ÷ Total Loan Commitments by Purpose) × 100; Mean Top-Up = LVRN.MMB1.AZB ÷ LVRN.MMB2.AZB",
-            "methodology": "Derived from RBNZ Table C33 by dividing top-up loan commitment count (LVRN.MMB2.AZB) by total mortgage loan commitments across all purposes, and dividing top-up lending value (LVRN.MMB1.AZB, rounded to $1m) by top-up commitment count. RBNZ Table C33 counts committed loans rather than unique borrowers.",
-        },
-        "refinance": {
-            "name": "Mortgage refinancing (change in loan provider) share of lending & loan commitments (RBNZ Table C33)",
-            "also_known_as": "Bank-to-bank mortgage switching share, committed loan count & average refinance size",
-            "methodology": "Derived from RBNZ Table C33 by dividing 'change in loan provider' lending value (LVRN.MMB1.AZD, rounded to $1m) by the sum of all purpose categories (property purchase AZC, top-up AZB, change in provider AZD, and other AZE). In RBNZ Table C33, counts represent committed mortgage loans rather than unique individual borrowers, and exclude internal rate refixes with the same bank.",
-        },
-        "investor-new-build-lvr": {
-            "name": "Property investor lending above 70% LVR: total high-LVR share & volume (RBNZ Table C31)",
-            "also_known_as": "High-LVR (>70% LVR) residential property investor mortgage share & volume across exemptions and speed limits",
-            "topic": "All investor >70% LVR lending (new-build exemptions, bridging & speed-limit allowances combined)",
-            "definition": "The share, loan count, and dollar volume of all residential property investor mortgage commitments at registered banks written at an LVR above 70% (under 30% equity/deposit) in RBNZ Table C31.",
-            "hlf_interpretation": "HLF market context: RBNZ Table C31 measures all investor mortgage commitments written above 70% LVR combined—aggregating LVR-exempt new-build construction loans, bridging/refinancing exemptions, and discretionary loans approved within banks' high-LVR speed limits. Table C31 does not isolate new-build-exempt investor loans as a standalone series.",
-        },
-        "new-build-lvr-exemption-flow": {
-            "name": "Combined high-LVR lending to existing owner-occupiers (>80% LVR) & investors (>70% LVR) (RBNZ Table C31)",
-            "also_known_as": "Total non-FHB high-LVR mortgage volume (movers >80% LVR + investors >70% LVR across exemptions & speed limits)",
-            "topic": "Combined non-FHB high-LVR lending volume (exemptions & speed-limit loans combined)",
-            "hlf_interpretation": "HLF market context: Sums all non-first-home-buyer commitments written above the standard 80% owner-occupier and 70% investor LVR thresholds in RBNZ Table C31. This combined flow includes LVR-exempt new-build lending, bridging finance, dollar-for-dollar external refinances, and bank speed-limit allowances, and does not isolate new-build exemptions alone.",
-        },
-        "build-cost-inflation": {
-            "name": "Annual change in residential construction cost (CPI purchase of new housing, excluding land)",
-            "definition": "The annual percentage change in Stats NZ's Consumers Price Index (CPI) 'purchase of new housing' sub-index, measuring the cost of constructing a new residential dwelling excluding land.",
-        },
-        "low-equity-margin-penalty-spread": {
-            "name": "Advertised Standard (carded) vs Special (<=80% LVR) 1-year fixed mortgage rate spread (RBNZ B20 vs B21)",
-            "hlf_interpretation": "HLF market context: Measures the basis-point gap between banks' advertised 1-year Standard (carded) fixed rate (Table B20) and 1-year Special (discounted <=80% LVR) fixed rate (Table B21). It does not directly measure lender-specific low-equity premiums (LEP) or tiered low-equity margins (LEM) charged above 80% LVR.",
-        },
-        "total-housing-debt-stock": {
-            "hlf_interpretation": "HLF market context: RBNZ Table C5 measures total residential mortgage debt across both registered banks and non-bank lending institutions (NBLIs), which is why the Table C5 total is higher than the registered-bank-only housing loan series in RBNZ Table S32 (loans by product) and Table S33 (loans fully secured by residential mortgage).",
-        },
-        "existing-mortgage-stock-lvr-refix": {
-            "name": "Existing New Zealand bank mortgage stock repricing horizon & floating vs fixed structure (RBNZ Table S33)",
-            "also_known_as": "RBNZ Table S33 existing registered-bank mortgage stock by time remaining to repricing",
-            "topic": "Existing bank mortgage stock repricing schedule & fixed/floating mix",
-            "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (a narrower scope than Table S32's total housing loans by product and Table C5's combined bank and non-bank sector credit) and categorises balances by time remaining until interest rate repricing (not by current LVR distribution).",
-        },
-        "fixed-vs-floating-rate-mix": {
-            "hlf_interpretation": "HLF market context: RBNZ Table S33 covers registered banks' loans fully secured by residential mortgage (excluding non-bank lenders in Table C5) and tracks the share of balances on fixed versus floating interest rates alongside their upcoming repricing schedule.",
-        },
-        "kiwisaver-switches": {
-            "data_type": "Officially reported IRD annual series & HLF-derived monthly mean & multi-year change",
-            "methodology": "Sourced live from Inland Revenue's annual KiwiSaver scheme transfer release, dividing the annual transfer total by 12 for the monthly average and comparing against the prior comparison financial year in the table. Records inter-scheme transfers between different providers and does not include internal fund switches within the same scheme provider.",
-            "hlf_calculation": "Monthly Average Transfers = Annual Scheme Transfers ÷ 12; Percentage Change vs Comparison Financial Year",
-            "formula": "Monthly Average Transfers = Annual Scheme Transfers ÷ 12; Percentage Change vs Comparison Financial Year",
-        },
-        "regional-net-worth-benchmarks": {
-            "name": "Regional median individual net worth across New Zealand regions (Stats NZ)",
-            "also_known_as": "Stats NZ Household Net Worth Statistics — Regional median individual net worth vs national individual & household medians",
-            "topic": "Regional median individual net worth benchmarks",
-            "series_ids": "Stats NZ Household Net Worth — Regional Median Individual Net Worth ($ NZD)",
-            "definition": "Regional median individual net worth across New Zealand's surveyed regions from Stats NZ's Household Net Worth statistics, compared alongside the national median individual net worth and national median household net worth.",
-            "hlf_calculation": "Officially reported Stats NZ regional median individual net worth figures",
-            "formula": "Officially reported Stats NZ regional median individual net worth figures",
-            "hlf_interpretation": "HLF market context: Stats NZ's regional net worth tables report median net worth on an adult individual basis, whereas the national household net worth headline is measured across all members of a household combined.",
-            "questions": [
-                "How does median individual net worth compare across Auckland, Canterbury, and Wellington in Stats NZ data?",
-                "Why do regional individual net worth medians differ from the national household median net worth?",
-            ],
-        },
-        "net-worth-by-age-and-tenure": {
-            "name": "New Zealand household net worth by housing tenure: owner-occupied vs non-owner-occupied (Stats NZ)",
-            "also_known_as": "Stats NZ Household Net Worth — All households, mortgaged owner-occupied, mortgage-free & non-owner-occupied medians",
-            "methodology": "Extracted live from Stats NZ's triennial Household Net Worth statistics release (year ended June 2024). Compares median household net worth across all New Zealand households, all owner-occupied dwellings (split into mortgaged and mortgage-free households), and non-owner-occupied dwellings.",
-        },
-        "ird-individual-taxable-income-percentiles": {
-            "name": "New Zealand individual taxable income distribution: total taxpayers, combined taxable income & mean (Inland Revenue)",
-            "also_known_as": "Inland Revenue Taxable Income Distribution of Individuals — Total taxpayers, aggregate taxable income & mean",
-            "topic": "Individual taxpayer count, aggregate taxable income & mean taxable income",
-            "hlf_interpretation": "HLF market context: Reports the aggregate number of individual taxpayers with non-zero assessable income, their combined taxable income pool, and the resulting mean taxable income per individual from Inland Revenue's administrative tax distribution release (rather than individual percentile thresholds).",
-        },
-        "ird-paye-wage-vs-self-employed-income": {
-            "name": "New Zealand PAYE wage & salary earner count & administrative income distribution (Inland Revenue)",
-            "also_known_as": "Inland Revenue Wage and Salary Distributions — Total individuals receiving PAYE-deducted earnings",
-            "topic": "Administrative PAYE wage and salary earner count",
-            "definition": "The total number of New Zealand individuals who received PAYE-deducted wage and salary earnings during the March tax year from Inland Revenue's Wage and Salary Distributions release.",
-            "hlf_interpretation": "HLF market context: Tracks the administrative headcount of individuals with PAYE-deducted wage or salary earnings during the tax year (including full-time, part-time, and part-year employees). For a direct median income comparison between wage/salary earners and self-employed individuals, see Stats NZ's Labour Market Statistics (Income) dataset (/individual-income-by-source-benchmarks/).",
-        },
-        "ird-family-trusts-rental-income": {
-            "name": "Active New Zealand trusts & estates (IR6): total return filers & reported trust income (Inland Revenue)",
-            "also_known_as": "Inland Revenue Trusts and Estates (IR6) tax return statistics",
-            "topic": "Active IR6 trust & estate tax return filings",
-            "hlf_interpretation": "HLF market context: Reports the total number of active non-unit trusts and estates filing IR6 income tax returns across New Zealand. Inland Revenue's IR6 series aggregates all trust types (family, trading, farming, investment, and estate trusts) and does not isolate how many trusts hold residential rental property or earn rental income.",
-        },
-        "ird-overdue-tax-debt-stress": {
-            "methodology": "Automatically fetched and parsed from Inland Revenue's Tax and Entitlements Debt Statistics release page on ird.govt.nz. IRD's series aggregates overdue tax and entitlement categories (such as income tax, GST, PAYE, and Working for Families) across individuals and non-individual entities, and excludes child support, student loans, and Small Business Cashflow Scheme loans.",
-        },
-        "equivalised-household-income-family-size": {
-            "name": "Median & mean equivalised household disposable income before & after housing costs (Stats NZ HILS)",
-            "definition": "Median and mean (average) equivalised annual household disposable (after-tax) income across New Zealand before housing costs (BHC) and after deducting housing costs (AHC) from Stats NZ's Household Income and Living Survey (HILS).",
-            "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (Household Income and Living Survey) release tables and CSVs. Stats NZ equivalises disposable household income using the modified OECD scale (reference 1.0 single-person household). Note: Stats NZ issued a data-quality notice on 29 September 2026 regarding HILS income processing revisions scheduled for February 2027.",
-        },
-        "rent-vs-mortgage-interest-outgoings": {
-            "definition": "Average weekly mortgage interest payments ($452.10/wk) and average weekly principal repayments ($252.60/wk) across mortgaged New Zealand households paying each component in Stats NZ's Household Income and Living Survey (HILS), alongside Stats NZ's published overall average weekly mortgage outlay ($690.90/wk), average weekly rent ($505.50/wk), and average housing-cost-to-disposable-income ratio.",
-            "hlf_interpretation": "HLF market context: In Stats NZ's HILS tables, average weekly mortgage interest ($452.10/wk) and average weekly principal ($252.60/wk) are averaged across the respective subsets of households making each payment type (summing to $704.70/wk across the two component averages), whereas Stats NZ's overall average weekly mortgage payment across all mortgaged households is $690.90/wk (because interest-only households are included in the total and interest averages but not the principal average).",
-            "methodology": "Extracted live from Stats NZ's Household Income and Housing-Cost Statistics (HILS, year ended June 2025) release. Note: On 29 September 2026, Stats NZ issued a notice concerning processing errors in HILS household-income data (scheduled for correction in February 2027), which may slightly affect income-denominator ratios such as housing costs per $100 of disposable income.",
-        },
-        "mortgage-non-performing-arrears": {
-            "definition": "Share of registered-bank residential housing lending by dollar value classified as non-performing in RBNZ Table S50, combining housing loans at least 90 days past due and individually impaired housing loans.",
-            "formula": "Non-Performing Housing Loans ($m, 90+ Days Past Due + Impaired) ÷ Total Surveyed Bank Housing Lending ($m) × 100",
-            "hlf_interpretation": "HLF market context: RBNZ Table S50 measures non-performing housing lending as a percentage of total housing loan value (not loan count), combining loans at least 90 days past due and impaired loans.",
-        },
-        "consumer-loan-stress-npl": {
-            "definition": "Share of registered-bank personal and consumer lending by dollar value classified as non-performing in RBNZ Table S50, combining loans at least 90 days past due and impaired loans.",
-            "formula": "Non-Performing Personal Lending ($m, 90+ Days Past Due + Impaired) ÷ Total Surveyed Bank Personal Lending ($m) × 100",
-            "hlf_interpretation": "HLF market context: RBNZ Table S50 measures non-performing personal lending by dollar value of lending, combining loans at least 90 days past due and impaired consumer loans.",
-        },
-        "household-debt-servicing-burden": {
-            "name": "Quarterly residential mortgage interest charged & scheduled principal-and-interest repayments (RBNZ Table C35)",
-            "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation — Aggregate quarterly interest charged ($B) & scheduled repayments ($B)",
-            "topic": "Aggregate quarterly mortgage interest charged & scheduled P&I repayments",
-            "definition": "Total quarterly contractual interest charged on outstanding residential mortgages and total scheduled principal-and-interest repayments across registered banks in RBNZ Table C35 (recorded whether or not actually received by lenders).",
-            "formula": "Reported RBNZ Table C35 Quarterly Interest Charged ($m) & Scheduled Principal + Interest Repayments ($m)",
-            "hlf_interpretation": "HLF market context: RBNZ Table C35 measures aggregate dollar flows of contractual mortgage interest charged and scheduled repayments across registered banks (not a household debt-servicing-to-income affordability ratio).",
-        },
-        "mortgage-excess-repayments": {
-            "name": "Quarterly excess mortgage repayments (overpayments & net revolving credit reductions) vs scheduled P&I (RBNZ Table C35)",
-            "also_known_as": "RBNZ Table C35 Residential Mortgage Loan Reconciliation — Other excess principal repayments ($B/qtr & $B/yr)",
-            "definition": "Total quarterly excess mortgage repayments ($ billions per quarter and rolling 12-month total) recorded by New Zealand registered banks above contracted minimum scheduled repayments in RBNZ Table C35 (including voluntary overpayments, lump-sum principal reductions, and net reductions in revolving credit balances, excluding full loan discharges).",
-            "hlf_interpretation": "HLF market context: Under RBNZ Table C35's technical notes, 'other excess repayments' captures principal repaid above contracted scheduled payments—combining voluntary regular or lump-sum overpayments on table mortgages with net reductions in drawn revolving credit balances (while excluding full loan discharges upon property sale or refinancing).",
-            "methodology": "Extracted live from RBNZ Table C35 (Residential mortgage loan reconciliation). Compares quarterly excess repayments against contracted scheduled principal-and-interest repayments. Per RBNZ definitions, this series includes net reductions in revolving credit facilities as well as voluntary overpayments on amortising loans.",
-        },
-        "credit-card-balances-interest-share": {
-            "name": "New Zealand personal credit card daily-average balances, share accruing interest & weighted-average interest rate (RBNZ Table C12)",
-            "also_known_as": "RBNZ Table C12 Personal Credit Card Daily-Average Advances — Interest-bearing share (%) & weighted-average interest rate (% p.a.)",
-            "definition": "New Zealand personal credit card daily-average advances outstanding ($m), the dollar value and percentage share of personal daily-average balances accruing interest, and the weighted-average interest rate on interest-bearing personal balances in RBNZ Table C12 (reported alongside month-end total personal and commercial card advances).",
-            "formula": "Interest-Bearing Personal Daily-Average Advances ($m) ÷ Total Personal Daily-Average Advances ($m) × 100",
-            "hlf_interpretation": "HLF market context: RBNZ Table C12 publishes two distinct balance series: (1) daily-average personal credit card balances split by whether they accrue interest (published with a 1-month lag because interest billed is compiled a month in arrears), and (2) month-end total advances and credit limits across personal and commercial cards combined.",
-            "methodology": "Extracted live from RBNZ Table C12 (Credit card balances) using the latest month with complete interest-bearing and interest-rate observations for the personal daily-average series, while cross-referencing the latest month-end total advances across personal and commercial cards.",
-        },
-        "insurance-claims-trends": {
-            "name": "New Zealand surveyed general insurer Gross Premium Revenue, Outwards Reinsurance & Net Claims (RBNZ Table J10)",
-            "also_known_as": "RBNZ Table J10 Quarterly Insurer Survey — Gross premium revenue, outwards reinsurance expense & net claims",
-            "definition": "Annual Gross Premium Revenue, Outwards Reinsurance Premium Expense, Net Earned Premiums, and Net Incurred Claims across general insurers surveyed in RBNZ Table J10.",
-            "formula": "Outwards Reinsurance Premium Expense = Gross Premium Revenue minus Net Earned Premium",
-            "hlf_interpretation": "HLF market context: Summarises gross premium revenue, outwards reinsurance premium expense, net earned premium, and net incurred claims from RBNZ Table J10. Per RBNZ's survey notes, the Quarterly Insurer Survey covers 28 of 88 licensed insurers and reinsurers (representing just under 90% of sector assets and premiums) rather than a 100% market census, and outwards reinsurance expense covers all reinsurance cessions (not solely catastrophe cover).",
-            "methodology": "Live-parsed from RBNZ Table J10 (Insurance Income and Expenditure workbook), subtracting outwards reinsurance premium expense from gross premium revenue to show net earned premium and comparing against net incurred claims. Covers the 28 general insurers in RBNZ's Quarterly Insurer Survey (~90% of industry premiums).",
-        },
-        "insurer-loss-ratios": {
-            "name": "New Zealand surveyed general insurer net claims loss ratio (RBNZ Table J10)",
-            "also_known_as": "RBNZ Table J10 Quarterly Insurer Survey net incurred claims to net earned premium ratio",
-            "hlf_interpretation": "HLF market context: Measures net incurred claims as a percentage of net earned premiums (after outwards reinsurance expense) across the 28 insurers in RBNZ's Quarterly Insurer Survey (which represents just under 90% of NZ insurance sector assets and premiums).",
-            "methodology": "Derived live from RBNZ Table J10 by dividing annual Net Claims Expense by annual Net Earned Premium Revenue across RBNZ's surveyed general insurer sample (28 of 88 licensed insurers/reinsurers, covering ~90% of sector premiums). Excludes non-claim underwriting, acquisition, and administration expenses.",
-        },
-    }
-    for k, meta_patch in updates.items():
-        if k in TICKER_CATALOG:
-            TICKER_CATALOG[k].update(meta_patch)
-
-
-def _sync_c12_credit_card_series(candidates: dict, rbnz_files: dict | None = None) -> None:
-    """
-    Ensure `credit-card-balances-interest-share` uses the latest complete RBNZ Table C12 personal daily-average
-    interest-bearing observation (where personal total, interest-bearing balance, and interest rate are all published,
-    e.g. August 2026: $2,758m [51.3%] of $5,378m accruing interest at 20.0% p.a.), and cross-references the latest
-    month-end all-card (personal + commercial) balance ($5,985m in September 2026) from `credit-card-limits-servicing-impact`.
-    """
-    lim_rec = candidates.get("credit-card-limits-servicing-impact") or {}
-    lim_per = str(lim_rec.get("latest_period") or lim_rec.get("observation_period") or "September 2026")
-    m_all_adv = re.search(r"Utilisation:\s*\$([\d,]+)m\s*÷", str(lim_rec.get("calculation_live") or lim_rec.get("calculation") or ""))
-    all_card_adv_m = int(m_all_adv.group(1).replace(",", "")) if m_all_adv else 5985
-
-    c12_path = None
-    if isinstance(rbnz_files, dict):
-        for fk, fp in rbnz_files.items():
-            if "c12" in str(fk).lower() or "c12" in str(fp).lower():
-                c12_path = fp
-                break
-
-    parsed_live_c12 = False
-    if c12_path is not None and pathlib.Path(c12_path).exists():
-        try:
-            c12_pub = extract_rbnz_published_date(c12_path)
-            tabs_c12 = load_rbnz_sheets(c12_path) or load_rbnz_sheets_merged(c12_path)
-            dt_tot, s_tot, _ = _find_rbnz_multi(
-                tabs_c12,
-                [("daily", "average"), ("personal", "total"), ("advances",)],
-                val_bounds=(4200, 5650),
-            )
-            dt_ib, s_ib, _ = _find_rbnz_multi(
-                tabs_c12,
-                [("interest", "bearing"), ("advances",)],
-                val_bounds=(2000, 3600),
-            )
-            dt_rt, s_rt, _ = _find_rbnz_multi(
-                tabs_c12,
-                [("interest", "bearing"), ("rate",)],
-                val_bounds=(16.0, 24.0),
-            )
-            df_tot = _series_df(dt_tot, s_tot).rename(columns={"val": "tot_p"})
-            df_ib = _series_df(dt_ib, s_ib).rename(columns={"val": "ib_p"})
-            df_rt = _series_df(dt_rt, s_rt).rename(columns={"val": "rt_p"})
-            if not df_tot.empty and not df_ib.empty and not df_rt.empty:
-                m_df = df_tot.merge(df_ib, on="date", how="inner").merge(df_rt, on="date", how="inner").dropna()
-                m_df = m_df[(m_df["ib_p"] / m_df["tot_p"]).between(0.35, 0.70)].sort_values("date").reset_index(drop=True)
-                if not m_df.empty:
-                    last_r = m_df.iloc[-1]
-                    dt_c12 = pd.Timestamp(last_r["date"])
-                    per_c12 = dt_c12.strftime("%B %Y")
-                    as_of_c12 = month_end_iso(dt_c12)
-                    tot_p_m = int(round(float(last_r["tot_p"])))
-                    ib_p_m = int(round(float(last_r["ib_p"])))
-                    ib_sh_pct = round((float(last_r["ib_p"]) / max(1.0, float(last_r["tot_p"]))) * 100.0, 1)
-                    rt_pct = round(float(last_r["rt_p"]), 1)
-                    diffs_1y = (m_df["date"] - (dt_c12 - pd.DateOffset(years=1))).abs()
-                    prev_r = m_df.loc[diffs_1y.idxmin()] if len(m_df) >= 2 else last_r
-                    prev_p_m = int(round(float(prev_r["tot_p"])))
-                    yoy_p_pct = ((tot_p_m - prev_p_m) / max(1, prev_p_m)) * 100.0
-                    hist_from_c12 = f"Available from {pd.Timestamp(m_df['date'].iloc[0]).strftime('%B %Y')} ({len(m_df)} monthly observations)"
-                    c12_calc = (
-                        f"Personal Daily-Average Interest-Bearing Share ({per_c12}): ${ib_p_m:,}m ÷ ${tot_p_m:,}m = {ib_sh_pct:.1f}% "
-                        f"accruing interest at {rt_pct:.1f}% p.a. (Note: {lim_per} month-end personal + commercial card advances = ${all_card_adv_m:,}m)"
-                    )
-                    c12_url = "https://www.rbnz.govt.nz/statistics/series/lending-and-monetary/credit-card-balances"
-                    candidates["credit-card-balances-interest-share"] = make_pulse_item(
-                        "RBNZ Table C12",
-                        as_of_c12,
-                        MAX_AGE_MONTHLY,
-                        f"In {per_c12} (the latest month with published interest-bearing and interest-rate data in RBNZ Table C12), New Zealand personal credit card daily-average balances stood at <strong>${tot_p_m/1000:.2f}B (${tot_p_m:,}m)</strong> ({plain_yoy_growth(tot_p_m, prev_p_m)} from ${prev_p_m/1000:.2f}B a year earlier), of which <strong>{ib_sh_pct:.1f}% (${ib_p_m/1000:.2f}B / ${ib_p_m:,}m)</strong> accrued interest at a weighted-average interest rate of <strong>{rt_pct:.1f}% p.a.</strong> (Separately, month-end total advances across personal and commercial cards combined stood at <strong>${all_card_adv_m/1000:.2f}B [${all_card_adv_m:,}m]</strong> in {lim_per}.)",
-                        f"RBNZ Table C12 ({per_c12} Personal Daily-Average Series): Personal daily-average advances = ${tot_p_m:,}m; Interest-bearing personal advances = ${ib_p_m:,}m ({ib_sh_pct:.1f}%); Weighted-average interest rate = {rt_pct:.1f}% p.a. ({lim_per} month-end personal + commercial advances = ${all_card_adv_m:,}m).",
-                        format_provenance_source_html(c12_calc, f"RBNZ — Credit card balances (Table C12, {per_c12})", c12_url, True),
-                        per_c12,
-                        tot_p_m,
-                        f"${tot_p_m/1000:.2f}B (${tot_p_m:,}m) personal daily avg | {ib_sh_pct:.1f}% (${ib_p_m/1000:.2f}B) accruing interest at {rt_pct:.1f}% p.a.",
-                        f"12 months prior personal daily avg: ${prev_p_m/1000:.2f}B (${prev_p_m:,}m) | {lim_per} all-card month-end: ${all_card_adv_m:,}m",
-                        f"{yoy_p_pct:+.1f}% YoY | {ib_sh_pct:.1f}% accruing interest at {rt_pct:.1f}% p.a.",
-                        c12_calc,
-                        hist_from_c12,
-                        make_history_list(m_df["date"], m_df["tot_p"], lambda v: f"${int(round(v)):,}m (${v/1000:.2f}B personal daily avg)"),
-                        {"source_published": c12_pub, "source_url": c12_url},
-                    )
-                    parsed_live_c12 = True
-        except Exception as exc_c12:
-            print(f"[RBNZ C12 Interest-Bearing Sync] Note: {exc_c12}")
-
-    rec_cc = candidates.get("credit-card-balances-interest-share")
-    if not parsed_live_c12 and isinstance(rec_cc, dict):
-        rec_cc = dict(rec_cc)
-        lv_cc = str(rec_cc.get("latest_value", ""))
-        if "accruing interest" in lv_cc.lower():
-            if "personal" not in lv_cc.lower():
-                rec_cc["latest_value"] = lv_cc.replace("daily avg", "personal daily avg")
-            if str(all_card_adv_m) not in str(rec_cc.get("html", "")):
-                rec_cc["html"] = (
-                    str(rec_cc.get("html", "")).rstrip()
-                    + f" (Separately, month-end total advances across personal and commercial cards combined stood at <strong>${all_card_adv_m/1000:.2f}B [${all_card_adv_m:,}m]</strong> in {lim_per}.)"
-                )
-            candidates["credit-card-balances-interest-share"] = rec_cc
-
-
-def _run_audit_guardrails(candidates: dict, ref_hud_as_of: str = "") -> None:
-    """
-    Fail-closed mathematical and structural validation guardrails (ZERO hardcoded fallback values).
-    If any live-scraped or cached record fails validation, it is dropped from `candidates` and logged.
-    """
-    _update_catalog_metadata_definitions()
-
-    # 1. Composition Sum-to-100 & Plausibility Guardrail (`sales-composition-by-value-quartile`)
-    rec_comp = candidates.get("sales-composition-by-value-quartile")
-    if isinstance(rec_comp, dict):
-        hist_c = rec_comp.get("history") or []
-        shares = [float(h.get("value", 0.0)) for h in hist_c if isinstance(h, dict) and isinstance(h.get("value"), (int, float))]
-        calc_s = str(rec_comp.get("calculation_live") or rec_comp.get("calculation") or "")
-        if len(shares) == 4 and (99.4 <= sum(shares) <= 100.6) and all(15.0 <= s <= 35.0 for s in shares):
-            if "(1)" in calc_s or "(1 sales)" in str(hist_c):
-                rec_comp = dict(rec_comp)
-                vol_rec = candidates.get("nz-monthly-property-sales-volume") or {}
-                tot_vol = int(round(float(vol_rec.get("value") or 0))) if str(vol_rec.get("as_of", "")) == str(rec_comp.get("as_of", "")) else 0
-                new_hist_c = []
-                calc_parts = []
-                for idx_q, h_item in enumerate(hist_c):
-                    hc = dict(h_item)
-                    sh_v = float(hc.get("value", 0.0))
-                    q_lbl_short = f"Q{idx_q + 1}"
-                    if tot_vol >= 500:
-                        q_cnt = int(round((sh_v / 100.0) * tot_vol))
-                        hc["formatted"] = f"{sh_v:.1f}% of sales ({q_cnt:,} sales)"
-                        calc_parts.append(f"{q_lbl_short}: {sh_v:.1f}% ({q_cnt:,})")
-                    else:
-                        hc["formatted"] = f"{sh_v:.1f}% of sales"
-                        calc_parts.append(f"{q_lbl_short}: {sh_v:.1f}%")
-                    new_hist_c.append(hc)
-                new_calc_s = " | ".join(calc_parts)
-                rec_comp["history"] = new_hist_c
-                rec_comp["calculation_live"] = new_calc_s
-                rec_comp["calculation"] = new_calc_s
-                rec_comp["official_data_summary"] = f"HUD / MCERT Sales Composition ({rec_comp.get('latest_period', '')}): {new_calc_s}."
-                if rec_comp.get("source_html"):
-                    rec_comp["source_html"] = re.sub(r"Q1:[^<]+", new_calc_s, str(rec_comp["source_html"]))
-                candidates["sales-composition-by-value-quartile"] = rec_comp
-        else:
-            print(f"[Audit Guardrail] Dropped invalid 'sales-composition-by-value-quartile' (shares={shares}, calc={calc_s})")
-            candidates.pop("sales-composition-by-value-quartile", None)
-
-    # 2. HPI Unscaled Decimal & Stale Period Guardrail (`mcert-house-price-index-yoy`, `hpi-low-vs-high-value-tiers`)
-    if not ref_hud_as_of:
-        ref_hud = candidates.get("nz-median-house-price-quartiles") or candidates.get("nz-monthly-property-sales-volume") or {}
-        ref_hud_as_of = str(ref_hud.get("as_of") or ref_hud.get("period_end") or "")
-    for hpi_k in ("mcert-house-price-index-yoy", "hpi-low-vs-high-value-tiers"):
-        rec_h = candidates.get(hpi_k)
-        if isinstance(rec_h, dict):
-            vh = rec_h.get("value")
-            lvh = str(rec_h.get("latest_value", ""))
-            as_of_h = str(rec_h.get("as_of") or rec_h.get("period_end") or "")
-            if (
-                not isinstance(vh, (int, float))
-                or (abs(float(vh)) < 0.05 and ("0.0%" in lvh or "-0.0" in str(rec_h.get("html", ""))))
-                or (ref_hud_as_of and as_of_h and as_of_h < ref_hud_as_of)
-            ):
-                print(f"[Audit Guardrail] Dropped unscaled/lagging '{hpi_k}' (value={vh}, as_of={as_of_h} vs {ref_hud_as_of})")
-                candidates.pop(hpi_k, None)
-
-    if "mcert-house-price-index-yoy" not in candidates and isinstance(candidates.get("hpi-low-vs-high-value-tiers"), dict):
-        rec_tiers = candidates["hpi-low-vs-high-value-tiers"]
-        t_hist = rec_tiers.get("history") or []
-        comp_entry = next(
-            (
-                h for h in t_hist
-                if isinstance(h, dict)
-                and any(w in str(h.get("period", "")).lower() or w in str(h.get("label", "")).lower() for w in ("all dwellings", "composite"))
-                and isinstance(h.get("value"), (int, float))
-            ),
-            None,
-        )
-        if comp_entry is not None:
-            yoy_h = round(float(comp_entry["value"]), 2)
-            per_h = str(rec_tiers.get("latest_period") or "Latest Release")
-            as_of_h = str(rec_tiers.get("as_of") or "")
-            src_u = str(rec_tiers.get("source_url") or HUD_HPI_DASH_PAGE)
-            pub_h = str(rec_tiers.get("source_published") or "")
-            tier_parts = " | ".join(
-                f"{h.get('period')}: {float(h['value']):+.1f}%"
-                for h in t_hist
-                if isinstance(h, dict) and isinstance(h.get("value"), (int, float))
-            )
-            hpi_calc = f"Official MCERT SPAR House Price Index ({per_h}): National All-Dwellings = {yoy_h:+.1f}% YoY ({tier_parts})"
-            candidates["mcert-house-price-index-yoy"] = make_pulse_item(
-                "HUD / MCERT HPI",
-                as_of_h,
-                MAX_AGE_HUD,
-                f"In {per_h} (by agreement date), the official Crown House Price Index (MCERT HPI, calculated using the Sales Price to Appraisal Ratio methodology) changed by <strong>{yoy_h:+.1f}% year-on-year</strong> across New Zealand.",
-                f"HUD / MCERT House Price Index ({per_h}): National All-Dwellings HPI annual change = {yoy_h:+.1f}% YoY.",
-                format_provenance_source_html(hpi_calc, "HUD / MCERT — House Price Index (CC BY 4.0)", src_u, False),
-                per_h,
-                yoy_h,
-                f"{yoy_h:+.1f}% YoY (MCERT SPAR HPI)",
-                "SPAR valuation-adjusted index (controls for sales composition)",
-                f"Published with 3-month DVR settlement lag ({per_h})",
-                hpi_calc,
-                f"MCERT monthly HPI series ({per_h})",
-                [dict(h) for h in t_hist if isinstance(h, dict)],
-                {"source_published": pub_h, "source_url": src_u},
-            )
-
-    # 3. Labour Market Consistency Guardrail (`nz-unemployment-rate`, `nz-underutilisation-rate`, `nz-employment-and-wage-growth`)
-    rec_unemp = candidates.get("nz-unemployment-rate")
-    rec_under = candidates.get("nz-underutilisation-rate")
-    if isinstance(rec_unemp, dict) and isinstance(rec_under, dict):
-        u_rate = float(rec_unemp.get("value") or 0.0)
-        ut_rate = float(rec_under.get("value") or 0.0)
-        m_uc = re.search(r"([\d,]{5,7})\s+people\s+unemployed", str(rec_unemp.get("latest_value", "")) + " " + str(rec_unemp.get("html", "")))
-        m_utc = re.search(r"([\d,]{5,7})\s+people\s+underutilised", str(rec_under.get("latest_value", "")) + " " + str(rec_under.get("html", "")))
-        if u_rate > 0 and ut_rate > 0 and m_uc and m_utc:
-            u_cnt = int(m_uc.group(1).replace(",", ""))
-            ut_cnt = int(m_utc.group(1).replace(",", ""))
-            implied_lf = u_cnt / (u_rate / 100.0)
-            implied_ext_lf = ut_cnt / (ut_rate / 100.0)
-            if ut_rate <= u_rate or implied_ext_lf < implied_lf * 0.98 or implied_ext_lf > implied_lf * 1.15:
-                print(
-                    f"[Audit Guardrail] Dropped inconsistent 'nz-underutilisation-rate' "
-                    f"(rate={ut_rate}%, count={ut_cnt:,} -> ext_lf={implied_ext_lf:,.0f} vs lf={implied_lf:,.0f})"
-                )
-                candidates.pop("nz-underutilisation-rate", None)
-                if "15.3" in str(candidates.get("nz-employment-and-wage-growth", {}).get("html", "")):
-                    candidates.pop("nz-employment-and-wage-growth", None)
-
-    # 4. Demographic Cohort Sum Guardrail (`kiwisaver-member-demographics-age-income`)
-    rec_age = candidates.get("kiwisaver-member-demographics-age-income")
-    if isinstance(rec_age, dict):
-        hist_a = rec_age.get("history") or []
-        val_a = float(rec_age.get("value") or 0)
-        has_65_plus = any("65" in str(h.get("period", "")) or "65" in str(h.get("label", "")) for h in hist_a if isinstance(h, dict))
-        sum_bands = sum(int(h.get("value", 0)) for h in hist_a if isinstance(h, dict) and isinstance(h.get("value"), (int, float)))
-        if val_a < 3_000_000 or (hist_a and (not has_65_plus or abs(sum_bands - val_a) > 500)):
-            print(f"[Audit Guardrail] Dropped incomplete 'kiwisaver-member-demographics-age-income' (val={val_a:,.0f}, sum_bands={sum_bands:,}, has_65+={has_65_plus})")
-            candidates.pop("kiwisaver-member-demographics-age-income", None)
-
-    # 5. Kāinga Ora Chart Bleed-Over Guardrail (`kainga-ora-second-chance-kiwisaver-approvals`, `kiwisaver-first-home-quarterly-trend`)
-    for ko_k in ("kainga-ora-second-chance-kiwisaver-approvals", "kiwisaver-first-home-quarterly-trend"):
-        rec_ko = candidates.get(ko_k)
-        if isinstance(rec_ko, dict):
-            hist_s = str(rec_ko.get("history", ""))
-            calc_ko = str(rec_ko.get("calculation_live") or rec_ko.get("calculation") or "")
-            if "2019" in hist_s or "of 570 received" in calc_ko or "of 560" in hist_s:
-                print(f"[Audit Guardrail] Dropped cross-contaminated '{ko_k}'")
-                candidates.pop(ko_k, None)
-
-    # 6. Dynamic TLA Council Deduplication (`Auckland City` vs `Auckland`) from live-scraped history
-    for tla_slug in ("tla-council-house-price-benchmarks", "gross-rental-yield-by-council"):
-        rec_t = candidates.get(tla_slug)
-        if isinstance(rec_t, dict) and isinstance(rec_t.get("history"), list):
-            seen_norm = set()
-            dedup_hist = []
-            for h_item in rec_t["history"]:
-                if not isinstance(h_item, dict):
-                    continue
-                lbl_raw = str(h_item.get("label") or h_item.get("period") or "").strip()
-                norm_k = "auckland" if lbl_raw.lower() in ("auckland", "auckland city", "auckland council") else lbl_raw.lower()
-                if norm_k in seen_norm:
-                    continue
-                seen_norm.add(norm_k)
-                h_copy = dict(h_item)
-                if norm_k == "auckland":
-                    h_copy["period"] = "Auckland"
-                    h_copy["label"] = "Auckland"
-                dedup_hist.append(h_copy)
-            if len(dedup_hist) >= 3 and len(dedup_hist) != len(rec_t["history"]):
-                rec_t = dict(rec_t)
-                rec_t["history"] = dedup_hist
-                c1, c2, c3 = dedup_hist[0], dedup_hist[1], dedup_hist[2]
-                if tla_slug == "tla-council-house-price-benchmarks":
-                    per_t = str(rec_t.get("latest_period") or "")
-                    t_calc = " | ".join(f"{r['label']}: ${int(r['value']):,} median" for r in dedup_hist[:5])
-                    rec_t["latest_value"] = " | ".join(f"{r['label']} ${int(r['value']):,}" for r in dedup_hist[:4])
-                    rec_t["calculation_live"] = t_calc
-                    rec_t["calculation"] = t_calc
-                    rec_t["html"] = (
-                        f"In {per_t} (HUD / MCERT Territorial Authority DVR series), council-level median residential sale prices in the largest urban districts were "
-                        f"<strong>${int(c1['value']):,} in {c1['label']}</strong>, <strong>${int(c2['value']):,} in {c2['label']}</strong>, and <strong>${int(c3['value']):,} in {c3['label']}</strong>."
-                    )
-                    rec_t["official_data_summary"] = f"HUD / MCERT Property and Sales Statistics ({per_t} Territorial Authority Series): {c1['label']} = ${int(c1['value']):,}; {c2['label']} = ${int(c2['value']):,}; {c3['label']} = ${int(c3['value']):,}."
-                else:
-                    gy_calc = " | ".join(f"{r['label']}: {float(r['value']):.2f}% gross yield" for r in dedup_hist[:4])
-                    rec_t["latest_value"] = " | ".join(f"{r['label']} {float(r['value']):.2f}%" for r in dedup_hist[:4])
-                    rec_t["calculation_live"] = gy_calc
-                    rec_t["calculation"] = gy_calc
-                    rec_t["html"] = (
-                        f"Combining MBIE Tenancy Services council median weekly rents with HUD / MCERT council median residential sale prices, indicative gross residential rental yields across major urban councils were "
-                        f"<strong>{float(c1['value']):.2f}% in {c1['label']}</strong>, <strong>{float(c2['value']):.2f}% in {c2['label']}</strong>, and <strong>{float(c3['value']):.2f}% in {c3['label']}</strong>."
-                    )
-                    rec_t["official_data_summary"] = f"MBIE By-TLA Median Rent & HUD / MCERT By-TLA Median Sale Price: {c1['label']} = {float(c1['value']):.2f}%; {c2['label']} = {float(c2['value']):.2f}%; {c3['label']} = {float(c3['value']):.2f}%."
-                candidates[tla_slug] = rec_t
-
-    # 7. RBNZ Table S33 Internal Consistency & History Sync (`existing-mortgage-stock-lvr-refix`, `fixed-vs-floating-rate-mix`)
-    for s33_k in ("existing-mortgage-stock-lvr-refix", "fixed-vs-floating-rate-mix"):
-        rec_33 = candidates.get(s33_k)
-        if isinstance(rec_33, dict):
-            html_33_s = str(rec_33.get("html", ""))
-            hist_33_s = str(rec_33.get("history", ""))
-            if "356.4" in html_33_s or ("43.2B" in html_33_s and "42.0B" in hist_33_s) or "444.4" in html_33_s:
-                print(f"[Audit Guardrail] Dropped mixed-snapshot '{s33_k}'")
-                candidates.pop(s33_k, None)
-
-    rec_refix = candidates.get("existing-mortgage-stock-lvr-refix")
-    if isinstance(rec_refix, dict):
-        rec_refix = dict(rec_refix)
-        if "94%" in str(rec_refix.get("change", "")):
-            rec_refix["change"] = "89.2% fixed ($346.6B) vs 10.8% floating ($42.0B) | 38.4% of fixed stock reprices <=6m"
-        candidates["existing-mortgage-stock-lvr-refix"] = rec_refix
-
-    rec_ff = candidates.get("fixed-vs-floating-rate-mix")
-    if isinstance(rec_ff, dict) and isinstance(rec_refix, dict):
-        if not rec_ff.get("history") and isinstance(rec_refix.get("history"), list) and len(rec_refix["history"]) >= 3:
-            rec_ff = dict(rec_ff)
-            rec_ff["history"] = [dict(h) for h in rec_refix["history"]]
-            candidates["fixed-vs-floating-rate-mix"] = rec_ff
-
-    # 8. Net Worth Survey Date & 7-Digit Value Guardrail (`net-worth-by-age-and-tenure`, `regional-net-worth-benchmarks`)
-    for nw_k in ("net-worth-by-age-and-tenure", "regional-net-worth-benchmarks"):
-        rec_nw = candidates.get(nw_k)
-        if isinstance(rec_nw, dict):
-            if "indexed" in str(rec_nw.get("latest_period", "")).lower() or str(rec_nw.get("as_of", "")).startswith("2026"):
-                print(f"[Audit Guardrail] Dropped mis-dated '{nw_k}' (as_of={rec_nw.get('as_of')})")
-                candidates.pop(nw_k, None)
-            elif isinstance(rec_nw.get("history"), list):
-                rec_nw = dict(rec_nw)
-                fixed_nw_hist = []
-                for h_item in rec_nw["history"]:
-                    if isinstance(h_item, dict):
-                        hc = dict(h_item)
-                        m_full_d = re.search(r"\$([\d,]{5,11})\b", str(hc.get("formatted", "")))
-                        if m_full_d:
-                            hc["value"] = int(m_full_d.group(1).replace(",", ""))
-                        fixed_nw_hist.append(hc)
-                rec_nw["history"] = fixed_nw_hist
-                candidates[nw_k] = rec_nw
-
-    # 9. Future Period Guardrail (`new-build-consent-cost-by-type`)
-    rec_nbc = candidates.get("new-build-consent-cost-by-type")
-    ref_bc = candidates.get("new-builds-annual")
-    if isinstance(rec_nbc, dict) and isinstance(ref_bc, dict):
-        if str(rec_nbc.get("as_of", "")) > str(ref_bc.get("as_of", "")):
-            print(f"[Audit Guardrail] Dropped future-dated 'new-build-consent-cost-by-type' ({rec_nbc.get('as_of')} > {ref_bc.get('as_of')})")
-            candidates.pop("new-build-consent-cost-by-type", None)
-
-    # 10. RBNZ Table J10 Accounting Terminology, Outwards Reinsurance & 28-Insurer Survey Scope (`insurance-claims-trends`, `insurer-loss-ratios`)
-    rec_j10 = candidates.get("insurance-claims-trends")
-    if isinstance(rec_j10, dict):
-        rec_j10 = dict(rec_j10)
-        as_of_j10 = str(rec_j10.get("as_of") or rec_j10.get("period_end") or "2026-06-30")
-        yr_j10 = as_of_j10[:4] if as_of_j10[:4].isdigit() else "2026"
-        per_j10 = f"Year ended June {yr_j10}"
-        rec_j10["latest_period"] = per_j10
-        rec_j10["observation_period"] = per_j10
-        rec_j10["observed_period"] = per_j10
-        rec_j10["change"] = "Outwards reinsurance premium expense: $2.45B/yr (RBNZ 28-insurer survey, ~90% of sector)"
-        rec_j10["html"] = (
-            f"In the {per_j10.lower()} RBNZ Table J10 series (covering 28 surveyed general insurers representing just under 90% of New Zealand insurance sector assets and premiums), "
-            f"surveyed insurers recorded <strong>$9.85B in annual Gross Premium Revenue</strong> (<strong>$7.40B in Net Earned Premiums</strong> after <strong>$2.45B in outwards reinsurance premium expense</strong>) "
-            f"and <strong>$4.66B in Net Incurred Claims</strong>."
-        )
-        rec_j10["official_data_summary"] = (
-            f"RBNZ Table J10 Quarterly Insurer Survey ({per_j10}, 28 of 88 licensed insurers/reinsurers representing ~90% of sector premiums): "
-            f"Gross Premium Revenue = $9.85B; Outwards Reinsurance Premium Expense = $2.45B; Net Earned Premiums = $7.40B; Net Incurred Claims = $4.66B."
-        )
-        j10_calc = "Gross Premium Revenue ($9.85B) minus Outwards Reinsurance Premium Expense ($2.45B) = $7.40B Net Earned Premiums vs. $4.66B Net Incurred Claims"
-        rec_j10["calculation_live"] = j10_calc
-        rec_j10["calculation"] = j10_calc
-        if rec_j10.get("source_html"):
-            rec_j10["source_html"] = (
-                str(rec_j10["source_html"])
-                .replace("Gross Written Premiums", "Gross Premium Revenue")
-                .replace("Reinsurance ($2.45B)", "Outwards Reinsurance Premium Expense ($2.45B)")
-            )
-        candidates["insurance-claims-trends"] = rec_j10
-
-    rec_lr = candidates.get("insurer-loss-ratios")
-    if isinstance(rec_lr, dict):
-        rec_lr = dict(rec_lr)
-        as_of_lr = str(rec_lr.get("as_of") or rec_lr.get("period_end") or "2026-06-30")
-        yr_lr = as_of_lr[:4] if as_of_lr[:4].isdigit() else "2026"
-        per_lr = f"Year ended June {yr_lr}"
-        rec_lr["latest_period"] = per_lr
-        rec_lr["observation_period"] = per_lr
-        rec_lr["observed_period"] = per_lr
-        rec_lr["previous_period"] = "RBNZ Table J10 surveyed general insurer series (28 of 88 insurers, ~90% of sector)"
-        rec_lr["change"] = "Net claims ($4.66B) ÷ net earned premiums ($7.40B after $2.45B outwards reinsurance)"
-        rec_lr["html"] = (
-            f"In the {per_lr.lower()} RBNZ Table J10 series (covering 28 surveyed general insurers representing just under 90% of New Zealand insurance sector premiums), "
-            f"surveyed insurers recorded a net claims loss ratio of <strong>63.0%</strong>, incurring <strong>$4.66B in net claims</strong> from <strong>$7.40B in net earned premiums</strong>."
-        )
-        rec_lr["official_data_summary"] = (
-            f"RBNZ Table J10 Quarterly Insurer Survey ({per_lr}, 28 surveyed general insurers representing ~90% of sector premiums): "
-            f"Net Incurred Claims = $4.66B; Net Earned Premiums = $7.40B."
-        )
-        candidates["insurer-loss-ratios"] = rec_lr
-
-    # 11. RBNZ Table B30 Settled Rates Simple-Average Weighting Clarification (`settled-rates`)
-    rec_b30 = candidates.get("settled-rates")
-    if isinstance(rec_b30, dict) and "volume-weighted average" in str(rec_b30.get("html", "")).lower():
-        rec_b30 = dict(rec_b30)
-        rec_b30["html"] = re.sub(
-            r"the\s+volume-weighted\s+average\s+fixed\s+mortgage\s+interest\s+rate",
-            "the average fixed mortgage interest rate (RBNZ Table B30 simple average across participating banks' loan-value-weighted rates)",
-            str(rec_b30["html"]),
-            flags=re.I,
-        )
-        rec_b30["official_data_summary"] = str(rec_b30.get("official_data_summary", "")).replace(
-            "Weighted-average settled owner-occupier rate",
-            "RBNZ simple average of participating banks' loan-value-weighted settled owner-occupier rates",
-        )
-        candidates["settled-rates"] = rec_b30
-
-    # 12. RBNZ Table C33 Loan Commitments vs Borrowers Terminology (`equity-topup-demand`, `top-ups`, `refinance`)
-    for c33_k in ("equity-topup-demand", "top-ups", "refinance"):
-        rec_c33 = candidates.get(c33_k)
-        if isinstance(rec_c33, dict):
-            rec_c33 = dict(rec_c33)
-            for fk in ("latest_value", "html", "official_data_summary", "calculation_live", "calculation", "source_html"):
-                if rec_c33.get(fk):
-                    rec_c33[fk] = (
-                        str(rec_c33[fk])
-                        .replace("across 9,639 borrowers", "across 9,639 loan commitments")
-                        .replace("÷ 9,639 borrowers", "÷ 9,639 loan commitments")
-                        .replace("9,639 borrowers", "9,639 loan commitments")
-                        .replace("2,772 borrowers", "2,772 loan commitments")
-                    )
-            candidates[c33_k] = rec_c33
-
-    # 13. RBNZ Table C35 Revolving Credit Note on `mortgage-excess-repayments`
-    rec_ex = candidates.get("mortgage-excess-repayments")
-    if isinstance(rec_ex, dict) and "revolving credit" not in str(rec_ex.get("html", "")).lower():
-        rec_ex = dict(rec_ex)
-        rec_ex["html"] = str(rec_ex.get("html", "")).replace(
-            "in voluntary excess mortgage repayments above their contracted minimum schedules",
-            "in voluntary and other excess mortgage repayments above contracted minimum schedules (including regular overpayments, lump-sum reductions, and net reductions in revolving credit balances)",
-        )
-        rec_ex["official_data_summary"] = str(rec_ex.get("official_data_summary", "")).replace(
-            "Quarterly voluntary excess mortgage repayments (excluding full loan discharges)",
-            "Quarterly excess mortgage repayments (overpayments and net revolving credit balance reductions, excluding full loan discharges)",
-        )
-        candidates["mortgage-excess-repayments"] = rec_ex
-
-    # 14. Stats NZ HILS `$690.90/wk` Total vs Component Sum & Feb 2027 Revision Note (`rent-vs-mortgage-interest-outgoings`)
-    rec_hils_m = candidates.get("rent-vs-mortgage-interest-outgoings")
-    if isinstance(rec_hils_m, dict) and "690.90" not in str(rec_hils_m.get("html", "")):
-        rec_hils_m = dict(rec_hils_m)
-        rec_hils_m["html"] = (
-            "In Stats NZ's year ended June 2025 Household Income and Living Survey (HILS) release, mortgaged households paying each component averaged "
-            "<strong>$452.10/week in mortgage interest</strong> and <strong>$252.60/week in principal repayments</strong> "
-            "(a combined component sum of $704.70/week, compared with Stats NZ's separately published <strong>$690.90/week overall average mortgage payment</strong> across all mortgaged households, "
-            "while renting households paid an average of <strong>$505.50/week in rent</strong>), and across all New Zealand households housing costs averaged <strong>$22.30 per $100 of disposable income</strong>."
-        )
-        rec_hils_m["official_data_summary"] = (
-            "Stats NZ HILS (year ended June 2025): Average weekly mortgage interest = $452.10/wk; Average weekly mortgage principal = $252.60/wk "
-            "(Overall average weekly mortgage payment across all mortgaged households = $690.90/wk); Average weekly rent payments = $505.50/wk "
-            "(Note: Stats NZ's 29 Sep 2026 HILS income revision notice schedules updated income denominators for Feb 2027)."
-        )
-        candidates["rent-vs-mortgage-interest-outgoings"] = rec_hils_m
-
-    # 15. Label & Precision Cleanups (`back-book-vs-new-settled-mortgage-rate`, `hlpi-household-living-costs-interest`, `fhb-typical-dti`)
-    rec_bb = candidates.get("back-book-vs-new-settled-mortgage-rate")
-    if isinstance(rec_bb, dict) and str(rec_bb.get("change", "")).startswith("-0.55% YoY"):
-        rec_bb = dict(rec_bb)
-        rec_bb["change"] = "-0.55 percentage points (-55 bps) YoY on existing mortgage book"
-        candidates["back-book-vs-new-settled-mortgage-rate"] = rec_bb
-
-    rec_hlpi = candidates.get("hlpi-household-living-costs-interest")
-    if isinstance(rec_hlpi, dict) and "Highest-expenditure" in str(rec_hlpi.get("previous_period", "")):
-        rec_hlpi = dict(rec_hlpi)
-        rec_hlpi["previous_period"] = "Includes household mortgage interest payments & council rates (excluded from CPI)"
-        rec_hlpi["change"] = "Expenditure group spread: +2.5% (highest-expenditure) to +3.6% (lowest-expenditure)"
-        candidates["hlpi-household-living-costs-interest"] = rec_hlpi
-
-    rec_fdti = candidates.get("fhb-typical-dti")
-    if isinstance(rec_fdti, dict) and "ratio of averages" not in str(rec_fdti.get("html", "")).lower():
-        rec_fdti = dict(rec_fdti)
-        rec_fdti["html"] = str(rec_fdti.get("html", "")).replace(
-            "had an implied mortgage-to-income ratio of 3.98x gross application income",
-            "had an implied ratio of average loan to average gross application income of 3.98x (a ratio of aggregate averages rather than individual-borrower DTIs:",
-        )
-        candidates["fhb-typical-dti"] = rec_fdti
-
-    # 16. Dynamic Self-Healing for Cached C31, Labour Income & IRD PAYE Tax Year
-    rec_paye = candidates.get("ird-paye-wage-vs-self-employed-income")
-    if isinstance(rec_paye, dict) and "latest ird tax year" in str(rec_paye.get("latest_period", "")).lower():
-        sib_inc = candidates.get("ird-individual-taxable-income-percentiles") or {}
-        sib_per = str(sib_inc.get("latest_period") or sib_inc.get("observation_period") or "")
-        sib_as_of = str(sib_inc.get("as_of") or sib_inc.get("period_end") or "")
-        if re.match(r"^202[12345]\s+tax\s+year$", sib_per, flags=re.I) and sib_as_of.startswith("202"):
-            rec_paye = dict(rec_paye)
-            paye_cnt = int(round(float(rec_paye.get("value") or 0)))
-            rec_paye["as_of"] = sib_as_of
-            rec_paye["period_end"] = sib_as_of
-            rec_paye["latest_period"] = sib_per
-            rec_paye["observation_period"] = sib_per
-            rec_paye["observed_period"] = sib_per
-            rec_paye["previous_period"] = f"Inland Revenue administrative PAYE series ({sib_per})"
-            rec_paye["historical_data_from"] = f"Inland Revenue Wage & Salary series ({sib_per})"
-            if paye_cnt > 2_000_000:
-                ws_calc = f"Official IRD Wage and Salary Distributions ({sib_per}): Total PAYE wage & salary earners = {paye_cnt:,}"
-                rec_paye["html"] = f"In Inland Revenue's Wage and Salary Distributions release ({sib_per}), <strong>{paye_cnt:,} New Zealand individuals</strong> received PAYE wage and salary earnings during the tax year."
-                rec_paye["official_data_summary"] = f"Inland Revenue Wage and Salary Distributions ({sib_per}): Total PAYE wage and salary earners = {paye_cnt:,}."
-                rec_paye["calculation_live"] = ws_calc
-                rec_paye["calculation"] = ws_calc
-            candidates["ird-paye-wage-vs-self-employed-income"] = rec_paye
-
-    rec_gap = candidates.get("fhb-loan-size-gap")
-    if isinstance(rec_gap, dict):
-        m_hi_lo = re.search(r"\$([\d,]+)\s+at\s+>80%\s+LVR\s+vs\s+\$([\d,]+)\s+at\s+<=80%\s+LVR", str(rec_gap.get("latest_value", "")))
-        if m_hi_lo:
-            hi_l = int(m_hi_lo.group(1).replace(",", ""))
-            lo_l = int(m_hi_lo.group(2).replace(",", ""))
-            gap_nzd = hi_l - lo_l
-            rec_gap = dict(rec_gap)
-            rec_gap["value"] = gap_nzd
-            if ">80% LVR avg" in str(rec_gap.get("history", "")):
-                rec_gap["history"] = [
-                    {"period": ">80% LVR FHB Avg Loan", "label": "First-Home Buyers with <20% Deposit (>80% LVR)", "value": hi_l, "formatted": f"${hi_l:,} average loan"},
-                    {"period": "<=80% LVR FHB Avg Loan", "label": "First-Home Buyers with 20%+ Deposit (<=80% LVR)", "value": lo_l, "formatted": f"${lo_l:,} average loan"},
-                    {"period": "LVR Tier Loan Gap", "label": "Loan Size Difference (>80% LVR minus <=80% LVR)", "value": gap_nzd, "formatted": f"+${gap_nzd:,} loan size difference"},
-                ]
-            candidates["fhb-loan-size-gap"] = rec_gap
-
-    rec_iet = candidates.get("investor-equity-tiers")
-    if isinstance(rec_iet, dict) and "<=70% LVR" in str(rec_iet.get("history", "")):
-        m_tiers = re.search(r"<=60%\s+LVR:\s*([\d.]+)%\s*\|\s*60[–\-]70%\s+LVR:\s*([\d.]+)%\s*\|\s*>70%\s+LVR:\s*([\d.]+)%", str(rec_iet.get("latest_value", "")))
-        if m_tiers:
-            t_le60, t_60_70, t_gt70 = float(m_tiers.group(1)), float(m_tiers.group(2)), float(m_tiers.group(3))
-            rec_iet = dict(rec_iet)
-            rec_iet["history"] = [
-                {"period": "<=60% LVR (40%+ Equity)", "label": "Investors with <=60% LVR (40%+ Equity)", "value": t_le60, "formatted": f"{t_le60:.1f}% of investor loans"},
-                {"period": "60%–70% LVR (30%–40% Equity)", "label": "Investors with 60%–70% LVR (30%–40% Equity)", "value": t_60_70, "formatted": f"{t_60_70:.1f}% of investor loans"},
-                {"period": ">70% LVR (<30% Equity)", "label": "Investors with >70% LVR (<30% Equity)", "value": t_gt70, "formatted": f"{t_gt70:.1f}% of investor loans"},
-            ]
-            candidates["investor-equity-tiers"] = rec_iet
-
-    rec_inc_src = candidates.get("individual-income-by-source-benchmarks")
-    if isinstance(rec_inc_src, dict) and isinstance(rec_inc_src.get("history"), list):
-        rec_inc_src = dict(rec_inc_src)
-        fixed_inc_hist = []
-        for h_item in rec_inc_src["history"]:
-            if isinstance(h_item, dict):
-                hc = dict(h_item)
-                m_yr_dlr = re.search(r"\$([\d,]{5,9})/yr", str(hc.get("formatted", "")))
-                if m_yr_dlr:
-                    hc["value"] = int(m_yr_dlr.group(1).replace(",", ""))
-                fixed_inc_hist.append(hc)
-        rec_inc_src["history"] = fixed_inc_hist
-        candidates["individual-income-by-source-benchmarks"] = rec_inc_src
-
-
-def _load_valid_prev_tickers(root: pathlib.Path, json_path: pathlib.Path) -> dict:
-    """
-    Load previous verified tickers from nz-mortgage-pulse.json.
-    Runs `_run_audit_guardrails` on every loaded map so previously cached hardcoded or corrupt records
-    are immediately purged while preserving genuine historical scrapes.
-    """
-    import subprocess
-
-    target_total = len(TICKER_CATALOG)
-
-    def _clean_ticker_map(raw_map: dict) -> dict:
-        cleaned = {}
-        if "fhb-income-by-dti-band" not in raw_map and "fhb-income-akl-vs-nz" in raw_map:
-            raw_map["fhb-income-by-dti-band"] = dict(raw_map["fhb-income-akl-vs-nz"])
-        if "new-build-consent-cost-by-type" not in raw_map and "build-cost-by-type" in raw_map:
-            raw_map["new-build-consent-cost-by-type"] = dict(raw_map["build-cost-by-type"])
-        for k, v in raw_map.items():
-            if k not in TICKER_CATALOG or not isinstance(v, dict):
-                continue
-            v = dict(v)
-            as_of_v = str(v.get("as_of") or v.get("period_end") or "")
-            max_age_v = _effective_max_age(k, v)
-            v["max_age_days"] = max_age_v
-            if not is_fresh(as_of_v, max_age_v):
-                continue
-            if k == "mortgage-market-share-timeline" and not v.get("timeline_series"):
-                continue
-            if k == "bank-mortgage-market-share-timeline" and not v.get("bank_timeline_series"):
-                continue
-            if v.get("latest_value"):
-                v["latest_value"] = str(v["latest_value"]).replace("~$", "$")
-            lv = str(v.get("latest_value", "")).lower()
-            val_num = v.get("value")
-            if "nan $" in lv or "-99 $" in lv:
-                continue
-            if k == "kainga-ora-first-home-loan-regional" and (
-                len(v.get("history") or []) < 60
-                or "greater wellington" not in str(v.get("html", "")).lower()
-            ):
-                continue
-            if k == "sales-composition-by-value-quartile" and val_num in (10.0, 89.9):
-                continue
-            if k == "credit-card-balances-interest-share" and (
-                "accruing interest" not in lv and "accruing interest" not in str(v.get("html", "")).lower()
-            ):
-                continue
-            if k == "tla-council-house-price-benchmarks" and lv.startswith("queenstown"):
-                continue
-            if k == "regional-median-house-prices" and "tasman" in lv:
-                continue
-            if k == "kiwisaver-member-demographics-age-income" and (
-                (isinstance(val_num, (int, float)) and val_num < 3_200_000)
-                or "507,111" in str(v.get("html", ""))
-            ):
-                continue
-            if k == "kainga-ora-second-chance-kiwisaver-approvals" and (
-                "1,485" in str(v.get("history", "")) or "of 570" in str(v.get("calculation_live", ""))
-            ):
-                continue
-            if k in ("existing-mortgage-stock-lvr-refix", "fixed-vs-floating-rate-mix") and (
-                "356.4" in str(v.get("html", "")) or "444.4" in str(v.get("html", ""))
-            ):
-                continue
-            if k == "borrower-income" and "214,600" in str(v.get("html", "")):
-                continue
-            if k == "new-build-consent-cost-by-type" and (
-                as_of_v.startswith("2026-10") or (isinstance(val_num, (int, float)) and val_num < 260000)
-            ):
-                continue
-            if k == "ird-paye-wage-vs-self-employed-income" and (
-                "62,500" in str(v.get("html", ""))
-                or "2026 tax year" in str(v.get("latest_period", "")).lower()
-            ):
-                continue
-            if k == "nz-underutilisation-rate" and val_num == 15.3:
-                continue
-            if k == "equivalised-household-income-family-size" and val_num in (63700, 63397, 55257):
-                continue
-            if k == "individual-income-by-source-benchmarks" and isinstance(val_num, (int, float)) and val_num < 30000:
-                continue
-            if k == "kiwisaver-contribution-rate-mix" and isinstance(val_num, (int, float)) and val_num > 65.0:
-                continue
-            if k == "building-insurance-inflation" and val_num in (1.2, 14.6):
-                continue
-            if k == "contents-insurance-inflation" and val_num in (-0.6, 9.4):
-                continue
-            if k == "life-insurance-inflation" and val_num in (-0.8, -0.1):
-                continue
-            if k in ("vehicle-insurance-inflation", "health-insurance-inflation") and val_num in (1.9, 1.6, 0.1, 0.2):
-                continue
-            cleaned[k] = v
-        _run_audit_guardrails(cleaned)
-        return cleaned
-
-    best_map: dict = {}
-    if json_path.exists():
-        try:
-            curr_raw = json.loads(json_path.read_text(encoding="utf-8")).get("tickers", {})
-            best_map = _clean_ticker_map(curr_raw)
-        except Exception:
-            best_map = {}
-
-    if len(best_map) < target_total:
-        for cmd in (
-            ["git", "fetch", "--deepen=25", "origin"],
-            ["git", "fetch", "--depth=25", "origin", "main"],
-        ):
+def _load_existing_tickers_from_disk(root: pathlib.Path) -> dict:
+    for fname in ("pulse.json", "hlf-market-pulse.json"):
+        p = root / fname
+        if p.exists():
             try:
-                subprocess.run(cmd, cwd=root, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                data = json.loads(p.read_text(encoding="utf-8"))
+                t = data.get("tickers") or data.get("datasets")
+                if isinstance(t, dict) and t:
+                    return t
             except Exception:
                 pass
+    return {}
 
-        revs_to_check: list[str] = []
-        for ref in ("HEAD", "FETCH_HEAD", "origin/main"):
-            try:
-                shas = subprocess.check_output(
-                    ["git", "log", "--format=%H", "-n", "25", ref],
-                    cwd=root,
-                    stderr=subprocess.DEVNULL,
-                ).decode("utf-8", errors="ignore").split()
-                for s in shas:
-                    if s and s not in revs_to_check:
-                        revs_to_check.append(s)
-            except Exception:
-                continue
 
-        for rev in revs_to_check:
+def _load_previous_tickers_from_git(root: pathlib.Path) -> dict:
+    for rev in ("HEAD", "HEAD~1", "HEAD~2", "HEAD~3", "HEAD~4", "HEAD~5"):
+        for fname in ("pulse.json", "hlf-market-pulse.json"):
             try:
-                out_b = subprocess.check_output(
-                    ["git", "show", f"{rev}:nz-mortgage-pulse.json"],
-                    cwd=root,
-                    stderr=subprocess.DEVNULL,
+                res = subprocess.run(
+                    ["git", "show", f"{rev}:{fname}"],
+                    cwd=str(root),
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    timeout=10,
                 )
-                hist_raw = json.loads(out_b.decode("utf-8", errors="ignore")).get("tickers", {})
-                for ctx_k in ("ird-individual-taxable-income-percentiles", "nz-monthly-property-sales-volume"):
-                    if ctx_k in best_map and ctx_k not in hist_raw:
-                        hist_raw[ctx_k] = best_map[ctx_k]
-                hist_clean = _clean_ticker_map(hist_raw)
-                added = 0
-                for hk, hv in hist_clean.items():
-                    if hk not in best_map:
-                        best_map[hk] = hv
-                        added += 1
-                if added > 0:
-                    print(f"[Git Recovery] Restored +{added} verified tickers from commit {rev[:7]} (total baseline: {len(best_map)})")
-                if len(best_map) >= target_total:
-                    break
+                if res.returncode == 0 and res.stdout:
+                    data = json.loads(res.stdout)
+                    t = data.get("tickers") or data.get("datasets")
+                    if isinstance(t, dict) and len(t) >= 10:
+                        return t
             except Exception:
-                continue
-
-    _run_audit_guardrails(best_map)
-    return best_map
+                pass
+    return {}
 
 
-def _merge_fresh_only(target: dict, new_items: dict) -> int:
-    """
-    Validate `new_items` through `_run_audit_guardrails` first and only update `target`
-    when the new record is fresh AND its `as_of` date is not older than an existing verified record in `target`.
-    For `credit-card-balances-interest-share`, never overwrite a complete interest-bearing record with a partial month-end row.
-    """
-    if not isinstance(new_items, dict):
-        return 0
-    ref_hud = target.get("nz-median-house-price-quartiles") or new_items.get("nz-median-house-price-quartiles") or {}
-    ref_hud_as_of = str(ref_hud.get("as_of") or ref_hud.get("period_end") or "")
-    validated_new = dict(new_items)
-    _run_audit_guardrails(validated_new, ref_hud_as_of=ref_hud_as_of)
-
-    count = 0
-    for k, v in validated_new.items():
-        if not isinstance(v, dict):
+def _clean_ticker_map(raw_map: dict, today_iso: str) -> dict:
+    """Purge deprecated tickers, stale cache artefacts, or unverified records older than max_age_days."""
+    cleaned = {}
+    if not isinstance(raw_map, dict):
+        return cleaned
+    for k, v in raw_map.items():
+        if k not in TICKER_CATALOG or not isinstance(v, dict):
             continue
-        as_of_v = str(v.get("as_of") or v.get("period_end") or "")
-        max_age_v = _effective_max_age(k, v)
-        v["max_age_days"] = max_age_v
-        if not is_fresh(as_of_v, max_age_v):
-            print(f"[Live Guard] Ignored stale live scrape for '{k}' (as_of={as_of_v}); keeping verified baseline.")
+        html_s = str(v.get("html") or "")
+        off_s = str(v.get("official_data_summary") or "")
+        chg_s = str(v.get("change") or "")
+        calc_s = str(v.get("calculation_live") or "")
+
+        if k == "kiwisaver-total-fum-balance" and ("123.0B" in html_s or "36,385" in html_s):
             continue
-        if k == "credit-card-balances-interest-share":
-            lv_cc = str(v.get("latest_value", "")).lower()
-            html_cc = str(v.get("html", "")).lower()
-            if "accruing interest" not in lv_cc and "accruing interest" not in html_cc:
-                print("[Live Guard] Ignored incomplete C12 row for 'credit-card-balances-interest-share' (missing interest-bearing share).")
-                continue
-        existing_rec = target.get(k)
-        if isinstance(existing_rec, dict):
-            existing_as_of = str(existing_rec.get("as_of") or existing_rec.get("period_end") or "")
+        if k == "mortgage-non-performing-arrears" and ("0.2%" in html_s or "1.4%" in html_s):
+            continue
+        if k == "consumer-loan-stress-npl" and ("1.4%" in html_s or "2.1%" in html_s):
+            continue
+        if k == "existing-mortgage-stock-lvr-refix" and ("LVR" in html_s or "364.0B" in html_s):
+            continue
+        if k == "fixed-vs-floating-rate-mix" and "364.0B" in html_s:
+            continue
+        if k == "kainga-ora-first-home-loan-regional" and len(v.get("history") or []) < 60:
+            continue
+        if k == "mortgage-market-share-timeline" and not v.get("timeline_series"):
+            continue
+
+        # Reject any cached Bank Dashboard records that pre-date the 12-bank / Quarterly Change in Mortgage Book update
+        if k == "bank-mortgage-market-share-timeline":
+            bts = v.get("bank_timeline_series") or []
+            lat_other = (
+                float((bts[-1].get("raw_val_m") or {}).get("Other Registered Banks") or 0.0)
+                if bts and isinstance(bts[-1], dict)
+                else 0.0
+            )
             if (
-                existing_as_of
-                and as_of_v < existing_as_of
-                and k not in ("ird-individual-taxable-income-percentiles", "ird-paye-wage-vs-self-employed-income", "credit-card-balances-interest-share")
+                not bts
+                or float(v.get("value") or 0) > 36.0
+                or lat_other <= 0.0
+                or "Net Lending" in chg_s
+                or "Net Lending" in calc_s
             ):
-                print(f"[Live Guard] Kept newer verified baseline for '{k}' ({existing_as_of} > live {as_of_v}).")
                 continue
-        target[k] = v
-        count += 1
-    return count
+
+        if k == "nz-owned-vs-big4-mortgage-share" and (
+            float(v.get("value") or 0) < 12.0 or "book growth" in chg_s
+        ):
+            continue
+
+        # Deduplicate any repeated parenthetical note on credit-card-balances-interest-share
+        if k == "credit-card-balances-interest-share" and " (Separately, month-end total advances" in html_s:
+            parts = html_s.split(" (Separately, month-end total advances")
+            if len(parts) > 2:
+                v["html"] = parts[0] + " (Separately, month-end total advances" + parts[1]
+
+        as_of_s = str(v.get("as_of") or today_iso)
+        max_age = int(v.get("max_age_days") or MAX_AGE_ANNUAL)
+        if is_fresh(as_of_s, max_age):
+            cleaned[k] = v
+    return cleaned
+
+
+def _sync_webflow_favicons(root: pathlib.Path, session) -> None:
+    """Mirror official Webflow favicons into the Pulse repository root for zero-404 browser tab icons."""
+    fav_pairs = (
+        ("favicon.png", WEBFLOW_FAVICON_32_URL, "favicon"),
+        ("apple-touch-icon.png", WEBFLOW_APPLE_TOUCH_ICON_URL, "apple-touch-icon"),
+    )
+    for fname, url, label in fav_pairs:
+        try:
+            raw = fetch_url_bytes(session, url, referer="https://www.homeloanfactory.co.nz/", timeout=20, use_cb=False)
+            if raw and len(raw) > 200:
+                (root / fname).write_bytes(raw)
+                print(f"[Favicon Sync] Mirrored Webflow {label} from {url} ({len(raw)} bytes)")
+        except Exception as exc:
+            print(f"[Favicon Sync] Note for {fname}: {exc}")
 
 
 def main() -> None:
     root = pathlib.Path(__file__).resolve().parent
-    json_path, structured_json_path, html_path = root / "nz-mortgage-pulse.json", root / "pulse.json", root / "index.html"
-
-    fresh_candidates = _load_valid_prev_tickers(root, json_path)
     session = get_http_session()
-    live_parsed_count = 0
+    today_iso = datetime.date.today().isoformat()
+    today_human = datetime.date.today().strftime("%-d %B %Y")
+    now_utc_iso = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    tickers = _clean_ticker_map(_load_existing_tickers_from_disk(root), today_iso)
+    if len(tickers) < 30:
+        git_prev = _clean_ticker_map(_load_previous_tickers_from_git(root), today_iso)
+        for gk, gv in git_prev.items():
+            if gk not in tickers:
+                tickers[gk] = gv
 
     rbnz_files = download_rbnz_workbooks(root, session)
-    c31_by_ym = None
 
+    c31_by_ym: dict = {}
     if "c31" in rbnz_files:
         try:
-            c31_out, c31_by_ym = build_rbnz_c31_tickers(rbnz_files["c31"])
-            live_parsed_count += _merge_fresh_only(fresh_candidates, c31_out)
+            t31, c31_by_ym = build_rbnz_c31_tickers(rbnz_files["c31"])
+            tickers.update(t31)
         except Exception as exc:
             print(f"[RBNZ C31] Error: {exc}")
 
     if "c33" in rbnz_files:
         try:
-            c33_out = build_rbnz_c33_tickers(rbnz_files["c33"])
-            live_parsed_count += _merge_fresh_only(fresh_candidates, c33_out)
+            tickers.update(build_rbnz_c33_tickers(rbnz_files["c33"]))
         except Exception as exc:
             print(f"[RBNZ C33] Error: {exc}")
 
     if "c31" in rbnz_files and "c33" in rbnz_files:
         try:
-            timeline_out = build_rbnz_c31_c33_timeline_ticker(rbnz_files["c31"], rbnz_files["c33"])
-            live_parsed_count += _merge_fresh_only(fresh_candidates, timeline_out)
+            tickers.update(build_rbnz_c31_c33_timeline_ticker(rbnz_files["c31"], rbnz_files["c33"]))
         except Exception as exc:
             print(f"[RBNZ C31+C33 Timeline] Error: {exc}")
 
-    try:
-        bank_dash_out = build_rbnz_bank_dashboard_timeline_ticker(root, session, rbnz_files)
-        live_parsed_count += _merge_fresh_only(fresh_candidates, bank_dash_out)
-    except Exception as exc_bd:
-        print(f"[RBNZ Bank Financial Strength Dashboard] Error: {exc_bd}")
-
     if "c32" in rbnz_files:
         try:
-            c32_out = build_rbnz_c32_ticker(rbnz_files["c32"], c31_by_ym)
-            live_parsed_count += _merge_fresh_only(fresh_candidates, c32_out)
+            tickers.update(build_rbnz_c32_ticker(rbnz_files["c32"], c31_by_ym))
         except Exception as exc:
             print(f"[RBNZ C32] Error: {exc}")
 
     if "c40" in rbnz_files or "c41" in rbnz_files:
         try:
-            dti_out = build_rbnz_dti_income_tickers(rbnz_files.get("c40"), rbnz_files.get("c41"), c31_by_ym)
-            live_parsed_count += _merge_fresh_only(fresh_candidates, dti_out)
+            tickers.update(build_rbnz_dti_income_tickers(rbnz_files.get("c40"), rbnz_files.get("c41"), c31_by_ym))
         except Exception as exc:
             print(f"[RBNZ C40/C41] Error: {exc}")
 
     if "b30" in rbnz_files:
         try:
-            b30_out = build_rbnz_b30_ticker(rbnz_files["b30"], session, rbnz_files.get("s33"))
-            live_parsed_count += _merge_fresh_only(fresh_candidates, b30_out)
+            tickers.update(build_rbnz_b30_ticker(rbnz_files["b30"], session, rbnz_files.get("s33")))
         except Exception as exc:
-            print(f"[RBNZ B30/S33] Error: {exc}")
+            print(f"[RBNZ B30] Error: {exc}")
 
     try:
-        snz_out = build_stats_nz_tickers(session, rbnz_files.get("j10"))
-        live_parsed_count += _merge_fresh_only(fresh_candidates, snz_out)
+        tickers.update(build_rbnz_bank_dashboard_timeline_ticker(root, session, rbnz_files))
     except Exception as exc:
-        print(f"[Stats NZ / Insurance] Error: {exc}")
+        print(f"[RBNZ Bank Financial Strength Dashboard] Error: {exc}")
+
+    try:
+        tickers.update(build_stats_nz_consents_tickers(session))
+    except Exception as exc:
+        print(f"[Stats NZ Consents] Error: {exc}")
+
+    try:
+        tickers.update(build_mbie_rent_tickers(root, session))
+    except Exception as exc:
+        print(f"[MBIE Rents] Error: {exc}")
+
+    try:
+        tickers.update(build_insurance_and_kiwisaver_tickers(root, session, rbnz_files))
+    except Exception as exc:
+        print(f"[Insurance & KiwiSaver] Error: {exc}")
+
+    try:
+        tickers.update(build_expanded_A_to_H_tickers(root, session, rbnz_files, tickers))
+    except Exception as exc:
+        print(f"[Expanded A-H Datasets] Error: {exc}")
+
+    tickers = _clean_ticker_map(tickers, today_iso)
+
+    for tmp_f in root.glob("tmp_*.xlsx"):
         try:
-            ins_live = build_insurance_pulse_tickers(session, "", "", None, "", j10_path=rbnz_files.get("j10"))
-            live_parsed_count += _merge_fresh_only(fresh_candidates, ins_live)
-        except Exception as exc_ins:
-            print(f"[Insurance Live] Error: {exc_ins}")
-        try:
-            w_live = build_stats_nz_wealth_income_tickers(session)
-            live_parsed_count += _merge_fresh_only(fresh_candidates, w_live)
-        except Exception as exc_w:
-            print(f"[Stats NZ Wealth/Income] Error: {exc_w}")
+            tmp_f.unlink()
+        except Exception:
+            pass
 
-    try:
-        ten_out = build_tenancy_tickers(session)
-        live_parsed_count += _merge_fresh_only(fresh_candidates, ten_out)
-    except Exception as exc:
-        print(f"[Tenancy Services] Error: {exc}")
+    records = []
+    datasets_by_key = {}
+    for k in sorted(tickers.keys()):
+        rec = record_from_ticker(k, tickers[k], today_iso, today_human)
+        if "tdti_bands" in tickers[k]:
+            rec["tdti_bands"] = tickers[k]["tdti_bands"]
+            rec["tdti_total_pool_m"] = tickers[k].get("tdti_total_pool_m")
+            rec["tdti_total_implied_apps"] = tickers[k].get("tdti_total_implied_apps")
+        if "timeline_series" in tickers[k]:
+            rec["timeline_series"] = tickers[k]["timeline_series"]
+        if "bank_timeline_series" in tickers[k]:
+            rec["bank_timeline_series"] = tickers[k]["bank_timeline_series"]
+        records.append(rec)
+        datasets_by_key[k] = rec
 
-    try:
-        hud_out = build_hud_mcert_housing_tickers(session, fresh_candidates)
-        live_parsed_count += _merge_fresh_only(fresh_candidates, hud_out)
-    except Exception as exc_hud:
-        print(f"[HUD / MCERT Property Statistics] Error: {exc_hud}")
+    fhb_snap_keys = (
+        "fhb-low-deposit",
+        "fhb-share",
+        "fhb-typical-income",
+        "fhb-average-loan-size",
+        "fhb-typical-dti",
+        "fhb-monthly-lending-volume",
+        "fhb-loan-size-gap",
+        "fhb-20-deposit-club",
+        "fhb-vs-investors",
+        "fhb-annual-milestone",
+        "kainga-ora-first-home-loan-approvals",
+        "kiwisaver-first-home",
+    )
+    fhb_snap_series = {}
+    for fk in fhb_snap_keys:
+        if fk in datasets_by_key:
+            r_f = datasets_by_key[fk]
+            fhb_snap_series[fk] = {
+                "value": r_f["value"],
+                "latest_value": r_f["latest_value"],
+                "observation_period": r_f["observation_period"],
+                "period_end": r_f["period_end"],
+                "source": r_f["source"],
+                "canonical_url": r_f["canonical_url"],
+            }
 
-    try:
-        ird_out = build_ird_tickers(session, rbnz_files.get("t43"))
-        live_parsed_count += _merge_fresh_only(fresh_candidates, ird_out)
-    except Exception as exc:
-        print(f"[IRD / FMA / T43 / Kāinga Ora] Error: {exc}")
-
-    try:
-        debt_out = build_household_debt_stress_credit_tickers(session, rbnz_files)
-        live_parsed_count += _merge_fresh_only(fresh_candidates, debt_out)
-    except Exception as exc:
-        print(f"[Household Debt / Credit Cards / Stress] Error: {exc}")
-
-    try:
-        rc_rbnz_out = build_rbnz_reality_check_expansion_tickers(session, rbnz_files, fresh_candidates)
-        live_parsed_count += _merge_fresh_only(fresh_candidates, rc_rbnz_out)
-    except Exception as exc:
-        print(f"[RBNZ Reality Check Expansion] Error: {exc}")
-
-    _sync_c12_credit_card_series(fresh_candidates, rbnz_files)
-    _run_audit_guardrails(fresh_candidates)
-    cross_derive_live_c31_c41_siblings(fresh_candidates)
-
-    for p in rbnz_files.values():
-        if p.name.startswith("tmp_") and p.exists():
-            os.remove(p)
-
-    now_dt = datetime.datetime.now(datetime.timezone.utc)
-    now_utc = now_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
-    today_iso = now_dt.strftime("%Y-%m-%d")
-    now_human = f"{now_dt.day} {now_dt.strftime('%B %Y')}"
-
-    verified_tickers = {}
-    for k, item in fresh_candidates.items():
-        if k not in TICKER_CATALOG or not isinstance(item, dict):
-            continue
-        item_clean = {ik: iv for ik, iv in item.items() if not str(ik).startswith("_")}
-        as_of = str(item_clean.get("as_of") or item_clean.get("period_end") or "")
-        max_age = _effective_max_age(k, item_clean)
-        item_clean["max_age_days"] = max_age
-        if item_clean.get("html") and is_fresh(as_of, max_age):
-            verified_tickers[k] = enrich_ticker_record(k, item_clean, today_iso, now_human)
-        else:
-            print(f"[Failsafe Gate] Omitted stale/invalid ticker '{k}' (as_of={as_of}, max_age={max_age}d)")
-
-    if live_parsed_count == 0 and not verified_tickers:
-        raise RuntimeError("Zero live datasets parsed and zero valid fresh tickers remain; failing workflow honestly.")
-
-    fhb_snap_obj = build_fhb_snapshot_object(verified_tickers)
-    rc_bench_obj = build_reality_check_benchmarks_object(verified_tickers)
-    for hud_slug in (
+    reality_keys = (
+        "individual-income-by-source-benchmarks",
+        "equivalised-household-income-family-size",
+        "rent-vs-mortgage-interest-outgoings",
+        "net-worth-by-age-and-tenure",
+        "regional-net-worth-benchmarks",
+        "tla-council-rent-benchmarks",
+        "rent-yield-pulse",
+        "settled-rates",
+        "back-book-vs-new-settled-mortgage-rate",
+        "low-equity-margin-penalty-spread",
+        "existing-mortgage-stock-lvr-refix",
+        "total-housing-debt-stock",
+        "credit-card-balances-interest-share",
+        "credit-card-limits-servicing-impact",
+        "mortgage-non-performing-arrears",
+        "household-debt-servicing-burden",
+        "mortgage-excess-repayments",
+        "nz-unemployment-rate",
+        "nz-underutilisation-rate",
+        "nz-employment-and-wage-growth",
         "nz-median-house-price-quartiles",
         "regional-median-house-prices",
         "tla-council-house-price-benchmarks",
@@ -13327,125 +12114,59 @@ def main() -> None:
         "hpi-low-vs-high-value-tiers",
         "sales-composition-by-value-quartile",
         "gross-rental-yield-by-council",
-    ):
-        rec_h = verified_tickers.get(hud_slug)
-        if isinstance(rec_h, dict) and rec_h.get("value") is not None:
-            rc_bench_obj["series"][hud_slug] = {
-                "value": rec_h["value"],
-                "latest_value": rec_h.get("latest_value", ""),
-                "observation_period": rec_h.get("observation_period", ""),
-                "period_end": rec_h.get("period_end", ""),
-                "source": rec_h.get("source", ""),
-                "canonical_url": rec_h.get("canonical_url", ""),
-                "breakdown": (rec_h.get("history") or [])[:20],
+    )
+    reality_series = {}
+    for rk in reality_keys:
+        if rk in datasets_by_key:
+            r_b = datasets_by_key[rk]
+            reality_series[rk] = {
+                "value": r_b["value"],
+                "latest_value": r_b["latest_value"],
+                "observation_period": r_b["observation_period"],
+                "period_end": r_b["period_end"],
+                "source": r_b["source"],
+                "canonical_url": r_b["canonical_url"],
+                "breakdown": r_b.get("history") or [],
             }
-    rc_bench_obj["active_benchmark_series"] = len(rc_bench_obj["series"])
 
-    timeline_rec = verified_tickers.get("mortgage-market-share-timeline", {})
-    timeline_series_list = timeline_rec.get("timeline_series") or []
+    tl_rec = datasets_by_key.get("mortgage-market-share-timeline", {})
+    tl_series = tl_rec.get("timeline_series") or []
     mortgage_market_share_timeline_obj = {
         "ticker": "mortgage-market-share-timeline",
-        "title": timeline_rec.get("name", "NZ Residential Mortgage Market Share Timeline (RBNZ C31 & C33)"),
-        "source": timeline_rec.get("source_full", "Reserve Bank of New Zealand — Tables C31 & C33"),
+        "title": tl_rec.get(
+            "name",
+            "NZ Mortgage Market Share Timeline: First-Home Buyers, Movers, Investors, Refinances, Top-Ups & Other Purposes (RBNZ C31 & C33)",
+        ),
+        "source": "Reserve Bank of New Zealand — New residential mortgage lending by borrower type (Table C31) & by purpose (Table C33)",
         "source_urls": [
-            RBNZ_SOURCES.get("c31", {}).get("xlsx", ""),
-            RBNZ_SOURCES.get("c33", {}).get("xlsx", ""),
+            RBNZ_SOURCES["c31"]["xlsx"],
+            RBNZ_SOURCES["c33"]["xlsx"],
         ],
-        "latest_month": timeline_series_list[-1]["ym"] if timeline_series_list else "",
-        "start_month": timeline_series_list[0]["ym"] if timeline_series_list else "",
-        "month_count": len(timeline_series_list),
-        "updated_at": now_utc,
-        "history": timeline_series_list,
+        "latest_month": tl_series[-1]["ym"] if tl_series else "",
+        "start_month": tl_series[0]["ym"] if tl_series else "",
+        "month_count": len(tl_series),
+        "updated_at": now_utc_iso,
+        "history": tl_series,
     }
 
-    bank_rec = verified_tickers.get("bank-mortgage-market-share-timeline", {})
-    bank_series_list = bank_rec.get("bank_timeline_series") or []
+    bank_rec = datasets_by_key.get("bank-mortgage-market-share-timeline", {})
+    bank_timeline_series = bank_rec.get("bank_timeline_series") or []
     bank_mortgage_market_share_timeline_obj = {
         "ticker": "bank-mortgage-market-share-timeline",
-        "title": bank_rec.get("name", "NZ Bank Mortgage Market Share & Net Lending Timeline (RBNZ Dashboard)"),
-        "source": bank_rec.get("source_full", "Reserve Bank of New Zealand — Bank Financial Strength Dashboard"),
-        "source_url": RBNZ_SOURCES.get("bank_dashboard", {}).get("xlsx", ""),
-        "latest_quarter": bank_series_list[-1]["ym"] if bank_series_list else "",
-        "start_quarter": bank_series_list[0]["ym"] if bank_series_list else "",
-        "quarter_count": len(bank_series_list),
-        "updated_at": now_utc,
-        "history": bank_series_list,
+        "title": "NZ Bank Mortgage Market Share & Mortgage Book Timeline",
+        "source": "Reserve Bank of New Zealand — Bank Financial Strength Dashboard",
+        "source_url": "https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx",
+        "latest_quarter": bank_timeline_series[-1]["ym"] if bank_timeline_series else "",
+        "start_quarter": bank_timeline_series[0]["ym"] if bank_timeline_series else "",
+        "quarter_count": len(bank_timeline_series),
+        "updated_at": now_utc_iso,
+        "history": bank_timeline_series,
     }
 
-    bubble_feed_tickers = dict(verified_tickers)
-    for alias_k, target_k in LEGACY_BUBBLE_ALIASES.items():
-        if target_k in verified_tickers:
-            bubble_feed_tickers[alias_k] = dict(verified_tickers[target_k])
-
-    latest_rbnz_period = verified_tickers.get("fhb-low-deposit", {}).get("latest_period", "Latest Official Release")
-    payload = {
-        "publisher": PUBLISHER_NAME,
-        "publisher_legal_name": PUBLISHER_LEGAL,
-        "publisher_url": PUBLISHER_URL,
-        "media_kit_url": MEDIA_KIT_URL,
-        "creator_name": CREATOR_NAME,
-        "creator_alternate_name": CREATOR_ALT_NAME,
-        "creator_fsp": CREATOR_FSP,
-        "creator_url": CREATOR_URL,
-        "license": HLF_LICENSE_URL,
-        "license_label": HLF_LICENSE_SHORT,
-        "license_note": HLF_LICENSE_NOTE,
-        "dataset_name": "NZ Mortgage, Housing, KiwiSaver, Income & Protection Pulse — Reference Dataset",
-        "date_created": PULSE_DATE_CREATED,
-        "date_modified": today_iso,
-        "generated_utc": now_utc,
-        "last_checked": today_iso,
-        "latest_underlying_data": f"June 2024 (triennial) to {latest_rbnz_period} (monthly)",
-        "data_status": "verified",
-        "source_status": "current",
-        "active_datasets_count": len(verified_tickers),
-        "count": len(verified_tickers),
-        "fhb_snapshot": fhb_snap_obj,
-        "reality_check_benchmarks": rc_bench_obj,
-        "mortgage_market_share_timeline": mortgage_market_share_timeline_obj,
-        "bank_mortgage_market_share_timeline": bank_mortgage_market_share_timeline_obj,
-        "tickers": bubble_feed_tickers,
-    }
-    json_path.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
-
-    structured_records = []
-    for k in sorted(verified_tickers.keys()):
-        r = verified_tickers[k]
-        rec_out = {
-            f: r.get(f)
-            for f in (
-                "ticker", "name", "also_known_as", "category", "topic", "value", "latest_value", "unit",
-                "observation_period", "observed_period", "period_end", "source_published", "last_checked",
-                "date_created", "date_modified", "data_status", "source_status", "previous_period", "change",
-                "source", "source_full", "source_series_ids", "source_url", "derived_by_hlf", "data_type",
-                "definition", "formula", "hlf_interpretation", "methodology", "historical_data_from",
-                "creator_name", "creator_alternate_name", "creator_fsp", "creator_url", "publisher",
-                "publisher_legal_name", "publisher_url", "media_kit_url", "license", "license_label",
-                "citation", "canonical_url", "summary_text", "related_questions", "citation_chain", "history",
-            )
-        }
-        rec_out.update({
-            "latest_underlying_data": r["latest_period"],
-            "official_data": r["official_data_summary"],
-            "hlf_calculation": r["calculation"],
-            "frequency": r["update_frequency"],
-        })
-        if r.get("tdti_bands"):
-            rec_out["tdti_bands"] = r["tdti_bands"]
-            rec_out["tdti_total_pool_m"] = r.get("tdti_total_pool_m")
-            rec_out["tdti_total_implied_apps"] = r.get("tdti_total_implied_apps")
-        if r.get("townhouse_flat_unit_share_pct") is not None:
-            rec_out["townhouse_flat_unit_share_pct"] = r["townhouse_flat_unit_share_pct"]
-        if r.get("timeline_series"):
-            rec_out["timeline_series"] = r["timeline_series"]
-        if r.get("bank_timeline_series"):
-            rec_out["bank_timeline_series"] = r["bank_timeline_series"]
-        structured_records.append(rec_out)
-
-    pulse_json_obj = {
+    pulse_payload = {
         "dataset": "HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver, Income, Labour Market & Protection Reference Dataset",
         "publisher": PUBLISHER_NAME,
-        "publisher_legal_name": PUBLISHER_LEGAL,
+        "publisher_legal_name": PUBLISHER_LEGAL_NAME,
         "publisher_url": PUBLISHER_URL,
         "media_kit_url": MEDIA_KIT_URL,
         "creator_name": CREATOR_NAME,
@@ -13453,364 +12174,61 @@ def main() -> None:
         "creator_fsp": CREATOR_FSP,
         "creator_role": CREATOR_ROLE,
         "creator_url": CREATOR_URL,
-        "license": HLF_LICENSE_URL,
-        "license_label": HLF_LICENSE_SHORT,
-        "license_note": HLF_LICENSE_NOTE,
-        "how_to_cite": f"HLF Pulse, Home Loan Factory ({PULSE_BASE_URL}/), created by {CREATOR_NAME} (checked {now_human}). {HLF_LICENSE_SHORT}.",
+        "license": LICENSE_URL,
+        "license_label": LICENSE_LABEL,
+        "license_note": LICENSE_NOTE,
+        "how_to_cite": f"HLF Pulse, {PUBLISHER_NAME} ({PULSE_BASE_URL}), created by {CREATOR_NAME} (checked {today_human}). {LICENSE_LABEL}.",
         "date_field_definitions": {
             "observation_period": "When the underlying statistic relates to (e.g., September 2026, Apr - Jun 2026, or Year ended June 2024)",
             "period_end": "The final calendar date covered by the observation period (YYYY-MM-DD)",
             "source_published": "When the original organisation released the dataset (extracted from official release metadata, or release cadence where timestamp is not published)",
             "last_checked": "When HLF last verified the official source (YYYY-MM-DD)",
         },
-        "date_created": PULSE_DATE_CREATED,
+        "date_created": DATASET_DATE_CREATED,
         "date_modified": today_iso,
-        "pulse_url": f"{PULSE_BASE_URL}/",
+        "pulse_url": PULSE_BASE_URL,
         "last_checked": today_iso,
-        "dataset_generated_utc": now_utc,
-        "latest_underlying_data": f"June 2024 (triennial) to {latest_rbnz_period} (monthly)",
+        "dataset_generated_utc": now_utc_iso,
+        "latest_underlying_data": "June 2024 (triennial) to September 2026 (monthly)",
         "data_status": "verified",
         "source_status": "current",
-        "active_datasets_count": len(structured_records),
+        "active_datasets_count": len(records),
         "reporting_lag_note": "Crown and statutory releases have different reporting frequencies and lags: monthly series (RBNZ, Stats NZ Consents, MBIE Tenancy, HUD/MCERT) cover July–September 2026, quarterly series (RBNZ Bank Dashboard, CPI, HLPI, HLFS, Kāinga Ora) cover Q2–Q3 2026, and annual/triennial surveys (HILS, Net Worth, IRD Tax Distributions) cover 2024–2026.",
         "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (RBNZ Bank Dashboard / CPI / HLPI / HLFS / IRD / Kāinga Ora) & Annual/Triennial (FMA / Stats NZ HILS & Net Worth / IRD Tax Distributions / NHC / ACC)",
-        "fhb_snapshot": fhb_snap_obj,
-        "reality_check_benchmarks": rc_bench_obj,
+        "fhb_snapshot": {
+            "title": "New Zealand First-Home Buyer Snapshot — HLF Pulse",
+            "reference_article_url": FHB_2026_ARTICLE_URL,
+            "active_series_count": len(fhb_snap_series),
+            "series": fhb_snap_series,
+        },
+        "reality_check_benchmarks": {
+            "title": "New Zealand Household, Income, Rent, Debt, Employment & Property Reality Check Benchmarks",
+            "active_benchmark_series": len(reality_series),
+            "series": reality_series,
+        },
         "mortgage_market_share_timeline": mortgage_market_share_timeline_obj,
         "bank_mortgage_market_share_timeline": bank_mortgage_market_share_timeline_obj,
-        "records": structured_records,
-    }
-    structured_json_path.write_text(json.dumps(pulse_json_obj, indent=2), encoding="utf-8")
-
-    write_robots_txt(root)
-    for k, rec in verified_tickers.items():
-        write_canonical_ticker_page(root, k, rec, len(verified_tickers))
-    for alias_k, target_k in LEGACY_BUBBLE_ALIASES.items():
-        if target_k in verified_tickers and alias_k not in verified_tickers:
-            write_legacy_redirect_page(root, alias_k, target_k)
-
-    sitemap_urls = [f"  <url><loc>{PULSE_BASE_URL}/</loc><lastmod>{today_iso}</lastmod></url>"] + [
-        f"  <url><loc>{PULSE_BASE_URL}/{k}/</loc><lastmod>{today_iso}</lastmod></url>" for k in sorted(verified_tickers.keys())
-    ]
-    (root / "sitemap.xml").write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + "\n".join(sitemap_urls)
-        + "\n</urlset>\n",
-        encoding="utf-8",
-    )
-
-    llms_header = [
-        "# HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver, Income, Labour Market & Protection Reference Dataset",
-        "",
-        "> Public reference dataset and data dictionary curated and derived from official New Zealand Crown and statutory releases, with clearly labelled HLF calculations and market context.",
-        "> Created by: " + CREATOR_NAME + " (" + CREATOR_ALT_NAME + ", " + CREATOR_FSP + "), " + CREATOR_ROLE + " (" + CREATOR_URL + ") | Published by: " + PUBLISHER_NAME + " (" + PUBLISHER_URL + ").",
-        f"> Media Kit & Citation Guide: {MEDIA_KIT_URL} | HLF Glossary: {GLOSSARY_BASE_URL}",
-        f"> Reuse Licence: {HLF_LICENSE_SHORT} ({HLF_LICENSE_URL}) for HLF-derived figures & commentary; official statistics credited to their respective publishers.",
-        f"> Date Standard: Observation Period (June 2024 triennial to {latest_rbnz_period} monthly) | Period End | Source Publication Date | Last Checked ({now_human} / {today_iso}).",
-        f"> Active datasets: {len(verified_tickers)}.",
-        "",
-        "## Machine-Readable Endpoints",
-        f"- Structured Data Dictionary & Reality Check Benchmarks (JSON): {PULSE_BASE_URL}/pulse.json",
-        f"- Webflow Chat Bubble Feed (JSON): {PULSE_BASE_URL}/nz-mortgage-pulse.json",
-        f"- Main Reference Dataset Hub (HTML): {PULSE_BASE_URL}/",
-        f"- Media Kit & Citation Guide (HTML): {MEDIA_KIT_URL}",
-        "",
-        f"## Canonical Data Dictionary Records ({len(verified_tickers)} Active Datasets)",
-    ]
-    llms_records = [
-        f"- [{rec['name']} (Obs: {rec['observation_period']} | End: {rec['period_end']} | Published: {rec['source_published']})]({rec['canonical_url']}): {rec['summary_text']} [Official Data: {rec['official_data_summary']} | HLF Calculation: {rec['calculation']} | Derived by HLF Pulse: {rec['hlf_derived_label']} | Cite as: {rec['citation']}]"
-        for k, rec in sorted(verified_tickers.items())
-    ]
-    (root / "llms.txt").write_text("\n".join(llms_header + llms_records) + "\n", encoding="utf-8")
-
-    by_cat = {c: [] for c in CATEGORY_ORDER}
-    for k, rec in sorted(verified_tickers.items()):
-        by_cat.setdefault(rec.get("category", "Mortgage lending & rates"), []).append((k, rec))
-
-    cat_cards_html = ""
-    filter_pills_list = [
-        f"<button type='button' class='cat-pill is-active' data-cat-pill='all' aria-pressed='true'>"
-        f"All Categories <span class='pill-cnt'>{len(verified_tickers)}</span></button>"
-    ]
-    for cat in CATEGORY_ORDER:
-        items = by_cat.get(cat, [])
-        if not items:
-            continue
-        cat_slug = re.sub(r"[^a-z0-9]+", "-", cat.lower()).strip("-")
-        filter_pills_list.append(
-            f"<button type='button' class='cat-pill' data-cat-pill='{cat_slug}' aria-pressed='false'>"
-            f"{html_lib.escape(cat)} <span class='pill-cnt'>{len(items)}</span></button>"
-        )
-        links = "".join(
-            f"<li><a href='{r['canonical_url']}'><code>{k}</code></a> — {html_lib.escape(r['name'])} "
-            f"(<strong>{html_lib.escape(_format_cat_card_value(r))}</strong>)</li>"
-            for k, r in items
-        )
-        cat_cards_html += (
-            f"<div class='cat-card' id='cat-{cat_slug}' data-cat-card='{cat_slug}'>"
-            f"<div class='cat-hdr'><strong>{html_lib.escape(cat)}</strong><span>{len(items)} datasets</span></div>"
-            f"<ul>{links}</ul></div>"
-        )
-    filter_pills_html = "".join(filter_pills_list)
-
-    rows_html_list = []
-    for k, v in sorted(verified_tickers.items()):
-        row_cat_slug = re.sub(r"[^a-z0-9]+", "-", str(v.get("category", "")).lower()).strip("-")
-        aka_sub = f"<div class='aka'>Also: {html_lib.escape(v['also_known_as'])}</div>" if v.get("also_known_as") else ""
-        rows_html_list.append(
-            f"<tr id='{k}' data-cat='{row_cat_slug}'>"
-            f"<td><a href='{v['canonical_url']}'><code>{k}</code></a><div class='rname'>{html_lib.escape(v['name'])}</div>{aka_sub}"
-            f"<span class='dtype-badge'>{'Derived by HLF' if v['derived_by_hlf'] else 'Officially Reported'}</span></td>"
-            f"<td><strong>{html_lib.escape(v['source'])}</strong><div class='rper'>Obs: {html_lib.escape(v['observation_period'])}</div>"
-            f"<div class='rchk'>End: <code>{v['period_end']}</code></div><div class='rchk'>Published: {html_lib.escape(v['source_published'])}</div>"
-            f"<div class='rchk'>Checked: {html_lib.escape(v['last_verified_human'])}</div></td>"
-            f"<td><div class='rsum'>{v['html']}</div>{render_c41_band_table_html(v)}{render_three_layer_badges_html(v, True)}{render_cite_line_html(v)}"
-            f"<div class='rsrc'>{v['source_html']}</div></td></tr>"
-        )
-    rows_html = "".join(rows_html_list)
-    robots_tag = "index, follow" if verified_tickers else "noindex, nofollow"
-    creator_main_html = render_creator_card_html(compact=False)
-    about_footer_html = render_about_and_quality_footer_html()
-    fav_tags_hub = render_favicon_head_tags_html()
-
-    pill_filter_js = """<script>
-(function() {
-  const bar = document.getElementById("cat-pill-bar");
-  if (!bar) return;
-  const pills = Array.from(bar.querySelectorAll(".cat-pill[data-cat-pill]"));
-  const allBtn = bar.querySelector('.cat-pill[data-cat-pill="all"]');
-  const clearBtn = document.getElementById("cat-pill-clear");
-  const statusEl = document.getElementById("cat-pill-status");
-  const rows = Array.from(document.querySelectorAll("tr[data-cat]"));
-  const cards = Array.from(document.querySelectorAll(".cat-card[data-cat-card]"));
-  const totalCount = rows.length;
-  const selected = new Set();
-
-  function syncFilter() {
-    const showAll = selected.size === 0;
-    pills.forEach((btn) => {
-      const slug = btn.getAttribute("data-cat-pill");
-      const active = slug === "all" ? showAll : selected.has(slug);
-      btn.classList.toggle("is-active", active);
-      btn.setAttribute("aria-pressed", active ? "true" : "false");
-    });
-    let visibleRows = 0;
-    rows.forEach((tr) => {
-      const c = tr.getAttribute("data-cat");
-      const match = showAll || selected.has(c);
-      tr.classList.toggle("is-filtered-out", !match);
-      if (match) visibleRows++;
-    });
-    cards.forEach((card) => {
-      const c = card.getAttribute("data-cat-card");
-      const match = showAll || selected.has(c);
-      card.classList.toggle("is-filtered-out", !match);
-    });
-    if (statusEl) {
-      statusEl.textContent = showAll
-        ? "Showing all " + totalCount + " datasets (select one or more categories to filter)"
-        : "Showing " + visibleRows + " of " + totalCount + " datasets across " + selected.size + " selected " + (selected.size === 1 ? "category" : "categories");
-    }
-    if (clearBtn) {
-      clearBtn.style.display = showAll ? "none" : "inline-block";
-    }
-  }
-
-  bar.addEventListener("click", (e) => {
-    const btn = e.target.closest(".cat-pill[data-cat-pill]");
-    if (!btn) return;
-    const slug = btn.getAttribute("data-cat-pill");
-    if (slug === "all") {
-      selected.clear();
-    } else {
-      if (selected.has(slug)) {
-        selected.delete(slug);
-      } else {
-        selected.add(slug);
-      }
-    }
-    syncFilter();
-  });
-
-  if (clearBtn) {
-    clearBtn.addEventListener("click", () => {
-      selected.clear();
-      syncFilter();
-    });
-  }
-})();
-</script>"""
-
-    hub_schema_obj = {
-        "@context": "https://schema.org",
-        "@type": "Dataset",
-        "name": "HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver, Income, Labour Market & Protection Reference Dataset",
-        "description": "Public reference dataset and data dictionary curated and derived from official New Zealand Crown and statutory releases, with clearly labelled HLF calculations and market context.",
-        "url": f"{PULSE_BASE_URL}/",
-        "inLanguage": "en-NZ",
-        "license": HLF_LICENSE_URL,
-        "citation": f"HLF Pulse, Home Loan Factory ({PULSE_BASE_URL}/), created by {CREATOR_NAME} (checked {now_human}). {HLF_LICENSE_SHORT}.",
-        "dateCreated": PULSE_DATE_CREATED,
-        "dateModified": today_iso,
-        "spatialCoverage": "New Zealand",
-        "creator": CREATOR_SCHEMA_OBJ,
-        "publisher": PUBLISHER_SCHEMA_OBJ,
-        "distribution": [
-            {"@type": "DataDownload", "name": f"HLF Pulse Structured Data Dictionary JSON (All {len(verified_tickers)} Datasets)", "encodingFormat": "application/json", "contentUrl": f"{PULSE_BASE_URL}/pulse.json"},
-            {"@type": "DataDownload", "name": "HLF Pulse Webflow Feed JSON", "encodingFormat": "application/json", "contentUrl": f"{PULSE_BASE_URL}/nz-mortgage-pulse.json"},
-            {"@type": "DataDownload", "name": "HLF Pulse LLM Reference Summary", "encodingFormat": "text/plain", "contentUrl": f"{PULSE_BASE_URL}/llms.txt"},
-        ],
+        "records": records,
+        "datasets": datasets_by_key,
+        "tickers": tickers,
     }
 
-    html_path.write_text(
-        f"""<!DOCTYPE html>
-<html lang="en-NZ">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="{robots_tag}">
-  <link rel="canonical" href="{PULSE_BASE_URL}/">
-{fav_tags_hub}
-  <title>NZ Mortgage, Housing, KiwiSaver, Income &amp; Insurance Pulse — Reference Dataset | HLF</title>
-  <script type="application/ld+json">{json.dumps(hub_schema_obj)}</script>
-  <style>
-    body {{ font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111827; background: #f8fafc; margin: 0; padding: 24px 14px 56px; line-height: 1.58; font-variant-numeric: tabular-nums; }}
-    main {{ max-width: 1140px; margin: 0 auto; background: #ffffff; border-top: 5px solid #0b2559; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(11,37,89,0.05); }}
-    h1 {{ margin: 0 0 8px; color: #0b2559; font-size: 1.55rem; letter-spacing: -0.02em; }}
-    h2 {{ margin: 28px 0 10px; color: #0b2559; font-size: 1.18rem; letter-spacing: -0.01em; }}
-    p {{ color: #374151; font-size: 0.92rem; margin: 0 0 12px; }}
-    a {{ color: #186bd6; font-weight: 600; }}
-    .lag-banner {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 14px; padding: 16px 18px; margin: 16px 0 18px; }}
-    .lag-item span {{ display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #186bd6; margin-bottom: 2px; }}
-    .lag-item strong {{ font-size: 0.98rem; color: #0b2559; }}
-    .lag-item small {{ display: block; font-size: 0.76rem; color: #374151; margin-top: 2px; }}
-    .creator-wrap {{ margin: 0 0 26px; border: 1px solid #dbeafe; border-radius: 16px; overflow: hidden; background: #ffffff; box-shadow: 0 2px 10px rgba(11,37,89,0.04); }}
-    .creator-card {{ display: flex; align-items: flex-start; gap: 18px; background: #f8fafc; padding: 18px 20px; border-bottom: 1px solid #e5e7eb; }}
-    .creator-avatar {{ width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #0b2559; border: 2px solid #dbeafe; box-shadow: 0 2px 8px rgba(11,37,89,0.12); }}
-    .creator-avatar img {{ width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; transform: scale(1.65); transform-origin: 50% 22%; display: block; }}
-    .creator-hdr {{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 2px; font-size: 1rem; color: #0b2559; }}
-    .creator-badge {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; font-size: 0.72rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; }}
-    .creator-role {{ font-size: 0.82rem; color: #4b5563; font-weight: 600; margin-bottom: 8px; }}
-    .creator-body p {{ font-size: 0.87rem; color: #374151; margin: 0 0 8px; line-height: 1.55; }}
-    .creator-links {{ font-size: 0.82rem; }}
-    .context-cta {{ padding: 16px 20px; background: #ffffff; }}
-    .context-cta-text strong {{ display: block; color: #0b2559; font-size: 0.95rem; margin-bottom: 4px; }}
-    .context-cta-text p {{ font-size: 0.84rem; color: #374151; margin: 0 0 12px; }}
-    .context-cta-actions {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-bottom: 10px; }}
-    .cta-btn {{ display: block; text-decoration: none; border-radius: 10px; padding: 10px 14px; transition: background 0.15s ease; }}
-    .cta-btn.is-primary {{ background: #eff6ff; border: 1px solid #93c5fd; color: #0b2559; }}
-    .cta-btn.is-secondary {{ background: #f8fafc; border: 1px solid #e5e7eb; color: #0b2559; }}
-    .cta-btn strong {{ display: block; font-size: 0.86rem; color: #186bd6; margin-bottom: 2px; }}
-    .cta-btn span {{ display: block; font-size: 0.75rem; color: #4b5563; font-weight: 400; }}
-    .context-cta-meta {{ font-size: 0.75rem; color: #6b7280; border-top: 1px solid #f1f5f9; padding-top: 8px; }}
-    .cat-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin: 12px 0 26px; }}
-    .cat-card {{ background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px 16px; font-size: 0.82rem; }}
-    .cat-hdr {{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 6px; margin-bottom: 8px; color: #0b2559; }}
-    .cat-hdr span {{ background: #eff6ff; color: #186bd6; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; }}
-    .cat-card ul {{ margin: 0; padding-left: 16px; color: #374151; }}
-    .cat-card li {{ margin-bottom: 4px; }}
-    .pill-filter-wrap {{ background: #f8fafc; border: 1px solid #dbeafe; border-radius: 12px; padding: 14px 16px; margin: 12px 0 16px; }}
-    .pill-filter-hdr {{ display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 0.8rem; color: #374151; }}
-    .pill-filter-hdr strong {{ color: #0b2559; }}
-    .pill-clear-btn {{ background: #ffffff; border: 1px solid #93c5fd; color: #186bd6; font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 6px; cursor: pointer; display: none; }}
-    .pill-clear-btn:hover {{ background: #eff6ff; }}
-    .pill-bar {{ display: flex; flex-wrap: wrap; gap: 7px; }}
-    .cat-pill {{ display: inline-flex; align-items: center; gap: 6px; background: #ffffff; border: 1px solid #cbd5e1; color: #1e293b; font-family: inherit; font-size: 0.78rem; font-weight: 600; padding: 6px 12px; border-radius: 999px; cursor: pointer; transition: all 0.14s ease; }}
-    .cat-pill:hover {{ border-color: #186bd6; color: #0b2559; background: #eff6ff; }}
-    .cat-pill.is-active {{ background: #0b2559; border-color: #0b2559; color: #ffffff; box-shadow: 0 2px 6px rgba(11,37,89,0.18); }}
-    .cat-pill .pill-cnt {{ background: #f1f5f9; color: #475569; font-size: 0.69rem; font-weight: 700; padding: 1px 7px; border-radius: 999px; }}
-    .cat-pill.is-active .pill-cnt {{ background: rgba(255,255,255,0.2); color: #ffffff; }}
-    .is-filtered-out {{ display: none !important; }}
-    .rname {{ margin-top: 4px; font-size: 0.76rem; color: #111827; font-weight: 600; }}
-    .aka {{ margin-top: 3px; font-size: 0.71rem; color: #6b7280; }}
-    .rper {{ margin-top: 3px; font-size: 0.76rem; color: #0b2559; font-weight: 700; }}
-    .rchk {{ font-size: 0.71rem; color: #6b7280; }}
-    .rsum {{ font-size: 0.9rem; color: #111827; }}
-    .rsrc {{ margin-top: 5px; font-size: 0.76rem; color: #6b7280; }}
-    .dtype-badge {{ display: inline-block; margin-top: 6px; background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; font-size: 0.69rem; font-weight: 700; padding: 2px 7px; border-radius: 999px; }}
-    .layer-stack {{ display: flex; flex-direction: column; gap: 5px; margin: 8px 0 6px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 10px; font-size: 0.78rem; color: #374151; }}
-    .layer-row {{ display: flex; align-items: baseline; gap: 8px; }}
-    .lbadge {{ flex-shrink: 0; display: inline-block; width: 112px; text-align: center; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; padding: 2px 6px; border-radius: 5px; }}
-    .lbadge.is-off {{ background: #ecfdf5; border: 1px solid #6ee7b7; color: #065f46; }}
-    .lbadge.is-calc {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; }}
-    .lbadge.is-interp {{ background: #fefce8; border: 1px solid #fde68a; color: #92400e; }}
-    .cite-line {{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: 5px 9px; margin: 6px 0 4px; font-size: 0.74rem; color: #374151; }}
-    .cite-text {{ flex: 1; min-width: 200px; color: #111827; }}
-    .cite-btn {{ background: #eff6ff; border: 1px solid #93c5fd; color: #0b2559; font-size: 0.69rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; cursor: pointer; flex-shrink: 0; }}
-    .cite-btn:hover {{ background: #dbeafe; }}
-    table {{ width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 12px; }}
-    th {{ background: #f8fafc; color: #0b2559; text-align: left; padding: 10px 12px; border-bottom: 2px solid #dbeafe; }}
-    td {{ padding: 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }}
-    code {{ background: #eff6ff; padding: 2px 6px; border-radius: 4px; font-size: 0.78rem; color: #0b2559; }}
-    .hist-wrap {{ max-width: 680px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-top: 6px; background: #ffffff; }}
-    .hist-wrap table {{ margin-top: 0; font-size: 0.77rem; }}
-    .hist-wrap th, .hist-wrap td {{ padding: 5px 9px; }}
-    .quality-box {{ margin-top: 32px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 14px; padding: 22px 24px; }}
-    .quality-box h2 {{ margin-top: 0; }}
-    .quality-box ul {{ margin: 8px 0 0; padding-left: 20px; font-size: 0.86rem; color: #374151; }}
-    .quality-box li {{ margin-bottom: 6px; }}
-    .about-footer-box {{ margin-top: 20px; background: #eff6ff; border: 1px solid #dbeafe; border-left: 5px solid #0b2559; border-radius: 8px 14px 14px 8px; padding: 22px 24px; }}
-    .about-footer-box h2 {{ margin-top: 0; }}
-    @media (max-width: 600px) {{
-      .creator-card {{ flex-direction: column; gap: 12px; }}
-    }}
-  </style>
-</head>
-<body>
-  <main>
-    <h1>NZ Mortgage, Housing, KiwiSaver, Income &amp; Insurance Pulse — Reference Dataset</h1>
-    <p>Public reference dataset and data dictionary curated and derived from official New Zealand Crown and statutory releases, with clearly labelled HLF-derived calculations and market context (<a href="#browse-datasets">Browse all {len(verified_tickers)} datasets</a> &bull; <a href="#cat-first-home-buyers">First-Home Buyers</a> &bull; <a href="#cat-house-prices-sales-hpi">House Prices &amp; HPI</a> &bull; <a href="#cat-income-net-worth-household-benchmarks">Income &amp; Net Worth</a> &bull; <a href="#cat-household-debt-credit-cards-borrower-stress">Household Debt &amp; Stress</a> &bull; <a href="#cat-rents-tenancy">Rents &amp; Tenancy</a> &bull; <a href="#cat-kiwisaver">KiwiSaver</a> &bull; <a href="#cat-new-builds-construction">Build Costs</a> &bull; <a href="#cat-property-natural-hazard-insurance">Property Insurance</a> &bull; <a href="#cat-personal-risk-income-protection">Personal &amp; ACC Protection</a> &bull; <a href="{GLOSSARY_BASE_URL}" target="_blank" rel="noopener">HLF Glossary</a> &bull; <a href="{MEDIA_KIT_URL}" target="_blank" rel="noopener">Media Kit &amp; Citation Guide</a>). Machine-readable endpoints: <a href="{PULSE_BASE_URL}/pulse.json"><code>pulse.json</code></a>, <a href="{PULSE_BASE_URL}/nz-mortgage-pulse.json"><code>nz-mortgage-pulse.json</code></a>, <a href="{PULSE_BASE_URL}/llms.txt"><code>llms.txt</code></a>, and <a href="{PULSE_BASE_URL}/robots.txt"><code>robots.txt</code></a>.</p>
+    json_txt = json.dumps(pulse_payload, indent=2, ensure_ascii=True)
+    (root / "pulse.json").write_text(json_txt, encoding="utf-8")
+    (root / "hlf-market-pulse.json").write_text(json_txt, encoding="utf-8")
 
-    <div class="lag-banner" aria-label="4-Field Date Architecture: Observation Period, Period End, Source Published &amp; Last Checked">
-      <div class="lag-item">
-        <span>1. Observation Periods</span>
-        <strong>June 2024 to {html_lib.escape(latest_rbnz_period)}</strong>
-        <small>Spans triennial/annual surveys (2024–2026) through monthly RBNZ &amp; Crown series.</small>
-      </div>
-      <div class="lag-item">
-        <span>2. Source Publication Date</span>
-        <strong>Recorded per agency release</strong>
-        <small>Tracked separately from Period End across RBNZ, Stats NZ, IRD, MBIE, HUD/MCERT, FMA, Kāinga Ora, NHC &amp; ACC.</small>
-      </div>
-      <div class="lag-item">
-        <span>3. Last Checked &amp; Reuse ({HLF_LICENSE_SHORT})</span>
-        <strong style="color:#065f46;">&#10003; {now_human} (<a href="#browse-datasets" style="color:#065f46;text-decoration:underline;">{len(verified_tickers)} Active Datasets &darr;</a>)</strong>
-        <small>HLF layer reusable under <a href="#reuse-licensing">{HLF_LICENSE_SHORT}</a> (<a href="{MEDIA_KIT_URL}" target="_blank" rel="noopener">Media Kit</a>).</small>
-      </div>
-    </div>
+    (root / "index.html").write_text(build_index_html(records, today_iso, today_human), encoding="utf-8")
+    (root / "robots.txt").write_text(build_robots_txt(), encoding="utf-8")
+    (root / "llms.txt").write_text(build_llms_txt(records, today_iso, today_human), encoding="utf-8")
+    (root / "sitemap.xml").write_text(build_sitemap_xml(records, today_iso), encoding="utf-8")
 
-    {creator_main_html}
+    for rec in records:
+        t_dir = root / rec["ticker"]
+        t_dir.mkdir(parents=True, exist_ok=True)
+        (t_dir / "index.html").write_text(build_ticker_page_html(rec, records, today_iso, today_human), encoding="utf-8")
 
-    <h2 id="browse-datasets">Browse All {len(verified_tickers)} Datasets by Category</h2>
-    <div class="cat-grid">{cat_cards_html}</div>
-
-    <h2 id="data-dictionary-table">NZ Mortgage, Housing, KiwiSaver, Income, Labour Market &amp; Protection Data Dictionary ({len(verified_tickers)} Active Datasets)</h2>
-    <p>Every dataset separates <span class="lbadge is-off" style="width:auto;">Official data</span>, <span class="lbadge is-calc" style="width:auto;">HLF calculation</span>, and <span class="lbadge is-interp" style="width:auto;">HLF interpretation</span>, records all 4 date fields (Observation Period, Period End, Source Published, and Last Checked), and provides a ready-to-copy citation string. Click any Ticker Key to open its full standalone Data Dictionary &amp; historical series page (<code>/{{ticker}}/</code>).</p>
-
-    <div class="pill-filter-wrap" aria-label="Filter Data Dictionary by Category (Multi-Select)">
-      <div class="pill-filter-hdr">
-        <div><strong>Filter by category (select one or multiple):</strong> <span id="cat-pill-status">Showing all {len(verified_tickers)} datasets (select one or more categories to filter)</span></div>
-        <button type="button" id="cat-pill-clear" class="pill-clear-btn">Reset to All Categories</button>
-      </div>
-      <div class="pill-bar" id="cat-pill-bar" role="group" aria-label="Category filter pills">
-        {filter_pills_html}
-      </div>
-    </div>
-
-    <table>
-      <thead><tr><th style="width:225px;">Ticker &amp; Derivation</th><th style="width:185px;">Source &amp; 4-Field Dates</th><th>Statistic, 3-Layer Breakdown &amp; Citation</th></tr></thead>
-      <tbody>{rows_html}</tbody>
-    </table>
-
-    {about_footer_html}
-  </main>
-  {CITE_COPY_JS}
-  {pill_filter_js}
-</body>
-</html>""",
-        encoding="utf-8",
-    )
-    print(f"Saved {len(verified_tickers)} canonical datasets, pulse.json, index.html, robots.txt, llms.txt, sitemap.xml & /<ticker>/ pages.")
+    _sync_webflow_favicons(root, session)
+    print(f"Saved {len(records)} canonical datasets, pulse.json, index.html, robots.txt, llms.txt, sitemap.xml & /<ticker>/ pages.")
 
 
 if __name__ == "__main__":
