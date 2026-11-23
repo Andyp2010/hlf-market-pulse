@@ -5764,38 +5764,42 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
 
 
 def _canon_rbnz_bank_name(raw_inst: str) -> str | None:
-    """Normalize RBNZ Bank Financial Strength Dashboard institution names into canonical bank keys."""
+    """
+    Normalize RBNZ Bank Financial Strength Dashboard institution codes & full names
+    into canonical bank keys (including short codes 'WNZL', 'Co-op', 'BOC', 'CCB', 'ICBC', 'HBL').
+    """
     s = str(raw_inst or "").strip()
     low = s.lower()
     if not low or low in ("nan", "none", "institution", "bank", "all banks", "total", "system", "series id", "date"):
         return None
-    if "anz" in low:
-        return "ANZ"
-    if "asb" in low:
-        return "ASB"
-    if "bnz" in low or "bank of new zealand" in low:
-        return "BNZ"
-    if "westpac" in low:
+    # Check Rabobank first so 'ranz' never matches 'anz'
+    if "rabobank" in low or low in ("rnzl", "ranz", "rabo"):
+        return "Rabobank"
+    if low in ("wnzl", "wbc") or "westpac" in low:
         return "Westpac"
-    if "kiwibank" in low:
+    if "co-op" in low or "coop" in low or "co-operative" in low or "cooperative" in low or low in ("psis", "tcob"):
+        return "The Co-operative Bank"
+    if low in ("anz", "anzb", "anznz") or "anz bank" in low or "australia and new zealand" in low:
+        return "ANZ"
+    if low in ("asb", "asbb") or "asb bank" in low:
+        return "ASB"
+    if low in ("bnz", "bnzl") or "bank of new zealand" in low:
+        return "BNZ"
+    if "kiwibank" in low or low in ("kwb", "kb"):
         return "Kiwibank"
     if "tsb" in low:
         return "TSB"
-    if "sbs" in low or "southland building" in low:
+    if "sbs" in low or "southland" in low:
         return "SBS Bank"
-    if "co-operative" in low or "cooperative" in low:
-        return "The Co-operative Bank"
-    if "heartland" in low:
+    if "heartland" in low or low == "hbl":
         return "Heartland Bank"
-    if "bank of china" in low:
+    if low in ("boc", "bocnz") or "bank of china" in low:
         return "Bank of China"
-    if "construction" in low or "ccb" in low:
+    if low in ("ccb", "ccbnz") or "construction" in low:
         return "China Construction Bank"
     if "icbc" in low or "industrial and commercial" in low:
         return "ICBC"
-    if "rabobank" in low:
-        return "Rabobank"
-    if any(k in low for k in ("citibank", "jpmorgan", "mufg", "kookmin", "baroda", "india", "hongkong", "hsbc")):
+    if any(k in low for k in ("baroda", "india", "kookmin", "citibank", "jpmorgan", "mufg", "hongkong", "hsbc")):
         return "Other Registered Banks"
     return None
 
@@ -5826,11 +5830,8 @@ def build_rbnz_bank_dashboard_timeline_ticker(
     """
     100% live-pulled RBNZ Bank Financial Strength Dashboard parser (Zero Hardcoded Fallbacks).
     Extracts each registered bank's existing residential mortgage loan book balance ($m / $B),
-    100% market share (%), quarterly/annual net lending flow ($m), and total gross loans ($m).
-    Outputs three canonical tickers:
-    1. `bank-mortgage-market-share-timeline`
-    2. `nz-owned-vs-big4-mortgage-share`
-    3. `bank-mortgage-share-of-total-lending`
+    100% market share (%), quarterly/annual net lending flow ($m), and total gross loans ($m)
+    across all 12 individual mortgage-lending registered banks.
     """
     rbnz_map = rbnz_files if isinstance(rbnz_files, dict) else {}
     dash_path = _download_bank_dashboard_xlsx(root, session, rbnz_map)
@@ -5901,12 +5902,25 @@ def build_rbnz_bank_dashboard_timeline_ticker(
     latest_ym = df_panel["_ym"].max()
     sub_latest = df_panel[df_panel["_ym"] == latest_ym]
 
-    best_col = None
-    best_score = -1
-    best_scale_mult = 1.0
-    qic20_part_cols: list[int] = []
+    def _bank_val(sub_df, bank_name: str, col_i: int) -> float:
+        s_b = pd.to_numeric(sub_df[sub_df["_bank"] == bank_name].iloc[:, col_i], errors="coerce").dropna()
+        return float(s_b.iloc[-1]) if not s_b.empty else 0.0
+
+    best_unified_col = None
+    best_unified_score = -1
+    best_unified_scale = 1.0
+
+    best_irb_col = None
+    best_irb_score = -1
+    best_irb_scale = 1.0
+
+    best_std_col = None
+    best_std_score = -1
+    best_std_scale = 1.0
+
     tot_loans_col = None
     tot_loans_score = -1
+    tot_loans_scale = 1.0
 
     for c_idx in range(raw_data.shape[1]):
         if c_idx in (date_col_idx, inst_col_idx):
@@ -5915,88 +5929,156 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         lbl_s = str(raw_data.iloc[label_row_idx, c_idx]).strip().lower() if (label_row_idx is not None and c_idx < raw_data.shape[1]) else ""
         meta_s = f"{code_s} | {lbl_s} | {series_meta.get(code_s, '')}".lower()
 
-        if re.match(r"^DBB\.QIC20\.P[1-6]$", code_s):
-            qic20_part_cols.append(c_idx)
-
-        col_ser = pd.to_numeric(sub_latest.iloc[:, c_idx], errors="coerce")
-        anz_vals = pd.to_numeric(sub_latest[sub_latest["_bank"] == "ANZ"].iloc[:, c_idx], errors="coerce").dropna()
-        asb_vals = pd.to_numeric(sub_latest[sub_latest["_bank"] == "ASB"].iloc[:, c_idx], errors="coerce").dropna()
-        bnz_vals = pd.to_numeric(sub_latest[sub_latest["_bank"] == "BNZ"].iloc[:, c_idx], errors="coerce").dropna()
-
-        if anz_vals.empty or asb_vals.empty or bnz_vals.empty:
+        if any(ex in meta_s for ex in ("past due", "impaired", "non-performing", "provision", "rwa", "risk-weighted", "%", "ratio", "pd", "lgd", "default", "allowance")):
             continue
 
-        anz_v, asb_v = float(anz_vals.iloc[-1]), float(asb_vals.iloc[-1])
-        col_sum = float(col_ser.dropna().sum())
+        col_ser = pd.to_numeric(sub_latest.iloc[:, c_idx], errors="coerce").dropna()
+        if col_ser.empty:
+            continue
 
-        # Check for Total Gross Loans ($m) column (ANZ ~$140,000m-$210,000m, all banks ~$460,000m-$680,000m)
-        if 125_000 <= anz_v <= 220_000 and 75_000 <= asb_v <= 155_000 and 430_000 <= col_sum <= 720_000:
-            if any(k in meta_s for k in ("total loans", "gross loans", "loans and advances")) and not any(
-                x in meta_s for x in ("assets", "liabilities", "deposits", "rwa")
+        anz_raw = _bank_val(sub_latest, "ANZ", c_idx)
+        asb_raw = _bank_val(sub_latest, "ASB", c_idx)
+        wbc_raw = _bank_val(sub_latest, "Westpac", c_idx)
+        bnz_raw = _bank_val(sub_latest, "BNZ", c_idx)
+        kb_raw = _bank_val(sub_latest, "Kiwibank", c_idx)
+        tsb_raw = _bank_val(sub_latest, "TSB", c_idx)
+        sbs_raw = _bank_val(sub_latest, "SBS Bank", c_idx)
+        coop_raw = _bank_val(sub_latest, "The Co-operative Bank", c_idx)
+        sum_raw = float(col_ser.sum())
+
+        # Determine scale multiplier to convert to $m
+        scale_m = None
+        if 70_000 <= anz_raw <= 230_000:
+            scale_m = 1.0
+        elif 70.0 <= anz_raw <= 230.0:
+            scale_m = 1000.0
+        elif 70_000_000 <= anz_raw <= 230_000_000:
+            scale_m = 0.001
+        elif anz_raw == 0 and 15_000 <= kb_raw <= 45_000:
+            scale_m = 1.0
+        elif anz_raw == 0 and 15.0 <= kb_raw <= 45.0:
+            scale_m = 1000.0
+
+        if scale_m is None:
+            continue
+
+        anz_v = anz_raw * scale_m
+        asb_v = asb_raw * scale_m
+        wbc_v = wbc_raw * scale_m
+        bnz_v = bnz_raw * scale_m
+        kb_v = kb_raw * scale_m
+        tsb_v = tsb_raw * scale_m
+        sbs_v = sbs_raw * scale_m
+        coop_v = coop_raw * scale_m
+        col_sum = sum_raw * scale_m
+
+        # Check for All-Bank Total Gross Loans ($m) column (ANZ ~$140B-$215B, all banks ~$470B-$700B)
+        if 130_000 <= anz_v <= 225_000 and 80_000 <= asb_v <= 155_000 and 450_000 <= col_sum <= 740_000 and kb_v >= 18_000:
+            if any(k in meta_s for k in ("total loans", "gross loans", "loans and advances", "on-balance sheet")) and not any(
+                x in meta_s for x in ("assets", "liabilities", "deposits")
             ):
-                t_score = 200 if "gross loans" in meta_s or "total loans" in meta_s else 100
+                t_score = 200 if ("gross loans" in meta_s or "total loans" in meta_s) else 100
                 if t_score > tot_loans_score:
                     tot_loans_score = t_score
                     tot_loans_col = c_idx
+                    tot_loans_scale = scale_m
 
-        scale_mult = None
-        if 65_000 <= anz_v <= 165_000 and 45_000 <= asb_v <= 115_000 and 240_000 <= col_sum <= 460_000:
-            scale_mult = 1.0
-        elif 65.0 <= anz_v <= 165.0 and 45.0 <= asb_v <= 115.0 and 240.0 <= col_sum <= 460.0:
-            scale_mult = 1000.0
-        elif 65_000_000 <= anz_v <= 165_000_000 and 240_000_000 <= col_sum <= 460_000_000:
-            scale_mult = 0.001
+        # 1. Unified All-Bank Residential Mortgages ($m) column:
+        # Must have ANZ ($80B-$140B), ASB ($55B-$100B), Westpac ($45B-$90B), BNZ ($45B-$85B),
+        # Kiwibank ($15B-$45B), TSB ($4B-$14B), AND Co-op ($1.5B-$7B), with ANZ = 25%..35% of col_sum!
+        if (
+            80_000 <= anz_v <= 140_000
+            and 50_000 <= asb_v <= 100_000
+            and 45_000 <= wbc_v <= 90_000
+            and 40_000 <= bnz_v <= 85_000
+            and 15_000 <= kb_v <= 45_000
+            and 1_000 <= coop_v <= 8_000
+            and 300_000 <= col_sum <= 440_000
+            and 0.25 <= (anz_v / col_sum) <= 0.35
+        ):
+            u_score = 100
+            if any(k in meta_s for k in ("residential mortgage", "housing", "home loan")):
+                u_score += 200
+            if any(k in meta_s for k in ("asset quality", "on-balance", "total")):
+                u_score += 50
+            if u_score > best_unified_score:
+                best_unified_score = u_score
+                best_unified_col = c_idx
+                best_unified_scale = scale_m
 
-        if scale_mult is None and code_s != "DBB.QIC20.P1":
-            continue
-        if scale_mult is None:
-            scale_mult = 1000.0 if anz_v < 1000 else 1.0
+        # 2. IRB-Only Residential Mortgages ($m) column (Big 4 populated, Kiwibank/Co-op == 0):
+        if (
+            80_000 <= anz_v <= 140_000
+            and 50_000 <= asb_v <= 100_000
+            and 45_000 <= wbc_v <= 90_000
+            and 40_000 <= bnz_v <= 85_000
+            and kb_v == 0
+            and 260_000 <= col_sum <= 380_000
+        ):
+            i_score = 100
+            if any(k in meta_s for k in ("residential mortgage", "housing", "home loan")):
+                i_score += 200
+            if i_score > best_irb_score:
+                best_irb_score = i_score
+                best_irb_col = c_idx
+                best_irb_scale = scale_m
 
-        if any(ex in meta_s for ex in ("past due", "impaired", "non-performing", "provision", "rwa", "risk-weighted", "%", "ratio")):
-            if code_s != "DBB.QIC20.P1":
-                continue
+        # 3. Standardised-Only Residential Mortgages ($m) column (Kiwibank, TSB, SBS, Co-op populated, ANZ == 0):
+        if (
+            anz_v == 0
+            and 15_000 <= kb_v <= 45_000
+            and 3_500 <= tsb_v <= 14_000
+            and 2_000 <= sbs_v <= 8_000
+            and 1_000 <= coop_v <= 8_000
+            and 25_000 <= col_sum <= 80_000
+        ):
+            s_score = 100
+            if any(k in meta_s for k in ("residential mortgage", "housing", "home loan")):
+                s_score += 200
+            if s_score > best_std_score:
+                best_std_score = s_score
+                best_std_col = c_idx
+                best_std_scale = scale_m
 
-        score = 100
-        if code_s == "DBB.QIC20.P1":
-            score += 500
-        elif code_s.startswith("DBB.QIC20"):
-            score += 250
-        if any(k in meta_s for k in ("residential mortgage", "housing", "home loan")):
-            score += 100
-        if "total" in meta_s or "on-balance" in meta_s or "loans" in meta_s:
-            score += 20
-        if score > best_score:
-            best_score = score
-            best_col = c_idx
-            best_scale_mult = scale_mult
+    if best_unified_col is not None:
+        df_panel["_mtg_m"] = pd.to_numeric(df_panel.iloc[:, best_unified_col], errors="coerce").fillna(0.0) * best_unified_scale
+        u_code = str(raw_data.iloc[code_row_idx, best_unified_col]).strip() if code_row_idx is not None else f"col_{best_unified_col}"
+        print(f"[RBNZ Bank Dashboard] Using unified all-bank Residential Mortgages column {u_code}")
+    elif best_irb_col is not None and best_std_col is not None:
+        s_irb = pd.to_numeric(df_panel.iloc[:, best_irb_col], errors="coerce").fillna(0.0) * best_irb_scale
+        s_std = pd.to_numeric(df_panel.iloc[:, best_std_col], errors="coerce").fillna(0.0) * best_std_scale
+        df_panel["_mtg_m"] = s_irb + s_std
+        print(f"[RBNZ Bank Dashboard] Merged IRB (col {best_irb_col}) + Standardised (col {best_std_col}) Residential Mortgages")
+    else:
+        raise RuntimeError("Could not isolate all-bank Residential Mortgages ($m) series in RBNZ Bank Financial Strength Dashboard.")
 
-    if best_col is None:
-        raise RuntimeError("Could not isolate Residential Mortgages (DBB.QIC20.P1 / $m) column in RBNZ Bank Financial Strength Dashboard.")
-
-    df_panel["_mtg_m"] = pd.to_numeric(df_panel.iloc[:, best_col], errors="coerce").fillna(0.0) * best_scale_mult
-    if len(qic20_part_cols) >= 3:
-        df_panel["_tot_loans_m"] = sum(
-            pd.to_numeric(df_panel.iloc[:, pc], errors="coerce").fillna(0.0) * best_scale_mult
-            for pc in qic20_part_cols
-        )
-    elif tot_loans_col is not None:
-        df_panel["_tot_loans_m"] = pd.to_numeric(df_panel.iloc[:, tot_loans_col], errors="coerce").fillna(0.0) * best_scale_mult
+    if tot_loans_col is not None:
+        df_panel["_tot_loans_m"] = pd.to_numeric(df_panel.iloc[:, tot_loans_col], errors="coerce").fillna(0.0) * tot_loans_scale
     else:
         df_panel["_tot_loans_m"] = 0.0
 
     df_panel = df_panel[df_panel["_mtg_m"] > 0].copy()
 
+    # All 12 individual mortgage-lending registered banks in display order
     primary_banks = [
         "ANZ",
         "ASB",
-        "BNZ",
         "Westpac",
+        "BNZ",
         "Kiwibank",
         "TSB",
         "SBS Bank",
         "The Co-operative Bank",
+        "Heartland Bank",
+        "China Construction Bank",
+        "Bank of China",
+        "ICBC",
     ]
-    all_categories = primary_banks + ["Other Registered Banks"]
+    all_categories = list(primary_banks)
+    if any(b not in primary_banks for b in df_panel["_bank"].unique()):
+        all_categories.append("Other Registered Banks")
+
+    big4_set = {"ANZ", "ASB", "Westpac", "BNZ"}
     nz_owned_set = {"Kiwibank", "TSB", "SBS Bank", "The Co-operative Bank", "Heartland Bank"}
 
     quarters_sorted = sorted(df_panel["_ym"].unique())
@@ -6011,16 +6093,14 @@ def build_rbnz_bank_dashboard_timeline_ticker(
 
         raw_m: dict[str, float] = {b: 0.0 for b in all_categories}
         tot_loan_m: dict[str, float] = {b: 0.0 for b in all_categories}
-        nz_owned_exact_m = 0.0
         for _, r_b in sub_q.iterrows():
             b_name = str(r_b["_bank"])
             v_m = float(r_b["_mtg_m"])
             tl_m = float(r_b["_tot_loans_m"])
-            if b_name in nz_owned_set:
-                nz_owned_exact_m += v_m
-            target_b = b_name if b_name in primary_banks else "Other Registered Banks"
-            raw_m[target_b] = round(raw_m[target_b] + v_m, 1)
-            tot_loan_m[target_b] = round(tot_loan_m[target_b] + tl_m, 1)
+            target_b = b_name if b_name in all_categories else "Other Registered Banks"
+            if target_b in raw_m:
+                raw_m[target_b] = round(raw_m[target_b] + v_m, 1)
+                tot_loan_m[target_b] = round(tot_loan_m[target_b] + tl_m, 1)
 
         total_m = round(sum(raw_m.values()), 1)
         if total_m <= 0:
@@ -6039,7 +6119,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         prev_raw = timeline_rows[-1]["raw_val_m"] if timeline_rows else None
         qoq_flow_m: dict[str, float] = {}
         for b_name in all_categories:
-            qoq_flow_m[b_name] = round(raw_m[b_name] - prev_raw[b_name], 1) if prev_raw else 0.0
+            qoq_flow_m[b_name] = round(raw_m[b_name] - prev_raw.get(b_name, 0.0), 1) if prev_raw else 0.0
         total_qoq_flow_m = round(sum(qoq_flow_m.values()), 1)
 
         housing_conc_pct: dict[str, float] = {}
@@ -6049,13 +6129,8 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             else:
                 housing_conc_pct[b_name] = 0.0
 
-        big4_m = round(raw_m["ANZ"] + raw_m["ASB"] + raw_m["BNZ"] + raw_m["Westpac"], 1)
-        nz_owned_m = round(
-            nz_owned_exact_m
-            if nz_owned_exact_m > 0
-            else (raw_m["Kiwibank"] + raw_m["TSB"] + raw_m["SBS Bank"] + raw_m["The Co-operative Bank"]),
-            1,
-        )
+        big4_m = round(sum(raw_m.get(b, 0.0) for b in big4_set), 1)
+        nz_owned_m = round(sum(raw_m.get(b, 0.0) for b in nz_owned_set), 1)
         other_m = round(max(0.0, total_m - big4_m - nz_owned_m), 1)
 
         big4_pct = round((big4_m / total_m) * 100.0, 2)
@@ -6063,8 +6138,9 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         other_pct = round(max(0.0, 100.0 - big4_pct - nz_owned_pct), 2)
 
         non_big4_tot = round(total_m - big4_m, 1)
+        challenger_banks = [b for b in all_categories if b not in big4_set]
         challenger_pct: dict[str, float] = {}
-        for cb in ("Kiwibank", "TSB", "SBS Bank", "The Co-operative Bank", "Other Registered Banks"):
+        for cb in challenger_banks:
             challenger_pct[cb] = round((raw_m[cb] / non_big4_tot) * 100.0, 2) if non_big4_tot > 0 else 0.0
 
         timeline_rows.append({
@@ -6079,13 +6155,13 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "qoq_flow_m": qoq_flow_m,
             "ownership_pct": {
                 "Big 4 Australian-Owned (ANZ, ASB, BNZ, Westpac)": big4_pct,
-                "NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)": nz_owned_pct,
-                "International & Other Registered Banks": other_pct,
+                "NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op, Heartland)": nz_owned_pct,
+                "International Subsidiaries (CCB, BOC, ICBC)": other_pct,
             },
             "ownership_val_m": {
                 "Big 4 Australian-Owned (ANZ, ASB, BNZ, Westpac)": big4_m,
-                "NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)": nz_owned_m,
-                "International & Other Registered Banks": other_m,
+                "NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op, Heartland)": nz_owned_m,
+                "International Subsidiaries (CCB, BOC, ICBC)": other_m,
             },
             "challenger_pct": challenger_pct,
         })
@@ -6099,7 +6175,8 @@ def build_rbnz_bank_dashboard_timeline_ticker(
                 f"ASB {share_pct['ASB']:.1f}% (${raw_m['ASB']/1000:.1f}B) | "
                 f"Westpac {share_pct['Westpac']:.1f}% (${raw_m['Westpac']/1000:.1f}B) | "
                 f"BNZ {share_pct['BNZ']:.1f}% (${raw_m['BNZ']/1000:.1f}B) | "
-                f"Kiwibank {share_pct['Kiwibank']:.1f}% (${raw_m['Kiwibank']/1000:.1f}B)"
+                f"Kiwibank {share_pct['Kiwibank']:.1f}% (${raw_m['Kiwibank']/1000:.1f}B) | "
+                f"TSB {share_pct['TSB']:.1f}% | SBS {share_pct['SBS Bank']:.1f}% | Co-op {share_pct['The Co-operative Bank']:.1f}%"
             ),
         })
 
@@ -6126,18 +6203,30 @@ def build_rbnz_bank_dashboard_timeline_ticker(
 
     sp = lat["share_pct"]
     rm = lat["raw_val_m"]
-    big4_sh = lat["ownership_pct"]["Big 4 Australian-Owned (ANZ, ASB, BNZ, Westpac)"]
-    nz_sh = lat["ownership_pct"]["NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)"]
-    big4_val_b = lat["ownership_val_m"]["Big 4 Australian-Owned (ANZ, ASB, BNZ, Westpac)"] / 1000.0
-    nz_val_b = lat["ownership_val_m"]["NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)"] / 1000.0
-    prev_nz_sh = prev_y["ownership_pct"]["NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)"]
-    prev_nz_val_b = prev_y["ownership_val_m"]["NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)"] / 1000.0
+    print(
+        f"[RBNZ Bank Dashboard Latest {lat['ym']}] Total=${lat['total_val_m']:,.0f}m | "
+        f"ANZ={sp['ANZ']:.2f}% (${rm['ANZ']:,.0f}m) | ASB={sp['ASB']:.2f}% (${rm['ASB']:,.0f}m) | "
+        f"Westpac={sp['Westpac']:.2f}% (${rm['Westpac']:,.0f}m) | BNZ={sp['BNZ']:.2f}% (${rm['BNZ']:,.0f}m) | "
+        f"Kiwibank={sp['Kiwibank']:.2f}% (${rm['Kiwibank']:,.0f}m) | TSB={sp['TSB']:.2f}% (${rm['TSB']:,.0f}m) | "
+        f"SBS={sp['SBS Bank']:.2f}% (${rm['SBS Bank']:,.0f}m) | Co-op={sp['The Co-operative Bank']:.2f}% (${rm['The Co-operative Bank']:,.0f}m)"
+    )
+
+    big4_key = "Big 4 Australian-Owned (ANZ, ASB, BNZ, Westpac)"
+    nz_key = "NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op, Heartland)"
+    big4_sh = lat["ownership_pct"][big4_key]
+    nz_sh = lat["ownership_pct"][nz_key]
+    big4_val_b = lat["ownership_val_m"][big4_key] / 1000.0
+    nz_val_b = lat["ownership_val_m"][nz_key] / 1000.0
+    prev_nz_sh = prev_y["ownership_pct"][nz_key]
+    prev_nz_val_b = prev_y["ownership_val_m"][nz_key] / 1000.0
 
     calc_str = (
-        f"RBNZ Bank Dashboard ({m_full}, Total Existing Book = ${lat['total_val_m']/1000:.2f}B): "
+        f"RBNZ Bank Dashboard ({m_full}, Total Registered Bank Book = ${lat['total_val_m']/1000:.2f}B): "
         f"ANZ {sp['ANZ']:.1f}% (${rm['ANZ']/1000:.2f}B) + ASB {sp['ASB']:.1f}% (${rm['ASB']/1000:.2f}B) + "
         f"Westpac {sp['Westpac']:.1f}% (${rm['Westpac']/1000:.2f}B) + BNZ {sp['BNZ']:.1f}% (${rm['BNZ']/1000:.2f}B) + "
-        f"Kiwibank {sp['Kiwibank']:.1f}% (${rm['Kiwibank']/1000:.2f}B) + TSB/SBS/Co-op/Other = 100.0%"
+        f"Kiwibank {sp['Kiwibank']:.1f}% (${rm['Kiwibank']/1000:.2f}B) + TSB {sp['TSB']:.1f}% (${rm['TSB']/1000:.2f}B) + "
+        f"SBS {sp['SBS Bank']:.1f}% (${rm['SBS Bank']/1000:.2f}B) + Co-op {sp['The Co-operative Bank']:.1f}% (${rm['The Co-operative Bank']/1000:.2f}B) + "
+        f"Heartland/CCB/BOC/ICBC = 100.0%"
     )
     nz_calc_str = (
         f"NZ-Owned Banks (${nz_val_b:.2f}B) ÷ All Registered Banks (${lat['total_val_m']/1000:.2f}B) = {nz_sh:.2f}% | "
@@ -6151,33 +6240,34 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "as_of": as_of,
             "source_published": pub_date,
             "source_url": dash_url,
-            "max_age_days": MAX_AGE_QUARTERLY,
+            "max_age_days": MAX_AGE_ANNUAL,
             "html": (
                 f"As at the {m_full}, across <strong>${lat['total_val_m']/1000:.2f}B (${lat['total_val_m']:,.0f}m)</strong> in existing New Zealand registered bank residential mortgage loan books, "
                 f"market share was led by <strong>ANZ ({sp['ANZ']:.1f}%, or ${rm['ANZ']/1000:.2f}B)</strong>, "
                 f"<strong>ASB ({sp['ASB']:.1f}%, or ${rm['ASB']/1000:.2f}B)</strong>, "
                 f"<strong>Westpac ({sp['Westpac']:.1f}%, or ${rm['Westpac']/1000:.2f}B)</strong>, "
-                f"<strong>BNZ ({sp['BNZ']:.1f}%, or ${rm['BNZ']/1000:.2f}B)</strong>, and "
-                f"<strong>Kiwibank ({sp['Kiwibank']:.1f}%, or ${rm['Kiwibank']/1000:.2f}B)</strong>—with the Big 4 Australian-owned banks holding "
-                f"<strong>{big4_sh:.1f}%</strong> of the market and New Zealand-owned banks holding <strong>{nz_sh:.1f}%</strong>."
+                f"<strong>BNZ ({sp['BNZ']:.1f}%, or ${rm['BNZ']/1000:.2f}B)</strong>, "
+                f"<strong>Kiwibank ({sp['Kiwibank']:.1f}%, or ${rm['Kiwibank']/1000:.2f}B)</strong>, "
+                f"<strong>TSB ({sp['TSB']:.1f}%, or ${rm['TSB']/1000:.2f}B)</strong>, "
+                f"<strong>SBS Bank ({sp['SBS Bank']:.1f}%, or ${rm['SBS Bank']/1000:.2f}B)</strong>, and "
+                f"<strong>The Co-operative Bank ({sp['The Co-operative Bank']:.1f}%, or ${rm['The Co-operative Bank']/1000:.2f}B)</strong>."
             ),
             "official_data_summary": (
-                f"RBNZ Bank Financial Strength Dashboard ({m_full} Existing Residential Mortgages, DBB.QIC20.P1): "
-                f"ANZ = ${rm['ANZ']:,.0f}m ({sp['ANZ']:.1f}%); ASB = ${rm['ASB']:,.0f}m ({sp['ASB']:.1f}%); "
-                f"Westpac = ${rm['Westpac']:,.0f}m ({sp['Westpac']:.1f}%); BNZ = ${rm['BNZ']:,.0f}m ({sp['BNZ']:.1f}%); "
-                f"Kiwibank = ${rm['Kiwibank']:,.0f}m ({sp['Kiwibank']:.1f}%); TSB = ${rm['TSB']:,.0f}m ({sp['TSB']:.1f}%); "
-                f"SBS Bank = ${rm['SBS Bank']:,.0f}m ({sp['SBS Bank']:.1f}%); Co-operative Bank = ${rm['The Co-operative Bank']:,.0f}m ({sp['The Co-operative Bank']:.1f}%)."
+                f"RBNZ Bank Financial Strength Dashboard ({m_full} Existing Residential Mortgages): "
+                + "; ".join(f"{b_k} = ${rm[b_k]:,.0f}m ({sp[b_k]:.2f}%)" for b_k in primary_banks if rm.get(b_k, 0) > 0)
+                + "."
             ),
             "source_html": format_provenance_source_html(calc_str, "RBNZ Bank Financial Strength Dashboard", dash_url, True),
             "latest_period": m_full,
             "value": sp["ANZ"],
             "latest_value": (
-                f"ANZ {sp['ANZ']:.1f}% (${rm['ANZ']/1000:.1f}B) | ASB {sp['ASB']:.1f}% (${rm['ASB']/1000:.1f}B) | "
-                f"Westpac {sp['Westpac']:.1f}% | BNZ {sp['BNZ']:.1f}% | Kiwibank {sp['Kiwibank']:.1f}%"
+                f"ANZ {sp['ANZ']:.1f}% (${rm['ANZ']/1000:.1f}B) | ASB {sp['ASB']:.1f}% | "
+                f"Westpac {sp['Westpac']:.1f}% | BNZ {sp['BNZ']:.1f}% | Kiwibank {sp['Kiwibank']:.1f}% | "
+                f"TSB {sp['TSB']:.1f}% | SBS {sp['SBS Bank']:.1f}% | Co-op {sp['The Co-operative Bank']:.1f}%"
             ),
             "previous_period": (
                 f"{prev_y['label']}: ANZ {prev_y['share_pct']['ANZ']:.1f}% | "
-                f"Kiwibank {prev_y['share_pct']['Kiwibank']:.1f}% | Big 4 {prev_y['ownership_pct']['Big 4 Australian-Owned (ANZ, ASB, BNZ, Westpac)']:.1f}%"
+                f"Kiwibank {prev_y['share_pct']['Kiwibank']:.1f}% | Co-op {prev_y['share_pct']['The Co-operative Bank']:.1f}%"
             ),
             "change": f"Quarterly Net Lending Flow: {lat['total_qoq_flow_m']:+,.0f}m across all registered banks",
             "calculation_live": calc_str,
@@ -6190,15 +6280,17 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "as_of": as_of,
             "source_published": pub_date,
             "source_url": dash_url,
-            "max_age_days": MAX_AGE_QUARTERLY,
+            "max_age_days": MAX_AGE_ANNUAL,
             "html": (
                 f"As at the {m_full}, New Zealand-owned registered banks (led by <strong>Kiwibank at ${rm['Kiwibank']/1000:.2f}B / {sp['Kiwibank']:.1f}%</strong> alongside "
-                f"<strong>TSB [${rm['TSB']/1000:.2f}B]</strong>, <strong>SBS Bank [${rm['SBS Bank']/1000:.2f}B]</strong>, and <strong>The Co-operative Bank [${rm['The Co-operative Bank']/1000:.2f}B]</strong>) "
+                f"<strong>TSB [${rm['TSB']/1000:.2f}B / {sp['TSB']:.1f}%]</strong>, <strong>SBS Bank [${rm['SBS Bank']/1000:.2f}B / {sp['SBS Bank']:.1f}%]</strong>, "
+                f"<strong>The Co-operative Bank [${rm['The Co-operative Bank']/1000:.2f}B / {sp['The Co-operative Bank']:.1f}%]</strong>, and "
+                f"<strong>Heartland Bank [${rm['Heartland Bank']:,.0f}m]</strong>) "
                 f"held a combined existing residential mortgage book of <strong>${nz_val_b:.2f}B ({nz_sh:.2f}%)</strong>, compared with "
                 f"<strong>${big4_val_b:.2f}B ({big4_sh:.2f}%)</strong> across the Big 4 Australian-owned banks."
             ),
             "official_data_summary": (
-                f"RBNZ Bank Financial Strength Dashboard ({m_full}, DBB.QIC20.P1): Combined NZ-owned bank residential mortgage books = ${nz_val_b:.2f}B ({nz_sh:.2f}%); "
+                f"RBNZ Bank Financial Strength Dashboard ({m_full}): Combined NZ-owned bank residential mortgage books = ${nz_val_b:.2f}B ({nz_sh:.2f}%); "
                 f"Combined Big 4 Australian-owned bank residential mortgage books = ${big4_val_b:.2f}B ({big4_sh:.2f}%)."
             ),
             "source_html": format_provenance_source_html(nz_calc_str, "RBNZ Bank Financial Strength Dashboard", dash_url, True),
@@ -6213,7 +6305,6 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         },
     }
 
-    # 3. Emit `bank-mortgage-share-of-total-lending` if total gross loans were parsed
     tot_all_loans_m = sum(lat["tot_loan_m"].values())
     if tot_all_loans_m > lat["total_val_m"] and lat["housing_conc_pct"].get("ANZ", 0) > 0:
         sys_conc_pct = round((lat["total_val_m"] / tot_all_loans_m) * 100.0, 1)
@@ -6231,20 +6322,20 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         ]
         conc_calc = (
             f"System Housing Share: ${lat['total_val_m']/1000:.2f}B ÷ ${tot_all_loans_m/1000:.2f}B = {sys_conc_pct:.1f}% | "
-            + " | ".join(f"{b_k}: {hc[b_k]:.1f}%" for b_k in ("ANZ", "ASB", "Westpac", "BNZ", "Kiwibank", "TSB") if hc.get(b_k, 0) > 0)
+            + " | ".join(f"{b_k}: {hc[b_k]:.1f}%" for b_k in ("ANZ", "ASB", "Westpac", "BNZ", "Kiwibank", "TSB", "SBS Bank", "The Co-operative Bank") if hc.get(b_k, 0) > 0)
         )
         out_dict["bank-mortgage-share-of-total-lending"] = {
             "chip": "RBNZ Bank Dashboard",
             "as_of": as_of,
             "source_published": pub_date,
             "source_url": dash_url,
-            "max_age_days": MAX_AGE_QUARTERLY,
+            "max_age_days": MAX_AGE_ANNUAL,
             "html": (
                 f"As at the {m_full}, residential mortgages accounted for <strong>{sys_conc_pct:.1f}% (${lat['total_val_m']/1000:.2f}B of ${tot_all_loans_m/1000:.2f}B)</strong> "
                 f"of all New Zealand registered bank lending—led in housing specialization by <strong>TSB ({hc.get('TSB', 0):.1f}%)</strong>, "
-                f"<strong>The Co-operative Bank ({hc.get('The Co-operative Bank', 0):.1f}%)</strong>, and <strong>Kiwibank ({hc.get('Kiwibank', 0):.1f}%)</strong>, "
-                f"compared with <strong>ANZ ({hc.get('ANZ', 0):.1f}%)</strong>, <strong>ASB ({hc.get('ASB', 0):.1f}%)</strong>, "
-                f"<strong>Westpac ({hc.get('Westpac', 0):.1f}%)</strong>, and <strong>BNZ ({hc.get('BNZ', 0):.1f}%)</strong>."
+                f"<strong>The Co-operative Bank ({hc.get('The Co-operative Bank', 0):.1f}%)</strong>, <strong>Kiwibank ({hc.get('Kiwibank', 0):.1f}%)</strong>, "
+                f"and <strong>SBS Bank ({hc.get('SBS Bank', 0):.1f}%)</strong>, compared with <strong>ANZ ({hc.get('ANZ', 0):.1f}%)</strong>, "
+                f"<strong>ASB ({hc.get('ASB', 0):.1f}%)</strong>, <strong>Westpac ({hc.get('Westpac', 0):.1f}%)</strong>, and <strong>BNZ ({hc.get('BNZ', 0):.1f}%)</strong>."
             ),
             "official_data_summary": (
                 f"RBNZ Bank Financial Strength Dashboard ({m_full} Loan Composition): Total residential mortgages = ${lat['total_val_m']/1000:.2f}B out of ${tot_all_loans_m/1000:.2f}B total gross loans ({sys_conc_pct:.1f}%)."
@@ -6252,7 +6343,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "source_html": format_provenance_source_html(conc_calc, "RBNZ Bank Financial Strength Dashboard", dash_url, True),
             "latest_period": m_full,
             "value": sys_conc_pct,
-            "latest_value": f"{sys_conc_pct:.1f}% NZ bank housing share (ANZ {hc.get('ANZ', 0):.1f}% | ASB {hc.get('ASB', 0):.1f}% | BNZ {hc.get('BNZ', 0):.1f}% | Kiwibank {hc.get('Kiwibank', 0):.1f}%)",
+            "latest_value": f"{sys_conc_pct:.1f}% NZ bank housing share (TSB {hc.get('TSB', 0):.1f}% | Co-op {hc.get('The Co-operative Bank', 0):.1f}% | Kiwibank {hc.get('Kiwibank', 0):.1f}% | ANZ {hc.get('ANZ', 0):.1f}%)",
             "previous_period": f"Total registered bank gross loans: ${tot_all_loans_m/1000:.2f}B",
             "change": "Measures residential mortgage concentration vs business, commercial & rural lending",
             "calculation_live": conc_calc,
