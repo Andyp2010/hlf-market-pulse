@@ -3714,7 +3714,7 @@ def make_pulse_item(
         d.update(extra)
     return d
 # === END OF BLOCK 6 ===
-# === BLOCK 7 OF 13 ===
+# === BLOCK 7 OF 13 (PART 1 OF 2) ===
 for _rk, _short_u, _long_u in (
     (
         "c31",
@@ -3883,27 +3883,27 @@ if "TICKER_CATALOG" in globals():
             "tool_url": "https://www.homeloanfactory.co.nz/tools/usable-equity-calculator",
         },
         "bank-mortgage-market-share-timeline": {
-            "name": "NZ Bank Mortgage Market Share & Quarterly Net Lending Timeline: ANZ, ASB, BNZ, Westpac, Kiwibank, TSB, SBS & Co-operative Bank (RBNZ Dashboard)",
-            "also_known_as": "RBNZ Bank Financial Strength Dashboard residential mortgage loan book ($B), market share (%) & quarterly net lending flow ($m) by registered bank",
+            "name": "NZ Bank Mortgage Market Share, Existing Loan Book Balances & Net Lending Timeline: ANZ, ASB, Westpac, BNZ, Kiwibank, TSB, SBS & Co-op (RBNZ Dashboard)",
+            "also_known_as": "RBNZ Bank Financial Strength Dashboard existing residential mortgage loan book balances ($B), market share (%) & quarterly net lending flow ($m) by registered bank",
             "category": "Homeowners & refinancing",
-            "topic": "Bank-by-bank residential mortgage market share & net lending growth",
+            "topic": "Bank-by-bank existing residential mortgage loan book balances, market share & net lending growth",
             "source": "RBNZ Bank Financial Strength Dashboard",
             "source_full": "Reserve Bank of New Zealand — Bank Financial Strength Dashboard (Quarterly Registered Bank Disclosure Statements)",
-            "series_ids": "DBB.QIC20.P1 — Residential Mortgages ($m) / Housing Loans by Registered Bank",
+            "series_ids": "DBB.QIC20.P1 — Existing Residential Mortgages Loan Book ($m) & DBB.QIA10.T / Total Gross Loans ($m) by Registered Bank",
             "source_url": "https://bankdashboard.rbnz.govt.nz/summary",
-            "data_type": "Officially reported RBNZ bank-level residential mortgage balances ($m) & HLF-derived market share (%) and net lending flow ($m)",
+            "data_type": "Officially reported RBNZ bank-level existing residential mortgage balances ($m) & HLF-derived market share (%) and net lending flow ($m)",
             "derived_by_hlf": True,
             "unit": "percent",
             "frequency": "Quarterly",
-            "definition": "Quarterly residential mortgage loan book balances ($ millions / $ billions), percentage market share (0% to 100%), and quarterly/annual net mortgage lending growth ($ millions) for each New Zealand-incorporated registered bank from the RBNZ Bank Financial Strength Dashboard.",
-            "methodology": "Extracted live from the RBNZ Bank Financial Strength Dashboard workbook (Bank-Financial-Strength-Dashboard-Data.xlsx) using series DBB.QIC20.P1 (Residential mortgages) across each registered bank's quarterly rows in 'Data'. Market share (%) divides each bank's residential mortgage balance by the sum of all reporting banks' residential mortgage balances in that quarter. Quarterly net lending flow ($m) equals a bank's residential mortgage balance at quarter-end minus its balance at the prior quarter-end.",
-            "hlf_calculation": "Bank Market Share (%) = (Bank Residential Mortgages [$m] ÷ All-Bank Residential Mortgages [$m]) × 100; Quarterly Net Lending ($m) = Bank Mortgages_t − Bank Mortgages_{t-1}",
-            "hlf_interpretation": "HLF market context: Compares the residential mortgage market share and quarterly net lending growth across New Zealand's registered banks from their official quarterly RBNZ Disclosure Statements.",
+            "definition": "Quarterly existing on-balance-sheet residential mortgage loan book balances ($ millions / $ billions), percentage market share (0% to 100%), quarterly/annual net mortgage lending growth ($ millions), and residential housing share of total bank loans (%) for each New Zealand-incorporated registered bank from the RBNZ Bank Financial Strength Dashboard.",
+            "methodology": "Extracted live from the RBNZ Bank Financial Strength Dashboard workbook (Bank-Financial-Strength-Dashboard-Data.xlsx) using series DBB.QIC20.P1 (Residential mortgages on-balance-sheet loan book) across each registered bank's quarterly rows in 'Data'. Market share (%) divides each bank's existing residential mortgage book balance by the sum of all reporting banks' residential mortgage balances in that quarter. Quarterly net lending flow ($m) equals a bank's residential mortgage book balance at quarter-end minus its balance at the prior quarter-end.",
+            "hlf_calculation": "Bank Market Share (%) = (Bank Existing Residential Mortgage Book [$m] ÷ All-Bank Residential Mortgage Book [$m]) × 100; Quarterly Net Lending ($m) = Book_t − Book_{t-1}",
+            "hlf_interpretation": "HLF market context: Compares both the total existing residential mortgage loan books ($B) and the quarterly net new lending momentum ($m) across New Zealand's registered banks from their official quarterly RBNZ Disclosure Statements.",
             "questions": [
-                "Which New Zealand bank has the largest share of the residential mortgage market?",
-                "What is the mortgage market share of ANZ, ASB, BNZ, Westpac, and Kiwibank in New Zealand?",
-                "Which New Zealand banks are growing their residential mortgage lending books?",
-                "How does the RBNZ Bank Financial Strength Dashboard measure bank mortgage lending compared to Tables C31 and C33?",
+                "Which New Zealand bank has the largest existing residential mortgage loan book and market share?",
+                "What are the existing residential mortgage loan book balances of ANZ, ASB, Westpac, BNZ, and Kiwibank?",
+                "Which New Zealand banks are growing their residential mortgage lending books fastest?",
+                "How does the RBNZ Bank Financial Strength Dashboard measure existing bank mortgage books compared to Tables C31 and C33?",
             ],
             "article_title": "Compare NZ Mortgage Rates",
             "article_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
@@ -3911,30 +3911,56 @@ if "TICKER_CATALOG" in globals():
             "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-bank-mortgage-market-share-timeline",
         },
         "nz-owned-vs-big4-mortgage-share": {
-            "name": "New Zealand-owned challenger banks vs Big 4 Australian-owned banks residential mortgage market share & book growth (RBNZ Dashboard)",
-            "also_known_as": "Combined mortgage market share of Kiwibank, TSB, SBS Bank & The Co-operative Bank vs ANZ, ASB, BNZ & Westpac",
+            "name": "New Zealand-owned challenger banks vs Big 4 Australian-owned banks existing mortgage loan books & market share (RBNZ Dashboard)",
+            "also_known_as": "Combined existing residential mortgage loan books ($B) & market share (%) of Kiwibank, TSB, SBS Bank & The Co-operative Bank vs ANZ, ASB, BNZ & Westpac",
             "category": "Homeowners & refinancing",
-            "topic": "NZ-owned challenger banks vs Big 4 Australian-owned banks mortgage share",
+            "topic": "NZ-owned challenger banks vs Big 4 Australian-owned banks existing mortgage books & share",
             "source": "RBNZ Bank Financial Strength Dashboard",
             "source_full": "Reserve Bank of New Zealand — Bank Financial Strength Dashboard (Quarterly Registered Bank Disclosure Statements)",
-            "series_ids": "DBB.QIC20.P1 — Sum(Kiwibank, TSB, SBS, Co-op, Heartland Residential Mortgages) vs Sum(ANZ, ASB, BNZ, Westpac Residential Mortgages)",
+            "series_ids": "DBB.QIC20.P1 — Sum(Kiwibank, TSB, SBS, Co-op, Heartland Existing Residential Mortgages) vs Sum(ANZ, ASB, BNZ, Westpac Existing Residential Mortgages)",
             "source_url": "https://bankdashboard.rbnz.govt.nz/summary",
             "data_type": "HLF-derived ownership group aggregation from official RBNZ Bank Financial Strength Dashboard series",
             "derived_by_hlf": True,
             "unit": "percent",
             "frequency": "Quarterly",
-            "definition": "The combined residential mortgage loan book ($ billions), percentage market share, and annual net lending growth of New Zealand-owned registered banks (Kiwibank, TSB, SBS Bank, The Co-operative Bank, and Heartland Bank) compared with the Big 4 Australian-owned registered banks (ANZ, ASB, BNZ, and Westpac) and international registered banks.",
-            "methodology": "Derived live from the RBNZ Bank Financial Strength Dashboard workbook (series DBB.QIC20.P1) by grouping reporting NZ-incorporated registered banks by ownership structure and summing their quarterly on-balance-sheet residential mortgage books ($m).",
-            "hlf_calculation": "NZ-Owned Share (%) = Sum(NZ-Owned Bank Mortgages) ÷ All-Bank Mortgages × 100; Big 4 Share (%) = Sum(ANZ + ASB + BNZ + Westpac Mortgages) ÷ All-Bank Mortgages × 100",
-            "hlf_interpretation": "HLF market context: Tracks how much of New Zealand's residential mortgage market is held by domestic New Zealand-owned banks compared with the four major Australian-parented banks and international branch/subsidiary lenders.",
+            "definition": "The combined existing residential mortgage loan book ($ billions), percentage market share, and annual net lending growth of New Zealand-owned registered banks (Kiwibank, TSB, SBS Bank, The Co-operative Bank, and Heartland Bank) compared with the Big 4 Australian-owned registered banks (ANZ, ASB, BNZ, and Westpac) and international registered banks.",
+            "methodology": "Derived live from the RBNZ Bank Financial Strength Dashboard workbook (series DBB.QIC20.P1) by grouping reporting NZ-incorporated registered banks by ownership structure and summing their quarterly on-balance-sheet residential mortgage loan books ($m).",
+            "hlf_calculation": "NZ-Owned Share (%) = Sum(NZ-Owned Bank Mortgage Books) ÷ All-Bank Mortgage Books × 100; Big 4 Share (%) = Sum(ANZ + ASB + BNZ + Westpac Mortgage Books) ÷ All-Bank Mortgage Books × 100",
+            "hlf_interpretation": "HLF market context: Tracks how much of New Zealand's total existing residential mortgage debt is held on the balance sheets of domestic New Zealand-owned banks compared with the four major Australian-parented banks and international branch/subsidiary lenders.",
             "questions": [
                 "How much of the New Zealand mortgage market is held by NZ-owned banks versus Australian-owned banks?",
-                "What is the combined mortgage market share of Kiwibank, TSB, SBS Bank, and The Co-operative Bank?",
+                "What is the combined residential mortgage loan book of Kiwibank, TSB, SBS Bank, and The Co-operative Bank?",
             ],
             "article_title": "Refinancing a Mortgage in NZ: How Cashbacks & Break Fees Work",
             "article_url": "https://www.homeloanfactory.co.nz/news-insights/refinancing-a-mortgage-in-nz-how-cashbacks-break-fees-and-switching-banks-actually-work",
             "tool_title": "Compare NZ Mortgage Rates",
             "tool_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
+        },
+        "bank-mortgage-share-of-total-lending": {
+            "name": "Residential mortgages as a share of each New Zealand bank's total loan book vs business & rural lending (RBNZ Dashboard)",
+            "also_known_as": "Housing loan concentration ratio (%) across NZ registered banks (Residential Mortgages ÷ Total Gross Loans)",
+            "category": "Homeowners & refinancing",
+            "topic": "Residential mortgage concentration of each registered bank's total loan book",
+            "source": "RBNZ Bank Financial Strength Dashboard",
+            "source_full": "Reserve Bank of New Zealand — Bank Financial Strength Dashboard (Asset Quality & Loan Composition)",
+            "series_ids": "DBB.QIC20.P1 (Residential Mortgages $m) ÷ Total Gross Loans ($m) by Registered Bank",
+            "source_url": "https://bankdashboard.rbnz.govt.nz/summary",
+            "data_type": "HLF-derived loan book composition ratio from official RBNZ Bank Financial Strength Dashboard series",
+            "derived_by_hlf": True,
+            "unit": "percent",
+            "frequency": "Quarterly",
+            "definition": "The percentage of each New Zealand registered bank's total on-balance-sheet gross loan book that consists of residential mortgages versus non-housing loans (business, commercial property, agricultural/rural, and personal consumer lending).",
+            "methodology": "Derived live from the RBNZ Bank Financial Strength Dashboard workbook by dividing each bank's existing residential mortgage balance (DBB.QIC20.P1) by its total gross loans and advances balance (sum of all loan asset quality categories or total gross loans).",
+            "hlf_calculation": "Bank Housing Share of Total Loans (%) = (Bank Residential Mortgage Book [$m] ÷ Bank Total Gross Loan Book [$m]) × 100",
+            "hlf_interpretation": "HLF market context: Shows how heavily each registered bank specialises in residential home lending versus commercial and agricultural lending. Domestic challenger banks (such as TSB, The Co-operative Bank, Kiwibank, and SBS Bank) typically hold 80% to 95%+ of their loan books in residential mortgages, whereas the Big 4 banks balance residential mortgages (~60% to 75% of their books) alongside corporate, commercial, and rural lending.",
+            "questions": [
+                "What percentage of New Zealand bank lending is residential mortgages versus business and rural loans?",
+                "Which New Zealand banks have the highest proportion of residential mortgages on their balance sheets?",
+            ],
+            "article_title": "Compare NZ Mortgage Rates",
+            "article_url": "https://www.homeloanfactory.co.nz/tools/compare-nz-mortgage-rates",
+            "tool_title": "NZ Bank Mortgage Market Share Timeline",
+            "tool_url": "https://www.homeloanfactory.co.nz/tools/nz-bank-mortgage-market-share-timeline",
         },
     })
 
@@ -3978,16 +4004,7 @@ def _same_origin_fetch_binary(ctx, page, url: str, referer_page: str, min_bytes:
         cur_url = ""
 
     if not cur_url.startswith(target_origin):
-        _wait_for_cf_clearance_page(page, eff_referer, wait_ms=2200)
-
-    try:
-        api_resp = ctx.request.get(url, timeout=45000, headers={"Referer": eff_referer})
-        if api_resp.ok:
-            body = api_resp.body()
-            if body and len(body) >= min_bytes and body[:2] == b"PK":
-                return body
-    except Exception:
-        pass
+        _wait_for_cf_clearance_page(page, eff_referer, wait_ms=2500)
 
     try:
         b64_data = page.evaluate(
@@ -4013,6 +4030,15 @@ def _same_origin_fetch_binary(ctx, page, url: str, referer_page: str, min_bytes:
             raw_b = base64.b64decode(b64_data)
             if len(raw_b) >= min_bytes and raw_b[:2] == b"PK":
                 return raw_b
+    except Exception:
+        pass
+
+    try:
+        api_resp = ctx.request.get(url, timeout=45000, headers={"Referer": eff_referer})
+        if api_resp.ok:
+            body = api_resp.body()
+            if body and len(body) >= min_bytes and body[:2] == b"PK":
+                return body
     except Exception:
         pass
 
@@ -4082,67 +4108,90 @@ def _download_bank_dashboard_xlsx(root: pathlib.Path, session, found: dict[str, 
     dash_url = "https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx"
     dash_ref = "https://bankdashboard.rbnz.govt.nz/summary"
 
-    # Strategy 1: fetch_bytes_with_browser_fallback with same-origin referer
-    b_direct = fetch_bytes_with_browser_fallback(session, dash_url, referer=dash_ref, min_bytes=15_000)
-    if b_direct and b_direct[:2] == b"PK":
-        out_p = root / "tmp_bank_dashboard.xlsx"
-        out_p.write_bytes(b_direct)
-        found["bank_dashboard"] = out_p
-        print(f"[RBNZ Bank Dashboard] Downloaded live workbook ({len(b_direct):,} bytes)")
-        return out_p
+    # Strategy 1: Camoufox / Playwright on same-origin `bankdashboard.rbnz.govt.nz`
+    for use_camoufox in (True, False):
+        if use_camoufox:
+            try:
+                from camoufox.sync_api import Camoufox
+                with Camoufox(headless=True) as browser:
+                    ctx = browser.new_context(locale="en-NZ", accept_downloads=True)
+                    page = ctx.new_page()
+                    _wait_for_cf_clearance_page(page, dash_ref, wait_ms=3000)
+                    b_cf = _same_origin_fetch_binary(ctx, page, dash_url, dash_ref, min_bytes=15_000)
+                    if b_cf and b_cf[:2] == b"PK":
+                        out_p = root / "tmp_bank_dashboard.xlsx"
+                        out_p.write_bytes(b_cf)
+                        found["bank_dashboard"] = out_p
+                        print(f"[RBNZ Bank Dashboard Camoufox] Downloaded live workbook ({len(b_cf):,} bytes)")
+                        return out_p
+            except Exception:
+                pass
+        else:
+            try:
+                from playwright.sync_api import sync_playwright
+                with sync_playwright() as p:
+                    browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+                    ctx = browser.new_context(
+                        user_agent=(
+                            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                            "AppleWebKit/537.36 (KHTML, like Gecko) "
+                            "Chrome/124.0.0.0 Safari/537.36"
+                        ),
+                        locale="en-NZ",
+                        accept_downloads=True,
+                    )
+                    page = ctx.new_page()
+                    _wait_for_cf_clearance_page(page, dash_ref, wait_ms=3000)
 
-    # Strategy 2: Dedicated Playwright Chromium session on bankdashboard.rbnz.govt.nz with download event support
-    try:
-        from playwright.sync_api import sync_playwright
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
-            ctx = browser.new_context(
-                user_agent=(
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/124.0.0.0 Safari/537.36"
-                ),
-                locale="en-NZ",
-                accept_downloads=True,
-            )
-            page = ctx.new_page()
-            _wait_for_cf_clearance_page(page, dash_ref, wait_ms=2500)
+                    # Discover any live .xlsx hrefs rendered in the DOM on bankdashboard.rbnz.govt.nz
+                    dom_hrefs = []
+                    try:
+                        dom_hrefs = page.evaluate(
+                            """() => Array.from(document.querySelectorAll('a[href]'))
+                                .map(a => a.href)
+                                .filter(h => h && h.toLowerCase().includes('.xlsx'))"""
+                        ) or []
+                    except Exception:
+                        dom_hrefs = []
 
-            b_same = _same_origin_fetch_binary(ctx, page, dash_url, dash_ref, min_bytes=15_000)
-            if not b_same:
-                b_same = _same_origin_fetch_binary(ctx, page, "/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx", dash_ref, min_bytes=15_000)
+                    cand_urls = [dash_url, "/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx"] + list(dom_hrefs)
+                    b_same = b""
+                    for cu in cand_urls:
+                        b_same = _same_origin_fetch_binary(ctx, page, cu, dash_ref, min_bytes=15_000)
+                        if b_same and b_same[:2] == b"PK":
+                            break
 
-            if not b_same:
-                try:
-                    with page.expect_download(timeout=30000) as dl_info:
-                        page.evaluate(
-                            """(u) => {
-                                const a = document.createElement('a');
-                                a.href = u;
-                                a.download = 'Bank-Financial-Strength-Dashboard-Data.xlsx';
-                                document.body.appendChild(a);
-                                a.click();
-                            }""",
-                            dash_url,
-                        )
-                    dl = dl_info.value
-                    dl_path = pathlib.Path(dl.path())
-                    if dl_path.exists():
-                        b_dl = dl_path.read_bytes()
-                        if len(b_dl) >= 15_000 and b_dl[:2] == b"PK":
-                            b_same = b_dl
-                except Exception:
-                    pass
+                    if not b_same:
+                        try:
+                            with page.expect_download(timeout=35000) as dl_info:
+                                page.evaluate(
+                                    """(u) => {
+                                        const a = document.createElement('a');
+                                        a.href = u;
+                                        a.download = 'Bank-Financial-Strength-Dashboard-Data.xlsx';
+                                        document.body.appendChild(a);
+                                        a.click();
+                                    }""",
+                                    dash_url,
+                                )
+                            dl = dl_info.value
+                            dl_path = pathlib.Path(dl.path())
+                            if dl_path.exists():
+                                b_dl = dl_path.read_bytes()
+                                if len(b_dl) >= 15_000 and b_dl[:2] == b"PK":
+                                    b_same = b_dl
+                        except Exception:
+                            pass
 
-            browser.close()
-            if b_same and b_same[:2] == b"PK":
-                out_p = root / "tmp_bank_dashboard.xlsx"
-                out_p.write_bytes(b_same)
-                found["bank_dashboard"] = out_p
-                print(f"[RBNZ Bank Dashboard Playwright] Downloaded live workbook ({len(b_same):,} bytes)")
-                return out_p
-    except Exception as exc_pw:
-        print(f"[RBNZ Bank Dashboard Playwright] Note: {exc_pw}")
+                    browser.close()
+                    if b_same and b_same[:2] == b"PK":
+                        out_p = root / "tmp_bank_dashboard.xlsx"
+                        out_p.write_bytes(b_same)
+                        found["bank_dashboard"] = out_p
+                        print(f"[RBNZ Bank Dashboard Playwright] Downloaded live workbook ({len(b_same):,} bytes)")
+                        return out_p
+            except Exception as exc_pw:
+                print(f"[RBNZ Bank Dashboard Playwright] Note: {exc_pw}")
 
     return None
 
@@ -4210,7 +4259,6 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
         except Exception as exc_pw:
             print(f"[RBNZ Playwright] Note: {exc_pw}")
 
-    # Explicit per-workbook `_ensure_rbnz_file` guarantee for core tables so c31 & c33 never get skipped
     for core_k in ("c31", "c33", "c32", "c40", "c41", "b30", "s33", "j10", "t43"):
         if core_k in RBNZ_SOURCES and core_k not in found:
             _ensure_rbnz_file(core_k, root, session, found)
@@ -4219,8 +4267,8 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
         _download_bank_dashboard_xlsx(root, session, found)
 
     return found
-
-
+# === END OF BLOCK 7 (PART 1 OF 2) ===
+# === BLOCK 7 OF 13 (PART 2A) ===
 def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
     pub_date = extract_rbnz_published_date(filepath)
     tabs = load_rbnz_sheets(filepath) or load_rbnz_sheets_merged(filepath)
@@ -5181,8 +5229,8 @@ def build_rbnz_dti_income_tickers(
         except Exception as exc:
             print(f"[C41 BGI] Parse note: {exc}")
     return out
-
-
+# === END OF BLOCK 7 (PART 2A) ===
+# === BLOCK 7 OF 13 (PART 2B) ===
 def build_rbnz_b30_ticker(filepath: pathlib.Path, session=None, s33_path: pathlib.Path | None = None) -> dict:
     """100% live-parsed settled rates (RBNZ B30) & fixed vs floating / existing stock repricing (RBNZ S33)."""
     pub_date = extract_rbnz_published_date(filepath)
@@ -5630,8 +5678,28 @@ def _canon_rbnz_bank_name(raw_inst: str) -> str | None:
         return "ICBC"
     if "rabobank" in low:
         return "Rabobank"
-    if "citibank" in low or "jpmorgan" in low or "mufg" in low or "kookmin" in low or "baroda" in low or "india" in low:
+    if any(k in low for k in ("citibank", "jpmorgan", "mufg", "kookmin", "baroda", "india", "hongkong", "hsbc")):
         return "Other Registered Banks"
+    return None
+
+
+def _parse_dashboard_date(val) -> pd.Timestamp | None:
+    """Parse RBNZ Dashboard dates including ISO, '2026Q2', 'Jun 2026', or datetime objects."""
+    if pd.isna(val):
+        return None
+    if isinstance(val, (datetime.datetime, datetime.date, pd.Timestamp)):
+        ts = pd.Timestamp(val)
+        return ts if 2015 <= ts.year <= 2035 else None
+    s = str(val).strip()
+    if len(s) < 4 or re.match(r"^[A-Za-z\s]{6,}$", s):
+        return None
+    m_q = re.match(r"^(20\d{2})\s*[-/]?\s*Q([1-4])$", s, flags=re.I)
+    if m_q:
+        yr, qn = int(m_q.group(1)), int(m_q.group(2))
+        return pd.Timestamp(year=yr, month=qn * 3, day=1)
+    ts = pd.to_datetime(s, errors="coerce")
+    if pd.notna(ts) and 2015 <= ts.year <= 2035:
+        return pd.Timestamp(ts)
     return None
 
 
@@ -5640,9 +5708,12 @@ def build_rbnz_bank_dashboard_timeline_ticker(
 ) -> dict:
     """
     100% live-pulled RBNZ Bank Financial Strength Dashboard parser (Zero Hardcoded Fallbacks).
-    Outputs two canonical tickers:
+    Extracts each registered bank's existing residential mortgage loan book balance ($m / $B),
+    100% market share (%), quarterly/annual net lending flow ($m), and total gross loans ($m).
+    Outputs three canonical tickers:
     1. `bank-mortgage-market-share-timeline`
     2. `nz-owned-vs-big4-mortgage-share`
+    3. `bank-mortgage-share-of-total-lending`
     """
     rbnz_map = rbnz_files if isinstance(rbnz_files, dict) else {}
     dash_path = _download_bank_dashboard_xlsx(root, session, rbnz_map)
@@ -5668,7 +5739,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
     code_row_idx = None
     label_row_idx = None
 
-    for r_idx in range(min(18, len(raw_data))):
+    for r_idx in range(min(20, len(raw_data))):
         row_strs = [str(v).strip() if pd.notna(v) else "" for v in raw_data.iloc[r_idx].values]
         joined_low = " | ".join(row_strs).lower()
         if any(re.match(r"^dbb\.q", s, flags=re.I) for s in row_strs):
@@ -5676,16 +5747,15 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         elif any(k in joined_low for k in ("residential mortgage", "total loans", "cet1", "capital ratio", "housing")):
             label_row_idx = r_idx
 
-    # Dynamically identify `date_col_idx`, `inst_col_idx`, and `data_start_idx` across columns 0..4
     date_col_idx = None
     inst_col_idx = None
     data_start_idx = None
 
     scan_start = (code_row_idx + 1) if code_row_idx is not None else 1
-    for r_idx in range(scan_start, min(40, len(raw_data))):
+    for r_idx in range(scan_start, min(45, len(raw_data))):
         found_dt_c = None
         found_inst_c = None
-        for c_try in range(min(5, raw_data.shape[1])):
+        for c_try in range(min(6, raw_data.shape[1])):
             cell_v = raw_data.iloc[r_idx, c_try]
             if pd.isna(cell_v):
                 continue
@@ -5693,11 +5763,9 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             if inst_cand and found_inst_c is None:
                 found_inst_c = c_try
                 continue
-            s_v = str(cell_v).strip()
-            if len(s_v) >= 4 and not re.match(r"^[A-Za-z\s]{6,}$", s_v):
-                dt_cand = pd.to_datetime(cell_v, errors="coerce")
-                if pd.notna(dt_cand) and 2015 <= dt_cand.year <= 2035 and found_dt_c is None:
-                    found_dt_c = c_try
+            dt_cand = _parse_dashboard_date(cell_v)
+            if dt_cand is not None and found_dt_c is None:
+                found_dt_c = c_try
         if found_dt_c is not None and found_inst_c is not None:
             date_col_idx = found_dt_c
             inst_col_idx = found_inst_c
@@ -5708,7 +5776,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         raise RuntimeError("Could not locate Date and Institution columns in RBNZ Bank Financial Strength Dashboard.")
 
     df_panel = raw_data.iloc[data_start_idx:].copy().reset_index(drop=True)
-    df_panel["_dt"] = pd.to_datetime(df_panel.iloc[:, date_col_idx], errors="coerce")
+    df_panel["_dt"] = df_panel.iloc[:, date_col_idx].apply(_parse_dashboard_date)
     df_panel["_bank"] = df_panel.iloc[:, inst_col_idx].apply(_canon_rbnz_bank_name)
     df_panel = df_panel.dropna(subset=["_dt", "_bank"]).copy()
     df_panel["_ym"] = df_panel["_dt"].dt.strftime("%Y-%m")
@@ -5719,6 +5787,9 @@ def build_rbnz_bank_dashboard_timeline_ticker(
     best_col = None
     best_score = -1
     best_scale_mult = 1.0
+    qic20_part_cols: list[int] = []
+    tot_loans_col = None
+    tot_loans_score = -1
 
     for c_idx in range(raw_data.shape[1]):
         if c_idx in (date_col_idx, inst_col_idx):
@@ -5726,6 +5797,9 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         code_s = str(raw_data.iloc[code_row_idx, c_idx]).strip().upper() if (code_row_idx is not None and c_idx < raw_data.shape[1]) else ""
         lbl_s = str(raw_data.iloc[label_row_idx, c_idx]).strip().lower() if (label_row_idx is not None and c_idx < raw_data.shape[1]) else ""
         meta_s = f"{code_s} | {lbl_s} | {series_meta.get(code_s, '')}".lower()
+
+        if re.match(r"^DBB\.QIC20\.P[1-6]$", code_s):
+            qic20_part_cols.append(c_idx)
 
         col_ser = pd.to_numeric(sub_latest.iloc[:, c_idx], errors="coerce")
         anz_vals = pd.to_numeric(sub_latest[sub_latest["_bank"] == "ANZ"].iloc[:, c_idx], errors="coerce").dropna()
@@ -5735,16 +5809,26 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         if anz_vals.empty or asb_vals.empty or bnz_vals.empty:
             continue
 
-        anz_v, asb_v, bnz_v = float(anz_vals.iloc[-1]), float(asb_vals.iloc[-1]), float(bnz_vals.iloc[-1])
+        anz_v, asb_v = float(anz_vals.iloc[-1]), float(asb_vals.iloc[-1])
         col_sum = float(col_ser.dropna().sum())
+
+        # Check for Total Gross Loans ($m) column (ANZ ~$140,000m-$210,000m, all banks ~$460,000m-$680,000m)
+        if 125_000 <= anz_v <= 220_000 and 75_000 <= asb_v <= 155_000 and 430_000 <= col_sum <= 720_000:
+            if any(k in meta_s for k in ("total loans", "gross loans", "loans and advances")) and not any(
+                x in meta_s for x in ("assets", "liabilities", "deposits", "rwa")
+            ):
+                t_score = 200 if "gross loans" in meta_s or "total loans" in meta_s else 100
+                if t_score > tot_loans_score:
+                    tot_loans_score = t_score
+                    tot_loans_col = c_idx
 
         scale_mult = None
         if 65_000 <= anz_v <= 165_000 and 45_000 <= asb_v <= 115_000 and 240_000 <= col_sum <= 460_000:
-            scale_mult = 1.0  # Already in $m
+            scale_mult = 1.0
         elif 65.0 <= anz_v <= 165.0 and 45.0 <= asb_v <= 115.0 and 240.0 <= col_sum <= 460.0:
-            scale_mult = 1000.0  # In $b -> convert to $m
+            scale_mult = 1000.0
         elif 65_000_000 <= anz_v <= 165_000_000 and 240_000_000 <= col_sum <= 460_000_000:
-            scale_mult = 0.001  # In $000 -> convert to $m
+            scale_mult = 0.001
 
         if scale_mult is None and code_s != "DBB.QIC20.P1":
             continue
@@ -5773,6 +5857,16 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         raise RuntimeError("Could not isolate Residential Mortgages (DBB.QIC20.P1 / $m) column in RBNZ Bank Financial Strength Dashboard.")
 
     df_panel["_mtg_m"] = pd.to_numeric(df_panel.iloc[:, best_col], errors="coerce").fillna(0.0) * best_scale_mult
+    if len(qic20_part_cols) >= 3:
+        df_panel["_tot_loans_m"] = sum(
+            pd.to_numeric(df_panel.iloc[:, pc], errors="coerce").fillna(0.0) * best_scale_mult
+            for pc in qic20_part_cols
+        )
+    elif tot_loans_col is not None:
+        df_panel["_tot_loans_m"] = pd.to_numeric(df_panel.iloc[:, tot_loans_col], errors="coerce").fillna(0.0) * best_scale_mult
+    else:
+        df_panel["_tot_loans_m"] = 0.0
+
     df_panel = df_panel[df_panel["_mtg_m"] > 0].copy()
 
     primary_banks = [
@@ -5799,14 +5893,17 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         lbl_q = dt_q.strftime("%b %Y")
 
         raw_m: dict[str, float] = {b: 0.0 for b in all_categories}
+        tot_loan_m: dict[str, float] = {b: 0.0 for b in all_categories}
         nz_owned_exact_m = 0.0
         for _, r_b in sub_q.iterrows():
             b_name = str(r_b["_bank"])
             v_m = float(r_b["_mtg_m"])
+            tl_m = float(r_b["_tot_loans_m"])
             if b_name in nz_owned_set:
                 nz_owned_exact_m += v_m
             target_b = b_name if b_name in primary_banks else "Other Registered Banks"
             raw_m[target_b] = round(raw_m[target_b] + v_m, 1)
+            tot_loan_m[target_b] = round(tot_loan_m[target_b] + tl_m, 1)
 
         total_m = round(sum(raw_m.values()), 1)
         if total_m <= 0:
@@ -5828,8 +5925,20 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             qoq_flow_m[b_name] = round(raw_m[b_name] - prev_raw[b_name], 1) if prev_raw else 0.0
         total_qoq_flow_m = round(sum(qoq_flow_m.values()), 1)
 
+        housing_conc_pct: dict[str, float] = {}
+        for b_name in all_categories:
+            if tot_loan_m[b_name] >= raw_m[b_name] and tot_loan_m[b_name] > 0:
+                housing_conc_pct[b_name] = round((raw_m[b_name] / tot_loan_m[b_name]) * 100.0, 1)
+            else:
+                housing_conc_pct[b_name] = 0.0
+
         big4_m = round(raw_m["ANZ"] + raw_m["ASB"] + raw_m["BNZ"] + raw_m["Westpac"], 1)
-        nz_owned_m = round(nz_owned_exact_m if nz_owned_exact_m > 0 else (raw_m["Kiwibank"] + raw_m["TSB"] + raw_m["SBS Bank"] + raw_m["The Co-operative Bank"]), 1)
+        nz_owned_m = round(
+            nz_owned_exact_m
+            if nz_owned_exact_m > 0
+            else (raw_m["Kiwibank"] + raw_m["TSB"] + raw_m["SBS Bank"] + raw_m["The Co-operative Bank"]),
+            1,
+        )
         other_m = round(max(0.0, total_m - big4_m - nz_owned_m), 1)
 
         big4_pct = round((big4_m / total_m) * 100.0, 2)
@@ -5847,6 +5956,8 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "total_val_m": total_m,
             "total_qoq_flow_m": total_qoq_flow_m,
             "raw_val_m": raw_m,
+            "tot_loan_m": tot_loan_m,
+            "housing_conc_pct": housing_conc_pct,
             "share_pct": share_pct,
             "qoq_flow_m": qoq_flow_m,
             "ownership_pct": {
@@ -5906,7 +6017,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
     prev_nz_val_b = prev_y["ownership_val_m"]["NZ-Owned Banks (Kiwibank, TSB, SBS, Co-op)"] / 1000.0
 
     calc_str = (
-        f"RBNZ Bank Dashboard ({m_full}, Total = ${lat['total_val_m']/1000:.2f}B): "
+        f"RBNZ Bank Dashboard ({m_full}, Total Existing Book = ${lat['total_val_m']/1000:.2f}B): "
         f"ANZ {sp['ANZ']:.1f}% (${rm['ANZ']/1000:.2f}B) + ASB {sp['ASB']:.1f}% (${rm['ASB']/1000:.2f}B) + "
         f"Westpac {sp['Westpac']:.1f}% (${rm['Westpac']/1000:.2f}B) + BNZ {sp['BNZ']:.1f}% (${rm['BNZ']/1000:.2f}B) + "
         f"Kiwibank {sp['Kiwibank']:.1f}% (${rm['Kiwibank']/1000:.2f}B) + TSB/SBS/Co-op/Other = 100.0%"
@@ -5917,7 +6028,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
     )
     dash_url = "https://bankdashboard.rbnz.govt.nz/summary"
 
-    return {
+    out_dict = {
         "bank-mortgage-market-share-timeline": {
             "chip": "RBNZ Bank Dashboard",
             "as_of": as_of,
@@ -5925,7 +6036,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "source_url": dash_url,
             "max_age_days": MAX_AGE_QUARTERLY,
             "html": (
-                f"As at the {m_full}, across <strong>${lat['total_val_m']/1000:.2f}B (${lat['total_val_m']:,.0f}m)</strong> in New Zealand registered bank residential mortgages, "
+                f"As at the {m_full}, across <strong>${lat['total_val_m']/1000:.2f}B (${lat['total_val_m']:,.0f}m)</strong> in existing New Zealand registered bank residential mortgage loan books, "
                 f"market share was led by <strong>ANZ ({sp['ANZ']:.1f}%, or ${rm['ANZ']/1000:.2f}B)</strong>, "
                 f"<strong>ASB ({sp['ASB']:.1f}%, or ${rm['ASB']/1000:.2f}B)</strong>, "
                 f"<strong>Westpac ({sp['Westpac']:.1f}%, or ${rm['Westpac']/1000:.2f}B)</strong>, "
@@ -5934,7 +6045,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
                 f"<strong>{big4_sh:.1f}%</strong> of the market and New Zealand-owned banks holding <strong>{nz_sh:.1f}%</strong>."
             ),
             "official_data_summary": (
-                f"RBNZ Bank Financial Strength Dashboard ({m_full} Residential Mortgages, DBB.QIC20.P1): "
+                f"RBNZ Bank Financial Strength Dashboard ({m_full} Existing Residential Mortgages, DBB.QIC20.P1): "
                 f"ANZ = ${rm['ANZ']:,.0f}m ({sp['ANZ']:.1f}%); ASB = ${rm['ASB']:,.0f}m ({sp['ASB']:.1f}%); "
                 f"Westpac = ${rm['Westpac']:,.0f}m ({sp['Westpac']:.1f}%); BNZ = ${rm['BNZ']:,.0f}m ({sp['BNZ']:.1f}%); "
                 f"Kiwibank = ${rm['Kiwibank']:,.0f}m ({sp['Kiwibank']:.1f}%); TSB = ${rm['TSB']:,.0f}m ({sp['TSB']:.1f}%); "
@@ -5944,8 +6055,8 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "latest_period": m_full,
             "value": sp["ANZ"],
             "latest_value": (
-                f"ANZ {sp['ANZ']:.1f}% | ASB {sp['ASB']:.1f}% | Westpac {sp['Westpac']:.1f}% | "
-                f"BNZ {sp['BNZ']:.1f}% | Kiwibank {sp['Kiwibank']:.1f}%"
+                f"ANZ {sp['ANZ']:.1f}% (${rm['ANZ']/1000:.1f}B) | ASB {sp['ASB']:.1f}% (${rm['ASB']/1000:.1f}B) | "
+                f"Westpac {sp['Westpac']:.1f}% | BNZ {sp['BNZ']:.1f}% | Kiwibank {sp['Kiwibank']:.1f}%"
             ),
             "previous_period": (
                 f"{prev_y['label']}: ANZ {prev_y['share_pct']['ANZ']:.1f}% | "
@@ -5966,12 +6077,12 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "html": (
                 f"As at the {m_full}, New Zealand-owned registered banks (led by <strong>Kiwibank at ${rm['Kiwibank']/1000:.2f}B / {sp['Kiwibank']:.1f}%</strong> alongside "
                 f"<strong>TSB [${rm['TSB']/1000:.2f}B]</strong>, <strong>SBS Bank [${rm['SBS Bank']/1000:.2f}B]</strong>, and <strong>The Co-operative Bank [${rm['The Co-operative Bank']/1000:.2f}B]</strong>) "
-                f"held a combined <strong>${nz_val_b:.2f}B ({nz_sh:.2f}%)</strong> of all registered bank residential mortgages, compared with "
+                f"held a combined existing residential mortgage book of <strong>${nz_val_b:.2f}B ({nz_sh:.2f}%)</strong>, compared with "
                 f"<strong>${big4_val_b:.2f}B ({big4_sh:.2f}%)</strong> across the Big 4 Australian-owned banks."
             ),
             "official_data_summary": (
-                f"RBNZ Bank Financial Strength Dashboard ({m_full}, DBB.QIC20.P1): Combined NZ-owned bank residential mortgages = ${nz_val_b:.2f}B ({nz_sh:.2f}%); "
-                f"Combined Big 4 Australian-owned bank residential mortgages = ${big4_val_b:.2f}B ({big4_sh:.2f}%)."
+                f"RBNZ Bank Financial Strength Dashboard ({m_full}, DBB.QIC20.P1): Combined NZ-owned bank residential mortgage books = ${nz_val_b:.2f}B ({nz_sh:.2f}%); "
+                f"Combined Big 4 Australian-owned bank residential mortgage books = ${big4_val_b:.2f}B ({big4_sh:.2f}%)."
             ),
             "source_html": format_provenance_source_html(nz_calc_str, "RBNZ Bank Financial Strength Dashboard", dash_url, True),
             "latest_period": m_full,
@@ -5984,7 +6095,56 @@ def build_rbnz_bank_dashboard_timeline_ticker(
             "history": list(reversed(nz_owned_history[-20:])),
         },
     }
-# === END OF BLOCK 7 ===
+
+    # 3. Emit `bank-mortgage-share-of-total-lending` if total gross loans were parsed
+    tot_all_loans_m = sum(lat["tot_loan_m"].values())
+    if tot_all_loans_m > lat["total_val_m"] and lat["housing_conc_pct"].get("ANZ", 0) > 0:
+        sys_conc_pct = round((lat["total_val_m"] / tot_all_loans_m) * 100.0, 1)
+        hc = lat["housing_conc_pct"]
+        tl = lat["tot_loan_m"]
+        conc_hist = [
+            {
+                "period": b_k,
+                "label": b_k,
+                "value": hc[b_k],
+                "formatted": f"{hc[b_k]:.1f}% residential mortgages (${rm[b_k]/1000:.2f}B of ${tl[b_k]/1000:.2f}B total loans)",
+            }
+            for b_k in primary_banks
+            if hc.get(b_k, 0) > 0
+        ]
+        conc_calc = (
+            f"System Housing Share: ${lat['total_val_m']/1000:.2f}B ÷ ${tot_all_loans_m/1000:.2f}B = {sys_conc_pct:.1f}% | "
+            + " | ".join(f"{b_k}: {hc[b_k]:.1f}%" for b_k in ("ANZ", "ASB", "Westpac", "BNZ", "Kiwibank", "TSB") if hc.get(b_k, 0) > 0)
+        )
+        out_dict["bank-mortgage-share-of-total-lending"] = {
+            "chip": "RBNZ Bank Dashboard",
+            "as_of": as_of,
+            "source_published": pub_date,
+            "source_url": dash_url,
+            "max_age_days": MAX_AGE_QUARTERLY,
+            "html": (
+                f"As at the {m_full}, residential mortgages accounted for <strong>{sys_conc_pct:.1f}% (${lat['total_val_m']/1000:.2f}B of ${tot_all_loans_m/1000:.2f}B)</strong> "
+                f"of all New Zealand registered bank lending—led in housing specialization by <strong>TSB ({hc.get('TSB', 0):.1f}%)</strong>, "
+                f"<strong>The Co-operative Bank ({hc.get('The Co-operative Bank', 0):.1f}%)</strong>, and <strong>Kiwibank ({hc.get('Kiwibank', 0):.1f}%)</strong>, "
+                f"compared with <strong>ANZ ({hc.get('ANZ', 0):.1f}%)</strong>, <strong>ASB ({hc.get('ASB', 0):.1f}%)</strong>, "
+                f"<strong>Westpac ({hc.get('Westpac', 0):.1f}%)</strong>, and <strong>BNZ ({hc.get('BNZ', 0):.1f}%)</strong>."
+            ),
+            "official_data_summary": (
+                f"RBNZ Bank Financial Strength Dashboard ({m_full} Loan Composition): Total residential mortgages = ${lat['total_val_m']/1000:.2f}B out of ${tot_all_loans_m/1000:.2f}B total gross loans ({sys_conc_pct:.1f}%)."
+            ),
+            "source_html": format_provenance_source_html(conc_calc, "RBNZ Bank Financial Strength Dashboard", dash_url, True),
+            "latest_period": m_full,
+            "value": sys_conc_pct,
+            "latest_value": f"{sys_conc_pct:.1f}% NZ bank housing share (ANZ {hc.get('ANZ', 0):.1f}% | ASB {hc.get('ASB', 0):.1f}% | BNZ {hc.get('BNZ', 0):.1f}% | Kiwibank {hc.get('Kiwibank', 0):.1f}%)",
+            "previous_period": f"Total registered bank gross loans: ${tot_all_loans_m/1000:.2f}B",
+            "change": "Measures residential mortgage concentration vs business, commercial & rural lending",
+            "calculation_live": conc_calc,
+            "historical_data_from": hist_from_str,
+            "history": conc_hist,
+        }
+
+    return out_dict
+# === END OF BLOCK 7 (PART 2B / END OF BLOCK 7) ===
 # === BLOCK 8 OF 13 ===
 def build_household_debt_stress_credit_tickers(session, rbnz_files: dict[str, pathlib.Path]) -> dict:
     """
