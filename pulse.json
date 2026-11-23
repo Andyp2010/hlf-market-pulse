@@ -23,7 +23,7 @@
   "date_modified": "2026-11-23",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz/",
   "last_checked": "2026-11-23",
-  "dataset_generated_utc": "2026-11-23T02:27:44Z",
+  "dataset_generated_utc": "2026-11-23T03:38:27Z",
   "latest_underlying_data": "June 2024 (triennial) to September 2026 (monthly)",
   "data_status": "verified",
   "source_status": "current",
@@ -2074,7 +2074,7 @@
     "latest_month": "2026-09",
     "start_month": "2017-01",
     "month_count": 117,
-    "updated_at": "2026-11-23T02:27:44Z",
+    "updated_at": "2026-11-23T03:38:27Z",
     "history": [
       {
         "ym": "2017-01",
@@ -9808,7 +9808,7 @@
     "latest_quarter": "",
     "start_quarter": "",
     "quarter_count": 0,
-    "updated_at": "2026-11-23T02:27:44Z",
+    "updated_at": "2026-11-23T03:38:27Z",
     "history": []
   },
   "records": [
@@ -11007,7 +11007,7 @@
       "license_label": "CC BY 4.0",
       "citation": "HLF Pulse, Home Loan Factory. \"New Zealand personal credit card daily-average balances, share accruing interest & weighted-average interest rate (RBNZ Table C12),\" September 2026. Derived by HLF from Reserve Bank of New Zealand \u2014 Credit card balances (Table C12). https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/ (checked 23 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/credit-card-balances-interest-share/",
-      "summary_text": "In September 2026 (the latest month with published interest-bearing and interest-rate data in RBNZ Table C12), New Zealand personal credit card daily-average balances stood at $5.41B ($5,406m) (down 2.6% year-on-year from $5.55B a year earlier), of which 51.2% ($2.77B / $2,766m) accrued interest at a weighted-average interest rate of 20.0% p.a. (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.) (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.)",
+      "summary_text": "In September 2026 (the latest month with published interest-bearing and interest-rate data in RBNZ Table C12), New Zealand personal credit card daily-average balances stood at $5.41B ($5,406m) (down 2.6% year-on-year from $5.55B a year earlier), of which 51.2% ($2.77B / $2,766m) accrued interest at a weighted-average interest rate of 20.0% p.a. (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.) (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.) (Separately, month-end total advances across personal and commercial cards combined stood at $5.99B [$5,985m] in September 2026.)",
       "related_questions": [
         "How much credit card debt is outstanding in New Zealand?",
         "What is the average interest rate on interest-bearing credit card balances in New Zealand?",
@@ -17225,20 +17225,20 @@
       "also_known_as": "FMA KiwiSaver Annual Report & RBNZ Table T43 total FUM, member count & average balance",
       "category": "KiwiSaver",
       "topic": "KiwiSaver total funds under management & average balance",
-      "value": 40340,
-      "latest_value": "$40,340 official FMA avg balance ($138.8B FUM across 3.44m members)",
+      "value": 155100,
+      "latest_value": "$155.1B total KiwiSaver FUM",
       "unit": "NZD",
-      "observation_period": "Year ended 31 March 2026",
-      "observed_period": "Year ended 31 March 2026",
-      "period_end": "2026-03-31",
-      "source_published": "2026-09-24 (24 Sep 2026)",
+      "observation_period": "June 2026",
+      "observed_period": "June 2026",
+      "period_end": "2026-06-30",
+      "source_published": "Annual / Quarterly RBNZ release",
       "last_checked": "2026-11-23",
       "date_created": "2026-02-01",
       "date_modified": "2026-11-23",
       "data_status": "verified",
       "source_status": "current",
-      "previous_period": "2016 avg: $12,852 ($17,183 in 2026 CPI-adjusted NZD) | 2025 avg: $36,420",
-      "change": "10Y Nominal: +213.9% (+12.1%/yr) | 10Y Real (CPI-adjusted): +134.8% (+8.9%/yr)",
+      "previous_period": "FMA KiwiSaver Annual Report & RBNZ Managed Funds Survey",
+      "change": "Live-parsed from official FMA & RBNZ KiwiSaver releases",
       "source": "FMA & RBNZ T43",
       "source_full": "Financial Markets Authority (FMA) \u2014 KiwiSaver Annual Report & RBNZ Table T43",
       "source_series_ids": "FMA KiwiSaver Annual Report & RBNZ Table T43 \u2014 Total FUM ($B), Total Members & Average Balance ($)",
@@ -17249,7 +17249,7 @@
       "formula": "Official FMA / RBNZ T43 KiwiSaver FUM ($B) & Mean Member Balance",
       "hlf_interpretation": "HLF market context: Reports total KiwiSaver funds under management and the overall mean balance across all enrolled KiwiSaver members nationwide.",
       "methodology": "Extracted live from the FMA KiwiSaver Annual Report and RBNZ Table T43 (Managed Funds: KiwiSaver assets and liabilities). Note that the national mean member balance is calculated across all enrolled members (including children, non-contributing members, and older members with larger balances) and differs from age-specific median balances.",
-      "historical_data_from": "FMA KiwiSaver Annual Report 10-year series (2016\u20132026)",
+      "historical_data_from": "FMA & RBNZ Table T43 KiwiSaver series",
       "creator_name": "Andy Palliser",
       "creator_alternate_name": "Andrew Jonathan Palliser",
       "creator_fsp": "FSP1004725",
@@ -17260,9 +17260,9 @@
       "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_label": "CC BY 4.0",
-      "citation": "HLF Pulse, Home Loan Factory. \"Total KiwiSaver funds under management (FUM) & official FMA average member balance,\" Year ended 31 March 2026. Derived by HLF from Financial Markets Authority (FMA) \u2014 KiwiSaver Annual Report & RBNZ Table T43. https://pulse-data.homeloanfactory.co.nz/kiwisaver-total-fum-balance/ (checked 23 November 2026). CC BY 4.0.",
+      "citation": "HLF Pulse, Home Loan Factory. \"Total KiwiSaver funds under management (FUM) & official FMA average member balance,\" June 2026. Derived by HLF from Financial Markets Authority (FMA) \u2014 KiwiSaver Annual Report & RBNZ Table T43. https://pulse-data.homeloanfactory.co.nz/kiwisaver-total-fum-balance/ (checked 23 November 2026). CC BY 4.0.",
       "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-total-fum-balance/",
-      "summary_text": "As at 31 March 2026, total KiwiSaver funds under management reached $138.8B across 3.44 million members, with an average member balance of $40,340\u2014up +213.9% (+12.1%/yr) from $12,852 in 2016 (+134.8%, or +8.9%/yr, after CPI inflation).",
+      "summary_text": "As at June 2026, total New Zealand KiwiSaver funds under management reached $155.1B.",
       "related_questions": [
         "What is the average KiwiSaver balance in New Zealand?",
         "How much money is held in KiwiSaver funds under management in total across New Zealand?"
@@ -17271,43 +17271,18 @@
         "official_publisher": "Financial Markets Authority (FMA) \u2014 KiwiSaver Annual Report & RBNZ Table T43",
         "official_source_url": "https://www.fma.govt.nz/library/reports-and-papers/kiwisaver-annual-report/",
         "official_series_ids": "FMA KiwiSaver Annual Report & RBNZ Table T43 \u2014 Total FUM ($B), Total Members & Average Balance ($)",
-        "observation_period": "Year ended 31 March 2026",
-        "period_end": "2026-03-31",
-        "source_published": "2026-09-24 (24 Sep 2026)",
+        "observation_period": "June 2026",
+        "period_end": "2026-06-30",
+        "source_published": "Annual / Quarterly RBNZ release",
         "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
-        "hlf_calculation": "Nominal 10Y: ($40,340 \u2212 $12,852) \u00f7 $12,852 = +213.9% (+12.1%/yr) | Real 10Y (\u00f71.337 CPI): ($40,340 \u00f7 $17,183) \u2212 1 = +134.8% (+8.9%/yr)",
+        "hlf_calculation": "Directly reported RBNZ Table T43 / FMA total KiwiSaver funds under management = $155.1B",
         "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kiwisaver-total-fum-balance/",
         "license": "CC BY 4.0"
       },
-      "history": [
-        {
-          "period": "2026",
-          "label": "March 2026 (Official FMA Report)",
-          "value": 40340,
-          "formatted": "$40,340 avg ($138.8B FUM / 3.44m members)"
-        },
-        {
-          "period": "2025",
-          "label": "March 2025",
-          "value": 36420,
-          "formatted": "$36,420 avg ($123.1B FUM / 3.38m members)"
-        },
-        {
-          "period": "2020",
-          "label": "March 2020",
-          "value": 20462,
-          "formatted": "$20,462 avg ($62.0B FUM / 3.03m members)"
-        },
-        {
-          "period": "2016",
-          "label": "March 2016",
-          "value": 12852,
-          "formatted": "$12,852 nominal ($17,183 in 2026 NZD; $33.8B FUM)"
-        }
-      ],
-      "latest_underlying_data": "Year ended 31 March 2026",
-      "official_data": "FMA KiwiSaver Annual Report 2026 (year ended 31 March 2026, published 10 September 2026): Official average member balance = $40,340; Total FUM = $138.8B across 3.44m members (vs $12,852 / $33.8B in March 2016).",
-      "hlf_calculation": "Nominal 10Y: ($40,340 \u2212 $12,852) \u00f7 $12,852 = +213.9% (+12.1%/yr) | Real 10Y (\u00f71.337 CPI): ($40,340 \u00f7 $17,183) \u2212 1 = +134.8% (+8.9%/yr)",
+      "history": null,
+      "latest_underlying_data": "June 2026",
+      "official_data": "FMA KiwiSaver Annual Report & RBNZ Table T43 (June 2026): Total KiwiSaver FUM = $155.1B.",
+      "hlf_calculation": "Directly reported RBNZ Table T43 / FMA total KiwiSaver funds under management = $155.1B",
       "frequency": "Annual / Quarterly"
     },
     {
