@@ -3715,22 +3715,62 @@ def make_pulse_item(
     return d
 # === END OF BLOCK 6 ===
 # === BLOCK 7 OF 13 ===
-for _rk, _primary_u in (
-    ("c31", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/c31-new-residential-mortgage-lending-by-borrower-type.xlsx"),
-    ("c33", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/c33-new-residential-mortgage-lending-by-purpose.xlsx"),
-    ("c32", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/c32-new-and-existing-residential-mortgage-lending-by-payment-type.xlsx"),
-    ("c40", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/c40-residential-mortgage-lending-by-dti-purpose-use.xlsx"),
-    ("c41", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/c41-residential-mortgage-borrower-gross-income.xlsx"),
-    ("b30", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/b30-new-residential-mortgage-weighted-average-interest-rates.xlsx"),
-    ("j10", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/j10-insurance-income-and-expenditure.xlsx"),
-    ("t43", "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/t43-kiwisaver-assets-and-liabilities.xlsx"),
-    ("bank_dashboard", "https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx"),
+for _rk, _short_u, _long_u in (
+    (
+        "c31",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/hc31.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c31/c31-new-residential-mortgage-lending-by-borrower-type.xlsx",
+    ),
+    (
+        "c33",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/hc33.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c33/c33-new-residential-mortgage-lending-by-purpose.xlsx",
+    ),
+    (
+        "c32",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/hc32.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c32/c32-new-and-existing-residential-mortgage-lending-by-payment-type.xlsx",
+    ),
+    (
+        "c40",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/hc40.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c40/c40-residential-mortgage-lending-by-dti-purpose-use.xlsx",
+    ),
+    (
+        "c41",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/hc41.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c41/c41-residential-mortgage-borrower-gross-income.xlsx",
+    ),
+    (
+        "b30",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/hb30.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/b30-new-residential-mortgage-weighted-average-interest-rates.xlsx",
+    ),
+    (
+        "j10",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/hj10.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/j10-insurance-income-and-expenditure.xlsx",
+    ),
+    (
+        "t43",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/ht43.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/t/t43/t43-kiwisaver-assets-and-liabilities.xlsx",
+    ),
 ):
     if _rk in RBNZ_SOURCES:
-        _old_x = RBNZ_SOURCES[_rk].get("xlsx", "")
-        RBNZ_SOURCES[_rk]["xlsx"] = _primary_u
-        if _old_x and _old_x != _primary_u:
-            RBNZ_SOURCES[_rk]["alt_xlsx"] = _old_x
+        RBNZ_SOURCES[_rk]["xlsx"] = _short_u
+        RBNZ_SOURCES[_rk]["alt_xlsx"] = _long_u
+
+if "RBNZ_SOURCES" in globals():
+    RBNZ_SOURCES["bank_dashboard"] = {
+        "pages": [
+            "https://bankdashboard.rbnz.govt.nz/summary",
+            "https://www.rbnz.govt.nz/have-your-say/bank-financial-strength-dashboard",
+        ],
+        "xlsx": "https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx",
+        "alt_xlsx": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/bank-dashboard/Bank-Financial-Strength-Dashboard-Data.xlsx",
+        "match": "dashboard",
+    }
 
 
 if "TICKER_CATALOG" in globals():
@@ -3849,14 +3889,14 @@ if "TICKER_CATALOG" in globals():
             "topic": "Bank-by-bank residential mortgage market share & net lending growth",
             "source": "RBNZ Bank Financial Strength Dashboard",
             "source_full": "Reserve Bank of New Zealand — Bank Financial Strength Dashboard (Quarterly Registered Bank Disclosure Statements)",
-            "series_ids": "RBNZ Bank Financial Strength Dashboard — Residential Mortgages ($m) / Housing Loans by Registered Bank",
+            "series_ids": "DBB.QIC20.P1 — Residential Mortgages ($m) / Housing Loans by Registered Bank",
             "source_url": "https://bankdashboard.rbnz.govt.nz/summary",
             "data_type": "Officially reported RBNZ bank-level residential mortgage balances ($m) & HLF-derived market share (%) and net lending flow ($m)",
             "derived_by_hlf": True,
             "unit": "percent",
             "frequency": "Quarterly",
             "definition": "Quarterly residential mortgage loan book balances ($ millions / $ billions), percentage market share (0% to 100%), and quarterly/annual net mortgage lending growth ($ millions) for each New Zealand-incorporated registered bank from the RBNZ Bank Financial Strength Dashboard.",
-            "methodology": "Extracted live from the RBNZ Bank Financial Strength Dashboard workbook (Bank-Financial-Strength-Dashboard-Data.xlsx) by matching the Residential Mortgages ($m) series in 'Series Definitions' against each registered bank's quarterly rows in 'Data'. Market share (%) divides each bank's residential mortgage balance by the sum of all reporting banks' residential mortgage balances in that quarter. Quarterly net lending flow ($m) equals a bank's residential mortgage balance at quarter-end minus its balance at the prior quarter-end.",
+            "methodology": "Extracted live from the RBNZ Bank Financial Strength Dashboard workbook (Bank-Financial-Strength-Dashboard-Data.xlsx) using series DBB.QIC20.P1 (Residential mortgages) across each registered bank's quarterly rows in 'Data'. Market share (%) divides each bank's residential mortgage balance by the sum of all reporting banks' residential mortgage balances in that quarter. Quarterly net lending flow ($m) equals a bank's residential mortgage balance at quarter-end minus its balance at the prior quarter-end.",
             "hlf_calculation": "Bank Market Share (%) = (Bank Residential Mortgages [$m] ÷ All-Bank Residential Mortgages [$m]) × 100; Quarterly Net Lending ($m) = Bank Mortgages_t − Bank Mortgages_{t-1}",
             "hlf_interpretation": "HLF market context: Compares the residential mortgage market share and quarterly net lending growth across New Zealand's registered banks from their official quarterly RBNZ Disclosure Statements.",
             "questions": [
@@ -3877,14 +3917,14 @@ if "TICKER_CATALOG" in globals():
             "topic": "NZ-owned challenger banks vs Big 4 Australian-owned banks mortgage share",
             "source": "RBNZ Bank Financial Strength Dashboard",
             "source_full": "Reserve Bank of New Zealand — Bank Financial Strength Dashboard (Quarterly Registered Bank Disclosure Statements)",
-            "series_ids": "Sum(Kiwibank, TSB, SBS, Co-op, Heartland Residential Mortgages) vs Sum(ANZ, ASB, BNZ, Westpac Residential Mortgages)",
+            "series_ids": "DBB.QIC20.P1 — Sum(Kiwibank, TSB, SBS, Co-op, Heartland Residential Mortgages) vs Sum(ANZ, ASB, BNZ, Westpac Residential Mortgages)",
             "source_url": "https://bankdashboard.rbnz.govt.nz/summary",
             "data_type": "HLF-derived ownership group aggregation from official RBNZ Bank Financial Strength Dashboard series",
             "derived_by_hlf": True,
             "unit": "percent",
             "frequency": "Quarterly",
             "definition": "The combined residential mortgage loan book ($ billions), percentage market share, and annual net lending growth of New Zealand-owned registered banks (Kiwibank, TSB, SBS Bank, The Co-operative Bank, and Heartland Bank) compared with the Big 4 Australian-owned registered banks (ANZ, ASB, BNZ, and Westpac) and international registered banks.",
-            "methodology": "Derived live from the RBNZ Bank Financial Strength Dashboard workbook by grouping reporting NZ-incorporated registered banks by ownership structure and summing their quarterly on-balance-sheet residential mortgage books ($m).",
+            "methodology": "Derived live from the RBNZ Bank Financial Strength Dashboard workbook (series DBB.QIC20.P1) by grouping reporting NZ-incorporated registered banks by ownership structure and summing their quarterly on-balance-sheet residential mortgage books ($m).",
             "hlf_calculation": "NZ-Owned Share (%) = Sum(NZ-Owned Bank Mortgages) ÷ All-Bank Mortgages × 100; Big 4 Share (%) = Sum(ANZ + ASB + BNZ + Westpac Mortgages) ÷ All-Bank Mortgages × 100",
             "hlf_interpretation": "HLF market context: Tracks how much of New Zealand's residential mortgage market is held by domestic New Zealand-owned banks compared with the four major Australian-parented banks and international branch/subsidiary lenders.",
             "questions": [
@@ -3899,22 +3939,99 @@ if "TICKER_CATALOG" in globals():
     })
 
 
-def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: list[str], found: dict, tag: str) -> None:
-    """Warm up once on RBNZ and batch-download all needed workbooks inside a single browser context."""
+def _wait_for_cf_clearance_page(page, url: str, wait_ms: int = 2500) -> str:
+    """Navigate to `url` and poll until any Cloudflare / Incapsula challenge page clears."""
     try:
-        page.goto(RBNZ_WARMUP_URL, wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_timeout(2000)
+        page.goto(url, wait_until="domcontentloaded", timeout=40000)
+        for _ in range(6):
+            page.wait_for_timeout(wait_ms)
+            html_s = page.content() or ""
+            if (
+                len(html_s) > 1200
+                and "Just a moment" not in html_s[:1200]
+                and "_Incapsula_Resource" not in html_s[:1500]
+                and "Checking your browser" not in html_s[:1200]
+            ):
+                return html_s
+        return page.content() or ""
+    except Exception:
+        return ""
+
+
+def _same_origin_fetch_binary(ctx, page, url: str, referer_page: str, min_bytes: int = 4000) -> bytes:
+    """
+    Fetch binary bytes (.xlsx) inside an active browser context while ensuring `page`
+    is on the exact same origin as `url` (preventing cross-subdomain CORS blocks between
+    `www.rbnz.govt.nz` and `bankdashboard.rbnz.govt.nz`).
+    """
+    target_origin = "https://bankdashboard.rbnz.govt.nz" if "bankdashboard.rbnz.govt.nz" in url else "https://www.rbnz.govt.nz"
+    eff_referer = referer_page or (
+        "https://bankdashboard.rbnz.govt.nz/summary"
+        if "bankdashboard.rbnz.govt.nz" in url
+        else RBNZ_WARMUP_URL
+    )
+
+    cur_url = ""
+    try:
+        cur_url = page.url or ""
+    except Exception:
+        cur_url = ""
+
+    if not cur_url.startswith(target_origin):
+        _wait_for_cf_clearance_page(page, eff_referer, wait_ms=2200)
+
+    try:
+        api_resp = ctx.request.get(url, timeout=45000, headers={"Referer": eff_referer})
+        if api_resp.ok:
+            body = api_resp.body()
+            if body and len(body) >= min_bytes and body[:2] == b"PK":
+                return body
     except Exception:
         pass
+
+    try:
+        b64_data = page.evaluate(
+            """async (u) => {
+                try {
+                    const r = await fetch(u, {credentials: 'include'});
+                    if (!r.ok) return '';
+                    const buf = await r.arrayBuffer();
+                    let binary = '';
+                    const bytes = new Uint8Array(buf);
+                    const chunk = 0x8000;
+                    for (let i = 0; i < bytes.length; i += chunk) {
+                        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+                    }
+                    return btoa(binary);
+                } catch (e) {
+                    return '';
+                }
+            }""",
+            url,
+        )
+        if b64_data:
+            raw_b = base64.b64decode(b64_data)
+            if len(raw_b) >= min_bytes and raw_b[:2] == b"PK":
+                return raw_b
+    except Exception:
+        pass
+
+    return b""
+
+
+def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: list[str], found: dict, tag: str) -> None:
+    """Warm up once per origin on RBNZ and batch-download all needed workbooks inside a single browser context."""
+    _wait_for_cf_clearance_page(page, RBNZ_WARMUP_URL, wait_ms=2200)
 
     for key in list(keys_to_get):
         if key in found and found[key].exists():
             continue
         cfg = RBNZ_SOURCES[key]
+        default_ref = (cfg.get("pages") or [RBNZ_WARMUP_URL])[0]
         for cand_u in (cfg.get("xlsx"), cfg.get("alt_xlsx")):
             if not cand_u:
                 continue
-            b_data = _browser_fetch_binary(ctx, page, cand_u, "", 4_000)
+            b_data = _same_origin_fetch_binary(ctx, page, cand_u, default_ref, 4_000)
             if b_data and b_data[:2] == b"PK":
                 tmp_p = root / f"tmp_{key}.xlsx"
                 tmp_p.write_bytes(b_data)
@@ -3925,29 +4042,113 @@ def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: 
             continue
 
         for pg_url in cfg.get("pages", []):
-            try:
-                page.goto(pg_url, wait_until="domcontentloaded", timeout=35000)
-                page.wait_for_timeout(1500)
-                pg_html = page.content()
-                for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', pg_html, flags=re.I):
-                    if cfg["match"] in href.lower():
-                        base_host = "https://bankdashboard.rbnz.govt.nz" if "bankdashboard" in pg_url else "https://www.rbnz.govt.nz"
-                        full_u = base_host + href if href.startswith("/") else href
-                        b2 = _browser_fetch_binary(ctx, page, full_u, "", 4_000)
-                        if b2 and b2[:2] == b"PK":
-                            tmp_p = root / f"tmp_{key}.xlsx"
-                            tmp_p.write_bytes(b2)
-                            found[key] = tmp_p
-                            print(f"[RBNZ {tag}] Discovered & downloaded {key.upper()} ({len(b2):,} bytes)")
-                            break
-                if key in found and found[key].exists():
-                    break
-            except Exception as exc_pg:
-                print(f"[RBNZ {tag}] Page {pg_url}: {exc_pg}")
+            pg_html = _wait_for_cf_clearance_page(page, pg_url, wait_ms=2200)
+            if not pg_html:
+                continue
+            base_host = "https://bankdashboard.rbnz.govt.nz" if "bankdashboard.rbnz.govt.nz" in pg_url else "https://www.rbnz.govt.nz"
+            for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', pg_html, flags=re.I):
+                if cfg["match"] in href.lower() or "dashboard" in href.lower():
+                    if href.startswith("http"):
+                        full_u = href
+                    elif href.startswith("/"):
+                        full_u = base_host + href
+                    else:
+                        full_u = f"{base_host}/{href}"
+                    b2 = _same_origin_fetch_binary(ctx, page, full_u, pg_url, 4_000)
+                    if b2 and b2[:2] == b"PK":
+                        tmp_p = root / f"tmp_{key}.xlsx"
+                        tmp_p.write_bytes(b2)
+                        found[key] = tmp_p
+                        print(f"[RBNZ {tag}] Discovered & downloaded {key.upper()} ({len(b2):,} bytes)")
+                        break
+            if key in found and found[key].exists():
+                break
+
+
+def _download_bank_dashboard_xlsx(root: pathlib.Path, session, found: dict[str, pathlib.Path]) -> pathlib.Path | None:
+    """
+    Dedicated multi-strategy downloader for `Bank-Financial-Strength-Dashboard-Data.xlsx`
+    from `https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx`.
+    Ensures same-origin warmup on `https://bankdashboard.rbnz.govt.nz/summary`.
+    """
+    if "bank_dashboard" in found and found["bank_dashboard"].exists():
+        return found["bank_dashboard"]
+
+    for cand in sorted(root.glob("*[Dd]ashboard*.xlsx")):
+        if not cand.name.startswith("tmp_") and cand.stat().st_size > 15_000:
+            found["bank_dashboard"] = cand
+            return cand
+
+    dash_url = "https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx"
+    dash_ref = "https://bankdashboard.rbnz.govt.nz/summary"
+
+    # Strategy 1: fetch_bytes_with_browser_fallback with same-origin referer
+    b_direct = fetch_bytes_with_browser_fallback(session, dash_url, referer=dash_ref, min_bytes=15_000)
+    if b_direct and b_direct[:2] == b"PK":
+        out_p = root / "tmp_bank_dashboard.xlsx"
+        out_p.write_bytes(b_direct)
+        found["bank_dashboard"] = out_p
+        print(f"[RBNZ Bank Dashboard] Downloaded live workbook ({len(b_direct):,} bytes)")
+        return out_p
+
+    # Strategy 2: Dedicated Playwright Chromium session on bankdashboard.rbnz.govt.nz with download event support
+    try:
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+            ctx = browser.new_context(
+                user_agent=(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/124.0.0.0 Safari/537.36"
+                ),
+                locale="en-NZ",
+                accept_downloads=True,
+            )
+            page = ctx.new_page()
+            _wait_for_cf_clearance_page(page, dash_ref, wait_ms=2500)
+
+            b_same = _same_origin_fetch_binary(ctx, page, dash_url, dash_ref, min_bytes=15_000)
+            if not b_same:
+                b_same = _same_origin_fetch_binary(ctx, page, "/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx", dash_ref, min_bytes=15_000)
+
+            if not b_same:
+                try:
+                    with page.expect_download(timeout=30000) as dl_info:
+                        page.evaluate(
+                            """(u) => {
+                                const a = document.createElement('a');
+                                a.href = u;
+                                a.download = 'Bank-Financial-Strength-Dashboard-Data.xlsx';
+                                document.body.appendChild(a);
+                                a.click();
+                            }""",
+                            dash_url,
+                        )
+                    dl = dl_info.value
+                    dl_path = pathlib.Path(dl.path())
+                    if dl_path.exists():
+                        b_dl = dl_path.read_bytes()
+                        if len(b_dl) >= 15_000 and b_dl[:2] == b"PK":
+                            b_same = b_dl
+                except Exception:
+                    pass
+
+            browser.close()
+            if b_same and b_same[:2] == b"PK":
+                out_p = root / "tmp_bank_dashboard.xlsx"
+                out_p.write_bytes(b_same)
+                found["bank_dashboard"] = out_p
+                print(f"[RBNZ Bank Dashboard Playwright] Downloaded live workbook ({len(b_same):,} bytes)")
+                return out_p
+    except Exception as exc_pw:
+        print(f"[RBNZ Bank Dashboard Playwright] Note: {exc_pw}")
+
+    return None
 
 
 def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Path]:
-    """Download all RBNZ .xlsx workbooks via fast HTTP (use_cb=False) -> Camoufox -> Playwright."""
+    """Download all RBNZ .xlsx workbooks via fast HTTP -> Camoufox -> Playwright -> `_ensure_rbnz_file` fallback."""
     global _CAMOUFOX_OK
     found: dict[str, pathlib.Path] = {}
     needs_browser: list[str] = []
@@ -3962,10 +4163,11 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
             continue
 
         got_http = False
+        ref_u = (cfg.get("pages") or [RBNZ_WARMUP_URL])[0]
         for cand_u in (cfg.get("xlsx"), cfg.get("alt_xlsx")):
             if not cand_u:
                 continue
-            raw = fetch_url_bytes(session, cand_u, referer=RBNZ_WARMUP_URL, timeout=45, use_cb=False)
+            raw = fetch_url_bytes(session, cand_u, referer=ref_u, timeout=40, use_cb=False)
             if raw and raw[:2] == b"PK" and len(raw) > 4_000:
                 tmp_p = root / f"tmp_{key}.xlsx"
                 tmp_p.write_bytes(raw)
@@ -4008,6 +4210,14 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
         except Exception as exc_pw:
             print(f"[RBNZ Playwright] Note: {exc_pw}")
 
+    # Explicit per-workbook `_ensure_rbnz_file` guarantee for core tables so c31 & c33 never get skipped
+    for core_k in ("c31", "c33", "c32", "c40", "c41", "b30", "s33", "j10", "t43"):
+        if core_k in RBNZ_SOURCES and core_k not in found:
+            _ensure_rbnz_file(core_k, root, session, found)
+
+    if "bank_dashboard" not in found:
+        _download_bank_dashboard_xlsx(root, session, found)
+
     return found
 
 
@@ -4023,7 +4233,7 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         bus_val = pd.Series([0.0] * len(dates))
 
     try:
-        _, bus_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.AP", "LVRN.MMB2.AC4"), ("borrowers", "business"), ("80", "70", "60"))
+        _, bus_cnt, _ = find_rbnz_series(tabs, ("LVRN.MMB2.AP", "LVRN.MMB2.AC4"), ("business",), ("lending", "$m", "value", "80", "70", "60", "share", "%"))
     except KeyError:
         bus_cnt = pd.Series([0.0] * len(dates))
 
@@ -4341,25 +4551,25 @@ def build_rbnz_c31_tickers(filepath: pathlib.Path) -> tuple[dict, dict]:
         ),
     }
 
-    # Emit `business-backed-residential-mortgages` from live C31 LVRN.MMB1.AP & MMB2.AP
     bus_v_cur = float(bus_val.iloc[i]) if pd.notna(bus_val.iloc[i]) else 0.0
     bus_c_cur = int(round(float(bus_cnt.iloc[i]))) if pd.notna(bus_cnt.iloc[i]) else 0
-    if bus_v_cur > 0 and bus_c_cur > 0:
+    if bus_v_cur > 0:
         bus_v_prev = float(bus_val.iloc[iy]) if pd.notna(bus_val.iloc[iy]) else bus_v_cur
         bus_c_prev = int(round(float(bus_cnt.iloc[iy]))) if pd.notna(bus_cnt.iloc[iy]) else bus_c_cur
         bus_sh_cur = (bus_v_cur / max(1.0, tot_val_m)) * 100.0
-        bus_avg_nzd = int(round((bus_v_cur * 1_000_000.0) / max(1, bus_c_cur)))
+        bus_avg_nzd = int(round((bus_v_cur * 1_000_000.0) / max(1, bus_c_cur))) if bus_c_cur > 0 else 0
         bus_12m_v = float(bus_val.iloc[max(0, i - 11) : i + 1].sum())
-        bus_12m_c = int(round(float(bus_cnt.iloc[max(0, i - 11) : i + 1].sum())))
+        bus_12m_c = int(round(float(bus_cnt.iloc[max(0, i - 11) : i + 1].sum()))) if bus_c_cur > 0 else 0
         bus_sign = "+" if (bus_v_cur - bus_v_prev) >= 0 else "-"
+        cnt_clause = f" across <strong>{bus_c_cur:,} residential mortgages for business purposes</strong>—at an average loan size of <strong>${bus_avg_nzd:,}</strong>" if bus_c_cur > 0 else " for business purposes"
         out["business-backed-residential-mortgages"] = make_c31_item(
-            f"In {m_full}, New Zealand registered banks committed <strong>{fmt_nzd_millions(bus_v_cur)} ({bus_sh_cur:.1f}% of new residential mortgage lending)</strong> across <strong>{bus_c_cur:,} residential mortgages for business purposes</strong>—at an average loan size of <strong>${bus_avg_nzd:,}</strong> (bringing rolling 12-month business-purpose residential mortgage commitments to <strong>{fmt_nzd_millions(bus_12m_v)} across {bus_12m_c:,} loans</strong>).",
-            f"RBNZ Table C31 ({m_full}): Residential mortgages committed for business purposes = ${bus_v_cur:,.0f}m (LVRN.MMB1.AP) across {bus_c_cur:,} borrowers (LVRN.MMB2.AP).",
+            f"In {m_full}, New Zealand registered banks committed <strong>{fmt_nzd_millions(bus_v_cur)} ({bus_sh_cur:.1f}% of new residential mortgage lending)</strong>{cnt_clause} (bringing rolling 12-month business-purpose residential mortgage commitments to <strong>{fmt_nzd_millions(bus_12m_v)}</strong>).",
+            f"RBNZ Table C31 ({m_full}): Residential mortgages committed for business purposes = ${bus_v_cur:,.0f}m (LVRN.MMB1.AP)" + (f" across {bus_c_cur:,} borrowers (LVRN.MMB2.AP)." if bus_c_cur > 0 else "."),
             round(bus_v_cur, 1),
-            f"{fmt_nzd_millions(bus_v_cur)} across {bus_c_cur:,} loans (avg ${bus_avg_nzd:,} | 12m: {fmt_nzd_millions(bus_12m_v)})",
-            f"{fmt_nzd_millions(bus_v_prev)} ({bus_c_prev:,} loans)",
-            f"{bus_sign}${abs(bus_v_cur - bus_v_prev):.0f}m ({bus_c_cur - bus_c_prev:+,d} loans) YoY",
-            f"Mean Loan: (${bus_v_cur:,.0f}m × $1,000,000) ÷ {bus_c_cur:,} = ${bus_avg_nzd:,} | 12M Rolling = ${bus_12m_v:,.0f}m ({bus_12m_c:,} loans)",
+            f"{fmt_nzd_millions(bus_v_cur)}" + (f" across {bus_c_cur:,} loans (avg ${bus_avg_nzd:,} | 12m: {fmt_nzd_millions(bus_12m_v)})" if bus_c_cur > 0 else f" ({bus_sh_cur:.1f}% of lending | 12m: {fmt_nzd_millions(bus_12m_v)})"),
+            f"{fmt_nzd_millions(bus_v_prev)}" + (f" ({bus_c_prev:,} loans)" if bus_c_prev > 0 else ""),
+            f"{bus_sign}${abs(bus_v_cur - bus_v_prev):.0f}m YoY",
+            f"Business-Purpose Residential Lending = ${bus_v_cur:,.0f}m ({bus_sh_cur:.1f}% of C31 total) | 12M Rolling = ${bus_12m_v:,.0f}m" + (f" ({bus_12m_c:,} loans; mean ${bus_avg_nzd:,})" if bus_c_cur > 0 else ""),
             make_history_list(dates, bus_val, lambda x: f"${x:,.0f}m"),
         )
 
@@ -5150,7 +5360,7 @@ def build_rbnz_c31_c33_timeline_ticker(c31_path: pathlib.Path, c33_path: pathlib
     _, ooo_c, _ = find_rbnz_series(tabs31, ("LVRN.MMB2.AC2",), ("borrowers", "other owner"), ("80",))
     _, inv_c, _ = find_rbnz_series(tabs31, ("LVRN.MMB2.AN",), ("total", "borrowers", "investor"), ("70", "60", "80"))
     try:
-        _, bus_c, _ = find_rbnz_series(tabs31, ("LVRN.MMB2.AP", "LVRN.MMB2.AC4"), ("borrowers", "business"), ("80", "70", "60"))
+        _, bus_c, _ = find_rbnz_series(tabs31, ("LVRN.MMB2.AP", "LVRN.MMB2.AC4"), ("business",), ("lending", "$m", "value", "80", "70", "60", "share", "%"))
     except KeyError:
         bus_c = pd.Series([0.0] * len(d31))
 
@@ -5392,7 +5602,7 @@ def _canon_rbnz_bank_name(raw_inst: str) -> str | None:
     """Normalize RBNZ Bank Financial Strength Dashboard institution names into canonical bank keys."""
     s = str(raw_inst or "").strip()
     low = s.lower()
-    if not low or low in ("nan", "none", "institution", "bank", "all banks", "total", "system"):
+    if not low or low in ("nan", "none", "institution", "bank", "all banks", "total", "system", "series id", "date"):
         return None
     if "anz" in low:
         return "ANZ"
@@ -5420,7 +5630,9 @@ def _canon_rbnz_bank_name(raw_inst: str) -> str | None:
         return "ICBC"
     if "rabobank" in low:
         return "Rabobank"
-    return "Other Registered Banks"
+    if "citibank" in low or "jpmorgan" in low or "mufg" in low or "kookmin" in low or "baroda" in low or "india" in low:
+        return "Other Registered Banks"
+    return None
 
 
 def build_rbnz_bank_dashboard_timeline_ticker(
@@ -5433,22 +5645,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
     2. `nz-owned-vs-big4-mortgage-share`
     """
     rbnz_map = rbnz_files if isinstance(rbnz_files, dict) else {}
-    dash_path = _ensure_rbnz_file("bank_dashboard", root, session, rbnz_map)
-    if dash_path is None or not dash_path.exists():
-        summary_url = "https://bankdashboard.rbnz.govt.nz/summary"
-        html_map = fetch_html_with_browser_fallback(session, [summary_url], "RBNZ Bank Dashboard")
-        s_html = html_map.get(summary_url, "")
-        if not s_html or ".xlsx" not in s_html.lower():
-            s_html = fetch_pages_with_camoufox([summary_url], wait_ms=6000).get(summary_url, "")
-        for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', s_html, flags=re.I):
-            full_u = "https://bankdashboard.rbnz.govt.nz" + href if href.startswith("/") else href
-            b = fetch_bytes_with_browser_fallback(session, full_u, referer=summary_url, min_bytes=20_000)
-            if b and b[:2] == b"PK":
-                dash_path = root / "tmp_bank_dashboard.xlsx"
-                dash_path.write_bytes(b)
-                rbnz_map["bank_dashboard"] = dash_path
-                break
-
+    dash_path = _download_bank_dashboard_xlsx(root, session, rbnz_map)
     if dash_path is None or not dash_path.exists():
         raise RuntimeError("Could not download live RBNZ Bank Financial Strength Dashboard workbook.")
 
@@ -5460,7 +5657,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
 
     series_meta: dict[str, str] = {}
     if def_sheet:
-        df_def = xl.parse(def_sheet)
+        df_def = xl.parse(def_sheet, header=None)
         for _, r in df_def.iterrows():
             vals = [str(v).strip() for v in r.values if pd.notna(v) and str(v).strip()]
             code = next((v.upper() for v in vals if re.match(r"^DBB\.Q[A-Z0-9._]+$", v, flags=re.I)), None)
@@ -5470,32 +5667,45 @@ def build_rbnz_bank_dashboard_timeline_ticker(
     raw_data = xl.parse(data_sheet, header=None)
     code_row_idx = None
     label_row_idx = None
-    data_start_idx = None
-    date_col_idx = 0
-    inst_col_idx = 1
 
-    for r_idx in range(min(15, len(raw_data))):
+    for r_idx in range(min(18, len(raw_data))):
         row_strs = [str(v).strip() if pd.notna(v) else "" for v in raw_data.iloc[r_idx].values]
         joined_low = " | ".join(row_strs).lower()
         if any(re.match(r"^dbb\.q", s, flags=re.I) for s in row_strs):
             code_row_idx = r_idx
-            for c_i, cell_s in enumerate(row_strs):
-                if cell_s.lower() in ("institution", "bank", "registered bank", "bank name"):
-                    inst_col_idx = c_i
-                elif cell_s.lower() in ("date", "quarter", "period", "series id"):
-                    date_col_idx = c_i
-        elif any(k in joined_low for k in ("residential mortgage", "total loans", "cet1", "capital ratio")):
+        elif any(k in joined_low for k in ("residential mortgage", "total loans", "cet1", "capital ratio", "housing")):
             label_row_idx = r_idx
 
-        if r_idx >= 1 and data_start_idx is None:
-            dt_try = pd.to_datetime(raw_data.iloc[r_idx, date_col_idx], errors="coerce")
-            inst_try = _canon_rbnz_bank_name(raw_data.iloc[r_idx, inst_col_idx]) if inst_col_idx < raw_data.shape[1] else None
-            if pd.notna(dt_try) and 2015 <= dt_try.year <= 2035 and inst_try:
-                data_start_idx = r_idx
-                break
+    # Dynamically identify `date_col_idx`, `inst_col_idx`, and `data_start_idx` across columns 0..4
+    date_col_idx = None
+    inst_col_idx = None
+    data_start_idx = None
 
-    if data_start_idx is None:
-        raise RuntimeError("Could not locate data start row in RBNZ Bank Financial Strength Dashboard.")
+    scan_start = (code_row_idx + 1) if code_row_idx is not None else 1
+    for r_idx in range(scan_start, min(40, len(raw_data))):
+        found_dt_c = None
+        found_inst_c = None
+        for c_try in range(min(5, raw_data.shape[1])):
+            cell_v = raw_data.iloc[r_idx, c_try]
+            if pd.isna(cell_v):
+                continue
+            inst_cand = _canon_rbnz_bank_name(cell_v)
+            if inst_cand and found_inst_c is None:
+                found_inst_c = c_try
+                continue
+            s_v = str(cell_v).strip()
+            if len(s_v) >= 4 and not re.match(r"^[A-Za-z\s]{6,}$", s_v):
+                dt_cand = pd.to_datetime(cell_v, errors="coerce")
+                if pd.notna(dt_cand) and 2015 <= dt_cand.year <= 2035 and found_dt_c is None:
+                    found_dt_c = c_try
+        if found_dt_c is not None and found_inst_c is not None:
+            date_col_idx = found_dt_c
+            inst_col_idx = found_inst_c
+            data_start_idx = r_idx
+            break
+
+    if data_start_idx is None or date_col_idx is None or inst_col_idx is None:
+        raise RuntimeError("Could not locate Date and Institution columns in RBNZ Bank Financial Strength Dashboard.")
 
     df_panel = raw_data.iloc[data_start_idx:].copy().reset_index(drop=True)
     df_panel["_dt"] = pd.to_datetime(df_panel.iloc[:, date_col_idx], errors="coerce")
@@ -5508,10 +5718,15 @@ def build_rbnz_bank_dashboard_timeline_ticker(
 
     best_col = None
     best_score = -1
+    best_scale_mult = 1.0
 
     for c_idx in range(raw_data.shape[1]):
         if c_idx in (date_col_idx, inst_col_idx):
             continue
+        code_s = str(raw_data.iloc[code_row_idx, c_idx]).strip().upper() if (code_row_idx is not None and c_idx < raw_data.shape[1]) else ""
+        lbl_s = str(raw_data.iloc[label_row_idx, c_idx]).strip().lower() if (label_row_idx is not None and c_idx < raw_data.shape[1]) else ""
+        meta_s = f"{code_s} | {lbl_s} | {series_meta.get(code_s, '')}".lower()
+
         col_ser = pd.to_numeric(sub_latest.iloc[:, c_idx], errors="coerce")
         anz_vals = pd.to_numeric(sub_latest[sub_latest["_bank"] == "ANZ"].iloc[:, c_idx], errors="coerce").dropna()
         asb_vals = pd.to_numeric(sub_latest[sub_latest["_bank"] == "ASB"].iloc[:, c_idx], errors="coerce").dropna()
@@ -5523,29 +5738,41 @@ def build_rbnz_bank_dashboard_timeline_ticker(
         anz_v, asb_v, bnz_v = float(anz_vals.iloc[-1]), float(asb_vals.iloc[-1]), float(bnz_vals.iloc[-1])
         col_sum = float(col_ser.dropna().sum())
 
-        if not (75_000 <= anz_v <= 155_000 and 50_000 <= asb_v <= 110_000 and 260_000 <= col_sum <= 440_000):
-            continue
+        scale_mult = None
+        if 65_000 <= anz_v <= 165_000 and 45_000 <= asb_v <= 115_000 and 240_000 <= col_sum <= 460_000:
+            scale_mult = 1.0  # Already in $m
+        elif 65.0 <= anz_v <= 165.0 and 45.0 <= asb_v <= 115.0 and 240.0 <= col_sum <= 460.0:
+            scale_mult = 1000.0  # In $b -> convert to $m
+        elif 65_000_000 <= anz_v <= 165_000_000 and 240_000_000 <= col_sum <= 460_000_000:
+            scale_mult = 0.001  # In $000 -> convert to $m
 
-        code_s = str(raw_data.iloc[code_row_idx, c_idx]).strip().upper() if code_row_idx is not None else ""
-        lbl_s = str(raw_data.iloc[label_row_idx, c_idx]).strip().lower() if label_row_idx is not None else ""
-        meta_s = f"{code_s} | {lbl_s} | {series_meta.get(code_s, '')}".lower()
+        if scale_mult is None and code_s != "DBB.QIC20.P1":
+            continue
+        if scale_mult is None:
+            scale_mult = 1000.0 if anz_v < 1000 else 1.0
 
         if any(ex in meta_s for ex in ("past due", "impaired", "non-performing", "provision", "rwa", "risk-weighted", "%", "ratio")):
-            continue
+            if code_s != "DBB.QIC20.P1":
+                continue
 
         score = 100
+        if code_s == "DBB.QIC20.P1":
+            score += 500
+        elif code_s.startswith("DBB.QIC20"):
+            score += 250
         if any(k in meta_s for k in ("residential mortgage", "housing", "home loan")):
-            score += 80
+            score += 100
         if "total" in meta_s or "on-balance" in meta_s or "loans" in meta_s:
             score += 20
         if score > best_score:
             best_score = score
             best_col = c_idx
+            best_scale_mult = scale_mult
 
     if best_col is None:
-        raise RuntimeError("Could not isolate Residential Mortgages ($m) column in RBNZ Bank Financial Strength Dashboard.")
+        raise RuntimeError("Could not isolate Residential Mortgages (DBB.QIC20.P1 / $m) column in RBNZ Bank Financial Strength Dashboard.")
 
-    df_panel["_mtg_m"] = pd.to_numeric(df_panel.iloc[:, best_col], errors="coerce").fillna(0.0)
+    df_panel["_mtg_m"] = pd.to_numeric(df_panel.iloc[:, best_col], errors="coerce").fillna(0.0) * best_scale_mult
     df_panel = df_panel[df_panel["_mtg_m"] > 0].copy()
 
     primary_banks = [
@@ -5707,7 +5934,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
                 f"<strong>{big4_sh:.1f}%</strong> of the market and New Zealand-owned banks holding <strong>{nz_sh:.1f}%</strong>."
             ),
             "official_data_summary": (
-                f"RBNZ Bank Financial Strength Dashboard ({m_full} Residential Mortgages): "
+                f"RBNZ Bank Financial Strength Dashboard ({m_full} Residential Mortgages, DBB.QIC20.P1): "
                 f"ANZ = ${rm['ANZ']:,.0f}m ({sp['ANZ']:.1f}%); ASB = ${rm['ASB']:,.0f}m ({sp['ASB']:.1f}%); "
                 f"Westpac = ${rm['Westpac']:,.0f}m ({sp['Westpac']:.1f}%); BNZ = ${rm['BNZ']:,.0f}m ({sp['BNZ']:.1f}%); "
                 f"Kiwibank = ${rm['Kiwibank']:,.0f}m ({sp['Kiwibank']:.1f}%); TSB = ${rm['TSB']:,.0f}m ({sp['TSB']:.1f}%); "
@@ -5743,7 +5970,7 @@ def build_rbnz_bank_dashboard_timeline_ticker(
                 f"<strong>${big4_val_b:.2f}B ({big4_sh:.2f}%)</strong> across the Big 4 Australian-owned banks."
             ),
             "official_data_summary": (
-                f"RBNZ Bank Financial Strength Dashboard ({m_full}): Combined NZ-owned bank residential mortgages = ${nz_val_b:.2f}B ({nz_sh:.2f}%); "
+                f"RBNZ Bank Financial Strength Dashboard ({m_full}, DBB.QIC20.P1): Combined NZ-owned bank residential mortgages = ${nz_val_b:.2f}B ({nz_sh:.2f}%); "
                 f"Combined Big 4 Australian-owned bank residential mortgages = ${big4_val_b:.2f}B ({big4_sh:.2f}%)."
             ),
             "source_html": format_provenance_source_html(nz_calc_str, "RBNZ Bank Financial Strength Dashboard", dash_url, True),
