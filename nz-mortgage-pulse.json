@@ -24,11 +24,11 @@
   "date_modified": "2026-11-23",
   "pulse_url": "https://pulse-data.homeloanfactory.co.nz",
   "last_checked": "2026-11-23",
-  "dataset_generated_utc": "2026-11-23T22:51:02Z",
+  "dataset_generated_utc": "2026-11-23T23:11:54Z",
   "latest_underlying_data": "June 2024 (triennial) to September 2026 (monthly)",
   "data_status": "verified",
   "source_status": "current",
-  "active_datasets_count": 107,
+  "active_datasets_count": 108,
   "reporting_lag_note": "Crown and statutory releases have different reporting frequencies and lags: monthly series (RBNZ, Stats NZ Consents, MBIE Tenancy, HUD/MCERT) cover July\u2013September 2026, quarterly series (RBNZ Bank Dashboard, CPI, HLPI, HLFS, K\u0101inga Ora) cover Q2\u2013Q3 2026, and annual/triennial surveys (HILS, Net Worth, IRD Tax Distributions) cover 2024\u20132026.",
   "next_expected_update": "Monthly (RBNZ / Stats NZ / MBIE Tenancy / HUD-MCERT), Quarterly (RBNZ Bank Dashboard / CPI / HLPI / HLFS / IRD / K\u0101inga Ora) & Annual/Triennial (FMA / Stats NZ HILS & Net Worth / IRD Tax Distributions / NHC / ACC)",
   "fhb_snapshot": {
@@ -2075,7 +2075,7 @@
     "latest_month": "2026-09",
     "start_month": "2017-01",
     "month_count": 117,
-    "updated_at": "2026-11-23T22:51:02Z",
+    "updated_at": "2026-11-23T23:11:54Z",
     "history": [
       {
         "ym": "2017-01",
@@ -9809,7 +9809,7 @@
     "latest_quarter": "2026-06",
     "start_quarter": "2018-03",
     "quarter_count": 34,
-    "updated_at": "2026-11-23T22:51:02Z",
+    "updated_at": "2026-11-23T23:11:54Z",
     "history": [
       {
         "ym": "2018-03",
@@ -21866,8 +21866,8 @@
       "latest_period": "September 2026 quarter",
       "value": 3.0,
       "latest_value": "+3.0% annual household living-cost inflation",
-      "previous_period": "Includes household mortgage interest payments & council rates (excluded from CPI)",
-      "change": "Expenditure group spread: +2.5% (highest-expenditure) to +3.6% (lowest-expenditure)",
+      "previous_period": "Highest-expenditure households: +2.5% | Lowest-expenditure: +3.6%",
+      "change": "Includes household mortgage interest payments & council rates",
       "calculation_live": "Official Stats NZ HLPI All-Households 12-month change (September 2026 quarter) = +3.0% (Highest-expenditure group = +2.5%; Lowest-expenditure group = +3.6%)",
       "historical_data_from": "Stats NZ HLPI release (September 2026 quarter)",
       "source_published": "Quarterly Stats NZ release",
@@ -23908,6 +23908,492 @@
         "license": "CC BY 4.0"
       },
       "source_agency_html": "<strong>HLF calculation:</strong> <code>Quarterly Approvals: 686 + 884 + 874 = 2,444 (815/mth) | Quarterly Settlements: 322 + 245 + 449 = 1,016 (339/mth; 41.6% ratio)</code><br><strong>Source:</strong> <a href=\"https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report (CC BY 4.0)</a> &bull; <strong>Glossary:</strong> <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#first-home-loan\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora First Home Loan</a> &middot; <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#lmi\" target=\"_blank\" rel=\"noopener\">Lenders Mortgage Insurance (LMI)</a> &bull; Derived by HLF Pulse (CC BY 4.0) &bull; Checked: 23 November 2026."
+    },
+    {
+      "ticker": "kainga-ora-first-home-loan-regional",
+      "name": "K\u0101inga Ora First Home Loan (5% deposit) approvals & settlements by NZ city & district",
+      "also_known_as": "K\u0101inga Ora First Home Loan Approvals & Settlements by Territorial Local Authority (TLA)",
+      "category": "First-home buyers",
+      "topic": "Regional K\u0101inga Ora 5% deposit First Home Loan approvals by council",
+      "value": 657,
+      "latest_value": "Auckland City 657 (277 settled) | Christchurch City 399 (138) | Hamilton City 170 | Greater Wellington 163 (73 settled)",
+      "unit": "loans",
+      "observation_period": "Apr - Jun 2026",
+      "observed_period": "Apr - Jun 2026",
+      "period_end": "2026-06-30",
+      "source_published": "Quarterly K\u0101inga Ora release",
+      "last_checked": "2026-11-23",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-23",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "National quarterly total: 2,444 approvals & 1,016 settlements across all 67 NZ councils",
+      "change": "Greater Wellington Subgroup: 163 approvals (6.7% of NZ) & 73 settlements (7.2% of NZ)",
+      "source": "K\u0101inga Ora Quarterly Report",
+      "source_full": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)",
+      "source_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 First Home Loan Approvals & Settlements by TLA",
+      "source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported K\u0101inga Ora council-level tables & HLF-derived national shares",
+      "definition": "Distribution of K\u0101inga Ora 5% deposit First Home Loan approvals and settlements across New Zealand Territorial Local Authorities (TLAs).",
+      "formula": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Shows the geographic distribution of K\u0101inga Ora First Home Loan approvals and settlements across New Zealand city and district councils.",
+      "methodology": "Automatically parsed from the Territorial Local Authority Approvals and Settlements tables in K\u0101inga Ora's Home Ownership Products Quarterly Report PDF. K\u0101inga Ora itemises the largest TLAs individually and groups smaller districts into 'Other'.",
+      "historical_data_from": "K\u0101inga Ora Territorial Local Authority tables (All 67 NZ councils + Greater Wellington HLF Subgroup, Apr - Jun 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"K\u0101inga Ora First Home Loan (5% deposit) approvals & settlements by NZ city & district,\" Apr - Jun 2026. Derived by HLF from K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/ (checked 23 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/",
+      "summary_text": "",
+      "related_questions": [
+        "Which New Zealand cities have the most K\u0101inga Ora First Home Loan approvals?",
+        "How many K\u0101inga Ora First Home Loans are approved in Auckland, Christchurch, Hamilton, and Wellington?"
+      ],
+      "citation_chain": {
+        "official_publisher": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)",
+        "official_source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
+        "official_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 First Home Loan Approvals & Settlements by TLA",
+        "observation_period": "Apr - Jun 2026",
+        "period_end": "2026-06-30",
+        "source_published": "Quarterly K\u0101inga Ora release",
+        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
+        "hlf_calculation": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/",
+        "license": "CC BY 4.0"
+      },
+      "history": [
+        {
+          "period": "Auckland City",
+          "label": "Auckland City",
+          "value": 657,
+          "formatted": "657 approvals (26.9% of NZ) | 277 settlements"
+        },
+        {
+          "period": "Christchurch City",
+          "label": "Christchurch City",
+          "value": 399,
+          "formatted": "399 approvals (16.3% of NZ) | 138 settlements"
+        },
+        {
+          "period": "Hamilton City",
+          "label": "Hamilton City",
+          "value": 170,
+          "formatted": "170 approvals (7.0% of NZ) | 61 settlements"
+        },
+        {
+          "period": "Greater Wellington (HLF Subgroup)",
+          "label": "Greater Wellington (HLF Subgroup \u2014 8 Councils Combined)",
+          "value": 163,
+          "formatted": "163 approvals (6.7% of NZ) | 73 settlements (7.2% of NZ) [Wellington City, Lower Hutt, Upper Hutt, Porirua, K\u0101piti Coast & Wairarapa]"
+        },
+        {
+          "period": "Dunedin City",
+          "label": "Dunedin City",
+          "value": 88,
+          "formatted": "88 approvals (3.6% of NZ) | 30 settlements"
+        },
+        {
+          "period": "Wellington City",
+          "label": "Wellington City",
+          "value": 87,
+          "formatted": "87 approvals (3.6% of NZ) | 17 settlements"
+        },
+        {
+          "period": "Tauranga City",
+          "label": "Tauranga City",
+          "value": 76,
+          "formatted": "76 approvals (3.1% of NZ) | 28 settlements"
+        },
+        {
+          "period": "Invercargill City",
+          "label": "Invercargill City",
+          "value": 60,
+          "formatted": "60 approvals (2.5% of NZ) | 34 settlements"
+        },
+        {
+          "period": "Napier City",
+          "label": "Napier City",
+          "value": 59,
+          "formatted": "59 approvals (2.4% of NZ) | 16 settlements"
+        },
+        {
+          "period": "Rotorua District",
+          "label": "Rotorua District",
+          "value": 56,
+          "formatted": "56 approvals (2.3% of NZ) | 18 settlements"
+        },
+        {
+          "period": "Palmerston North District",
+          "label": "Palmerston North District",
+          "value": 54,
+          "formatted": "54 approvals (2.2% of NZ) | 23 settlements"
+        },
+        {
+          "period": "Nelson City",
+          "label": "Nelson City",
+          "value": 53,
+          "formatted": "53 approvals (2.2% of NZ) | 25 settlements"
+        },
+        {
+          "period": "Waikato District",
+          "label": "Waikato District",
+          "value": 51,
+          "formatted": "51 approvals (2.1% of NZ) | 31 settlements"
+        },
+        {
+          "period": "New Plymouth District",
+          "label": "New Plymouth District",
+          "value": 36,
+          "formatted": "36 approvals (1.5% of NZ) | 13 settlements"
+        },
+        {
+          "period": "Marlborough District",
+          "label": "Marlborough District",
+          "value": 36,
+          "formatted": "36 approvals (1.5% of NZ) | 13 settlements"
+        },
+        {
+          "period": "Timaru District",
+          "label": "Timaru District",
+          "value": 32,
+          "formatted": "32 approvals (1.3% of NZ) | 18 settlements"
+        },
+        {
+          "period": "Lower Hutt City",
+          "label": "Lower Hutt City",
+          "value": 31,
+          "formatted": "31 approvals (1.3% of NZ) | 27 settlements"
+        },
+        {
+          "period": "Selwyn District",
+          "label": "Selwyn District",
+          "value": 29,
+          "formatted": "29 approvals (1.2% of NZ) | 28 settlements"
+        },
+        {
+          "period": "Hastings District",
+          "label": "Hastings District",
+          "value": 27,
+          "formatted": "27 approvals (1.1% of NZ) | 16 settlements"
+        },
+        {
+          "period": "Whang\u0101rei District",
+          "label": "Whang\u0101rei District",
+          "value": 27,
+          "formatted": "27 approvals (1.1% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Whanganui District",
+          "label": "Whanganui District",
+          "value": 23,
+          "formatted": "23 approvals (0.9% of NZ) | 11 settlements"
+        },
+        {
+          "period": "Waimakariri District",
+          "label": "Waimakariri District",
+          "value": 22,
+          "formatted": "22 approvals (0.9% of NZ) | 14 settlements"
+        },
+        {
+          "period": "Far North District",
+          "label": "Far North District",
+          "value": 19,
+          "formatted": "19 approvals (0.8% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Taup\u014d District",
+          "label": "Taup\u014d District",
+          "value": 18,
+          "formatted": "18 approvals (0.7% of NZ) | 11 settlements"
+        },
+        {
+          "period": "Ashburton District",
+          "label": "Ashburton District",
+          "value": 17,
+          "formatted": "17 approvals (0.7% of NZ) | 11 settlements"
+        },
+        {
+          "period": "Matamata-Piako District",
+          "label": "Matamata-Piako District",
+          "value": 17,
+          "formatted": "17 approvals (0.7% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Central Otago District",
+          "label": "Central Otago District",
+          "value": 17,
+          "formatted": "17 approvals (0.7% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Manawat\u016b District",
+          "label": "Manawat\u016b District",
+          "value": 16,
+          "formatted": "16 approvals (0.7% of NZ) | 10 settlements"
+        },
+        {
+          "period": "Western Bay of Plenty District",
+          "label": "Western Bay of Plenty District",
+          "value": 15,
+          "formatted": "15 approvals (0.6% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Gisborne District",
+          "label": "Gisborne District",
+          "value": 15,
+          "formatted": "15 approvals (0.6% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Waip\u0101 District",
+          "label": "Waip\u0101 District",
+          "value": 14,
+          "formatted": "14 approvals (0.6% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Masterton District",
+          "label": "Masterton District",
+          "value": 14,
+          "formatted": "14 approvals (0.6% of NZ) | 5 settlements"
+        },
+        {
+          "period": "Central Hawke's Bay District",
+          "label": "Central Hawke's Bay District",
+          "value": 14,
+          "formatted": "14 approvals (0.6% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Tasman District",
+          "label": "Tasman District",
+          "value": 13,
+          "formatted": "13 approvals (0.5% of NZ) | 12 settlements"
+        },
+        {
+          "period": "Horowhenua District",
+          "label": "Horowhenua District",
+          "value": 13,
+          "formatted": "13 approvals (0.5% of NZ) | 7 settlements"
+        },
+        {
+          "period": "Waitaki District",
+          "label": "Waitaki District",
+          "value": 12,
+          "formatted": "12 approvals (0.5% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Tararua District",
+          "label": "Tararua District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 5 settlements"
+        },
+        {
+          "period": "K\u0101piti Coast District",
+          "label": "K\u0101piti Coast District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 5 settlements"
+        },
+        {
+          "period": "Queenstown-Lakes District",
+          "label": "Queenstown-Lakes District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Grey District",
+          "label": "Grey District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 2 settlements"
+        },
+        {
+          "period": "Clutha District",
+          "label": "Clutha District",
+          "value": 10,
+          "formatted": "10 approvals (0.4% of NZ) | 5 settlements"
+        },
+        {
+          "period": "Upper Hutt City",
+          "label": "Upper Hutt City",
+          "value": 9,
+          "formatted": "9 approvals (0.4% of NZ) | 10 settlements"
+        },
+        {
+          "period": "Porirua City",
+          "label": "Porirua City",
+          "value": 8,
+          "formatted": "8 approvals (0.3% of NZ) | 7 settlements"
+        },
+        {
+          "period": "Southland District",
+          "label": "Southland District",
+          "value": 7,
+          "formatted": "7 approvals (0.3% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Gore District",
+          "label": "Gore District",
+          "value": 7,
+          "formatted": "7 approvals (0.3% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Hurunui District",
+          "label": "Hurunui District",
+          "value": 7,
+          "formatted": "7 approvals (0.3% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Hauraki District",
+          "label": "Hauraki District",
+          "value": 6,
+          "formatted": "6 approvals (0.2% of NZ) | 2 settlements"
+        },
+        {
+          "period": "South Taranaki District",
+          "label": "South Taranaki District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Waimate District",
+          "label": "Waimate District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Thames-Coromandel District",
+          "label": "Thames-Coromandel District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Westland District",
+          "label": "Westland District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Kaipara District",
+          "label": "Kaipara District",
+          "value": 4,
+          "formatted": "4 approvals (0.2% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Whakat\u0101ne District",
+          "label": "Whakat\u0101ne District",
+          "value": 3,
+          "formatted": "3 approvals (0.1% of NZ) | 2 settlements"
+        },
+        {
+          "period": "Rangit\u012bkei District",
+          "label": "Rangit\u012bkei District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 5 settlements"
+        },
+        {
+          "period": "\u014cp\u014dtiki District",
+          "label": "\u014cp\u014dtiki District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Carterton District",
+          "label": "Carterton District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 1 settlements"
+        },
+        {
+          "period": "\u014ctorohanga District",
+          "label": "\u014ctorohanga District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Waitomo District",
+          "label": "Waitomo District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 2 settlements"
+        },
+        {
+          "period": "Kawerau District",
+          "label": "Kawerau District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Ruapehu District",
+          "label": "Ruapehu District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "South Wairarapa District",
+          "label": "South Wairarapa District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Buller District",
+          "label": "Buller District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Mackenzie District",
+          "label": "Mackenzie District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Wairoa District",
+          "label": "Wairoa District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Stratford District",
+          "label": "Stratford District",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "South Waikato District",
+          "label": "South Waikato District",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Kaik\u014dura District",
+          "label": "Kaik\u014dura District",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Chatham Islands Territory",
+          "label": "Chatham Islands Territory",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 0 settlements"
+        }
+      ],
+      "latest_underlying_data": "Apr - Jun 2026",
+      "official_data": "K\u0101inga Ora Home Ownership Products Report (Apr - Jun 2026 TLA Tables, all 67 councils): Auckland City = 657 approvals (277 settlements); Christchurch City = 399 (138); Hamilton City = 170 (61); Greater Wellington (HLF 8-council subgroup) = 163 approvals (73 settlements).",
+      "hlf_calculation": "Auckland City: 657\u00f72,444=26.9% (277 settled) | Christchurch City: 399\u00f72,444=16.3% (138 settled) | Hamilton City: 170\u00f72,444=7.0% (61 settled) | Greater Wellington (HLF Subgroup, 8 councils): 163\u00f72,444=6.7% (73 settled, 7.2% of NZ)",
+      "frequency": "Quarterly",
+      "update_frequency": "Quarterly",
+      "latest_period": "Apr - Jun 2026",
+      "as_of": "2026-06-30",
+      "last_verified_human": "23 November 2026",
+      "hlf_derived_label": "Yes (HLF-derived from official series)",
+      "html": "",
+      "calculation_live": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+      "calculation": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+      "official_data_summary": "",
+      "source_agency_html": "<strong>HLF calculation:</strong> <code>Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100</code><br><strong>Source:</strong> <a href=\"https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)</a> &bull; <strong>Glossary:</strong> <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#first-home-loan\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora First Home Loan</a> &middot; <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#lmi\" target=\"_blank\" rel=\"noopener\">Lenders Mortgage Insurance (LMI)</a> &bull; Derived by HLF Pulse (CC BY 4.0) &bull; Checked: 23 November 2026.",
+      "source_html": "<strong>HLF calculation:</strong> <code>Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100</code><br><strong>Source:</strong> <a href=\"https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)</a> &bull; <strong>Glossary:</strong> <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#first-home-loan\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora First Home Loan</a> &middot; <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#lmi\" target=\"_blank\" rel=\"noopener\">Lenders Mortgage Insurance (LMI)</a> &bull; Derived by HLF Pulse (CC BY 4.0) &bull; Checked: 23 November 2026. &bull; <a href=\"https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/\" target=\"_blank\" rel=\"noopener\">Full Data Dictionary &amp; historical series (/kainga-ora-first-home-loan-regional/) &rarr;</a>"
     },
     {
       "chip": "K\u0101inga Ora Report",
@@ -46810,8 +47296,8 @@
       "latest_period": "September 2026 quarter",
       "value": 3.0,
       "latest_value": "+3.0% annual household living-cost inflation",
-      "previous_period": "Includes household mortgage interest payments & council rates (excluded from CPI)",
-      "change": "Expenditure group spread: +2.5% (highest-expenditure) to +3.6% (lowest-expenditure)",
+      "previous_period": "Highest-expenditure households: +2.5% | Lowest-expenditure: +3.6%",
+      "change": "Includes household mortgage interest payments & council rates",
       "calculation_live": "Official Stats NZ HLPI All-Households 12-month change (September 2026 quarter) = +3.0% (Highest-expenditure group = +2.5%; Lowest-expenditure group = +3.6%)",
       "historical_data_from": "Stats NZ HLPI release (September 2026 quarter)",
       "source_published": "Quarterly Stats NZ release",
@@ -48852,6 +49338,492 @@
         "license": "CC BY 4.0"
       },
       "source_agency_html": "<strong>HLF calculation:</strong> <code>Quarterly Approvals: 686 + 884 + 874 = 2,444 (815/mth) | Quarterly Settlements: 322 + 245 + 449 = 1,016 (339/mth; 41.6% ratio)</code><br><strong>Source:</strong> <a href=\"https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report (CC BY 4.0)</a> &bull; <strong>Glossary:</strong> <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#first-home-loan\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora First Home Loan</a> &middot; <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#lmi\" target=\"_blank\" rel=\"noopener\">Lenders Mortgage Insurance (LMI)</a> &bull; Derived by HLF Pulse (CC BY 4.0) &bull; Checked: 23 November 2026."
+    },
+    "kainga-ora-first-home-loan-regional": {
+      "ticker": "kainga-ora-first-home-loan-regional",
+      "name": "K\u0101inga Ora First Home Loan (5% deposit) approvals & settlements by NZ city & district",
+      "also_known_as": "K\u0101inga Ora First Home Loan Approvals & Settlements by Territorial Local Authority (TLA)",
+      "category": "First-home buyers",
+      "topic": "Regional K\u0101inga Ora 5% deposit First Home Loan approvals by council",
+      "value": 657,
+      "latest_value": "Auckland City 657 (277 settled) | Christchurch City 399 (138) | Hamilton City 170 | Greater Wellington 163 (73 settled)",
+      "unit": "loans",
+      "observation_period": "Apr - Jun 2026",
+      "observed_period": "Apr - Jun 2026",
+      "period_end": "2026-06-30",
+      "source_published": "Quarterly K\u0101inga Ora release",
+      "last_checked": "2026-11-23",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-23",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "National quarterly total: 2,444 approvals & 1,016 settlements across all 67 NZ councils",
+      "change": "Greater Wellington Subgroup: 163 approvals (6.7% of NZ) & 73 settlements (7.2% of NZ)",
+      "source": "K\u0101inga Ora Quarterly Report",
+      "source_full": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)",
+      "source_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 First Home Loan Approvals & Settlements by TLA",
+      "source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported K\u0101inga Ora council-level tables & HLF-derived national shares",
+      "definition": "Distribution of K\u0101inga Ora 5% deposit First Home Loan approvals and settlements across New Zealand Territorial Local Authorities (TLAs).",
+      "formula": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Shows the geographic distribution of K\u0101inga Ora First Home Loan approvals and settlements across New Zealand city and district councils.",
+      "methodology": "Automatically parsed from the Territorial Local Authority Approvals and Settlements tables in K\u0101inga Ora's Home Ownership Products Quarterly Report PDF. K\u0101inga Ora itemises the largest TLAs individually and groups smaller districts into 'Other'.",
+      "historical_data_from": "K\u0101inga Ora Territorial Local Authority tables (All 67 NZ councils + Greater Wellington HLF Subgroup, Apr - Jun 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"K\u0101inga Ora First Home Loan (5% deposit) approvals & settlements by NZ city & district,\" Apr - Jun 2026. Derived by HLF from K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/ (checked 23 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/",
+      "summary_text": "",
+      "related_questions": [
+        "Which New Zealand cities have the most K\u0101inga Ora First Home Loan approvals?",
+        "How many K\u0101inga Ora First Home Loans are approved in Auckland, Christchurch, Hamilton, and Wellington?"
+      ],
+      "citation_chain": {
+        "official_publisher": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)",
+        "official_source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
+        "official_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 First Home Loan Approvals & Settlements by TLA",
+        "observation_period": "Apr - Jun 2026",
+        "period_end": "2026-06-30",
+        "source_published": "Quarterly K\u0101inga Ora release",
+        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
+        "hlf_calculation": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/",
+        "license": "CC BY 4.0"
+      },
+      "history": [
+        {
+          "period": "Auckland City",
+          "label": "Auckland City",
+          "value": 657,
+          "formatted": "657 approvals (26.9% of NZ) | 277 settlements"
+        },
+        {
+          "period": "Christchurch City",
+          "label": "Christchurch City",
+          "value": 399,
+          "formatted": "399 approvals (16.3% of NZ) | 138 settlements"
+        },
+        {
+          "period": "Hamilton City",
+          "label": "Hamilton City",
+          "value": 170,
+          "formatted": "170 approvals (7.0% of NZ) | 61 settlements"
+        },
+        {
+          "period": "Greater Wellington (HLF Subgroup)",
+          "label": "Greater Wellington (HLF Subgroup \u2014 8 Councils Combined)",
+          "value": 163,
+          "formatted": "163 approvals (6.7% of NZ) | 73 settlements (7.2% of NZ) [Wellington City, Lower Hutt, Upper Hutt, Porirua, K\u0101piti Coast & Wairarapa]"
+        },
+        {
+          "period": "Dunedin City",
+          "label": "Dunedin City",
+          "value": 88,
+          "formatted": "88 approvals (3.6% of NZ) | 30 settlements"
+        },
+        {
+          "period": "Wellington City",
+          "label": "Wellington City",
+          "value": 87,
+          "formatted": "87 approvals (3.6% of NZ) | 17 settlements"
+        },
+        {
+          "period": "Tauranga City",
+          "label": "Tauranga City",
+          "value": 76,
+          "formatted": "76 approvals (3.1% of NZ) | 28 settlements"
+        },
+        {
+          "period": "Invercargill City",
+          "label": "Invercargill City",
+          "value": 60,
+          "formatted": "60 approvals (2.5% of NZ) | 34 settlements"
+        },
+        {
+          "period": "Napier City",
+          "label": "Napier City",
+          "value": 59,
+          "formatted": "59 approvals (2.4% of NZ) | 16 settlements"
+        },
+        {
+          "period": "Rotorua District",
+          "label": "Rotorua District",
+          "value": 56,
+          "formatted": "56 approvals (2.3% of NZ) | 18 settlements"
+        },
+        {
+          "period": "Palmerston North District",
+          "label": "Palmerston North District",
+          "value": 54,
+          "formatted": "54 approvals (2.2% of NZ) | 23 settlements"
+        },
+        {
+          "period": "Nelson City",
+          "label": "Nelson City",
+          "value": 53,
+          "formatted": "53 approvals (2.2% of NZ) | 25 settlements"
+        },
+        {
+          "period": "Waikato District",
+          "label": "Waikato District",
+          "value": 51,
+          "formatted": "51 approvals (2.1% of NZ) | 31 settlements"
+        },
+        {
+          "period": "New Plymouth District",
+          "label": "New Plymouth District",
+          "value": 36,
+          "formatted": "36 approvals (1.5% of NZ) | 13 settlements"
+        },
+        {
+          "period": "Marlborough District",
+          "label": "Marlborough District",
+          "value": 36,
+          "formatted": "36 approvals (1.5% of NZ) | 13 settlements"
+        },
+        {
+          "period": "Timaru District",
+          "label": "Timaru District",
+          "value": 32,
+          "formatted": "32 approvals (1.3% of NZ) | 18 settlements"
+        },
+        {
+          "period": "Lower Hutt City",
+          "label": "Lower Hutt City",
+          "value": 31,
+          "formatted": "31 approvals (1.3% of NZ) | 27 settlements"
+        },
+        {
+          "period": "Selwyn District",
+          "label": "Selwyn District",
+          "value": 29,
+          "formatted": "29 approvals (1.2% of NZ) | 28 settlements"
+        },
+        {
+          "period": "Hastings District",
+          "label": "Hastings District",
+          "value": 27,
+          "formatted": "27 approvals (1.1% of NZ) | 16 settlements"
+        },
+        {
+          "period": "Whang\u0101rei District",
+          "label": "Whang\u0101rei District",
+          "value": 27,
+          "formatted": "27 approvals (1.1% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Whanganui District",
+          "label": "Whanganui District",
+          "value": 23,
+          "formatted": "23 approvals (0.9% of NZ) | 11 settlements"
+        },
+        {
+          "period": "Waimakariri District",
+          "label": "Waimakariri District",
+          "value": 22,
+          "formatted": "22 approvals (0.9% of NZ) | 14 settlements"
+        },
+        {
+          "period": "Far North District",
+          "label": "Far North District",
+          "value": 19,
+          "formatted": "19 approvals (0.8% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Taup\u014d District",
+          "label": "Taup\u014d District",
+          "value": 18,
+          "formatted": "18 approvals (0.7% of NZ) | 11 settlements"
+        },
+        {
+          "period": "Ashburton District",
+          "label": "Ashburton District",
+          "value": 17,
+          "formatted": "17 approvals (0.7% of NZ) | 11 settlements"
+        },
+        {
+          "period": "Matamata-Piako District",
+          "label": "Matamata-Piako District",
+          "value": 17,
+          "formatted": "17 approvals (0.7% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Central Otago District",
+          "label": "Central Otago District",
+          "value": 17,
+          "formatted": "17 approvals (0.7% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Manawat\u016b District",
+          "label": "Manawat\u016b District",
+          "value": 16,
+          "formatted": "16 approvals (0.7% of NZ) | 10 settlements"
+        },
+        {
+          "period": "Western Bay of Plenty District",
+          "label": "Western Bay of Plenty District",
+          "value": 15,
+          "formatted": "15 approvals (0.6% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Gisborne District",
+          "label": "Gisborne District",
+          "value": 15,
+          "formatted": "15 approvals (0.6% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Waip\u0101 District",
+          "label": "Waip\u0101 District",
+          "value": 14,
+          "formatted": "14 approvals (0.6% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Masterton District",
+          "label": "Masterton District",
+          "value": 14,
+          "formatted": "14 approvals (0.6% of NZ) | 5 settlements"
+        },
+        {
+          "period": "Central Hawke's Bay District",
+          "label": "Central Hawke's Bay District",
+          "value": 14,
+          "formatted": "14 approvals (0.6% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Tasman District",
+          "label": "Tasman District",
+          "value": 13,
+          "formatted": "13 approvals (0.5% of NZ) | 12 settlements"
+        },
+        {
+          "period": "Horowhenua District",
+          "label": "Horowhenua District",
+          "value": 13,
+          "formatted": "13 approvals (0.5% of NZ) | 7 settlements"
+        },
+        {
+          "period": "Waitaki District",
+          "label": "Waitaki District",
+          "value": 12,
+          "formatted": "12 approvals (0.5% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Tararua District",
+          "label": "Tararua District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 5 settlements"
+        },
+        {
+          "period": "K\u0101piti Coast District",
+          "label": "K\u0101piti Coast District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 5 settlements"
+        },
+        {
+          "period": "Queenstown-Lakes District",
+          "label": "Queenstown-Lakes District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Grey District",
+          "label": "Grey District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 2 settlements"
+        },
+        {
+          "period": "Clutha District",
+          "label": "Clutha District",
+          "value": 10,
+          "formatted": "10 approvals (0.4% of NZ) | 5 settlements"
+        },
+        {
+          "period": "Upper Hutt City",
+          "label": "Upper Hutt City",
+          "value": 9,
+          "formatted": "9 approvals (0.4% of NZ) | 10 settlements"
+        },
+        {
+          "period": "Porirua City",
+          "label": "Porirua City",
+          "value": 8,
+          "formatted": "8 approvals (0.3% of NZ) | 7 settlements"
+        },
+        {
+          "period": "Southland District",
+          "label": "Southland District",
+          "value": 7,
+          "formatted": "7 approvals (0.3% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Gore District",
+          "label": "Gore District",
+          "value": 7,
+          "formatted": "7 approvals (0.3% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Hurunui District",
+          "label": "Hurunui District",
+          "value": 7,
+          "formatted": "7 approvals (0.3% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Hauraki District",
+          "label": "Hauraki District",
+          "value": 6,
+          "formatted": "6 approvals (0.2% of NZ) | 2 settlements"
+        },
+        {
+          "period": "South Taranaki District",
+          "label": "South Taranaki District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Waimate District",
+          "label": "Waimate District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Thames-Coromandel District",
+          "label": "Thames-Coromandel District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Westland District",
+          "label": "Westland District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Kaipara District",
+          "label": "Kaipara District",
+          "value": 4,
+          "formatted": "4 approvals (0.2% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Whakat\u0101ne District",
+          "label": "Whakat\u0101ne District",
+          "value": 3,
+          "formatted": "3 approvals (0.1% of NZ) | 2 settlements"
+        },
+        {
+          "period": "Rangit\u012bkei District",
+          "label": "Rangit\u012bkei District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 5 settlements"
+        },
+        {
+          "period": "\u014cp\u014dtiki District",
+          "label": "\u014cp\u014dtiki District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Carterton District",
+          "label": "Carterton District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 1 settlements"
+        },
+        {
+          "period": "\u014ctorohanga District",
+          "label": "\u014ctorohanga District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Waitomo District",
+          "label": "Waitomo District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 2 settlements"
+        },
+        {
+          "period": "Kawerau District",
+          "label": "Kawerau District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Ruapehu District",
+          "label": "Ruapehu District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "South Wairarapa District",
+          "label": "South Wairarapa District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Buller District",
+          "label": "Buller District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Mackenzie District",
+          "label": "Mackenzie District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Wairoa District",
+          "label": "Wairoa District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Stratford District",
+          "label": "Stratford District",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "South Waikato District",
+          "label": "South Waikato District",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Kaik\u014dura District",
+          "label": "Kaik\u014dura District",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Chatham Islands Territory",
+          "label": "Chatham Islands Territory",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 0 settlements"
+        }
+      ],
+      "latest_underlying_data": "Apr - Jun 2026",
+      "official_data": "K\u0101inga Ora Home Ownership Products Report (Apr - Jun 2026 TLA Tables, all 67 councils): Auckland City = 657 approvals (277 settlements); Christchurch City = 399 (138); Hamilton City = 170 (61); Greater Wellington (HLF 8-council subgroup) = 163 approvals (73 settlements).",
+      "hlf_calculation": "Auckland City: 657\u00f72,444=26.9% (277 settled) | Christchurch City: 399\u00f72,444=16.3% (138 settled) | Hamilton City: 170\u00f72,444=7.0% (61 settled) | Greater Wellington (HLF Subgroup, 8 councils): 163\u00f72,444=6.7% (73 settled, 7.2% of NZ)",
+      "frequency": "Quarterly",
+      "update_frequency": "Quarterly",
+      "latest_period": "Apr - Jun 2026",
+      "as_of": "2026-06-30",
+      "last_verified_human": "23 November 2026",
+      "hlf_derived_label": "Yes (HLF-derived from official series)",
+      "html": "",
+      "calculation_live": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+      "calculation": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+      "official_data_summary": "",
+      "source_agency_html": "<strong>HLF calculation:</strong> <code>Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100</code><br><strong>Source:</strong> <a href=\"https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)</a> &bull; <strong>Glossary:</strong> <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#first-home-loan\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora First Home Loan</a> &middot; <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#lmi\" target=\"_blank\" rel=\"noopener\">Lenders Mortgage Insurance (LMI)</a> &bull; Derived by HLF Pulse (CC BY 4.0) &bull; Checked: 23 November 2026.",
+      "source_html": "<strong>HLF calculation:</strong> <code>Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100</code><br><strong>Source:</strong> <a href=\"https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)</a> &bull; <strong>Glossary:</strong> <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#first-home-loan\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora First Home Loan</a> &middot; <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#lmi\" target=\"_blank\" rel=\"noopener\">Lenders Mortgage Insurance (LMI)</a> &bull; Derived by HLF Pulse (CC BY 4.0) &bull; Checked: 23 November 2026. &bull; <a href=\"https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/\" target=\"_blank\" rel=\"noopener\">Full Data Dictionary &amp; historical series (/kainga-ora-first-home-loan-regional/) &rarr;</a>"
     },
     "kainga-ora-second-chance-kiwisaver-approvals": {
       "chip": "K\u0101inga Ora Report",
@@ -71754,8 +72726,8 @@
       "latest_period": "September 2026 quarter",
       "value": 3.0,
       "latest_value": "+3.0% annual household living-cost inflation",
-      "previous_period": "Includes household mortgage interest payments & council rates (excluded from CPI)",
-      "change": "Expenditure group spread: +2.5% (highest-expenditure) to +3.6% (lowest-expenditure)",
+      "previous_period": "Highest-expenditure households: +2.5% | Lowest-expenditure: +3.6%",
+      "change": "Includes household mortgage interest payments & council rates",
       "calculation_live": "Official Stats NZ HLPI All-Households 12-month change (September 2026 quarter) = +3.0% (Highest-expenditure group = +2.5%; Lowest-expenditure group = +3.6%)",
       "historical_data_from": "Stats NZ HLPI release (September 2026 quarter)",
       "source_published": "Quarterly Stats NZ release",
@@ -73796,6 +74768,492 @@
         "license": "CC BY 4.0"
       },
       "source_agency_html": "<strong>HLF calculation:</strong> <code>Quarterly Approvals: 686 + 884 + 874 = 2,444 (815/mth) | Quarterly Settlements: 322 + 245 + 449 = 1,016 (339/mth; 41.6% ratio)</code><br><strong>Source:</strong> <a href=\"https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report (CC BY 4.0)</a> &bull; <strong>Glossary:</strong> <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#first-home-loan\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora First Home Loan</a> &middot; <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#lmi\" target=\"_blank\" rel=\"noopener\">Lenders Mortgage Insurance (LMI)</a> &bull; Derived by HLF Pulse (CC BY 4.0) &bull; Checked: 23 November 2026."
+    },
+    "kainga-ora-first-home-loan-regional": {
+      "ticker": "kainga-ora-first-home-loan-regional",
+      "name": "K\u0101inga Ora First Home Loan (5% deposit) approvals & settlements by NZ city & district",
+      "also_known_as": "K\u0101inga Ora First Home Loan Approvals & Settlements by Territorial Local Authority (TLA)",
+      "category": "First-home buyers",
+      "topic": "Regional K\u0101inga Ora 5% deposit First Home Loan approvals by council",
+      "value": 657,
+      "latest_value": "Auckland City 657 (277 settled) | Christchurch City 399 (138) | Hamilton City 170 | Greater Wellington 163 (73 settled)",
+      "unit": "loans",
+      "observation_period": "Apr - Jun 2026",
+      "observed_period": "Apr - Jun 2026",
+      "period_end": "2026-06-30",
+      "source_published": "Quarterly K\u0101inga Ora release",
+      "last_checked": "2026-11-23",
+      "date_created": "2026-02-01",
+      "date_modified": "2026-11-23",
+      "data_status": "verified",
+      "source_status": "current",
+      "previous_period": "National quarterly total: 2,444 approvals & 1,016 settlements across all 67 NZ councils",
+      "change": "Greater Wellington Subgroup: 163 approvals (6.7% of NZ) & 73 settlements (7.2% of NZ)",
+      "source": "K\u0101inga Ora Quarterly Report",
+      "source_full": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)",
+      "source_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 First Home Loan Approvals & Settlements by TLA",
+      "source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
+      "derived_by_hlf": true,
+      "data_type": "Officially reported K\u0101inga Ora council-level tables & HLF-derived national shares",
+      "definition": "Distribution of K\u0101inga Ora 5% deposit First Home Loan approvals and settlements across New Zealand Territorial Local Authorities (TLAs).",
+      "formula": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+      "hlf_interpretation": "HLF market context: Shows the geographic distribution of K\u0101inga Ora First Home Loan approvals and settlements across New Zealand city and district councils.",
+      "methodology": "Automatically parsed from the Territorial Local Authority Approvals and Settlements tables in K\u0101inga Ora's Home Ownership Products Quarterly Report PDF. K\u0101inga Ora itemises the largest TLAs individually and groups smaller districts into 'Other'.",
+      "historical_data_from": "K\u0101inga Ora Territorial Local Authority tables (All 67 NZ councils + Greater Wellington HLF Subgroup, Apr - Jun 2026)",
+      "creator_name": "Andy Palliser",
+      "creator_alternate_name": "Andrew Jonathan Palliser",
+      "creator_fsp": "FSP1004725",
+      "creator_url": "https://www.homeloanfactory.co.nz/team/andrew-palliser",
+      "publisher": "Home Loan Factory",
+      "publisher_legal_name": "HLF Financial Limited",
+      "publisher_url": "https://www.homeloanfactory.co.nz/",
+      "media_kit_url": "https://www.homeloanfactory.co.nz/media-and-citations",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "license_label": "CC BY 4.0",
+      "citation": "HLF Pulse, Home Loan Factory. \"K\u0101inga Ora First Home Loan (5% deposit) approvals & settlements by NZ city & district,\" Apr - Jun 2026. Derived by HLF from K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0). https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/ (checked 23 November 2026). CC BY 4.0.",
+      "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/",
+      "summary_text": "",
+      "related_questions": [
+        "Which New Zealand cities have the most K\u0101inga Ora First Home Loan approvals?",
+        "How many K\u0101inga Ora First Home Loans are approved in Auckland, Christchurch, Hamilton, and Wellington?"
+      ],
+      "citation_chain": {
+        "official_publisher": "K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)",
+        "official_source_url": "https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/",
+        "official_series_ids": "K\u0101inga Ora Home Ownership Products Report \u2014 First Home Loan Approvals & Settlements by TLA",
+        "observation_period": "Apr - Jun 2026",
+        "period_end": "2026-06-30",
+        "source_published": "Quarterly K\u0101inga Ora release",
+        "curated_and_derived_by": "Andy Palliser (FSP1004725), Home Loan Factory",
+        "hlf_calculation": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+        "canonical_url": "https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/",
+        "license": "CC BY 4.0"
+      },
+      "history": [
+        {
+          "period": "Auckland City",
+          "label": "Auckland City",
+          "value": 657,
+          "formatted": "657 approvals (26.9% of NZ) | 277 settlements"
+        },
+        {
+          "period": "Christchurch City",
+          "label": "Christchurch City",
+          "value": 399,
+          "formatted": "399 approvals (16.3% of NZ) | 138 settlements"
+        },
+        {
+          "period": "Hamilton City",
+          "label": "Hamilton City",
+          "value": 170,
+          "formatted": "170 approvals (7.0% of NZ) | 61 settlements"
+        },
+        {
+          "period": "Greater Wellington (HLF Subgroup)",
+          "label": "Greater Wellington (HLF Subgroup \u2014 8 Councils Combined)",
+          "value": 163,
+          "formatted": "163 approvals (6.7% of NZ) | 73 settlements (7.2% of NZ) [Wellington City, Lower Hutt, Upper Hutt, Porirua, K\u0101piti Coast & Wairarapa]"
+        },
+        {
+          "period": "Dunedin City",
+          "label": "Dunedin City",
+          "value": 88,
+          "formatted": "88 approvals (3.6% of NZ) | 30 settlements"
+        },
+        {
+          "period": "Wellington City",
+          "label": "Wellington City",
+          "value": 87,
+          "formatted": "87 approvals (3.6% of NZ) | 17 settlements"
+        },
+        {
+          "period": "Tauranga City",
+          "label": "Tauranga City",
+          "value": 76,
+          "formatted": "76 approvals (3.1% of NZ) | 28 settlements"
+        },
+        {
+          "period": "Invercargill City",
+          "label": "Invercargill City",
+          "value": 60,
+          "formatted": "60 approvals (2.5% of NZ) | 34 settlements"
+        },
+        {
+          "period": "Napier City",
+          "label": "Napier City",
+          "value": 59,
+          "formatted": "59 approvals (2.4% of NZ) | 16 settlements"
+        },
+        {
+          "period": "Rotorua District",
+          "label": "Rotorua District",
+          "value": 56,
+          "formatted": "56 approvals (2.3% of NZ) | 18 settlements"
+        },
+        {
+          "period": "Palmerston North District",
+          "label": "Palmerston North District",
+          "value": 54,
+          "formatted": "54 approvals (2.2% of NZ) | 23 settlements"
+        },
+        {
+          "period": "Nelson City",
+          "label": "Nelson City",
+          "value": 53,
+          "formatted": "53 approvals (2.2% of NZ) | 25 settlements"
+        },
+        {
+          "period": "Waikato District",
+          "label": "Waikato District",
+          "value": 51,
+          "formatted": "51 approvals (2.1% of NZ) | 31 settlements"
+        },
+        {
+          "period": "New Plymouth District",
+          "label": "New Plymouth District",
+          "value": 36,
+          "formatted": "36 approvals (1.5% of NZ) | 13 settlements"
+        },
+        {
+          "period": "Marlborough District",
+          "label": "Marlborough District",
+          "value": 36,
+          "formatted": "36 approvals (1.5% of NZ) | 13 settlements"
+        },
+        {
+          "period": "Timaru District",
+          "label": "Timaru District",
+          "value": 32,
+          "formatted": "32 approvals (1.3% of NZ) | 18 settlements"
+        },
+        {
+          "period": "Lower Hutt City",
+          "label": "Lower Hutt City",
+          "value": 31,
+          "formatted": "31 approvals (1.3% of NZ) | 27 settlements"
+        },
+        {
+          "period": "Selwyn District",
+          "label": "Selwyn District",
+          "value": 29,
+          "formatted": "29 approvals (1.2% of NZ) | 28 settlements"
+        },
+        {
+          "period": "Hastings District",
+          "label": "Hastings District",
+          "value": 27,
+          "formatted": "27 approvals (1.1% of NZ) | 16 settlements"
+        },
+        {
+          "period": "Whang\u0101rei District",
+          "label": "Whang\u0101rei District",
+          "value": 27,
+          "formatted": "27 approvals (1.1% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Whanganui District",
+          "label": "Whanganui District",
+          "value": 23,
+          "formatted": "23 approvals (0.9% of NZ) | 11 settlements"
+        },
+        {
+          "period": "Waimakariri District",
+          "label": "Waimakariri District",
+          "value": 22,
+          "formatted": "22 approvals (0.9% of NZ) | 14 settlements"
+        },
+        {
+          "period": "Far North District",
+          "label": "Far North District",
+          "value": 19,
+          "formatted": "19 approvals (0.8% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Taup\u014d District",
+          "label": "Taup\u014d District",
+          "value": 18,
+          "formatted": "18 approvals (0.7% of NZ) | 11 settlements"
+        },
+        {
+          "period": "Ashburton District",
+          "label": "Ashburton District",
+          "value": 17,
+          "formatted": "17 approvals (0.7% of NZ) | 11 settlements"
+        },
+        {
+          "period": "Matamata-Piako District",
+          "label": "Matamata-Piako District",
+          "value": 17,
+          "formatted": "17 approvals (0.7% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Central Otago District",
+          "label": "Central Otago District",
+          "value": 17,
+          "formatted": "17 approvals (0.7% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Manawat\u016b District",
+          "label": "Manawat\u016b District",
+          "value": 16,
+          "formatted": "16 approvals (0.7% of NZ) | 10 settlements"
+        },
+        {
+          "period": "Western Bay of Plenty District",
+          "label": "Western Bay of Plenty District",
+          "value": 15,
+          "formatted": "15 approvals (0.6% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Gisborne District",
+          "label": "Gisborne District",
+          "value": 15,
+          "formatted": "15 approvals (0.6% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Waip\u0101 District",
+          "label": "Waip\u0101 District",
+          "value": 14,
+          "formatted": "14 approvals (0.6% of NZ) | 6 settlements"
+        },
+        {
+          "period": "Masterton District",
+          "label": "Masterton District",
+          "value": 14,
+          "formatted": "14 approvals (0.6% of NZ) | 5 settlements"
+        },
+        {
+          "period": "Central Hawke's Bay District",
+          "label": "Central Hawke's Bay District",
+          "value": 14,
+          "formatted": "14 approvals (0.6% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Tasman District",
+          "label": "Tasman District",
+          "value": 13,
+          "formatted": "13 approvals (0.5% of NZ) | 12 settlements"
+        },
+        {
+          "period": "Horowhenua District",
+          "label": "Horowhenua District",
+          "value": 13,
+          "formatted": "13 approvals (0.5% of NZ) | 7 settlements"
+        },
+        {
+          "period": "Waitaki District",
+          "label": "Waitaki District",
+          "value": 12,
+          "formatted": "12 approvals (0.5% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Tararua District",
+          "label": "Tararua District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 5 settlements"
+        },
+        {
+          "period": "K\u0101piti Coast District",
+          "label": "K\u0101piti Coast District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 5 settlements"
+        },
+        {
+          "period": "Queenstown-Lakes District",
+          "label": "Queenstown-Lakes District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Grey District",
+          "label": "Grey District",
+          "value": 11,
+          "formatted": "11 approvals (0.5% of NZ) | 2 settlements"
+        },
+        {
+          "period": "Clutha District",
+          "label": "Clutha District",
+          "value": 10,
+          "formatted": "10 approvals (0.4% of NZ) | 5 settlements"
+        },
+        {
+          "period": "Upper Hutt City",
+          "label": "Upper Hutt City",
+          "value": 9,
+          "formatted": "9 approvals (0.4% of NZ) | 10 settlements"
+        },
+        {
+          "period": "Porirua City",
+          "label": "Porirua City",
+          "value": 8,
+          "formatted": "8 approvals (0.3% of NZ) | 7 settlements"
+        },
+        {
+          "period": "Southland District",
+          "label": "Southland District",
+          "value": 7,
+          "formatted": "7 approvals (0.3% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Gore District",
+          "label": "Gore District",
+          "value": 7,
+          "formatted": "7 approvals (0.3% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Hurunui District",
+          "label": "Hurunui District",
+          "value": 7,
+          "formatted": "7 approvals (0.3% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Hauraki District",
+          "label": "Hauraki District",
+          "value": 6,
+          "formatted": "6 approvals (0.2% of NZ) | 2 settlements"
+        },
+        {
+          "period": "South Taranaki District",
+          "label": "South Taranaki District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Waimate District",
+          "label": "Waimate District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 4 settlements"
+        },
+        {
+          "period": "Thames-Coromandel District",
+          "label": "Thames-Coromandel District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Westland District",
+          "label": "Westland District",
+          "value": 5,
+          "formatted": "5 approvals (0.2% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Kaipara District",
+          "label": "Kaipara District",
+          "value": 4,
+          "formatted": "4 approvals (0.2% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Whakat\u0101ne District",
+          "label": "Whakat\u0101ne District",
+          "value": 3,
+          "formatted": "3 approvals (0.1% of NZ) | 2 settlements"
+        },
+        {
+          "period": "Rangit\u012bkei District",
+          "label": "Rangit\u012bkei District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 5 settlements"
+        },
+        {
+          "period": "\u014cp\u014dtiki District",
+          "label": "\u014cp\u014dtiki District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 3 settlements"
+        },
+        {
+          "period": "Carterton District",
+          "label": "Carterton District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 1 settlements"
+        },
+        {
+          "period": "\u014ctorohanga District",
+          "label": "\u014ctorohanga District",
+          "value": 2,
+          "formatted": "2 approvals (0.1% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Waitomo District",
+          "label": "Waitomo District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 2 settlements"
+        },
+        {
+          "period": "Kawerau District",
+          "label": "Kawerau District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Ruapehu District",
+          "label": "Ruapehu District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "South Wairarapa District",
+          "label": "South Wairarapa District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Buller District",
+          "label": "Buller District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Mackenzie District",
+          "label": "Mackenzie District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "Wairoa District",
+          "label": "Wairoa District",
+          "value": 1,
+          "formatted": "1 approvals (0.0% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Stratford District",
+          "label": "Stratford District",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 1 settlements"
+        },
+        {
+          "period": "South Waikato District",
+          "label": "South Waikato District",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Kaik\u014dura District",
+          "label": "Kaik\u014dura District",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 0 settlements"
+        },
+        {
+          "period": "Chatham Islands Territory",
+          "label": "Chatham Islands Territory",
+          "value": 0,
+          "formatted": "0 approvals (0.0% of NZ) | 0 settlements"
+        }
+      ],
+      "latest_underlying_data": "Apr - Jun 2026",
+      "official_data": "K\u0101inga Ora Home Ownership Products Report (Apr - Jun 2026 TLA Tables, all 67 councils): Auckland City = 657 approvals (277 settlements); Christchurch City = 399 (138); Hamilton City = 170 (61); Greater Wellington (HLF 8-council subgroup) = 163 approvals (73 settlements).",
+      "hlf_calculation": "Auckland City: 657\u00f72,444=26.9% (277 settled) | Christchurch City: 399\u00f72,444=16.3% (138 settled) | Hamilton City: 170\u00f72,444=7.0% (61 settled) | Greater Wellington (HLF Subgroup, 8 councils): 163\u00f72,444=6.7% (73 settled, 7.2% of NZ)",
+      "frequency": "Quarterly",
+      "update_frequency": "Quarterly",
+      "latest_period": "Apr - Jun 2026",
+      "as_of": "2026-06-30",
+      "last_verified_human": "23 November 2026",
+      "hlf_derived_label": "Yes (HLF-derived from official series)",
+      "html": "",
+      "calculation_live": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+      "calculation": "Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100",
+      "official_data_summary": "",
+      "source_agency_html": "<strong>HLF calculation:</strong> <code>Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100</code><br><strong>Source:</strong> <a href=\"https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)</a> &bull; <strong>Glossary:</strong> <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#first-home-loan\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora First Home Loan</a> &middot; <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#lmi\" target=\"_blank\" rel=\"noopener\">Lenders Mortgage Insurance (LMI)</a> &bull; Derived by HLF Pulse (CC BY 4.0) &bull; Checked: 23 November 2026.",
+      "source_html": "<strong>HLF calculation:</strong> <code>Council Share of National Approvals (%) = (Council Quarterly Approvals \u00f7 National Quarterly Approvals) \u00d7 100</code><br><strong>Source:</strong> <a href=\"https://kaingaora.govt.nz/en_NZ/publications/home-ownership-publications/home-ownership-products-report/\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora \u2013 Homes and Communities \u2014 Home Ownership Products Quarterly Report: TLA Tables (CC BY 4.0)</a> &bull; <strong>Glossary:</strong> <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#first-home-loan\" target=\"_blank\" rel=\"noopener\">K\u0101inga Ora First Home Loan</a> &middot; <a href=\"https://www.homeloanfactory.co.nz/tools/glossary#lmi\" target=\"_blank\" rel=\"noopener\">Lenders Mortgage Insurance (LMI)</a> &bull; Derived by HLF Pulse (CC BY 4.0) &bull; Checked: 23 November 2026. &bull; <a href=\"https://pulse-data.homeloanfactory.co.nz/kainga-ora-first-home-loan-regional/\" target=\"_blank\" rel=\"noopener\">Full Data Dictionary &amp; historical series (/kainga-ora-first-home-loan-regional/) &rarr;</a>"
     },
     "kainga-ora-second-chance-kiwisaver-approvals": {
       "chip": "K\u0101inga Ora Report",
