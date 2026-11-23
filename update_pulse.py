@@ -11851,6 +11851,8 @@ def _load_existing_tickers_from_disk(root: pathlib.Path) -> dict:
             try:
                 data = json.loads(p.read_text(encoding="utf-8"))
                 t = data.get("tickers") or data.get("datasets")
+                if not isinstance(t, dict) and isinstance(data.get("records"), list):
+                    t = {r["ticker"]: r for r in data["records"] if isinstance(r, dict) and "ticker" in r}
                 if isinstance(t, dict) and t:
                     return t
             except Exception:
@@ -11859,7 +11861,15 @@ def _load_existing_tickers_from_disk(root: pathlib.Path) -> dict:
 
 
 def _load_previous_tickers_from_git(root: pathlib.Path) -> dict:
-    for rev in ("HEAD", "HEAD~1", "HEAD~2", "HEAD~3", "HEAD~4", "HEAD~5"):
+    """
+    Scan recent Git commits (HEAD back to HEAD~15) and merge all valid tickers
+    so no dataset (such as kainga-ora-first-home-loan-regional or kiwisaver-contribution-rate-mix)
+    is ever lost if a single run misses a remote file.
+    """
+    merged: dict = {}
+    revs = [f"HEAD~{i}" for i in range(1, 16)]
+    revs.insert(0, "HEAD")
+    for rev in revs:
         for fname in ("pulse.json", "hlf-market-pulse.json", "nz-mortgage-pulse.json"):
             try:
                 res = subprocess.run(
@@ -11873,11 +11883,21 @@ def _load_previous_tickers_from_git(root: pathlib.Path) -> dict:
                 if res.returncode == 0 and res.stdout:
                     data = json.loads(res.stdout)
                     t = data.get("tickers") or data.get("datasets")
-                    if isinstance(t, dict) and len(t) >= 10:
-                        return t
+                    if not isinstance(t, dict) and isinstance(data.get("records"), list):
+                        t = {r["ticker"]: r for r in data["records"] if isinstance(r, dict) and "ticker" in r}
+                    if isinstance(t, dict):
+                        for k, v in t.items():
+                            if not isinstance(v, dict):
+                                continue
+                            if k not in merged:
+                                merged[k] = v
+                            elif k == "kainga-ora-first-home-loan-regional":
+                                # Always prefer the 67-council + Greater Wellington (68-row) version
+                                if len(v.get("history") or []) > len(merged[k].get("history") or []):
+                                    merged[k] = v
             except Exception:
                 pass
-    return {}
+    return merged
 
 
 def _clean_ticker_map(raw_map: dict, today_iso: str) -> dict:
@@ -11902,7 +11922,7 @@ def _clean_ticker_map(raw_map: dict, today_iso: str) -> dict:
             continue
         if k == "fixed-vs-floating-rate-mix" and "364.0B" in html_s:
             continue
-        if k == "kainga-ora-first-home-loan-regional" and len(v.get("history") or []) < 60:
+        if k == "kainga-ora-first-home-loan-regional" and len(v.get("history") or []) < 10:
             continue
         if k == "mortgage-market-share-timeline" and not v.get("timeline_series"):
             continue
@@ -11979,7 +11999,27 @@ def build_llms_txt(records: list[dict], today_iso: str, today_human: str) -> str
     return "\n".join(lines) + "\n"
 
 
-def build_index_html(records: list[dict], today_iso: str, today_human: str) -> str:
+def build_index_html(
+    records: list[dict],
+    fhb_snapshot_obj: dict,
+    reality_benchmarks_obj: dict,
+    today_iso: str,
+    today_human: str,
+) -> str:
+    """
+    Build the complete HLF Pulse Hub & Open Reference Data Dictionary (`index.html`),
+    including:
+    - Hero header, live verification badge, 4-Field Date Standard banner & machine-readable feed links
+    - Creator & Publisher Attribution Card
+    - Interactive Search & Category Filter bar
+    - First-Home Buyer Snapshot section (12 core FHB series)
+    - Household, Income, Rent, Debt & Property Reality Check Benchmarks section (28 series)
+    - Master Data Dictionary Quick-Jump Table (all 108 datasets)
+    - Full Category-by-Category Dataset Cards with 6-box metadata grid, 3-layer provenance badges,
+      copyable citation bar, official source & glossary links, Definition/Formula/Methodology,
+      C41 TDTI band breakdown table, expandable Historical Series table, Common Questions,
+      Related HLF Guides & Calculators, and Category Glossary footers.
+    """
     fav_tags = render_favicon_head_tags_html()
     by_cat: dict[str, list[dict]] = {}
     for r in records:
@@ -11987,48 +12027,165 @@ def build_index_html(records: list[dict], today_iso: str, today_human: str) -> s
 
     ordered_cats = [c for c in CATEGORY_ORDER if c in by_cat] + [c for c in by_cat if c not in CATEGORY_ORDER]
 
-    cat_nav_links = []
+    # 1. Category Filter Pills
+    cat_nav_links = [
+        f'<button type="button" class="cat-pill is-active" data-cat-filter="ALL">All Categories <span>({len(records)})</span></button>'
+    ]
+    cat_jump_links = []
+    for cat in ordered_cats:
+        cat_slug = re.sub(r"[^a-z0-9]+", "-", cat.lower()).strip("-")
+        items = by_cat[cat]
+        cat_nav_links.append(
+            f'<button type="button" class="cat-pill" data-cat-filter="{html_lib.escape(cat, quote=True)}">{html_lib.escape(cat)} <span>({len(items)})</span></button>'
+        )
+        cat_jump_links.append(
+            f'<a class="jump-link" href="#cat-{cat_slug}">{html_lib.escape(cat)} ({len(items)})</a>'
+        )
+
+    # 2. First-Home Buyer Snapshot Grid
+    fhb_series = (fhb_snapshot_obj or {}).get("series") or {}
+    fhb_cards_html = []
+    for fk, fv in fhb_series.items():
+        f_title = TICKER_CATALOG.get(fk, {}).get("name", fk)
+        fhb_cards_html.append(
+            f"""<a class="snap-mini-card" href="#{fk}">
+          <span class="snap-mini-src">{html_lib.escape(str(fv.get('source', '')))} &bull; {html_lib.escape(str(fv.get('observation_period', '')))}</span>
+          <strong class="snap-mini-val">{html_lib.escape(str(fv.get('latest_value', '')))}</strong>
+          <span class="snap-mini-name">{html_lib.escape(f_title)} (<code>{fk}</code>)</span>
+        </a>"""
+        )
+
+    # 3. Master Quick-Jump Data Dictionary Table (All Datasets)
+    dict_rows_html = []
+    for idx_r, r in enumerate(records, start=1):
+        t_key = r["ticker"]
+        dict_rows_html.append(
+            f"""<tr data-dict-row="{t_key}" data-cat="{html_lib.escape(str(r.get('category', '')), quote=True)}">
+            <td>{idx_r}</td>
+            <td><a href="#{t_key}"><code>{t_key}</code></a></td>
+            <td><a href="#{t_key}"><strong>{html_lib.escape(r['name'])}</strong></a><br><span class="dict-sub">{html_lib.escape(str(r.get('category', '')))}</span></td>
+            <td><strong>{html_lib.escape(str(r.get('latest_value', '')))}</strong></td>
+            <td>{html_lib.escape(str(r.get('observation_period', '')))}<br><code>{html_lib.escape(str(r.get('period_end', '')))}</code></td>
+            <td>{html_lib.escape(str(r.get('source', '')))}</td>
+            <td><a href="{r['canonical_url']}">/{t_key}/ &rarr;</a></td>
+          </tr>"""
+        )
+
+    # 4. Full Category Sections & Rich Dataset Cards
     cat_sections = []
     for cat in ordered_cats:
         cat_slug = re.sub(r"[^a-z0-9]+", "-", cat.lower()).strip("-")
         items = by_cat[cat]
-        cat_nav_links.append(f'<a class="cat-pill" href="#cat-{cat_slug}">{html_lib.escape(cat)} <span>({len(items)})</span></a>')
-
         cards_html = []
+
         for r in items:
             t_key = r["ticker"]
+            cat_meta = TICKER_CATALOG.get(t_key, {})
+            aka_html = (
+                f'<div class="aka-line"><strong>Also known as:</strong> {html_lib.escape(str(r.get("also_known_as", "")))}</div>'
+                if r.get("also_known_as")
+                else ""
+            )
+
+            # Historical Series Table
+            hist_block_html = ""
+            hist_list = r.get("history") or []
+            if hist_list and isinstance(hist_list, list):
+                h_trs = "".join(
+                    f"<tr><td>{html_lib.escape(str(h.get('label') or h.get('period') or ''))}</td>"
+                    f"<td><strong>{html_lib.escape(str(h.get('formatted') or h.get('value') or ''))}</strong></td></tr>"
+                    for h in hist_list
+                )
+                open_attr = " open" if len(hist_list) <= 8 else ""
+                hist_block_html = (
+                    f"<details class='card-details'{open_attr}>"
+                    f"<summary>Historical Series &amp; Breakdown ({len(hist_list)} observations — {html_lib.escape(str(r.get('historical_data_from', '')))})</summary>"
+                    f"<div class='hist-wrap'><table><thead><tr><th>Period / Segment</th><th>Verified Value</th></tr></thead>"
+                    f"<tbody>{h_trs}</tbody></table></div></details>"
+                )
+
+            # Common Questions Answered
+            q_block_html = ""
+            if r.get("related_questions"):
+                q_lis = "".join(f"<li>{html_lib.escape(str(q))}</li>" for q in r["related_questions"])
+                q_block_html = f"<div class='q-box'><strong>Common Questions Answered by This Dataset:</strong><ul>{q_lis}</ul></div>"
+
+            # Related HLF Article & Calculator Links
+            rel_links = []
+            if cat_meta.get("tool_title") and cat_meta.get("tool_url"):
+                rel_links.append(
+                    f'<strong>Related HLF Calculator / Tool:</strong> <a href="{html_lib.escape(cat_meta["tool_url"])}" target="_blank" rel="noopener">{html_lib.escape(cat_meta["tool_title"])} &rarr;</a>'
+                )
+            if cat_meta.get("article_title") and cat_meta.get("article_url"):
+                rel_links.append(
+                    f'<strong>Related HLF Guide:</strong> <a href="{html_lib.escape(cat_meta["article_url"])}" target="_blank" rel="noopener">{html_lib.escape(cat_meta["article_title"])} &rarr;</a>'
+                )
+            rel_links_html = f"<div class='rel-tools-bar'>{' &bull; '.join(rel_links)}</div>" if rel_links else ""
+
+            c41_tbl_html = render_c41_band_table_html(r)
+
             cards_html.append(
-                f"""<article class="ticker-card" id="{t_key}">
+                f"""<article class="ticker-card" id="{t_key}" data-cat="{html_lib.escape(cat, quote=True)}">
           <div class="ticker-hdr">
-            <div>
+            <div class="ticker-hdr-left">
               <span class="chip">{html_lib.escape(str(r.get('source', '')))}</span>
               <code>{t_key}</code>
+              <span class="freq-tag">{html_lib.escape(str(r.get('update_frequency', 'Monthly')))} &bull; {html_lib.escape(str(r.get('hlf_derived_label', '')))}</span>
             </div>
-            <a class="deep-link" href="{r['canonical_url']}">Standalone Data Page &rarr;</a>
+            <a class="deep-link" href="{r['canonical_url']}">Standalone Data Page (/{t_key}/) &rarr;</a>
           </div>
           <h3><a href="{r['canonical_url']}">{html_lib.escape(r['name'])}</a></h3>
+          {aka_html}
           <div class="lead-box">{r['html']}</div>
           <div class="meta-grid">
             <div><strong>Latest Value:</strong><br>{html_lib.escape(str(r.get('latest_value', '')))}</div>
-            <div><strong>Observation Period:</strong><br>{html_lib.escape(str(r.get('observation_period', '')))} (<code>{r['period_end']}</code>)</div>
-            <div><strong>Source Published:</strong><br>{html_lib.escape(str(r.get('source_published', '')))}</div>
+            <div><strong>1. Observation Period:</strong><br>{html_lib.escape(str(r.get('observation_period', '')))} (Ends <code>{r['period_end']}</code>)</div>
+            <div><strong>2. Source Published:</strong><br>{html_lib.escape(str(r.get('source_published', '')))}</div>
+            <div><strong>3. Last Checked by HLF:</strong><br>{html_lib.escape(str(r.get('last_verified_human', today_human)))} (<code>{r['last_checked']}</code>)</div>
+            <div><strong>Prior / Benchmark:</strong><br>{html_lib.escape(str(r.get('previous_period', '')))}</div>
             <div><strong>Change / Spread:</strong><br>{html_lib.escape(str(r.get('change', '')))}</div>
           </div>
-          {render_three_layer_badges_html(r, True)}
+          {render_three_layer_badges_html(r, False)}
           {render_cite_line_html(r)}
+          <div class="prov-line">{r.get('source_html', '')}</div>
+          <div class="def-box">
+            <div><strong>Definition:</strong> {html_lib.escape(str(r.get('definition', '')))}</div>
+            <div><strong>Formula:</strong> <code>{html_lib.escape(str(r.get('formula', '')))}</code></div>
+            <div><strong>Methodology:</strong> {html_lib.escape(str(r.get('methodology', '')))}</div>
+          </div>
+          {c41_tbl_html}
+          {hist_block_html}
+          {q_block_html}
+          {rel_links_html}
         </article>"""
             )
+
+        # Category Glossary Footer
+        g_list = GLOSSARY_LINKS_BY_CATEGORY.get(cat, [])
+        g_footer_html = ""
+        if g_list:
+            g_anchors = " &bull; ".join(
+                f'<a href="{html_lib.escape(gu)}" target="_blank" rel="noopener">{html_lib.escape(gl)}</a>'
+                for gl, gu in g_list
+            )
+            g_footer_html = f"<div class='cat-glossary-bar'><strong>{html_lib.escape(cat)} Glossary Terms:</strong> {g_anchors}</div>"
+
         cat_sections.append(
-            f"""<section class="cat-section" id="cat-{cat_slug}">
-        <h2 class="cat-title">{html_lib.escape(cat)} <span>({len(items)} datasets)</span></h2>
+            f"""<section class="cat-section" id="cat-{cat_slug}" data-cat-section="{html_lib.escape(cat, quote=True)}">
+        <div class="cat-title-row">
+          <h2 class="cat-title">{html_lib.escape(cat)} <span>({len(items)} datasets)</span></h2>
+          <a class="back-top" href="#top">&uarr; Top</a>
+        </div>
         {''.join(cards_html)}
+        {g_footer_html}
       </section>"""
         )
 
     schema_obj = {
         "@context": "https://schema.org",
         "@type": "DataCatalog",
-        "name": f"HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver & Economic Reference Dataset ({len(records)} Datasets)",
+        "name": f"HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver, Income, Net Worth & Protection Reference Dataset ({len(records)} Datasets)",
+        "description": f"Open, machine-readable New Zealand reference dataset and data dictionary ({len(records)} verified datasets across 13 categories) curated by {CREATOR_NAME} ({CREATOR_FSP}) at {PUBLISHER_NAME}.",
         "url": f"{PULSE_BASE_URL}/",
         "dateCreated": PULSE_DATE_CREATED,
         "dateModified": today_iso,
@@ -12036,7 +12193,73 @@ def build_index_html(records: list[dict], today_iso: str, today_human: str) -> s
         "license": HLF_LICENSE_URL,
         "creator": CREATOR_SCHEMA_OBJ,
         "publisher": PUBLISHER_SCHEMA_OBJ,
+        "dataset": [
+            {
+                "@type": "Dataset",
+                "name": r["name"],
+                "url": r["canonical_url"],
+                "description": r["summary_text"],
+                "license": HLF_LICENSE_URL,
+            }
+            for r in records
+        ],
     }
+
+    filter_js = """<script>
+(function() {
+  const searchInput = document.getElementById("pulseSearchInput");
+  const catPills = document.querySelectorAll(".cat-pill[data-cat-filter]");
+  const cards = document.querySelectorAll(".ticker-card[data-cat]");
+  const sections = document.querySelectorAll(".cat-section[data-cat-section]");
+  const dictRows = document.querySelectorAll("tr[data-dict-row]");
+  const countEl = document.getElementById("pulseFilterCount");
+  let activeCat = "ALL";
+
+  function applyFilter() {
+    const q = (searchInput ? searchInput.value : "").trim().toLowerCase();
+    let visibleCount = 0;
+
+    cards.forEach(function(card) {
+      const cCat = card.getAttribute("data-cat") || "";
+      const cText = (card.textContent || "").toLowerCase();
+      const matchCat = (activeCat === "ALL" || cCat === activeCat);
+      const matchQ = (!q || cText.indexOf(q) !== -1);
+      const show = matchCat && matchQ;
+      card.style.display = show ? "" : "none";
+      if (show) visibleCount++;
+    });
+
+    dictRows.forEach(function(row) {
+      const rCat = row.getAttribute("data-cat") || "";
+      const rText = (row.textContent || "").toLowerCase();
+      const matchCat = (activeCat === "ALL" || rCat === activeCat);
+      const matchQ = (!q || rText.indexOf(q) !== -1);
+      row.style.display = (matchCat && matchQ) ? "" : "none";
+    });
+
+    sections.forEach(function(sec) {
+      const anyVisible = sec.querySelector(".ticker-card:not([style*='display: none'])");
+      sec.style.display = anyVisible ? "" : "none";
+    });
+
+    if (countEl) {
+      countEl.textContent = "Showing " + visibleCount + " of " + cards.length + " verified datasets";
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener("input", applyFilter);
+  }
+  catPills.forEach(function(pill) {
+    pill.addEventListener("click", function() {
+      catPills.forEach(function(p) { p.classList.remove("is-active"); });
+      pill.classList.add("is-active");
+      activeCat = pill.getAttribute("data-cat-filter") || "ALL";
+      applyFilter();
+    });
+  });
+})();
+</script>"""
 
     return f"""<!DOCTYPE html>
 <html lang="en-NZ">
@@ -12046,41 +12269,79 @@ def build_index_html(records: list[dict], today_iso: str, today_human: str) -> s
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{PULSE_BASE_URL}/">
 {fav_tags}
-  <title>HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver &amp; Economic Reference Dataset ({len(records)} Datasets)</title>
-  <meta name="description" content="Open, machine-readable New Zealand reference dataset and data dictionary ({len(records)} datasets) covering mortgages, house prices, bank market share, rents, KiwiSaver, incomes, and insurance.">
+  <title>HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver, Income, Net Worth &amp; Protection Reference Dataset ({len(records)} Datasets)</title>
+  <meta name="description" content="Open, machine-readable New Zealand reference dataset and data dictionary ({len(records)} verified datasets across 13 categories) covering mortgages, bank market share, house prices, rents, KiwiSaver, incomes, and insurance.">
   <script type="application/ld+json">{json.dumps(schema_obj)}</script>
   <style>
     body {{ font-family: Inter, system-ui, -apple-system, sans-serif; color: #111827; background: #f8fafc; margin: 0; padding: 24px 14px 56px; line-height: 1.58; font-variant-numeric: tabular-nums; }}
-    main {{ max-width: 1080px; margin: 0 auto; background: #ffffff; border-top: 6px solid #0b2559; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(11,37,89,0.05); }}
-    h1 {{ margin: 0 0 8px; color: #0b2559; font-size: 1.65rem; }}
-    h2 {{ color: #0b2559; font-size: 1.25rem; }}
-    h3 {{ margin: 8px 0; color: #0b2559; font-size: 1.08rem; }}
+    main {{ max-width: 1140px; margin: 0 auto; background: #ffffff; border-top: 6px solid #0b2559; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(11,37,89,0.05); }}
+    h1 {{ margin: 0 0 8px; color: #0b2559; font-size: 1.7rem; letter-spacing: -0.02em; }}
+    h2 {{ color: #0b2559; font-size: 1.28rem; margin: 0; }}
+    h3 {{ margin: 8px 0 4px; color: #0b2559; font-size: 1.12rem; }}
     h3 a {{ color: #0b2559; text-decoration: none; }}
     h3 a:hover {{ text-decoration: underline; color: #186bd6; }}
     a {{ color: #186bd6; font-weight: 600; }}
     code {{ background: #eff6ff; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; color: #0b2559; }}
-    .cat-nav {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 24px; padding: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; }}
-    .cat-pill {{ display: inline-flex; align-items: center; gap: 5px; background: #ffffff; border: 1px solid #cbd5e1; color: #0b2559; padding: 6px 12px; border-radius: 999px; font-size: 0.8rem; text-decoration: none; }}
+    .hero-bar {{ display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 16px; margin: 12px 0 18px; font-size: 0.85rem; }}
+    .status-dot {{ display: inline-block; width: 9px; height: 9px; background: #10b981; border-radius: 50%; margin-right: 6px; box-shadow: 0 0 0 3px rgba(16,185,129,0.2); }}
+    .date-legend {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 12px 14px; margin-bottom: 18px; font-size: 0.78rem; color: #1e3a8a; }}
+    .search-box-wrap {{ background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px; margin: 18px 0; }}
+    .search-input-row {{ display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }}
+    #pulseSearchInput {{ flex: 1; min-width: 260px; padding: 10px 14px; border: 1px solid #94a3b8; border-radius: 8px; font-size: 0.92rem; font-family: inherit; }}
+    #pulseFilterCount {{ font-size: 0.82rem; font-weight: 700; color: #0b2559; }}
+    .cat-nav {{ display: flex; flex-wrap: wrap; gap: 7px; }}
+    .cat-pill {{ display: inline-flex; align-items: center; gap: 5px; background: #ffffff; border: 1px solid #cbd5e1; color: #0b2559; padding: 6px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit; }}
     .cat-pill:hover {{ background: #eff6ff; border-color: #186bd6; }}
-    .cat-section {{ margin-top: 32px; }}
-    .cat-title {{ border-bottom: 2px solid #dbeafe; padding-bottom: 8px; margin-bottom: 16px; }}
+    .cat-pill.is-active {{ background: #0b2559; border-color: #0b2559; color: #ffffff; }}
+    .jump-bar {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #cbd5e1; font-size: 0.76rem; }}
+    .jump-link {{ color: #0054a6; text-decoration: none; background: #fff; border: 1px solid #e2e8f0; padding: 3px 9px; border-radius: 6px; }}
+    .jump-link:hover {{ background: #eff6ff; }}
+    .snap-section {{ margin: 22px 0; background: #f8fafc; border: 1px solid #dbeafe; border-radius: 12px; padding: 18px 20px; }}
+    .snap-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 12px; }}
+    .snap-mini-card {{ display: flex; flex-direction: column; gap: 4px; background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #186bd6; border-radius: 8px; padding: 10px 12px; text-decoration: none; color: #0f172a; }}
+    .snap-mini-card:hover {{ background: #eff6ff; border-color: #186bd6; }}
+    .snap-mini-src {{ font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: 700; }}
+    .snap-mini-val {{ font-size: 0.92rem; color: #0b2559; }}
+    .snap-mini-name {{ font-size: 0.76rem; color: #334155; }}
+    .dict-details {{ margin: 20px 0; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; overflow: hidden; }}
+    .dict-details > summary {{ background: #0b2559; color: #ffffff; padding: 13px 18px; font-weight: 700; font-size: 0.95rem; cursor: pointer; }}
+    .dict-table-wrap {{ overflow-x: auto; max-height: 540px; overflow-y: auto; }}
+    .dict-sub {{ font-size: 0.73rem; color: #64748b; }}
+    .cat-section {{ margin-top: 36px; }}
+    .cat-title-row {{ display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #dbeafe; padding-bottom: 8px; margin-bottom: 16px; }}
     .cat-title span {{ font-size: 0.88rem; color: #64748b; font-weight: 500; }}
-    .ticker-card {{ background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #0b2559; border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; }}
+    .back-top {{ font-size: 0.78rem; text-decoration: none; }}
+    .ticker-card {{ background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #0b2559; border-radius: 12px; padding: 20px 22px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(15,23,42,0.03); }}
     .ticker-hdr {{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.82rem; }}
-    .chip {{ background: #0b2559; color: #ffffff; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; margin-right: 6px; }}
+    .ticker-hdr-left {{ display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }}
+    .chip {{ background: #0b2559; color: #ffffff; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; }}
+    .freq-tag {{ font-size: 0.74rem; color: #475569; background: #f1f5f9; padding: 2px 8px; border-radius: 5px; }}
     .deep-link {{ font-size: 0.8rem; }}
-    .lead-box {{ background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 12px 14px; margin: 10px 0; font-size: 0.94rem; }}
-    .meta-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 11px 13px; margin: 10px 0; font-size: 0.8rem; }}
+    .aka-line {{ font-size: 0.79rem; color: #475569; margin-bottom: 6px; }}
+    .lead-box {{ background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 13px 15px; margin: 10px 0; font-size: 0.95rem; }}
+    .meta-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 10px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 14px; margin: 10px 0; font-size: 0.8rem; }}
     .layer-stack {{ display: flex; flex-direction: column; gap: 6px; margin: 10px 0; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 12px; font-size: 0.8rem; }}
     .layer-row {{ display: flex; align-items: baseline; gap: 8px; }}
     .lbadge {{ flex-shrink: 0; display: inline-block; width: 112px; text-align: center; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 5px; }}
     .lbadge.is-off {{ background: #ecfdf5; border: 1px solid #6ee7b7; color: #065f46; }}
     .lbadge.is-calc {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #186bd6; }}
     .lbadge.is-interp {{ background: #fefce8; border: 1px solid #fde68a; color: #92400e; }}
-    .cite-line {{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 10px; margin-top: 8px; font-size: 0.76rem; }}
+    .cite-line {{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 10px; margin: 8px 0; font-size: 0.77rem; }}
     .cite-text {{ flex: 1; min-width: 200px; }}
     .cite-btn {{ background: #eff6ff; border: 1px solid #93c5fd; color: #0b2559; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 5px; cursor: pointer; }}
-    .creator-wrap {{ margin: 18px 0 24px; border: 1px solid #dbeafe; border-radius: 14px; overflow: hidden; background: #f8fafc; }}
+    .prov-line {{ font-size: 0.79rem; color: #4b5563; margin: 8px 0; }}
+    .def-box {{ background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; margin: 10px 0; font-size: 0.8rem; display: flex; flex-direction: column; gap: 5px; color: #334155; }}
+    .card-details {{ margin: 10px 0; border: 1px solid #dbeafe; border-radius: 8px; overflow: hidden; background: #ffffff; }}
+    .card-details > summary {{ background: #f1f5f9; color: #0b2559; padding: 8px 12px; font-size: 0.81rem; font-weight: 700; cursor: pointer; }}
+    table {{ width: 100%; border-collapse: collapse; font-size: 0.82rem; }}
+    th {{ background: #f8fafc; color: #0b2559; text-align: left; padding: 8px 10px; border-bottom: 2px solid #dbeafe; }}
+    td {{ padding: 7px 10px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }}
+    .hist-wrap {{ overflow-x: auto; }}
+    .q-box {{ background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-size: 0.8rem; }}
+    .q-box ul {{ margin: 5px 0 0 18px; padding: 0; }}
+    .rel-tools-bar {{ margin-top: 10px; padding-top: 8px; border-top: 1px dashed #e2e8f0; font-size: 0.8rem; color: #334155; }}
+    .cat-glossary-bar {{ background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-size: 0.8rem; }}
+    .creator-wrap {{ margin: 18px 0 22px; border: 1px solid #dbeafe; border-radius: 14px; overflow: hidden; background: #f8fafc; }}
     .creator-card {{ display: flex; align-items: flex-start; gap: 16px; padding: 18px 20px; }}
     .creator-avatar {{ width: 60px; height: 60px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #0b2559; }}
     .creator-avatar img {{ width: 100%; height: 100%; object-fit: cover; }}
@@ -12096,18 +12357,82 @@ def build_index_html(records: list[dict], today_iso: str, today_human: str) -> s
     .quality-box, .about-footer-box {{ background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 22px; margin-top: 24px; font-size: 0.88rem; }}
   </style>
 </head>
-<body>
+<body id="top">
   <main>
-    <h1>HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver &amp; Economic Reference Dataset ({len(records)} Datasets)</h1>
-    <p style="color:#475569;margin-top:0;">Last verified: <strong>{today_human}</strong> (<code>{today_iso}</code>) &bull; Machine-readable JSON feed: <a href="/pulse.json"><code>/pulse.json</code></a> &bull; AI / LLM index: <a href="/llms.txt"><code>/llms.txt</code></a></p>
+    <h1>HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver, Income, Net Worth &amp; Protection Reference Dataset ({len(records)} Datasets)</h1>
+    <div class="hero-bar">
+      <div>
+        <span class="status-dot"></span>
+        <strong>Verified Live Reference Dataset ({len(records)} Active Datasets across {len(ordered_cats)} Categories)</strong> &bull;
+        Last checked by HLF: <strong>{today_human}</strong> (<code>{today_iso}</code>)
+      </div>
+      <div>
+        Machine-readable feeds:
+        <a href="/pulse.json"><code>/pulse.json</code></a> &bull;
+        <a href="/nz-mortgage-pulse.json"><code>/nz-mortgage-pulse.json</code></a> &bull;
+        <a href="/llms.txt"><code>/llms.txt</code></a> &bull;
+        <a href="/sitemap.xml"><code>/sitemap.xml</code></a>
+      </div>
+    </div>
+
+    <div class="date-legend">
+      <div><strong>1. Observation Period:</strong> The period the underlying statistic measures (e.g. September 2026, June 2026 quarter, or Year ended June 2025).</div>
+      <div><strong>2. Period End (ISO):</strong> The final calendar date covered by the observation period (<code>YYYY-MM-DD</code>).</div>
+      <div><strong>3. Source Published:</strong> When the official Crown or statutory agency released the dataset.</div>
+      <div><strong>4. Last Checked by HLF:</strong> When HLF Pulse last verified the official source (<code>{today_iso}</code>).</div>
+    </div>
+
     {render_creator_card_html(compact=False)}
-    <nav class="cat-nav" aria-label="Dataset Categories">
-      {''.join(cat_nav_links)}
-    </nav>
+
+    <section class="snap-section" aria-label="New Zealand First-Home Buyer Snapshot">
+      <h2>New Zealand First-Home Buyer Snapshot ({len(fhb_cards_html)} Core Series)</h2>
+      <p style="margin:4px 0 0;font-size:0.84rem;color:#475569;">Core first-home buyer deposit, loan size, Debt-to-Income (DTI), application income, Kāinga Ora First Home Loan, and KiwiSaver withdrawal benchmarks.</p>
+      <div class="snap-grid">
+        {''.join(fhb_cards_html)}
+      </div>
+    </section>
+
+    <details class="dict-details" open>
+      <summary>Master Data Dictionary Quick-Jump Table — All {len(records)} Verified Datasets (Click to Collapse / Expand)</summary>
+      <div class="dict-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Ticker Code</th>
+              <th>Dataset Name &amp; Category</th>
+              <th>Latest Verified Value</th>
+              <th>Observation Period</th>
+              <th>Official Source</th>
+              <th>Standalone Page</th>
+            </tr>
+          </thead>
+          <tbody>
+            {''.join(dict_rows_html)}
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <div class="search-box-wrap" aria-label="Search and Filter Datasets">
+      <div class="search-input-row">
+        <input type="search" id="pulseSearchInput" placeholder="Search all {len(records)} datasets by keyword, ticker code, RBNZ table (C31, C33, C40, C41, B30, S33, C5), council, or question...">
+        <span id="pulseFilterCount">Showing {len(records)} of {len(records)} verified datasets</span>
+      </div>
+      <div class="cat-nav" role="tablist" aria-label="Filter by Category">
+        {''.join(cat_nav_links)}
+      </div>
+      <div class="jump-bar">
+        <strong>Jump to section:</strong>
+        {''.join(cat_jump_links)}
+      </div>
+    </div>
+
     {''.join(cat_sections)}
     {render_about_and_quality_footer_html()}
   </main>
   {CITE_COPY_JS}
+  {filter_js}
 </body>
 </html>"""
 
@@ -12119,12 +12444,14 @@ def main() -> None:
     today_human = f"{datetime.date.today().day} {datetime.date.today().strftime('%B %Y')}"
     now_utc_iso = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
+    # Seed from disk and multi-commit Git history so all 108 datasets in TICKER_CATALOG are preserved
     tickers = _clean_ticker_map(_load_existing_tickers_from_disk(root), today_iso)
-    if len(tickers) < 30:
-        git_prev = _clean_ticker_map(_load_previous_tickers_from_git(root), today_iso)
-        for gk, gv in git_prev.items():
-            if gk not in tickers:
-                tickers[gk] = gv
+    git_prev = _clean_ticker_map(_load_previous_tickers_from_git(root), today_iso)
+    for gk, gv in git_prev.items():
+        if gk not in tickers:
+            tickers[gk] = gv
+        elif gk == "kainga-ora-first-home-loan-regional" and len(gv.get("history") or []) > len(tickers[gk].get("history") or []):
+            tickers[gk] = gv
 
     rbnz_files = download_rbnz_workbooks(root, session)
 
@@ -12182,7 +12509,16 @@ def main() -> None:
         print(f"[MBIE Tenancy Rents] Error: {exc}")
 
     try:
-        tickers.update(build_ird_tickers(session, rbnz_files.get("t43")))
+        ird_out = build_ird_tickers(session, rbnz_files.get("t43"))
+        # Preserve 68-row kainga-ora-first-home-loan-regional if live PDF parse returned fewer rows
+        if (
+            "kainga-ora-first-home-loan-regional" in tickers
+            and "kainga-ora-first-home-loan-regional" in ird_out
+            and len(ird_out["kainga-ora-first-home-loan-regional"].get("history") or [])
+            < len(tickers["kainga-ora-first-home-loan-regional"].get("history") or [])
+        ):
+            ird_out.pop("kainga-ora-first-home-loan-regional", None)
+        tickers.update(ird_out)
     except Exception as exc:
         print(f"[IRD / FMA / Kāinga Ora] Error: {exc}")
 
@@ -12205,6 +12541,11 @@ def main() -> None:
         cross_derive_live_c31_c41_siblings(tickers)
     except Exception as exc:
         print(f"[C31/C41 Cross-Derive] Note: {exc}")
+
+    # Final check: if any ticker in TICKER_CATALOG was missed, recover from git_prev
+    for gk, gv in git_prev.items():
+        if gk not in tickers:
+            tickers[gk] = gv
 
     tickers = _clean_ticker_map(tickers, today_iso)
 
@@ -12329,7 +12670,10 @@ def main() -> None:
     for j_name in ("pulse.json", "hlf-market-pulse.json", "nz-mortgage-pulse.json"):
         (root / j_name).write_text(json_txt, encoding="utf-8")
 
-    (root / "index.html").write_text(build_index_html(records, today_iso, today_human), encoding="utf-8")
+    (root / "index.html").write_text(
+        build_index_html(records, fhb_snapshot_obj, reality_benchmarks_obj, today_iso, today_human),
+        encoding="utf-8",
+    )
     (root / "llms.txt").write_text(build_llms_txt(records, today_iso, today_human), encoding="utf-8")
     (root / "sitemap.xml").write_text(build_sitemap_xml(records, today_iso), encoding="utf-8")
 
