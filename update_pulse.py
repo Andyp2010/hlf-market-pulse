@@ -3747,6 +3747,26 @@ for _rk, _short_u, _long_u in (
         "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b30/b30-new-residential-mortgage-weighted-average-interest-rates.xlsx",
     ),
     (
+        "c12",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c12/hc12-daily-average-balances.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/c/c12/hc12-month-end.xlsx",
+    ),
+    (
+        "s32",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s32/hs32.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/s/s32/hs32.xlsx",
+    ),
+    (
+        "s33",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s33/hs33-long-run.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s33/hs33.xlsx",
+    ),
+    (
+        "s50",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s50/hs50-long-run.xlsx",
+        "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/l-s/s50/hs50.xlsx",
+    ),
+    (
         "j10",
         "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/hj10.xlsx",
         "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/j/j10/j10-insurance-income-and-expenditure.xlsx",
@@ -3765,6 +3785,7 @@ if "RBNZ_SOURCES" in globals():
     RBNZ_SOURCES["bank_dashboard"] = {
         "pages": [
             "https://bankdashboard.rbnz.govt.nz/summary",
+            "https://www.rbnz.govt.nz/financial-stability/bank-financial-strength-dashboard",
             "https://www.rbnz.govt.nz/have-your-say/bank-financial-strength-dashboard",
         ],
         "xlsx": "https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx",
@@ -3889,7 +3910,7 @@ if "TICKER_CATALOG" in globals():
             "topic": "Bank-by-bank existing residential mortgage loan book balances, market share & net lending growth",
             "source": "RBNZ Bank Financial Strength Dashboard",
             "source_full": "Reserve Bank of New Zealand — Bank Financial Strength Dashboard (Quarterly Registered Bank Disclosure Statements)",
-            "series_ids": "DBB.QIC20.P1 — Existing Residential Mortgages Loan Book ($m) & DBB.QIA10.T / Total Gross Loans ($m) by Registered Bank",
+            "series_ids": "DBB.QIC20.P1 — Existing Residential Mortgages Loan Book ($m) & Total Gross Loans ($m) by Registered Bank",
             "source_url": "https://bankdashboard.rbnz.govt.nz/summary",
             "data_type": "Officially reported RBNZ bank-level existing residential mortgage balances ($m) & HLF-derived market share (%) and net lending flow ($m)",
             "derived_by_hlf": True,
@@ -3952,7 +3973,7 @@ if "TICKER_CATALOG" in globals():
             "definition": "The percentage of each New Zealand registered bank's total on-balance-sheet gross loan book that consists of residential mortgages versus non-housing loans (business, commercial property, agricultural/rural, and personal consumer lending).",
             "methodology": "Derived live from the RBNZ Bank Financial Strength Dashboard workbook by dividing each bank's existing residential mortgage balance (DBB.QIC20.P1) by its total gross loans and advances balance (sum of all loan asset quality categories or total gross loans).",
             "hlf_calculation": "Bank Housing Share of Total Loans (%) = (Bank Residential Mortgage Book [$m] ÷ Bank Total Gross Loan Book [$m]) × 100",
-            "hlf_interpretation": "HLF market context: Shows how heavily each registered bank specialises in residential home lending versus commercial and agricultural lending. Domestic challenger banks (such as TSB, The Co-operative Bank, Kiwibank, and SBS Bank) typically hold 80% to 95%+ of their loan books in residential mortgages, whereas the Big 4 banks balance residential mortgages (~60% to 75% of their books) alongside corporate, commercial, and rural lending.",
+            "hlf_interpretation": "HLF market context: Shows how heavily each registered bank specialises in residential home lending versus commercial and agricultural lending.",
             "questions": [
                 "What percentage of New Zealand bank lending is residential mortgages versus business and rural loans?",
                 "Which New Zealand banks have the highest proportion of residential mortgages on their balance sheets?",
@@ -3965,10 +3986,14 @@ if "TICKER_CATALOG" in globals():
     })
 
 
-def _wait_for_cf_clearance_page(page, url: str, wait_ms: int = 2500) -> str:
-    """Navigate to `url` and poll until any Cloudflare / Incapsula challenge page clears."""
+def _wait_for_cf_clearance_page(page, url: str, wait_ms: int = 2500, use_networkidle: bool = False) -> str:
+    """Navigate to `url` and poll until any Cloudflare / Incapsula challenge page clears and SPA content renders."""
     try:
-        page.goto(url, wait_until="domcontentloaded", timeout=40000)
+        wait_mode = "networkidle" if use_networkidle else "domcontentloaded"
+        try:
+            page.goto(url, wait_until=wait_mode, timeout=45000)
+        except Exception:
+            page.goto(url, wait_until="domcontentloaded", timeout=45000)
         for _ in range(6):
             page.wait_for_timeout(wait_ms)
             html_s = page.content() or ""
@@ -3987,8 +4012,8 @@ def _wait_for_cf_clearance_page(page, url: str, wait_ms: int = 2500) -> str:
 def _same_origin_fetch_binary(ctx, page, url: str, referer_page: str, min_bytes: int = 4000) -> bytes:
     """
     Fetch binary bytes (.xlsx) inside an active browser context while ensuring `page`
-    is on the exact same origin as `url` (preventing cross-subdomain CORS blocks between
-    `www.rbnz.govt.nz` and `bankdashboard.rbnz.govt.nz`).
+    is on the exact same origin as `url`. Uses native `FileReader.readAsDataURL(blob)`
+    so multi-megabyte workbooks never overflow the V8 call stack.
     """
     target_origin = "https://bankdashboard.rbnz.govt.nz" if "bankdashboard.rbnz.govt.nz" in url else "https://www.rbnz.govt.nz"
     eff_referer = referer_page or (
@@ -4004,7 +4029,12 @@ def _same_origin_fetch_binary(ctx, page, url: str, referer_page: str, min_bytes:
         cur_url = ""
 
     if not cur_url.startswith(target_origin):
-        _wait_for_cf_clearance_page(page, eff_referer, wait_ms=2500)
+        _wait_for_cf_clearance_page(
+            page,
+            eff_referer,
+            wait_ms=2800,
+            use_networkidle=("bankdashboard.rbnz.govt.nz" in eff_referer),
+        )
 
     try:
         b64_data = page.evaluate(
@@ -4012,14 +4042,17 @@ def _same_origin_fetch_binary(ctx, page, url: str, referer_page: str, min_bytes:
                 try {
                     const r = await fetch(u, {credentials: 'include'});
                     if (!r.ok) return '';
-                    const buf = await r.arrayBuffer();
-                    let binary = '';
-                    const bytes = new Uint8Array(buf);
-                    const chunk = 0x8000;
-                    for (let i = 0; i < bytes.length; i += chunk) {
-                        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
-                    }
-                    return btoa(binary);
+                    const blob = await r.blob();
+                    return await new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                            const res = String(reader.result || '');
+                            const commaIdx = res.indexOf(',');
+                            resolve(commaIdx >= 0 ? res.slice(commaIdx + 1) : '');
+                        };
+                        reader.onerror = () => resolve('');
+                        reader.readAsDataURL(blob);
+                    });
                 } catch (e) {
                     return '';
                 }
@@ -4045,12 +4078,173 @@ def _same_origin_fetch_binary(ctx, page, url: str, referer_page: str, min_bytes:
     return b""
 
 
+def _download_bank_dashboard_in_context(ctx, page, root: pathlib.Path, found: dict, tag: str) -> pathlib.Path | None:
+    """
+    Download `Bank-Financial-Strength-Dashboard-Data.xlsx` inside an active browser context
+    using network response sniffing, SPA `networkidle` DOM inspection, `FileReader` fetch,
+    and interactive button-click `expect_download`.
+    """
+    if "bank_dashboard" in found and found["bank_dashboard"].exists():
+        return found["bank_dashboard"]
+
+    dash_url = "https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx"
+    dash_ref = "https://bankdashboard.rbnz.govt.nz/summary"
+    captured_xlsx: list[bytes] = []
+
+    def _on_response(resp):
+        try:
+            r_url = (resp.url or "").lower()
+            c_type = (resp.headers.get("content-type") or "").lower()
+            if resp.status == 200 and (
+                ".xlsx" in r_url
+                or "spreadsheet" in c_type
+                or "excel" in c_type
+                or ("datafiles" in r_url and "dashboard" in r_url)
+            ):
+                b = resp.body()
+                if b and len(b) >= 15_000 and b[:2] == b"PK":
+                    captured_xlsx.append(b)
+        except Exception:
+            pass
+
+    page.on("response", _on_response)
+    try:
+        _wait_for_cf_clearance_page(page, dash_ref, wait_ms=3200, use_networkidle=True)
+        try:
+            print(f"[RBNZ Bank Dashboard Diag {tag}] Loaded url={page.url} | title={page.title()}")
+        except Exception:
+            pass
+
+        if captured_xlsx:
+            out_p = root / "tmp_bank_dashboard.xlsx"
+            out_p.write_bytes(captured_xlsx[0])
+            found["bank_dashboard"] = out_p
+            print(f"[RBNZ Bank Dashboard {tag}] Captured live workbook via network listener ({len(captured_xlsx[0]):,} bytes)")
+            return out_p
+
+        # 1. Inspect all rendered links in the SPA DOM
+        dom_links = []
+        try:
+            dom_links = page.evaluate(
+                """() => Array.from(document.querySelectorAll('a[href]'))
+                    .map(a => ({href: a.href, text: (a.innerText || a.textContent || '').trim()}))
+                    .filter(x => x.href)"""
+            ) or []
+        except Exception:
+            dom_links = []
+
+        xlsx_hrefs = [
+            x["href"]
+            for x in dom_links
+            if any(k in x["href"].lower() or k in x["text"].lower() for k in (".xlsx", "datafile", "download", "excel", "dataset"))
+        ]
+        if xlsx_hrefs:
+            print(f"[RBNZ Bank Dashboard Diag {tag}] Found candidate DOM links: {xlsx_hrefs[:6]}")
+
+        cand_urls = [
+            dash_url,
+            "/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx",
+        ] + [u for u in xlsx_hrefs if u not in (dash_url,)]
+
+        for cu in cand_urls:
+            b_data = _same_origin_fetch_binary(ctx, page, cu, dash_ref, min_bytes=15_000)
+            if b_data and b_data[:2] == b"PK":
+                out_p = root / "tmp_bank_dashboard.xlsx"
+                out_p.write_bytes(b_data)
+                found["bank_dashboard"] = out_p
+                print(f"[RBNZ Bank Dashboard {tag}] Downloaded live workbook from {cu} ({len(b_data):,} bytes)")
+                return out_p
+
+        # 2. Click any rendered Download button/link in the SPA or trigger programmatic anchor download
+        for sel in (
+            "a[href*='.xlsx']",
+            "a[href*='datafiles']",
+            "a:has-text('Download')",
+            "button:has-text('Download')",
+            "[role='button']:has-text('Download')",
+        ):
+            try:
+                loc = page.locator(sel).first
+                if loc.count() > 0 and loc.is_visible():
+                    with page.expect_download(timeout=25000) as dl_info:
+                        loc.click(timeout=8000)
+                    dl = dl_info.value
+                    dl_path = pathlib.Path(dl.path())
+                    if dl_path.exists():
+                        b_dl = dl_path.read_bytes()
+                        if len(b_dl) >= 15_000 and b_dl[:2] == b"PK":
+                            out_p = root / "tmp_bank_dashboard.xlsx"
+                            out_p.write_bytes(b_dl)
+                            found["bank_dashboard"] = out_p
+                            print(f"[RBNZ Bank Dashboard {tag}] Downloaded workbook via UI click '{sel}' ({len(b_dl):,} bytes)")
+                            return out_p
+            except Exception:
+                pass
+
+        # 3. Programmatic expect_download on the direct datafile path
+        try:
+            with page.expect_download(timeout=25000) as dl_info:
+                page.evaluate(
+                    """(u) => {
+                        const a = document.createElement('a');
+                        a.href = u;
+                        a.download = 'Bank-Financial-Strength-Dashboard-Data.xlsx';
+                        document.body.appendChild(a);
+                        a.click();
+                    }""",
+                    dash_url,
+                )
+            dl = dl_info.value
+            dl_path = pathlib.Path(dl.path())
+            if dl_path.exists():
+                b_dl = dl_path.read_bytes()
+                if len(b_dl) >= 15_000 and b_dl[:2] == b"PK":
+                    out_p = root / "tmp_bank_dashboard.xlsx"
+                    out_p.write_bytes(b_dl)
+                    found["bank_dashboard"] = out_p
+                    print(f"[RBNZ Bank Dashboard {tag}] Downloaded workbook via anchor download ({len(b_dl):,} bytes)")
+                    return out_p
+        except Exception as exc_dl:
+            print(f"[RBNZ Bank Dashboard Diag {tag}] Anchor expect_download note: {exc_dl}")
+
+        # 4. Check RBNZ main website dashboard landing pages for any direct .xlsx mirror
+        for main_pg in (
+            "https://www.rbnz.govt.nz/financial-stability/bank-financial-strength-dashboard",
+            "https://www.rbnz.govt.nz/have-your-say/bank-financial-strength-dashboard",
+        ):
+            pg_html = _wait_for_cf_clearance_page(page, main_pg, wait_ms=2500)
+            if not pg_html:
+                continue
+            for href in re.findall(r'href=["\']([^"\']+\.xlsx[^"\']*)["\']', pg_html, flags=re.I):
+                full_u = ("https://www.rbnz.govt.nz" + href) if href.startswith("/") else href
+                b2 = _same_origin_fetch_binary(ctx, page, full_u, main_pg, min_bytes=15_000)
+                if b2 and b2[:2] == b"PK":
+                    out_p = root / "tmp_bank_dashboard.xlsx"
+                    out_p.write_bytes(b2)
+                    found["bank_dashboard"] = out_p
+                    print(f"[RBNZ Bank Dashboard {tag}] Downloaded workbook via RBNZ main site ({len(b2):,} bytes)")
+                    return out_p
+    finally:
+        try:
+            page.remove_listener("response", _on_response)
+        except Exception:
+            pass
+
+    return None
+
+
 def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: list[str], found: dict, tag: str) -> None:
-    """Warm up once per origin on RBNZ and batch-download all needed workbooks inside a single browser context."""
+    """
+    Download `bank_dashboard` first while the browser session is fresh, then warm up on
+    `www.rbnz.govt.nz` and batch-download all statistical workbooks.
+    """
+    if "bank_dashboard" in keys_to_get and "bank_dashboard" not in found:
+        _download_bank_dashboard_in_context(ctx, page, root, found, tag)
+
     _wait_for_cf_clearance_page(page, RBNZ_WARMUP_URL, wait_ms=2200)
 
     for key in list(keys_to_get):
-        if key in found and found[key].exists():
+        if key == "bank_dashboard" or (key in found and found[key].exists()):
             continue
         cfg = RBNZ_SOURCES[key]
         default_ref = (cfg.get("pages") or [RBNZ_WARMUP_URL])[0]
@@ -4092,11 +4286,7 @@ def _batch_download_rbnz_in_context(ctx, page, root: pathlib.Path, keys_to_get: 
 
 
 def _download_bank_dashboard_xlsx(root: pathlib.Path, session, found: dict[str, pathlib.Path]) -> pathlib.Path | None:
-    """
-    Dedicated multi-strategy downloader for `Bank-Financial-Strength-Dashboard-Data.xlsx`
-    from `https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx`.
-    Ensures same-origin warmup on `https://bankdashboard.rbnz.govt.nz/summary`.
-    """
+    """Standalone entry point if `bank_dashboard` was not already populated in `found`."""
     if "bank_dashboard" in found and found["bank_dashboard"].exists():
         return found["bank_dashboard"]
 
@@ -4105,99 +4295,46 @@ def _download_bank_dashboard_xlsx(root: pathlib.Path, session, found: dict[str, 
             found["bank_dashboard"] = cand
             return cand
 
-    dash_url = "https://bankdashboard.rbnz.govt.nz/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx"
-    dash_ref = "https://bankdashboard.rbnz.govt.nz/summary"
+    try:
+        from camoufox.sync_api import Camoufox
+        with Camoufox(headless=True) as browser:
+            ctx = browser.new_context(locale="en-NZ", accept_downloads=True)
+            page = ctx.new_page()
+            res_p = _download_bank_dashboard_in_context(ctx, page, root, found, "Camoufox")
+            if res_p and res_p.exists():
+                return res_p
+    except Exception:
+        pass
 
-    # Strategy 1: Camoufox / Playwright on same-origin `bankdashboard.rbnz.govt.nz`
-    for use_camoufox in (True, False):
-        if use_camoufox:
-            try:
-                from camoufox.sync_api import Camoufox
-                with Camoufox(headless=True) as browser:
-                    ctx = browser.new_context(locale="en-NZ", accept_downloads=True)
-                    page = ctx.new_page()
-                    _wait_for_cf_clearance_page(page, dash_ref, wait_ms=3000)
-                    b_cf = _same_origin_fetch_binary(ctx, page, dash_url, dash_ref, min_bytes=15_000)
-                    if b_cf and b_cf[:2] == b"PK":
-                        out_p = root / "tmp_bank_dashboard.xlsx"
-                        out_p.write_bytes(b_cf)
-                        found["bank_dashboard"] = out_p
-                        print(f"[RBNZ Bank Dashboard Camoufox] Downloaded live workbook ({len(b_cf):,} bytes)")
-                        return out_p
-            except Exception:
-                pass
-        else:
-            try:
-                from playwright.sync_api import sync_playwright
-                with sync_playwright() as p:
-                    browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
-                    ctx = browser.new_context(
-                        user_agent=(
-                            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                            "AppleWebKit/537.36 (KHTML, like Gecko) "
-                            "Chrome/124.0.0.0 Safari/537.36"
-                        ),
-                        locale="en-NZ",
-                        accept_downloads=True,
-                    )
-                    page = ctx.new_page()
-                    _wait_for_cf_clearance_page(page, dash_ref, wait_ms=3000)
-
-                    # Discover any live .xlsx hrefs rendered in the DOM on bankdashboard.rbnz.govt.nz
-                    dom_hrefs = []
-                    try:
-                        dom_hrefs = page.evaluate(
-                            """() => Array.from(document.querySelectorAll('a[href]'))
-                                .map(a => a.href)
-                                .filter(h => h && h.toLowerCase().includes('.xlsx'))"""
-                        ) or []
-                    except Exception:
-                        dom_hrefs = []
-
-                    cand_urls = [dash_url, "/datafiles/Bank-Financial-Strength-Dashboard-Data.xlsx"] + list(dom_hrefs)
-                    b_same = b""
-                    for cu in cand_urls:
-                        b_same = _same_origin_fetch_binary(ctx, page, cu, dash_ref, min_bytes=15_000)
-                        if b_same and b_same[:2] == b"PK":
-                            break
-
-                    if not b_same:
-                        try:
-                            with page.expect_download(timeout=35000) as dl_info:
-                                page.evaluate(
-                                    """(u) => {
-                                        const a = document.createElement('a');
-                                        a.href = u;
-                                        a.download = 'Bank-Financial-Strength-Dashboard-Data.xlsx';
-                                        document.body.appendChild(a);
-                                        a.click();
-                                    }""",
-                                    dash_url,
-                                )
-                            dl = dl_info.value
-                            dl_path = pathlib.Path(dl.path())
-                            if dl_path.exists():
-                                b_dl = dl_path.read_bytes()
-                                if len(b_dl) >= 15_000 and b_dl[:2] == b"PK":
-                                    b_same = b_dl
-                        except Exception:
-                            pass
-
-                    browser.close()
-                    if b_same and b_same[:2] == b"PK":
-                        out_p = root / "tmp_bank_dashboard.xlsx"
-                        out_p.write_bytes(b_same)
-                        found["bank_dashboard"] = out_p
-                        print(f"[RBNZ Bank Dashboard Playwright] Downloaded live workbook ({len(b_same):,} bytes)")
-                        return out_p
-            except Exception as exc_pw:
-                print(f"[RBNZ Bank Dashboard Playwright] Note: {exc_pw}")
+    try:
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+            ctx = browser.new_context(
+                user_agent=(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/124.0.0.0 Safari/537.36"
+                ),
+                locale="en-NZ",
+                accept_downloads=True,
+            )
+            page = ctx.new_page()
+            res_p = _download_bank_dashboard_in_context(ctx, page, root, found, "Playwright")
+            browser.close()
+            if res_p and res_p.exists():
+                return res_p
+    except Exception as exc_pw:
+        print(f"[RBNZ Bank Dashboard Playwright] Note: {exc_pw}")
 
     return None
 
 
 def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Path]:
-    """Download all RBNZ .xlsx workbooks via fast HTTP -> Camoufox -> Playwright -> `_ensure_rbnz_file` fallback."""
+    """
+    Download all RBNZ .xlsx workbooks directly via Camoufox / Playwright without
+    firing raw Python urllib requests at RBNZ first (keeping the runner IP clean with Cloudflare).
+    """
     global _CAMOUFOX_OK
     found: dict[str, pathlib.Path] = {}
     needs_browser: list[str] = []
@@ -4208,23 +4345,7 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
             if not cand.name.startswith("tmp_") and cand.stat().st_size > 4_000:
                 found[key] = cand
                 break
-        if key in found:
-            continue
-
-        got_http = False
-        ref_u = (cfg.get("pages") or [RBNZ_WARMUP_URL])[0]
-        for cand_u in (cfg.get("xlsx"), cfg.get("alt_xlsx")):
-            if not cand_u:
-                continue
-            raw = fetch_url_bytes(session, cand_u, referer=ref_u, timeout=40, use_cb=False)
-            if raw and raw[:2] == b"PK" and len(raw) > 4_000:
-                tmp_p = root / f"tmp_{key}.xlsx"
-                tmp_p.write_bytes(raw)
-                found[key] = tmp_p
-                print(f"[RBNZ HTTP] Downloaded live {key.upper()} workbook ({len(raw):,} bytes)")
-                got_http = True
-                break
-        if not got_http:
+        if key not in found:
             needs_browser.append(key)
 
     if needs_browser and _CAMOUFOX_OK:
@@ -4258,10 +4379,6 @@ def download_rbnz_workbooks(root: pathlib.Path, session) -> dict[str, pathlib.Pa
                 browser.close()
         except Exception as exc_pw:
             print(f"[RBNZ Playwright] Note: {exc_pw}")
-
-    for core_k in ("c31", "c33", "c32", "c40", "c41", "b30", "s33", "j10", "t43"):
-        if core_k in RBNZ_SOURCES and core_k not in found:
-            _ensure_rbnz_file(core_k, root, session, found)
 
     if "bank_dashboard" not in found:
         _download_bank_dashboard_xlsx(root, session, found)
