@@ -2,7 +2,7 @@ name: Update HLF Pulse Data & Deploy Pages
 
 on:
   schedule:
-    - cron: "15 18 * * *" # Runs daily at 18:15 UTC (07:15 NZDT / 06:15 NZST)
+    - cron: "17 18 * * *" # Runs daily at 18:17 UTC (07:17 NZDT / 06:17 NZST)
   workflow_dispatch:
   push:
     branches:
@@ -33,6 +33,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: "pip"
 
       - name: Cache Camoufox browser binary
         uses: actions/cache@v4
@@ -40,12 +41,34 @@ jobs:
           path: ~/.cache/camoufox
           key: ${{ runner.os }}-camoufox-v1
 
-      - name: Install Python dependencies & Camoufox
+      - name: Install Python dependencies, Playwright & Camoufox (with GITHUB_TOKEN auth)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4 lxml openpyxl pandas pypdf "camoufox[geoip]" playwright
-          python -m camoufox fetch
+          pip install requests curl_cffi beautifulsoup4 lxml openpyxl pandas pypdf "camoufox[geoip]" playwright
           playwright install chromium
+          python -c "
+          import os, requests, sys, runpy
+          tok = os.environ.get('GITHUB_TOKEN')
+          if tok:
+              _orig_req = requests.Session.request
+              def _auth_req(self, method, url, *a, **kw):
+                  if 'api.github.com' in str(url):
+                      h = dict(kw.get('headers') or {})
+                      h.setdefault('Authorization', f'Bearer {tok}')
+                      kw['headers'] = h
+                  return _orig_req(self, method, url, *a, **kw)
+              requests.Session.request = _auth_req
+          sys.argv = ['camoufox', 'fetch']
+          try:
+              runpy.run_module('camoufox', run_name='__main__')
+          except SystemExit as e:
+              if e.code not in (0, None):
+                  print(f'Camoufox fetch note (exit {e.code}) — using cached binary or Playwright fallback.')
+          except Exception as e:
+              print(f'Camoufox fetch note ({e}) — using cached binary or Playwright fallback.')
+          "
 
       - name: Sanitize non-breaking spaces & run HLF Pulse live data builder
         run: |
