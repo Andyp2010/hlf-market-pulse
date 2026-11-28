@@ -1,5 +1,5 @@
 # HLF Pulse — New Zealand Mortgage, Housing, KiwiSaver, Income, Net Worth & Protection Reference Dataset (108 Datasets)
-> Curated by Andy Palliser (FSP1004725), Home Loan Factory (HLF Financial Limited, FSP1008571). Last checked: 27 November 2026 (2026-11-27). Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+> Curated by Andy Palliser (FSP1004725), Home Loan Factory (HLF Financial Limited, FSP1008571). Last checked: 28 November 2026 (2026-11-28). Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
 > Canonical JSON Feed: https://pulse-data.homeloanfactory.co.nz/pulse.json
 > Canonical Hub: https://pulse-data.homeloanfactory.co.nz/
 
